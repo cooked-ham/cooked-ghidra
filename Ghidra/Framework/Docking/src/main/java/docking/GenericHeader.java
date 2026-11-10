@@ -73,7 +73,7 @@ public class GenericHeader extends JPanel {
 		BorderLayout layout = new BorderLayout();
 		layout.setVgap(1);
 		setLayout(layout);
-		setBorder(BorderFactory.createLineBorder(Palette.GRAY));
+		setBorder(DockingChrome.headerBorder());
 		setFocusable(false);
 
 		titlePanel = new TitlePanel();
@@ -350,6 +350,7 @@ public class GenericHeader extends JPanel {
 		TitlePanel() {
 			super(new BorderLayout());
 			setFocusable(false);
+			setBorder(DockingChrome.titlePadding());
 			titleLabel = new GDLabel();
 			titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 6, 0, 0));
 			titleLabel.setForeground(inactiveForeground);
@@ -373,6 +374,18 @@ public class GenericHeader extends JPanel {
 
 			Graphics2D g2d = (Graphics2D) g;
 			Rectangle r = getBounds();
+
+			if (DockingChrome.isModern()) {
+				// flat fill; the active header also gets an accent edge, so focus is not
+				// signalled by color alone
+				g2d.setColor(isSelected ? focusColor : nonFocusColor);
+				g2d.fillRect(0, 0, r.width, r.height);
+				if (isSelected) {
+					g2d.setColor(DockingChrome.ACCENT_COLOR);
+					g2d.fillRect(0, 0, DockingChrome.ACCENT_WIDTH, r.height);
+				}
+				return;
+			}
 
 			// use full color from 0 to the gradient start so the title text is painted over the
 			// full color, which makes it a bit more readable

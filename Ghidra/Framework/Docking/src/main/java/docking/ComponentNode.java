@@ -268,7 +268,7 @@ class ComponentNode extends Node {
 		if (count == 1) {
 			top = activeComponents.get(0);
 			comp = top.getComponent();
-			comp.setBorder(BorderFactory.createRaisedBevelBorder());
+			comp.setBorder(DockingChrome.frameBorder());
 
 			installRenameMenu(top);
 		}
@@ -283,6 +283,7 @@ class ComponentNode extends Node {
 						return super.getTitleAt(index);
 					}
 				};
+			tabbedPane.setBorder(DockingChrome.tabStackBorder());
 			setupFocusUpdateListeners(tabbedPane);
 			comp = tabbedPane;
 
