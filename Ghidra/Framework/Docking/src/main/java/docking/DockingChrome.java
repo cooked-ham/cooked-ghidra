@@ -29,7 +29,7 @@ import generic.theme.GThemeDefaults.Colors.Palette;
 
 /**
  * Opt-in modern chrome for docked providers: a thin rounded frame instead of the raised bevel,
- * a flat header with an accent edge instead of the gradient, a header separator line, underlined
+ * a softly shaded header with an accent edge, a header separator line, underlined
  * tabs in dock tab stacks, flat underlined tabs in {@code GTabPanel} (open programs), and a flat
  * status bar with separators instead of bevel boxes.
  * <p>
@@ -87,6 +87,19 @@ public final class DockingChrome {
 	/** Accent for the focused header edge and the active tab underline. */
 	public static Color accentColor() {
 		return ACCENT_COLOR;
+	}
+
+	/** Paint a quiet vertical surface gradient; high contrast themes use a solid surface. */
+	public static void paintSurface(Graphics g, int width, int height, Color top, Color bottom) {
+		Graphics2D g2 = (Graphics2D) g.create();
+		try {
+			g2.setPaint(UIManager.getBoolean("Docking.chromeDepth")
+					? new GradientPaint(0, 0, top, 0, Math.max(1, height), bottom) : top);
+			g2.fillRect(0, 0, width, height);
+		}
+		finally {
+			g2.dispose();
+		}
 	}
 
 	/**

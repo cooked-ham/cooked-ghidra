@@ -15,7 +15,7 @@
  */
 package docking.widgets;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -25,6 +25,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import generic.theme.GColor;
+import docking.DockingChrome;
 import ghidra.docking.util.LookAndFeelUtils;
 import resources.ResourceManager;
 
@@ -119,6 +120,68 @@ public class EmptyBorderButton extends JButton {
 
 		addChangeListener(emptyBorderButtonChangeListener);
 		addFocusListener(emptyBorderButtonFocusListener);
+	}
+
+	@Override
+	public boolean isOpaque() {
+		return !DockingChrome.isModern() && super.isOpaque();
+	}
+
+	@Override
+	public Dimension getPreferredSize() {
+		Dimension size = super.getPreferredSize();
+		if (DockingChrome.isModern()) {
+			return new Dimension(Math.max(28, size.width + 6), Math.max(28, size.height + 6));
+		}
+		return size;
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		if (DockingChrome.isModern()) {
+			ButtonModel model = getModel();
+			boolean pressed = model.isPressed() && model.isArmed();
+			boolean selected = model.isSelected();
+			if (isEnabled() && (pressed || selected || model.isRollover())) {
+				Graphics2D g2 = (Graphics2D) g.create();
+				try {
+					g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+						RenderingHints.VALUE_ANTIALIAS_ON);
+					g2.setColor(UIManager.getColor(pressed || selected
+							? "Button.toolbar.pressedBackground" : "Button.toolbar.hoverBackground"));
+					g2.fillRoundRect(2, 2, getWidth() - 4, getHeight() - 4, 8, 8);
+					if (selected) {
+						g2.setColor(DockingChrome.accentColor());
+						g2.fillRoundRect(getWidth() / 2 - 4, getHeight() - 4, 8, 2, 2, 2);
+					}
+				}
+				finally {
+					g2.dispose();
+				}
+			}
+		}
+		super.paintComponent(g);
+	}
+
+	@Override
+	protected void paintBorder(Graphics g) {
+		if (!DockingChrome.isModern()) {
+			super.paintBorder(g);
+			return;
+		}
+		if (isEnabled() && isFocusOwner()) {
+			Graphics2D g2 = (Graphics2D) g.create();
+			try {
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+					RenderingHints.VALUE_ANTIALIAS_ON);
+				g2.setColor(FOCUS_COLOR);
+				g2.setStroke(new BasicStroke(Math.max(1, UIManager.getInt("Component.focusWidth"))));
+				g2.drawRoundRect(1, 1, getWidth() - 3, getHeight() - 3, 8, 8);
+			}
+			finally {
+				g2.dispose();
+			}
+		}
 	}
 
 	@Override

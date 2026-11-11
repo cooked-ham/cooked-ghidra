@@ -17,7 +17,10 @@ package ghidra.util.bean;
 
 import static org.junit.Assert.*;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import javax.swing.ButtonModel;
+import javax.swing.UIManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -77,6 +80,60 @@ public class EmptyBorderButtonTest extends AbstractDockingTest {
 		emptyBorderButton.setEnabled(false);
 		setButtonPressed(true);
 		assertEquals(emptyBorderButton.getBorder(), EmptyBorderButton.NO_BUTTON_BORDER);
+	}
+
+	@Test
+	public void testModernButtonStatesAndStockRestore() {
+		runSwing(() -> {
+			Object oldChrome = UIManager.get("Docking.modernChrome");
+			Object oldHover = UIManager.get("Button.toolbar.hoverBackground");
+			Object oldPressed = UIManager.get("Button.toolbar.pressedBackground");
+			try {
+				UIManager.put("Docking.modernChrome", false);
+				Dimension stockSize = emptyBorderButton.getPreferredSize();
+				UIManager.put("Docking.modernChrome", true);
+				UIManager.put("Button.toolbar.hoverBackground", Color.BLUE);
+				UIManager.put("Button.toolbar.pressedBackground", Color.GREEN);
+				assertFalse(emptyBorderButton.isOpaque());
+				assertTrue(emptyBorderButton.getPreferredSize().height >= 28);
+				emptyBorderButton.setSize(emptyBorderButton.getPreferredSize());
+				buttonModel.setRollover(true);
+				assertEquals(Color.BLUE.getRGB(), paintButtonCenter());
+				buttonModel.setArmed(true);
+				buttonModel.setPressed(true);
+				assertEquals(Color.GREEN.getRGB(), paintButtonCenter());
+				buttonModel.setArmed(false);
+				buttonModel.setPressed(false);
+				buttonModel.setRollover(false);
+				emptyBorderButton.setSelected(true);
+				assertEquals(Color.GREEN.getRGB(), paintButtonCenter());
+				emptyBorderButton.setEnabled(false);
+				assertEquals(0, paintButtonCenter()); // no stale hover or pressed fill
+				UIManager.put("Docking.modernChrome", false);
+				emptyBorderButton.updateUI();
+				assertTrue(emptyBorderButton.isOpaque());
+				assertEquals(stockSize, emptyBorderButton.getPreferredSize());
+			}
+			finally {
+				UIManager.put("Docking.modernChrome", oldChrome);
+				UIManager.put("Button.toolbar.hoverBackground", oldHover);
+				UIManager.put("Button.toolbar.pressedBackground", oldPressed);
+			}
+		});
+	}
+
+	private int paintButtonCenter() {
+		int width = emptyBorderButton.getWidth();
+		int height = emptyBorderButton.getHeight();
+		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g = image.createGraphics();
+		try {
+			emptyBorderButton.paint(g);
+		}
+		finally {
+			g.dispose();
+		}
+		return image.getRGB(width / 2, height / 2);
 	}
 
 	private void setButtonArmed(final boolean armed) {

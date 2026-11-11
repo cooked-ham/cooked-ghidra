@@ -106,7 +106,12 @@ class DockableToolBarManager {
 	}
 
 	JComponent getMenuCloseToolBar() {
-		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0)) {
+			@Override
+			public boolean isOpaque() {
+				return !DockingChrome.isModern() && super.isOpaque();
+			}
+		};
 		if (closeButtonManager == null) {
 			return panel;
 		}

@@ -18,6 +18,7 @@ package generic.theme.uirefresh;
 import java.util.Map;
 
 import generic.theme.LafType;
+import generic.theme.BooleanPropertyValue;
 import generic.theme.uirefresh.icons.Glyphs;
 
 /**
@@ -47,6 +48,7 @@ public class UiRefreshHighContrastTheme extends UiRefreshBaseTheme {
 
 	public UiRefreshHighContrastTheme() {
 		super("UI Refresh High Contrast", LafType.FLAT_DARK, true, T, Glyphs.HIGH_CONTRAST);
+		addProperty(new BooleanPropertyValue("Docking.chromeDepth", false));
 	}
 
 	@Override

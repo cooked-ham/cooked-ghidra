@@ -15,12 +15,15 @@
  */
 package docking.menu;
 
+import java.awt.Graphics;
 import java.util.*;
 import java.util.Map.Entry;
 
 import javax.swing.*;
 
 import docking.DockingUtils;
+import docking.DockingChrome;
+import docking.GenericHeader;
 import docking.DockingWindowManager;
 import docking.action.DockingActionIf;
 import docking.action.ToolBarData;
@@ -114,7 +117,22 @@ public class ToolBarManager {
 	}
 
 	private JComponent buildToolbar() {
-		JComponent newToolBar = new VariableHeightPanel(true, 0, 0);
+		JComponent newToolBar = new VariableHeightPanel(true, 0, 0) {
+			@Override
+			public boolean isOpaque() {
+				return !DockingChrome.isModern() && super.isOpaque();
+			}
+
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				if (DockingChrome.isModern() &&
+					SwingUtilities.getAncestorOfClass(GenericHeader.class, this) == null) {
+					DockingChrome.paintSurface(g, getWidth(), getHeight(),
+						UIManager.getColor("Button.background"), getBackground());
+				}
+			}
+		};
 		newToolBar.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
 
 		boolean isFirstGroup = true;

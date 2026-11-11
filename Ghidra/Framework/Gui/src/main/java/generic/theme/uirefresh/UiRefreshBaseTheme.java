@@ -25,6 +25,7 @@ import java.util.Set;
 import generic.theme.BooleanPropertyValue;
 import generic.theme.DiscoverableGTheme;
 import generic.theme.LafType;
+import generic.theme.SystemThemeIds;
 import generic.theme.uirefresh.icons.Glyphs;
 import generic.theme.uirefresh.icons.IconSet;
 
@@ -66,12 +67,24 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 		addProperty(new BooleanPropertyValue(GEOMETRY_PROPERTY, true));
 		// modern dock chrome; read by docking.DockingChrome at paint and layout time
 		addProperty(new BooleanPropertyValue("Docking.modernChrome", true));
+		addProperty(new BooleanPropertyValue("Docking.chromeDepth", true));
 		setColor("color.border.docking.frame", t.border);
 		setColor("color.bg.docking.header.accent", t.accent);
 	}
 
 	// ---- Ghidra-level ids -------------------------------------------------------------------
 	private void applySurfaces(Tokens t) {
+		// Custom renderers and read-only widgets resolve system ids rather than FlatLaf keys.
+		setColor(SystemThemeIds.BG_CONTROL_ID, t.canvas);
+		setColor(SystemThemeIds.BG_VIEW_ID, t.panel);
+		setColor(SystemThemeIds.BG_TOOLTIP_ID, t.raised);
+		setColor(SystemThemeIds.BG_VIEW_SELECTED_ID, t.selected);
+		setColor(SystemThemeIds.BG_BORDER_ID, t.border);
+		setColor(SystemThemeIds.FG_CONTROL_ID, t.textPrimary);
+		setColor(SystemThemeIds.FG_VIEW_ID, t.textPrimary);
+		setColor(SystemThemeIds.FG_TOOLTIP_ID, t.textPrimary);
+		setColor(SystemThemeIds.FG_VIEW_SELECTED_ID, t.textPrimary);
+		setColor(SystemThemeIds.FG_DISABLED_ID, t.textDisabled);
 		setColor("color.bg", t.panel);
 		setColor("color.fg", t.textPrimary);
 		setColor("color.bg.selection", t.selected);
@@ -108,6 +121,9 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 		setColor("color.bg.fieldpanel", t.panel);
 		setColor("color.bg.fieldpanel.selection", t.selected);
 		setColor("color.bg.fieldpanel.highlight", t.highlight);
+		setColor("color.bg.uneditable", t.panel);
+		setColor("color.bg.table.row", t.panel);
+		setColor("color.bg.table.row.alt", t.raised);
 		setColor("color.bg.filechooser", t.panel);
 		setColor("color.bg.filechooser.shortcut", t.raised);
 
@@ -157,6 +173,8 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 			flat(k + ".foreground", t.textPrimary);
 		}
 		flat("TextField.caretForeground", t.textPrimary);
+		flat("TextPane.inactiveBackground", t.panel);
+		flat("EditorPane.inactiveBackground", t.panel);
 		flat("TextComponent.selectionBackground", t.selected);
 		flat("TextComponent.selectionForeground", t.textPrimary);
 		flat("ComboBox.buttonBackground", t.raised);
@@ -249,6 +267,9 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 		String mono = firstInstalled(installed, "Cascadia Mono", "JetBrains Mono", "Consolas",
 			"Monospaced");
 
+		setFont(SystemThemeIds.FONT_CONTROL_ID, new Font(ui, Font.PLAIN, 13));
+		setFont(SystemThemeIds.FONT_VIEW_ID, new Font(ui, Font.PLAIN, 13));
+		setFont(SystemThemeIds.FONT_MENU_ID, new Font(ui, Font.PLAIN, 13));
 		setFont("font.monospaced", new Font(mono, Font.PLAIN, 13));
 		setFont("font.widget.tabs", new Font(ui, Font.PLAIN, 12));
 		setFont("font.widget.tabs.selected",

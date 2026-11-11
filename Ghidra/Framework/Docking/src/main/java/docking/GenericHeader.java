@@ -95,6 +95,19 @@ public class GenericHeader extends JPanel {
 	}
 
 	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if (DockingChrome.isModern()) {
+			Color surface = isSelected() ? focusColor : nonFocusColor;
+			DockingChrome.paintSurface(g, getWidth(), getHeight(), surface, getBackground());
+			if (isSelected()) {
+				g.setColor(DockingChrome.accentColor());
+				g.fillRect(0, 0, DockingChrome.ACCENT_WIDTH, getHeight());
+			}
+		}
+	}
+
+	@Override
 	public Dimension getPreferredSize() {
 		if (getComponentCount() == 0) {
 			// give some height (for layout calculations) when we are not yet built
@@ -184,7 +197,12 @@ public class GenericHeader extends JPanel {
 			add(menuCloseToolbar, BorderLayout.EAST);
 		}
 		else {
-			JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+			JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0)) {
+				@Override
+				public boolean isOpaque() {
+					return !DockingChrome.isModern() && super.isOpaque();
+				}
+			};
 			toolbar.setBorder(BorderFactory.createEmptyBorder());
 			panel.add(toolbar);
 			panel.add(menuCloseToolbar);
@@ -340,6 +358,11 @@ public class GenericHeader extends JPanel {
 	 */
 	protected class TitlePanel extends JPanel {
 
+		@Override
+		public boolean isOpaque() {
+			return !DockingChrome.isModern() && super.isOpaque();
+		}
+
 		private PopupMouseListener popupMouseListener;
 		private JLabel titleLabel;
 		private boolean isSelected = false;
@@ -376,14 +399,7 @@ public class GenericHeader extends JPanel {
 			Rectangle r = getBounds();
 
 			if (DockingChrome.isModern()) {
-				// flat fill; the active header also gets an accent edge, so focus is not
-				// signalled by color alone
-				g2d.setColor(isSelected ? focusColor : nonFocusColor);
-				g2d.fillRect(0, 0, r.width, r.height);
-				if (isSelected) {
-					g2d.setColor(DockingChrome.ACCENT_COLOR);
-					g2d.fillRect(0, 0, DockingChrome.ACCENT_WIDTH, r.height);
-				}
+				// The parent paints one continuous surface behind the title and actions.
 				return;
 			}
 
@@ -447,6 +463,7 @@ public class GenericHeader extends JPanel {
 			isSelected = state;
 			titleLabel.setForeground(state ? activeForeground : inactiveForeground);
 			repaint();
+			GenericHeader.this.repaint();
 		}
 
 		private static class PopupMouseListener extends MouseAdapter {
