@@ -5,6 +5,7 @@ depth, gradients, and interaction states throughout Ghidra. Themes and dock bord
 are the foundation; they do not complete the polish work.
 
 The original roadmap and evidence live in `E:\ghidra-ui-refresh\docs`.
+The owner's future-work decisions and milestone plan are in [UI-FIDELITY-PLAN.md](UI-FIDELITY-PLAN.md).
 
 ## Shell pass — 2026-11-11
 
