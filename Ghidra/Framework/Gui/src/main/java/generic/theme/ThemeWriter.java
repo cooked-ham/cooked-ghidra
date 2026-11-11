@@ -117,7 +117,15 @@ public class ThemeWriter {
 		for (IconValue iconValue : icons) {
 			writer.write(iconValue.getSerializationString());
 			writer.newLine();
+		}
 
+		// [laf.boolean] / [laf.string] properties are read by AbstractThemeReader, so write them
+		// too; otherwise "save as" silently drops them from the copied theme
+		List<JavaPropertyValue> properties = theme.getProperties();
+		properties.sort(Comparator.comparing(JavaPropertyValue::getId));
+		for (JavaPropertyValue propertyValue : properties) {
+			writer.write(propertyValue.getSerializationString());
+			writer.newLine();
 		}
 	}
 
