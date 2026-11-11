@@ -127,14 +127,17 @@ public class SleighPreprocessorTest extends AbstractGenericTest {
 		debug("(END)");
 	}
 
-	private List<File> getFiles(final String suffix) {
-		String modulePath = Application.getMyModuleRootDirectory().toString();
+	private List<File> getFiles(final String suffix) throws Exception {
+		var modulePath = Application.getMyModuleRootDirectory().getFile(false).toPath();
 
 		List<File> files = new ArrayList<>();
 		Set<URL> resources = ResourceManager.getResources(".", suffix);
 		for (URL url : resources) {
-			if ("file".equals(url.getProtocol()) && url.getPath().startsWith(modulePath)) {
-				files.add(new File(url.getPath()));
+			if ("file".equals(url.getProtocol())) {
+				File file = new File(url.toURI());
+				if (file.toPath().startsWith(modulePath)) {
+					files.add(file);
+				}
 			}
 		}
 
@@ -142,11 +145,11 @@ public class SleighPreprocessorTest extends AbstractGenericTest {
 		return files;
 	}
 
-	private List<File> getInputFiles() {
+	private List<File> getInputFiles() throws Exception {
 		return getFiles(".input");
 	}
 
-	private List<File> getTargetFiles() {
+	private List<File> getTargetFiles() throws Exception {
 		return getFiles(".output");
 	}
 }

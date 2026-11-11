@@ -52,6 +52,7 @@ dependencies {
 	testImplementation project(path: ':Base', configuration: 'integrationTestArtifacts')
 	testImplementation project(path: ':Emulation', configuration: 'testArtifacts')
 	testImplementation project(path: ':FunctionGraph', configuration: 'testArtifacts')	
+	screenShotsImplementation project(path: ':FunctionGraph', configuration: 'integrationTestArtifacts')
 	testImplementation project(path: ':PDB', configuration: 'testArtifacts')
 	testImplementation project(path: ':GnuDemangler', configuration: 'testArtifacts')
 	

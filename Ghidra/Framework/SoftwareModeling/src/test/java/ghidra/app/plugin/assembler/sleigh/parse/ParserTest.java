@@ -207,7 +207,7 @@ public class ParserTest {
 			"          \"*\" := '*'", //
 			"      [F] := 8. [F] => \"b\"", //
 			"        \"b\" := 'b'", //
-		}, "\n").trim();
+		}, System.lineSeparator()).trim();
 		boolean gotOne = false;
 		int count = 0;
 		for (AssemblyParseResult result : results) {
@@ -501,7 +501,7 @@ public class ParserTest {
 			"  \"t\" := 't'", //
 			"  _ := ''", //
 			"  [E] := 1. [E] => e", //
-		}, "\n").trim();
+		}, System.lineSeparator()).trim();
 		for (AssemblyParseResult res : results) {
 			assertEquals(expected, res.toString().trim());
 		}

@@ -221,7 +221,8 @@ public class Lisa_ResolveX86orX64LinuxSyscallsScript extends GhidraScript {
 		AutoAnalysisManager mgr = AutoAnalysisManager.getAnalysisManager(currentProgram);
 		DataTypeManagerService service = mgr.getDataTypeManagerService();
 		List<DataTypeManager> dataTypeManagers = new ArrayList<>();
-		dataTypeManagers.add(service.openDataTypeArchive(datatypeArchiveName));
+		var archive = service.openFileArchive(datatypeArchiveName, monitor);
+		dataTypeManagers.add(archive == null ? null : archive.getDataTypeManager());
 		dataTypeManagers.add(currentProgram.getDataTypeManager());
 		ApplyFunctionDataTypesCmd cmd = new ApplyFunctionDataTypesCmd(dataTypeManagers,
 			new AddressSet(syscallSpace.getMinAddress(), syscallSpace.getMaxAddress()),

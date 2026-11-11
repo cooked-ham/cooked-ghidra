@@ -2090,6 +2090,7 @@ public class RepositoryScreenShots extends AbstractListingMergeManagerTest {
 	 * @param index the index of an existing parameter
 	 * @param reg the new register for this parameter
 	 */
+	@SuppressWarnings("removal") // Exercises the legacy parameter merge workflow.
 	protected void changeToRegisterParameter(Function func, int index, Register reg) {
 		Parameter p = func.getParameter(index);
 		String name = p.getName();
