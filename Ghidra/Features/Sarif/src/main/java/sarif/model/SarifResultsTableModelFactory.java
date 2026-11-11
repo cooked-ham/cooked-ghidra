@@ -93,7 +93,7 @@ public class SarifResultsTableModelFactory {
 			return descriptor;
 		}
 
-		public class Column<T> extends AbstractDynamicTableColumn<Map<String, Object>, T, Object> {
+		public static class Column<T> extends AbstractDynamicTableColumn<Map<String, Object>, T, Object> {
 			private String name;
 			private Class<T> type;
 

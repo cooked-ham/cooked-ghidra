@@ -119,7 +119,7 @@ public class ByteSequenceTableModel extends ThreadedTableModelStub<ByteSequenceR
 		}
 	}
 
-	class ByteSequenceNumOccurrencesTableColumn
+	static class ByteSequenceNumOccurrencesTableColumn
 			extends AbstractDynamicTableColumn<ByteSequenceRowObject, Integer, Object> {
 
 		@Override
@@ -134,7 +134,7 @@ public class ByteSequenceTableModel extends ThreadedTableModelStub<ByteSequenceR
 		}
 	}
 
-	class ByteSequencePercentageTableColumn
+	static class ByteSequencePercentageTableColumn
 			extends AbstractDynamicTableColumn<ByteSequenceRowObject, Double, Object> {
 
 		@Override

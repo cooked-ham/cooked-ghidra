@@ -503,7 +503,7 @@ class MemorySearchControlPanel extends JPanel {
 		searchInputField.setText(initialInput);
 	}
 
-	private class SearchHistoryRenderer extends GComboBoxCellRenderer<UserInputByteMatcher> {
+	private static class SearchHistoryRenderer extends GComboBoxCellRenderer<UserInputByteMatcher> {
 		{
 			setHTMLRenderingEnabled(true);
 		}

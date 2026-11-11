@@ -163,7 +163,7 @@ public class StackEditorActions4Test extends AbstractStackEditorTest {
 
 		runSwing(() -> selectionModel.setSelectionInterval(0, 0));
 
-		assertTrue(!model.isEditingField());
+		assertFalse(model.isEditingField());
 		triggerActionKey(getTable(), editFieldAction);
 		assertTrue(model.isEditingField());
 		assertEquals(2, model.getRow());
@@ -187,7 +187,7 @@ public class StackEditorActions4Test extends AbstractStackEditorTest {
 
 		runSwing(() -> selectionModel.setSelectionInterval(offsetColumn, offsetColumn));
 
-		assertTrue(!model.isEditingField());
+		assertFalse(model.isEditingField());
 		invoke(editFieldAction);
 		assertTrue("The edit action did not start an edit", model.isEditingField());
 		assertEquals("Not editing the expected row", row, model.getRow());
@@ -366,7 +366,7 @@ public class StackEditorActions4Test extends AbstractStackEditorTest {
 
 		assertEquals("", model.getStatus());
 
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("-0x10", model.getValueAt(0, model.getOffsetColumn()));
 		assertEquals("0x4", model.getValueAt(0, model.getLengthColumn()));
 		assertEquals("0x20", ((JTextField) findComponentByName(panel, "Frame Size")).getText());
@@ -379,7 +379,7 @@ public class StackEditorActions4Test extends AbstractStackEditorTest {
 
 		invoke(hexNumbersAction);
 		assertEquals("", model.getStatus());
-		assertEquals(false, model.isShowingNumbersInHex());
+		assertFalse(model.isShowingNumbersInHex());
 		assertEquals("-16", model.getValueAt(0, model.getOffsetColumn()));
 		assertEquals("4", model.getValueAt(0, model.getLengthColumn()));
 		assertEquals("32", ((JTextField) findComponentByName(panel, "Frame Size")).getText());
@@ -391,7 +391,7 @@ public class StackEditorActions4Test extends AbstractStackEditorTest {
 
 		invoke(hexNumbersAction);
 		assertEquals("", model.getStatus());
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("-0x10", model.getValueAt(0, model.getOffsetColumn()));
 		assertEquals("0x4", model.getValueAt(0, model.getLengthColumn()));
 		assertEquals("0x20", ((JTextField) findComponentByName(panel, "Frame Size")).getText());

@@ -189,7 +189,7 @@ public class UserAccessTableModel extends GDynamicColumnTableModel<User, List<Us
 	/**
 	 * Table column for displaying the user name.
 	 */
-	class UserColumn extends AbstractDynamicTableColumn<User, String, List<User>> {
+	static class UserColumn extends AbstractDynamicTableColumn<User, String, List<User>> {
 
 		@Override
 		public String getColumnName() {
@@ -206,7 +206,7 @@ public class UserAccessTableModel extends GDynamicColumnTableModel<User, List<Us
 	/**
 	 * Table column for displaying the users read only status.
 	 */
-	class ReadOnlyColumn extends AbstractDynamicTableColumn<User, Boolean, List<User>> {
+	static class ReadOnlyColumn extends AbstractDynamicTableColumn<User, Boolean, List<User>> {
 
 		@Override
 		public String getColumnName() {
@@ -223,7 +223,7 @@ public class UserAccessTableModel extends GDynamicColumnTableModel<User, List<Us
 	/**
 	 * Table column for displaying the users read/write status.
 	 */
-	class ReadWriteColumn extends AbstractDynamicTableColumn<User, Boolean, List<User>> {
+	static class ReadWriteColumn extends AbstractDynamicTableColumn<User, Boolean, List<User>> {
 
 		@Override
 		public String getColumnName() {
@@ -240,7 +240,7 @@ public class UserAccessTableModel extends GDynamicColumnTableModel<User, List<Us
 	/**
 	 * Table column for displaying if the user has admin status.
 	 */
-	class AdminColumn extends AbstractDynamicTableColumn<User, Boolean, List<User>> {
+	static class AdminColumn extends AbstractDynamicTableColumn<User, Boolean, List<User>> {
 
 		@Override
 		public String getColumnName() {

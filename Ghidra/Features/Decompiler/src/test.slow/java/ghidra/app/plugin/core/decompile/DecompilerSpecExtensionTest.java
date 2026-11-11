@@ -200,7 +200,7 @@ public class DecompilerSpecExtensionTest extends AbstractDecompilerTest {
 		assertFalse(func.getCallingConventionName().equals("myproto"));
 		evalModel =
 			program.getCompilerSpec().getPrototypeEvaluationModel(EvaluationModelType.EVAL_CURRENT);
-		assertEquals(evalModel.getName(), "__stdcall");
+		assertEquals("__stdcall", evalModel.getName());
 	}
 
 	@Test
@@ -220,14 +220,14 @@ public class DecompilerSpecExtensionTest extends AbstractDecompilerTest {
 		program.endTransaction(id1, true);
 		PcodeInjectLibrary library = program.getCompilerSpec().getPcodeInjectLibrary();
 		InjectPayloadSleigh[] programPayloads = library.getProgramPayloads();
-		assertEquals(programPayloads.length, 1);
+		assertEquals(1, programPayloads.length);
 		InjectPayload payload = programPayloads[0];
 		assertTrue(programPayloads[0] instanceof InjectPayloadCallfixup);
 		InjectPayloadCallfixup callfixup = (InjectPayloadCallfixup) payload;
 		List<String> targets = callfixup.getTargets();
-		assertEquals(targets.size(), 1);
-		assertEquals(targets.get(0), "targ1");
-		assertEquals(payload.getName(), "mynewthing");
+		assertEquals(1, targets.size());
+		assertEquals("targ1", targets.get(0));
+		assertEquals("mynewthing", payload.getName());
 		assertTrue(payload.isFallThru());
 		assertFalse(payload.isIncidentalCopy());
 

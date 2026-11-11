@@ -131,7 +131,7 @@ public class CutAction extends SymbolTreeContextAction {
 
 	// this class is just a marker interface so we can tell if we put the contents into the
 	// clipboard
-	class SymbolTreeNodeTransferable extends GTreeNodeTransferable {
+	static class SymbolTreeNodeTransferable extends GTreeNodeTransferable {
 		public SymbolTreeNodeTransferable(GTreeTransferHandler handler,
 				List<GTreeNode> selectedData) {
 			super(handler, selectedData);

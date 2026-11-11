@@ -30,7 +30,7 @@ public class AboutCommand extends AbstractHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		Version version = FrameworkUtil.getBundle(getClass()).getVersion();
 		StringBuilder message = new StringBuilder();
-		message.append("GhidraDev " + version.toString() + "\n\n");
+		message.append("GhidraDev ").append(version.toString()).append("\n\n");
 		message.append("Ghidra Development support for Eclipse");
 		EclipseMessageUtils.showInfoDialog("About", message.toString());
 		return null;

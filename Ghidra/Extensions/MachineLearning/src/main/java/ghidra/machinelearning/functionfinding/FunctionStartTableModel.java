@@ -130,7 +130,7 @@ public class FunctionStartTableModel extends AddressBasedTableModel<FunctionStar
 		rowObject.setCurrentInterpretation(inter);
 	}
 
-	private class AddressTableColumn
+	private static class AddressTableColumn
 			extends AbstractDynamicTableColumn<FunctionStartRowObject, Address, Object> {
 
 		@Override
@@ -145,7 +145,7 @@ public class FunctionStartTableModel extends AddressBasedTableModel<FunctionStar
 		}
 	}
 
-	private class ProbabilityTableColumn
+	private static class ProbabilityTableColumn
 			extends AbstractDynamicTableColumn<FunctionStartRowObject, Double, Object> {
 
 		@Override
@@ -160,7 +160,7 @@ public class FunctionStartTableModel extends AddressBasedTableModel<FunctionStar
 		}
 	}
 
-	private class InterpretationTableColumn
+	private static class InterpretationTableColumn
 			extends AbstractDynamicTableColumn<FunctionStartRowObject, Interpretation, Object> {
 
 		@Override
@@ -201,7 +201,7 @@ public class FunctionStartTableModel extends AddressBasedTableModel<FunctionStar
 
 	}
 
-	private class DataReferencesTableColumn
+	private static class DataReferencesTableColumn
 			extends AbstractDynamicTableColumn<FunctionStartRowObject, Integer, Object> {
 
 		@Override
@@ -216,7 +216,7 @@ public class FunctionStartTableModel extends AddressBasedTableModel<FunctionStar
 		}
 	}
 
-	private class UnconditionalFlowReferencesTableColumn
+	private static class UnconditionalFlowReferencesTableColumn
 			extends AbstractDynamicTableColumn<FunctionStartRowObject, Integer, Object> {
 
 		@Override
@@ -231,7 +231,7 @@ public class FunctionStartTableModel extends AddressBasedTableModel<FunctionStar
 		}
 	}
 
-	private class ConditionalFlowReferencesTableColumn
+	private static class ConditionalFlowReferencesTableColumn
 			extends AbstractDynamicTableColumn<FunctionStartRowObject, Integer, Object> {
 
 		@Override

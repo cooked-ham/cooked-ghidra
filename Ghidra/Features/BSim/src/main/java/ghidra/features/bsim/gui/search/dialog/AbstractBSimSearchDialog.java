@@ -288,7 +288,7 @@ public abstract class AbstractBSimSearchDialog extends DialogComponentProvider {
 //==================================================================================================
 // Inner Classes
 //==================================================================================================
-	protected abstract class BSimQueryTask extends Task {
+	protected static abstract class BSimQueryTask extends Task {
 		protected Exception errorException;
 
 		BSimQueryTask(String title) {

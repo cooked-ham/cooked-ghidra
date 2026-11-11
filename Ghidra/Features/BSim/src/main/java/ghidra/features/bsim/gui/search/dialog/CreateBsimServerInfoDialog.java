@@ -201,7 +201,7 @@ public class CreateBsimServerInfoDialog extends DialogComponentProvider {
 		}
 	}
 
-	private abstract class ServerPanel extends JPanel {
+	private static abstract class ServerPanel extends JPanel {
 		ServerPanel(LayoutManager layout) {
 			super(layout);
 			setBorder(BorderFactory.createEmptyBorder(20, 10, 10, 10));

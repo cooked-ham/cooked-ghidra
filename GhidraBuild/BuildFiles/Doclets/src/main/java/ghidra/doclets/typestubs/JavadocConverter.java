@@ -307,7 +307,7 @@ public class JavadocConverter extends DocConverter {
 	 * @return the converted tag
 	 */
 	private String convertLinkTag(Element el, LinkTree link) {
-		String sig = link.getReference().getSignature().replaceAll("#", ".");
+		String sig = link.getReference().getSignature().replace("#", ".");
 		int index = sig.indexOf('(');
 		String label = convertTree(el, link.getLabel());
 		if (index != -1) {
@@ -385,7 +385,7 @@ public class JavadocConverter extends DocConverter {
 			if (el instanceof VariableElement var) {
 				return getConstantValue(var, value);
 			}
-			return ":const:`" + sig.replaceAll("#", ".") + '`';
+			return ":const:`" + sig.replace("#", ".") + '`';
 		}
 		int index = sig.indexOf('#');
 		TypeElement type;
@@ -423,7 +423,7 @@ public class JavadocConverter extends DocConverter {
 				}
 			}
 		}
-		return ":const:`" + sig.replaceAll("#", ".") + '`';
+		return ":const:`" + sig.replace("#", ".") + '`';
 	}
 
 	/**

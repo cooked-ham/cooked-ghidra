@@ -490,7 +490,7 @@ public class BitFieldPlacementComponent extends JPanel implements Scrollable {
 				}
 			}
 		}
-		Integer[] ordinalsToDelete = ordinalDeleteSet.toArray(new Integer[ordinalDeleteSet.size()]);
+		Integer[] ordinalsToDelete = ordinalDeleteSet.toArray(new Integer[0]);
 		Arrays.sort(ordinalsToDelete); // delete from end first
 		int ordinal = composite.getNumComponents();
 		for (int i = ordinalsToDelete.length - 1; i >= 0; i--) {

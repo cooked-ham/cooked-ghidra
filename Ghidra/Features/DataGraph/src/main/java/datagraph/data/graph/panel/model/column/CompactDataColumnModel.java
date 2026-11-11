@@ -47,7 +47,7 @@ public class CompactDataColumnModel extends GTrableColumnModel<DataRowObject> {
 		return column == 2;
 	}
 
-	private class NameColumn extends GTrableColumn<DataRowObject, String> {
+	private static class NameColumn extends GTrableColumn<DataRowObject, String> {
 		@Override
 		public String getValue(DataRowObject row) {
 			// if in compact format, show type in name field if it doesn't have a name
@@ -76,7 +76,7 @@ public class CompactDataColumnModel extends GTrableColumnModel<DataRowObject> {
 		}
 	}
 
-	private class ValueColumn extends GTrableColumn<DataRowObject, String> {
+	private static class ValueColumn extends GTrableColumn<DataRowObject, String> {
 		private GTrableCellRenderer<String> renderer = new ValueColumnRenderer();
 
 		@Override

@@ -91,7 +91,7 @@ public class DataTypeNamingUtil {
 
 	private static String mangleDTName(DataType dt) {
 		String name = DataTypeUtilities.getNameWithoutConflict(dt);
-		return name.replaceAll(" ", "_").replaceAll("\\*", "ptr");
+		return name.replace(" ", "_").replaceAll("\\*", "ptr");
 	}
 
 }

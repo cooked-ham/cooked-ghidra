@@ -238,7 +238,7 @@ class SetToolAssociationsDialog extends DialogComponentProvider {
 		}
 	}
 
-	private class ContentHandlerComparator implements Comparator<ToolAssociationInfo> {
+	private static class ContentHandlerComparator implements Comparator<ToolAssociationInfo> {
 		@Override
 		public int compare(ToolAssociationInfo o1, ToolAssociationInfo o2) {
 			return o1.getContentHandler()
@@ -248,14 +248,14 @@ class SetToolAssociationsDialog extends DialogComponentProvider {
 		}
 	}
 
-	private class ToolTemplateComparator implements Comparator<ToolAssociationInfo> {
+	private static class ToolTemplateComparator implements Comparator<ToolAssociationInfo> {
 		@Override
 		public int compare(ToolAssociationInfo o1, ToolAssociationInfo o2) {
 			return o1.getCurrentTemplate().getName().compareTo(o2.getCurrentTemplate().getName());
 		}
 	}
 
-	private class ContentHandlerRenderer extends GTableCellRenderer {
+	private static class ContentHandlerRenderer extends GTableCellRenderer {
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 

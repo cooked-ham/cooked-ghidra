@@ -52,7 +52,7 @@ public class SwiftGlobalVariableOnceFunctionNode extends SwiftNode {
 				name.append("_for");
 			}
 			for (Demangled entry : names) {
-				name.append("_" + entry.getDemangledName());
+				name.append("_").append(entry.getDemangledName());
 			}
 		}
 		return new SwiftFunction(properties.mangled(), properties.originalDemangled(),

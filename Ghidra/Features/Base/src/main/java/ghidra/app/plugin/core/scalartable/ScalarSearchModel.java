@@ -316,7 +316,7 @@ public class ScalarSearchModel extends AddressBasedTableModel<ScalarRowObject> {
 // Columns & Column helpers
 //==================================================================================================
 
-	private class ScalarComparator implements Comparator<Scalar> {
+	private static class ScalarComparator implements Comparator<Scalar> {
 
 		@Override
 		public int compare(Scalar o1, Scalar o2) {
@@ -337,7 +337,7 @@ public class ScalarSearchModel extends AddressBasedTableModel<ScalarRowObject> {
 		}
 	}
 
-	private abstract class AbstractScalarValueRenderer extends AbstractGColumnRenderer<Scalar> {
+	private static abstract class AbstractScalarValueRenderer extends AbstractGColumnRenderer<Scalar> {
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 
@@ -600,7 +600,7 @@ public class ScalarSearchModel extends AddressBasedTableModel<ScalarRowObject> {
 
 	}
 
-	private class ScalarFunctionNameTableColumn extends FunctionNameTableColumn {
+	private static class ScalarFunctionNameTableColumn extends FunctionNameTableColumn {
 
 		private static final int FUNCTION_COL_WIDTH = 150;
 

@@ -348,7 +348,7 @@ public class TestFGLayoutProvider extends FGLayoutProvider {
 		}
 	}
 
-	private class Node {
+	private static class Node {
 
 		private FGVertex v;
 

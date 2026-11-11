@@ -1491,7 +1491,7 @@ public class ProgramDnDTree extends DragNDropTree {
 			throw new RuntimeException("Nothing to drop!");
 		}
 
-		ProgramNode[] dropNodes = list.toArray(new ProgramNode[list.size()]);
+		ProgramNode[] dropNodes = list.toArray(new ProgramNode[0]);
 		dragDropManager.add(targetNode, dropNodes, dropAction, relativeMousePos);
 	}
 

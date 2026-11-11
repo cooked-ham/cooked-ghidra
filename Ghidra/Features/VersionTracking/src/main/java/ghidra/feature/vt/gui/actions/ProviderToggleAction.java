@@ -15,50 +15,48 @@
  */
 package ghidra.feature.vt.gui.actions;
 
-import ghidra.framework.plugintool.ComponentProviderAdapter;
-
-import java.awt.event.HierarchyEvent;
-import java.awt.event.HierarchyListener;
-
-import javax.swing.JComponent;
-
 import docking.ActionContext;
 import docking.action.ToggleDockingAction;
 import docking.action.ToolBarData;
+import ghidra.framework.plugintool.ComponentProviderAdapter;
+
+import javax.swing.*;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 
 public class ProviderToggleAction extends ToggleDockingAction {
 
     private static final String TOOL_BAR_GROUP = "ZGroup";
     private final ComponentProviderAdapter componentProvider;
 
-    public ProviderToggleAction( ComponentProviderAdapter provider ) {
-        super( "Show " + provider.getTitle(), provider.getOwner(), false );
+    public ProviderToggleAction(ComponentProviderAdapter provider) {
+        super("Show " + provider.getTitle(), provider.getOwner(), false);
         this.componentProvider = provider;
-        
-        setSelected( true );
-        setToolBarData( new ToolBarData( provider.getIcon(), TOOL_BAR_GROUP ) );
-        
-        installVisibilityTracker( provider );
+
+        setSelected(true);
+        setToolBarData(new ToolBarData(provider.getIcon(), TOOL_BAR_GROUP));
+
+        installVisibilityTracker(provider);
     }
-    
-    private void installVisibilityTracker( final ComponentProviderAdapter provider ) {
+
+    private void installVisibilityTracker(final ComponentProviderAdapter provider) {
         JComponent component = provider.getComponent();
-        component.addHierarchyListener( new HierarchyListener() {
-            
+        component.addHierarchyListener(new HierarchyListener() {
+
             @Override
-			public void hierarchyChanged( HierarchyEvent e ) {
+            public void hierarchyChanged(HierarchyEvent e) {
                 long changeFlags = e.getChangeFlags();
-                if ( HierarchyEvent.SHOWING_CHANGED ==
-                    (changeFlags & HierarchyEvent.SHOWING_CHANGED) ) {
-                    setSelected( provider.isVisible() );
+                if (HierarchyEvent.SHOWING_CHANGED ==
+                        (changeFlags & HierarchyEvent.SHOWING_CHANGED)) {
+                    setSelected(provider.isVisible());
                 }
             }
-        } );
+        });
     }
-    
+
     @Override
-    public void actionPerformed( ActionContext context ) {
-        componentProvider.setVisible( isSelected() );
+    public void actionPerformed(ActionContext context) {
+        componentProvider.setVisible(isSelected());
     }
-    
+
 }

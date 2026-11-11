@@ -2369,7 +2369,7 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 	}
 
 	// a custom button group that allows us to deselect buttons, which Java's does not
-	private class UnselectableButtonGroup extends ButtonGroup {
+	private static class UnselectableButtonGroup extends ButtonGroup {
 
 		private ButtonModel overriddenSelection = null;
 
@@ -2440,7 +2440,7 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 	 *
 	 * <P>The methods on the class are synchronized to ensure thread visibility.
 	 */
-	private class FileList {
+	private static class FileList {
 
 		private List<File> files = new ArrayList<>();
 
@@ -2484,7 +2484,7 @@ public class GhidraFileChooser extends ReusableDialogComponentProvider implement
 	/**
 	 * Container class to manage history entries for a directory and any selected file
 	 */
-	private class HistoryEntry {
+	private static class HistoryEntry {
 		private File parentDir;
 		private File selectedFile;
 

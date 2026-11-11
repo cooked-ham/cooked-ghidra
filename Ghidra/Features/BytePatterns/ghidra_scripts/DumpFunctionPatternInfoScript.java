@@ -115,7 +115,7 @@ public class DumpFunctionPatternInfoScript extends GhidraScript {
 		}
 
 		File savedFile = new File(saveDir.getAbsolutePath() + File.separator +
-			currentProgram.getDomainFile().getPathname().replaceAll("/", "_") + "_" +
+			currentProgram.getDomainFile().getPathname().replace("/", "_") + "_" +
 			currentProgram.getExecutableMD5() + "_funcInfo.xml");
 		funcPatternList.toXmlFile(savedFile);
 		Msg.info(this,

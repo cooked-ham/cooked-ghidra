@@ -102,7 +102,7 @@ public class BSimServerTableModel extends GDynamicColumnTableModel<BSimServerInf
 		return null;
 	}
 
-	private class DatabaseNameColumn
+	private static class DatabaseNameColumn
 			extends AbstractDynamicTableColumn<BSimServerInfo, String, Object> {
 		private GColumnRenderer<String> renderer = new AbstractGColumnRenderer<>() {
 			@Override

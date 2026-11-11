@@ -103,7 +103,7 @@ public abstract class SearchLocationContextRenderer
 	 * ellipsis when clipped.   We use these 2 labels here to show when the leading html label's
 	 * text is clipped.
 	 */
-	private class HtmlTruncatingLayout extends AbstractLayoutManager {
+	private static class HtmlTruncatingLayout extends AbstractLayoutManager {
 
 		@Override
 		public Dimension preferredLayoutSize(Container parent) {

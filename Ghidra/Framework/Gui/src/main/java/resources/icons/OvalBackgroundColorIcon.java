@@ -15,13 +15,12 @@
  */
 package resources.icons;
 
+import javax.swing.*;
 import java.awt.*;
 
-import javax.swing.Icon;
-
-/** 
- * Paints an oval of the given size, based upon the Component passed to 
- * {@link #paintIcon(Component, Graphics, int, int)}.  If the component is null, then no 
+/**
+ * Paints an oval of the given size, based upon the Component passed to
+ * {@link #paintIcon(Component, Graphics, int, int)}.  If the component is null, then no
  * painting will take place.
  */
 public class OvalBackgroundColorIcon implements Icon {
@@ -29,30 +28,30 @@ public class OvalBackgroundColorIcon implements Icon {
     private final int width;
     private final int height;
 
-    public OvalBackgroundColorIcon( int width, int height ) {
+    public OvalBackgroundColorIcon(int width, int height) {
         this.width = width;
-        this.height = height;        
+        this.height = height;
     }
-    
+
     @Override
-	public int getIconHeight() {
+    public int getIconHeight() {
         return height;
     }
 
     @Override
-	public int getIconWidth() {
+    public int getIconWidth() {
         return width;
     }
 
     @Override
-	public void paintIcon( Component c, Graphics g, int x, int y ) {
-        if ( c == null ) {
+    public void paintIcon(Component c, Graphics g, int x, int y) {
+        if (c == null) {
             return;
         }
-        
+
         Color color = c.getBackground();
-        g.setColor( color );
-        g.fillOval( x, y, width, height );
+        g.setColor(color);
+        g.fillOval(x, y, width, height);
     }
 
 }

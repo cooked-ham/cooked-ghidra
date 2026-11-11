@@ -15,100 +15,103 @@
  */
 package ghidra.app.util.bin.format.macho.commands;
 
+import ghidra.app.util.bin.BinaryReader;
+import ghidra.app.util.bin.StructConverter;
+import ghidra.app.util.bin.format.macho.MachConstants;
+import ghidra.program.model.data.ArrayDataType;
+import ghidra.program.model.data.CategoryPath;
+import ghidra.program.model.data.DataType;
+import ghidra.program.model.data.StructureDataType;
+import ghidra.util.exception.DuplicateNameException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ghidra.app.util.bin.BinaryReader;
-import ghidra.app.util.bin.StructConverter;
-import ghidra.app.util.bin.format.macho.MachConstants;
-import ghidra.program.model.data.*;
-import ghidra.util.exception.DuplicateNameException;
-
 /**
- * Represents a build_version_command structure 
+ * Represents a build_version_command structure
  */
 public class BuildVersionCommand extends LoadCommand {
 
-	private int platform;
-	private int minos;
-	private int sdk;
-	private long ntools;
-	private List<BuildToolVersion> buildToolVersions = new ArrayList<>();
+    private int platform;
+    private int minos;
+    private int sdk;
+    private long ntools;
+    private List<BuildToolVersion> buildToolVersions = new ArrayList<>();
 
-	BuildVersionCommand(BinaryReader reader) throws IOException {
-		super(reader);
+    BuildVersionCommand(BinaryReader reader) throws IOException {
+        super(reader);
 
-		platform = reader.readNextInt();
-		minos = reader.readNextInt();
-		sdk = reader.readNextInt();
-		ntools = checkCount(reader.readNextUnsignedInt());
-		for (int i = 0; i < ntools; i++) {
-			buildToolVersions.add(new BuildToolVersion(reader.readNextInt(), reader.readNextInt()));
-		}
-	}
+        platform = reader.readNextInt();
+        minos = reader.readNextInt();
+        sdk = reader.readNextInt();
+        ntools = checkCount(reader.readNextUnsignedInt());
+        for (int i = 0; i < ntools; i++) {
+            buildToolVersions.add(new BuildToolVersion(reader.readNextInt(), reader.readNextInt()));
+        }
+    }
 
-	@Override
-	public DataType toDataType() throws DuplicateNameException, IOException {
-		DataType buildToolVersionDataType = new BuildToolVersion(0, 0).toDataType();
-		StructureDataType struct = new StructureDataType(getCommandName(), 0);
-		struct.add(DWORD, "cmd", null);
-		struct.add(DWORD, "cmdsize", null);
-		struct.add(DWORD, "platform", null);
-		struct.add(DWORD, "minos", null);
-		struct.add(DWORD, "sdk", null);
-		struct.add(DWORD, "ntools", null);
-		if (ntools > 0) {
-			struct.add(new ArrayDataType(buildToolVersionDataType, (int) ntools,
-				buildToolVersionDataType.getLength()), "build_tool_version[]", null);
-		}
-		struct.setCategoryPath(new CategoryPath(MachConstants.DATA_TYPE_CATEGORY));
-		return struct;
-	}
+    @Override
+    public DataType toDataType() throws DuplicateNameException, IOException {
+        DataType buildToolVersionDataType = new BuildToolVersion(0, 0).toDataType();
+        StructureDataType struct = new StructureDataType(getCommandName(), 0);
+        struct.add(DWORD, "cmd", null);
+        struct.add(DWORD, "cmdsize", null);
+        struct.add(DWORD, "platform", null);
+        struct.add(DWORD, "minos", null);
+        struct.add(DWORD, "sdk", null);
+        struct.add(DWORD, "ntools", null);
+        if (ntools > 0) {
+            struct.add(new ArrayDataType(buildToolVersionDataType, (int) ntools,
+                    buildToolVersionDataType.getLength()), "build_tool_version[]", null);
+        }
+        struct.setCategoryPath(new CategoryPath(MachConstants.DATA_TYPE_CATEGORY));
+        return struct;
+    }
 
-	@Override
-	public String getCommandName() {
-		return "build_version_command";
-	}
+    @Override
+    public String getCommandName() {
+        return "build_version_command";
+    }
 
-	/**
-	 * {@return the platform}
-	 */
-	public int getPlatform() {
-		return platform;
-	}
+    /**
+     * {@return the platform}
+     */
+    public int getPlatform() {
+        return platform;
+    }
 
-	/**
-	 * {@return the minimum OS}
-	 */
-	public int getMinOS() {
-		return minos;
-	}
+    /**
+     * {@return the minimum OS}
+     */
+    public int getMinOS() {
+        return minos;
+    }
 
-	/**
-	 * {@return the SDK}
-	 */
-	public int getSdk() {
-		return sdk;
-	}
+    /**
+     * {@return the SDK}
+     */
+    public int getSdk() {
+        return sdk;
+    }
 
-	/**
-	 * {@return the number of tools}
-	 */
-	public long getNumTools() {
-		return ntools;
-	}
+    /**
+     * {@return the number of tools}
+     */
+    public long getNumTools() {
+        return ntools;
+    }
 
-	public static record BuildToolVersion(int tool, int version) implements StructConverter {
+    public static record BuildToolVersion(int tool, int version) implements StructConverter {
 
-		@Override
-		public DataType toDataType() throws DuplicateNameException, IOException {
-			StructureDataType struct = new StructureDataType("build_tool_version", 0);
-			struct.add(DWORD, "tool", null);
-			struct.add(DWORD, "version", null);
-			struct.setCategoryPath(new CategoryPath(MachConstants.DATA_TYPE_CATEGORY));
-			return struct;
-		}
-	}
+        @Override
+        public DataType toDataType() throws DuplicateNameException, IOException {
+            StructureDataType struct = new StructureDataType("build_tool_version", 0);
+            struct.add(DWORD, "tool", null);
+            struct.add(DWORD, "version", null);
+            struct.setCategoryPath(new CategoryPath(MachConstants.DATA_TYPE_CATEGORY));
+            return struct;
+        }
+    }
 
 }

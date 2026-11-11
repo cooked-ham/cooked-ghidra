@@ -441,7 +441,7 @@ public class AssemblyDualTextField {
 	/**
 	 * A demonstration of the assembly GUI outside of Ghidra
 	 */
-	public class AssemblyDualTextFieldDemo implements GhidraLaunchable {
+	public static class AssemblyDualTextFieldDemo implements GhidraLaunchable {
 		public final LanguageID DEMO_LANG_ID = new LanguageID("x86:LE:64:default");
 		public final String ADDR_FORMAT = "@%08x:";
 		Address curAddr;

@@ -550,7 +550,7 @@ public class StructureEditorProviderTest extends AbstractStructureEditorTest {
 		// options default is hex
 		provider = edit(complexStructure);
 		model = provider.getModel();
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("0x2f", model.getValueAt(15, model.getOffsetColumn()));
 		assertEquals("0x2d", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("0x145", model.getLengthAsString());
@@ -560,7 +560,7 @@ public class StructureEditorProviderTest extends AbstractStructureEditorTest {
 
 		provider = edit(complexStructure);
 		model = provider.getModel();
-		assertEquals(false, model.isShowingNumbersInHex());
+		assertFalse(model.isShowingNumbersInHex());
 		assertEquals("47", model.getValueAt(15, model.getOffsetColumn()));
 		assertEquals("45", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("325", model.getLengthAsString());
@@ -571,14 +571,14 @@ public class StructureEditorProviderTest extends AbstractStructureEditorTest {
 		// options default is hex
 		provider = edit(complexStructure);
 		model = provider.getModel();
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("0x2f", model.getValueAt(15, model.getOffsetColumn()));
 		assertEquals("0x2d", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("0x145", model.getLengthAsString());
 
 		setOptions(HEX_OPTION_NAME, false);
 
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("0x2f", model.getValueAt(15, model.getOffsetColumn()));
 		assertEquals("0x2d", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("0x145", model.getLengthAsString());
@@ -588,7 +588,7 @@ public class StructureEditorProviderTest extends AbstractStructureEditorTest {
 	public void testToggleHexModeAction() throws Exception {
 		provider = edit(complexStructure);
 		model = provider.getModel();
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("0x2f", model.getValueAt(15, model.getOffsetColumn()));
 		assertEquals("0x2d", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("0x145", model.getLengthAsString());
@@ -596,7 +596,7 @@ public class StructureEditorProviderTest extends AbstractStructureEditorTest {
 		DockingActionIf action = getAction(plugin, "Show Numbers In Hex");
 		setToggleActionSelected((ToggleDockingActionIf) action, new DefaultActionContext(), false);
 
-		assertEquals(false, model.isShowingNumbersInHex());
+		assertFalse(model.isShowingNumbersInHex());
 		assertEquals("47", model.getValueAt(15, model.getOffsetColumn()));
 		assertEquals("45", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("325", model.getLengthAsString());

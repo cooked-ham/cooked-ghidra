@@ -296,7 +296,7 @@ public class CategoryTest extends AbstractGhidraHeadedIntegrationTest {
 		root.moveCategory(catB, monitor);
 
 		assertTrue(dataMgr.containsCategory(new CategoryPath("/B/C")));
-		assertTrue(!dataMgr.containsCategory(new CategoryPath("/A/B/C")));
+		assertFalse(dataMgr.containsCategory(new CategoryPath("/A/B/C")));
 		assertEquals("/B/C", catC.getCategoryPath().getPath());
 
 		Category newB = dataMgr.getCategory(idB);
@@ -382,7 +382,7 @@ public class CategoryTest extends AbstractGhidraHeadedIntegrationTest {
 		assertNull(dt);
 		dt = root.getDataType("byte");
 		assertTrue(b.isEquivalent(dt));
-		assertTrue(bdt == dt);
+		assertSame(bdt, dt);
 
 	}
 
@@ -404,7 +404,7 @@ public class CategoryTest extends AbstractGhidraHeadedIntegrationTest {
 		DataType[] d = s.getDataTypes();
 		Arrays.sort(d, DataTypeComparator.INSTANCE);
 		assertEquals(dts.length, d.length);
-		assertTrue(newdts[0] == d[0]);
+		assertSame(newdts[0], d[0]);
 	}
 
 	@Test
@@ -417,7 +417,7 @@ public class CategoryTest extends AbstractGhidraHeadedIntegrationTest {
 
 		DataType dt = root.getDataType(name);
 		assertNotNull(dt);
-		assertTrue(newdt == dt);
+		assertSame(newdt, dt);
 
 		str = new StringDataType();
 		newdt = root.addDataType(str, null);
@@ -521,7 +521,7 @@ public class CategoryTest extends AbstractGhidraHeadedIntegrationTest {
 		dt.add(new ByteDataType());
 
 		DataType newDt = s.addDataType(dt, null);
-		assertTrue(newDt == s.getDataType("MyStruct"));
+		assertSame(newDt, s.getDataType("MyStruct"));
 	}
 
 	@Test
@@ -710,7 +710,7 @@ public class CategoryTest extends AbstractGhidraHeadedIntegrationTest {
 
 		Event ev = getEvent(0);
 		assertEquals("Cat Added", ev.evName);
-		assertEquals(null, ev.dt);
+		assertNull(ev.dt);
 		assertEquals(root.getCategoryPath(), ev.parent);
 
 		ev = getEvent(1);
@@ -825,7 +825,7 @@ public class CategoryTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals(newDt, ev.dt);
 	}
 
-	private class Event {
+	private static class Event {
 		String evName;
 		CategoryPath parent;
 		CategoryPath cat;

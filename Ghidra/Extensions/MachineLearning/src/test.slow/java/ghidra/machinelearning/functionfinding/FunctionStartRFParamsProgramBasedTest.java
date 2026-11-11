@@ -140,7 +140,7 @@ public class FunctionStartRFParamsProgramBasedTest extends AbstractProgramBasedT
 		params.computeFuncEntriesAndInteriors(TaskMonitor.DUMMY);
 		AddressSet entries = params.getFuncEntries();
 		AddressSet interiors = params.getFuncInteriors();
-		assertTrue(!entries.intersects(interiors));
+		assertFalse(entries.intersects(interiors));
 		assertEquals(4, entries.getNumAddresses());
 		assertTrue(entries.contains(smallArmEntry));
 		assertTrue(entries.contains(largeArmEntry));
@@ -161,7 +161,7 @@ public class FunctionStartRFParamsProgramBasedTest extends AbstractProgramBasedT
 		params.computeFuncEntriesAndInteriors(TaskMonitor.DUMMY);
 		entries = params.getFuncEntries();
 		interiors = params.getFuncInteriors();
-		assertTrue(!entries.intersects(interiors));
+		assertFalse(entries.intersects(interiors));
 		assertEquals(1, entries.getNumAddresses());
 		assertTrue(entries.contains(largeArmEntry));
 
@@ -174,7 +174,7 @@ public class FunctionStartRFParamsProgramBasedTest extends AbstractProgramBasedT
 		params.computeFuncEntriesAndInteriors(TaskMonitor.DUMMY);
 		entries = params.getFuncEntries();
 		interiors = params.getFuncInteriors();
-		assertTrue(!entries.intersects(interiors));
+		assertFalse(entries.intersects(interiors));
 		assertEquals(1, entries.getNumAddresses());
 		assertTrue(entries.contains(largeThumbEntry));
 

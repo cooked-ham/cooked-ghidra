@@ -171,68 +171,68 @@ public class WrappedMemoryBufferTest extends AbstractGhidraHeadedIntegrationTest
 		memBuf = new WrappedMemBuffer(memBuf, 3, 0);
 
 		value = memBuf.getInt(0);
-		assertEquals(value, 0x00010203);
+		assertEquals(0x00010203, value);
 		value = memBuf.getInt(1);
-		assertEquals(value, 0x01020304);
+		assertEquals(0x01020304, value);
 		value = memBuf.getInt(3);
-		assertEquals(value, 0x03040506);
+		assertEquals(0x03040506, value);
 		value = memBuf.getInt(8);
-		assertEquals(value, 0x08090A0B);
+		assertEquals(0x08090A0B, value);
 
 		memBuf = new DumbMemBufferImpl(program.getMemory(), minAddr);
 		memBuf = new WrappedMemBuffer(memBuf, 4, 0);
 		value = memBuf.getInt(0);
-		assertEquals(value, 0x00010203);
+		assertEquals(0x00010203, value);
 		value = memBuf.getInt(1);
-		assertEquals(value, 0x01020304);
+		assertEquals(0x01020304, value);
 		value = memBuf.getInt(3);
-		assertEquals(value, 0x03040506);
+		assertEquals(0x03040506, value);
 		value = memBuf.getInt(8);
-		assertEquals(value, 0x08090A0B);
+		assertEquals(0x08090A0B, value);
 
 		memBuf = new DumbMemBufferImpl(program.getMemory(), minAddr);
 		memBuf = new WrappedMemBuffer(memBuf, 5, 0);
 		value = memBuf.getInt(0);
-		assertEquals(value, 0x00010203);
+		assertEquals(0x00010203, value);
 		value = memBuf.getInt(1);
-		assertEquals(value, 0x01020304);
+		assertEquals(0x01020304, value);
 		value = memBuf.getInt(3);
-		assertEquals(value, 0x03040506);
+		assertEquals(0x03040506, value);
 		value = memBuf.getInt(8);
-		assertEquals(value, 0x08090A0B);
+		assertEquals(0x08090A0B, value);
 
 		memBuf = new MemoryBufferImpl(program.getMemory(), minAddr);
 		memBuf = new WrappedMemBuffer(memBuf, 3, 4);
 		value = memBuf.getInt(0);
-		assertEquals(value, 0x04050607);
+		assertEquals(0x04050607, value);
 		value = memBuf.getInt(1);
-		assertEquals(value, 0x05060708);
+		assertEquals(0x05060708, value);
 		value = memBuf.getInt(3);
-		assertEquals(value, 0x0708090A);
+		assertEquals(0x0708090A, value);
 		value = memBuf.getInt(8);
-		assertEquals(value, 0x0C0D0E0F);
+		assertEquals(0x0C0D0E0F, value);
 
 		memBuf = new MemoryBufferImpl(program.getMemory(), minAddr);
 		memBuf = new WrappedMemBuffer(memBuf, 4, 4);
 		value = memBuf.getInt(0);
-		assertEquals(value, 0x04050607);
+		assertEquals(0x04050607, value);
 		value = memBuf.getInt(1);
-		assertEquals(value, 0x05060708);
+		assertEquals(0x05060708, value);
 		value = memBuf.getInt(3);
-		assertEquals(value, 0x0708090A);
+		assertEquals(0x0708090A, value);
 		value = memBuf.getInt(8);
-		assertEquals(value, 0x0C0D0E0F);
+		assertEquals(0x0C0D0E0F, value);
 
 		memBuf = new DumbMemBufferImpl(program.getMemory(), minAddr);
 		memBuf = new WrappedMemBuffer(memBuf, 5, 4);
 		value = memBuf.getInt(0);
-		assertEquals(value, 0x04050607);
+		assertEquals(0x04050607, value);
 		value = memBuf.getInt(1);
-		assertEquals(value, 0x05060708);
+		assertEquals(0x05060708, value);
 		value = memBuf.getInt(3);
-		assertEquals(value, 0x0708090A);
+		assertEquals(0x0708090A, value);
 		value = memBuf.getInt(8);
-		assertEquals(value, 0x0C0D0E0F);
+		assertEquals(0x0C0D0E0F, value);
 	}
 
 	@Test
@@ -249,24 +249,24 @@ public class WrappedMemoryBufferTest extends AbstractGhidraHeadedIntegrationTest
 		memBuf = new WrappedMemBuffer(memBuf, 3, 0);
 
 		value = memBuf.getShort(0);
-		assertEquals(value, 0x0001);
+		assertEquals(0x0001, value);
 		value = memBuf.getShort(1);
-		assertEquals(value, 0x0102);
+		assertEquals(0x0102, value);
 		value = memBuf.getShort(3);
-		assertEquals(value, 0x0304);
+		assertEquals(0x0304, value);
 		value = memBuf.getShort(8);
-		assertEquals(value, 0x0809);
+		assertEquals(0x0809, value);
 
 		memBuf = new DumbMemBufferImpl(program.getMemory(), minAddr);
 		memBuf = new WrappedMemBuffer(memBuf, 5, 4);
 		value = memBuf.getShort(0);
-		assertEquals(value, 0x0405);
+		assertEquals(0x0405, value);
 		value = memBuf.getShort(1);
-		assertEquals(value, 0x0506);
+		assertEquals(0x0506, value);
 		value = memBuf.getShort(3);
-		assertEquals(value, 0x0708);
+		assertEquals(0x0708, value);
 		value = memBuf.getShort(8);
-		assertEquals(value, 0x0C0D);
+		assertEquals(0x0C0D, value);
 	}
 
 	@Test
@@ -282,24 +282,24 @@ public class WrappedMemoryBufferTest extends AbstractGhidraHeadedIntegrationTest
 		memBuf = new WrappedMemBuffer(memBuf, 7, 0);
 
 		value = memBuf.getLong(0);
-		assertEquals(value, 0x0001020304050607L);
+		assertEquals(0x0001020304050607L, value);
 		value = memBuf.getLong(1);
-		assertEquals(value, 0x0102030405060708L);
+		assertEquals(0x0102030405060708L, value);
 		value = memBuf.getLong(3);
-		assertEquals(value, 0x030405060708090AL);
+		assertEquals(0x030405060708090AL, value);
 		value = memBuf.getLong(8);
-		assertEquals(value, 0x08090A0B0C0D0E0FL);
+		assertEquals(0x08090A0B0C0D0E0FL, value);
 
 		memBuf = new DumbMemBufferImpl(program.getMemory(), minAddr);
 		memBuf = new WrappedMemBuffer(memBuf, 9, 4);
 		value = memBuf.getLong(0);
-		assertEquals(value, 0x0405060708090A0BL);
+		assertEquals(0x0405060708090A0BL, value);
 		value = memBuf.getLong(1);
-		assertEquals(value, 0x05060708090A0B0CL);
+		assertEquals(0x05060708090A0B0CL, value);
 		value = memBuf.getLong(3);
-		assertEquals(value, 0x0708090A0B0C0D0EL);
+		assertEquals(0x0708090A0B0C0D0EL, value);
 		value = memBuf.getLong(0);
-		assertEquals(value, 0x0405060708090A0BL);
+		assertEquals(0x0405060708090A0BL, value);
 	}
 
 	private void setBytes(Address addr, byte[] bytes) throws MemoryAccessException {

@@ -15,12 +15,14 @@
  */
 package ghidra.util.datastruct;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * Array of String[] that grows as needed.
  */
 public class StringArrayArray implements Array, Serializable {
+	@Serial
 	private final static long serialVersionUID = 1;
 
 	private ByteArrayArray byteStore;

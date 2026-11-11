@@ -23,18 +23,18 @@ import mdemangler.MDParsableItem;
  * mangled symbol.
  */
 public class MDManagedProperty extends MDParsableItem {
-//	protected String modifierTypeName;
+    //	protected String modifierTypeName;
 //	protected MDCVMod cvmod;
 //	protected MDDT mddt;
 //
-	public MDManagedProperty(MDMang dmang) {
-		super(dmang);
-	}
+    public MDManagedProperty(MDMang dmang) {
+        super(dmang);
+    }
 
-	@Override
-	protected void parseInternal() {
-		// Do nothing
-	}
+    @Override
+    protected void parseInternal() {
+        // Do nothing
+    }
 
 //	void parseCVMod(MDMang dmang) throws MDException {
 //		cvmod = new MDCVMod(dmang);
@@ -69,22 +69,22 @@ public class MDManagedProperty extends MDParsableItem {
 ////		Boolean insertSpace = true;
 ////		if ((builder.length() != 0) && (builder.charAt(0) == ' ')) {
 ////			insertSpace = false;
-////		}
+////        }
 ////		if (modifierTypeBuilder.length() != 0) {
 ////			if ((modifierTypeBuilder.charAt(modifierTypeBuilder.length() - 1) == ' ') ||
-////				(modifierTypeBuilder.charAt(modifierTypeBuilder.length() - 1) == '*')) {
+////                (modifierTypeBuilder.charAt(modifierTypeBuilder.length() - 1) == '*')) {
 ////				insertSpace = false;
-////			}
-////		}
+////            }
+////        }
 ////		if (insertSpace) {
 ////			builder.insert(0, ' ');
-////		}
+////        }
 ////
 ////		if ((modifierTypeBuilder.length() != 0) &&
-////			(modifierTypeBuilder.charAt(modifierTypeBuilder.length() - 1) == ' ') &&
-////			(builder.length() != 0) && (builder.charAt(0) == ' ')) {
+////            (modifierTypeBuilder.charAt(modifierTypeBuilder.length() - 1) == ' ') &&
+////            (builder.length() != 0) && (builder.charAt(0) == ' ')) {
 ////			modifierTypeBuilder.setLength(modifierTypeBuilder.length() - 1);
-////		}
+////        }
 ////
 ////		builder.insert(0, modifierTypeBuilder);
 ////

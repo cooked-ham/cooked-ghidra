@@ -46,7 +46,7 @@ public class AssemblyThrasherDevScript extends GhidraScript {
 	public static final String BOOKMARK_FAIL = "AssemblyFailure";
 	public static final String BOOKMARK_PASS = "AssemblySuccess";
 
-	class Accept extends RuntimeException {
+	static class Accept extends RuntimeException {
 		// custom exception
 	}
 

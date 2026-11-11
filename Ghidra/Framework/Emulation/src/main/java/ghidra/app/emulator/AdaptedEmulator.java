@@ -150,7 +150,7 @@ public class AdaptedEmulator implements Emulator {
 	}
 
 	@Deprecated(since = "12.1", forRemoval = true)
-	class AdaptedStateCallbacks implements PcodeStateCallbacks {
+	static class AdaptedStateCallbacks implements PcodeStateCallbacks {
 		private final MemoryLoadImage loadImage;
 
 		public AdaptedStateCallbacks(MemoryLoadImage loadImage) {

@@ -93,19 +93,19 @@ class SimpleLanguageTranslator extends LanguageTranslatorAdapter {
 				AddressSpace space = oldFactory.getAddressSpace(name);
 				oldSpaces.remove(space);
 				if (space == null) {
-					errBuf.append("  Mapped address space not found (from): " + name + "\r\n");
+					errBuf.append("  Mapped address space not found (from): ").append(name).append("\r\n");
 					continue;
 				}
 				String newName = spaceNameMap.get(name);
 				if (newName == null) {
 					if (oldFactory.getDefaultAddressSpace() == space) {
-						errBuf.append("  Default space must be mapped: " + name + "\r\n");
+						errBuf.append("  Default space must be mapped: ").append(name).append("\r\n");
 					}
 					continue;
 				}
 				AddressSpace newSpace = newFactory.getAddressSpace(newName);
 				if (newSpace == null) {
-					errBuf.append("  Mapped address space not found (to): " + name + "\r\n");
+					errBuf.append("  Mapped address space not found (to): ").append(name).append("\r\n");
 					continue;
 				}
 			}

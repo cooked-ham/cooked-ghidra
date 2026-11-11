@@ -524,7 +524,7 @@ public abstract class AbstractSortedTableModel<T> extends AbstractGTableModel<T>
 		}
 	}
 
-	private class StringBasedBackupRowToColumnComparator implements Comparator<Object> {
+	private static class StringBasedBackupRowToColumnComparator implements Comparator<Object> {
 
 		@Override
 		public int compare(Object c1, Object c2) {

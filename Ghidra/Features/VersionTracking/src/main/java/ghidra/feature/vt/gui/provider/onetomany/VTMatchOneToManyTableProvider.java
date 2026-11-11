@@ -548,7 +548,7 @@ public abstract class VTMatchOneToManyTableProvider extends ComponentProviderAda
 		}
 	}
 
-	private class MatchThreadedTablePanel extends GhidraThreadedTablePanel<VTMatch> {
+	private static class MatchThreadedTablePanel extends GhidraThreadedTablePanel<VTMatch> {
 		MatchThreadedTablePanel(ThreadedTableModel<VTMatch, ?> model) {
 			super(model);
 		}
@@ -558,7 +558,7 @@ public abstract class VTMatchOneToManyTableProvider extends ComponentProviderAda
 			return new MatchTable(model);
 		}
 
-		private class MatchTable extends GhidraTable {
+		private static class MatchTable extends GhidraTable {
 
 			MatchTable(RowObjectTableModel<VTMatch> model) {
 				super(model);

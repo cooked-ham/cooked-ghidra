@@ -456,7 +456,7 @@ class EditPluginPathDialog extends DialogComponentProvider {
 	 * ListCellRenderer that renders the path values in the list,
 	 * coloring paths that are no longer readable in red.
 	 */
-	private class PluginPathRenderer extends GListCellRenderer<String> {
+	private static class PluginPathRenderer extends GListCellRenderer<String> {
 
 		@Override
 		public Component getListCellRendererComponent(JList<? extends String> list, String value,

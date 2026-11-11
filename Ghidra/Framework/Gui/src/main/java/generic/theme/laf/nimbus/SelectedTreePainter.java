@@ -64,7 +64,7 @@ public class SelectedTreePainter extends AbstractRegionPainter {
 		shape.setRect(x, y, w, h);
 	}
 
-	private class MyPaintContext extends PaintContext {
+	private static class MyPaintContext extends PaintContext {
 		public MyPaintContext() {
 			super(new Insets(5, 5, 5, 5), new Dimension(100, 30),
 				false, CacheMode.NO_CACHING, 1.0, 1.0);

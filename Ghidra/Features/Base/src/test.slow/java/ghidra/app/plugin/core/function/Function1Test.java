@@ -215,7 +215,7 @@ public class Function1Test extends AbstractGhidraHeadedIntegrationTest {
 		Function extFunc = listing.getFunctionAt(toAddress);
 		assertNotNull(extFunc);
 
-		assertTrue(thunk.getThunkedFunction(false) == extFunc);
+		assertSame(thunk.getThunkedFunction(false), extFunc);
 		assertEquals("undefined CommDlgExtendedError()", extFunc.getPrototypeString(false, false));
 
 		exerciseThunkPassThru(extFunc, thunk);
@@ -251,7 +251,7 @@ public class Function1Test extends AbstractGhidraHeadedIntegrationTest {
 		Function extFunc = listing.getFunctionAt(toAddress);
 		assertNotNull(extFunc);
 
-		assertTrue(thunk.getThunkedFunction(false) == extFunc);
+		assertSame(thunk.getThunkedFunction(false), extFunc);
 		assertEquals("undefined CommDlgExtendedError()", extFunc.getPrototypeString(false, false));
 
 		exerciseThunkPassThru(extFunc, thunk);
@@ -278,7 +278,7 @@ public class Function1Test extends AbstractGhidraHeadedIntegrationTest {
 		assertNotNull(entryFunc);
 		assertEquals("undefined entry()", entryFunc.getPrototypeString(false, false));
 
-		assertTrue(thunk.getThunkedFunction(false) == entryFunc);
+		assertSame(thunk.getThunkedFunction(false), entryFunc);
 
 		exerciseThunkPassThru(entryFunc, thunk);
 	}
@@ -305,7 +305,7 @@ public class Function1Test extends AbstractGhidraHeadedIntegrationTest {
 		assertNotNull(entryFunc);
 		assertEquals("undefined entry()", entryFunc.getPrototypeString(false, false));
 
-		assertTrue(thunk.getThunkedFunction(false) == entryFunc);
+		assertSame(thunk.getThunkedFunction(false), entryFunc);
 
 		exerciseThunkPassThru(entryFunc, thunk);
 	}

@@ -631,7 +631,7 @@ public class StringTableProvider extends ComponentProviderAdapter implements Dom
 		table.repaint();
 	}
 
-	private class DefinedColumnRenderer extends GTableCellRenderer {
+	private static class DefinedColumnRenderer extends GTableCellRenderer {
 
 		public DefinedColumnRenderer() {
 			setHorizontalAlignment(SwingConstants.CENTER);

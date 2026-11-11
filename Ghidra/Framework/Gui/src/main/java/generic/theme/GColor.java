@@ -15,6 +15,9 @@
  */
 package generic.theme;
 
+import ghidra.util.WebColors;
+import ghidra.util.datastruct.WeakStore;
+
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.geom.AffineTransform;
@@ -22,240 +25,245 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.ColorModel;
 import java.util.Objects;
 
-import ghidra.util.WebColors;
-import ghidra.util.datastruct.WeakStore;
-
 /**
  * A {@link Color} whose value is dynamically determined by looking up its id into a global
- * color table that is determined by the active {@link GTheme}. 
+ * color table that is determined by the active {@link GTheme}.
  * <P>The idea is for developers to
- * not use specific colors in their code, but to instead use a GColor with an id that hints at 
+ * not use specific colors in their code, but to instead use a GColor with an id that hints at
  * its use. For example, instead of hard coding a component's background color to white by coding
- * "component.setBackground(Color.white)", you would do something like 
- * "component.setBackground(new GColor("color.mywidget.bg"). Then in a 
- * "[module name].theme.properties" file (located in the module's data directory), you would 
+ * "component.setBackground(Color.white)", you would do something like
+ * "component.setBackground(new GColor("color.mywidget.bg"). Then in a
+ * "[module name].theme.properties" file (located in the module's data directory), you would
  * set the default value by adding this line "color.mywidget.bg = white".
  */
 public class GColor extends Color {
-	private static final int MISSING_COLOR_RGB = 0x808080;
+    private static final int MISSING_COLOR_RGB = 0x808080;
 
-	// keeps a weak reference to all uses of GColor, so their cached color value can be refreshed 
-	private static WeakStore<GColor> inUseColors = new WeakStore<>();
+    // keeps a weak reference to all uses of GColor, so their cached color value can be refreshed
+    private static WeakStore<GColor> inUseColors = new WeakStore<>();
 
-	private String id;
-	private Color delegate;
-	private Short alpha;
+    private String id;
+    private Color delegate;
+    private Short alpha;
 
-	/**
-	 * Construct a GColor with an id that will be used to look up the current color associated with 
-	 * that id, which can be changed at runtime.
-	 * @param id the id used to lookup the current value for this color
-	 */
-	public GColor(String id) {
-		super(MISSING_COLOR_RGB);
-		this.id = id;
-		delegate = Gui.getColor(id);
-		inUseColors.add(this);
-	}
+    /**
+     * Construct a GColor with an id that will be used to look up the current color associated with
+     * that id, which can be changed at runtime.
+     *
+     * @param id the id used to lookup the current value for this color
+     */
+    public GColor(String id) {
+        super(MISSING_COLOR_RGB);
+        this.id = id;
+        delegate = Gui.getColor(id);
+        inUseColors.add(this);
+    }
 
-	/**
-	 * Copy constructor. Used primarily to convert a GColorUiResource to a GColor without having to 
-	 * lookup the color which can cause errors during theme transitions.
-	 * @param gColor the gColor to copy
-	 */
-	protected GColor(GColor gColor) {
-		super(MISSING_COLOR_RGB);
-		this.id = gColor.id;
-		delegate = gColor.delegate;
-		inUseColors.add(this);
-	}
+    /**
+     * Copy constructor. Used primarily to convert a GColorUiResource to a GColor without having to
+     * lookup the color which can cause errors during theme transitions.
+     *
+     * @param gColor the gColor to copy
+     */
+    protected GColor(GColor gColor) {
+        super(MISSING_COLOR_RGB);
+        this.id = gColor.id;
+        delegate = gColor.delegate;
+        inUseColors.add(this);
+    }
 
-	private GColor(String id, int alpha) {
-		this(id);
-		this.alpha = (short) alpha;
-		delegate = new Color(delegate.getRed(), delegate.getGreen(), delegate.getBlue(), alpha);
-	}
+    private GColor(String id, int alpha) {
+        this(id);
+        this.alpha = (short) alpha;
+        delegate = new Color(delegate.getRed(), delegate.getGreen(), delegate.getBlue(), alpha);
+    }
 
-	/**
-	 * Creates a transparent version of this GColor. If the underlying value of this GColor changes,
-	 * the transparent version will also change.
-	 * @param newAlpha the transparency level for the new color
-	 * @return a transparent version of this GColor
-	 */
-	public GColor withAlpha(int newAlpha) {
-		return new GColor(id, newAlpha);
-	}
+    /**
+     * Static method for notifying all the existing GColors that colors have changed and they
+     * should reload their cached indirect color.
+     *
+     * @param currentValues the map of current theme values
+     */
+    public static void refreshAll(GThemeValueMap currentValues) {
+        for (GColor gcolor : inUseColors.getValues()) {
+            gcolor.refresh(currentValues);
+        }
+    }
 
-	/**
-	 * Returns the id for this GColor.
-	 * @return the id for this GColor.
-	 */
-	public String getId() {
-		return id;
-	}
+    /**
+     * Creates a transparent version of this GColor. If the underlying value of this GColor changes,
+     * the transparent version will also change.
+     *
+     * @param newAlpha the transparency level for the new color
+     * @return a transparent version of this GColor
+     */
+    public GColor withAlpha(int newAlpha) {
+        return new GColor(id, newAlpha);
+    }
 
-	@Override
-	public int getRed() {
-		return delegate.getRed();
-	}
+    /**
+     * Returns the id for this GColor.
+     *
+     * @return the id for this GColor.
+     */
+    public String getId() {
+        return id;
+    }
 
-	@Override
-	public int getGreen() {
-		return delegate.getGreen();
-	}
+    @Override
+    public int getRed() {
+        return delegate.getRed();
+    }
 
-	@Override
-	public int getBlue() {
-		return delegate.getBlue();
-	}
+    @Override
+    public int getGreen() {
+        return delegate.getGreen();
+    }
 
-	@Override
-	public int getAlpha() {
-		return delegate.getAlpha();
-	}
+    @Override
+    public int getBlue() {
+        return delegate.getBlue();
+    }
 
-	@Override
-	public int getRGB() {
-		return delegate.getRGB();
-	}
+    @Override
+    public int getAlpha() {
+        return delegate.getAlpha();
+    }
 
-	@Override
-	public Color brighter() {
-		return delegate.brighter();
-	}
+    @Override
+    public int getRGB() {
+        return delegate.getRGB();
+    }
 
-	@Override
-	public Color darker() {
-		return delegate.darker();
-	}
+    @Override
+    public Color brighter() {
+        return delegate.brighter();
+    }
 
-	/**
-	 * Returns true if this GColor could not find a value for its color id in the current theme
-	 * and is using the default color as its delegate
-	 * @return true if this GColor could not find a value for its color id in the current theme
-	 */
-	public boolean isUnresolved() {
-		return delegate == ColorValue.LAST_RESORT_DEFAULT || delegate == ThemeManager.DEFAULT_COLOR;
-	}
+    @Override
+    public Color darker() {
+        return delegate.darker();
+    }
 
-	@Override
-	public String toString() {
-		return toHexString();
-	}
+    /**
+     * Returns true if this GColor could not find a value for its color id in the current theme
+     * and is using the default color as its delegate
+     *
+     * @return true if this GColor could not find a value for its color id in the current theme
+     */
+    public boolean isUnresolved() {
+        return delegate == ColorValue.LAST_RESORT_DEFAULT || delegate == ThemeManager.DEFAULT_COLOR;
+    }
 
-	/**
-	 * Returns this color as a hex string that starts with '#'
-	 * @return the hex string
-	 */
-	public String toHexString() {
-		return WebColors.toString(this, false);
-	}
+    @Override
+    public String toString() {
+        return toHexString();
+    }
 
-	/**
-	 * Generates a more verbose toString()
-	 * @return a more verbose toString()
-	 */
-	public String toDebugString() {
-		Color c = delegate;
-		String rgb =
-			"(" + c.getRed() + "," + c.getGreen() + "," + c.getBlue() + "," + c.getAlpha() + ")";
-		String hexrgb = "(" + WebColors.toString(c, true) + ")";
-		return getClass().getSimpleName() + " [id = " + id + ", color = " +
-			c.getClass().getSimpleName() + rgb + hexrgb + "]";
-	}
+    /**
+     * Returns this color as a hex string that starts with '#'
+     *
+     * @return the hex string
+     */
+    public String toHexString() {
+        return WebColors.toString(this, false);
+    }
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, alpha);
-	}
+    /**
+     * Generates a more verbose toString()
+     *
+     * @return a more verbose toString()
+     */
+    public String toDebugString() {
+        Color c = delegate;
+        String rgb =
+                "(" + c.getRed() + "," + c.getGreen() + "," + c.getBlue() + "," + c.getAlpha() + ")";
+        String hexrgb = "(" + WebColors.toString(c, true) + ")";
+        return getClass().getSimpleName() + " [id = " + id + ", color = " +
+                c.getClass().getSimpleName() + rgb + hexrgb + "]";
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!super.equals(obj)) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		GColor other = (GColor) obj;
-		return Objects.equals(id, other.id) && Objects.equals(alpha, other.alpha);
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, alpha);
+    }
 
-	@Override
-	public float[] getRGBComponents(float[] compArray) {
-		return delegate.getRGBComponents(compArray);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        GColor other = (GColor) obj;
+        return Objects.equals(id, other.id) && Objects.equals(alpha, other.alpha);
+    }
 
-	@Override
-	public float[] getRGBColorComponents(float[] compArray) {
-		return delegate.getRGBColorComponents(compArray);
-	}
+    @Override
+    public float[] getRGBComponents(float[] compArray) {
+        return delegate.getRGBComponents(compArray);
+    }
 
-	@Override
-	public float[] getComponents(float[] compArray) {
-		return delegate.getColorComponents(compArray);
-	}
+    @Override
+    public float[] getRGBColorComponents(float[] compArray) {
+        return delegate.getRGBColorComponents(compArray);
+    }
 
-	@Override
-	public float[] getColorComponents(float[] compArray) {
-		return delegate.getColorComponents(compArray);
-	}
+    @Override
+    public float[] getComponents(float[] compArray) {
+        return delegate.getColorComponents(compArray);
+    }
 
-	@Override
-	public float[] getComponents(ColorSpace cspace, float[] compArray) {
-		return delegate.getComponents(cspace, compArray);
-	}
+    @Override
+    public float[] getColorComponents(float[] compArray) {
+        return delegate.getColorComponents(compArray);
+    }
 
-	@Override
-	public float[] getColorComponents(ColorSpace cspace, float[] compArray) {
-		return delegate.getColorComponents(cspace, compArray);
-	}
+    @Override
+    public float[] getComponents(ColorSpace cspace, float[] compArray) {
+        return delegate.getComponents(cspace, compArray);
+    }
 
-	@Override
-	public ColorSpace getColorSpace() {
-		return delegate.getColorSpace();
-	}
+    @Override
+    public float[] getColorComponents(ColorSpace cspace, float[] compArray) {
+        return delegate.getColorComponents(cspace, compArray);
+    }
 
-	@Override
-	public synchronized PaintContext createContext(ColorModel cm, Rectangle r, Rectangle2D r2d,
-			AffineTransform xform, RenderingHints hints) {
-		return delegate.createContext(cm, r, r2d, xform, hints);
-	}
+    @Override
+    public ColorSpace getColorSpace() {
+        return delegate.getColorSpace();
+    }
 
-	@Override
-	public int getTransparency() {
-		return delegate.getTransparency();
-	}
+    @Override
+    public synchronized PaintContext createContext(ColorModel cm, Rectangle r, Rectangle2D r2d,
+                                                   AffineTransform xform, RenderingHints hints) {
+        return delegate.createContext(cm, r, r2d, xform, hints);
+    }
 
-	/**
-	 * Reloads the delegate.
-	 * @param currentValues the map of current theme values
-	 */
-	public void refresh(GThemeValueMap currentValues) {
-		ColorValue value = currentValues.getColor(id);
-		Color color = value == null ? null : value.get(currentValues);
-		if (color != null) {
-			if (alpha != null) {
-				delegate = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
-			}
-			else {
-				delegate = color;
-			}
-		}
-	}
+    @Override
+    public int getTransparency() {
+        return delegate.getTransparency();
+    }
 
-	/**
-	 * Static method for notifying all the existing GColors that colors have changed and they
-	 * should reload their cached indirect color. 
-	 * @param currentValues the map of current theme values
-	 */
-	public static void refreshAll(GThemeValueMap currentValues) {
-		for (GColor gcolor : inUseColors.getValues()) {
-			gcolor.refresh(currentValues);
-		}
-	}
+    /**
+     * Reloads the delegate.
+     *
+     * @param currentValues the map of current theme values
+     */
+    public void refresh(GThemeValueMap currentValues) {
+        ColorValue value = currentValues.getColor(id);
+        Color color = value == null ? null : value.get(currentValues);
+        if (color != null) {
+            if (alpha != null) {
+                delegate = new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
+            } else {
+                delegate = color;
+            }
+        }
+    }
 
 }

@@ -68,7 +68,7 @@ public class BigIntegerNumberInputDialogTest extends AbstractNumberInputDialogTe
 
 		setText("7");
 
-		assertTrue(!okButton.isEnabled());
+		assertFalse(okButton.isEnabled());
 
 		assertEquals("Value must be between 2 and 5", dialog.getStatusText());
 	}
@@ -83,7 +83,7 @@ public class BigIntegerNumberInputDialogTest extends AbstractNumberInputDialogTe
 
 		setText("1");
 
-		assertTrue(!okButton.isEnabled());
+		assertFalse(okButton.isEnabled());
 
 		assertEquals("Value must be between 2 and 5", dialog.getStatusText());
 
@@ -100,8 +100,8 @@ public class BigIntegerNumberInputDialogTest extends AbstractNumberInputDialogTe
 		setText("0x4");
 		oK();
 
-		assertTrue("The dialog is open after pressing 'OK' with a valid hex value",
-			!dialog.isVisible());
+		assertFalse("The dialog is open after pressing 'OK' with a valid hex value",
+			dialog.isVisible());
 
 		assertEquals("The returned value is not the entered value", 4, getValue());
 	}
@@ -135,7 +135,7 @@ public class BigIntegerNumberInputDialogTest extends AbstractNumberInputDialogTe
 
 		setText("0x7");
 
-		assertTrue(!okButton.isEnabled());
+		assertFalse(okButton.isEnabled());
 
 		assertEquals("Value must be between 2 and 5", dialog.getStatusText());
 	}

@@ -97,7 +97,7 @@ public class DemoPcodeUseropLibrary extends AnnotatedPcodeUseropLibrary<byte[]> 
 	/**
 	 * Methods in this class are implemented using p-code compiled from Structured Sleigh
 	 */
-	public class DemoStructuredPart extends StructuredSleigh {
+	public static class DemoStructuredPart extends StructuredSleigh {
 		final Var RAX = lang("RAX", type("long"));
 		final Var RCX = lang("RCX", type("byte *"));
 		final UseropDecl emu_swi = userop(type("void"), "emu_swi", List.of());

@@ -621,8 +621,8 @@ public class JavaAnalyzer extends AbstractJavaAnalyzer implements AnalysisWorker
 			Address methodAddress = toCpAddr(program, methodInfo.getOffset());
 
 			StringBuffer buffer = new StringBuffer();
-			buffer.append("MethodName = " + methodName.getString() + "\n");
-			buffer.append("MethodDescriptor = " + methodDescriptor.getString() + "\n");
+			buffer.append("MethodName = ").append(methodName.getString()).append("\n");
+			buffer.append("MethodDescriptor = ").append(methodDescriptor.getString()).append("\n");
 
 			CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
 
@@ -640,7 +640,7 @@ public class JavaAnalyzer extends AbstractJavaAnalyzer implements AnalysisWorker
 						ConstantPoolUtf8Info name =
 							(ConstantPoolUtf8Info) constantPool[localVariable.getNameIndex()];
 						String comment = "local: name = " + name + " type = " + descriptor;
-						buffer.append("\t" + comment + "\n");
+						buffer.append("\t").append(comment).append("\n");
 						Address localVariableAddress =
 							toCpAddr(program, localVariableTableOffset + offsetInTable);
 						setEolComment(program, localVariableAddress, comment);
@@ -756,7 +756,7 @@ public class JavaAnalyzer extends AbstractJavaAnalyzer implements AnalysisWorker
 
 		for (MethodsInfoAccessFlags f : MethodsInfoAccessFlags.values()) {
 			if ((flags & f.getValue()) != 0) {
-				sb.append("  " + f.name() + "\n");
+				sb.append("  ").append(f.name()).append("\n");
 			}
 		}
 

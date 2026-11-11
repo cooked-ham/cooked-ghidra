@@ -246,7 +246,7 @@ public class FindRunsOfPointersScript extends GhidraScript {
 	}
 
 //  info about the pushed parameter that gets applied to the calling functions params and locals and referenced data
-	class PossiblePtrs {
+	static class PossiblePtrs {
 
 		private Address addrOfPtr;
 		private Address possiblePtr;
@@ -272,7 +272,7 @@ public class FindRunsOfPointersScript extends GhidraScript {
 		}
 	}
 
-	class Table {
+	static class Table {
 		private Address topAddr;
 		private long distance;
 		private int numPointers;

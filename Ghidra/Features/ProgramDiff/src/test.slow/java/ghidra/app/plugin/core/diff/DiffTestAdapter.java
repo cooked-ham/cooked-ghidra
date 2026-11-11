@@ -700,7 +700,7 @@ public class DiffTestAdapter extends AbstractGhidraHeadedIntegrationTest {
 		Window win = waitForWindow("Determine Program Differences");
 		assertNotNull(win);
 		pressButton(win, "OK");
-		assertTrue(!win.isShowing());
+		assertFalse(win.isShowing());
 
 		// wait for "Checking Program Differences"
 		waitForTasks();

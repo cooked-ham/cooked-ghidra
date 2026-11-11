@@ -59,7 +59,7 @@ public class DBTraceProgramViewProgramContext extends AbstractProgramContext {
 				}
 			}
 		}
-		return result.toArray(new Register[result.size()]);
+		return result.toArray(new Register[0]);
 	}
 
 	@Override

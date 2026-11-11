@@ -196,7 +196,7 @@ public interface DBTraceDataAdapter extends DBTraceCodeUnitAdapter, DataAdapterM
 				return EMPTY_STRING_ARRAY;
 			}
 			Collection<String> names = space.getSettingNames(getLifespan(), getAddress());
-			return names.toArray(new String[names.size()]);
+			return names.toArray(new String[0]);
 		}
 	}
 

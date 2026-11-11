@@ -356,7 +356,7 @@ public class VarnodeContext implements ProcessorContext {
 				list.add(varnode);
 			}
 		}
-		killedVarnodes = list.toArray(new Varnode[list.size()]);
+		killedVarnodes = list.toArray(new Varnode[0]);
 
 		return killedVarnodes;
 	}

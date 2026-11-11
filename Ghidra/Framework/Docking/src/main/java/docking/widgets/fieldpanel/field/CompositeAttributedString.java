@@ -31,7 +31,7 @@ public class CompositeAttributedString extends AttributedString {
 	private int heightBelow = -1;
 
 	public CompositeAttributedString(List<AttributedString> stringList) {
-		this(stringList.toArray(new AttributedString[stringList.size()]));
+		this(stringList.toArray(new AttributedString[0]));
 	}
 
 	public CompositeAttributedString(AttributedString... attributedStrings) {

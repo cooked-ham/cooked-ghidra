@@ -15,8 +15,6 @@
  */
 package ghidra.app.util.navigation;
 
-import java.util.List;
-
 import ghidra.app.services.QueryData;
 import ghidra.program.model.listing.Program;
 import ghidra.program.util.ProgramLocation;
@@ -24,32 +22,34 @@ import ghidra.util.exception.CancelledException;
 import ghidra.util.task.Task;
 import ghidra.util.task.TaskMonitor;
 
+import java.util.List;
+
 /**
  * Task for searching for symbols. All the logic for the search is done by the
  * {@link SymbolSearcher}.
  */
 public class GoToSymbolSearchTask extends Task {
 
-	private QueryData queryData;
-	private List<Program> searchPrograms;
-	private List<ProgramLocation> results;
-	private int limit;
+    private QueryData queryData;
+    private List<Program> searchPrograms;
+    private List<ProgramLocation> results;
+    private int limit;
 
-	public GoToSymbolSearchTask(QueryData queryData, List<Program> searchPrograms, int limit) {
-		super("Searching Symbols...");
-		this.queryData = queryData;
-		this.searchPrograms = searchPrograms;
-		this.limit = limit;
-	}
+    public GoToSymbolSearchTask(QueryData queryData, List<Program> searchPrograms, int limit) {
+        super("Searching Symbols...");
+        this.queryData = queryData;
+        this.searchPrograms = searchPrograms;
+        this.limit = limit;
+    }
 
-	@Override
-	public void run(TaskMonitor monitor) throws CancelledException {
-		SymbolSearcher searcher = new SymbolSearcher(queryData, limit, monitor);
-		results = searcher.findMatchingSymbolLocations(searchPrograms);
-	}
+    @Override
+    public void run(TaskMonitor monitor) throws CancelledException {
+        SymbolSearcher searcher = new SymbolSearcher(queryData, limit, monitor);
+        results = searcher.findMatchingSymbolLocations(searchPrograms);
+    }
 
-	public List<ProgramLocation> getResults() {
-		return results;
-	}
+    public List<ProgramLocation> getResults() {
+        return results;
+    }
 
 }

@@ -502,7 +502,7 @@ public class SharedKeyBindingDockingActionTest extends AbstractDockingTest {
 // Inner Classes
 //==================================================================================================
 
-	private class SharedNameAction extends DockingAction {
+	private static class SharedNameAction extends DockingAction {
 
 		public SharedNameAction(String owner, KeyStroke ks) {
 			super(SHARED_NAME, owner, KeyBindingType.SHARED);
@@ -518,7 +518,7 @@ public class SharedKeyBindingDockingActionTest extends AbstractDockingTest {
 		}
 	}
 
-	private class TestNonSharedAction extends DockingAction {
+	private static class TestNonSharedAction extends DockingAction {
 
 		public TestNonSharedAction(String owner, KeyStroke ks) {
 			super(NON_SHARED_NAME, owner, KeyBindingType.INDIVIDUAL);

@@ -792,7 +792,7 @@ public class PlateFieldFactory extends FieldFactory {
 		}
 	}
 
-	class PlateFieldTextField extends VerticalLayoutTextField {
+	static class PlateFieldTextField extends VerticalLayoutTextField {
 
 		private boolean isCommentClipped;
 		private String commentText;
@@ -912,7 +912,7 @@ public class PlateFieldFactory extends FieldFactory {
 		}
 	}
 
-	private class FieldElementResult {
+	private static class FieldElementResult {
 		private FieldElement element;
 		private boolean isClipped;
 

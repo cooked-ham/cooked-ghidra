@@ -15,329 +15,327 @@
  */
 package ghidra.framework.options;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.io.*;
-import java.util.Date;
-
-import javax.swing.KeyStroke;
-
-import org.jdom2.*;
-import org.jdom2.input.SAXBuilder;
-import org.jdom2.output.XMLOutputter;
-
 import ghidra.util.Msg;
 import ghidra.util.classfinder.ClassSearcher;
 import ghidra.util.xml.GenericXMLOutputter;
 import ghidra.util.xml.XmlUtilities;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.XMLOutputter;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.Date;
 
 public enum OptionType {
-	INT_TYPE(Integer.class, new IntStringAdapter()),
-	LONG_TYPE(Long.class, new LongStringAdapter()),
-	STRING_TYPE(String.class, new StringStringAdapter()),
-	DOUBLE_TYPE(Double.class, new DoubleStringAdapter()),
-	BOOLEAN_TYPE(Boolean.class, new BooleanStringAdapter()),
-	DATE_TYPE(Date.class, new DateStringAdapter()),
-	NO_TYPE(null, new NoTypeStringAdapter()),
-	FLOAT_TYPE(Float.class, new FloatStringAdapter()),
-	ENUM_TYPE(Enum.class, new EnumStringAdapter()),
-	CUSTOM_TYPE(CustomOption.class, new CustomStringAdapter()),
-	BYTE_ARRAY_TYPE(byte[].class, new ByteArrayStringAdapter()),
-	FILE_TYPE(File.class, new FileStringAdapter()),
-	COLOR_TYPE(Color.class, new ColorStringAdapter()),
-	FONT_TYPE(Font.class, new FontStringAdapter()),
-	KEYSTROKE_TYPE(KeyStroke.class, new KeyStrokeStringAdapter()),
-	ACTION_TRIGGER(ActionTrigger.class, new ActionTriggerStringAdapter());
+    INT_TYPE(Integer.class, new IntStringAdapter()),
+    LONG_TYPE(Long.class, new LongStringAdapter()),
+    STRING_TYPE(String.class, new StringStringAdapter()),
+    DOUBLE_TYPE(Double.class, new DoubleStringAdapter()),
+    BOOLEAN_TYPE(Boolean.class, new BooleanStringAdapter()),
+    DATE_TYPE(Date.class, new DateStringAdapter()),
+    NO_TYPE(null, new NoTypeStringAdapter()),
+    FLOAT_TYPE(Float.class, new FloatStringAdapter()),
+    ENUM_TYPE(Enum.class, new EnumStringAdapter()),
+    CUSTOM_TYPE(CustomOption.class, new CustomStringAdapter()),
+    BYTE_ARRAY_TYPE(byte[].class, new ByteArrayStringAdapter()),
+    FILE_TYPE(File.class, new FileStringAdapter()),
+    COLOR_TYPE(Color.class, new ColorStringAdapter()),
+    FONT_TYPE(Font.class, new FontStringAdapter()),
+    KEYSTROKE_TYPE(KeyStroke.class, new KeyStrokeStringAdapter()),
+    ACTION_TRIGGER(ActionTrigger.class, new ActionTriggerStringAdapter());
 
-	private Class<?> clazz;
-	private StringAdapter stringAdapter;
+    private Class<?> clazz;
+    private StringAdapter stringAdapter;
 
-	public Object convertStringToObject(String string) {
-		if (string == null) {
-			return null;
-		}
-		return stringAdapter.stringToObject(string);
-	}
+    OptionType(Class<?> clazz, StringAdapter adapter) {
+        this.clazz = clazz;
+        this.stringAdapter = adapter;
+    }
 
-	public String convertObjectToString(Object object) {
-		if (object == null) {
-			return null;
-		}
-		return stringAdapter.objectToString(object);
-	}
+    public static OptionType getOptionType(Object obj) {
+        if (obj == null) {
+            return NO_TYPE;
+        }
+        Class<? extends Object> objClass = obj.getClass();
+        for (OptionType type : values()) {
+            if (type == NO_TYPE) {
+                continue;
+            }
+            if (type.clazz.isAssignableFrom(objClass)) {
+                return type;
+            }
+        }
+        return OptionType.NO_TYPE;
+    }
 
-	/**
-	 * Return true if the give value is of the correct type for this option type. Note that a
-	 * value of null is compatible with any class type
-	 * since it is an acceptable value for any class type.
-	 * @param object the object to see if it is compatible with this option type
-	 * @return true if the give value is of the correct type for this option type.
-	 */
-	public boolean isCompatible(Object object) {
-		return object == null || clazz.isAssignableFrom(object.getClass());
-	}
+    private static String saveToXmlString(SaveState saveState) {
+        Element element = saveState.saveToXml();
+        StringWriter stringWriter = new StringWriter();
+        XMLOutputter xmlout = GenericXMLOutputter.getInstance();
+        try {
+            xmlout.output(element, stringWriter);
+        } catch (IOException e) {
+            // can't happen as long as we are using a  StringWriter
+        }
+        return stringWriter.toString();
+    }
 
-	public Class<?> getValueClass() {
-		return clazz;
-	}
+    private static SaveState getSaveStateFromXmlString(String xmlString) {
+        SAXBuilder saxBuilder = XmlUtilities.createSecureSAXBuilder(false, false);
+        try {
+            Document doc = saxBuilder.build(new StringReader(xmlString));
+            Element rootElement = doc.getRootElement();
+            return new SaveState(rootElement);
+        } catch (JDOMException e) {
+            Msg.showError(SaveState.class, null, "XML Error", "Error in xml in saved property", e);
+        } catch (IOException e) {
+            // can't happen as long as we are using a  StringReader
+        }
+        return new SaveState();
+    }
 
-	OptionType(Class<?> clazz, StringAdapter adapter) {
-		this.clazz = clazz;
-		this.stringAdapter = adapter;
-	}
+    public Object convertStringToObject(String string) {
+        if (string == null) {
+            return null;
+        }
+        return stringAdapter.stringToObject(string);
+    }
 
-	public static OptionType getOptionType(Object obj) {
-		if (obj == null) {
-			return NO_TYPE;
-		}
-		Class<? extends Object> objClass = obj.getClass();
-		for (OptionType type : values()) {
-			if (type == NO_TYPE) {
-				continue;
-			}
-			if (type.clazz.isAssignableFrom(objClass)) {
-				return type;
-			}
-		}
-		return OptionType.NO_TYPE;
-	}
+    public String convertObjectToString(Object object) {
+        if (object == null) {
+            return null;
+        }
+        return stringAdapter.objectToString(object);
+    }
 
-	static abstract class StringAdapter {
-		abstract Object stringToObject(String string);
+    /**
+     * Return true if the give value is of the correct type for this option type. Note that a
+     * value of null is compatible with any class type
+     * since it is an acceptable value for any class type.
+     *
+     * @param object the object to see if it is compatible with this option type
+     * @return true if the give value is of the correct type for this option type.
+     */
+    public boolean isCompatible(Object object) {
+        return object == null || clazz.isAssignableFrom(object.getClass());
+    }
 
-		String objectToString(Object object) {
-			return object.toString();
-		}
-	}
+    public Class<?> getValueClass() {
+        return clazz;
+    }
 
-	static class IntStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return Integer.valueOf(string);
-		}
-	}
+    static enum DUMMY {
+        // nothing; just a dummy
+    }
 
-	static class LongStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return Long.valueOf(string);
-		}
-	}
+    static abstract class StringAdapter {
+        abstract Object stringToObject(String string);
 
-	static class StringStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return string;
-		}
-	}
+        String objectToString(Object object) {
+            return object.toString();
+        }
+    }
 
-	static class DoubleStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return Double.valueOf(string);
-		}
-	}
+    static class IntStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return Integer.valueOf(string);
+        }
+    }
 
-	static class BooleanStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return Boolean.valueOf(string);
-		}
-	}
+    static class LongStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return Long.valueOf(string);
+        }
+    }
 
-	static class DateStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return new Date(Long.parseLong(string));
-		}
+    static class StringStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return string;
+        }
+    }
 
-		@Override
-		String objectToString(Object object) {
-			Date date = (Date) object;
-			return Long.toString(date.getTime());
-		}
-	}
+    static class DoubleStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return Double.valueOf(string);
+        }
+    }
 
-	static class NoTypeStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return null;
-		}
-	}
+    static class BooleanStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return Boolean.valueOf(string);
+        }
+    }
 
-	static class FloatStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return Float.valueOf(string);
-		}
-	}
+    static class DateStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return new Date(Long.parseLong(string));
+        }
 
-	static class EnumStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			SaveState saveState = getSaveStateFromXmlString(string);
+        @Override
+        String objectToString(Object object) {
+            Date date = (Date) object;
+            return Long.toString(date.getTime());
+        }
+    }
 
-			// compiler problem on test machine requires this dummy so it knows the type
-			DUMMY nullDummy = null;
-			return saveState.getEnum("ENUM", nullDummy);
-		}
+    static class NoTypeStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return null;
+        }
+    }
 
-		@Override
-		String objectToString(Object object) {
-			Enum<?> enuum = (Enum<?>) object;
-			SaveState saveState = new SaveState();
-			saveState.putEnum("ENUM", enuum);
-			return saveToXmlString(saveState);
+    static class FloatStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return Float.valueOf(string);
+        }
+    }
 
-		}
-	}
+    static class EnumStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            SaveState saveState = getSaveStateFromXmlString(string);
 
-	private static String saveToXmlString(SaveState saveState) {
-		Element element = saveState.saveToXml();
-		StringWriter stringWriter = new StringWriter();
-		XMLOutputter xmlout = GenericXMLOutputter.getInstance();
-		try {
-			xmlout.output(element, stringWriter);
-		}
-		catch (IOException e) {
-			// can't happen as long as we are using a  StringWriter
-		}
-		return stringWriter.toString();
-	}
+            // compiler problem on test machine requires this dummy so it knows the type
+            DUMMY nullDummy = null;
+            return saveState.getEnum("ENUM", nullDummy);
+        }
 
-	private static SaveState getSaveStateFromXmlString(String xmlString) {
-		SAXBuilder saxBuilder = XmlUtilities.createSecureSAXBuilder(false, false);
-		try {
-			Document doc = saxBuilder.build(new StringReader(xmlString));
-			Element rootElement = doc.getRootElement();
-			return new SaveState(rootElement);
-		}
-		catch (JDOMException e) {
-			Msg.showError(SaveState.class, null, "XML Error", "Error in xml in saved property", e);
-		}
-		catch (IOException e) {
-			// can't happen as long as we are using a  StringReader
-		}
-		return new SaveState();
-	}
+        @Override
+        String objectToString(Object object) {
+            Enum<?> enuum = (Enum<?>) object;
+            SaveState saveState = new SaveState();
+            saveState.putEnum("ENUM", enuum);
+            return saveToXmlString(saveState);
 
-	static enum DUMMY {
-		// nothing; just a dummy
-	}
+        }
+    }
 
-	static class CustomStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			SaveState saveState = getSaveStateFromXmlString(string);
-			String customOptionClassName =
-				saveState.getString(CustomOption.CUSTOM_OPTION_CLASS_NAME_KEY, null);
-			try {
-				Class<? extends CustomOption> c = ClassSearcher.forNameSafe(customOptionClassName,
-					CustomOption.class, OptionType.class.getClassLoader());
-				CustomOption option = c.getConstructor().newInstance();
-				option.readState(saveState);
-				return option;
-			}
-			catch (ClassNotFoundException e) {
-				Msg.warn(this,
-					"Ignoring unsupported customOption instance for: " + customOptionClassName);
-			}
-			catch (Exception e) {
-				Msg.error(this,
-					"Can't create customOption instance for: " + customOptionClassName + e);
-			}
-			return null;
-		}
+    static class CustomStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            SaveState saveState = getSaveStateFromXmlString(string);
+            String customOptionClassName =
+                    saveState.getString(CustomOption.CUSTOM_OPTION_CLASS_NAME_KEY, null);
+            try {
+                Class<? extends CustomOption> c = ClassSearcher.forNameSafe(customOptionClassName,
+                        CustomOption.class, OptionType.class.getClassLoader());
+                CustomOption option = c.getConstructor().newInstance();
+                option.readState(saveState);
+                return option;
+            } catch (ClassNotFoundException e) {
+                Msg.warn(this,
+                        "Ignoring unsupported customOption instance for: " + customOptionClassName);
+            } catch (Exception e) {
+                Msg.error(this,
+                        "Can't create customOption instance for: " + customOptionClassName + e);
+            }
+            return null;
+        }
 
-		@Override
-		String objectToString(Object object) {
-			CustomOption customOption = (CustomOption) object;
-			SaveState saveState = new SaveState();
-			saveState.putString(CustomOption.CUSTOM_OPTION_CLASS_NAME_KEY,
-				object.getClass().getName());
-			customOption.writeState(saveState);
-			return saveToXmlString(saveState);
-		}
-	}
+        @Override
+        String objectToString(Object object) {
+            CustomOption customOption = (CustomOption) object;
+            SaveState saveState = new SaveState();
+            saveState.putString(CustomOption.CUSTOM_OPTION_CLASS_NAME_KEY,
+                    object.getClass().getName());
+            customOption.writeState(saveState);
+            return saveToXmlString(saveState);
+        }
+    }
 
-	public static class ByteArrayStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			SaveState saveState = getSaveStateFromXmlString(string);
-			return saveState.getBytes("BYTES", null);
-		}
+    public static class ByteArrayStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            SaveState saveState = getSaveStateFromXmlString(string);
+            return saveState.getBytes("BYTES", null);
+        }
 
-		@Override
-		String objectToString(Object object) {
-			byte[] bytes = (byte[]) object;
-			SaveState saveState = new SaveState();
-			saveState.putBytes("BYTES", bytes);
-			return saveToXmlString(saveState);
-		}
+        @Override
+        String objectToString(Object object) {
+            byte[] bytes = (byte[]) object;
+            SaveState saveState = new SaveState();
+            saveState.putBytes("BYTES", bytes);
+            return saveToXmlString(saveState);
+        }
 
-	}
+    }
 
-	static class FileStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return new File(string);
-		}
+    static class FileStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return new File(string);
+        }
 
-		@Override
-		String objectToString(Object object) {
-			return ((File) object).getAbsolutePath();
-		}
-	}
+        @Override
+        String objectToString(Object object) {
+            return ((File) object).getAbsolutePath();
+        }
+    }
 
-	static class ColorStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return new Color(Integer.decode(string));
-		}
+    static class ColorStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return new Color(Integer.decode(string));
+        }
 
-		@Override
-		String objectToString(Object object) {
-			return Integer.toString(((Color) object).getRGB());
-		}
-	}
+        @Override
+        String objectToString(Object object) {
+            return Integer.toString(((Color) object).getRGB());
+        }
+    }
 
-	static class FontStringAdapter extends StringAdapter {
-		private static final String[] STYLES =
-			new String[] { "PLAIN", "BOLD", "ITALIC", "BOLDITALIC" };
+    static class FontStringAdapter extends StringAdapter {
+        private static final String[] STYLES =
+                new String[]{"PLAIN", "BOLD", "ITALIC", "BOLDITALIC"};
 
-		@Override
-		Object stringToObject(String string) {
-			return Font.decode(string);
-		}
+        @Override
+        Object stringToObject(String string) {
+            return Font.decode(string);
+        }
 
-		@Override
-		String objectToString(Object object) {
-			Font font = (Font) object;
-			String fontName = font.getFamily();
-			int style = font.getStyle();
-			int size = font.getSize();
-			StringBuffer buf = new StringBuffer();
-			buf.append(fontName);
-			buf.append("-");
-			buf.append(STYLES[style]);
-			buf.append("-");
-			buf.append(size);
-			return buf.toString();
-		}
-	}
+        @Override
+        String objectToString(Object object) {
+            Font font = (Font) object;
+            String fontName = font.getFamily();
+            int style = font.getStyle();
+            int size = font.getSize();
+            StringBuffer buf = new StringBuffer();
+            buf.append(fontName);
+            buf.append("-");
+            buf.append(STYLES[style]);
+            buf.append("-");
+            buf.append(size);
+            return buf.toString();
+        }
+    }
 
-	static class KeyStrokeStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return KeyStroke.getKeyStroke(string);
-		}
+    static class KeyStrokeStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return KeyStroke.getKeyStroke(string);
+        }
 
-	}
+    }
 
-	static class ActionTriggerStringAdapter extends StringAdapter {
-		@Override
-		Object stringToObject(String string) {
-			return ActionTrigger.getActionTrigger(string);
-		}
-	}
+    static class ActionTriggerStringAdapter extends StringAdapter {
+        @Override
+        Object stringToObject(String string) {
+            return ActionTrigger.getActionTrigger(string);
+        }
+    }
 }

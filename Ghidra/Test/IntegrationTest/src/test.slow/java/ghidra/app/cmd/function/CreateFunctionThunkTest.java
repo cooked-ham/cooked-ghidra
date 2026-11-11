@@ -95,10 +95,10 @@ public class CreateFunctionThunkTest extends AbstractGhidraHeadedIntegrationTest
 		program = builder.getProgram();
 
 		Function noThunk = program.getFunctionManager().getFunctionAt(builder.addr(0x1000));
-		assertEquals(false, noThunk.isThunk());
+		assertFalse(noThunk.isThunk());
 
 		Function isThunk = program.getFunctionManager().getFunctionAt(builder.addr(0x1008));
-		assertEquals(true, isThunk.isThunk());
+		assertTrue(isThunk.isThunk());
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class CreateFunctionThunkTest extends AbstractGhidraHeadedIntegrationTest
 		analyze();
 
 		Function isThunk = program.getFunctionManager().getFunctionAt(builder.addr(0x466050));
-		assertEquals(true, isThunk.isThunk());
+		assertTrue(isThunk.isThunk());
 		assertEquals("chdir", isThunk.getName());
 	}
 
@@ -163,7 +163,7 @@ public class CreateFunctionThunkTest extends AbstractGhidraHeadedIntegrationTest
 		assertNotNull(instruction);
 
 		Function isThunk = program.getFunctionManager().getFunctionAt(builder.addr(0x00015da0));
-		assertEquals(true, isThunk.isThunk());
+		assertTrue(isThunk.isThunk());
 		assertEquals("chdir", isThunk.getName());
 	}
 
@@ -200,7 +200,7 @@ public class CreateFunctionThunkTest extends AbstractGhidraHeadedIntegrationTest
 		assertNotNull(instruction);
 
 		Function isThunk = program.getFunctionManager().getFunctionAt(builder.addr(0x10000));
-		assertEquals(true, isThunk.isThunk());
+		assertTrue(isThunk.isThunk());
 		assertEquals("thunker", isThunk.getName());
 	}
 

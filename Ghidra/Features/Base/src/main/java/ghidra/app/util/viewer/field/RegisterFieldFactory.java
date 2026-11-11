@@ -219,7 +219,7 @@ public class RegisterFieldFactory extends FieldFactory {
 			hlProvider);
 	}
 
-	private class RegComparator implements Comparator<Register> {
+	private static class RegComparator implements Comparator<Register> {
 		@Override
 		public int compare(Register r1, Register r2) {
 			return r1.getName().compareToIgnoreCase(r2.getName());

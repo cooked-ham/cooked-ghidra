@@ -338,7 +338,7 @@ public class GhidraRun implements GhidraLaunchable {
 		}
 	}
 
-	private class GhidraProjectManager extends DefaultProjectManager {
+	private static class GhidraProjectManager extends DefaultProjectManager {
 		// this exists just to allow access to the constructor
 	}
 }

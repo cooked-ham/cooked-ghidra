@@ -573,7 +573,7 @@ public class FrontEndPluginScreenShots extends GhidraScreenShotGenerator {
 		final JRadioButton rb =
 			(JRadioButton) findAbstractButtonByText(dialog.getComponent(), "Shared Project");
 		assertNotNull(rb);
-		assertTrue(!rb.isSelected());
+		assertFalse(rb.isSelected());
 
 		SwingUtilities.invokeAndWait(() -> rb.setSelected(true));
 
@@ -592,7 +592,7 @@ public class FrontEndPluginScreenShots extends GhidraScreenShotGenerator {
 		final JRadioButton rb =
 			(JRadioButton) findAbstractButtonByText(dialog.getComponent(), "Shared Project");
 		assertNotNull(rb);
-		assertTrue(!rb.isSelected());
+		assertFalse(rb.isSelected());
 
 		SwingUtilities.invokeAndWait(() -> rb.setSelected(true));
 		JButton nextButton = findButtonByText(wm, "Next >>");
@@ -806,7 +806,7 @@ public class FrontEndPluginScreenShots extends GhidraScreenShotGenerator {
 
 	}
 
-	class DummyDialogComponentProvider extends DialogComponentProvider {
+	static class DummyDialogComponentProvider extends DialogComponentProvider {
 		DummyDialogComponentProvider(String title, JPanel mainPanel) {
 			super(title, false);
 			addWorkPanel(mainPanel);

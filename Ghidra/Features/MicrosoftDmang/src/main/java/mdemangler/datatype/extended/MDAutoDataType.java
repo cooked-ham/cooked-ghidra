@@ -22,12 +22,12 @@ import mdemangler.MDMang;
  */
 public class MDAutoDataType extends MDExtendedType {
 
-	public MDAutoDataType(MDMang dmang) {
-		super(dmang);
-	}
+    public MDAutoDataType(MDMang dmang) {
+        super(dmang);
+    }
 
-	@Override
-	public String getTypeName() {
-		return "auto";
-	}
+    @Override
+    public String getTypeName() {
+        return "auto";
+    }
 }

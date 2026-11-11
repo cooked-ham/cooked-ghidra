@@ -124,7 +124,7 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		selectButtonAndApply(MergeConstants.ORIGINAL_TITLE);
 
 		Options list = resultProgram.getOptions("Colors");
-		assertTrue(!list.contains("Background"));
+		assertFalse(list.contains("Background"));
 	}
 
 	@Test
@@ -201,7 +201,7 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		selectButtonAndApply(MergeConstants.ORIGINAL_TITLE);
 
 		Options list = resultProgram.getOptions("Colors");
-		assertTrue(!list.contains("Background"));
+		assertFalse(list.contains("Background"));
 	}
 
 	@Test
@@ -247,7 +247,7 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 
 		list = resultProgram.getOptions("Analysis");
 		assertTrue(list.contains("Options.Mark Bad Disassembly"));
-		assertTrue(!list.getBoolean("Options.Mark Bad Disassembly", false));
+		assertFalse(list.getBoolean("Options.Mark Bad Disassembly", false));
 	}
 
 	@Test
@@ -325,8 +325,8 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		merge(false);
 		waitForCompletion();
 		Options list = resultProgram.getOptions("Program Information");
-		assertEquals(true, list.contains("Analyzed"));
-		assertEquals(true, list.getBoolean("Analyzed", false));
+		assertTrue(list.contains("Analyzed"));
+		assertTrue(list.getBoolean("Analyzed", false));
 	}
 
 	@Test
@@ -349,8 +349,8 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		merge(false);
 		waitForCompletion();
 		Options list = resultProgram.getOptions("Program Information");
-		assertEquals(true, list.contains("Analyzed"));
-		assertEquals(false, list.getBoolean("Analyzed", false));
+		assertTrue(list.contains("Analyzed"));
+		assertFalse(list.getBoolean("Analyzed", false));
 	}
 
 	@Test
@@ -374,8 +374,8 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		merge(false);
 		waitForCompletion();
 		Options list = resultProgram.getOptions("Program Information");
-		assertEquals(true, list.contains("Analyzed"));
-		assertEquals(true, list.getBoolean("Analyzed", false));
+		assertTrue(list.contains("Analyzed"));
+		assertTrue(list.getBoolean("Analyzed", false));
 	}
 
 	@Test
@@ -397,8 +397,8 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		merge(false);
 		waitForCompletion();
 		Options list = resultProgram.getOptions("Program Information");
-		assertEquals(true, list.contains("Analyzed"));
-		assertEquals(false, list.getBoolean("Analyzed", false));
+		assertTrue(list.contains("Analyzed"));
+		assertFalse(list.getBoolean("Analyzed", false));
 	}
 
 	@Test
@@ -423,8 +423,8 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		merge(false);
 		waitForCompletion();
 		Options list = resultProgram.getOptions("Program Information");
-		assertEquals(true, list.contains("Analyzed"));
-		assertEquals(true, list.getBoolean("Analyzed", false));
+		assertTrue(list.contains("Analyzed"));
+		assertTrue(list.getBoolean("Analyzed", false));
 	}
 
 	@Test
@@ -449,8 +449,8 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		merge(false);
 		waitForCompletion();
 		Options list = resultProgram.getOptions("Program Information");
-		assertEquals(true, list.contains("Analyzed"));
-		assertEquals(false, list.getBoolean("Analyzed", false));
+		assertTrue(list.contains("Analyzed"));
+		assertFalse(list.getBoolean("Analyzed", false));
 	}
 
 	@Test
@@ -481,8 +481,8 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		merge(false);
 		waitForCompletion();
 		Options list = resultProgram.getOptions("Program Information");
-		assertEquals(true, list.contains("Analyzed"));
-		assertEquals(true, list.getBoolean("Analyzed", false));
+		assertTrue(list.contains("Analyzed"));
+		assertTrue(list.getBoolean("Analyzed", false));
 	}
 
 	@Test
@@ -513,8 +513,8 @@ public class PropertyListMergeManager2Test extends AbstractMergeTest {
 		merge(false);
 		waitForCompletion();
 		Options list = resultProgram.getOptions("Program Information");
-		assertEquals(true, list.contains("Analyzed"));
-		assertEquals(true, list.getBoolean("Analyzed", false));
+		assertTrue(list.contains("Analyzed"));
+		assertTrue(list.getBoolean("Analyzed", false));
 	}
 
 	private void merge() throws Exception {

@@ -539,7 +539,7 @@ public class PreviewTable extends AbstractInstructionTable {
 				int[] selectedRows = PreviewTable.this.getSelectedRows();
 				String val = "";
 				for (int selectedRow : selectedRows) {
-					val += getColumnValue(selectedRow, HEADER_COL_PREVIEW).replaceAll(" ", "");
+					val += getColumnValue(selectedRow, HEADER_COL_PREVIEW).replace(" ", "");
 				}
 
 				StringSelection sel = new StringSelection(val);

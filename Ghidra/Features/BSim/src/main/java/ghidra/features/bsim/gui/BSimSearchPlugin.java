@@ -432,7 +432,7 @@ public class BSimSearchPlugin extends ProgramPlugin {
 //==================================================================================================
 // Inner Classes
 //==================================================================================================
-	abstract class AbstractProgramTask extends Task {
+	static abstract class AbstractProgramTask extends Task {
 		AbstractProgramTask(String title) {
 			super(title, true, true, false, false);
 		}

@@ -109,7 +109,7 @@ public class JadProcessWrapper {
 			list.add(file.getAbsolutePath());
 		}
 
-		return list.toArray(new String[list.size()]);
+		return list.toArray(new String[0]);
 	}
 
 	private static String getJadPath() throws IOException {

@@ -88,7 +88,7 @@ public abstract class AbstractAssemblePatchDialog<T extends Program>
 	record AssemblyRow(Address address, String assembly, AssemblyPatternBlock context, byte[] bytes,
 			Throwable error) {}
 
-	class AsmTableModel extends GDynamicColumnTableModel<AssemblyRow, Void> {
+	static class AsmTableModel extends GDynamicColumnTableModel<AssemblyRow, Void> {
 		final List<AssemblyRow> modelData = new ArrayList<>();
 
 		public AsmTableModel(ServiceProvider serviceProvider) {

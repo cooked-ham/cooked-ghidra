@@ -179,7 +179,7 @@ public class TraceRmiConnectionManagerProvider extends ComponentProviderAdapter 
 		}
 	}
 
-	class InjectableGTree extends GTree {
+	static class InjectableGTree extends GTree {
 		public InjectableGTree(GTreeNode root) {
 			super(root);
 		}

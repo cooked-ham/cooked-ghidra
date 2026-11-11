@@ -110,7 +110,7 @@ public class SelectBytesPluginTest extends AbstractGhidraHeadedIntegrationTest {
 		SelectBytesDialog dialog = showDialog();
 
 		closeProgram();
-		assertTrue(!showDialogAction.isEnabledForContext(getContext()));
+		assertFalse(showDialogAction.isEnabledForContext(getContext()));
 		close(dialog);
 	}
 

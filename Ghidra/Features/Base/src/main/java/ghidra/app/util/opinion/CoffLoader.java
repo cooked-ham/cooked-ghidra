@@ -832,7 +832,7 @@ public class CoffLoader extends AbstractLibrarySupportLoader {
 		return List.of("o", "obj");
 	}
 
-	class CoffPair {
+	static class CoffPair {
 		public long offset;
 		public long size;
 

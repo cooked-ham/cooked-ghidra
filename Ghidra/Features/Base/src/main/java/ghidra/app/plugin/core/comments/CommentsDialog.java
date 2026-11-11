@@ -525,7 +525,7 @@ public class CommentsDialog extends ReusableDialogComponentProvider implements K
 		}
 	}
 
-	class AnnotationAdapterWrapper implements Comparable<AnnotationAdapterWrapper> {
+	static class AnnotationAdapterWrapper implements Comparable<AnnotationAdapterWrapper> {
 		private AnnotatedStringHandler handler;
 
 		public AnnotationAdapterWrapper(AnnotatedStringHandler handler) {

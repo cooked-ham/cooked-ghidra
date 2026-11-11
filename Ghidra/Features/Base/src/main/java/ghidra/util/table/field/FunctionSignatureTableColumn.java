@@ -93,7 +93,7 @@ public class FunctionSignatureTableColumn
 		return 200;
 	}
 
-	private class SignatureRenderer extends AbstractGhidraColumnRenderer<Function> {
+	private static class SignatureRenderer extends AbstractGhidraColumnRenderer<Function> {
 
 		private void inline(Function function, Settings settings, StringBuilder buffy) {
 			if (!function.isInline()) {

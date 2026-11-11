@@ -116,7 +116,7 @@ public class CorrelatorChooserPanel extends JPanel {
 // Inner Classes
 //==================================================================================================
 
-	private class PreviouslyRunColumnRenderer extends GTableCellRenderer {
+	private static class PreviouslyRunColumnRenderer extends GTableCellRenderer {
 
 		PreviouslyRunColumnRenderer() {
 			setHorizontalAlignment(SwingConstants.CENTER);

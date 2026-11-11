@@ -17,6 +17,7 @@ package ghidra.app.merge.listing;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
@@ -51,6 +52,7 @@ import ghidra.util.layout.MaximizeSpecificColumnGridLayout;
  */
 public class VerticalChoicesPanel extends ConflictPanel {
 
+	@Serial
 	private final static long serialVersionUID = 1;
 	final static int HEADER = 0;
 	final static int INFORMATION = 1;
@@ -223,7 +225,7 @@ public class VerticalChoicesPanel extends ConflictPanel {
 		if (list == null || list.size() == 0) {
 			return new JComponent[0];
 		}
-		JComponent[] comps = list.toArray(new JComponent[list.size()]);
+		JComponent[] comps = list.toArray(new JComponent[0]);
 		return comps;
 	}
 
@@ -438,7 +440,7 @@ public class VerticalChoicesPanel extends ConflictPanel {
 		return allChoicesAreResolved();
 	}
 
-	private class MyLabel extends GDHtmlLabel {
+	private static class MyLabel extends GDHtmlLabel {
 
 		/**
 		 * @param text the text of this label.
@@ -489,6 +491,7 @@ public class VerticalChoicesPanel extends ConflictPanel {
 	}
 
 	private class MyRadioButton extends GRadioButton {
+		@Serial
 		private final static long serialVersionUID = 1;
 		private int option;
 
@@ -545,6 +548,7 @@ public class VerticalChoicesPanel extends ConflictPanel {
 	}
 
 	private class MyCheckBox extends GCheckBox {
+		@Serial
 		private final static long serialVersionUID = 1;
 		private int option;
 

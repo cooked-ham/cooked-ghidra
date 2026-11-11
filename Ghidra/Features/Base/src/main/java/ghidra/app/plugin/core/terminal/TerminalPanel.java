@@ -143,7 +143,7 @@ public class TerminalPanel extends JPanel implements FieldLocationListener, Fiel
 		0, 95, 135, 175, 215, 255
 	};
 
-	protected class TerminalFieldPanel extends FieldPanel {
+	protected static class TerminalFieldPanel extends FieldPanel {
 		public TerminalFieldPanel(LayoutModel model) {
 			super(model, "Terminal");
 			setFieldDescriptionProvider((l, f) -> {

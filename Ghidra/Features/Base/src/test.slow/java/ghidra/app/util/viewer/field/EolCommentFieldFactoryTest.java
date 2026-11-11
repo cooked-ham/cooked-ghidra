@@ -97,7 +97,7 @@ public class EolCommentFieldFactoryTest extends AbstractGhidraHeadedIntegrationT
 		// check that the repeatable comment now matches the updated comment
 		tf = getFieldText(addr(from));
 		assertEquals(1, tf.getNumRows());
-		assertEquals(tf.getText(), repeatableComment);
+		assertEquals(repeatableComment, tf.getText());
 	}
 
 	@Test

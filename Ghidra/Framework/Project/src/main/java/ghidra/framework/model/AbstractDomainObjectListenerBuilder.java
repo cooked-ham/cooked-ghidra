@@ -165,7 +165,7 @@ public abstract class AbstractDomainObjectListenerBuilder<R extends DomainObject
 		 * @return the main event builder that created this sub-builder
 		 */
 		public B call(Callback callback) {
-			EventType[] eventTypes = eventTypeList.toArray(new EventType[eventTypeList.size()]);
+			EventType[] eventTypes = eventTypeList.toArray(new EventType[0]);
 			onAnyList.add(new EventTrigger(callback, eventTypes));
 			return self();
 		}
@@ -176,7 +176,7 @@ public abstract class AbstractDomainObjectListenerBuilder<R extends DomainObject
 		 * @return the main event builder that created this sub-builder
 		 */
 		public B call(Consumer<DomainObjectChangedEvent> consumer) {
-			EventType[] eventTypes = eventTypeList.toArray(new EventType[eventTypeList.size()]);
+			EventType[] eventTypes = eventTypeList.toArray(new EventType[0]);
 			onAnyList.add(new EventTrigger(consumer, eventTypes));
 			return self();
 		}
@@ -188,7 +188,7 @@ public abstract class AbstractDomainObjectListenerBuilder<R extends DomainObject
 		 * @return the main event builder that created this sub-builder
 		 */
 		public B terminate(Callback callback) {
-			EventType[] eventTypes = eventTypeList.toArray(new EventType[eventTypeList.size()]);
+			EventType[] eventTypes = eventTypeList.toArray(new EventType[0]);
 			terminateList.add(new EventTrigger(callback, eventTypes));
 			return self();
 		}
@@ -200,7 +200,7 @@ public abstract class AbstractDomainObjectListenerBuilder<R extends DomainObject
 		 * @return the main event builder that created this sub-builder
 		 */
 		public B terminate(Consumer<DomainObjectChangedEvent> consumer) {
-			EventType[] eventTypes = eventTypeList.toArray(new EventType[eventTypeList.size()]);
+			EventType[] eventTypes = eventTypeList.toArray(new EventType[0]);
 			terminateList.add(new EventTrigger(consumer, eventTypes));
 			return self();
 		}
@@ -353,7 +353,7 @@ public abstract class AbstractDomainObjectListenerBuilder<R extends DomainObject
 		void setOnEachMap(
 				Map<EventType, TypedRecordConsumer<? extends DomainObjectChangeRecord>> onEachMap) {
 			this.onEachMap = onEachMap;
-			eachEventTypes = onEachMap.keySet().toArray(new EventType[onEachMap.size()]);
+			eachEventTypes = onEachMap.keySet().toArray(new EventType[0]);
 		}
 
 		@Override

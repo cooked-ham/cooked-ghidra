@@ -313,7 +313,7 @@ public class UnionEditorProviderTest extends AbstractUnionEditorTest {
 		// options default is hex
 		provider = edit(complexUnion);
 		model = provider.getModel();
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("0x1d", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("0x57", model.getLengthAsString());
 
@@ -322,7 +322,7 @@ public class UnionEditorProviderTest extends AbstractUnionEditorTest {
 
 		provider = edit(complexUnion);
 		model = provider.getModel();
-		assertEquals(false, model.isShowingNumbersInHex());
+		assertFalse(model.isShowingNumbersInHex());
 		assertEquals("29", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("87", model.getLengthAsString());
 	}
@@ -332,13 +332,13 @@ public class UnionEditorProviderTest extends AbstractUnionEditorTest {
 		// options default is hex
 		provider = edit(complexUnion);
 		model = provider.getModel();
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("0x1d", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("0x57", model.getLengthAsString());
 
 		setOptions(HEX_OPTION_NAME, false);
 
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("0x1d", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("0x57", model.getLengthAsString());
 	}
@@ -347,14 +347,14 @@ public class UnionEditorProviderTest extends AbstractUnionEditorTest {
 	public void testToggleHexModeAction() throws Exception {
 		provider = edit(complexUnion);
 		model = provider.getModel();
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("0x1d", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("0x57", model.getLengthAsString());
 
 		DockingActionIf action = getAction(plugin, "Show Numbers In Hex");
 		setToggleActionSelected((ToggleDockingActionIf) action, new DefaultActionContext(), false);
 
-		assertEquals(false, model.isShowingNumbersInHex());
+		assertFalse(model.isShowingNumbersInHex());
 		assertEquals("29", model.getValueAt(15, model.getLengthColumn()));
 		assertEquals("87", model.getLengthAsString());
 

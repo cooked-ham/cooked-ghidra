@@ -15,31 +15,34 @@
  */
 package ghidra.app.util.recognizer;
 
-import java.util.*;
-
 import ghidra.util.classfinder.ClassSearcher;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Deprecated(forRemoval = true, since = "12.3")
 public class RecognizerService {
-	private static final Comparator<Recognizer> DESCENDING = new Comparator<Recognizer>() {
-		@Override
-		public int compare(Recognizer o1, Recognizer o2) {
-			return o2.getPriority() - o1.getPriority();
-		}
-	};
+    private static final Comparator<Recognizer> DESCENDING = new Comparator<Recognizer>() {
+        @Override
+        public int compare(Recognizer o1, Recognizer o2) {
+            return o2.getPriority() - o1.getPriority();
+        }
+    };
 
-	@Deprecated(forRemoval = true, since = "12.3")
-	public static List<Recognizer> getAllRecognizers() {
-		List<Recognizer> results = new ArrayList<Recognizer>();
-		List<Recognizer> allRecognizers = getAllRecognizersHelper();
-		for (Recognizer Recognizer : allRecognizers) {
-			results.add(Recognizer);
-		}
-		Collections.sort(results, DESCENDING);
-		return results;
-	}
+    @Deprecated(forRemoval = true, since = "12.3")
+    public static List<Recognizer> getAllRecognizers() {
+        List<Recognizer> results = new ArrayList<Recognizer>();
+        List<Recognizer> allRecognizers = getAllRecognizersHelper();
+        for (Recognizer Recognizer : allRecognizers) {
+            results.add(Recognizer);
+        }
+        Collections.sort(results, DESCENDING);
+        return results;
+    }
 
-	private static List<Recognizer> getAllRecognizersHelper() {
-		return new ArrayList<Recognizer>(ClassSearcher.getInstances(Recognizer.class));
-	}
+    private static List<Recognizer> getAllRecognizersHelper() {
+        return new ArrayList<Recognizer>(ClassSearcher.getInstances(Recognizer.class));
+    }
 }

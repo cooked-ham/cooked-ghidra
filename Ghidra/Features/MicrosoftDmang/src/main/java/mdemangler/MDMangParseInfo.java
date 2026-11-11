@@ -24,7 +24,7 @@ import ghidra.util.Msg;
  */
 public class MDMangParseInfo extends MDMang {
 
-	private class MDParseInfo {
+	private static class MDParseInfo {
 		private int startIndex;
 		private int itemDepth;
 		private String itemName;

@@ -20,12 +20,14 @@
  */
 
 package ghidra.util.datastruct;
+import java.io.Serial;
 import java.io.Serializable;
 /**
  *
  * Array of int[] that grows as needed.
  */
 public class IntArrayArray implements Array, Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
     static final int MIN_SIZE = 4;
     int[] ints;

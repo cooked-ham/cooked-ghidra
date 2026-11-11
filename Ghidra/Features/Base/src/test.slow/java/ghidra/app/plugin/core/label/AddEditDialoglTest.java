@@ -100,12 +100,12 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		addLabel(addr(0x0100642a));
 		assertEquals("Add Label at 0100642a", dialog.getTitle());
 		assertEquals("", getText());
-		assertTrue(!entryCheckBox.isSelected());
+		assertFalse(entryCheckBox.isSelected());
 
 		Namespace scope = getSelectedNamespace();
 		assertEquals(globalScope, scope);
 		assertTrue(primaryCheckBox.isSelected());
-		assertTrue(!primaryCheckBox.isEnabled());
+		assertFalse(primaryCheckBox.isEnabled());
 		pressCancel();
 	}
 
@@ -141,7 +141,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		setText("printf");
 		setCheckbox(entryCheckBox, true);
 		pressOk();
-		assertTrue(!dialog.isVisible());
+		assertFalse(dialog.isVisible());
 		Symbol s = getUniqueSymbol(program, "printf", null);
 		assertNotNull(s);
 		assertTrue(s.isExternalEntryPoint());
@@ -153,7 +153,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		setText("printf");
 		setCheckbox(pinnedCheckBox, true);
 		pressOk();
-		assertTrue(!dialog.isVisible());
+		assertFalse(dialog.isVisible());
 		Symbol s = getUniqueSymbol(program, "printf", null);
 		assertNotNull(s);
 		assertTrue(s.isPinned());
@@ -161,7 +161,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		editLabel(s);
 		setCheckbox(pinnedCheckBox, false);
 		pressOk();
-		assertTrue(!s.isPinned());
+		assertFalse(s.isPinned());
 
 	}
 
@@ -218,7 +218,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		pressOk();
 		s = getUniqueSymbol(program, "printf", scope);
 		assertNotNull(s);
-		assertTrue(!s.isGlobal());
+		assertFalse(s.isGlobal());
 		assertEquals(st.getNamespace(a), s.getParentNamespace());
 	}
 
@@ -230,14 +230,14 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals("", getText());
 		assertTrue(entryCheckBox.isSelected());
 		assertTrue(entryCheckBox.isEnabled());
-		assertTrue(!primaryCheckBox.isSelected());
+		assertFalse(primaryCheckBox.isSelected());
 		assertTrue(primaryCheckBox.isEnabled());
 		setText("printf");
 
 		setCheckbox(primaryCheckBox, true);
 		pressOk();
 		s = getUniqueSymbol(program, "entry", null);
-		assertTrue(!s.isPrimary());
+		assertFalse(s.isPrimary());
 		s = getUniqueSymbol(program, "printf", null);
 		assertTrue(s.isPrimary());
 
@@ -252,7 +252,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals("", getText());
 		assertTrue(entryCheckBox.isSelected());
 		assertTrue(entryCheckBox.isEnabled());
-		assertTrue(!primaryCheckBox.isSelected());
+		assertFalse(primaryCheckBox.isSelected());
 		assertTrue(primaryCheckBox.isEnabled());
 
 	}
@@ -303,7 +303,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals(globalScope, ((AddEditDialog.NamespaceWrapper) selectedItem).getNamespace());
 		assertTrue(entryCheckBox.isSelected());
 		assertTrue(primaryCheckBox.isSelected());
-		assertTrue(!primaryCheckBox.isEnabled());
+		assertFalse(primaryCheckBox.isEnabled());
 		pressCancel();
 
 	}
@@ -378,7 +378,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		tool.execute(cmd, program);
 
 		Symbol fredSymbol = getUniqueSymbol(program, "fred", null);
-		assertTrue(!fredSymbol.isPrimary());
+		assertFalse(fredSymbol.isPrimary());
 
 		editLabel(fredSymbol);
 		setCheckbox(primaryCheckBox, true);
@@ -414,9 +414,9 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		Symbol s = st.getPrimarySymbol(refAddr);
 		editLabel(s);
 		assertEquals("LAB_010064b1", getText());
-		assertTrue(!entryCheckBox.isSelected());
+		assertFalse(entryCheckBox.isSelected());
 		assertTrue(primaryCheckBox.isSelected());
-		assertTrue(!primaryCheckBox.isEnabled());
+		assertFalse(primaryCheckBox.isEnabled());
 		setText("aaaa");
 		pressOk();
 		s = st.getPrimarySymbol(refAddr);
@@ -491,7 +491,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		assertTrue(s.isGlobal());
 		addLabel(s.getAddress());
 		setScope(st.getNamespace(a));
-		assertTrue(!primaryCheckBox.isSelected());
+		assertFalse(primaryCheckBox.isSelected());
 		assertTrue(primaryCheckBox.isEnabled());
 		setText("foo");
 		pressOk();
@@ -577,7 +577,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		s = getUniqueSymbol(program, "foo", null);
 		editLabel(s);
 		assertTrue(primaryCheckBox.isEnabled());
-		assertTrue(!primaryCheckBox.isSelected());
+		assertFalse(primaryCheckBox.isSelected());
 		pressOk();
 	}
 
@@ -592,7 +592,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 
 		editLabel(s);
 
-		assertTrue(!primaryCheckBox.isEnabled());
+		assertFalse(primaryCheckBox.isEnabled());
 		assertTrue(primaryCheckBox.isSelected());
 	}
 
@@ -601,7 +601,7 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		Symbol s = getUniqueSymbol(program, "entry", null);
 		editLabel(s);
 
-		assertTrue(!primaryCheckBox.isEnabled());
+		assertFalse(primaryCheckBox.isEnabled());
 		assertTrue(primaryCheckBox.isSelected());
 	}
 
@@ -621,8 +621,8 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		setText("label_1");
 		pressOk();
 
-		assertTrue("Encountered a problem adding a label to the Global namespace",
-			!dialog.isVisible());
+		assertFalse("Encountered a problem adding a label to the Global namespace",
+			dialog.isVisible());
 
 		// move the label to a new namespace
 		s = getUniqueSymbol(program, "label_1", null);
@@ -631,9 +631,9 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		pressOk();
 
 		// make sure there were no problems
-		assertTrue(
+		assertFalse(
 			"Encountered a problem changing a symbol's namespace while editing the symbol",
-			!dialog.isVisible());
+			dialog.isVisible());
 
 		// now move that label to the Global namespace
 		s = st.getSymbols("label_1").next();
@@ -641,8 +641,8 @@ public class AddEditDialoglTest extends AbstractGhidraHeadedIntegrationTest {
 		setText("Global::label_1");
 		pressOk();
 
-		assertTrue("Encountered a problem changing a symbol's namespace to " +
-			"the Global namespace while editing the symbol", !dialog.isVisible());
+		assertFalse("Encountered a problem changing a symbol's namespace to " +
+			"the Global namespace while editing the symbol", dialog.isVisible());
 	}
 
 	@Test

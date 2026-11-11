@@ -162,7 +162,7 @@ public class WEVTResourceDataType extends DynamicDataType {
 			Msg.debug(this, "Not a valid Windows Event template (WEVT) resource data type");
 			return null;
 		}
-		DataTypeComponent[] result = comps.toArray(new DataTypeComponent[comps.size()]);
+		DataTypeComponent[] result = comps.toArray(new DataTypeComponent[0]);
 		return result;
 	}
 

@@ -274,7 +274,7 @@ public class ToolExtensionStatusManagerTest extends AbstractGhidraHeadedIntegrat
 		}
 	}
 
-	private class FakeToolExtensionsEnabledState implements ExtensionsEnabledState {
+	private static class FakeToolExtensionsEnabledState implements ExtensionsEnabledState {
 
 		private Map<String, Set<ClassFileInfo>> extensions = new HashMap<>();
 		private Set<ClassFileInfo> installedPlugins = new HashSet<>();

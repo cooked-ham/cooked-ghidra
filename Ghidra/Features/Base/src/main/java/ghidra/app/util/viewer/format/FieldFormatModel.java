@@ -15,567 +15,577 @@
  */
 package ghidra.app.util.viewer.format;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import org.jdom2.Element;
-
 import docking.widgets.fieldpanel.field.Field;
 import docking.widgets.fieldpanel.support.RowLayout;
 import ghidra.app.util.ListingHighlightProvider;
-import ghidra.app.util.viewer.field.*;
+import ghidra.app.util.viewer.field.ErrorListingField;
+import ghidra.app.util.viewer.field.FieldFactory;
+import ghidra.app.util.viewer.field.ListingField;
+import ghidra.app.util.viewer.field.SpacerFieldFactory;
 import ghidra.app.util.viewer.proxy.ProxyObj;
 import ghidra.framework.options.Options;
 import ghidra.framework.options.ToolOptions;
 import ghidra.util.Msg;
+import org.jdom2.Element;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Maintains the size and ordering for a layout of fields.
  */
 public class FieldFormatModel {
 
-	private static final Comparator<FieldFactory> COMPARATOR = new FieldFactoryComparator();
+    public final static int DIVIDER = 0;
+    public final static int PLATE = 1;
+    public final static int FUNCTION = 2;
+    public final static int FUNCTION_VARS = 3;
+    public final static int INSTRUCTION_OR_DATA = 4;
+    public final static int OPEN_DATA = 5;
+    public final static int ARRAY = 6;
+    private static final Comparator<FieldFactory> COMPARATOR = new FieldFactoryComparator();
+    protected FieldFactory[] factories;
+    private int baseRowID = 0;
+    private FormatManager formatMgr;
+    private String name;
+    private int width;
+    private List<Row> rows;
 
-	public final static int DIVIDER = 0;
-	public final static int PLATE = 1;
-	public final static int FUNCTION = 2;
-	public final static int FUNCTION_VARS = 3;
-	public final static int INSTRUCTION_OR_DATA = 4;
-	public final static int OPEN_DATA = 5;
-	public final static int ARRAY = 6;
+    FieldFormatModel(FormatManager formatMgr, String name, int categoryID,
+                     Class<?> proxyObjectClass, FieldFactory[] factorys) {
+        this.formatMgr = formatMgr;
+        this.name = name;
+        List<FieldFactory> list = new ArrayList<>(factorys.length);
+        for (FieldFactory factory : factorys) {
+            if (factory.acceptsType(categoryID, proxyObjectClass)) {
+                list.add(factory);
+            }
+        }
+        this.factories = new FieldFactory[list.size()];
+        list.toArray(this.factories);
+        rows = new ArrayList<>();
+        rows.add(new Row());
+    }
 
-	private int baseRowID = 0;
-	private FormatManager formatMgr;
-	private String name;
-	private int width;
-	private List<Row> rows;
-	protected FieldFactory[] factories;
+    /**
+     * Sets the base id for this model. Each row in a model gets an id which must
+     * be unique across all models.
+     *
+     * @param id the base id for this format.
+     */
+    public void setBaseRowID(int id) {
+        baseRowID = id;
+    }
 
-	FieldFormatModel(FormatManager formatMgr, String name, int categoryID,
-			Class<?> proxyObjectClass, FieldFactory[] factorys) {
-		this.formatMgr = formatMgr;
-		this.name = name;
-		List<FieldFactory> list = new ArrayList<>(factorys.length);
-		for (FieldFactory factory : factorys) {
-			if (factory.acceptsType(categoryID, proxyObjectClass)) {
-				list.add(factory);
-			}
-		}
-		this.factories = new FieldFactory[list.size()];
-		list.toArray(this.factories);
-		rows = new ArrayList<>();
-		rows.add(new Row());
-	}
+    /**
+     * Updates users of the formatMgr to indicate the format has changed.
+     */
+    public void update() {
+        formatMgr.update();
+    }
 
-	/**
-	 * Sets the base id for this model. Each row in a model gets an id which must
-	 * be unique across all models.
-	 * @param id the base id for this format.
-	 */
-	public void setBaseRowID(int id) {
-		baseRowID = id;
-	}
+    /**
+     * {@return the FormatManager managing this format.}
+     */
+    public FormatManager getFormatManager() {
+        return formatMgr;
+    }
 
-	/**
-	 * Updates users of the formatMgr to indicate the format has changed.
-	 */
-	public void update() {
-		formatMgr.update();
-	}
+    /**
+     * Generates the layout objects for the given index and proxy object
+     *
+     * @param list  the list to add layouts to
+     * @param index the index (represents address)
+     * @param proxy the object to get layouts for.
+     */
+    public void addLayouts(List<RowLayout> list, int index, ProxyObj<?> proxy) {
+        int n = rows.size();
+        for (int i = 0; i < n; i++) {
+            Row row = rows.get(i);
+            RowLayout l = row.getLayout(index, proxy, baseRowID + i);
+            if (l != null) {
+                list.add(l);
+            }
+        }
+    }
 
-	/**
-	 * {@return the FormatManager managing this format.}
-	 */
-	public FormatManager getFormatManager() {
-		return formatMgr;
-	}
+    /**
+     * Adds new empty row at the given position.  The position must be in the
+     * interval [0,numRows].
+     *
+     * @param index the index to add a new row
+     * @throws IllegalArgumentException thrown if the position is outside the
+     *                                  interval [0,numRows].
+     */
+    public void addRow(int index) {
+        if (rows.size() <= 11) {
+            rows.add(index, new Row());
+            findWidth();
+            formatMgr.modelChanged(this);
+        } else {
+            Msg.showWarn(this, null, "Too Many Rows", "Too Many Rows");
+        }
+    }
 
-	/**
-	 * Generates the layout objects for the given index and proxy object
-	 * @param list the list to add layouts to
-	 * @param index the index (represents address)
-	 * @param proxy the object to get layouts for.
-	 */
-	public void addLayouts(List<RowLayout> list, int index, ProxyObj<?> proxy) {
-		int n = rows.size();
-		for (int i = 0; i < n; i++) {
-			Row row = rows.get(i);
-			RowLayout l = row.getLayout(index, proxy, baseRowID + i);
-			if (l != null) {
-				list.add(l);
-			}
-		}
-	}
+    /**
+     * Removes the row currently at the given position.
+     *
+     * @param index the index of the row to remove.
+     */
+    public void removeRow(int index) {
+        rows.remove(index);
+        if (rows.isEmpty()) {
+            // this class was written such that there must always be at least one row
+            rows.add(new Row());
+        }
+        findWidth();
+        formatMgr.modelChanged(this);
+    }
 
-	/**
-	 * Adds new empty row at the given position.  The position must be in the
-	 * interval [0,numRows].
-	 * @param index the index to add a new row
-	 * @exception IllegalArgumentException thrown if the position is outside the
-	 * interval [0,numRows].
-	 */
-	public void addRow(int index) {
-		if (rows.size() <= 11) {
-			rows.add(index, new Row());
-			findWidth();
-			formatMgr.modelChanged(this);
-		}
-		else {
-			Msg.showWarn(this, null, "Too Many Rows", "Too Many Rows");
-		}
-	}
+    private void findWidth() {
+        width = 0;
+        for (int i = 0; i < rows.size(); i++) {
+            width = Math.max(width, (rows.get(i)).width);
+        }
+    }
 
-	/**
-	 * Removes the row currently at the given position.
-	 * @param index the index of the row to remove.
-	 */
-	public void removeRow(int index) {
-		rows.remove(index);
-		if (rows.isEmpty()) {
-			// this class was written such that there must always be at least one row
-			rows.add(new Row());
-		}
-		findWidth();
-		formatMgr.modelChanged(this);
-	}
+    /**
+     * Adds a new field to this format.
+     *
+     * @param factory  the FieldFactory to add
+     * @param rowIndex the row to add the field to
+     * @param colIndex the position in the row for the new field.
+     */
+    public void addFactory(FieldFactory factory, int rowIndex, int colIndex) {
+        ListingHighlightProvider hsProvider = formatMgr.getFormatHighlightProvider();
+        ToolOptions displayOptions = formatMgr.getDisplayOptions();
+        ToolOptions fieldOptions = formatMgr.getFieldOptions();
+        FieldFactory ff = factory.newInstance(this, hsProvider, displayOptions, fieldOptions);
+        if (rowIndex == rows.size()) {
+            rows.add(new Row());
+        }
 
-	private void findWidth() {
-		width = 0;
-		for (int i = 0; i < rows.size(); i++) {
-			width = Math.max(width, (rows.get(i)).width);
-		}
-	}
+        Row row = rows.get(rowIndex);
+        row.insertField(ff, colIndex);
+        findWidth();
+        formatMgr.modelChanged(this);
+    }
 
-	/**
-	 * Adds a new field to this format.
-	 * @param factory the FieldFactory to add
-	 * @param rowIndex the row to add the field to
-	 * @param colIndex the position in the row for the new field.
-	 */
-	public void addFactory(FieldFactory factory, int rowIndex, int colIndex) {
-		ListingHighlightProvider hsProvider = formatMgr.getFormatHighlightProvider();
-		ToolOptions displayOptions = formatMgr.getDisplayOptions();
-		ToolOptions fieldOptions = formatMgr.getFieldOptions();
-		FieldFactory ff = factory.newInstance(this, hsProvider, displayOptions, fieldOptions);
-		if (rowIndex == rows.size()) {
-			rows.add(new Row());
-		}
+    /**
+     * Removes a field from the format.
+     *
+     * @param rowIndex the row index of the field to remove.
+     * @param colIndex the column index of the field to remove.
+     */
+    public void removeFactory(int rowIndex, int colIndex) {
+        Row row = rows.get(rowIndex);
+        row.removeField(colIndex);
+        findWidth();
+        formatMgr.modelChanged(this);
+    }
 
-		Row row = rows.get(rowIndex);
-		row.insertField(ff, colIndex);
-		findWidth();
-		formatMgr.modelChanged(this);
-	}
+    /**
+     * Notifies the formatMgr that this format model has changed.
+     *
+     */
+    public void modelChanged() {
+        formatMgr.modelChanged(this);
+    }
 
-	/**
-	 * Removes a field from the format.
-	 * @param rowIndex the row index of the field to remove.
-	 * @param colIndex the column index of the field to remove.
-	 */
-	public void removeFactory(int rowIndex, int colIndex) {
-		Row row = rows.get(rowIndex);
-		row.removeField(colIndex);
-		findWidth();
-		formatMgr.modelChanged(this);
-	}
+    /**
+     * {@return the number of rows in this format}
+     */
+    public int getNumRows() {
+        return rows.size();
+    }
 
-	/**
-	 * Notifies the formatMgr that this format model has changed.
-	 *
-	 */
-	public void modelChanged() {
-		formatMgr.modelChanged(this);
-	}
+    /**
+     * {@return the name of this format model.}
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * {@return the number of rows in this format}
-	 */
-	public int getNumRows() {
-		return rows.size();
-	}
+    /**
+     * Returns the number of factories on the given row.
+     *
+     * @param row the row to get the number of factories for
+     * @return the number of factories on the given row
+     */
+    public int getNumFactorys(int row) {
+        if ((row < 0) || (row >= rows.size())) {
+            return 0;
+        }
+        return (rows.get(row)).size();
+    }
 
-	/**
-	 * {@return the name of this format model.}
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Returns the factories on the given row.
+     *
+     * @param row the row to factories for
+     * @return the FieldFactorys for a given row
+     */
+    public FieldFactory[] getFactorys(int row) {
+        return (rows.get(row)).getFactorys();
+    }
 
-	/**
-	 * Returns the number of factories on the given row.
-	 * @param row the row to get the number of factories for
-	 * @return the number of factories on the given row
-	 */
-	public int getNumFactorys(int row) {
-		if ((row < 0) || (row >= rows.size())) {
-			return 0;
-		}
-		return (rows.get(row)).size();
-	}
+    /**
+     * {@return the list of factories used in this format.}
+     */
+    public FieldFactory[] getFactorys() {
+        return factories.clone();
+    }
 
-	/**
-	 * Returns the factories on the given row.
-	 * @param row the row to factories for
-	 * @return the FieldFactorys for a given row
-	 */
-	public FieldFactory[] getFactorys(int row) {
-		return (rows.get(row)).getFactorys();
-	}
+    /**
+     * Moves the Field at (oldrow,oldCol) to (row,col)
+     *
+     * @param oldRowIndex the row containing the field to be moved.
+     * @param oldColIndex the column index of the field to be moved.
+     * @param newRowIndex the row to move to.
+     * @param newColIndex the column to move to.
+     * @throws IllegalArgumentException thrown if any of the parameters don't
+     *                                  map to a valid grid position.
+     */
+    public void moveFactory(int oldRowIndex, int oldColIndex, int newRowIndex, int newColIndex) {
+        if (oldRowIndex < 0 || oldRowIndex >= rows.size() || newRowIndex < 0 ||
+                newRowIndex >= rows.size()) {
+            return;
+        }
+        Row oldRow = rows.get(oldRowIndex);
+        Row newRow = rows.get(newRowIndex);
+        if (oldColIndex < 0 || oldColIndex > oldRow.size() - 1 || newColIndex < 0 ||
+                newColIndex > newRow.size()) {
+            return;
+        }
 
-	/**
-	 * {@return the list of factories used in this format.}
-	 */
-	public FieldFactory[] getFactorys() {
-		return factories.clone();
-	}
+        FieldFactory ff = oldRow.removeField(oldColIndex);
+        newRow.insertField(ff, newColIndex);
+        findWidth();
+        formatMgr.modelChanged(this);
+    }
 
-	/**
-	 * Moves the Field at (oldrow,oldCol) to (row,col)
-	 * @param oldRowIndex the row containing the field to be moved.
-	 * @param oldColIndex the column index of the field to be moved.
-	 * @param newRowIndex the row to move to.
-	 * @param newColIndex the column to move to.
-	 * @exception IllegalArgumentException thrown if any of the parameters don't
-	 * map to a valid grid position.
-	 */
-	public void moveFactory(int oldRowIndex, int oldColIndex, int newRowIndex, int newColIndex) {
-		if (oldRowIndex < 0 || oldRowIndex >= rows.size() || newRowIndex < 0 ||
-			newRowIndex >= rows.size()) {
-			return;
-		}
-		Row oldRow = rows.get(oldRowIndex);
-		Row newRow = rows.get(newRowIndex);
-		if (oldColIndex < 0 || oldColIndex > oldRow.size() - 1 || newColIndex < 0 ||
-			newColIndex > newRow.size()) {
-			return;
-		}
+    /**
+     * {@return the width of this format.}
+     */
+    public int getWidth() {
+        return width;
+    }
 
-		FieldFactory ff = oldRow.removeField(oldColIndex);
-		newRow.insertField(ff, newColIndex);
-		findWidth();
-		formatMgr.modelChanged(this);
-	}
+    /**
+     * Updates the fields on the given row.
+     *
+     * @param index the row to update.
+     */
+    public void updateRow(int index) {
+        Row row = rows.get(index);
+        row.layoutFields();
+        findWidth();
+        formatMgr.modelChanged(this);
+    }
 
-	/**
-	 * {@return the width of this format.}
-	 */
-	public int getWidth() {
-		return width;
-	}
+    /**
+     * Notifies each row that the services have changed.
+     */
+    public void servicesChanged() {
+        for (int i = 0; i < rows.size(); i++) {
+            Row row = rows.get(i);
+            row.servicesChanged();
+        }
+    }
 
-	/**
-	 * Updates the fields on the given row.
-	 * @param index the row to update.
-	 */
-	public void updateRow(int index) {
-		Row row = rows.get(index);
-		row.layoutFields();
-		findWidth();
-		formatMgr.modelChanged(this);
-	}
+    @Override
+    public String toString() {
+        return name + ":\n" + Arrays.stream(factories)
+                .map(f -> f.getClass().getSimpleName())
+                .collect(Collectors.joining(",\n"));
+    }
 
-	/**
-	 * Notifies each row that the services have changed.
-	 */
-	public void servicesChanged() {
-		for (int i = 0; i < rows.size(); i++) {
-			Row row = rows.get(i);
-			row.servicesChanged();
-		}
-	}
+    /**
+     * Saves this format to XML.
+     *
+     * @return the XML element for the saved format
+     */
+    public Element saveToXml() {
+        Element root = new Element("FORMAT");
 
-	@Override
-	public String toString() {
-		return name + ":\n" + Arrays.stream(factories)
-				.map(f -> f.getClass().getSimpleName())
-				.collect(Collectors.joining(",\n"));
-	}
+        for (int i = 0; i < rows.size(); i++) {
+            Element rowElem = new Element("ROW");
+            Row row = rows.get(i);
+            FieldFactory[] rowFactorys = row.getFactorys();
+            for (FieldFactory ff : rowFactorys) {
+                Element colElem = new Element("FIELD");
 
-	/**
-	 * Saves this format to XML.
-	 * @return the XML element for the saved format
-	 */
-	public Element saveToXml() {
-		Element root = new Element("FORMAT");
+                if (ff instanceof SpacerFieldFactory) {
+                    SpacerFieldFactory sff = (SpacerFieldFactory) ff;
+                    String text = sff.getText();
+                    // has no name!
+                    if (text != null) {
+                        colElem.setAttribute("TEXT", text);
+                    }
+                } else {
+                    colElem.setAttribute("NAME", ff.getFieldName());
+                }
+                colElem.setAttribute("WIDTH", "" + ff.getWidth());
+                colElem.setAttribute("ENABLED", "" + ff.isEnabled());
 
-		for (int i = 0; i < rows.size(); i++) {
-			Element rowElem = new Element("ROW");
-			Row row = rows.get(i);
-			FieldFactory[] rowFactorys = row.getFactorys();
-			for (FieldFactory ff : rowFactorys) {
-				Element colElem = new Element("FIELD");
+                rowElem.addContent(colElem);
+            }
+            root.addContent(rowElem);
+        }
+        return root;
+    }
 
-				if (ff instanceof SpacerFieldFactory) {
-					SpacerFieldFactory sff = (SpacerFieldFactory) ff;
-					String text = sff.getText();
-					// has no name!
-					if (text != null) {
-						colElem.setAttribute("TEXT", text);
-					}
-				}
-				else {
-					colElem.setAttribute("NAME", ff.getFieldName());
-				}
-				colElem.setAttribute("WIDTH", "" + ff.getWidth());
-				colElem.setAttribute("ENABLED", "" + ff.isEnabled());
+    /**
+     * Restores the format for this model from XML.
+     *
+     * @param root the root XML element from which to get the format information.
+     */
+    public void restoreFromXml(Element root) {
+        List<?> list = root.getChildren("ROW");
+        Iterator<?> it = list.iterator();
+        rows = new ArrayList<>();
+        while (it.hasNext()) {
+            Element element = (Element) it.next();
+            Row row = createRow(element);
+            rows.add(row);
+        }
+        findWidth();
+        formatMgr.modelChanged(this);
+    }
 
-				rowElem.addContent(colElem);
-			}
-			root.addContent(rowElem);
-		}
-		return root;
-	}
+    private Row createRow(Element rowElement) {
+        Row row = new Row();
+        Iterator<?> colIter = rowElement.getChildren("FIELD").iterator();
+        while (colIter.hasNext()) {
+            Element colElem = (Element) colIter.next();
 
-	/**
-	 * Restores the format for this model from XML.
-	 * @param root the root XML element from which to get the format information.
-	 */
-	public void restoreFromXml(Element root) {
-		List<?> list = root.getChildren("ROW");
-		Iterator<?> it = list.iterator();
-		rows = new ArrayList<>();
-		while (it.hasNext()) {
-			Element element = (Element) it.next();
-			Row row = createRow(element);
-			rows.add(row);
-		}
-		findWidth();
-		formatMgr.modelChanged(this);
-	}
+            String fieldName = colElem.getAttributeValue("NAME");
+            String text = colElem.getAttributeValue("TEXT");
+            String fieldWidth = colElem.getAttributeValue("WIDTH");
+            String enabled = colElem.getAttributeValue("ENABLED");
 
-	private Row createRow(Element rowElement) {
-		Row row = new Row();
-		Iterator<?> colIter = rowElement.getChildren("FIELD").iterator();
-		while (colIter.hasNext()) {
-			Element colElem = (Element) colIter.next();
+            FieldFactory factoryPrototype =
+                    FieldFactoryNameMapper.getFactoryPrototype(fieldName, factories);
+            FieldFactory newInstance = getNewFieldFactoryInstance(factoryPrototype, text);
 
-			String fieldName = colElem.getAttributeValue("NAME");
-			String text = colElem.getAttributeValue("TEXT");
-			String fieldWidth = colElem.getAttributeValue("WIDTH");
-			String enabled = colElem.getAttributeValue("ENABLED");
+            try {
+                newInstance.setWidth(Integer.parseInt(fieldWidth));
+            } catch (Exception exc) {
+                Msg.error(this, "Unparsable format for element 'fieldWidth' - '" + fieldWidth +
+                        "': " + exc.getMessage(), exc);
+            }
 
-			FieldFactory factoryPrototype =
-				FieldFactoryNameMapper.getFactoryPrototype(fieldName, factories);
-			FieldFactory newInstance = getNewFieldFactoryInstance(factoryPrototype, text);
+            try {
+                newInstance.setEnabled(Boolean.valueOf(enabled).booleanValue());
+            } catch (Exception exc) {
+                Msg.error(this, "Unparsable format for element 'enabled' - '" + enabled + "': " +
+                        exc.getMessage(), exc);
+            }
 
-			try {
-				newInstance.setWidth(Integer.parseInt(fieldWidth));
-			}
-			catch (Exception exc) {
-				Msg.error(this, "Unparsable format for element 'fieldWidth' - '" + fieldWidth +
-					"': " + exc.getMessage(), exc);
-			}
+            row.addField(newInstance);
+        }
+        return row;
+    }
 
-			try {
-				newInstance.setEnabled(Boolean.valueOf(enabled).booleanValue());
-			}
-			catch (Exception exc) {
-				Msg.error(this, "Unparsable format for element 'enabled' - '" + enabled + "': " +
-					exc.getMessage(), exc);
-			}
+    private FieldFactory getNewFieldFactoryInstance(FieldFactory factoryPrototype, String text) {
+        if (factoryPrototype != null) {
+            return factoryPrototype.newInstance(this, formatMgr.getFormatHighlightProvider(),
+                    formatMgr.getDisplayOptions(), formatMgr.getFieldOptions());
+        }
 
-			row.addField(newInstance);
-		}
-		return row;
-	}
+        return new SpacerFieldFactory(text, this, formatMgr.getFormatHighlightProvider(),
+                formatMgr.getDisplayOptions(), formatMgr.getFieldOptions());
+    }
 
-	private FieldFactory getNewFieldFactoryInstance(FieldFactory factoryPrototype, String text) {
-		if (factoryPrototype != null) {
-			return factoryPrototype.newInstance(this, formatMgr.getFormatHighlightProvider(),
-				formatMgr.getDisplayOptions(), formatMgr.getFieldOptions());
-		}
+    /**
+     * Adds all unused fields to this model.
+     */
+    public void addAllFactories() {
+        FieldFactory[] unusedFactorys = getUnusedFactories();
+        for (FieldFactory unusedFactory : unusedFactorys) {
+            addFactory(unusedFactory, 0, 0);
+        }
+        findWidth();
+        formatMgr.modelChanged(this);
+    }
 
-		return new SpacerFieldFactory(text, this, formatMgr.getFormatHighlightProvider(),
-			formatMgr.getDisplayOptions(), formatMgr.getFieldOptions());
-	}
+    /**
+     * Returns a list of unused valid fields for this model
+     *
+     * @return a list of unused valid fields for this model
+     */
+    public FieldFactory[] getUnusedFactories() {
+        List<FieldFactory> list = new ArrayList<>(Arrays.asList(factories));
+        for (int i = 0; i < rows.size(); i++) {
+            Row row = rows.get(i);
+            FieldFactory[] rowFactorys = row.getFactorys();
+            for (FieldFactory rowFactory : rowFactorys) {
+                Class<?> c = rowFactory.getClass();
+                for (int k = 0; k < list.size(); k++) {
+                    if (c.equals(list.get(k).getClass())) {
+                        list.remove(k);
+                        break;
+                    }
+                }
+            }
+        }
+        return list.toArray(new FieldFactory[0]);
+    }
 
-	/**
-	 * Adds all unused fields to this model.
-	 */
-	public void addAllFactories() {
-		FieldFactory[] unusedFactorys = getUnusedFactories();
-		for (FieldFactory unusedFactory : unusedFactorys) {
-			addFactory(unusedFactory, 0, 0);
-		}
-		findWidth();
-		formatMgr.modelChanged(this);
-	}
+    public FieldFactory[] getAllFactories() {
+        List<FieldFactory> arrayBackedList = new ArrayList<>(Arrays.asList(factories));
+        Collections.sort(arrayBackedList, COMPARATOR);
+        return arrayBackedList.toArray(new FieldFactory[factories.length]);  // new array
+    }
 
-	/**
-	 * Returns a list of unused valid fields for this model 
-	 * @return a list of unused valid fields for this model
-	 */
-	public FieldFactory[] getUnusedFactories() {
-		List<FieldFactory> list = new ArrayList<>(Arrays.asList(factories));
-		for (int i = 0; i < rows.size(); i++) {
-			Row row = rows.get(i);
-			FieldFactory[] rowFactorys = row.getFactorys();
-			for (FieldFactory rowFactory : rowFactorys) {
-				Class<?> c = rowFactory.getClass();
-				for (int k = 0; k < list.size(); k++) {
-					if (c.equals(list.get(k).getClass())) {
-						list.remove(k);
-						break;
-					}
-				}
-			}
-		}
-		return list.toArray(new FieldFactory[list.size()]);
-	}
+    /**
+     * Removes all fields from this model.
+     */
+    public void removeAllFactories() {
+        for (int i = 0; i < rows.size(); i++) {
+            Row row = rows.get(i);
+            while (row.size() > 0) {
+                row.removeField(0);
+            }
+        }
+        findWidth();
+        formatMgr.modelChanged(this);
 
-	public FieldFactory[] getAllFactories() {
-		List<FieldFactory> arrayBackedList = new ArrayList<>(Arrays.asList(factories));
-		Collections.sort(arrayBackedList, COMPARATOR);
-		return arrayBackedList.toArray(new FieldFactory[factories.length]);  // new array
-	}
+    }
 
-	/**
-	 * Removes all fields from this model.
-	 */
-	public void removeAllFactories() {
-		for (int i = 0; i < rows.size(); i++) {
-			Row row = rows.get(i);
-			while (row.size() > 0) {
-				row.removeField(0);
-			}
-		}
-		findWidth();
-		formatMgr.modelChanged(this);
+    /**
+     * Notifies that the field display options have changed.
+     *
+     * @param options    the Options object that changed.
+     * @param optionName the name of the property that changed.
+     * @param oldValue   the old value of the property.
+     * @param newValue   the new value of the property.
+     */
+    public void displayOptionsChanged(Options options, String optionName, Object oldValue,
+                                      Object newValue) {
+        for (Row row : rows) {
+            row.displayOptionsChanged(options, optionName, oldValue, newValue);
+        }
+    }
 
-	}
-
-	/**
-	 * Notifies that the field display options have changed.
-	 * @param options the Options object that changed.
-	 * @param optionName the name of the property that changed.
-	 * @param oldValue the old value of the property.
-	 * @param newValue the new value of the property.
-	 */
-	public void displayOptionsChanged(Options options, String optionName, Object oldValue,
-			Object newValue) {
-		for (Row row : rows) {
-			row.displayOptionsChanged(options, optionName, oldValue, newValue);
-		}
-	}
-
-	/**
-	 * Notifies that the field options have changed.
-	 * @param options the Options object that changed.
-	 * @param optionName the name of the property that changed.
-	 * @param oldValue the old value of the property.
-	 * @param newValue the new value of the property.
-	 */
-	public void fieldOptionsChanged(Options options, String optionName, Object oldValue,
-			Object newValue) {
-		for (Row row : rows) {
-			row.fieldOptionsChanged(options, optionName, oldValue, newValue);
-		}
-	}
+    /**
+     * Notifies that the field options have changed.
+     *
+     * @param options    the Options object that changed.
+     * @param optionName the name of the property that changed.
+     * @param oldValue   the old value of the property.
+     * @param newValue   the new value of the property.
+     */
+    public void fieldOptionsChanged(Options options, String optionName, Object oldValue,
+                                    Object newValue) {
+        for (Row row : rows) {
+            row.fieldOptionsChanged(options, optionName, oldValue, newValue);
+        }
+    }
 
 //==================================================================================================
 //Inner Classes 
 //==================================================================================================
 
-	private static class FieldFactoryComparator implements Comparator<FieldFactory> {
-		@Override
-		public int compare(FieldFactory f1, FieldFactory f2) {
-			return f1.getFieldName().compareTo(f2.getFieldName());
-		}
-	}
+    private static class FieldFactoryComparator implements Comparator<FieldFactory> {
+        @Override
+        public int compare(FieldFactory f1, FieldFactory f2) {
+            return f1.getFieldName().compareTo(f2.getFieldName());
+        }
+    }
 
 }
 
 class Row {
-	List<FieldFactory> fields = new ArrayList<>();
-	int width = 0;
+    List<FieldFactory> fields = new ArrayList<>();
+    int width = 0;
 
-	public void insertField(FieldFactory ff, int colIndex) {
-		fields.add(colIndex, ff);
-		layoutFields();
-	}
+    public void insertField(FieldFactory ff, int colIndex) {
+        fields.add(colIndex, ff);
+        layoutFields();
+    }
 
-	public void displayOptionsChanged(Options options, String name, Object oldValue,
-			Object newValue) {
-		for (FieldFactory factory : fields) {
-			factory.displayOptionsChanged(options, name, oldValue, newValue);
-		}
-	}
+    public void displayOptionsChanged(Options options, String name, Object oldValue,
+                                      Object newValue) {
+        for (FieldFactory factory : fields) {
+            factory.displayOptionsChanged(options, name, oldValue, newValue);
+        }
+    }
 
-	public void fieldOptionsChanged(Options options, String name, Object oldValue,
-			Object newValue) {
-		for (FieldFactory factory : fields) {
-			factory.fieldOptionsChanged(options, name, oldValue, newValue);
-		}
-	}
+    public void fieldOptionsChanged(Options options, String name, Object oldValue,
+                                    Object newValue) {
+        for (FieldFactory factory : fields) {
+            factory.fieldOptionsChanged(options, name, oldValue, newValue);
+        }
+    }
 
-	public void servicesChanged() {
-		for (int i = 0; i < fields.size(); i++) {
-			FieldFactory factory = fields.get(i);
-			factory.servicesChanged();
-		}
-	}
+    public void servicesChanged() {
+        for (int i = 0; i < fields.size(); i++) {
+            FieldFactory factory = fields.get(i);
+            factory.servicesChanged();
+        }
+    }
 
-	public void addField(FieldFactory ff) {
-		fields.add(ff);
-		layoutFields();
-	}
+    public void addField(FieldFactory ff) {
+        fields.add(ff);
+        layoutFields();
+    }
 
-	public void layoutFields() {
-		width = 0;
-		for (int i = 0; i < fields.size(); i++) {
-			FieldFactory factory = fields.get(i);
-			factory.setStartX(width);
-			width += factory.getWidth();
-		}
-	}
+    public void layoutFields() {
+        width = 0;
+        for (int i = 0; i < fields.size(); i++) {
+            FieldFactory factory = fields.get(i);
+            factory.setStartX(width);
+            width += factory.getWidth();
+        }
+    }
 
-	public RowLayout getLayout(int index, ProxyObj<?> proxy, int id) {
-		ArrayList<Field> temp = new ArrayList<>(20);
-		int varWidth = 0;
-		for (int i = 0; i < fields.size(); i++) {
-			FieldFactory ff = fields.get(i);
-			ListingField f = null;
-			try {
-				f = ff.getField(proxy, varWidth);
-			}
-			catch (Throwable t) {
-				f = new ErrorListingField(ff, proxy, varWidth, t);
-			}
-			if (f != null) {
-				if (f.getWidth() != ff.getWidth()) {
-					varWidth += f.getWidth() - ff.getWidth();
-				}
-				temp.add(f);
-			}
-		}
-		if (temp.size() > 0) {
-			Field[] rowFields = new Field[temp.size()];
-			rowFields = temp.toArray(rowFields);
-			temp.clear();
-			return new RowLayout(rowFields, id);
-		}
-		return null;
-	}
+    public RowLayout getLayout(int index, ProxyObj<?> proxy, int id) {
+        ArrayList<Field> temp = new ArrayList<>(20);
+        int varWidth = 0;
+        for (int i = 0; i < fields.size(); i++) {
+            FieldFactory ff = fields.get(i);
+            ListingField f = null;
+            try {
+                f = ff.getField(proxy, varWidth);
+            } catch (Throwable t) {
+                f = new ErrorListingField(ff, proxy, varWidth, t);
+            }
+            if (f != null) {
+                if (f.getWidth() != ff.getWidth()) {
+                    varWidth += f.getWidth() - ff.getWidth();
+                }
+                temp.add(f);
+            }
+        }
+        if (temp.size() > 0) {
+            Field[] rowFields = new Field[temp.size()];
+            rowFields = temp.toArray(rowFields);
+            temp.clear();
+            return new RowLayout(rowFields, id);
+        }
+        return null;
+    }
 
-	public FieldFactory[] getFactorys() {
-		FieldFactory[] ffs = new FieldFactory[fields.size()];
-		return fields.toArray(ffs);
-	}
+    public FieldFactory[] getFactorys() {
+        FieldFactory[] ffs = new FieldFactory[fields.size()];
+        return fields.toArray(ffs);
+    }
 
-	public int size() {
-		return fields.size();
-	}
+    public int size() {
+        return fields.size();
+    }
 
-	public FieldFactory removeField(int colIndex) {
-		FieldFactory ff = fields.remove(colIndex);
-		layoutFields();
-		return ff;
-	}
+    public FieldFactory removeField(int colIndex) {
+        FieldFactory ff = fields.remove(colIndex);
+        layoutFields();
+        return ff;
+    }
 
-	@Override
-	public String toString() {
-		return fields.stream()
-				.map(f -> f.getClass().getSimpleName())
-				.collect(Collectors.joining(","));
-	}
+    @Override
+    public String toString() {
+        return fields.stream()
+                .map(f -> f.getClass().getSimpleName())
+                .collect(Collectors.joining(","));
+    }
 }

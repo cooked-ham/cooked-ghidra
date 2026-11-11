@@ -15,14 +15,13 @@
  */
 package resources;
 
+import generic.theme.GIcon;
+import ghidra.util.ColorUtils;
+
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
-
-import javax.swing.Icon;
-
-import generic.theme.GIcon;
-import ghidra.util.ColorUtils;
 
 /**
  * Icon class for displaying overlapping icons.  Icons are drawn in the order they
@@ -30,162 +29,167 @@ import ghidra.util.ColorUtils;
  */
 public class MultiIcon implements Icon {
 
-	private java.util.List<Icon> iconList;
+    private java.util.List<Icon> iconList;
 
-	private boolean disabled;
+    private boolean disabled;
 
-	private boolean loaded;
-	private int height;
-	private int width;
-	private String description;
+    private boolean loaded;
+    private int height;
+    private int width;
+    private String description;
 
-	/**
-	 * Constructs a new MultiIcon with an initial base icon that will always be drawn first.
-	 * @param baseIcon the base icon that will always be drawn first.
-	 */
-	public MultiIcon(Icon baseIcon) {
-		this(baseIcon, false);
-	}
+    /**
+     * Constructs a new MultiIcon with an initial base icon that will always be drawn first.
+     *
+     * @param baseIcon the base icon that will always be drawn first.
+     */
+    public MultiIcon(Icon baseIcon) {
+        this(baseIcon, false);
+    }
 
-	/**
-	 * Constructs a new MultiIcon with an initial base icon that will always be drawn first.
-	 * @param baseIcon the base icon that will always be drawn first.
-	 */
-	public MultiIcon(Icon baseIcon, boolean disabled) {
-		Objects.requireNonNull(baseIcon, "baseIcon may not be null");
-		this.disabled = disabled;
-		iconList = new ArrayList<>(4);
-		addIcon(baseIcon);
-	}
+    /**
+     * Constructs a new MultiIcon with an initial base icon that will always be drawn first.
+     *
+     * @param baseIcon the base icon that will always be drawn first.
+     */
+    public MultiIcon(Icon baseIcon, boolean disabled) {
+        Objects.requireNonNull(baseIcon, "baseIcon may not be null");
+        this.disabled = disabled;
+        iconList = new ArrayList<>(4);
+        addIcon(baseIcon);
+    }
 
-	/**
-	 * Construct a new MultiIcon with the provided base image and subsequent images
-	 * @param baseIcon base image always drawn first
-	 * @param icons images drawn atop the base
-	 */
-	public MultiIcon(Icon baseIcon, Icon... icons) {
-		this(baseIcon, false);
-		for (Icon icon : icons) {
-			iconList.add(icon);
-		}
-	}
+    /**
+     * Construct a new MultiIcon with the provided base image and subsequent images
+     *
+     * @param baseIcon base image always drawn first
+     * @param icons    images drawn atop the base
+     */
+    public MultiIcon(Icon baseIcon, Icon... icons) {
+        this(baseIcon, false);
+        for (Icon icon : icons) {
+            iconList.add(icon);
+        }
+    }
 
-	/**
-	 * Construct a new MultiIcon with a predetermined size
-	 * @param baseIcon Primary icon that is always drawn first
-	 * @param disabled flag to draw this icon in a disabled state
-	 * @param width horizontal dimension of this icon
-	 * @param height vertical dimension of this icon
-	 */
-	public MultiIcon(Icon baseIcon, boolean disabled, int width, int height) {
-		iconList = new ArrayList<>(4);
-		iconList.add(baseIcon);
-		this.width = width;
-		this.height = height;
-		this.loaded = true;
-		this.disabled = disabled;
-	}
+    /**
+     * Construct a new MultiIcon with a predetermined size
+     *
+     * @param baseIcon Primary icon that is always drawn first
+     * @param disabled flag to draw this icon in a disabled state
+     * @param width    horizontal dimension of this icon
+     * @param height   vertical dimension of this icon
+     */
+    public MultiIcon(Icon baseIcon, boolean disabled, int width, int height) {
+        iconList = new ArrayList<>(4);
+        iconList.add(baseIcon);
+        this.width = width;
+        this.height = height;
+        this.loaded = true;
+        this.disabled = disabled;
+    }
 
-	/**
-	 * Adds an icon that is to be drawn on top of the base icon and any other icons that
-	 * have been added.
-	 * @param icon the icon to be added.
-	 */
-	public void addIcon(Icon icon) {
-		if (icon == null) {
-			return;
-		}
-		iconList.add(icon);
-	}
+    /**
+     * Adds an icon that is to be drawn on top of the base icon and any other icons that
+     * have been added.
+     *
+     * @param icon the icon to be added.
+     */
+    public void addIcon(Icon icon) {
+        if (icon == null) {
+            return;
+        }
+        iconList.add(icon);
+    }
 
-	private void init() {
-		if (!loaded) {
-			loaded = true;
-			height = 0;
-			width = 0;
-			for (Icon icon : iconList) {
-				height = Math.max(height, icon.getIconHeight());
-				width = Math.max(width, icon.getIconWidth());
-			}
-		}
-	}
+    private void init() {
+        if (!loaded) {
+            loaded = true;
+            height = 0;
+            width = 0;
+            for (Icon icon : iconList) {
+                height = Math.max(height, icon.getIconHeight());
+                width = Math.max(width, icon.getIconWidth());
+            }
+        }
+    }
 
-	public String getDescription() {
-		if (description == null) {
-			description = iconList.get(0).toString();
-		}
-		return description;
-	}
+    public String getDescription() {
+        if (description == null) {
+            description = iconList.get(0).toString();
+        }
+        return description;
+    }
 
-	/**
-	 * @see javax.swing.Icon#getIconHeight()
-	 */
-	@Override
-	public int getIconHeight() {
-		init();
-		return height;
-	}
+    /**
+     * @see javax.swing.Icon#getIconHeight()
+     */
+    @Override
+    public int getIconHeight() {
+        init();
+        return height;
+    }
 
-	/**
-	 * @see javax.swing.Icon#getIconWidth()
-	 */
-	@Override
-	public int getIconWidth() {
-		init();
-		return width;
-	}
+    /**
+     * @see javax.swing.Icon#getIconWidth()
+     */
+    @Override
+    public int getIconWidth() {
+        init();
+        return width;
+    }
 
-	/**
-	 * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
-	 */
-	@Override
-	public void paintIcon(Component c, Graphics g, int x, int y) {
-		init();
+    /**
+     * @see javax.swing.Icon#paintIcon(java.awt.Component, java.awt.Graphics, int, int)
+     */
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y) {
+        init();
 
-		for (Icon icon : iconList) {
-			icon.paintIcon(c, g, x, y);
-		}
+        for (Icon icon : iconList) {
+            icon.paintIcon(c, g, x, y);
+        }
 
-		if (disabled) {
-			// Alpha blend to background
-			Color bgColor = c != null ? c.getBackground() : Color.gray;
-			g.setColor(ColorUtils.withAlpha(bgColor, 128));
-			g.fillRect(x, y, width, height);
-		}
-	}
+        if (disabled) {
+            // Alpha blend to background
+            Color bgColor = c != null ? c.getBackground() : Color.gray;
+            g.setColor(ColorUtils.withAlpha(bgColor, 128));
+            g.fillRect(x, y, width, height);
+        }
+    }
 
-	/**
-	 * Return array of Icons that were added to this MultIcon.
-	 */
-	public Icon[] getIcons() {
-		return iconList.toArray(new Icon[iconList.size()]);
-	}
+    /**
+     * Return array of Icons that were added to this MultIcon.
+     */
+    public Icon[] getIcons() {
+        return iconList.toArray(new Icon[0]);
+    }
 
-	@Override
-	public String toString() {
-		return getClass().getSimpleName() + "[" + getIconNames() + "]";
-	}
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "[" + getIconNames() + "]";
+    }
 
-	private String getIconNames() {
-		StringBuffer buffy = new StringBuffer();
-		for (Icon icon : iconList) {
-			if (buffy.length() > 0) {
-				buffy.append(", ");
-			}
+    private String getIconNames() {
+        StringBuffer buffy = new StringBuffer();
+        for (Icon icon : iconList) {
+            if (buffy.length() > 0) {
+                buffy.append(", ");
+            }
 
-			String name = getIconId(icon);
-			if (name == null) {
-				name = ResourceManager.getIconName(icon);
-			}
-			buffy.append(name);
-		}
-		return buffy.toString();
-	}
+            String name = getIconId(icon);
+            if (name == null) {
+                name = ResourceManager.getIconName(icon);
+            }
+            buffy.append(name);
+        }
+        return buffy.toString();
+    }
 
-	private String getIconId(Icon icon) {
-		if (icon instanceof GIcon gIcon) {
-			return gIcon.getId();
-		}
-		return null;
-	}
+    private String getIconId(Icon icon) {
+        if (icon instanceof GIcon gIcon) {
+            return gIcon.getId();
+        }
+        return null;
+    }
 }

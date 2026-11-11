@@ -246,7 +246,7 @@ public class DecompilerCallConventionAnalyzer extends AbstractAnalyzer {
 // Inner Classes
 //==================================================================================================
 
-	private class DecompilerFactory extends CountingBasicFactory<DecompInterface> {
+	private static class DecompilerFactory extends CountingBasicFactory<DecompInterface> {
 
 		private Program program;
 

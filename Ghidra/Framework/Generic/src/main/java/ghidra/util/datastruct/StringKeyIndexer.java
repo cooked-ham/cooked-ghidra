@@ -16,6 +16,7 @@
 package ghidra.util.datastruct;
 import ghidra.util.exception.AssertException;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Iterator;
 
@@ -31,6 +32,7 @@ import java.util.Iterator;
  */
 
 public class StringKeyIndexer implements Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
 
     private static final int DEFAULT_CAPACITY = 13;

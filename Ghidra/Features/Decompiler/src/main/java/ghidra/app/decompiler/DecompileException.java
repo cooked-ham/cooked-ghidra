@@ -20,12 +20,15 @@
  */
 package ghidra.app.decompiler;
 
+import java.io.Serial;
+
 /**
  * An exception from (or that has passed through) the decompiler process
  * 
  * 
  */
 public class DecompileException extends Exception {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public DecompileException(String type,String msg) {

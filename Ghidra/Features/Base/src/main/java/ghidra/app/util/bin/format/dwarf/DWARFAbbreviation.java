@@ -64,7 +64,7 @@ public class DWARFAbbreviation {
 			tmpAttrSpecs.add(attrSpec);
 			warnIfMismatchedForms(attrSpec);
 		}
-		AttrDef[] attrSpecArray = tmpAttrSpecs.toArray(new AttrDef[tmpAttrSpecs.size()]);
+		AttrDef[] attrSpecArray = tmpAttrSpecs.toArray(new AttrDef[0]);
 
 		DWARFAbbreviation result = new DWARFAbbreviation(ac, tag,
 			hasChildren == DWARFChildren.DW_CHILDREN_yes, attrSpecArray);

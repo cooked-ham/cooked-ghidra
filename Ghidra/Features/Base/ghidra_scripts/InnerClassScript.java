@@ -30,7 +30,7 @@ public class InnerClassScript extends GhidraScript {
         println(mec.toString());
     }
 
-    private class MyInnerClass {
+    private static class MyInnerClass {
         @Override
         public String toString() {
             return "I am an inner class.";

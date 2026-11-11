@@ -588,7 +588,7 @@ public class AnalyzeHeadless implements GhidraLaunchable {
 		while (i < args.length && !isExistingArg(args[i])) {
 			subArgs.add(args[i++]);
 		}
-		return subArgs.toArray(new String[subArgs.size()]);
+		return subArgs.toArray(new String[0]);
 	}
 
 	private boolean checkArgument(Arg arg, String[] args, int argi)

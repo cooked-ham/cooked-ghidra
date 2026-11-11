@@ -16,11 +16,13 @@
 package ghidra.app.util.bin;
 
 import java.io.IOException;
+import java.io.Serial;
 
 /**
  * An {@link IOException} that indicates that the data being transmitted was invalid or bad format.
  */
 public class InvalidDataException extends IOException {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public InvalidDataException() {

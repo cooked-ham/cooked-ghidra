@@ -16,6 +16,7 @@
 package ghidra.program.database.data;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
@@ -69,12 +70,12 @@ public class FunctionDefinitionDBTest extends AbstractGhidraHeadedIntegrationTes
 		assertTrue(parms[0].getDataType().isEquivalent(new ByteDataType()));
 		assertTrue(parms[1].getDataType().isEquivalent(new FloatDataType()));
 		assertTrue(parms[2].getDataType().isEquivalent(new CharDataType()));
-		assertEquals(parms[0].getName(), "parm1");
-		assertEquals(parms[1].getName(), "parm2");
-		assertEquals(parms[2].getName(), "parm3");
-		assertEquals(parms[0].getComment(), "this is first parm.");
-		assertEquals(parms[1].getComment(), "this is second parm.");
-		assertEquals(parms[2].getComment(), "this is third parm.");
+		assertEquals("parm1", parms[0].getName());
+		assertEquals("parm2", parms[1].getName());
+		assertEquals("parm3", parms[2].getName());
+		assertEquals("this is first parm.", parms[0].getComment());
+		assertEquals("this is second parm.", parms[1].getComment());
+		assertEquals("this is third parm.", parms[2].getComment());
 	}
 
 	private void addThreeArguments() {
@@ -91,13 +92,13 @@ public class FunctionDefinitionDBTest extends AbstractGhidraHeadedIntegrationTes
 	@Test
     public void testSetName() throws Exception {
 		functionDt.setName("printf");
-		assertEquals(functionDt.getName(), "printf");
+		assertEquals("printf", functionDt.getName());
 	}
 
 	@Test
     public void testSetComment() throws Exception {
 		functionDt.setComment("My test comment.");
-		assertEquals(functionDt.getComment(), "My test comment.");
+		assertEquals("My test comment.", functionDt.getComment());
 	}
 
 	@Test
@@ -117,7 +118,7 @@ public class FunctionDefinitionDBTest extends AbstractGhidraHeadedIntegrationTes
     public void testNotEquals() throws Exception {
 		FunctionDefinitionDataType fdt = new FunctionDefinitionDataType(functionDt);
 		fdt.setComment("other comments");
-		assertTrue(!functionDt.equals(fdt));
+		assertFalse(functionDt.equals(fdt));
 	}
 
 }

@@ -156,7 +156,7 @@ public class IconModifier {
 	public String getSerializationString() {
 		StringBuilder builder = new StringBuilder();
 		if (size != null) {
-			builder.append("[" + "size(" + size.width + "," + size.height + ")]");
+			builder.append("[").append("size(").append(size.width).append(",").append(size.height).append(")]");
 		}
 		if (mirror) {
 			builder.append("[mirror]");
@@ -165,10 +165,10 @@ public class IconModifier {
 			builder.append("[flip]");
 		}
 		if (rotation != null) {
-			builder.append("[rotate(" + rotation + ")]");
+			builder.append("[rotate(").append(rotation).append(")]");
 		}
 		if (translation != null) {
-			builder.append("[" + "move(" + translation.x + "," + translation.y + ")]");
+			builder.append("[").append("move(").append(translation.x).append(",").append(translation.y).append(")]");
 		}
 		if (disabled) {
 			builder.append("[disabled]");

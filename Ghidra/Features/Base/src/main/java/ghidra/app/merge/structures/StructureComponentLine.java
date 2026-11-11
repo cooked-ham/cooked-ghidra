@@ -325,7 +325,7 @@ public class StructureComponentLine extends CoordinatedStructureLine {
 
 			String name = myComp.getFieldName();
 			if (name != null) {
-				buffer.append(" " + name);
+				buffer.append(" ").append(name);
 			}
 			String comment = myComp.getComment();
 			if (!StringUtils.isBlank(comment)) {

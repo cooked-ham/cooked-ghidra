@@ -354,6 +354,6 @@ public class CParserPlugin extends ProgramPlugin {
 			}
 		}
 
-		return list.toArray(new String[list.size()]);
+		return list.toArray(new String[0]);
 	}
 }

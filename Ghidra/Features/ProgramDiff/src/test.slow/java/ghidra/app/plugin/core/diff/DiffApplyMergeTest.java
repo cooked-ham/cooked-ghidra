@@ -177,7 +177,7 @@ public class DiffApplyMergeTest extends DiffApplyTestAdapter {
 			for (FunctionTag tag : f1.getTags()) {
 				tagNames.add(tag.getName());
 			}
-			assertEquals(tagNames.size(), 2);
+			assertEquals(2, tagNames.size());
 			assertTrue(tagNames.contains("TagA"));
 			assertTrue(tagNames.contains("TagB"));
 

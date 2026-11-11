@@ -141,7 +141,7 @@ public class DebuggerSectionsPanel extends AbstractObjectsTableBasedPanel<TraceS
 		}
 	}
 
-	private class SectionTableModel extends ObjectTableModel {
+	private static class SectionTableModel extends ObjectTableModel {
 		protected SectionTableModel(Plugin plugin) {
 			super(plugin);
 		}

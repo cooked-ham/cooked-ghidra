@@ -223,7 +223,7 @@ public interface DBTraceCodeUnitAdapter extends TraceCodeUnit, MemBufferMixin {
 		try (LockHold hold = getTrace().lockRead()) {
 			Collection<? extends TraceSymbol> at =
 				getTrace().getSymbolManager().labels().getAt(getStartSnap(), getAddress(), true);
-			return at.toArray(new TraceSymbol[at.size()]);
+			return at.toArray(new TraceSymbol[0]);
 		}
 	}
 
@@ -333,7 +333,7 @@ public interface DBTraceCodeUnitAdapter extends TraceCodeUnit, MemBufferMixin {
 	default DBTraceReference[] getOperandReferences(int index) {
 		Collection<? extends TraceReference> refs =
 			getTrace().getReferenceManager().getReferencesFrom(getStartSnap(), getAddress(), index);
-		return refs.toArray(new DBTraceReference[refs.size()]);
+		return refs.toArray(new DBTraceReference[0]);
 	}
 
 	@Override
@@ -346,7 +346,7 @@ public interface DBTraceCodeUnitAdapter extends TraceCodeUnit, MemBufferMixin {
 	default DBTraceReference[] getReferencesFrom() {
 		Collection<? extends TraceReference> refs =
 			getTrace().getReferenceManager().getReferencesFrom(getStartSnap(), getAddress());
-		return refs.toArray(new DBTraceReference[refs.size()]);
+		return refs.toArray(new DBTraceReference[0]);
 	}
 
 	@Override

@@ -69,7 +69,7 @@ public class IndexedPropertyFileTest extends AbstractGenericTest {
 		assertEquals("/", pf.getParentPath());
 		assertEquals("/" + NAME, pf.getPath());
 		assertTrue(pf.getBoolean("TestBooleanTrue", false));
-		assertTrue(!pf.getBoolean("TestBooleanFalse", true));
+		assertFalse(pf.getBoolean("TestBooleanFalse", true));
 		assertTrue(pf.getBoolean("TestBooleanBad", true));
 		assertEquals(1234, pf.getInt("TestInt", -1));
 		assertEquals(0x12345678, pf.getLong("TestLong", -1));
@@ -82,7 +82,7 @@ public class IndexedPropertyFileTest extends AbstractGenericTest {
 		assertEquals("/" + NAME, pf.getPath());
 
 		assertTrue(pf.getBoolean("TestBooleanTrue", false));
-		assertTrue(!pf.getBoolean("TestBooleanFalse", true));
+		assertFalse(pf.getBoolean("TestBooleanFalse", true));
 		assertTrue(pf.getBoolean("TestBooleanBad", true));
 		assertEquals(1234, pf.getInt("TestInt", -1));
 		assertEquals(0x12345678, pf.getLong("TestLong", -1));
@@ -95,7 +95,7 @@ public class IndexedPropertyFileTest extends AbstractGenericTest {
 		assertEquals("/" + NAME, pf.getPath());
 
 		assertTrue(pf.getBoolean("TestBooleanTrue", false));
-		assertTrue(!pf.getBoolean("TestBooleanFalse", true));
+		assertFalse(pf.getBoolean("TestBooleanFalse", true));
 		assertTrue(pf.getBoolean("TestBooleanBad", true));
 		assertEquals(1234, pf.getInt("TestInt", -1));
 		assertEquals(0x12345678, pf.getLong("TestLong", -1));

@@ -17,6 +17,7 @@ package ghidra.framework.main.datatree;
 
 import java.awt.*;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,6 +45,7 @@ import ghidra.framework.store.ItemCheckoutStatus;
  * Panel that shows check out information for a domain file.
  */
 public class CheckoutsPanel extends JPanel {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private Component parent;

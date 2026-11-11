@@ -131,7 +131,7 @@ public class VariableStorage implements Comparable<VariableStorage> {
 	public VariableStorage(ProgramArchitecture programArch, List<Varnode> varnodes)
 			throws InvalidInputException {
 		this.programArch = programArch;
-		this.varnodes = varnodes.toArray(new Varnode[varnodes.size()]);
+		this.varnodes = varnodes.toArray(new Varnode[0]);
 		checkVarnodes();
 	}
 

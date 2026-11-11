@@ -52,7 +52,7 @@ public class SampleSearchTableModel extends AddressBasedTableModel<SearchResults
 		return descriptor;
 	}
 
-	private class MyAddressColumn extends
+	private static class MyAddressColumn extends
 			AbstractDynamicTableColumn<SearchResults, Address, Object> {
 
 		@Override
@@ -67,7 +67,7 @@ public class SampleSearchTableModel extends AddressBasedTableModel<SearchResults
 		}
 	}
 
-	private class MyValueColumn extends AbstractDynamicTableColumn<SearchResults, String, Object> {
+	private static class MyValueColumn extends AbstractDynamicTableColumn<SearchResults, String, Object> {
 
 		@Override
 		public String getColumnName() {

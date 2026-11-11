@@ -208,7 +208,7 @@ public class ApplyEnumsAsLabelsAction extends DockingAction {
 			return result;
 		}
 
-		private class CreateLabelResult {
+		private static class CreateLabelResult {
 			int numberCreated;
 			boolean someAlreadyExisted;
 			boolean failedToCreateSomeLabels;

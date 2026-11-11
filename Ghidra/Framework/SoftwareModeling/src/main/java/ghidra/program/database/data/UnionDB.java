@@ -416,7 +416,7 @@ class UnionDB extends CompositeDB implements UnionInternal {
 	public DataTypeComponentDB[] getComponents() {
 		try (Closeable c = lock.read()) {
 			refreshIfNeeded();
-			return components.toArray(new DataTypeComponentDB[components.size()]);
+			return components.toArray(new DataTypeComponentDB[0]);
 		}
 	}
 

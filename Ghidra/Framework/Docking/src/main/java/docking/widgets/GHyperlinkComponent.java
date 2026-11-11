@@ -229,7 +229,7 @@ public class GHyperlinkComponent extends JPanel {
 		}
 	}
 
-	private class NonScrollingCaret extends DefaultCaret {
+	private static class NonScrollingCaret extends DefaultCaret {
 
 		private NonScrollingCaret() {
 			setVisible(false);

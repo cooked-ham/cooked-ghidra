@@ -52,7 +52,7 @@ public class ImportFSBFileHandler implements FSBFileHandler {
 
 					String suggestedPath = FilenameUtils
 							.getFullPathNoEndSeparator(node.getFormattedTreePath())
-							.replaceAll(":/", "/");
+							.replace(":/", "/");
 
 					FSBComponentProvider fsbComp = ac.getComponentProvider();
 					FileSystemBrowserPlugin plugin = fsbComp.getPlugin();

@@ -1950,12 +1950,12 @@ public class FunctionMergeManager2Test extends AbstractListingMergeManagerTest {
 		Parameter[] parms = func.getParameters();
 		assertEquals(4, parms.length);
 		assertEquals("Parameter 0 comment.", parms[0].getComment());
-		assertEquals(null, parms[1].getComment());
+		assertNull(parms[1].getComment());
 
 		func = getFunction(resultProgram, "0x1004c1d");
 		parms = func.getParameters();
 		assertEquals(2, parms.length);
-		assertEquals(null, parms[0].getComment());
+		assertNull(parms[0].getComment());
 		assertEquals("To be or not to be.", parms[1].getComment());
 	}
 
@@ -2003,11 +2003,11 @@ public class FunctionMergeManager2Test extends AbstractListingMergeManagerTest {
 
 		Function func;
 		func = getFunction(resultProgram, "0x01004068");
-		assertEquals(false, func.hasVarArgs());
+		assertFalse(func.hasVarArgs());
 		func = getFunction(resultProgram, "0x01004c1d");
-		assertEquals(false, func.hasVarArgs());
+		assertFalse(func.hasVarArgs());
 		func = getFunction(resultProgram, "0x010058b8");
-		assertEquals(false, func.hasVarArgs());
+		assertFalse(func.hasVarArgs());
 	}
 
 	@Test
@@ -2097,19 +2097,19 @@ public class FunctionMergeManager2Test extends AbstractListingMergeManagerTest {
 		Function func;
 
 		func = getFunction(resultProgram, "0x010018cf");
-		assertEquals(false, func.hasVarArgs());
+		assertFalse(func.hasVarArgs());
 		assertEquals(0, func.getParameterCount());
 
 		func = getFunction(resultProgram, "0x01004068");
-		assertEquals(true, func.hasVarArgs());
+		assertTrue(func.hasVarArgs());
 		assertEquals(1, func.getParameterCount());
 
 		func = getFunction(resultProgram, "0x01004c1d");
-		assertEquals(true, func.hasVarArgs());
+		assertTrue(func.hasVarArgs());
 		assertEquals(2, func.getParameterCount());
 
 		func = getFunction(resultProgram, "0x010058b8");
-		assertEquals(false, func.hasVarArgs());
+		assertFalse(func.hasVarArgs());
 		assertEquals(5, func.getParameterCount());
 	}
 
@@ -2155,11 +2155,11 @@ public class FunctionMergeManager2Test extends AbstractListingMergeManagerTest {
 
 		Function func;
 		func = getFunction(resultProgram, "0x0100194b");
-		assertEquals(true, func.isInline());
+		assertTrue(func.isInline());
 		func = getFunction(resultProgram, "0x0100299e");
-		assertEquals(true, func.isInline());
+		assertTrue(func.isInline());
 		func = getFunction(resultProgram, "0x01004a15");
-		assertEquals(true, func.isInline());
+		assertTrue(func.isInline());
 	}
 
 	@Test
@@ -2196,21 +2196,21 @@ public class FunctionMergeManager2Test extends AbstractListingMergeManagerTest {
 		originalProgram = mtf.getOriginalProgram();
 
 		func = getFunction(originalProgram, "0x01004132");
-		assertEquals(true, func.isInline());
+		assertTrue(func.isInline());
 		func = getFunction(originalProgram, "0x0100476b");
-		assertEquals(true, func.isInline());
+		assertTrue(func.isInline());
 		func = getFunction(originalProgram, "0x01004a15");
-		assertEquals(true, func.isInline());
+		assertTrue(func.isInline());
 
 		executeMerge(ASK_USER);
 		waitForMergeCompletion();
 
 		func = getFunction(resultProgram, "0x01004132");
-		assertEquals(false, func.isInline());
+		assertFalse(func.isInline());
 		func = getFunction(resultProgram, "0x0100476b");
-		assertEquals(false, func.isInline());
+		assertFalse(func.isInline());
 		func = getFunction(resultProgram, "0x01004a15");
-		assertEquals(false, func.isInline());
+		assertFalse(func.isInline());
 	}
 
 	@Test
@@ -2255,11 +2255,11 @@ public class FunctionMergeManager2Test extends AbstractListingMergeManagerTest {
 
 		Function func;
 		func = getFunction(resultProgram, "0x0100194b");
-		assertEquals(true, func.hasNoReturn());
+		assertTrue(func.hasNoReturn());
 		func = getFunction(resultProgram, "0x0100299e");
-		assertEquals(true, func.hasNoReturn());
+		assertTrue(func.hasNoReturn());
 		func = getFunction(resultProgram, "0x01004a15");
-		assertEquals(true, func.hasNoReturn());
+		assertTrue(func.hasNoReturn());
 	}
 
 	@Test
@@ -2296,21 +2296,21 @@ public class FunctionMergeManager2Test extends AbstractListingMergeManagerTest {
 		originalProgram = mtf.getOriginalProgram();
 
 		func = getFunction(originalProgram, "0x010041fc");
-		assertEquals(true, func.hasNoReturn());
+		assertTrue(func.hasNoReturn());
 		func = getFunction(originalProgram, "0x01004bc0");
-		assertEquals(true, func.hasNoReturn());
+		assertTrue(func.hasNoReturn());
 		func = getFunction(originalProgram, "0x0100476b");
-		assertEquals(true, func.hasNoReturn());
+		assertTrue(func.hasNoReturn());
 
 		executeMerge(ASK_USER);
 		waitForMergeCompletion();
 
 		func = getFunction(resultProgram, "0x010041fc");
-		assertEquals(false, func.hasNoReturn());
+		assertFalse(func.hasNoReturn());
 		func = getFunction(resultProgram, "0x01004bc0");
-		assertEquals(false, func.hasNoReturn());
+		assertFalse(func.hasNoReturn());
 		func = getFunction(resultProgram, "0x0100476b");
-		assertEquals(false, func.hasNoReturn());
+		assertFalse(func.hasNoReturn());
 	}
 
 	@Test
@@ -2340,7 +2340,7 @@ public class FunctionMergeManager2Test extends AbstractListingMergeManagerTest {
 		noFunction(resultProgram, "0x10031ee");
 		AddressSet body1003bed = new AddressSet(addr("0x1003bed"), addr("0x1003efb"));
 		Function function = checkFunction(resultProgram, "0x1003bed", "FUN_01003bed", body1003bed);
-		assertEquals(true, function.isInline());
+		assertTrue(function.isInline());
 	}
 
 	@Test

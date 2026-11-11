@@ -234,7 +234,7 @@ public class ExtensionTableDialog extends DialogComponentProvider {
 	 * Filter for a {@link GhidraFileChooser} that restricts selection to those files that are
 	 * Ghidra Extensions (zip files with an extension.properties file) or folders.
 	 */
-	private class ExtensionFileFilter implements GhidraFileFilter {
+	private static class ExtensionFileFilter implements GhidraFileFilter {
 		@Override
 		public String getDescription() {
 			return "Ghidra Extension";

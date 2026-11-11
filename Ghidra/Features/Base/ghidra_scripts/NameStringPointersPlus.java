@@ -54,7 +54,7 @@ public class NameStringPointersPlus extends GhidraScript {
 
 	private void createSymbolAtAddress(String name, Address address) {
 		try {
-			name = name.replaceAll(" ", "_");
+			name = name.replace(" ", "_");
 			createLabel(address, name, true);
 		}
 		catch (Exception e) {

@@ -450,7 +450,7 @@ public class GHelpHTMLEditorKit extends HTMLEditorKit {
 	 * Overridden to allow us to find images that are defined as constants in places like
 	 * {@link Icons}
 	 */
-	private class GHelpImageView extends ImageView {
+	private static class GHelpImageView extends ImageView {
 
 		/*
 		 * 						Unusual Code Alert!

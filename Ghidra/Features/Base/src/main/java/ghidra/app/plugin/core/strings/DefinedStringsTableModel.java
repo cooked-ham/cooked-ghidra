@@ -237,7 +237,7 @@ class DefinedStringsTableModel extends AddressBasedTableModel<ProgramLocation> {
 			return renderer;
 		}
 
-		private class DataValueCellRenderer extends AbstractGColumnRenderer<StringDataInstance> {
+		private static class DataValueCellRenderer extends AbstractGColumnRenderer<StringDataInstance> {
 
 			@Override
 			protected String getText(Object value) {

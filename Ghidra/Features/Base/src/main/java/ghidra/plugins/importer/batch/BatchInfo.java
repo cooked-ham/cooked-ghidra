@@ -548,7 +548,7 @@ public class BatchInfo {
 	}
 
 	/** A task monitor that allows us to control the message content and the progress */
-	private class BatchTaskMonitor extends WrappingTaskMonitor {
+	private static class BatchTaskMonitor extends WrappingTaskMonitor {
 
 		private String prefix;
 

@@ -431,7 +431,7 @@ public class ProgramDatabaseSearchIteratorTest extends AbstractGhidraHeadedInteg
 		assertTrue("Expected CommentFieldLocation, got " + loc.getClass() + " instead!",
 			(loc instanceof CommentFieldLocation));
 		CommentFieldLocation cloc = (CommentFieldLocation) loc;
-		assertEquals(cloc.getCharOffset(), 5);
+		assertEquals(5, cloc.getCharOffset());
 
 		// should be 3 hits at address 0x1001960
 		loc = ts.search().programLocation();
@@ -441,14 +441,14 @@ public class ProgramDatabaseSearchIteratorTest extends AbstractGhidraHeadedInteg
 
 		assertEquals(getAddr(0x1001960L), loc.getAddress());
 		cloc = (CommentFieldLocation) loc;
-		assertEquals(cloc.getCharOffset(), 12);
+		assertEquals(12, cloc.getCharOffset());
 
 		loc = ts.search().programLocation();
 		assertNotNull(loc);
 		assertTrue("Expected LabelFieldLocation, got " + loc.getClass() + " instead!",
 			(loc instanceof LabelFieldLocation));
 		LabelFieldLocation floc = (LabelFieldLocation) loc;
-		assertEquals(floc.getCharOffset(), 3);
+		assertEquals(3, floc.getCharOffset());
 		assertEquals(getAddr(0x1001960L), floc.getAddress());
 
 		loc = ts.search().programLocation();

@@ -382,7 +382,7 @@ public abstract class WebColors {
 	 * @return the parsed Color or null if the input string was invalid.
 	 */
 	private static Color parseRgbColor(String rgbString) {
-		String value = rgbString.trim().replaceAll(" ", "");
+		String value = rgbString.trim().replace(" ", "");
 		if (value.startsWith("rgb(") && value.endsWith(")")) {
 			value = value.substring(4, value.length() - 1);
 		}
@@ -404,13 +404,13 @@ public abstract class WebColors {
 	}
 
 	private static Color parseRgbaColor(String rgbaString) {
-		String value = rgbaString.replaceAll(" ", "");
+		String value = rgbaString.replace(" ", "");
 		if (value.startsWith("rgba(") && value.endsWith(")")) {
 			value = value.substring(5, value.length() - 1);
 		}
 
 		// strip off to comma separated values
-		value = value.replaceAll(" ", "");
+		value = value.replace(" ", "");
 		String[] split = value.split(",");
 		if (split.length != 4) {
 			return null;

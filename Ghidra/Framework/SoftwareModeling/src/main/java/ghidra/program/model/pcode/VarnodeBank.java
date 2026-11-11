@@ -33,7 +33,7 @@ import ghidra.program.model.address.AddressSpace;
  */
 public class VarnodeBank {
 
-	public class LocComparator implements Comparator<VarnodeAST> {
+	public static class LocComparator implements Comparator<VarnodeAST> {
 
 		/* 
 		 * Compare objects by location, size, then definition
@@ -73,7 +73,7 @@ public class VarnodeBank {
 		}
 	}
 	
-	public class DefComparator implements Comparator<VarnodeAST> {
+	public static class DefComparator implements Comparator<VarnodeAST> {
 
 		/* 
 		 * Compare by definition then location and size

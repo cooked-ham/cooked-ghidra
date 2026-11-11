@@ -3008,7 +3008,7 @@ public class ProgramDiff {
 			}
 			refList.add(reference);
 		}
-		return refList.toArray(new Reference[refList.size()]);
+		return refList.toArray(new Reference[0]);
 	}
 
 	/** 

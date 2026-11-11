@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package ghidra.util.datastruct;
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -23,6 +24,7 @@ import java.io.Serializable;
  * 
  */
 public class DataTable implements Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
 
     private Array[] dataColumns;

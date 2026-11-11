@@ -499,7 +499,7 @@ public class MultiRowLayout implements Layout {
 		return updatedRows;
 	}
 
-	private class EmptyRowLayout extends RowLayout {
+	private static class EmptyRowLayout extends RowLayout {
 
 		public EmptyRowLayout(int rowId, int height) {
 			super(getEmptyFields(height), rowId);

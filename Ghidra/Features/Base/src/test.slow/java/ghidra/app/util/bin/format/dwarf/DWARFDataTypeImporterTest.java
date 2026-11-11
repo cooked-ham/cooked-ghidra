@@ -1410,7 +1410,7 @@ public class DWARFDataTypeImporterTest extends DWARFTestBase {
 		DataType dataType = dwarfDTM.getDataType(structDIE.getOffset(), null);
 		DataType dataType2 = dwarfDTM.getDataType(structDIE_CU2.getOffset(), null);
 
-		assertTrue(dataType == dataType2);
+		assertSame(dataType, dataType2);
 	}
 
 	@Test
@@ -1439,7 +1439,7 @@ public class DWARFDataTypeImporterTest extends DWARFTestBase {
 		DataType dataType = dwarfDTM.getDataType(structDIE.getOffset(), null);
 		DataType dataType2 = dwarfDTM.getDataType(structDIE_CU2.getOffset(), null);
 
-		assertTrue(dataType == dataType2);
+		assertSame(dataType, dataType2);
 	}
 
 	@Test
@@ -1464,7 +1464,7 @@ public class DWARFDataTypeImporterTest extends DWARFTestBase {
 		DataType dataType2 = dwarfDTM.getDataType(structDIE_CU2.getOffset(), null);
 
 		// should get 2 datatypes, one with a conflict name
-		assertTrue(dataType != dataType2);
+		assertNotSame(dataType, dataType2);
 		assertTrue(dataType2.getName().endsWith(DataType.CONFLICT_SUFFIX));
 	}
 
@@ -1507,7 +1507,7 @@ public class DWARFDataTypeImporterTest extends DWARFTestBase {
 		Enum enumDT = (Enum) dwarfDTM.getDataType(enumDIE.getOffset(), null);
 		Enum typedefDT = (Enum) dwarfDTM.getDataType(typedefDIE.getOffset(), null);
 
-		assertTrue(enumDT == typedefDT);
+		assertSame(enumDT, typedefDT);
 		assertEquals(1, enumDT.getValue("val1"));
 	}
 
@@ -1529,8 +1529,8 @@ public class DWARFDataTypeImporterTest extends DWARFTestBase {
 		Enum typedef1DT = (Enum) dwarfDTM.getDataType(typedef1DIE.getOffset(), null);
 		Enum typedef2DT = (Enum) dwarfDTM.getDataType(typedef2DIE.getOffset(), null);
 
-		assertTrue(enum1DT == typedef1DT);
-		assertTrue(enum2DT == typedef2DT);
+		assertSame(enum1DT, typedef1DT);
+		assertSame(enum2DT, typedef2DT);
 
 		assertEquals(1, enum1DT.getNames().length);
 		assertEquals(1, enum2DT.getNames().length);

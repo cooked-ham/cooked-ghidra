@@ -93,7 +93,7 @@ class SetFlowOverrideAction extends ListingContextAction {
 		return inspectionTask.isValidSelection();
 	}
 
-	private class OverrideSelectionInspector extends Task {
+	private static class OverrideSelectionInspector extends Task {
 
 		final AddressSet targetSet = new AddressSet();
 

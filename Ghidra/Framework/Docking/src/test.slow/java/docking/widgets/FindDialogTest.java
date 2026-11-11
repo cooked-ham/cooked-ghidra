@@ -38,7 +38,7 @@ public class FindDialogTest {
 		assertEquals(searchText, Swing.runNow(() -> findDialog.getSearchText()));
 	}
 
-	private class DummySearcher implements FindDialogSearcher {
+	private static class DummySearcher implements FindDialogSearcher {
 
 		@Override
 		public CursorPosition getCursorPosition() {

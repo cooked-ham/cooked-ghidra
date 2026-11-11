@@ -160,7 +160,7 @@ public class AlignmentPanelBuilder extends ContextRegisterFilterablePanelBuilder
 		updateAlignmentPanel();
 	}
 
-	private class ModulusInfo {
+	private static class ModulusInfo {
 
 		private String modulus;
 		private String percent;

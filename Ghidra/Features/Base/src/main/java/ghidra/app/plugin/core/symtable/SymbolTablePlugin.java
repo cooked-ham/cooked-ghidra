@@ -767,7 +767,7 @@ public class SymbolTablePlugin extends Plugin implements SymbolTableService {
 		model.setData(rowObjects);
 	}
 
-	private class LabelFieldSymbolModel extends TransientSymbolTableModel {
+	private static class LabelFieldSymbolModel extends TransientSymbolTableModel {
 
 		public LabelFieldSymbolModel(ServiceProvider sp, Program program,
 				HashSet<SymbolRowObject> rowObjects) {

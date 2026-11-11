@@ -194,7 +194,7 @@ public abstract class AbstractFollowFlowTest extends AbstractGhidraHeadedIntegra
 		return builder.addr("0x" + Integer.toHexString(addr));
 	}
 
-	class MySelection extends ProgramSelection {
+	static class MySelection extends ProgramSelection {
 
 		MySelection(ProgramSelection selection) {
 			super(selection);

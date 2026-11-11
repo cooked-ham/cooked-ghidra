@@ -200,7 +200,7 @@ public abstract class SymbolDB extends DbObject implements Symbol {
 			ArrayList<String> list = new ArrayList<>();
 			fillListWithNamespacePath(getParentNamespace(), list);
 			list.add(getName());
-			String[] path = list.toArray(new String[list.size()]);
+			String[] path = list.toArray(new String[0]);
 			return path;
 		}
 	}

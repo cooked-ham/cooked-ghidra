@@ -74,7 +74,7 @@ public class CodeUnitPropertyChangeRecord extends ProgramChangeRecord {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder(super.toString());
-		builder.append(", property = " + propertyName);
+		builder.append(", property = ").append(propertyName);
 		return builder.toString();
 	}
 }

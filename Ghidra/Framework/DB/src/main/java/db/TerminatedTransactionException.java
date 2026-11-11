@@ -15,12 +15,15 @@
  */
 package db;
 
+import java.io.Serial;
+
 /**
  * <code>TerminatedTransactionException</code> occurs when a database modification is
  * attempted following the forced/premature termination of an open transaction.
  */
 public class TerminatedTransactionException extends RuntimeException {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public TerminatedTransactionException() {

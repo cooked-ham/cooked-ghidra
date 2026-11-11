@@ -326,7 +326,7 @@ public class SelectByFlowPlugin extends Plugin implements OptionsChangeListener 
 		if (!followPointers) {
 			notFollowed.add(RefType.INDIRECTION);
 		}
-		return notFollowed.toArray(new FlowType[notFollowed.size()]);
+		return notFollowed.toArray(new FlowType[0]);
 	}
 
 	/**

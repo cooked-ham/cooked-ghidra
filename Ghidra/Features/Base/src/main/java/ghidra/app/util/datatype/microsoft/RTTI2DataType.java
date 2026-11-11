@@ -149,7 +149,7 @@ public class RTTI2DataType extends RTTIDataType {
 			list.add(comp);
 			addr = addr.add(4); // Add the data type size.
 		}
-		return list.toArray(new DataTypeComponent[list.size()]);
+		return list.toArray(new DataTypeComponent[0]);
 	}
 
 	/**

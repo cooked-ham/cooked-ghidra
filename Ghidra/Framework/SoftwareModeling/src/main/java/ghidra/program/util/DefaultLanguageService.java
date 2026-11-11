@@ -310,7 +310,7 @@ public class DefaultLanguageService implements LanguageService {
 		}
 	}
 
-	private class LanguageInfo {
+	private static class LanguageInfo {
 
 		private LanguageProvider provider;
 		LanguageDescription description;

@@ -15,22 +15,26 @@
  */
 package ghidra.app.util.bin.format.macho.dyld;
 
-import java.io.IOException;
-
 import ghidra.app.util.bin.ByteProvider;
 import ghidra.app.util.bin.format.macho.CpuSubTypes;
 import ghidra.app.util.bin.format.macho.CpuTypes;
 import ghidra.program.model.lang.*;
 
+import java.io.IOException;
+
 public final class DyldArchitecture {
 
-	/** Magic value prefix */
-	public final static String  DYLD_V1_SIGNATURE_PREFIX   =  "dyld_v1";
+    /**
+     * Magic value prefix
+     */
+    public final static String DYLD_V1_SIGNATURE_PREFIX = "dyld_v1";
 
-	/** Maximum length of any signature */
-	public final static int     DYLD_V1_SIGNATURE_LEN      =  0x10;
+    /**
+     * Maximum length of any signature
+     */
+    public final static int DYLD_V1_SIGNATURE_LEN = 0x10;
 
-	// @formatter:off
+    // @formatter:off
 	public final static DyldArchitecture X86      = new DyldArchitecture( CpuTypes.CPU_TYPE_X86,     CpuSubTypes.CPU_SUBTYPE_MULTIPLE, "dyld_v1    i386", "i386",     Endian.LITTLE, false );
 	public final static DyldArchitecture X86_64   = new DyldArchitecture( CpuTypes.CPU_TYPE_X86_64,  CpuSubTypes.CPU_SUBTYPE_MULTIPLE, "dyld_v1  x86_64", "x86_64",   Endian.LITTLE, true  );
 	public final static DyldArchitecture X86_64h  = new DyldArchitecture( CpuTypes.CPU_TYPE_X86_64,  CpuSubTypes.CPU_SUBTYPE_MULTIPLE, "dyld_v1 x86_64h", "x86_64",   Endian.LITTLE, true  );
@@ -45,111 +49,106 @@ public final class DyldArchitecture {
 	public final static DyldArchitecture ARM64_32 = new DyldArchitecture(CpuTypes.CPU_TYPE_ARM64_32, CpuSubTypes.CPU_SUBTYPE_MULTIPLE, "dyld_v1arm64_32", "ARM64_32", Endian.LITTLE, false );
 	// @formatter:on
 
-	public final static DyldArchitecture[] ARCHITECTURES = new DyldArchitecture[] { X86, X86_64,
-		X86_64h, POWERPC, ARMV6, ARMV7, ARMV7F, ARMV7S, ARMV7K, ARMV8A, ARMV8Ae, ARM64_32 };
-	
-	/**
-	 * Returns the architecture object with the given signature.
-	 * Returns NULL if one does not exist.
-	 * @param signature the signature string
-	 * @return the architecture object with the given signature or NULL
-	 */
-	public final static DyldArchitecture getArchitecture(String signature) {
-		for (DyldArchitecture architecture : ARCHITECTURES) {
-			if (architecture.getSignature().equals(signature)) {
-				return architecture;
-			}
-		}
-		return null;
-	}
+    public final static DyldArchitecture[] ARCHITECTURES = new DyldArchitecture[]{X86, X86_64,
+            X86_64h, POWERPC, ARMV6, ARMV7, ARMV7F, ARMV7S, ARMV7K, ARMV8A, ARMV8Ae, ARM64_32};
+    private int cpuType;
+    private int cpuSubType;
+    private String signature;
+    private String processor;
+    private Endian endianness;
+    private boolean is64bit;
+    private DyldArchitecture(int cpuType, int cpuSubType, String signature, String processor,
+                             Endian endianness, boolean is64bit) {
+        this.cpuType = cpuType;
+        this.cpuSubType = cpuSubType;
+        this.signature = signature;
+        this.processor = processor;
+        this.endianness = endianness;
+        this.is64bit = is64bit;
 
-	public final static DyldArchitecture getArchitecture(ByteProvider provider) throws IOException {
-		byte [] signatureBytes = provider.readBytes(0, DYLD_V1_SIGNATURE_LEN);
-		String signature = new String( signatureBytes );
-		return getArchitecture( signature.trim() );
-	}
+        if (signature.length() + 1 != DYLD_V1_SIGNATURE_LEN) {
+            throw new IllegalArgumentException("invalid signature string length: " + signature);
+        }
+    }
 
-	private int cpuType;
-	private int cpuSubType;
-	private String signature;
-	private String processor;
-	private Endian endianness;
-	private boolean is64bit;
-	
-	private DyldArchitecture(int cpuType, int cpuSubType, String signature, String processor,
-			Endian endianness, boolean is64bit) {
-		this.cpuType    = cpuType;
-		this.cpuSubType = cpuSubType;
-		this.signature  = signature;
-		this.processor  = processor;
-		this.endianness = endianness;
-		this.is64bit = is64bit;
+    /**
+     * Returns the architecture object with the given signature.
+     * Returns NULL if one does not exist.
+     *
+     * @param signature the signature string
+     * @return the architecture object with the given signature or NULL
+     */
+    public final static DyldArchitecture getArchitecture(String signature) {
+        for (DyldArchitecture architecture : ARCHITECTURES) {
+            if (architecture.getSignature().equals(signature)) {
+                return architecture;
+            }
+        }
+        return null;
+    }
 
-		if (signature.length() + 1 != DYLD_V1_SIGNATURE_LEN) {
-			throw new IllegalArgumentException("invalid signature string length: "+signature);
-		}
-	}
+    public final static DyldArchitecture getArchitecture(ByteProvider provider) throws IOException {
+        byte[] signatureBytes = provider.readBytes(0, DYLD_V1_SIGNATURE_LEN);
+        String signature = new String(signatureBytes);
+        return getArchitecture(signature.trim());
+    }
 
-	public int getCpuType() {
-		return cpuType;
-	}
+    public int getCpuType() {
+        return cpuType;
+    }
 
-	public int getCpuSubType() {
-		return cpuSubType;
-	}
+    public int getCpuSubType() {
+        return cpuSubType;
+    }
 
-	public String getSignature() {
-		return signature;
-	}
+    public String getSignature() {
+        return signature;
+    }
 
-	public String getProcessor() {
-		return processor;
-	}
+    public String getProcessor() {
+        return processor;
+    }
 
-	public Endian getEndianness() {
-		return endianness;
-	}
+    public Endian getEndianness() {
+        return endianness;
+    }
 
-	public boolean is64bit() {
-		return is64bit;
-	}
+    public boolean is64bit() {
+        return is64bit;
+    }
 
-	public boolean isX86() {
-		return this == X86 || this == X86_64 || this == X86_64h;
-	}
+    public boolean isX86() {
+        return this == X86 || this == X86_64 || this == X86_64h;
+    }
 
-	public boolean isPowerPC() {
-		return this == POWERPC;
-	}
+    public boolean isPowerPC() {
+        return this == POWERPC;
+    }
 
-	public boolean isARM() {
-		return !isX86() && !isPowerPC();
-	}
+    public boolean isARM() {
+        return !isX86() && !isPowerPC();
+    }
 
-	@Override
-	public String toString() {
-		return signature;
-	}
+    @Override
+    public String toString() {
+        return signature;
+    }
 
-	public LanguageCompilerSpecPair getLanguageCompilerSpecPair(LanguageService languageService) throws IOException {
-		if ( this == X86 ) {
-            return new LanguageCompilerSpecPair( new LanguageID("x86:LE:32:default"), new CompilerSpecID("gcc") );
-		}
-		else if (this == X86_64 || this == X86_64h) {
-			return new LanguageCompilerSpecPair( new LanguageID("x86:LE:64:default"), new CompilerSpecID("gcc") );
-		}
-		else if ( this == POWERPC ) {
-			return new LanguageCompilerSpecPair( new LanguageID("PowerPC:BE:32:default"), new CompilerSpecID("macosx") );
-		}
-		if ( this == ARMV6 ) {
-			return new LanguageCompilerSpecPair( new LanguageID("ARM:LE:32:v6"), new CompilerSpecID("default") );
-		}
-		else if ( this == ARMV7 ) {
-			return new LanguageCompilerSpecPair( new LanguageID("ARM:LE:32:v7"), new CompilerSpecID("default"));
-		}
-		else if ( this == ARMV7S ) {//TODO support ARMV7S language....
-			return new LanguageCompilerSpecPair( new LanguageID("ARM:LE:32:v7"), new CompilerSpecID("default"));
-		}
-		throw new LanguageNotFoundException("Unable to locate language for "+this);
-	}
+    public LanguageCompilerSpecPair getLanguageCompilerSpecPair(LanguageService languageService) throws IOException {
+        if (this == X86) {
+            return new LanguageCompilerSpecPair(new LanguageID("x86:LE:32:default"), new CompilerSpecID("gcc"));
+        } else if (this == X86_64 || this == X86_64h) {
+            return new LanguageCompilerSpecPair(new LanguageID("x86:LE:64:default"), new CompilerSpecID("gcc"));
+        } else if (this == POWERPC) {
+            return new LanguageCompilerSpecPair(new LanguageID("PowerPC:BE:32:default"), new CompilerSpecID("macosx"));
+        }
+        if (this == ARMV6) {
+            return new LanguageCompilerSpecPair(new LanguageID("ARM:LE:32:v6"), new CompilerSpecID("default"));
+        } else if (this == ARMV7) {
+            return new LanguageCompilerSpecPair(new LanguageID("ARM:LE:32:v7"), new CompilerSpecID("default"));
+        } else if (this == ARMV7S) {//TODO support ARMV7S language....
+            return new LanguageCompilerSpecPair(new LanguageID("ARM:LE:32:v7"), new CompilerSpecID("default"));
+        }
+        throw new LanguageNotFoundException("Unable to locate language for " + this);
+    }
 }

@@ -91,7 +91,7 @@ public class CramFsInode implements StructConverter {
 			Integer.toHexString(offset) + " 26 LSB\n");
 
 		if (isFile()) {
-			buffer.append("Pointer to data = 0x" + Integer.toHexString(getOffsetAdjusted()) + "\n");
+			buffer.append("Pointer to data = 0x").append(Integer.toHexString(getOffsetAdjusted())).append("\n");
 		}
 
 		if (isDirectory()) {

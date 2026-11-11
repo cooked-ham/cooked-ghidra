@@ -17,9 +17,16 @@ package ghidra.app.util.viewer.multilisting;
 
 import docking.widgets.fieldpanel.Layout;
 import ghidra.app.util.viewer.field.DummyFieldFactory;
-import ghidra.app.util.viewer.format.*;
-import ghidra.app.util.viewer.listingpanel.*;
-import ghidra.program.model.address.*;
+import ghidra.app.util.viewer.format.FieldFormatModel;
+import ghidra.app.util.viewer.format.FormatManager;
+import ghidra.app.util.viewer.format.FormatModelListener;
+import ghidra.app.util.viewer.listingpanel.ListingModel;
+import ghidra.app.util.viewer.listingpanel.ListingModelListener;
+import ghidra.app.util.viewer.listingpanel.ProgramBigListingModel;
+import ghidra.program.model.address.Address;
+import ghidra.program.model.address.AddressSet;
+import ghidra.program.model.address.AddressSetView;
+import ghidra.program.model.address.ImmutableAddressSet;
 import ghidra.program.model.listing.Data;
 import ghidra.program.model.listing.Program;
 import ghidra.program.util.DiffUtility;
@@ -34,373 +41,373 @@ import ghidra.util.task.TaskMonitor;
 
 public class MultiListingLayoutModel implements ListingModelListener, FormatModelListener {
 
-	private FormatManager formatMgr;
-	private ListingModel[] models;
-	private ListingModel[] alignedModels;
-	private LayoutCache cache; // This maps the MultiLayouts to addresses from ListingModel[0].
-	private WeakSet<ListingModelListener> listeners =
-		WeakDataStructureFactory.createSingleThreadAccessWeakSet();
-	private DummyFieldFactory emptyFactory;
-	private AddressSetView primaryAddrSet; // This is compatible with program[0] and ListingModel[0].
+    private FormatManager formatMgr;
+    private ListingModel[] models;
+    private ListingModel[] alignedModels;
+    private LayoutCache cache; // This maps the MultiLayouts to addresses from ListingModel[0].
+    private WeakSet<ListingModelListener> listeners =
+            WeakDataStructureFactory.createSingleThreadAccessWeakSet();
+    private DummyFieldFactory emptyFactory;
+    private AddressSetView primaryAddrSet; // This is compatible with program[0] and ListingModel[0].
 
-	/**
-	 * Constructs a new MultiListingLayoutModel.
-	 * @param formatMgr the FormatManager used to layout the fields.
-	 * @param programs the list of programs that will be coordinated using listing models.
-	 * The first program in the array will be used as the primary program.
-	 * @param primaryAddrSet the addressSet to use for the view. 
-	 * This is compatible with the primary program, which is program[0].
-	 */
-	public MultiListingLayoutModel(FormatManager formatMgr, Program[] programs,
-			AddressSetView primaryAddrSet) {
-		this.formatMgr = formatMgr;
-		this.primaryAddrSet = primaryAddrSet;
-		this.emptyFactory = new DummyFieldFactory(formatMgr);
-		cache = new LayoutCache();
-		models = new ListingModel[programs.length];
-		alignedModels = new ListingModel[programs.length];
-		for (int programIndex = 0; programIndex < programs.length; programIndex++) {
-			models[programIndex] = createListingModel(programs, programIndex);
-			alignedModels[programIndex] = new AlignedModel(programIndex);
-			models[programIndex].addListener(this);
-		}
-		formatMgr.addFormatModelListener(this);
-	}
+    /**
+     * Constructs a new MultiListingLayoutModel.
+     *
+     * @param formatMgr      the FormatManager used to layout the fields.
+     * @param programs       the list of programs that will be coordinated using listing models.
+     *                       The first program in the array will be used as the primary program.
+     * @param primaryAddrSet the addressSet to use for the view.
+     *                       This is compatible with the primary program, which is program[0].
+     */
+    public MultiListingLayoutModel(FormatManager formatMgr, Program[] programs,
+                                   AddressSetView primaryAddrSet) {
+        this.formatMgr = formatMgr;
+        this.primaryAddrSet = primaryAddrSet;
+        this.emptyFactory = new DummyFieldFactory(formatMgr);
+        cache = new LayoutCache();
+        models = new ListingModel[programs.length];
+        alignedModels = new ListingModel[programs.length];
+        for (int programIndex = 0; programIndex < programs.length; programIndex++) {
+            models[programIndex] = createListingModel(programs, programIndex);
+            alignedModels[programIndex] = new AlignedModel(programIndex);
+            models[programIndex].addListener(this);
+        }
+        formatMgr.addFormatModelListener(this);
+    }
 
-	private ListingModel createListingModel(Program[] programs, int programIndex) {
-		ListingModel model = new ProgramBigListingModel(programs[programIndex], formatMgr);
+    private ListingModel createListingModel(Program[] programs, int programIndex) {
+        ListingModel model = new ProgramBigListingModel(programs[programIndex], formatMgr);
 
-		if (programIndex != 0) {
-			// Get a converter for the model indicated by programIndex.
-			model = new ListingModelConverter(models[0], model);
-		}
-		return model;
-	}
+        if (programIndex != 0) {
+            // Get a converter for the model indicated by programIndex.
+            model = new ListingModelConverter(models[0], model);
+        }
+        return model;
+    }
 
-	/**
-	 * Returns the ListingLayoutModel for the i'th program.
-	 * @param index the index of program for which to return a listing model
-	 * @return the ListingLayoutModel for the i'th program.
-	 */
-	public ListingModel getAlignedModel(int index) {
-		return alignedModels[index];
-	}
+    /**
+     * Returns the ListingLayoutModel for the i'th program.
+     *
+     * @param index the index of program for which to return a listing model
+     * @return the ListingLayoutModel for the i'th program.
+     */
+    public ListingModel getAlignedModel(int index) {
+        return alignedModels[index];
+    }
 
-	private void addLayoutListener(ListingModelListener listener) {
-		listeners.add(listener);
-	}
+    private void addLayoutListener(ListingModelListener listener) {
+        listeners.add(listener);
+    }
 
-	private void removeLayoutListener(ListingModelListener listener) {
-		listeners.remove(listener);
-	}
+    private void removeLayoutListener(ListingModelListener listener) {
+        listeners.remove(listener);
+    }
 
-	@Override
-	public void dataChanged(boolean updateImmediately) {
-		cache.clear();
-		for (ListingModelListener listener : listeners) {
-			listener.dataChanged(updateImmediately);
-		}
-	}
+    @Override
+    public void dataChanged(boolean updateImmediately) {
+        cache.clear();
+        for (ListingModelListener listener : listeners) {
+            listener.dataChanged(updateImmediately);
+        }
+    }
 
-	@Override
-	public void modelSizeChanged() {
-		cache.clear();
-		for (ListingModelListener listener : listeners) {
-			listener.modelSizeChanged();
-		}
-	}
+    @Override
+    public void modelSizeChanged() {
+        cache.clear();
+        for (ListingModelListener listener : listeners) {
+            listener.modelSizeChanged();
+        }
+    }
 
-	private MultiLayout getMultiLayout(Address primaryModelAddress, boolean isGap) {
-		// Check that this wasn't handed a null primaryModelAddress.
-		// Some addresses (such as externals) can't have an equivalent primary address determined.
-		if (primaryModelAddress == null) {
-			return null;
-		}
-		MultiLayout ml = cache.get(primaryModelAddress);
-		if (ml == null) {
-			Layout[] layouts = new Layout[models.length];
-			boolean hasLayout = false;
-			for (int i = 0; i < models.length; i++) {
-				layouts[i] = models[i].getLayout(primaryModelAddress, isGap);
-				hasLayout |= layouts[i] != null;
-			}
-			if (hasLayout) {
-				ml = new MultiLayout(layouts, emptyFactory);
-			}
-			else {
-				ml = new MultiLayout();
-			}
-			cache.put(primaryModelAddress, ml);
-		}
-		if (ml.isEmpty()) {
-			return null;
-		}
-		return ml;
-	}
+    private MultiLayout getMultiLayout(Address primaryModelAddress, boolean isGap) {
+        // Check that this wasn't handed a null primaryModelAddress.
+        // Some addresses (such as externals) can't have an equivalent primary address determined.
+        if (primaryModelAddress == null) {
+            return null;
+        }
+        MultiLayout ml = cache.get(primaryModelAddress);
+        if (ml == null) {
+            Layout[] layouts = new Layout[models.length];
+            boolean hasLayout = false;
+            for (int i = 0; i < models.length; i++) {
+                layouts[i] = models[i].getLayout(primaryModelAddress, isGap);
+                hasLayout |= layouts[i] != null;
+            }
+            if (hasLayout) {
+                ml = new MultiLayout(layouts, emptyFactory);
+            } else {
+                ml = new MultiLayout();
+            }
+            cache.put(primaryModelAddress, ml);
+        }
+        if (ml.isEmpty()) {
+            return null;
+        }
+        return ml;
+    }
 
-	class AlignedModel implements ListingModel {
-		private final int modelID;
+    @Override
+    public void formatModelChanged(FieldFormatModel model) {
+        modelSizeChanged();
+    }
 
-		AlignedModel(int modelID) {
-			this.modelID = modelID;
-		}
+    /**
+     * Returns the ListingModel for the program with the indicated index.
+     *
+     * @param index the index indicating which program's model to get.
+     * @return the program's ListingModel.
+     */
+    public ListingModel getModel(int index) {
+        return models[index];
+    }
 
-		@Override
-		public void dispose() {
-			// should be handled by containing class
-		}
+    public void setAddressTranslator(AddressTranslator translator) {
+        for (int i = 0; i < alignedModels.length; i++) {
+            if (models[i] instanceof ListingModelConverter) {
+                ListingModelConverter model = (ListingModelConverter) models[i];
+                model.setAddressTranslator(translator);
+            }
+        }
 
-		@Override
-		public int getMaxWidth() {
-			return models[modelID].getMaxWidth();
-		}
+    }
 
-		@Override
-		public Address getAddressAfter(Address address) {
-			return getNextAddress(address, true);
-		}
+    /**
+     * Sets the address set for this MultiListingLayoutModel
+     *
+     * @param view the current address set, which must be compatible with the
+     *             primary program and listingModel
+     */
+    public void setAddressSet(AddressSetView view) {
+        primaryAddrSet = ImmutableAddressSet.asImmutable(view);
+        modelSizeChanged();
+    }
 
-		@Override
-		public Address getAddressBefore(Address address) {
-			return getNextAddress(address, false);
-		}
+    class AlignedModel implements ListingModel {
+        private final int modelID;
+        private Address lastAddress;
+        private Address lastCachedPrimaryModelAddress;
 
-		/**
-		 * Returns the next address in the specified direction
-		 * 
-		 * @param address the start address
-		 * @param after true to find the address after the given address; false to find the 
-		 * 		  address before the given address
-		 * @return the next address in the given direction; null if there is no next address or if
-		 *         <code>address</code> is null
-		 */
-		private Address getNextAddress(Address address, boolean after) {
+        AlignedModel(int modelID) {
+            this.modelID = modelID;
+        }
 
-			// Assume only a single external location is ever displayed within a panel
-			if (address.isExternalAddress()) {
-				return null;
-			}
+        @Override
+        public void dispose() {
+            // should be handled by containing class
+        }
 
-			Address nextAddress = null; // Next address for this model
-			Program program = getProgram();
-			Program primaryProgram = models[0].getProgram();
-			Address primaryModelAddress = (program == primaryProgram) ? address
-					: SimpleDiffUtility.getCompatibleAddress(program, address, primaryProgram);
+        @Override
+        public int getMaxWidth() {
+            return models[modelID].getMaxWidth();
+        }
 
-			if (primaryModelAddress == null) {
-				return null;
-			}
+        @Override
+        public Address getAddressAfter(Address address) {
+            return getNextAddress(address, true);
+        }
 
-			// Important: These models can be from different programs, so must convert addresses
-			for (ListingModel tempModel : models) {
-				Address tempModelAddressAfter =
-					after ? tempModel.getAddressAfter(primaryModelAddress)
-							: tempModel.getAddressBefore(primaryModelAddress);
+        @Override
+        public Address getAddressBefore(Address address) {
+            return getNextAddress(address, false);
+        }
 
-				// Convert the tempModelAddress back to address for this model so it can be compared
-				Program tempModelProgram = tempModel.getProgram();
-				Address addressAfter = (program == tempModelProgram) ? tempModelAddressAfter
-						: SimpleDiffUtility.getCompatibleAddress(tempModelProgram,
-							tempModelAddressAfter, program);
+        /**
+         * Returns the next address in the specified direction
+         *
+         * @param address the start address
+         * @param after   true to find the address after the given address; false to find the
+         *                address before the given address
+         * @return the next address in the given direction; null if there is no next address or if
+         * <code>address</code> is null
+         */
+        private Address getNextAddress(Address address, boolean after) {
 
-				if (addressAfter == null) {
-					continue;
-				}
+            // Assume only a single external location is ever displayed within a panel
+            if (address.isExternalAddress()) {
+                return null;
+            }
 
-				if (nextAddress == null) {
-					nextAddress = addressAfter;
-					continue;
-				}
+            Address nextAddress = null; // Next address for this model
+            Program program = getProgram();
+            Program primaryProgram = models[0].getProgram();
+            Address primaryModelAddress = (program == primaryProgram) ? address
+                    : SimpleDiffUtility.getCompatibleAddress(program, address, primaryProgram);
 
-				int result = addressAfter.compareTo(nextAddress);
-				boolean isNextAddress = after ? result < 0 : result > 0;
-				if (isNextAddress) {
-					nextAddress = addressAfter;
-				}
-			}
-			return nextAddress;
-		}
+            if (primaryModelAddress == null) {
+                return null;
+            }
 
-		private Address lastAddress;
-		private Address lastCachedPrimaryModelAddress;
+            // Important: These models can be from different programs, so must convert addresses
+            for (ListingModel tempModel : models) {
+                Address tempModelAddressAfter =
+                        after ? tempModel.getAddressAfter(primaryModelAddress)
+                                : tempModel.getAddressBefore(primaryModelAddress);
 
-		@Override
-		public Layout getLayout(Address thisModelAddress, boolean isGapAddress) {
+                // Convert the tempModelAddress back to address for this model so it can be compared
+                Program tempModelProgram = tempModel.getProgram();
+                Address addressAfter = (program == tempModelProgram) ? tempModelAddressAfter
+                        : SimpleDiffUtility.getCompatibleAddress(tempModelProgram,
+                        tempModelAddressAfter, program);
 
-			Address primaryModelAddress;
-			if (thisModelAddress.equals(lastAddress)) {
-				primaryModelAddress = lastCachedPrimaryModelAddress;
-			}
-			else {
-				primaryModelAddress = (modelID == 0) ? thisModelAddress
-						: SimpleDiffUtility.getCompatibleAddress(getProgram(), thisModelAddress,
-							models[0].getProgram());
-				lastAddress = thisModelAddress;
-				lastCachedPrimaryModelAddress = primaryModelAddress;
-			}
+                if (addressAfter == null) {
+                    continue;
+                }
 
-			MultiLayout ml = getMultiLayout(primaryModelAddress, isGapAddress);
-			if (ml != null) {
-				return ml.getLayout(modelID);
-			}
-			return null;
-		}
+                if (nextAddress == null) {
+                    nextAddress = addressAfter;
+                    continue;
+                }
 
-		@Override
-		public void addListener(ListingModelListener listener) {
-			addLayoutListener(listener);
-		}
+                int result = addressAfter.compareTo(nextAddress);
+                boolean isNextAddress = after ? result < 0 : result > 0;
+                if (isNextAddress) {
+                    nextAddress = addressAfter;
+                }
+            }
+            return nextAddress;
+        }
 
-		@Override
-		public void removeListener(ListingModelListener listener) {
-			removeLayoutListener(listener);
-		}
+        @Override
+        public Layout getLayout(Address thisModelAddress, boolean isGapAddress) {
 
-		@Override
-		public Program getProgram() {
-			return models[modelID].getProgram();
-		}
+            Address primaryModelAddress;
+            if (thisModelAddress.equals(lastAddress)) {
+                primaryModelAddress = lastCachedPrimaryModelAddress;
+            } else {
+                primaryModelAddress = (modelID == 0) ? thisModelAddress
+                        : SimpleDiffUtility.getCompatibleAddress(getProgram(), thisModelAddress,
+                        models[0].getProgram());
+                lastAddress = thisModelAddress;
+                lastCachedPrimaryModelAddress = primaryModelAddress;
+            }
 
-		@Override
-		public boolean isOpen(Data data) {
-			return models[modelID].isOpen(data);
-		}
+            MultiLayout ml = getMultiLayout(primaryModelAddress, isGapAddress);
+            if (ml != null) {
+                return ml.getLayout(modelID);
+            }
+            return null;
+        }
 
-		@Override
-		public void toggleOpen(Data data) {
-			models[modelID].toggleOpen(data);
-		}
+        @Override
+        public void addListener(ListingModelListener listener) {
+            addLayoutListener(listener);
+        }
 
-		@Override
-		public void setFunctionVariablesOpen(Address functionAddress, boolean open) {
-			models[modelID].setFunctionVariablesOpen(functionAddress, open);
-		}
+        @Override
+        public void removeListener(ListingModelListener listener) {
+            removeLayoutListener(listener);
+        }
 
-		@Override
-		public void setAllFunctionVariablesOpen(boolean open) {
-			models[modelID].setAllFunctionVariablesOpen(open);
-		}
+        @Override
+        public Program getProgram() {
+            return models[modelID].getProgram();
+        }
 
-		@Override
-		public boolean areFunctionVariablesOpen(Address FunctionAddress) {
-			return models[modelID].areFunctionVariablesOpen(FunctionAddress);
-		}
+        @Override
+        public boolean isOpen(Data data) {
+            return models[modelID].isOpen(data);
+        }
 
-		@Override
-		public boolean openData(Data data) {
-			return models[modelID].openData(data);
-		}
+        @Override
+        public void toggleOpen(Data data) {
+            models[modelID].toggleOpen(data);
+        }
 
-		@Override
-		public void openAllData(Data data, TaskMonitor monitor) {
-			models[modelID].openAllData(data, null);
-		}
+        @Override
+        public void setFunctionVariablesOpen(Address functionAddress, boolean open) {
+            models[modelID].setFunctionVariablesOpen(functionAddress, open);
+        }
 
-		@Override
-		public void openAllData(AddressSetView addresses, TaskMonitor monitor) {
-			models[modelID].openAllData(addresses, null /* why null? */);
-		}
+        @Override
+        public void setAllFunctionVariablesOpen(boolean open) {
+            models[modelID].setAllFunctionVariablesOpen(open);
+        }
 
-		@Override
-		public void closeAllData(Data data, TaskMonitor monitor) {
-			models[modelID].closeAllData(data, null);
-		}
+        @Override
+        public boolean areFunctionVariablesOpen(Address FunctionAddress) {
+            return models[modelID].areFunctionVariablesOpen(FunctionAddress);
+        }
 
-		@Override
-		public void closeAllData(AddressSetView addresses, TaskMonitor monitor) {
-			models[modelID].closeAllData(addresses, null /* why null? */);
-		}
+        @Override
+        public boolean openData(Data data) {
+            return models[modelID].openData(data);
+        }
 
-		@Override
-		public void closeData(Data data) {
-			models[modelID].closeData(data);
-		}
+        @Override
+        public void openAllData(Data data, TaskMonitor monitor) {
+            models[modelID].openAllData(data, null);
+        }
 
-		@Override
-		public AddressSetView getAddressSet() {
-			// The returned address set must be composed of addresses that are from 
-			// address spaces in the program associated with the modelID.
-			// The model's getAddressSet() uses the addrSet that was passed in to limit 
-			// this address set to be compatible with the program for the modelID.
-			return DiffUtility.getCompatibleAddressSet(primaryAddrSet, getProgram());
-		}
+        @Override
+        public void openAllData(AddressSetView addresses, TaskMonitor monitor) {
+            models[modelID].openAllData(addresses, null /* why null? */);
+        }
 
-		@Override
-		public boolean isClosed() {
-			for (ListingModel model : models) {
-				if (model.isClosed()) {
-					return true;
-				}
-			}
-			return false;
-		}
+        @Override
+        public void closeAllData(Data data, TaskMonitor monitor) {
+            models[modelID].closeAllData(data, null);
+        }
 
-		@Override
-		public void setFormatManager(FormatManager formatManager) {
-			for (ListingModel model : models) {
-				model.setFormatManager(formatManager);
-			}
-		}
+        @Override
+        public void closeAllData(AddressSetView addresses, TaskMonitor monitor) {
+            models[modelID].closeAllData(addresses, null /* why null? */);
+        }
 
-		@Override
-		public AddressSet adjustAddressSetToCodeUnitBoundaries(AddressSet addressSet) {
-			return models[modelID].adjustAddressSetToCodeUnitBoundaries(addressSet);
-		}
+        @Override
+        public void closeData(Data data) {
+            models[modelID].closeData(data);
+        }
 
-		@Override
-		public ListingModel copy() {
-			return models[modelID].copy();
-		}
+        @Override
+        public AddressSetView getAddressSet() {
+            // The returned address set must be composed of addresses that are from
+            // address spaces in the program associated with the modelID.
+            // The model's getAddressSet() uses the addrSet that was passed in to limit
+            // this address set to be compatible with the program for the modelID.
+            return DiffUtility.getCompatibleAddressSet(primaryAddrSet, getProgram());
+        }
 
-		@Override
-		public boolean isFunctionOpen(Address functionAddress) {
-			return models[modelID].isFunctionOpen(functionAddress);
-		}
+        @Override
+        public boolean isClosed() {
+            for (ListingModel model : models) {
+                if (model.isClosed()) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-		@Override
-		public void setFunctionOpen(Address functionAddress, boolean b) {
-			models[modelID].setFunctionOpen(functionAddress, b);
-		}
+        @Override
+        public void setFormatManager(FormatManager formatManager) {
+            for (ListingModel model : models) {
+                model.setFormatManager(formatManager);
+            }
+        }
 
-		@Override
-		public void setAllFunctionsOpen(boolean selected) {
-			models[modelID].setAllFunctionsOpen(selected);
-		}
+        @Override
+        public AddressSet adjustAddressSetToCodeUnitBoundaries(AddressSet addressSet) {
+            return models[modelID].adjustAddressSetToCodeUnitBoundaries(addressSet);
+        }
 
-	}
+        @Override
+        public ListingModel copy() {
+            return models[modelID].copy();
+        }
 
-	@Override
-	public void formatModelChanged(FieldFormatModel model) {
-		modelSizeChanged();
-	}
+        @Override
+        public boolean isFunctionOpen(Address functionAddress) {
+            return models[modelID].isFunctionOpen(functionAddress);
+        }
 
-	/**
-	 * Returns the ListingModel for the program with the indicated index.
-	 * @param index the index indicating which program's model to get.
-	 * @return the program's ListingModel.
-	 */
-	public ListingModel getModel(int index) {
-		return models[index];
-	}
+        @Override
+        public void setFunctionOpen(Address functionAddress, boolean b) {
+            models[modelID].setFunctionOpen(functionAddress, b);
+        }
 
-	public void setAddressTranslator(AddressTranslator translator) {
-		for (int i = 0; i < alignedModels.length; i++) {
-			if (models[i] instanceof ListingModelConverter) {
-				ListingModelConverter model = (ListingModelConverter) models[i];
-				model.setAddressTranslator(translator);
-			}
-		}
+        @Override
+        public void setAllFunctionsOpen(boolean selected) {
+            models[modelID].setAllFunctionsOpen(selected);
+        }
 
-	}
-
-	/**
-	 * Sets the address set for this MultiListingLayoutModel
-	 * 
-	 * @param view the current address set, which must be compatible with the 
-	 * primary program and listingModel
-	 */
-	public void setAddressSet(AddressSetView view) {
-		primaryAddrSet = ImmutableAddressSet.asImmutable(view);
-		modelSizeChanged();
-	}
+    }
 }

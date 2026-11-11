@@ -128,7 +128,7 @@ public class DialogComponentProviderActionsTest extends AbstractGhidraHeadedInte
 		waitForSwing();
 	}
 
-	private class SpyAction extends DockingAction {
+	private static class SpyAction extends DockingAction {
 
 		private volatile boolean hasBeenCalled;
 
@@ -146,7 +146,7 @@ public class DialogComponentProviderActionsTest extends AbstractGhidraHeadedInte
 		}
 	}
 
-	private class TestDialogComponentProvider extends DialogComponentProvider {
+	private static class TestDialogComponentProvider extends DialogComponentProvider {
 
 		private JComponent component = new JButton("Hey!");
 

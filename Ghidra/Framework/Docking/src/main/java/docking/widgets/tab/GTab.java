@@ -53,10 +53,10 @@ public class GTab<T> extends JPanel {
 	final static Color BG_COLOR_SELECTED_ACTIVE = new GColor("color.bg.widget.tabs.selected.active");
 	//@formatter:on
 
-	private GTabPanel<T> tabPanel;
-	private T value;
-	private JLabel closeLabel;
-	private JLabel nameLabel;
+	private final GTabPanel<T> tabPanel;
+	private final T value;
+	private final JLabel closeLabel;
+	private final JLabel nameLabel;
 	private boolean isSelected;
 
 	GTab(GTabPanel<T> gTabPanel, T value, boolean selected) {
@@ -92,6 +92,11 @@ public class GTab<T> extends JPanel {
 
 	boolean isSelected() {
 		return isSelected;
+	}
+
+	/** True when the owning tab panel is the active one (used by the modern tab border). */
+	boolean isPanelActive() {
+		return tabPanel.isActive();
 	}
 
 	void setSelected(boolean selected) {

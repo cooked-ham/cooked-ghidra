@@ -82,7 +82,7 @@ public class SSHAuthenticationModule {
 		catch (Exception e) {
 			throw new RuntimeException("Unable to generate signed token", e);
 		}
-		return list.toArray(new Callback[list.size()]);
+		return list.toArray(new Callback[0]);
 	}
 
 	public boolean hasSignedSSHCallback(Callback[] callbacks) {

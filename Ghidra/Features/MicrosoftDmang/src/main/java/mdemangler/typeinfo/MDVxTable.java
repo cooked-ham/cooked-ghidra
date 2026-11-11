@@ -15,12 +15,14 @@
  */
 package mdemangler.typeinfo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import mdemangler.*;
+import mdemangler.MDException;
+import mdemangler.MDMang;
+import mdemangler.MDType;
 import mdemangler.datatype.modifier.MDCVMod;
 import mdemangler.naming.MDQualification;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This is the base class for MDVfTable and MDVxTable.  Neither of these
@@ -31,101 +33,101 @@ import mdemangler.naming.MDQualification;
  */
 public class MDVxTable extends MDTypeInfo {
 
-	private MDCVMod cvmod;
-	private List<MDQualification> nestedQualifications;
-	private boolean goodNestedTermination;
+    private MDCVMod cvmod;
+    private List<MDQualification> nestedQualifications;
+    private boolean goodNestedTermination;
 
-	// String name = "";
+    // String name = "";
 
-	public MDVxTable(MDMang dmang) {
-		super(dmang);
-		mdtype = new MDType(dmang);
-		cvmod = new MDCVMod(dmang);
-		nestedQualifications = new ArrayList<>();
-		goodNestedTermination = false;
-	}
+    public MDVxTable(MDMang dmang) {
+        super(dmang);
+        mdtype = new MDType(dmang);
+        cvmod = new MDCVMod(dmang);
+        nestedQualifications = new ArrayList<>();
+        goodNestedTermination = false;
+    }
 
-	@Override
-	public String getModifier() {
-		return generateNameModifier();
-	}
+    @Override
+    public String getModifier() {
+        return generateNameModifier();
+    }
 
-	public MDCVMod getCVMod() {
-		return cvmod;
-	}
+    public MDCVMod getCVMod() {
+        return cvmod;
+    }
 
-	/**
-	 * Returns the list of MDQualification that I believe show the nested ownership within
-	 * class parents
-	 * @return the list of qualifications
-	 */
-	public List<MDQualification> getNestedQualifications() {
-		return nestedQualifications;
-	}
+    /**
+     * Returns the list of MDQualification that I believe show the nested ownership within
+     * class parents
+     *
+     * @return the list of qualifications
+     */
+    public List<MDQualification> getNestedQualifications() {
+        return nestedQualifications;
+    }
 
-	public boolean isConst() {
-		return cvmod.isConst();
-	}
+    public boolean isConst() {
+        return cvmod.isConst();
+    }
 
-	public boolean isVolatile() {
-		return cvmod.isVolatile();
-	}
+    public boolean isVolatile() {
+        return cvmod.isVolatile();
+    }
 
-	public boolean isPointer64() {
-		return cvmod.isPointer64();
-	}
+    public boolean isPointer64() {
+        return cvmod.isPointer64();
+    }
 
-	@Override
-	public void insert(StringBuilder builder) {
-		cvmod.insert(builder);
-	}
+    @Override
+    public void insert(StringBuilder builder) {
+        cvmod.insert(builder);
+    }
 
-	// Found on 20140327:
-	//  "??_7testAccessLevel@@6B@" = "const testAccessLevel::`vftable'"
-	// Found on 20140521 (Win7):
-	//  "??_7CAnalogAudioStream@@6BCUnknown@@CKsSupport@@@", discovered nesting
-	@Override
-	protected void parseInternal() throws MDException {
-		cvmod.parse();
-		while ((dmang.peek() != '@') && (dmang.peek() != MDMang.DONE)) {
-			MDQualification qualification = new MDQualification(dmang);
-			qualification.parse();
-			nestedQualifications.add(qualification);
-		}
-		// The first @ terminates the qualifier, the second terminates the qualified name
-		// (which is a list of qualifiers).  If there is a third, it likely terminates the
-		// list of qualified names outside of the MDVxTable.
-		if (dmang.peek() == '@') {
-			dmang.increment();
-			goodNestedTermination = true;
-		}
-	}
+    // Found on 20140327:
+    //  "??_7testAccessLevel@@6B@" = "const testAccessLevel::`vftable'"
+    // Found on 20140521 (Win7):
+    //  "??_7CAnalogAudioStream@@6BCUnknown@@CKsSupport@@@", discovered nesting
+    @Override
+    protected void parseInternal() throws MDException {
+        cvmod.parse();
+        while ((dmang.peek() != '@') && (dmang.peek() != MDMang.DONE)) {
+            MDQualification qualification = new MDQualification(dmang);
+            qualification.parse();
+            nestedQualifications.add(qualification);
+        }
+        // The first @ terminates the qualifier, the second terminates the qualified name
+        // (which is a list of qualifiers).  If there is a third, it likely terminates the
+        // list of qualified names outside of the MDVxTable.
+        if (dmang.peek() == '@') {
+            dmang.increment();
+            goodNestedTermination = true;
+        }
+    }
 
-	private String generateNameModifier() {
-		if (!goodNestedTermination) {
-			return "{for ??}";
-		}
-		if (nestedQualifications.isEmpty()) {
-			return "";
-		}
+    private String generateNameModifier() {
+        if (!goodNestedTermination) {
+            return "{for ??}";
+        }
+        if (nestedQualifications.isEmpty()) {
+            return "";
+        }
 
-		boolean first = true;
-		StringBuilder modNameBuilder = new StringBuilder();
-		dmang.appendString(modNameBuilder, "{for `");
-		for (MDQualification qualification : nestedQualifications) {
-			StringBuilder qnameBuilder = new StringBuilder();
-			qualification.insert(qnameBuilder);
-			if (first) {
-				first = false;
-			}
-			else {
-				dmang.appendString(modNameBuilder, "'s `");
-			}
-			dmang.appendString(modNameBuilder, qnameBuilder.toString());
-		}
-		dmang.appendString(modNameBuilder, "'}");
-		return modNameBuilder.toString();
-	}
+        boolean first = true;
+        StringBuilder modNameBuilder = new StringBuilder();
+        dmang.appendString(modNameBuilder, "{for `");
+        for (MDQualification qualification : nestedQualifications) {
+            StringBuilder qnameBuilder = new StringBuilder();
+            qualification.insert(qnameBuilder);
+            if (first) {
+                first = false;
+            } else {
+                dmang.appendString(modNameBuilder, "'s `");
+            }
+            dmang.appendString(modNameBuilder, qnameBuilder.toString());
+        }
+        dmang.appendString(modNameBuilder, "'}");
+        return modNameBuilder.toString();
+    }
 
 }
 

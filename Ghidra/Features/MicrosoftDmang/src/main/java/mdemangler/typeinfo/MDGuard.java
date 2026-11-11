@@ -15,37 +15,40 @@
  */
 package mdemangler.typeinfo;
 
-import mdemangler.*;
+import mdemangler.MDEncodedNumber;
+import mdemangler.MDException;
+import mdemangler.MDMang;
+import mdemangler.MDType;
 
 /**
  * This class represents a guard (Microsoft C++ mangling parlance)
- *  derivative of MDTypeInfo.
+ * derivative of MDTypeInfo.
  */
 public class MDGuard extends MDTypeInfo {
 
-	private MDEncodedNumber guardNumber;
+    private MDEncodedNumber guardNumber;
 
-	public MDGuard(MDMang dmang) {
-		super(dmang);
-		guardNumber = new MDEncodedNumber(dmang);
-		mdtype = new MDType(dmang);
-	}
+    public MDGuard(MDMang dmang) {
+        super(dmang);
+        guardNumber = new MDEncodedNumber(dmang);
+        mdtype = new MDType(dmang);
+    }
 
-	@Override
-	public String getModifier() {
-		return "{" + guardNumber + "}'";
-	}
+    @Override
+    public String getModifier() {
+        return "{" + guardNumber + "}'";
+    }
 
-	@Override
-	public void insert(StringBuilder builder) {
-		super.insert(builder);
-	}
+    @Override
+    public void insert(StringBuilder builder) {
+        super.insert(builder);
+    }
 
-	@Override
-	protected void parseInternal() throws MDException {
-		guardNumber.parse();
-		super.parseInternal();
-	}
+    @Override
+    protected void parseInternal() throws MDException {
+        guardNumber.parse();
+        super.parseInternal();
+    }
 }
 
 /******************************************************************************/

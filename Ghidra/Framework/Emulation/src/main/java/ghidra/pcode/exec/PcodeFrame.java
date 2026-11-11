@@ -56,9 +56,9 @@ public class PcodeFrame {
 
 		public MyAppender(Language language) {
 			super(language, true);
-			buf.append("<p-code frame: index=" + index);
+			buf.append("<p-code frame: index=").append(index);
 			if (branched != -1) {
-				buf.append(" branched=" + branched);
+				buf.append(" branched=").append(branched);
 			}
 			buf.append(" {\n");
 		}
@@ -70,7 +70,7 @@ public class PcodeFrame {
 
 		@Override
 		public void appendLineLabel(long label) {
-			buf.append("  " + stringifyLineLabel(label));
+			buf.append("  ").append(stringifyLineLabel(label));
 		}
 
 		@Override

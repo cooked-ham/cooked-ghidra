@@ -38,7 +38,7 @@ public class StructureEditorFlexAlignmentTest extends AbstractStructureEditorTes
 
 		assertTrue(structureModel.hasChanges());// initial unsaved empty structure
 		assertTrue(structureModel.isValidName());// name should be valid
-		assertEquals(structureModel.getTypeName(), "Structure");
+		assertEquals("Structure", structureModel.getTypeName());
 		assertEquals(emptyStructure.getName(), structureModel.getCompositeName());
 		assertEquals(emptyStructure.getDescription(), structureModel.getDescription());
 		assertEquals(pgmRootCat.getCategoryPathName(),
@@ -158,8 +158,8 @@ public class StructureEditorFlexAlignmentTest extends AbstractStructureEditorTes
 		pressButton(explicitAlignButton);
 		assertEquals("8", minAlignField.getText()); // toy.cspec machine alignment is default value
 
-		assertEquals(false, structureModel.viewComposite.isDefaultAligned());
-		assertEquals(false, structureModel.viewComposite.isMachineAligned());
+		assertFalse(structureModel.viewComposite.isDefaultAligned());
+		assertFalse(structureModel.viewComposite.isMachineAligned());
 		assertEquals(8, structureModel.getExplicitMinimumAlignment());
 
 		assertEquals(3, structureModel.getNumComponents());
@@ -212,15 +212,15 @@ public class StructureEditorFlexAlignmentTest extends AbstractStructureEditorTes
 		JRadioButton explicitAlignButton =
 			(JRadioButton) getInstanceField("explicitAlignButton", editorPanel);
 		assertNotNull(explicitAlignButton);
-		assertEquals(true, explicitAlignButton.isSelected());
+		assertTrue(explicitAlignButton.isSelected());
 
 		JTextField minAlignField =
 			(JTextField) getInstanceField("explicitAlignTextField", editorPanel);
 		assertNotNull(minAlignField);
 		assertEquals("" + value, minAlignField.getText());
 
-		assertEquals(false, structureModel.viewComposite.isDefaultAligned());
-		assertEquals(false, structureModel.viewComposite.isMachineAligned());
+		assertFalse(structureModel.viewComposite.isDefaultAligned());
+		assertFalse(structureModel.viewComposite.isMachineAligned());
 		assertEquals(value, structureModel.getExplicitMinimumAlignment());
 
 		assertEquals(3, structureModel.getNumComponents());
@@ -254,12 +254,12 @@ public class StructureEditorFlexAlignmentTest extends AbstractStructureEditorTes
 		JTextField packingValueField =
 			(JTextField) findComponentByName(editorPanel, "Packing Value");
 		assertNotNull(packingValueField);
-		assertEquals(true, byValuePackingButton.isSelected());
+		assertTrue(byValuePackingButton.isSelected());
 		assertEquals(Integer.toString(value), packingValueField.getText());
 
-		assertEquals(true, structureModel.viewComposite.isDefaultAligned());
-		assertEquals(false, structureModel.viewComposite.isMachineAligned());
-		assertEquals(false, structureModel.viewComposite.hasExplicitMinimumAlignment());
+		assertTrue(structureModel.viewComposite.isDefaultAligned());
+		assertFalse(structureModel.viewComposite.isMachineAligned());
+		assertFalse(structureModel.viewComposite.hasExplicitMinimumAlignment());
 
 		assertEquals(3, structureModel.getNumComponents());
 		assertEquals(4, structureModel.getRowCount());

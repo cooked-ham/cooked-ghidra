@@ -17,6 +17,7 @@ package ghidra.app.plugin.core.overview.entropy;
 
 import java.awt.*;
 
+import java.io.Serial;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
@@ -25,6 +26,7 @@ import javax.swing.JPanel;
  */
 public class LegendPanel extends JPanel {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private PalettePanel palettePanel = new PalettePanel(30);
 	private KnotLabelPanel knotPanel = new KnotLabelPanel(30);

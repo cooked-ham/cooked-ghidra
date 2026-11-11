@@ -19,55 +19,55 @@ import ghidra.app.plugin.processors.sleigh.template.OpTpl;
 import ghidra.program.model.lang.Language;
 
 public class StringPcodeFormatter
-		extends AbstractPcodeFormatter<String, StringPcodeFormatter.ToStringAppender> {
-	private static final String EOL = System.getProperty("line.separator");
+        extends AbstractPcodeFormatter<String, StringPcodeFormatter.ToStringAppender> {
+    private static final String EOL = System.getProperty("line.separator");
 
-	private int maxDisplayLines = 0; // no limit by default
-	private boolean displayRawPcode = false;
+    private int maxDisplayLines = 0; // no limit by default
+    private boolean displayRawPcode = false;
 
-	@Override
-	protected ToStringAppender createAppender(Language language, boolean indent) {
-		return new ToStringAppender(language, indent);
-	}
+    @Override
+    protected ToStringAppender createAppender(Language language, boolean indent) {
+        return new ToStringAppender(language, indent);
+    }
 
-	@Override
-	public boolean isFormatRaw() {
-		return displayRawPcode;
-	}
+    @Override
+    public boolean isFormatRaw() {
+        return displayRawPcode;
+    }
 
-	@Override
-	protected FormatResult formatOpTemplate(ToStringAppender appender, OpTpl op) {
-		if (maxDisplayLines > 0 && appender.lineCount >= maxDisplayLines) {
-			return FormatResult.TERMINATE;
-		}
-		FormatResult result = super.formatOpTemplate(appender, op);
-		appender.appendEndOfLine();
-		return result;
-	}
+    @Override
+    protected FormatResult formatOpTemplate(ToStringAppender appender, OpTpl op) {
+        if (maxDisplayLines > 0 && appender.lineCount >= maxDisplayLines) {
+            return FormatResult.TERMINATE;
+        }
+        FormatResult result = super.formatOpTemplate(appender, op);
+        appender.appendEndOfLine();
+        return result;
+    }
 
-	protected static class ToStringAppender extends AbstractAppender<String> {
-		private final StringBuffer buf = new StringBuffer();
-		private int lineCount = 0;
+    protected static class ToStringAppender extends AbstractAppender<String> {
+        private final StringBuffer buf = new StringBuffer();
+        private int lineCount = 0;
 
-		public ToStringAppender(Language language, boolean labeled) {
-			super(language, labeled);
-		}
+        public ToStringAppender(Language language, boolean labeled) {
+            super(language, labeled);
+        }
 
-		protected void appendEndOfLine() {
-			if (buf.length() != 0) {
-				buf.append(EOL);
-			}
-			lineCount++;
-		}
+        protected void appendEndOfLine() {
+            if (buf.length() != 0) {
+                buf.append(EOL);
+            }
+            lineCount++;
+        }
 
-		@Override
-		protected void appendString(String string) {
-			buf.append(string);
-		}
+        @Override
+        protected void appendString(String string) {
+            buf.append(string);
+        }
 
-		@Override
-		public String finish() {
-			return buf.toString();
-		}
-	}
+        @Override
+        public String finish() {
+            return buf.toString();
+        }
+    }
 }

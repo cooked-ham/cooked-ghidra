@@ -129,7 +129,7 @@ public class FunctionTableModel extends AddressBasedTableModel<FunctionRowObject
 		}
 	}
 
-	private class FunctionKeyIterator implements LongIterator {
+	private static class FunctionKeyIterator implements LongIterator {
 		private FunctionIterator itr;
 
 		FunctionKeyIterator(FunctionManager functionMgr) {

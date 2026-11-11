@@ -178,7 +178,7 @@ public class FindSharedReturnFunctionsScript extends GhidraScript {
 		return executor;
 	}
 
-	class SharedReturnLocations implements AddressableRowObject {
+	static class SharedReturnLocations implements AddressableRowObject {
 		private Program program;
 		private Address addr;
 		private Address whyAddr;

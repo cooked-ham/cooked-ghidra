@@ -222,7 +222,7 @@ class EquateMerger extends AbstractListingMerger {
 				}
 			}
 		}
-		return list.toArray(new Scalar[list.size()]);
+		return list.toArray(new Scalar[0]);
 	}
 
 	/**
@@ -490,7 +490,7 @@ class EquateMerger extends AbstractListingMerger {
 	 * and display an equate conflict to the user. It contains the address,
 	 * operand index, and scalar value.
 	 */
-	private class EquateConflict {
+	private static class EquateConflict {
 		Address address;
 		int opIndex;
 		Scalar scalar;

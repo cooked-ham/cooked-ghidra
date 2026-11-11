@@ -41,7 +41,7 @@ public class AnalysisLSHPlugin extends Plugin implements AnalysisPlugin, ScriptP
 	static private Map<String, Base64VectorFactory> vecFactoryMap = new HashMap<>();
 	private Map<String, AnalysisProvider<TokenizerFactory>> tokFactoryMap;
 
-	public class TokenizerFactoryProvider implements AnalysisProvider<TokenizerFactory> {
+	public static class TokenizerFactoryProvider implements AnalysisProvider<TokenizerFactory> {
 
 		@Override
 		public TokenizerFactory get(IndexSettings indexSettings, Environment env, String name,

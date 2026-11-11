@@ -66,8 +66,8 @@ public class ProgramContextTest extends AbstractGhidraHeadedIntegrationTest {
 			Register reg = programContext.getRegister(regName);
 			assertNotNull(reg);
 			assertEquals(regName, reg.getName());
-			assertTrue(reg == programContext.getRegister(regName.toLowerCase()));
-			assertTrue(reg == programContext.getRegister(regName.toUpperCase()));
+			assertSame(reg, programContext.getRegister(regName.toLowerCase()));
+			assertSame(reg, programContext.getRegister(regName.toUpperCase()));
 			didSomething = true;
 		}
 		assertTrue(didSomething);
@@ -125,7 +125,7 @@ public class ProgramContextTest extends AbstractGhidraHeadedIntegrationTest {
 				AddressRange range = registerValueAddressRanges.next();
 				assertEquals(startAddress, range.getMinAddress());
 				assertEquals(endAddress, range.getMaxAddress());
-				assertTrue(!registerValueAddressRanges.hasNext());
+				assertFalse(registerValueAddressRanges.hasNext());
 
 				registerValueAddressRanges =
 					programContext.getRegisterValueAddressRanges(reg, insideAddr1, insideAddr1);
@@ -133,7 +133,7 @@ public class ProgramContextTest extends AbstractGhidraHeadedIntegrationTest {
 				range = registerValueAddressRanges.next();
 				assertEquals(insideAddr1, range.getMinAddress());
 				assertEquals(insideAddr1, range.getMaxAddress());
-				assertTrue(!registerValueAddressRanges.hasNext());
+				assertFalse(registerValueAddressRanges.hasNext());
 
 				range = new AddressRangeImpl(startAddress, endAddress);
 				assertEquals(range,

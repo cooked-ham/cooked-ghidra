@@ -912,7 +912,7 @@ public class FunctionEditorModel {
 			DataType paramDt = paramInfo.getFormalDataType();
 			params.add(new ParameterDefinitionImpl(paramName, paramDt, null));
 		}
-		funDt.setArguments(params.toArray(new ParameterDefinition[params.size()]));
+		funDt.setArguments(params.toArray(new ParameterDefinition[0]));
 		funDt.setVarArgs(hasVarArgs());
 		return funDt;
 	}
@@ -1121,7 +1121,7 @@ public class FunctionEditorModel {
 		return !functionData.equals(originalFunctionData);
 	}
 
-	private class DummyModelChangedListener implements ModelChangeListener {
+	private static class DummyModelChangedListener implements ModelChangeListener {
 
 		@Override
 		public void tableRowsChanged() {

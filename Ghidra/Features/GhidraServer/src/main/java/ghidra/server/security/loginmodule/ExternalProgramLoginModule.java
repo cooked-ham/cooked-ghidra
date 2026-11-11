@@ -279,7 +279,7 @@ public class ExternalProgramLoginModule implements LoginModule {
 			String val = options.get(argKey).toString();
 			cmdArrayValues.add(val);
 		}
-		cmdArray = cmdArrayValues.toArray(new String[cmdArrayValues.size()]);
+		cmdArray = cmdArrayValues.toArray(new String[0]);
 	}
 
 	private void getNameAndPassword() throws LoginException {
@@ -311,7 +311,7 @@ public class ExternalProgramLoginModule implements LoginModule {
 
 		if (!callbacks.isEmpty()) {
 			try {
-				callbackHandler.handle(callbacks.toArray(new Callback[callbacks.size()]));
+				callbackHandler.handle(callbacks.toArray(new Callback[0]));
 				if (ncb != null) {
 					username = ncb.getName();
 				}

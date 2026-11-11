@@ -319,7 +319,7 @@ public class DirectedGraph {
 		Set<Vertex> reachable = this.getDescendants(this.getSources());
 		Set<Vertex> unreachable = vertices.toSet();
 		unreachable.removeAll(reachable);
-		return unreachable.toArray(new Vertex[unreachable.size()]);
+		return unreachable.toArray(new Vertex[0]);
 	}
 
 	/** Returns a Set (HashSet) of all vertices descended from a vertex in the

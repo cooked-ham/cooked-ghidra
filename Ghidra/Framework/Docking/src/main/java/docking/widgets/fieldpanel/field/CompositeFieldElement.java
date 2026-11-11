@@ -36,7 +36,7 @@ public class CompositeFieldElement implements FieldElement {
 	private String fullText;
 
 	public CompositeFieldElement(List<? extends FieldElement> elements) {
-		this(elements.toArray(new FieldElement[elements.size()]));
+		this(elements.toArray(new FieldElement[0]));
 	}
 
 	public CompositeFieldElement(FieldElement[] fieldElements) {

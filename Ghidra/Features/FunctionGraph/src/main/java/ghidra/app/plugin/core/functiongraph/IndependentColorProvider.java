@@ -136,7 +136,7 @@ public class IndependentColorProvider implements FGColorProvider {
 //==================================================================================================
 // Inner Classes
 //==================================================================================================
-	private class RecentColorCache extends LinkedHashMap<Color, Color> implements Iterable<Color> {
+	private static class RecentColorCache extends LinkedHashMap<Color, Color> implements Iterable<Color> {
 		private static final int MAX_SIZE = 10;
 
 		// not sure what the default color should be here

@@ -413,7 +413,7 @@ public class X64dbgMethodsTest extends AbstractX64dbgTraceRmiTest {
 				String out = conn.executeCapture("print(list(util.process_list0()))");
 				conn.execute("util.terminate_session()");
 
-				assertEquals(out, "[]\n");
+				assertEquals("[]\n", out);
 			}
 		}
 	}
@@ -488,7 +488,7 @@ public class X64dbgMethodsTest extends AbstractX64dbgTraceRmiTest {
 				String out = conn.executeCapture("print(list(util.process_list0()))");
 				conn.execute("util.terminate_session()");
 
-				assertEquals(out, "[]\n");
+				assertEquals("[]\n", out);
 			}
 		}
 	}
@@ -535,7 +535,7 @@ public class X64dbgMethodsTest extends AbstractX64dbgTraceRmiTest {
 				String out = conn.executeCapture("print(list(util.process_list0()))");
 				conn.execute("util.terminate_session()");
 
-				assertEquals(out, "[]\n");
+				assertEquals("[]\n", out);
 			}
 		}
 	}

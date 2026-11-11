@@ -221,10 +221,10 @@ public abstract class VirtualBaseTable implements VBTable {
 	}
 
 	void emit(StringBuilder builder) {
-		builder.append("VBT for the following parentage within: " + owner);
+		builder.append("VBT for the following parentage within: ").append(owner);
 		builder.append("\n");
 		for (ClassID id : parentage) {
-			builder.append("   " + id);
+			builder.append("   ").append(id);
 			builder.append("\n");
 		}
 	}

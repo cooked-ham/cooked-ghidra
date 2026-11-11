@@ -70,7 +70,7 @@ public class RandomForestTableModel extends ThreadedTableModelStub<RandomForestR
 	 *  Table column classes
 	 */
 
-	class NumPreBytesColumn
+	static class NumPreBytesColumn
 			extends AbstractDynamicTableColumn<RandomForestRowObject, Integer, Object> {
 
 		@Override
@@ -85,7 +85,7 @@ public class RandomForestTableModel extends ThreadedTableModelStub<RandomForestR
 		}
 	}
 
-	class NumInitialBytesColumn
+	static class NumInitialBytesColumn
 			extends AbstractDynamicTableColumn<RandomForestRowObject, Integer, Object> {
 
 		@Override
@@ -100,7 +100,7 @@ public class RandomForestTableModel extends ThreadedTableModelStub<RandomForestR
 		}
 	}
 
-	class SamplingFactorColumn
+	static class SamplingFactorColumn
 			extends AbstractDynamicTableColumn<RandomForestRowObject, Integer, Object> {
 
 		@Override
@@ -115,7 +115,7 @@ public class RandomForestTableModel extends ThreadedTableModelStub<RandomForestR
 		}
 	}
 
-	class PrecisionTableColumn
+	static class PrecisionTableColumn
 			extends AbstractDynamicTableColumn<RandomForestRowObject, BigDecimal, Object> {
 
 		@Override
@@ -130,7 +130,7 @@ public class RandomForestTableModel extends ThreadedTableModelStub<RandomForestR
 		}
 	}
 
-	class RecallTableColumn
+	static class RecallTableColumn
 			extends AbstractDynamicTableColumn<RandomForestRowObject, BigDecimal, Object> {
 
 		@Override
@@ -145,7 +145,7 @@ public class RandomForestTableModel extends ThreadedTableModelStub<RandomForestR
 		}
 	}
 
-	class FalsePositivesColumn
+	static class FalsePositivesColumn
 			extends AbstractDynamicTableColumn<RandomForestRowObject, Integer, Object> {
 
 		@Override

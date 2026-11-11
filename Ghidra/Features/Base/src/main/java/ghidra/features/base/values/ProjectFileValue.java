@@ -166,7 +166,7 @@ public class ProjectFileValue extends AbstractValue<DomainFile> {
 	/**
 	 * Component used by ProjectFileValues for picking project files
 	 */
-	class ProjectFileBrowserPanel extends AbstractProjectBrowserPanel {
+	static class ProjectFileBrowserPanel extends AbstractProjectBrowserPanel {
 
 		ProjectFileBrowserPanel(Project project, String name, String startPath,
 				Class<? extends DomainObject> projectFileClass) {

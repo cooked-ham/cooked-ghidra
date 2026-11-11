@@ -15,10 +15,6 @@
  */
 package ghidra.app.plugin.core.decompiler.taint.actions;
 
-import java.io.File;
-
-import javax.swing.Icon;
-
 import docking.action.MenuData;
 import docking.action.ToolBarData;
 import docking.widgets.filechooser.GhidraFileChooser;
@@ -31,13 +27,16 @@ import ghidra.framework.plugintool.PluginTool;
 import ghidra.program.model.listing.Program;
 import ghidra.util.HelpLocation;
 
+import javax.swing.*;
+import java.io.File;
+
 /**
  * Normal workflow is for a QUERY to be executed which is immediately followed by ingesting the results for use.
- * 
+ *
  * <p>
  * This action will allow PREVIOUSLY generated query output (possibly generated externally) to be read
  * in for the program binary.
- * 
+ *
  * <p>
  * Action triggered from a specific token in the decompiler window to mark a variable as a source or
  * sink and generate the requisite query. This can be an input parameter, a stack variable, a
@@ -45,53 +44,51 @@ import ghidra.util.HelpLocation;
  */
 public class TaintLoadAction extends TaintAbstractDecompilerAction {
 
-	private TaintPlugin plugin;
+    private static String loadSarifFileIconString = "icon.fsbrowser.file.extension.obj";
+    private static Icon loadSarifFileIcon = new GIcon(loadSarifFileIconString);
+    private TaintPlugin plugin;
 
-	private static String loadSarifFileIconString = "icon.fsbrowser.file.extension.obj";
-	private static Icon loadSarifFileIcon = new GIcon(loadSarifFileIconString);
+    public TaintLoadAction(TaintPlugin plugin) {
+        super("Load SARIF file");
+        setHelpLocation(new HelpLocation(TaintPlugin.HELP_LOCATION, "TaintLoadSarif"));
 
-	public TaintLoadAction(TaintPlugin plugin) {
-		super("Load SARIF file");
-		setHelpLocation(new HelpLocation(TaintPlugin.HELP_LOCATION, "TaintLoadSarif"));
+        setMenuBarData(new MenuData(new String[]{"Source-Sink", getName()}));
+        setToolBarData(new ToolBarData(loadSarifFileIcon));
 
-		setMenuBarData(new MenuData(new String[] { "Source-Sink", getName() }));
-		setToolBarData(new ToolBarData(loadSarifFileIcon));
+        this.plugin = plugin;
+    }
 
-		this.plugin = plugin;
-	}
+    @Override
+    protected boolean isEnabledForDecompilerContext(DecompilerActionContext context) {
+        // this should always be enabled; we do not need any sources or sinks designated.
+        return true;
+    }
 
-	@Override
-	protected boolean isEnabledForDecompilerContext(DecompilerActionContext context) {
-		// this should always be enabled; we do not need any sources or sinks designated.
-		return true;
-	}
+    @Override
+    protected void decompilerActionPerformed(DecompilerActionContext context) {
+        Program program = context.getProgram();
+        PluginTool tool = context.getTool();
 
-	@Override
-	protected void decompilerActionPerformed(DecompilerActionContext context) {
-		Program program = context.getProgram();
-		PluginTool tool = context.getTool();
+        // Objectives:
+        // Pop a file dialog to select the SARIF file.
 
-		// Objectives:
-		// Pop a file dialog to select the SARIF file.
+        // need to pop-up a file chooser dialog.
+        TaintState state = plugin.getTaintState();
+        GhidraFileChooser file_chooser = new GhidraFileChooser(tool.getToolFrame());
+        file_chooser.setCurrentDirectory(new File(state.getOptions().getTaintEnginePath()));
+        file_chooser.setFileSelectionMode(GhidraFileChooserMode.FILES_ONLY);
+        file_chooser.setTitle("Select a Source-Sink Query Results SARIF File");
 
-		// need to pop-up a file chooser dialog.
-		TaintState state = plugin.getTaintState();
-		GhidraFileChooser file_chooser = new GhidraFileChooser(tool.getToolFrame());
-		file_chooser.setCurrentDirectory(new File(state.getOptions().getTaintEnginePath()));
-		file_chooser.setFileSelectionMode(GhidraFileChooserMode.FILES_ONLY);
-		file_chooser.setTitle("Select a Source-Sink Query Results SARIF File");
+        File sarifFile = file_chooser.getSelectedFile(true);
 
-		File sarifFile = file_chooser.getSelectedFile(true);
+        if (sarifFile != null && sarifFile.canRead()) {
+            plugin.consoleMessage(
+                    String.format("Setting feature file: %s\n", sarifFile.getAbsolutePath()));
+            state.loadTaintData(program, sarifFile);
+            plugin.consoleMessage("external query results loaded.");
+        } else {
+            plugin.consoleMessage("No sarif file specified, or file does not exist.");
 
-		if (sarifFile != null && sarifFile.canRead()) {
-			plugin.consoleMessage(
-				String.format("Setting feature file: %s\n", sarifFile.getAbsolutePath()));
-			state.loadTaintData(program, sarifFile);
-			plugin.consoleMessage("external query results loaded.");
-		}
-		else {
-			plugin.consoleMessage("No sarif file specified, or file does not exist.");
-
-		}
-	}
+        }
+    }
 }

@@ -943,7 +943,7 @@ public class FunctionEditorDialog extends DialogComponentProvider implements Mod
 // Inner Classes
 //=================================================================================================
 
-	private class NamespaceWrapper {
+	private static class NamespaceWrapper {
 		private Namespace namespace;
 
 		NamespaceWrapper(Namespace namespace) {
@@ -980,7 +980,7 @@ public class FunctionEditorDialog extends DialogComponentProvider implements Mod
 		}
 	}
 
-	private class ParameterDataTypeCellRenderer extends GTableCellRenderer {
+	private static class ParameterDataTypeCellRenderer extends GTableCellRenderer {
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 
@@ -1184,7 +1184,7 @@ public class FunctionEditorDialog extends DialogComponentProvider implements Mod
 		}
 	}
 
-	private class VariableStorageCellRenderer extends GTableCellRenderer {
+	private static class VariableStorageCellRenderer extends GTableCellRenderer {
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 
@@ -1224,7 +1224,7 @@ public class FunctionEditorDialog extends DialogComponentProvider implements Mod
 		}
 	}
 
-	private class VariableStringCellRenderer extends GTableCellRenderer {
+	private static class VariableStringCellRenderer extends GTableCellRenderer {
 
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
@@ -1257,7 +1257,7 @@ public class FunctionEditorDialog extends DialogComponentProvider implements Mod
 		}
 	}
 
-	private class VerticalScrollablePanel extends JPanel implements Scrollable {
+	private static class VerticalScrollablePanel extends JPanel implements Scrollable {
 		public VerticalScrollablePanel() {
 			super(new BorderLayout());
 		}

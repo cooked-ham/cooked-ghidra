@@ -312,7 +312,7 @@ class GhidraScriptTableModel extends GDynamicColumnTableModel<ResourceFile, Obje
 		}
 	}
 
-	private class NameColumn extends AbstractDynamicTableColumn<ResourceFile, String, Object> {
+	private static class NameColumn extends AbstractDynamicTableColumn<ResourceFile, String, Object> {
 
 		private Comparator<String> comparator = new CaseInsensitiveDuplicateStringComparator();
 
@@ -445,7 +445,7 @@ class GhidraScriptTableModel extends GDynamicColumnTableModel<ResourceFile, Obje
 		}
 	}
 
-	private class PathColumn extends AbstractDynamicTableColumn<ResourceFile, String, Object> {
+	private static class PathColumn extends AbstractDynamicTableColumn<ResourceFile, String, Object> {
 
 		@Override
 		public String getColumnName() {
@@ -598,7 +598,7 @@ class GhidraScriptTableModel extends GDynamicColumnTableModel<ResourceFile, Obje
 		}
 	}
 
-	private class DateRenderer extends AbstractGColumnRenderer<Date> {
+	private static class DateRenderer extends AbstractGColumnRenderer<Date> {
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 

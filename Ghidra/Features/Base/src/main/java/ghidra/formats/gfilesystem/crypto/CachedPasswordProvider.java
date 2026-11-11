@@ -121,7 +121,7 @@ public class CachedPasswordProvider implements PasswordProvider {
 		Password value;
 	}
 
-	private class CloningPasswordIterator implements Iterator<Password> {
+	private static class CloningPasswordIterator implements Iterator<Password> {
 		Iterator<Password> delegate;
 
 		CloningPasswordIterator(Iterator<Password> it) {

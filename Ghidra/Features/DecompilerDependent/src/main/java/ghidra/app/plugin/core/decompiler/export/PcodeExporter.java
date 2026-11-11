@@ -203,7 +203,7 @@ public class PcodeExporter extends BasePcodeExporter {
 
 	private String dtID(DataType dt) {
 		if (dt.getName() != null) {
-			return dt.getName().replaceAll(" ", "");
+			return dt.getName().replace(" ", "");
 		}
 		return dt.toString();
 	}
@@ -211,7 +211,7 @@ public class PcodeExporter extends BasePcodeExporter {
 	public void processVTable(Program program, Symbol sym) {
 		StringBuilder className = new StringBuilder();
 		for (String s : sym.getPath()) {
-			className.append("::" + s);
+			className.append("::").append(s);
 		}
 		Address addr = sym.getAddress();
 		if (program.getMemory().getBlock(addr).isExternalBlock())

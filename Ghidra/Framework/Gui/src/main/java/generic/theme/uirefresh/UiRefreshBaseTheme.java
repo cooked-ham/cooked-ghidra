@@ -85,9 +85,11 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 		setColor("color.fg.header.active", t.textPrimary);
 		setColor("color.bg.header.inactive", t.raised);
 		setColor("color.fg.header.inactive", t.textSecondary);
-		setColor("color.bg.widget.tabs.selected.active", t.selected);
-		setColor("color.bg.widget.tabs.selected.inactive", t.selectedInactive);
-		setColor("color.bg.widget.tabs.unselected", t.panel);
+		// open-program tabs (GTabPanel): the selected tab takes the content surface it sits on;
+		// active vs inactive is the underline color painted by the dock chrome, plus bold text
+		setColor("color.bg.widget.tabs.selected.active", t.panel);
+		setColor("color.bg.widget.tabs.selected.inactive", t.panel);
+		setColor("color.bg.widget.tabs.unselected", t.canvas);
 		setColor("color.bg.widget.tabs.highlighted", t.hover);
 		setColor("color.fg.widget.tabs.selected.active", t.textPrimary);
 		setColor("color.fg.widget.tabs.selected.inactive", t.textPrimary);
@@ -127,6 +129,9 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 		flat("ScrollPane.background", t.panel);
 		flat("SplitPane.background", t.canvas);
 		flat("OptionPane.background", t.canvas);
+		// FlatLaf ties Label.background to Panel.background; keep that, or opaque labels (the
+		// status bar message) show FlatLaf's stock grey
+		flat("Label.background", t.canvas);
 		flat("Label.foreground", t.textPrimary);
 		flat("Label.disabledForeground", t.textDisabled);
 		flat("Component.borderColor", t.border);

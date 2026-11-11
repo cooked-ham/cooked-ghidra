@@ -21,6 +21,7 @@
 
 package ghidra.util.map;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import ghidra.util.Saveable;
@@ -36,6 +37,7 @@ import ghidra.util.exception.NoValueException;
  * @param <T> property value type
  */
 class ValueStoragePage<T> implements Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
     private ShortKeyIndexer indexer;
 	private ShortKeySet keySet;	// set of offsets on page having property

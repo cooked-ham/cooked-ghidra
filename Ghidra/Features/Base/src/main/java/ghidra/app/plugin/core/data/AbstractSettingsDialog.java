@@ -679,7 +679,7 @@ public abstract class AbstractSettingsDialog extends DialogComponentProvider {
 		}
 	}
 
-	private class NumberWrapper {
+	private static class NumberWrapper {
 
 		final Number value; // may be null
 
@@ -717,7 +717,7 @@ public abstract class AbstractSettingsDialog extends DialogComponentProvider {
 		}
 	}
 
-	class StringSettingsComboBox extends GComboBox<String> {
+	static class StringSettingsComboBox extends GComboBox<String> {
 		StringSettingsComboBox() {
 		}
 	}

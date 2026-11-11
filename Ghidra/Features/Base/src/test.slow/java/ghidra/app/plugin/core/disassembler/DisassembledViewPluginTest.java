@@ -106,8 +106,8 @@ public class DisassembledViewPluginTest extends AbstractGhidraHeadedIntegrationT
 		ListModel<?> modelTwo = list.getModel();
 
 		boolean sameData = compareListData(modelOne, modelTwo);
-		assertTrue("The contents of the two lists are the same when they " + "should not be.",
-			!sameData);
+		assertFalse("The contents of the two lists are the same when they " + "should not be.",
+			sameData);
 
 		// make sure no work is done when we are not visible
 		tool.showComponentProvider(componentProvider, false);
@@ -178,9 +178,9 @@ public class DisassembledViewPluginTest extends AbstractGhidraHeadedIntegrationT
 		// multiple-selection
 		plugin.processEvent(createProgramSelectionEvent(true));
 
-		assertTrue(
+		assertFalse(
 			"The list content did not change after processing a " + "multiple-selection event.",
-			!compareListData(listContents, list.getModel()));
+			compareListData(listContents, list.getModel()));
 	}
 
 	/**

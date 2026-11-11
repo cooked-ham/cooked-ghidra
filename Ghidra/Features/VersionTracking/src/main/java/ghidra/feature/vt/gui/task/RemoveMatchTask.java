@@ -97,7 +97,7 @@ public class RemoveMatchTask extends VtTask {
 		}
 	}
 
-	private class RemoveMatchDialog extends OptionDialog {
+	private static class RemoveMatchDialog extends OptionDialog {
 
 		RemoveMatchDialog(String message) {
 			super("Delete ACCEPTED Matches?", message, "Delete Accepted Matches", "Finish",

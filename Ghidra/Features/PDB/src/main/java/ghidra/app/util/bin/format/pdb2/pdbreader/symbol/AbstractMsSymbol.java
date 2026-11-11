@@ -108,7 +108,7 @@ public abstract class AbstractMsSymbol extends AbstractParsableItem {
 
 	@Override
 	public void emit(StringBuilder builder) {
-		builder.append("NotImplemented(" + this.getClass().getSimpleName() + ")");
+		builder.append("NotImplemented(").append(this.getClass().getSimpleName()).append(")");
 	}
 
 	/**

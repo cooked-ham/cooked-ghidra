@@ -48,7 +48,7 @@ public class VTMarkupItemSourceAddressToProgramLocationTableRowMapper extends
 		return new ProgramLocation(program, address);
 	}
 
-	private class VTMarkupItemSourceWrappedMappedProgramLocationTableColumn<COLUMN_TYPE> extends
+	private static class VTMarkupItemSourceWrappedMappedProgramLocationTableColumn<COLUMN_TYPE> extends
 			MappedProgramLocationTableColumn<VTMarkupItem, ProgramLocation, COLUMN_TYPE> {
 
 		public VTMarkupItemSourceWrappedMappedProgramLocationTableColumn(
@@ -73,7 +73,7 @@ public class VTMarkupItemSourceAddressToProgramLocationTableRowMapper extends
 		}
 	}
 
-	private class VTMarkupItemSourceWrappedMappedTableColumn<COLUMN_TYPE> extends
+	private static class VTMarkupItemSourceWrappedMappedTableColumn<COLUMN_TYPE> extends
 			MappedTableColumn<VTMarkupItem, ProgramLocation, COLUMN_TYPE, Program> {
 
 		public VTMarkupItemSourceWrappedMappedTableColumn(

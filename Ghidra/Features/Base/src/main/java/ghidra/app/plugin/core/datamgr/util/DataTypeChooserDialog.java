@@ -331,7 +331,7 @@ public class DataTypeChooserDialog extends DialogComponentProvider {
 		}
 	}
 
-	private class SelectFirstNodeTask extends GTreeTask {
+	private static class SelectFirstNodeTask extends GTreeTask {
 
 		protected SelectFirstNodeTask(GTree tree) {
 			super(tree);

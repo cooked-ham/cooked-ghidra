@@ -103,7 +103,7 @@ public class LabelActionTest extends AbstractGhidraHeadedIntegrationTest
 		cb.updateNow();
 		ActionContext context = cb.getProvider().getActionContext(null);
 
-		assertTrue(!setLabel.isEnabledForContext(context));
+		assertFalse(setLabel.isEnabledForContext(context));
 	}
 
 	@Test
@@ -125,7 +125,7 @@ public class LabelActionTest extends AbstractGhidraHeadedIntegrationTest
 		JTable table = (JTable) TestUtils.getInstanceField("historyTable", historyPanel);
 		TableModel model = table.getModel();
 		Object label = model.getValueAt(0, 1);
-		assertEquals(label, "AnotherLocal");
+		assertEquals("AnotherLocal", label);
 
 		Object author = model.getValueAt(0, 2);
 		assertTrue(author.toString().startsWith(System.getProperty("user.name")));

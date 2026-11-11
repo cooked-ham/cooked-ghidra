@@ -58,7 +58,7 @@ public class XmlAttributes {
 		if (value == null) {
 			value = "";
 		}
-		buffer.append(" " + name + "=\"" + XmlUtilities.escapeElementEntities(value) + "\"");
+		buffer.append(" ").append(name).append("=\"").append(XmlUtilities.escapeElementEntities(value)).append("\"");
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class XmlAttributes {
 		if the value is negative (and in hex) we want
 		the negative sign ('-') to appear before the '0x'
 		*/
-		buffer.append(" " + name + "=\"");
+		buffer.append(" ").append(name).append("=\"");
 		String valueString = Integer.toString(value, hex ? 16 : 10);
 		if (valueString.startsWith("-")) {
 			buffer.append("-");
@@ -179,7 +179,7 @@ public class XmlAttributes {
 		if the value is negative (and in hex) we want
 		the negative sign ('-') to appear before the '0x'
 		*/
-		buffer.append(" " + name + "=\"");
+		buffer.append(" ").append(name).append("=\"");
 		String valueString = Long.toString(value, hex ? 16 : 10);
 		if (valueString.startsWith("-")) {
 			buffer.append("-");
@@ -198,7 +198,7 @@ public class XmlAttributes {
 	 * @param value the big integer value
 	 */
 	public void addAttribute(String name, BigInteger value, boolean hex) {
-		buffer.append(" " + name + "=\"");
+		buffer.append(" ").append(name).append("=\"");
 		if (hex) {
 			buffer.append("0x");
 		}

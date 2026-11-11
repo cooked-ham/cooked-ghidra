@@ -391,7 +391,7 @@ public class CategoryPath implements Comparable<CategoryPath> {
 	 */
 	public String[] asArray() {
 		List<String> list = asList();
-		return list.toArray(new String[list.size()]);
+		return list.toArray(new String[0]);
 	}
 
 }

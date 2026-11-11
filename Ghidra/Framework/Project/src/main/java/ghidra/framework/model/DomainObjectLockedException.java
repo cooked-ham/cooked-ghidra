@@ -16,12 +16,15 @@
  */
 package ghidra.framework.model;
 
+import java.io.Serial;
+
 /**
  * Thrown when a method fails due to a locked domain object.
  * 
  */
 public class DomainObjectLockedException extends RuntimeException {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public DomainObjectLockedException(String reason) {

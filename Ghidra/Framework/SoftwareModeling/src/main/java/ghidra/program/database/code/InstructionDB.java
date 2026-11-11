@@ -291,7 +291,7 @@ public class InstructionDB extends CodeUnitDB implements Instruction, Instructio
 			return EMPTY_ADDR_ARRAY;
 		}
 
-		return list.toArray(new Address[list.size()]);
+		return list.toArray(new Address[0]);
 	}
 
 	@Override

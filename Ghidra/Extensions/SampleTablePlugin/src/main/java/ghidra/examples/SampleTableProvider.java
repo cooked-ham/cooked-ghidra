@@ -168,7 +168,7 @@ public class SampleTableProvider extends ComponentProviderAdapter implements Opt
 
 				List<FunctionStatsRowObject> selectedObjects = filterTable.getSelectedRowObjects();
 				for (FunctionStatsRowObject stats : selectedObjects) {
-					buffer.append("\nData: " + stats.getAlgorithmName());
+					buffer.append("\nData: ").append(stats.getAlgorithmName());
 				}
 
 				Msg.showInfo(this, filterTable, "Example Dialog",

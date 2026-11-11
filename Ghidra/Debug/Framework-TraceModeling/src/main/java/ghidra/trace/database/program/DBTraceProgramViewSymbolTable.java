@@ -283,7 +283,7 @@ public class DBTraceProgramViewSymbolTable implements SymbolTable {
 		try (LockHold hold = program.trace.lockRead()) {
 			Collection<? extends TraceSymbol> at =
 				symbolManager.labels().getAt(program.snap, addr, true);
-			return at.toArray(new Symbol[at.size()]);
+			return at.toArray(new Symbol[0]);
 		}
 	}
 
@@ -299,7 +299,7 @@ public class DBTraceProgramViewSymbolTable implements SymbolTable {
 		try (LockHold hold = program.trace.lockRead()) {
 			Collection<? extends TraceSymbol> at =
 				symbolManager.labels().getAt(program.snap, addr, false);
-			return at.toArray(new Symbol[at.size()]);
+			return at.toArray(new Symbol[0]);
 		}
 	}
 

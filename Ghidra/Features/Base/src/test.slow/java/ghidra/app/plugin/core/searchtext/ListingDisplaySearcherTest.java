@@ -423,7 +423,7 @@ public class ListingDisplaySearcherTest extends AbstractGhidraHeadedIntegrationT
 		assertEquals(addr(0x0100689f), loc.getByteAddress());
 		assertTrue(loc instanceof CommentFieldLocation);
 
-		assertTrue(!searcher.hasNext());
+		assertFalse(searcher.hasNext());
 		assertNull(searcher.next());
 	}
 
@@ -505,7 +505,7 @@ public class ListingDisplaySearcherTest extends AbstractGhidraHeadedIntegrationT
 		assertEquals(addr(0x0100689f), loc.getByteAddress());
 		assertTrue(loc instanceof CommentFieldLocation);
 
-		assertTrue(!searcher.hasNext());
+		assertFalse(searcher.hasNext());
 		assertNull(searcher.next());
 	}
 
@@ -834,7 +834,7 @@ public class ListingDisplaySearcherTest extends AbstractGhidraHeadedIntegrationT
 			assertEquals(start, loc.getAddress());
 		}
 
-		assertTrue(!searcher.hasNext());
+		assertFalse(searcher.hasNext());
 	}
 
 	private void checkTextFound(Address addr, Class<?> fieldClass) {

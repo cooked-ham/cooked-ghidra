@@ -777,7 +777,7 @@ abstract class AbstractFunctionMerger implements ListingMergeConstants {
 		return 0;
 	}
 
-	class ParamInfoConflict {
+	static class ParamInfoConflict {
 		Address entry;
 		int ordinal;
 		int paramConflicts;
@@ -789,7 +789,7 @@ abstract class AbstractFunctionMerger implements ListingMergeConstants {
 		}
 	}
 
-	class LocalVariableConflict {
+	static class LocalVariableConflict {
 		Address entry;
 		Variable[] vars;
 		int varConflicts;
@@ -1157,7 +1157,7 @@ abstract class AbstractFunctionMerger implements ListingMergeConstants {
 		return varConflictList;
 	}
 
-	class FunctionAddressIterator implements AddressIterator {
+	static class FunctionAddressIterator implements AddressIterator {
 		FunctionIterator functionIterator;
 
 		FunctionAddressIterator(FunctionIterator funcIter) {

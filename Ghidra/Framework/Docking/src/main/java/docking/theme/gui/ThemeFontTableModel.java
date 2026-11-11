@@ -148,7 +148,7 @@ public class ThemeFontTableModel extends GDynamicColumnTableModel<FontValue, Obj
 		return FontValue.fontToString(font);
 	}
 
-	private class IdColumn extends AbstractDynamicTableColumn<FontValue, String, Object> {
+	private static class IdColumn extends AbstractDynamicTableColumn<FontValue, String, Object> {
 
 		@Override
 		public String getColumnName() {

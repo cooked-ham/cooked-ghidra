@@ -520,7 +520,7 @@ class EnumEditorPanel extends JPanel {
 // Inner Classes
 //==================================================================================================
 
-	private class EnumTable extends GhidraTable {
+	private static class EnumTable extends GhidraTable {
 		EnumTable(TableModel model) {
 			super(model);
 			setAutoEditEnabled(true);

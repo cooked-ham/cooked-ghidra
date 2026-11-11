@@ -1021,7 +1021,7 @@ public class VTAddToSessionTest extends AbstractGhidraHeadedIntegrationTest {
 
 		pressButtonByText(addRemoveDialog.getComponent(), buttonText);
 
-		assertTrue("Dialog not closed after pressing: " + buttonText, !addRemoveDialog.isShowing());
+		assertFalse("Dialog not closed after pressing: " + buttonText, addRemoveDialog.isShowing());
 	}
 
 	private void enterAddressRange(boolean isSource, String buttonText, Address minAddress,
@@ -1055,7 +1055,7 @@ public class VTAddToSessionTest extends AbstractGhidraHeadedIntegrationTest {
 
 		pressButtonByText(addRemoveDialog.getComponent(), buttonText);
 
-		assertTrue("Dialog not closed after pressing: " + buttonText, !addRemoveDialog.isShowing());
+		assertFalse("Dialog not closed after pressing: " + buttonText, addRemoveDialog.isShowing());
 	}
 
 	private void enterAddressRange(boolean isSource, String buttonText, AddressRange addressRange) {

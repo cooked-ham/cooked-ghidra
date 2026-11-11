@@ -205,7 +205,7 @@ public class MDObjectCPP extends MDObject {
 	 *  using the {@link MDMangObjectParser}.  This will need more study when more time is
 	 *  available.
 	 */
-	public class MDHashedObject extends MDParsableItem {
+	public static class MDHashedObject extends MDParsableItem {
 		private String hashString = "";
 		private MDQualification qualification; // We are making this dummy object
 

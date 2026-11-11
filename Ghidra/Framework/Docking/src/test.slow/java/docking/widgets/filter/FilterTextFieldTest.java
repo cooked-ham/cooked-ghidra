@@ -301,7 +301,7 @@ public class FilterTextFieldTest {
 // Inner Classes
 //==================================================================================================	
 
-	private class BackgroundColorSpy {
+	private static class BackgroundColorSpy {
 		List<Color> bgColorChanges = new ArrayList<>();
 
 		void reset() {
@@ -322,7 +322,7 @@ public class FilterTextFieldTest {
 		}
 	}
 
-	private class EnterListener implements Callback {
+	private static class EnterListener implements Callback {
 
 		private int callCount;
 
@@ -336,7 +336,7 @@ public class FilterTextFieldTest {
 		}
 	}
 
-	private class TestFilterListener implements FilterListener {
+	private static class TestFilterListener implements FilterListener {
 
 		private String filterText;
 
@@ -350,7 +350,7 @@ public class FilterTextFieldTest {
 		}
 	}
 
-	private class TestJTextArea extends JTextArea {
+	private static class TestJTextArea extends JTextArea {
 
 		private boolean focusRequested;
 

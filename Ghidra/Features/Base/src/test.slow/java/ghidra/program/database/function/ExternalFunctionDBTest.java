@@ -153,12 +153,12 @@ public class ExternalFunctionDBTest extends AbstractGhidraHeadedIntegrationTest 
 		Function f = createExternalFunction("foo");
 
 		// External functions should not be returned by normal function iterators
-		assertTrue(!functionManager.getFunctions(true).hasNext());
-		assertTrue(!functionManager.getFunctions(f.getEntryPoint(), true).hasNext());
+		assertFalse(functionManager.getFunctions(true).hasNext());
+		assertFalse(functionManager.getFunctions(f.getEntryPoint(), true).hasNext());
 
-		assertTrue(!functionManager.getFunctionsNoStubs(true).hasNext());
-		assertTrue(!functionManager.getFunctionsNoStubs(f.getEntryPoint(), true).hasNext());
-		assertTrue(!functionManager.getFunctionsNoStubs(
+		assertFalse(functionManager.getFunctionsNoStubs(true).hasNext());
+		assertFalse(functionManager.getFunctionsNoStubs(f.getEntryPoint(), true).hasNext());
+		assertFalse(functionManager.getFunctionsNoStubs(
 			new AddressSet(AddressSpace.EXTERNAL_SPACE.getMinAddress(),
 				AddressSpace.EXTERNAL_SPACE.getMaxAddress()),
 			true).hasNext());
@@ -230,7 +230,7 @@ public class ExternalFunctionDBTest extends AbstractGhidraHeadedIntegrationTest 
 		ExternalLocation externalLocation =
 			program.getExternalManager().getUniqueExternalLocation(library, null, "foo");
 		assertNotNull(externalLocation);
-		assertTrue(!externalLocation.isFunction());
+		assertFalse(externalLocation.isFunction());
 		assertEquals(SymbolType.LABEL, externalLocation.getSymbol().getSymbolType());
 	}
 
@@ -246,7 +246,7 @@ public class ExternalFunctionDBTest extends AbstractGhidraHeadedIntegrationTest 
 		ExternalLocation externalLocation =
 			program.getExternalManager().getUniqueExternalLocation(library, null, "EXT_00001000");
 		assertNotNull(externalLocation);
-		assertTrue(!externalLocation.isFunction());
+		assertFalse(externalLocation.isFunction());
 		assertEquals(SymbolType.LABEL, externalLocation.getSymbol().getSymbolType());
 	}
 

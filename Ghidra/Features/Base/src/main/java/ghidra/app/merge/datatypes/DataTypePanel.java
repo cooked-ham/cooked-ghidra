@@ -219,7 +219,7 @@ class DataTypePanel extends JPanel {
 		insertLength(comp);
 	}
 
-	private class EnumEntry implements Comparable<EnumEntry> {
+	private static class EnumEntry implements Comparable<EnumEntry> {
 
 		private final String name;
 		private final long value;
@@ -345,7 +345,7 @@ class DataTypePanel extends JPanel {
 			String name = vars[i].getDataType().getDisplayName();
 			name = pad(name, maxLength);
 
-			sb.append("    " + name + " " + vars[i].getName());
+			sb.append("    ").append(name).append(" ").append(vars[i].getName());
 			if ((i < vars.length - 1) || (vars.length > 0 && hasVarArgs)) {
 				sb.append(",");
 			}

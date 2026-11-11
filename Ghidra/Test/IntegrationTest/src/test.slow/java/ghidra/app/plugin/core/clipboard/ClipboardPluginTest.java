@@ -1705,7 +1705,7 @@ public class ClipboardPluginTest extends AbstractGhidraHeadedIntegrationTest {
 			Object decompilerPanel = getInstanceField("decompilerPanel", controller);
 			FieldPanel fieldPanel = (FieldPanel) getInstanceField("fieldPanel", decompilerPanel);
 			FieldSelection selection = fieldPanel.getSelection();
-			assertTrue("No selection in the decompile provider.", !selection.isEmpty());
+			assertFalse("No selection in the decompile provider.", selection.isEmpty());
 		}
 
 		@Override

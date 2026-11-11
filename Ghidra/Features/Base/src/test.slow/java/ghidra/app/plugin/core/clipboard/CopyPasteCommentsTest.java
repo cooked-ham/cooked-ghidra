@@ -215,8 +215,8 @@ public class CopyPasteCommentsTest extends AbstractProgramBasedTest {
 		cb.goToField(addr(programOne, 0x032a), LabelFieldFactory.FIELD_NAME, 0, 0);
 		f = (ListingTextField) cb.getCurrentField();
 		assertEquals("MyLabel", f.getText());
-		assertTrue(
-			!cb.goToField(addr(programOne, 0x032d), EolCommentFieldFactory.FIELD_NAME, 0, 0));
+		assertFalse(
+			cb.goToField(addr(programOne, 0x032d), EolCommentFieldFactory.FIELD_NAME, 0, 0));
 
 		redo(programOne);
 		cb.goToField(addr(programOne, 0x032a), LabelFieldFactory.FIELD_NAME, 0, 0);
@@ -237,7 +237,7 @@ public class CopyPasteCommentsTest extends AbstractProgramBasedTest {
 		// containing the default label.
 		toolTwo.execute(new DeleteLabelCmd(addr(programTwo, 0x0331), "RSR10"), programTwo);
 		symbol = programTwo.getSymbolTable().getPrimarySymbol(addr(programTwo, 0x0331));
-		assertTrue(symbol.getSource() == SourceType.DEFAULT);
+		assertSame(symbol.getSource(), SourceType.DEFAULT);
 
 		goTo(toolTwo, 0x0331);
 
@@ -256,7 +256,7 @@ public class CopyPasteCommentsTest extends AbstractProgramBasedTest {
 		assertEquals(0, symbols.length);
 
 		// should be no label at 032a
-		assertTrue(!cb.goToField(addr(programOne, 0x032a), LabelFieldFactory.FIELD_NAME, 0, 0));
+		assertFalse(cb.goToField(addr(programOne, 0x032a), LabelFieldFactory.FIELD_NAME, 0, 0));
 	}
 
 	@Test
@@ -281,7 +281,7 @@ public class CopyPasteCommentsTest extends AbstractProgramBasedTest {
 
 		Symbol symbol = getUniqueSymbol(programOne, "RSR10", null);
 		assertNotNull(symbol);
-		assertTrue(symbol.getSource() != SourceType.DEFAULT);
+		assertNotSame(symbol.getSource(), SourceType.DEFAULT);
 
 		cb.goToField(addr(programOne, 0x0331), LabelFieldFactory.FIELD_NAME, 0, 0);
 		ListingTextField f = (ListingTextField) cb.getCurrentField();
@@ -327,7 +327,7 @@ public class CopyPasteCommentsTest extends AbstractProgramBasedTest {
 
 		Symbol[] symbols = programOne.getSymbolTable().getSymbols(addr(programOne, 0x0331));
 
-		assertTrue(symbols[0].getSource() == SourceType.DEFAULT);
+		assertSame(symbols[0].getSource(), SourceType.DEFAULT);
 
 		cb.goToField(addr(programOne, 0x0331), LabelFieldFactory.FIELD_NAME, 0, 0);
 		ListingTextField f = (ListingTextField) cb.getCurrentField();

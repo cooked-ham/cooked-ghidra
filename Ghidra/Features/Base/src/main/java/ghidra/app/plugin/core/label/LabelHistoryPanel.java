@@ -18,6 +18,7 @@ package ghidra.app.plugin.core.label;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serial;
 import java.util.List;
 
 import javax.swing.*;
@@ -38,6 +39,7 @@ import ghidra.util.table.GhidraTable;
  * the user can navigate by clicking on a row in the history table.
  */
 class LabelHistoryPanel extends JPanel {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private LabelHistoryTableModel tableModel;
@@ -122,7 +124,8 @@ class LabelHistoryPanel extends JPanel {
 		}
 	}
 
-	private class LabelCellRenderer extends GTableCellRenderer {
+	private static class LabelCellRenderer extends GTableCellRenderer {
+		@Serial
 		private static final long serialVersionUID = 1L;
 
 		private Font monoFont;

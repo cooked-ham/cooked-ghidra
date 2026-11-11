@@ -203,7 +203,7 @@ public class ProjectDataDeleteTask extends Task {
 		StringBuilder buffy = new StringBuilder("<html>");
 		buffy.append("<div style='font-size: 110%; text-align: center;'>");
 		buffy.append("<span>");
-		buffy.append("Are you sure you want to <u>permanently</u> delete " + files + "?");
+		buffy.append("Are you sure you want to <u>permanently</u> delete ").append(files).append("?");
 		buffy.append("</span><br><br>");
 
 		buffy.append("<span style='color: red;'>");

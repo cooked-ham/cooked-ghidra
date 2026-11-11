@@ -15,6 +15,7 @@
  */
 package ghidra.app.plugin.core.compositeeditor;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -38,6 +39,7 @@ import ghidra.util.task.TaskMonitor;
 
 class StructureEditorModel extends CompEditorModel<Structure> {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private static final int OFFSET = 0;
 	private static final int LENGTH = 1;

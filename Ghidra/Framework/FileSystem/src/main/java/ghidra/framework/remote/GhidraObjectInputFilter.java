@@ -296,7 +296,7 @@ public class GhidraObjectInputFilter implements ObjectInputFilter {
 				List<String> list = classTracker.keySet().stream().collect(Collectors.toList());
 				Collections.sort(list);
 				try (FileWriter w = new FileWriter(trackerLogFile)) {
-					w.append("# " + ClassInfo.getCSVHeader() + "\n");
+					w.append("# ").append(ClassInfo.getCSVHeader()).append("\n");
 					for (String s : list) {
 						w.append(classTracker.get(s) + "\n");
 					}

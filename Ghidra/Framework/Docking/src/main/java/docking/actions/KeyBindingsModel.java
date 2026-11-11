@@ -114,7 +114,7 @@ public class KeyBindingsModel {
 		});
 
 		String ksName = KeyBindingUtils.parseKeyStroke(keyStroke);
-		sb.append("Actions mapped to key " + ksName + ":\n");
+		sb.append("Actions mapped to key ").append(ksName).append(":\n");
 		for (int i = 0; i < names.size(); i++) {
 			sb.append("  ");
 

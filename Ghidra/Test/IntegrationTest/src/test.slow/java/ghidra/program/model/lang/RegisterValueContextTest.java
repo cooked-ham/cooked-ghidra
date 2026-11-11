@@ -72,8 +72,8 @@ public class RegisterValueContextTest extends AbstractGhidraHeadlessIntegrationT
 
 		assertEquals(0x0102030405060708L, val.getUnsignedValueIgnoreMask().longValue());
 		assertEquals(0x0102030405060708L, val.getSignedValueIgnoreMask().longValue());
-		assertEquals(null, val.getUnsignedValue());
-		assertEquals(null, val.getSignedValue());
+		assertNull(val.getUnsignedValue());
+		assertNull(val.getSignedValue());
 		assertEquals(0x0fffff0ffffffffffL, val.getValueMask().longValue());
 	}
 
@@ -85,16 +85,16 @@ public class RegisterValueContextTest extends AbstractGhidraHeadlessIntegrationT
 
 		assertEquals(0x1234000000000000L, val.getUnsignedValueIgnoreMask().longValue());
 		assertEquals(0x1234000000000000L, val.getSignedValueIgnoreMask().longValue());
-		assertEquals(null, val.getUnsignedValue());
-		assertEquals(null, val.getSignedValue());
+		assertNull(val.getUnsignedValue());
+		assertNull(val.getSignedValue());
 		assertEquals(0x0ffff000000000000L, val.getValueMask().longValue());
 
 		val = new RegisterValue(regContext, new byte[] { (byte) 0x10, (byte) 0xff, 0x12, 0x34 });
 
 		assertEquals(0x1034000000000000L, val.getUnsignedValueIgnoreMask().longValue());
 		assertEquals(0x1034000000000000L, val.getSignedValueIgnoreMask().longValue());
-		assertEquals(null, val.getUnsignedValue());
-		assertEquals(null, val.getSignedValue());
+		assertNull(val.getUnsignedValue());
+		assertNull(val.getSignedValue());
 		assertEquals(0x10ff000000000000L, val.getValueMask().longValue());
 	}
 
@@ -117,8 +117,8 @@ public class RegisterValueContextTest extends AbstractGhidraHeadlessIntegrationT
 
 		assertEquals(0x1234507800000000L, val.getUnsignedValueIgnoreMask().longValue());
 		assertEquals(0x1234507800000000L, val.getSignedValueIgnoreMask().longValue());
-		assertEquals(null, val.getUnsignedValue());
-		assertEquals(null, val.getSignedValue());
+		assertNull(val.getUnsignedValue());
+		assertNull(val.getSignedValue());
 		assertEquals(0xfffff0ff00000000L, val.getValueMask().longValue());
 	}
 

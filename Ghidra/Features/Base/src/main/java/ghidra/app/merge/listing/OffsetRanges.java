@@ -65,7 +65,7 @@ class OffsetRanges {
 		for (int i = 0; i < keys.length; i++) {
 			int firstUse = keys[i];
 			SortedRangeList srl = firstUseRanges.get(firstUse);
-			buf.append("FirstUse=" + firstUse + " Offsets = " + srl + "\n");
+			buf.append("FirstUse=").append(firstUse).append(" Offsets = ").append(srl).append("\n");
 		}
 		return buf.toString();
 	}

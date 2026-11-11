@@ -846,7 +846,7 @@ public class SimpleDiffUtility {
 		}
 
 		ExternalReferenceCount[] matches =
-			matchesMap.values().toArray(new ExternalReferenceCount[matchesMap.size()]);
+			matchesMap.values().toArray(new ExternalReferenceCount[0]);
 		if (matches.length == 1) {
 			// If only one match candidate - rank of 0 is OK
 			return matches[0].rank >= 0 ? matches[0].getSymbol() : null;

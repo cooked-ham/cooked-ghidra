@@ -641,7 +641,7 @@ public class EolComments {
 
 	private String[] getCommentsArray() {
 		List<String> comments = getComments();
-		return comments.toArray(new String[comments.size()]);
+		return comments.toArray(new String[0]);
 	}
 
 	/**

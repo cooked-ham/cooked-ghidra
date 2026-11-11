@@ -189,7 +189,7 @@ public class GraphExporterDialog extends DialogComponentProvider {
 	private Component buildFormatChooser() {
 
 		comboBox =
-			new GhidraComboBox<>(exporters.toArray(new AttributedGraphExporter[exporters.size()]));
+			new GhidraComboBox<>(exporters.toArray(new AttributedGraphExporter[0]));
 
 		AttributedGraphExporter defaultExporter = getDefaultExporter();
 		if (defaultExporter != null) {

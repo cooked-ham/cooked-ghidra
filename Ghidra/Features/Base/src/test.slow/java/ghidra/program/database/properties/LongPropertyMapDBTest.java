@@ -109,7 +109,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 		propertyMap.add(addr(300), 300);
 		propertyMap.add(addr(400), 400);
 		propertyMap.add(addr(500), 500);
-		assertEquals(propertyTable.getRecordCount(), 5);
+		assertEquals(5, propertyTable.getRecordCount());
 	}
 
 	@Test
@@ -120,11 +120,11 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 		propertyMap.add(addr(300), 300);
 		propertyMap.add(addr(400), 400);
 		propertyMap.add(addr(500), 500);
-		assertEquals(propertyMap.getLong(addr(100)), 100);
-		assertEquals(propertyMap.getLong(addr(200)), 200);
-		assertEquals(propertyMap.getLong(addr(300)), 300);
-		assertEquals(propertyMap.getLong(addr(400)), 400);
-		assertEquals(propertyMap.getLong(addr(500)), 500);
+		assertEquals(100, propertyMap.getLong(addr(100)));
+		assertEquals(200, propertyMap.getLong(addr(200)));
+		assertEquals(300, propertyMap.getLong(addr(300)));
+		assertEquals(400, propertyMap.getLong(addr(400)));
+		assertEquals(500, propertyMap.getLong(addr(500)));
 		try {
 			propertyMap.getLong(addr(150));
 			Assert.fail();
@@ -143,7 +143,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			values[i] = random.nextInt();
 			propertyMap.add(addr(i * 100), values[i]);
 		}
-		assertEquals(propertyMap.getSize(), 20);
+		assertEquals(20, propertyMap.getSize());
 	}
 
 	@Test
@@ -176,7 +176,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 	@Test
 	public void testIntersects() throws Exception {
 		createPropertyMap("TEST");
-		assertTrue(!propertyMap.intersects(addr(50), addr(120)));
+		assertFalse(propertyMap.intersects(addr(50), addr(120)));
 
 		long[] values = new long[20];
 		for (int i = 0; i < 20; i++) {
@@ -184,15 +184,15 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			propertyMap.add(addr(i * 100), values[i]);
 		}
 
-		assertTrue(!propertyMap.intersects(addr(50), addr(90)));
+		assertFalse(propertyMap.intersects(addr(50), addr(90)));
 		assertTrue(propertyMap.intersects(addr(50), addr(100)));
 		assertTrue(propertyMap.intersects(addr(50), addr(120)));
-		assertTrue(!propertyMap.intersects(addr(150), addr(170)));
+		assertFalse(propertyMap.intersects(addr(150), addr(170)));
 		assertTrue(propertyMap.intersects(addr(50), addr(2100)));
 		assertTrue(propertyMap.intersects(addr(150), addr(250)));
 		assertTrue(propertyMap.intersects(addr(1850), addr(1900)));
 		assertTrue(propertyMap.intersects(addr(1900), addr(1950)));
-		assertTrue(!propertyMap.intersects(addr(1901), addr(2000)));
+		assertFalse(propertyMap.intersects(addr(1901), addr(2000)));
 
 	}
 
@@ -205,11 +205,11 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			values[i] = random.nextInt();
 			propertyMap.add(addr(i * 100), values[i]);
 		}
-		assertEquals(propertyMap.getSize(), 20);
+		assertEquals(20, propertyMap.getSize());
 		propertyMap.removeRange(addr(1), addr(99));
-		assertEquals(propertyMap.getSize(), 20);
+		assertEquals(20, propertyMap.getSize());
 		propertyMap.removeRange(addr(50), addr(250));
-		assertEquals(propertyMap.getSize(), 18);
+		assertEquals(18, propertyMap.getSize());
 		try {
 			propertyMap.getLong(addr(200));
 			Assert.fail();
@@ -218,7 +218,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			// expected
 		}
 		propertyMap.removeRange(addr(1900), addr(2050));
-		assertEquals(propertyMap.getSize(), 17);
+		assertEquals(17, propertyMap.getSize());
 		try {
 			propertyMap.getLong(addr(1900));
 			Assert.fail();
@@ -237,11 +237,11 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			values[i] = random.nextInt();
 			propertyMap.add(addr(i * 100), values[i]);
 		}
-		assertEquals(propertyMap.getSize(), 20);
+		assertEquals(20, propertyMap.getSize());
 		propertyMap.remove(addr(99));
-		assertEquals(propertyMap.getSize(), 20);
+		assertEquals(20, propertyMap.getSize());
 		propertyMap.remove(addr(200));
-		assertEquals(propertyMap.getSize(), 19);
+		assertEquals(19, propertyMap.getSize());
 		try {
 			propertyMap.getLong(addr(200));
 			Assert.fail();
@@ -250,7 +250,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			// expected
 		}
 		propertyMap.remove(addr(1900));
-		assertEquals(propertyMap.getSize(), 18);
+		assertEquals(18, propertyMap.getSize());
 		try {
 			propertyMap.getLong(addr(1900));
 			Assert.fail();
@@ -271,7 +271,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 		}
 		for (int i = 0; i < 20; i++) {
 			assertTrue(propertyMap.hasProperty(addr(i * 100)));
-			assertTrue(!propertyMap.hasProperty(addr((i * 100) + 50)));
+			assertFalse(propertyMap.hasProperty(addr((i * 100) + 50)));
 		}
 	}
 
@@ -348,7 +348,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			assertEquals(iter.next(), addr(addr));
 			addr += 100;
 		}
-		assertEquals(addr, 1700);
+		assertEquals(1700, addr);
 	}
 
 	/*
@@ -370,7 +370,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			assertEquals(iter.next(), addr(addr));
 			addr += 100;
 		}
-		assertEquals(addr, 1700);
+		assertEquals(1700, addr);
 
 		iter = propertyMap.getPropertyIterator(addr(50), addr(1600), false);
 		addr = 1600;
@@ -399,7 +399,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			assertEquals(addr(addr), iter.next());
 			addr += 100;
 		}
-		assertEquals(addr, 2000);
+		assertEquals(2000, addr);
 
 		iter = propertyMap.getPropertyIterator(addr(450), false);
 		addr = 400;
@@ -407,7 +407,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			assertEquals(addr(addr), iter.next());
 			addr -= 100;
 		}
-		assertEquals(addr, 0);
+		assertEquals(0, addr);
 	}
 
 	/*
@@ -428,7 +428,7 @@ public class LongPropertyMapDBTest extends AbstractGhidraHeadedIntegrationTest
 			assertEquals(iter.next(), addr(addr));
 			addr += 100;
 		}
-		assertEquals(addr, 2000);
+		assertEquals(2000, addr);
 	}
 
 	/*

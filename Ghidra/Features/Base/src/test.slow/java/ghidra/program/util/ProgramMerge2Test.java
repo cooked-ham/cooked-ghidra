@@ -296,7 +296,7 @@ public class ProgramMerge2Test extends AbstractGhidraHeadedIntegrationTest {
 			assertEquals(2, syms.length);
 			assertEquals("MY.DLL_SampleLabel", syms[0].getName());
 			assertEquals("Global", syms[0].getParentNamespace().getName());
-			assertEquals(true, syms[0].isPrimary());
+			assertTrue(syms[0].isPrimary());
 			assertEquals("SampleLabel", syms[1].getName());
 			assertEquals("MY.DLL", syms[1].getParentNamespace().getName());
 			commit = true;
@@ -369,7 +369,7 @@ public class ProgramMerge2Test extends AbstractGhidraHeadedIntegrationTest {
 			assertEquals(2, syms.length);
 			assertEquals("SampleLabel", syms[0].getName());
 			assertEquals("MY.DLL", syms[0].getParentNamespace().getName());
-			assertEquals(true, syms[0].isPrimary());
+			assertTrue(syms[0].isPrimary());
 			assertEquals("MY.DLL_SampleLabel", syms[1].getName());
 			assertEquals("Global", syms[1].getParentNamespace().getName());
 			commit = true;
@@ -1522,7 +1522,7 @@ public class ProgramMerge2Test extends AbstractGhidraHeadedIntegrationTest {
 			assertEquals(2, syms.length);
 			assertEquals("MY.DLL_SampleLabel", syms[0].getName());
 			assertEquals("Global", syms[0].getParentNamespace().getName());
-			assertEquals(true, syms[0].isPrimary());
+			assertTrue(syms[0].isPrimary());
 			assertEquals(SymbolType.FUNCTION, syms[0].getSymbolType());
 			assertEquals("SampleLabel", syms[1].getName());
 			assertEquals("MY.DLL", syms[1].getParentNamespace().getName());
@@ -2058,7 +2058,7 @@ public class ProgramMerge2Test extends AbstractGhidraHeadedIntegrationTest {
 
 			Function f = fm1.getFunctionAt(entryPoint1);
 			assertEquals("FUN_01004132", f.getName());
-			assertEquals(true, f.hasVarArgs());
+			assertTrue(f.hasVarArgs());
 			assertEquals(1, f.getParameterCount());
 			Parameter[] parameters = f.getParameters();
 			assertTrue(parameters[0].getDataType().isEquivalent(new Undefined4DataType()));
@@ -2130,7 +2130,7 @@ public class ProgramMerge2Test extends AbstractGhidraHeadedIntegrationTest {
 
 			Function f = fm1.getFunctionAt(entryPoint1);
 			assertEquals("FUN_01004132", f.getName());
-			assertEquals(false, f.hasVarArgs());
+			assertFalse(f.hasVarArgs());
 			assertEquals(2, f.getParameterCount());
 			Parameter[] parameters = f.getParameters();
 			assertTrue(parameters[0].getDataType().isEquivalent(new Undefined4DataType()));
@@ -2206,7 +2206,7 @@ public class ProgramMerge2Test extends AbstractGhidraHeadedIntegrationTest {
 
 			Function f = fm1.getFunctionAt(entryPoint1);
 			assertEquals("FUN_01004132", f.getName());
-			assertEquals(true, f.isInline());
+			assertTrue(f.isInline());
 			assertEquals(1, f.getParameterCount());
 			Parameter[] parameters = f.getParameters();
 			assertTrue(parameters[0].getDataType().isEquivalent(new Undefined4DataType()));
@@ -2278,7 +2278,7 @@ public class ProgramMerge2Test extends AbstractGhidraHeadedIntegrationTest {
 
 			Function f = fm1.getFunctionAt(entryPoint1);
 			assertEquals("FUN_01004132", f.getName());
-			assertEquals(false, f.isInline());
+			assertFalse(f.isInline());
 			assertEquals(2, f.getParameterCount());
 			Parameter[] parameters = f.getParameters();
 			assertTrue(parameters[0].getDataType().isEquivalent(new Undefined4DataType()));
@@ -2353,7 +2353,7 @@ public class ProgramMerge2Test extends AbstractGhidraHeadedIntegrationTest {
 
 			Function f = fm1.getFunctionAt(entryPoint1);
 			assertEquals("FUN_01004132", f.getName());
-			assertEquals(true, f.hasNoReturn());
+			assertTrue(f.hasNoReturn());
 			assertEquals(1, f.getParameterCount());
 			Parameter[] parameters = f.getParameters();
 			assertTrue(parameters[0].getDataType().isEquivalent(new Undefined4DataType()));
@@ -2425,7 +2425,7 @@ public class ProgramMerge2Test extends AbstractGhidraHeadedIntegrationTest {
 
 			Function f = fm1.getFunctionAt(entryPoint1);
 			assertEquals("FUN_01004132", f.getName());
-			assertEquals(false, f.hasNoReturn());
+			assertFalse(f.hasNoReturn());
 			assertEquals(2, f.getParameterCount());
 			Parameter[] parameters = f.getParameters();
 			assertTrue(parameters[0].getDataType().isEquivalent(new Undefined4DataType()));

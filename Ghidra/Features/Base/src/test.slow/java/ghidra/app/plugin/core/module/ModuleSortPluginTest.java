@@ -120,7 +120,7 @@ public class ModuleSortPluginTest extends AbstractGhidraHeadedIntegrationTest {
 
 		context = vps.getActivePopupObject(null);
 		for (DockingActionIf action : actions) {
-			assertTrue(!action.isAddToPopup(vps.getActionContext(null)));
+			assertFalse(action.isAddToPopup(vps.getActionContext(null)));
 		}
 	}
 
@@ -227,7 +227,7 @@ public class ModuleSortPluginTest extends AbstractGhidraHeadedIntegrationTest {
 
 		Object context = vps.getActivePopupObject(null);
 		for (DockingActionIf action : actions) {
-			assertTrue(!action.isAddToPopup(vps.getActionContext(null)));
+			assertFalse(action.isAddToPopup(vps.getActionContext(null)));
 		}
 	}
 

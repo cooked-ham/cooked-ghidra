@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.*;
 import java.io.File;
+import java.io.Serial;
 import java.util.List;
 
 import javax.swing.*;
@@ -37,6 +38,7 @@ import ghidra.util.filechooser.GhidraFileFilter;
  * for entering a filename, and a button for bringing up a file chooser dialog.
  */
 public class GhidraFileChooserPanel extends JPanel implements Droppable {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

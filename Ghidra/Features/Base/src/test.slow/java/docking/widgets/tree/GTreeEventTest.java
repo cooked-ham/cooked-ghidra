@@ -162,7 +162,7 @@ public class GTreeEventTest extends AbstractDockingTest {
 		waitForTree(gTree);
 	}
 
-	private class NamedNode extends GTreeNode {
+	private static class NamedNode extends GTreeNode {
 
 		private final String name;
 

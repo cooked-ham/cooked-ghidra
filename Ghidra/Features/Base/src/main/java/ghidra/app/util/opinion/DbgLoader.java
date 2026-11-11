@@ -15,90 +15,92 @@
  */
 package ghidra.app.util.opinion;
 
+import ghidra.app.util.bin.ByteProvider;
+import ghidra.app.util.bin.FileByteProvider;
+import ghidra.app.util.bin.format.pe.FileHeader;
+import ghidra.app.util.bin.format.pe.PortableExecutable;
+import ghidra.app.util.bin.format.pe.PortableExecutable.SectionLayout;
+import ghidra.app.util.bin.format.pe.SectionHeader;
+import ghidra.app.util.bin.format.pe.SeparateDebugHeader;
+import ghidra.program.model.address.Address;
+import ghidra.program.model.listing.Program;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.AccessMode;
 import java.util.*;
 
-import ghidra.app.util.bin.ByteProvider;
-import ghidra.app.util.bin.FileByteProvider;
-import ghidra.app.util.bin.format.pe.*;
-import ghidra.app.util.bin.format.pe.PortableExecutable.SectionLayout;
-import ghidra.program.model.address.Address;
-import ghidra.program.model.listing.Program;
-
 /**
  * An opinion service for processing Microsoft DBG files.
-
  */
 public class DbgLoader extends AbstractPeDebugLoader {
 
-	/**
-	 * DBG files are portable executable (PE) format files that contain debug
-	 * information in Codeview format for the Visual Studio debugger (and
-	 * possibly other formats, depending on how the DBG was created). When you
-	 * do not have source for certain code, such libraries or Windows APIs, DBG
-	 * files permit debugging. DBG files also permit you to do OLE RPC
-	 * debugging. Microsoft Corporation. All rights reserved.
-	 */
-	public final static String DBG_NAME = "Debug Symbols (DBG)";
-	private static final long MIN_BYTE_LENGTH = 46;
+    /**
+     * DBG files are portable executable (PE) format files that contain debug
+     * information in Codeview format for the Visual Studio debugger (and
+     * possibly other formats, depending on how the DBG was created). When you
+     * do not have source for certain code, such libraries or Windows APIs, DBG
+     * files permit debugging. DBG files also permit you to do OLE RPC
+     * debugging. Microsoft Corporation. All rights reserved.
+     */
+    public final static String DBG_NAME = "Debug Symbols (DBG)";
+    private static final long MIN_BYTE_LENGTH = 46;
 
-	@Override
-	public Collection<LoadSpec> findSupportedLoadSpecs(ByteProvider provider) throws IOException {
-		List<LoadSpec> loadSpecs = new ArrayList<>();
-		if (provider.length() < MIN_BYTE_LENGTH) {
-			return loadSpecs;
-		}
-		SeparateDebugHeader debug = new SeparateDebugHeader(provider);
-		if (debug.getSignature() == SeparateDebugHeader.IMAGE_SEPARATE_DEBUG_SIGNATURE) {
-			long imageBase = Integer.toUnsignedLong(debug.getImageBase());
-			String machineName = debug.getMachineName();
-			for (QueryResult result : QueryOpinionService.query(getName(), machineName, null)) {
-				loadSpecs.add(new LoadSpec(this, imageBase, result));
-			}
-			if (loadSpecs.isEmpty()) {
-				loadSpecs.add(new LoadSpec(this, imageBase, true));
-			}
-		}
+    @Override
+    public Collection<LoadSpec> findSupportedLoadSpecs(ByteProvider provider) throws IOException {
+        List<LoadSpec> loadSpecs = new ArrayList<>();
+        if (provider.length() < MIN_BYTE_LENGTH) {
+            return loadSpecs;
+        }
+        SeparateDebugHeader debug = new SeparateDebugHeader(provider);
+        if (debug.getSignature() == SeparateDebugHeader.IMAGE_SEPARATE_DEBUG_SIGNATURE) {
+            long imageBase = Integer.toUnsignedLong(debug.getImageBase());
+            String machineName = debug.getMachineName();
+            for (QueryResult result : QueryOpinionService.query(getName(), machineName, null)) {
+                loadSpecs.add(new LoadSpec(this, imageBase, result));
+            }
+            if (loadSpecs.isEmpty()) {
+                loadSpecs.add(new LoadSpec(this, imageBase, true));
+            }
+        }
 
-		return loadSpecs;
-	}
+        return loadSpecs;
+    }
 
-	@Override
-	public void load(Program prog, ImporterSettings settings) throws IOException {
+    @Override
+    public void load(Program prog, ImporterSettings settings) throws IOException {
 
-		if (!prog.getExecutableFormat().equals(PeLoader.PE_NAME)) {
-			throw new IOException("Loading of DBG file may only be 'added' to existing " +
-				PeLoader.PE_NAME + " Program");
-		}
+        if (!prog.getExecutableFormat().equals(PeLoader.PE_NAME)) {
+            throw new IOException("Loading of DBG file may only be 'added' to existing " +
+                    PeLoader.PE_NAME + " Program");
+        }
 
-		SeparateDebugHeader debug = new SeparateDebugHeader(settings.provider());
+        SeparateDebugHeader debug = new SeparateDebugHeader(settings.provider());
 
-		String parentPath = prog.getExecutablePath();
-		File parentFile = new File(parentPath);
+        String parentPath = prog.getExecutablePath();
+        File parentFile = new File(parentPath);
 
-		try (FileByteProvider provider2 = new FileByteProvider(parentFile, null, AccessMode.READ)) {
-			PortableExecutable parentPE = new PortableExecutable(provider2, SectionLayout.FILE);
-			Address imageBase = prog.getImageBase();
-			Map<SectionHeader, Address> sectionToAddress = new HashMap<>();
-			FileHeader fileHeader = parentPE.getNTHeader().getFileHeader();
-			for (SectionHeader sectionHeader : fileHeader.getSectionHeaders()) {
-				sectionToAddress.put(sectionHeader,
-					imageBase.add(sectionHeader.getVirtualAddress()));
-			}
-			processDebug(debug.getParser(), parentPE.getNTHeader(), sectionToAddress, prog,
-				settings.options(), settings.monitor());
-		}
-	}
+        try (FileByteProvider provider2 = new FileByteProvider(parentFile, null, AccessMode.READ)) {
+            PortableExecutable parentPE = new PortableExecutable(provider2, SectionLayout.FILE);
+            Address imageBase = prog.getImageBase();
+            Map<SectionHeader, Address> sectionToAddress = new HashMap<>();
+            FileHeader fileHeader = parentPE.getNTHeader().getFileHeader();
+            for (SectionHeader sectionHeader : fileHeader.getSectionHeaders()) {
+                sectionToAddress.put(sectionHeader,
+                        imageBase.add(sectionHeader.getVirtualAddress()));
+            }
+            processDebug(debug.getParser(), parentPE.getNTHeader(), sectionToAddress, prog,
+                    settings.options(), settings.monitor());
+        }
+    }
 
-	@Override
-	public String getName() {
-		return DBG_NAME;
-	}
+    @Override
+    public String getName() {
+        return DBG_NAME;
+    }
 
-	@Override
-	public boolean supportsLoadIntoProgram(Program program) {
-		return true;
-	}
+    @Override
+    public boolean supportsLoadIntoProgram(Program program) {
+        return true;
+    }
 }

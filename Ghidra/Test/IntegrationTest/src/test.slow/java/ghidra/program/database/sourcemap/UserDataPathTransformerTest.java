@@ -211,7 +211,7 @@ public class UserDataPathTransformerTest extends AbstractGenericTest {
 	@Test
 	public void testUniqueness() {
 		SourcePathTransformer transformer2 = UserDataPathTransformer.getPathTransformer(program);
-		assertTrue(transformer2 == pathTransformer);
+		assertSame(transformer2, pathTransformer);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

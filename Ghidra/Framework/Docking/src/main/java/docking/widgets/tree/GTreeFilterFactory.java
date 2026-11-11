@@ -95,7 +95,7 @@ public class GTreeFilterFactory {
 	 * A class that takes in a client node filter transformer and wraps it so that any text returned
 	 * by the client will have the node path prepended. 
 	 */
-	private class PrependPathWrappingTransformer implements FilterTransformer<GTreeNode> {
+	private static class PrependPathWrappingTransformer implements FilterTransformer<GTreeNode> {
 
 		private ThreadLocal<List<String>> localizedResults = new ThreadLocal<>() {
 			@Override

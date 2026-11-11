@@ -342,13 +342,13 @@ public class FidDebugPlugin extends ProgramPlugin implements ChangeListener {
 					tool.showDialog(fidSearchDebugDialog);
 				}
 				catch (MemoryAccessException e) {
-					buffer.append("MemoryAccessException during hash: " + e.getMessage());
+					buffer.append("MemoryAccessException during hash: ").append(e.getMessage());
 				}
 				catch (VersionException e) {
-					buffer.append("VersionException during hash: " + e.getMessage());
+					buffer.append("VersionException during hash: ").append(e.getMessage());
 				}
 				catch (IOException e) {
-					buffer.append("IOException during hash: " + e.getMessage());
+					buffer.append("IOException during hash: ").append(e.getMessage());
 				}
 			}
 		}

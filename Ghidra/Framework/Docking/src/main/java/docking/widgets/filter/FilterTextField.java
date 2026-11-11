@@ -415,7 +415,7 @@ public class FilterTextField extends JPanel {
 		}
 	}
 
-	private class TraversalKeyListener extends KeyAdapter {
+	private static class TraversalKeyListener extends KeyAdapter {
 		private final Component component;
 
 		private TraversalKeyListener(Component component) {

@@ -49,7 +49,7 @@ public class PcodeProgram {
 			this.program = program;
 			this.numberOps = numberOps;
 
-			buf.append("<" + program.getHead() + ":\n");
+			buf.append("<").append(program.getHead()).append(":\n");
 		}
 
 		@Override

@@ -1008,7 +1008,7 @@ public class ProgramMerge {
 		}
 	}
 
-	private class DupEquate {
+	private static class DupEquate {
 		Equate equate;
 		String preferredName;
 
@@ -2207,7 +2207,7 @@ public class ProgramMerge {
 		return false;
 	}
 
-	class FunctionAddressIterator implements AddressIterator {
+	static class FunctionAddressIterator implements AddressIterator {
 		FunctionIterator functionIterator;
 
 		FunctionAddressIterator(FunctionIterator funcIter) {
@@ -2679,13 +2679,13 @@ public class ProgramMerge {
 		}
 		catch (DuplicateNameException e) {
 			Msg.error(this, "Unexpected Exception: " + e.getMessage(), e);
-			errorMsg.append("Can't replace parameters for function " + toFunc.getName(true));
+			errorMsg.append("Can't replace parameters for function ").append(toFunc.getName(true));
 			errorMsg.append(e.getMessage() + "\n");
 			return;
 		}
 		catch (InvalidInputException e) {
 			Msg.error(this, "Unexpected Exception: " + e.getMessage(), e);
-			errorMsg.append("Can't replace return/parameters for function " + toFunc.getName(true));
+			errorMsg.append("Can't replace return/parameters for function ").append(toFunc.getName(true));
 			errorMsg.append(e.getMessage() + "\n");
 			return;
 		}
@@ -2909,7 +2909,7 @@ public class ProgramMerge {
 				}
 			}
 			catch (OverlappingFunctionException e) {
-				errorMsg.append("Address = " + resultEntryPoint + ": " + e.getMessage() + "\n");
+				errorMsg.append("Address = ").append(resultEntryPoint).append(": ").append(e.getMessage()).append("\n");
 				return null;
 			}
 		}
@@ -2957,10 +2957,10 @@ public class ProgramMerge {
 		}
 		catch (DuplicateNameException e) {
 			// should not occur
-			errorMsg.append("Address = " + resultEntryPoint + ": " + e.getMessage() + "\n");
+			errorMsg.append("Address = ").append(resultEntryPoint).append(": ").append(e.getMessage()).append("\n");
 		}
 		catch (InvalidInputException e) {
-			errorMsg.append("Address = " + resultEntryPoint + ": " + e.getMessage() + "\n");
+			errorMsg.append("Address = ").append(resultEntryPoint).append(": ").append(e.getMessage()).append("\n");
 		}
 
 		StackFrame originFrame = originFunction.getStackFrame();
@@ -3176,13 +3176,13 @@ public class ProgramMerge {
 		}
 		catch (InvalidInputException e) {
 			Msg.error(this, "Unexpected Exception: " + e.getMessage(), e);
-			errorMsg.append("Can't replace variable " + fromVar.getSymbol().getName(true) + "\n");
+			errorMsg.append("Can't replace variable ").append(fromVar.getSymbol().getName(true)).append("\n");
 			errorMsg.append(e.getMessage() + "\n");
 			return null;
 		}
 		catch (DuplicateNameException e) {
 			Msg.error(this, "Unexpected Exception: " + e.getMessage(), e);
-			errorMsg.append("Can't replace variable " + fromVar.getSymbol().getName(true) + "\n");
+			errorMsg.append("Can't replace variable ").append(fromVar.getSymbol().getName(true)).append("\n");
 			errorMsg.append(e.getMessage() + "\n");
 			return null;
 		}

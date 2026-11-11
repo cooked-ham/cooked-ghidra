@@ -100,7 +100,7 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		waitForMergeCompletion();
 
 		ExternalManager externalManager = resultProgram.getExternalManager();
-		assertEquals(true, externalManager.contains(libname));
+		assertTrue(externalManager.contains(libname));
 	}
 
 	@Test
@@ -125,7 +125,7 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		waitForMergeCompletion();
 
 		ExternalManager externalManager = resultProgram.getExternalManager();
-		assertEquals(true, externalManager.contains(libname));
+		assertTrue(externalManager.contains(libname));
 	}
 
 	@Test
@@ -148,8 +148,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertNull(externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 
 			@Override
@@ -165,8 +165,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertNull(externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 		});
 
@@ -181,8 +181,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertNull(externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 	}
 
 	@Test
@@ -206,8 +206,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 
 			@Override
@@ -223,8 +223,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 		});
 
@@ -239,8 +239,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 	}
 
 	@Test
@@ -271,8 +271,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address1), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 
 			@Override
@@ -288,8 +288,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address2), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 		});
 
@@ -305,8 +305,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address1), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 
 		ExternalLocation externalLocation2 =
 			externalManager.getUniqueExternalLocation(libname, label + "_conflict1");
@@ -341,8 +341,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address1), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 
 			@Override
@@ -358,8 +358,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address2), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 		});
 
@@ -375,8 +375,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		assertNotNull(externalLocation);
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address2), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 
 		ExternalLocation externalLocation2 =
 			externalManager.getUniqueExternalLocation(libname, label + "_conflict1");
@@ -411,8 +411,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address1), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 
 			@Override
@@ -428,8 +428,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address2), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 		});
 
@@ -447,12 +447,12 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		ExternalLocationIterator loc1It = externalManager.getExternalLocations(addr(address1));
 		assertTrue(loc1It.hasNext());
 		assertEquals(label, loc1It.next().getLabel());
-		assertTrue(!loc1It.hasNext());
+		assertFalse(loc1It.hasNext());
 
 		ExternalLocationIterator loc2It = externalManager.getExternalLocations(addr(address2));
 		assertTrue(loc2It.hasNext());
 		assertEquals(label, loc2It.next().getLabel());
-		assertTrue(!loc2It.hasNext());
+		assertFalse(loc2It.hasNext());
 
 	}
 
@@ -483,11 +483,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -504,7 +504,7 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				assertNotNull(namespaceSymbol);
 				assertEquals(SymbolType.NAMESPACE, namespaceSymbol.getSymbolType());
 
-				assertTrue(namespaceSymbol.getSource() == SourceType.USER_DEFINED);
+				assertSame(namespaceSymbol.getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -519,8 +519,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 
 		SymbolTable symtab = resultProgram.getSymbolTable();
 
@@ -569,11 +569,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 
 			}
 		});
@@ -589,8 +589,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertNotNull(externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 	}
 
 	@Test
@@ -620,11 +620,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -640,11 +640,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 
 			}
 		});
@@ -661,8 +661,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertTrue(externalLocation.isFunction());
 
 		Symbol blue = getUniqueSymbol(resultProgram, label, null);
 		Symbol blueConflict = getUniqueSymbol(resultProgram, label + "_conflict1", null);
@@ -703,11 +703,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -723,11 +723,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 
 			}
 		});
@@ -743,8 +743,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertTrue(externalLocation.isFunction());
 
 		Symbol blue = getUniqueSymbol(resultProgram, label, null);
 		Symbol blueConflict = getUniqueSymbol(resultProgram, label + "_conflict1", null);
@@ -785,11 +785,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -806,11 +806,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 
 			}
 		});
@@ -827,8 +827,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertTrue(externalLocation.isFunction());
 
 		Symbol blue = getUniqueSymbol(resultProgram, label, null);
 		Symbol blueConflict = getUniqueSymbol(resultProgram, label + "_conflict1", null);
@@ -868,11 +868,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -889,11 +889,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 
 			}
 		});
@@ -910,8 +910,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 
 		Symbol blue = getUniqueSymbol(resultProgram, label, null);
 		Symbol blueConflict = getUniqueSymbol(resultProgram, label + "_conflict1", null);
@@ -952,11 +952,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -972,11 +972,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -998,8 +998,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		assertEquals(label, externalLocation.getLabel());
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1030,11 +1030,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -1050,11 +1050,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 					externalManager.getUniqueExternalLocation(libname, label);
 
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -1077,8 +1077,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		assertEquals(label, externalLocation.getLabel());
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertTrue(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1106,11 +1106,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, label1);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label1, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -1126,8 +1126,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label2, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 		});
 
@@ -1143,8 +1143,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label1, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 
 		externalLocation = externalManager.getUniqueExternalLocation(libname, label2);
 		assertNull(externalLocation);
@@ -1175,11 +1175,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, label1);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label1, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -1195,8 +1195,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label2, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 		});
 
@@ -1215,8 +1215,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label2, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 	}
 
 	/**
@@ -1247,11 +1247,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, label);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.IMPORTED);
+				assertSame(externalLocation.getSource(), SourceType.IMPORTED);
 			}
 
 			@Override
@@ -1267,8 +1267,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 			}
 		});
 
@@ -1283,8 +1283,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.IMPORTED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.IMPORTED);
+		assertFalse(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1312,11 +1312,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, defaultExternalName);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::EXT_00000100", externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
+				assertSame(externalLocation.getSource(), SourceType.DEFAULT);
 			}
 
 			@Override
@@ -1334,8 +1334,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::EXT_00000100", externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.DEFAULT);
+				assertFalse(externalLocation.isFunction());
 			}
 		});
 
@@ -1352,8 +1352,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::EXT_00000100", externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.DEFAULT);
+		assertFalse(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1381,11 +1381,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, defaultExternalName);
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::EXT_FUN_00000100", externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
+				assertSame(externalLocation.getSource(), SourceType.DEFAULT);
 			}
 
 			@Override
@@ -1403,8 +1403,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::EXT_FUN_00000100", externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
-				assertEquals(true, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.DEFAULT);
+				assertTrue(externalLocation.isFunction());
 			}
 		});
 
@@ -1421,8 +1421,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::EXT_FUN_00000100", externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.DEFAULT);
+		assertTrue(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1450,11 +1450,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, defaultExternalName);
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::EXT_FUN_00000100", externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
+				assertSame(externalLocation.getSource(), SourceType.DEFAULT);
 			}
 
 			@Override
@@ -1472,8 +1472,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::EXT_FUN_00000100", externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
-				assertEquals(true, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.DEFAULT);
+				assertTrue(externalLocation.isFunction());
 			}
 		});
 
@@ -1490,8 +1490,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::EXT_FUN_00000100", externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.DEFAULT);
+		assertTrue(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1522,8 +1522,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::EXT_FUN_00000100", externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
-				assertEquals(true, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.DEFAULT);
+				assertTrue(externalLocation.isFunction());
 			}
 		});
 
@@ -1540,8 +1540,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::EXT_FUN_00000100", externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.DEFAULT);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.DEFAULT);
+		assertTrue(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1568,11 +1568,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, label);
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -1588,8 +1588,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(true, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertTrue(externalLocation.isFunction());
 			}
 		});
 
@@ -1604,8 +1604,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertTrue(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1631,11 +1631,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, label);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertNull(externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -1651,8 +1651,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertNull(externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(true, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertTrue(externalLocation.isFunction());
 			}
 		});
 
@@ -1667,8 +1667,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertNull(externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertTrue(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1697,8 +1697,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertNull(externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(true, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertTrue(externalLocation.isFunction());
 			}
 
 			@Override
@@ -1711,11 +1711,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, label);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertNull(externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -1730,8 +1730,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertNull(externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertTrue(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1758,11 +1758,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, label);
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -1778,8 +1778,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertNull(externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(true, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertTrue(externalLocation.isFunction());
 			}
 		});
 
@@ -1794,8 +1794,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertTrue(externalLocation.isFunction());
 	}
 
 	@Test
@@ -1825,8 +1825,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertNull(externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(true, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertTrue(externalLocation.isFunction());
 			}
 
 			@Override
@@ -1839,11 +1839,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation(libname, label);
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -1858,8 +1858,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		assertEquals(libname + "::" + label, externalLocation.toString());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(true, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertTrue(externalLocation.isFunction());
 	}
 
 	@Test
@@ -2197,7 +2197,7 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		assertEquals(parentNamespace, externalLocation.getParentName());
 		assertEquals(parentNamespace,
 			externalLocation.getParentNameSpace().getName(true));
-		assertEquals(null, externalLocation.getFunction());
+		assertNull(externalLocation.getFunction());
 		assertEquals(parentNamespace + "::" + label1,
 			externalLocation.getSymbol().getName(true));
 		assertEquals(SourceType.USER_DEFINED, externalLocation.getSource());
@@ -2208,7 +2208,7 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		assertEquals(parentNamespace, orangesExternalLocation.getParentName());
 		assertEquals(parentNamespace,
 			orangesExternalLocation.getParentNameSpace().getName(true));
-		assertEquals(null, orangesExternalLocation.getFunction());
+		assertNull(orangesExternalLocation.getFunction());
 		assertEquals(parentNamespace + "::" + label2,
 			orangesExternalLocation.getSymbol().getName(true));
 		assertEquals(SourceType.USER_DEFINED, orangesExternalLocation.getSource());
@@ -2270,7 +2270,7 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		assertEquals(parentNamespace, externalLocation.getParentName());
 		assertEquals(parentNamespace,
 			externalLocation.getParentNameSpace().getName(true));
-		assertEquals(null, externalLocation.getFunction());
+		assertNull(externalLocation.getFunction());
 		assertEquals(parentNamespace + "::" + label,
 			externalLocation.getSymbol().getName(true));
 		assertEquals(SourceType.USER_DEFINED, externalLocation.getSource());
@@ -2333,7 +2333,7 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		assertEquals(parentNamespace, externalLocation.getParentName());
 		assertEquals(parentNamespace,
 			externalLocation.getParentNameSpace().getName(true));
-		assertEquals(null, externalLocation.getFunction());
+		assertNull(externalLocation.getFunction());
 		assertEquals(parentNamespace + "::" + label,
 			externalLocation.getSymbol().getName(true));
 		assertEquals(SourceType.USER_DEFINED, externalLocation.getSource());
@@ -2388,7 +2388,7 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 		List<Symbol> symbols = symtab.getSymbols(label, myNamespace);
 		assertEquals(2, symbols.size());
-		assertTrue(!symbols.get(0).getAddress().equals(symbols.get(1).getAddress()));
+		assertFalse(symbols.get(0).getAddress().equals(symbols.get(1).getAddress()));
 
 	}
 
@@ -3047,10 +3047,10 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					getExternalLocation(program, libname, BLUE_PATH);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 				checkDataType(myStruct, externalLocation.getDataType());
 			}
 
@@ -3065,10 +3065,10 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					getExternalLocation(program, libname, BLUE_PATH);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 				checkDataType(myTypedef, externalLocation.getDataType());
 			}
 		});
@@ -3128,11 +3128,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					getExternalLocation(program, libname, BLUE_PATH);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 				checkDataType(myStruct, externalLocation.getDataType());
 			}
 
@@ -3147,11 +3147,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					getExternalLocation(program, libname, BLUE_PATH);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 				checkDataType(myTypedef, externalLocation.getDataType());
 			}
 		});
@@ -3174,8 +3174,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		assertNotNull(externalLocation);
 		assertEquals(libname, externalLocation.getLibraryName());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 		checkDataType(myStruct, externalLocation.getDataType());
 	}
 
@@ -3210,11 +3210,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					getExternalLocation(program, libname, BLUE_PATH);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 				checkDataType(myStruct, externalLocation.getDataType());
 			}
 
@@ -3229,11 +3229,11 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					getExternalLocation(program, libname, BLUE_PATH);
 				assertNotNull(externalLocation);
-				assertEquals(false, externalLocation.isFunction());
+				assertFalse(externalLocation.isFunction());
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 				checkDataType(myTypedef, externalLocation.getDataType());
 			}
 		});
@@ -3256,8 +3256,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 		assertNotNull(externalLocation);
 		assertEquals(libname, externalLocation.getLibraryName());
 		assertEquals(addr(resultProgram, address), externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-		assertEquals(false, externalLocation.isFunction());
+		assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+		assertFalse(externalLocation.isFunction());
 		checkDataType(myTypedef, externalLocation.getDataType());
 	}
 
@@ -3305,8 +3305,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address1), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 
 				createExternalLabel(mergeProgram, libnameA, labelA, null, myStruct,
 					SourceType.USER_DEFINED);
@@ -3325,8 +3325,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address2), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 
 				createExternalLabel(mergeProgram, libnameA, labelA, null, myTypedef,
 					SourceType.USER_DEFINED);
@@ -3390,8 +3390,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address1), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 
 				createExternalLabel(mergeProgram, libnameA, labelA, null, myStruct,
 					SourceType.USER_DEFINED);
@@ -3410,8 +3410,8 @@ public class ExternalMergerAddTest extends AbstractExternalMergerTest {
 
 				assertEquals(libname + "::" + label, externalLocation.toString());
 				assertEquals(addr(program, address2), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
-				assertEquals(false, externalLocation.isFunction());
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
+				assertFalse(externalLocation.isFunction());
 
 				createExternalLabel(mergeProgram, libnameA, labelA, null, myTypedef,
 					SourceType.USER_DEFINED);

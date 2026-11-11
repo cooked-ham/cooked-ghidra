@@ -205,7 +205,7 @@ public class ScriptSelectionDialog extends DialogComponentProvider {
 // Inner Classes
 //=================================================================================================
 
-	private class ScriptFilter implements BiPredicate<ScriptInfo, String> {
+	private static class ScriptFilter implements BiPredicate<ScriptInfo, String> {
 
 		private Pattern pattern;
 
@@ -227,7 +227,7 @@ public class ScriptSelectionDialog extends DialogComponentProvider {
 		}
 	}
 
-	private class ScriptRenderer extends GListCellRenderer<SearchListEntry<ScriptInfo>> {
+	private static class ScriptRenderer extends GListCellRenderer<SearchListEntry<ScriptInfo>> {
 		{
 			setHTMLRenderingEnabled(true);
 		}

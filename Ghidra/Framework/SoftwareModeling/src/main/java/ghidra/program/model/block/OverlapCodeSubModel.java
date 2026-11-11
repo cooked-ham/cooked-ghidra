@@ -206,7 +206,7 @@ public class OverlapCodeSubModel implements SubroutineBlockModel {
 				blockList.add(block);
 			}
         }
-        return blockList.toArray(new CodeBlock[blockList.size()]);
+        return blockList.toArray(new CodeBlock[0]);
     }
 
 

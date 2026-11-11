@@ -76,12 +76,12 @@ public class CompileFlagsMsSymbol extends AbstractMsSymbol {
 		builder.append(language.toString());
 		builder.append("\n   Target Processor: ");
 		builder.append(processor.toString());
-		builder.append("\n   Floating-point precision: " + floatingPrecision);
-		builder.append("\n   Floating-point package: " + floatPackage);
-		builder.append("\n   Ambiant data: " + ambiantDataModel);
-		builder.append("\n   Ambiant code: " + ambiantCodeModel);
-		builder.append("\n   PCode present: " + (compiled32BitMode ? "yes" : "no"));
-		builder.append("\n   Version String:" + compilerVersionString);
+		builder.append("\n   Floating-point precision: ").append(floatingPrecision);
+		builder.append("\n   Floating-point package: ").append(floatPackage);
+		builder.append("\n   Ambiant data: ").append(ambiantDataModel);
+		builder.append("\n   Ambiant code: ").append(ambiantCodeModel);
+		builder.append("\n   PCode present: ").append((compiled32BitMode ? "yes" : "no"));
+		builder.append("\n   Version String:").append(compilerVersionString);
 		builder.append("\n");
 	}
 

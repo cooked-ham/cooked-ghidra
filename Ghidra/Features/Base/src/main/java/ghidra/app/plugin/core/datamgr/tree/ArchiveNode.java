@@ -64,7 +64,7 @@ public class ArchiveNode extends DataTypeStoreNode {
 			}
 			String msg = archive.getWarningMessage(false);
 			buf.append(HTMLUtilities.BR);
-			buf.append("<font color=\"" + c + "\">** " + msg + " **</font>");
+			buf.append("<font color=\"").append(c).append("\">** ").append(msg).append(" **</font>");
 		}
 		return buf.toString();
 	}

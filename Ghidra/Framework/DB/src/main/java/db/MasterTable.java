@@ -187,7 +187,7 @@ class MasterTable {
 			tableRecords[ix++].invalidate();  // table no longer exists
 		}
 
-		tableRecords = trList.toArray(new TableRecord[trList.size()]);
+		tableRecords = trList.toArray(new TableRecord[0]);
 		return tableRecords;
 	}
 

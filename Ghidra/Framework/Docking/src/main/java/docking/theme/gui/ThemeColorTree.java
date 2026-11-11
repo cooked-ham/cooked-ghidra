@@ -89,7 +89,7 @@ public class ThemeColorTree extends JPanel implements ActionContextProvider {
 		tree.setRootNode(root);
 	}
 
-	private class SwatchIcon implements Icon {
+	private static class SwatchIcon implements Icon {
 		private Color color;
 		private Color border;
 

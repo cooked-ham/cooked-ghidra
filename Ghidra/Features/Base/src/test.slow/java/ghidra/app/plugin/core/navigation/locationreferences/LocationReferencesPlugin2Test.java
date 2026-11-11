@@ -76,7 +76,7 @@ public class LocationReferencesPlugin2Test extends AbstractLocationReferencesTes
 		goTo(address, "Mnemonic", 1);
 
 		ActionContext context = createActionContext(getCodeViewerProvider());
-		assertTrue(!showReferencesAction.isEnabledForContext(context));
+		assertFalse(showReferencesAction.isEnabledForContext(context));
 
 		LocationReferencesProvider provider = getResultsProvider();
 		assertNull("Found a provider for showing references to an undefined mnemonic field.",
@@ -129,7 +129,7 @@ public class LocationReferencesPlugin2Test extends AbstractLocationReferencesTes
 		// test that the current provider contains the correct location descriptor for a
 		// given location
 		ActionContext context = createActionContext(getCodeViewerProvider());
-		assertTrue(!showReferencesAction.isEnabledForContext(context));
+		assertFalse(showReferencesAction.isEnabledForContext(context));
 
 		assertNoResults("Found a provider for showing references to an undefined mnemonic field.");
 	}

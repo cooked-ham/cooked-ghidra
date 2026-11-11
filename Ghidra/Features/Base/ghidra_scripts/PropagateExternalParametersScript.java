@@ -330,7 +330,7 @@ public class PropagateExternalParametersScript extends GhidraScript {
 	}
 
 	// info about the pushed parameter that gets applied to the calling functions params and locals and referenced data
-	private class PushedParamInfo {
+	private static class PushedParamInfo {
 		private String name;
 		private DataType dataType;
 		private Address addr;

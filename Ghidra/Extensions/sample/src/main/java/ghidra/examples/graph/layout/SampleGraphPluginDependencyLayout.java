@@ -144,7 +144,7 @@ public class SampleGraphPluginDependencyLayout
 		return results;
 	}
 
-	private class VertexNameComparator implements Comparator<SampleVertex> {
+	private static class VertexNameComparator implements Comparator<SampleVertex> {
 
 		@Override
 		public int compare(SampleVertex o1, SampleVertex o2) {

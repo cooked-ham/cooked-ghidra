@@ -679,7 +679,7 @@ public class ProgramDiffDetails {
 				list.add(symbol);
 			}
 		}
-		return list.toArray(new Symbol[list.size()]);
+		return list.toArray(new Symbol[0]);
 	}
 
 	private void addEntryPtLine(Address addr) {
@@ -1167,8 +1167,8 @@ public class ProgramDiffDetails {
 		boolean hasAddr2 = hasAddrDiffs;
 		List<Equate> list1 = et1.getEquates(p1Address, opIndex);
 		List<Equate> list2 = et2.getEquates(p2Address, opIndex);
-		Equate[] eq1 = list1.toArray(new Equate[list1.size()]);
-		Equate[] eq2 = list2.toArray(new Equate[list2.size()]);
+		Equate[] eq1 = list1.toArray(new Equate[0]);
+		Equate[] eq2 = list2.toArray(new Equate[0]);
 		if (!sameEquates(eq1, eq2)) {
 			if (!hasEquateDiffs) {
 				addDiffHeader("Equate");
@@ -1477,7 +1477,7 @@ public class ProgramDiffDetails {
 			strBuilder.append(", ");
 			strBuilder.append(tag.getName());
 			if (tag.getComment() != null && !tag.getComment().isEmpty()) {
-				strBuilder.append("(" + tag.getComment() + ")");
+				strBuilder.append("(").append(tag.getComment()).append(")");
 			}
 		}
 
@@ -1907,7 +1907,7 @@ public class ProgramDiffDetails {
 		}
 	}
 
-	private class VariableLayout {
+	private static class VariableLayout {
 		int dtLen;
 		int offsetLen;
 		int firstUseLen;
@@ -1980,9 +1980,9 @@ public class ProgramDiffDetails {
 		ArrayList<Variable> allVarsList = new ArrayList<>(varList1);
 		allVarsList.addAll(varList2);
 
-		Variable[] printVars1 = varList1.toArray(new Variable[varList1.size()]);
-		Variable[] printVars2 = varList2.toArray(new Variable[varList2.size()]);
-		Variable[] combinedVars = allVarsList.toArray(new Variable[allVarsList.size()]);
+		Variable[] printVars1 = varList1.toArray(new Variable[0]);
+		Variable[] printVars2 = varList2.toArray(new Variable[0]);
+		Variable[] combinedVars = allVarsList.toArray(new Variable[0]);
 
 		VariableLayout varLayout = getVariableLayout(combinedVars);
 		printParameters(doc1, printVars1, varLayout, vars1.length);
@@ -2071,9 +2071,9 @@ public class ProgramDiffDetails {
 		ArrayList<Variable> allVarsList = new ArrayList<>(varList1);
 		allVarsList.addAll(varList2);
 
-		Variable[] printVars1 = varList1.toArray(new Variable[varList1.size()]);
-		Variable[] printVars2 = varList2.toArray(new Variable[varList2.size()]);
-		Variable[] combinedVars = allVarsList.toArray(new Variable[allVarsList.size()]);
+		Variable[] printVars1 = varList1.toArray(new Variable[0]);
+		Variable[] printVars2 = varList2.toArray(new Variable[0]);
+		Variable[] combinedVars = allVarsList.toArray(new Variable[0]);
 
 		VariableLayout varLayout = getVariableLayout(combinedVars);
 		printLocals(doc1, printVars1, varLayout, vars1.length);
@@ -2190,7 +2190,7 @@ public class ProgramDiffDetails {
 			while (propNames.hasNext()) {
 				names.add(propNames.next());
 			}
-			String[] names1 = names.toArray(new String[names.size()]);
+			String[] names1 = names.toArray(new String[0]);
 			Arrays.sort(names1);
 
 			String stringProp = null;

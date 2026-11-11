@@ -735,7 +735,7 @@ class DataDB extends CodeUnitDB implements Data {
 				list.add(element);
 			}
 		}
-		return list.toArray(new Reference[list.size()]);
+		return list.toArray(new Reference[0]);
 	}
 
 	@Override

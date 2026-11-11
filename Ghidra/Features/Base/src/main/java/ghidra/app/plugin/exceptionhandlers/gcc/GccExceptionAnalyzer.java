@@ -413,7 +413,7 @@ public class GccExceptionAnalyzer extends AbstractAnalyzer {
 	 * A TypeInfo associates the address of a type information record with the filter value that
 	 * is used to handle a catch action for that type.
 	 */
-	private class TypeInfo {
+	private static class TypeInfo {
 		private Address typeInfoAddress;
 		private int actionFilter;
 

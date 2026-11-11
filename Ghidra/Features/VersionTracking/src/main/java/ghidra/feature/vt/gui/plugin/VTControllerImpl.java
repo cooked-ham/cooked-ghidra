@@ -797,7 +797,7 @@ public class VTControllerImpl
 	 * A task wrapper that allows us to set the currently in-use task monitor for VT APIs to use
 	 * when they are not explicitly passed a task monitor.
 	 */
-	private class WrapperTask extends Task {
+	private static class WrapperTask extends Task {
 
 		private final Task delegate;
 

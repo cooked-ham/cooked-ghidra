@@ -136,7 +136,7 @@ public class CutAction extends DockingAction {
 
 	// this class is just a marker interface so we can tell if we put the contents into the
 	// clipboard
-	class DataTypeTreeNodeTransferable extends GTreeNodeTransferable {
+	static class DataTypeTreeNodeTransferable extends GTreeNodeTransferable {
 		public DataTypeTreeNodeTransferable(GTreeTransferHandler handler,
 				List<GTreeNode> selectedData) {
 			super(handler, selectedData);

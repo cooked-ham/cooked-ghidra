@@ -884,7 +884,7 @@ public class FindNoReturnFunctionsAnalyzer extends AbstractAnalyzer {
 
 	}
 
-	class NoReturnLocations implements AddressableRowObject {
+	static class NoReturnLocations implements AddressableRowObject {
 		private Address addr;
 		private Address whyAddr;
 		private String explanation;

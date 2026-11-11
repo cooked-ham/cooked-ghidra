@@ -15,6 +15,7 @@
  */
 package ghidra.app.plugin.processors.sleigh;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -1097,6 +1098,7 @@ public class SleighDebugLogger {
 	}
 
 	private static class PatternGroup extends ArrayList<Object> {
+		@Serial
 		private static final long serialVersionUID = 1L;
 		private String name;
 		private PatternGroup parent;

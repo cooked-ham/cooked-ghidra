@@ -25,7 +25,7 @@ import ghidra.program.model.data.*;
  * Describes the AssemblyOS table. Apparently it is ignored by the CLI and shouldn't be found in an Assembly.
  */
 public class CliTableAssemblyOS extends CliAbstractTable {
-	public class CliAssemblyOSRow extends CliAbstractTableRow {
+	public static class CliAssemblyOSRow extends CliAbstractTableRow {
 		public int osPlatformID;
 		public int osMajorVersion;
 		public int osMinorVersion;

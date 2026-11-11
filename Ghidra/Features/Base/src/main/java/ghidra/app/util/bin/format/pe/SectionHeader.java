@@ -533,12 +533,12 @@ public class SectionHeader implements StructConverter, ByteArrayConverter {
 		StringBuffer buff = new StringBuffer();
 
 		buff.append("Section Header:" + "\n");
-		buff.append("\t" + "name:                 " + name + "\n");
-		buff.append("\t" + "physicalAddress:      " + Integer.toHexString(physicalAddress) + "\n");
-		buff.append("\t" + "virtualSize:          " + Integer.toHexString(virtualSize) + "\n");
-		buff.append("\t" + "virtualAddress:       " + Integer.toHexString(virtualAddress) + "\n");
-		buff.append("\t" + "sizeOfRawData:        " + Integer.toHexString(sizeOfRawData) + "\n");
-		buff.append("\t" + "pointerToRawData:     " + Integer.toHexString(pointerToRawData) + "\n");
+		buff.append("\t").append("name:                 ").append(name).append("\n");
+		buff.append("\t").append("physicalAddress:      ").append(Integer.toHexString(physicalAddress)).append("\n");
+		buff.append("\t").append("virtualSize:          ").append(Integer.toHexString(virtualSize)).append("\n");
+		buff.append("\t").append("virtualAddress:       ").append(Integer.toHexString(virtualAddress)).append("\n");
+		buff.append("\t").append("sizeOfRawData:        ").append(Integer.toHexString(sizeOfRawData)).append("\n");
+		buff.append("\t").append("pointerToRawData:     ").append(Integer.toHexString(pointerToRawData)).append("\n");
 		buff.append(
 			"\t" + "pointerToRelocations: " + Integer.toHexString(pointerToRelocations) + "\n");
 		buff.append(
@@ -547,7 +547,7 @@ public class SectionHeader implements StructConverter, ByteArrayConverter {
 			"\t" + "numberOfRelocations:  " + Integer.toHexString(numberOfRelocations) + "\n");
 		buff.append(
 			"\t" + "numberOfLinenumbers:  " + Integer.toHexString(numberOfLinenumbers) + "\n");
-		buff.append("\t" + "characteristics:      " + Integer.toHexString(characteristics) + "\n");
+		buff.append("\t").append("characteristics:      ").append(Integer.toHexString(characteristics)).append("\n");
 
 		return buff.toString();
 	}

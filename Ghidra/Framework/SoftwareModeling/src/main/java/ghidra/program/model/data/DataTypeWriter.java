@@ -434,7 +434,7 @@ public class DataTypeWriter {
 
 		String descrip = composite.getDescription();
 		if (descrip != null && descrip.length() > 0) {
-			sb.append(" " + comment(descrip));
+			sb.append(" ").append(comment(descrip));
 		}
 		sb.append(EOL);
 
@@ -471,7 +471,7 @@ public class DataTypeWriter {
 
 		String comment = component.getComment();
 		if (comment != null && comment.length() > 0) {
-			sb.append(" " + comment(comment));
+			sb.append(" ").append(comment(comment));
 		}
 		sb.append(EOL);
 	}
@@ -560,7 +560,7 @@ public class DataTypeWriter {
 		String enumName = enumm.getDisplayName();
 		if (enumName.startsWith("define_") && enumName.length() > 7 && enumm.getCount() == 1) {
 			long val = enumm.getValues()[0];
-			writer.append("#define " + enumName.substring(7) + " " + Long.toString(val));
+			writer.append("#define ").append(enumName.substring(7)).append(" ").append(Long.toString(val));
 			writer.write(EOL);
 			writer.write(EOL);
 			return;
@@ -872,7 +872,7 @@ public class DataTypeWriter {
 	}
 
 	// A simple Composite class to use in the dependency graph to speed up the equals() call
-	private class CompositeNode implements Comparable<CompositeNode> {
+	private static class CompositeNode implements Comparable<CompositeNode> {
 
 		private Composite composite;
 

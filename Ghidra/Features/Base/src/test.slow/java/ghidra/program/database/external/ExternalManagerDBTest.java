@@ -133,7 +133,7 @@ public class ExternalManagerDBTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals(loc4, iter.next());
 		assertTrue(iter.hasNext());
 		assertEquals(loc5, iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 		assertNull(iter.next());
 
 	}
@@ -153,7 +153,7 @@ public class ExternalManagerDBTest extends AbstractGhidraHeadedIntegrationTest {
 		ExternalLocationIterator iter = extMgr.getExternalLocations(addr(2000));
 		assertTrue(iter.hasNext());
 		assertEquals(loc5, iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 		assertNull(iter.next());
 
 	}
@@ -236,7 +236,7 @@ public class ExternalManagerDBTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals(loc3, iter.next());
 		assertTrue(iter.hasNext());
 		assertEquals(loc5, iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 		assertNull(iter.next());
 
 	}
@@ -286,10 +286,10 @@ public class ExternalManagerDBTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals(loc4, iter.next());
 		assertTrue(iter.hasNext());
 		assertEquals(loc5, iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 		assertNull(iter.next());
 
-		assertTrue(!extMgr.getExternalLocations("ext2").hasNext());
+		assertFalse(extMgr.getExternalLocations("ext2").hasNext());
 
 	}
 
@@ -352,7 +352,7 @@ public class ExternalManagerDBTest extends AbstractGhidraHeadedIntegrationTest {
 		extLoc.restoreOriginalName();
 
 		assertEquals("foo", extLoc.getLabel());
-		assertEquals(null, extLoc.getOriginalImportedName());
+		assertNull(extLoc.getOriginalImportedName());
 		assertEquals(SourceType.IMPORTED, extLoc.getSource());
 
 	}

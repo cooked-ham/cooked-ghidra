@@ -219,90 +219,90 @@ public class PcodeParserTest extends AbstractGhidraHeadlessIntegrationTest {
 		parser.addOperand(loc, "in2", 1);
 		ConstructTpl template = parser.compilePcode(pcodeStatements, "test", 200);
 		assertNull(template.getResult());
-		assertEquals(template.getNumLabels(), 1);
+		assertEquals(1, template.getNumLabels());
 		OpTpl[] vec = template.getOpVec();
-		assertEquals(vec.length, 13);
+		assertEquals(13, vec.length);
 
 		// inst_next
-		assertEquals(vec[0].getOpcode(), PcodeOp.COPY);
+		assertEquals(PcodeOp.COPY, vec[0].getOpcode());
 		assertTrue(testVarnode(vec[0].getOutput(), SpaceNames.UNIQUE_SPACE_NAME, uniqueBase, 1));
-		assertEquals(vec[0].getInput().length, 1);
+		assertEquals(1, vec[0].getInput().length);
 		assertTrue(testInstNextConstant(vec[0].getInput()[0], 1));
 
-		assertEquals(vec[1].getOpcode(), PcodeOp.INT_EQUAL);
+		assertEquals(PcodeOp.INT_EQUAL, vec[1].getOpcode());
 		assertTrue(
 			testVarnode(vec[1].getOutput(), SpaceNames.UNIQUE_SPACE_NAME, uniqueBase + 0x100, 1));
-		assertEquals(vec[1].getInput().length, 2);
+		assertEquals(2, vec[1].getInput().length);
 		assertTrue(testVarnode(vec[1].getInput()[0], "register", 0, 2));
 		assertTrue(testVarnode(vec[1].getInput()[1], SpaceNames.CONSTANT_SPACE_NAME, 0, 2));
 
-		assertEquals(vec[2].getOpcode(), PcodeOp.CBRANCH);
+		assertEquals(PcodeOp.CBRANCH, vec[2].getOpcode());
 		assertNull(vec[2].getOutput());
-		assertEquals(vec[2].getInput().length, 2);
+		assertEquals(2, vec[2].getInput().length);
 		assertTrue(testInstNext(vec[2].getInput()[0]));
 		assertTrue(
 			testVarnode(vec[2].getInput()[1], SpaceNames.UNIQUE_SPACE_NAME, uniqueBase + 0x100, 1));
 
 		// inst_next2
-		assertEquals(vec[3].getOpcode(), PcodeOp.COPY);
+		assertEquals(PcodeOp.COPY, vec[3].getOpcode());
 		assertTrue(
 			testVarnode(vec[3].getOutput(), SpaceNames.UNIQUE_SPACE_NAME, uniqueBase + 0x200, 1));
-		assertEquals(vec[3].getInput().length, 1);
+		assertEquals(1, vec[3].getInput().length);
 		assertTrue(testInstNext2Constant(vec[3].getInput()[0], 1));
 
-		assertEquals(vec[4].getOpcode(), PcodeOp.INT_EQUAL);
+		assertEquals(PcodeOp.INT_EQUAL, vec[4].getOpcode());
 		assertTrue(
 			testVarnode(vec[4].getOutput(), SpaceNames.UNIQUE_SPACE_NAME, uniqueBase + 0x300, 1));
-		assertEquals(vec[4].getInput().length, 2);
+		assertEquals(2, vec[4].getInput().length);
 		assertTrue(testVarnode(vec[4].getInput()[0], "register", 0xc, 2));
 		assertTrue(testVarnode(vec[4].getInput()[1], SpaceNames.CONSTANT_SPACE_NAME, 0, 2));
 
-		assertEquals(vec[5].getOpcode(), PcodeOp.CBRANCH);
+		assertEquals(PcodeOp.CBRANCH, vec[5].getOpcode());
 		assertNull(vec[5].getOutput());
-		assertEquals(vec[5].getInput().length, 2);
+		assertEquals(2, vec[5].getInput().length);
 		assertTrue(testInstNext2(vec[5].getInput()[0]));
 		assertTrue(
 			testVarnode(vec[5].getInput()[1], SpaceNames.UNIQUE_SPACE_NAME, uniqueBase + 0x300, 1));
 
 		// call
-		assertEquals(vec[6].getOpcode(), PcodeOp.CALLIND);
+		assertEquals(PcodeOp.CALLIND, vec[6].getOpcode());
 		assertNull(vec[6].getOutput());
-		assertEquals(vec[6].getInput().length, 1);
+		assertEquals(1, vec[6].getInput().length);
 		assertTrue(testVarnode(vec[6].getInput()[0], "register", 4, 4));
 
-		assertEquals(vec[7].getOpcode(), PcodeOp.INT_NOTEQUAL);
+		assertEquals(PcodeOp.INT_NOTEQUAL, vec[7].getOpcode());
 		assertTrue(
 			testVarnode(vec[7].getOutput(), SpaceNames.UNIQUE_SPACE_NAME, uniqueBase + 0x400, 1));
-		assertEquals(vec[7].getInput().length, 2);
+		assertEquals(2, vec[7].getInput().length);
 		assertTrue(testVarnode(vec[7].getInput()[0], "register", 0xc, 2));
 		assertTrue(testVarnode(vec[7].getInput()[1], SpaceNames.CONSTANT_SPACE_NAME, 1, 2));
 
-		assertEquals(vec[8].getOpcode(), PcodeOp.CBRANCH);
+		assertEquals(PcodeOp.CBRANCH, vec[8].getOpcode());
 		assertNull(vec[8].getOutput());
-		assertEquals(vec[8].getInput().length, 2);
+		assertEquals(2, vec[8].getInput().length);
 		assertTrue(testRelative(vec[8].getInput()[0], 0, 4));
 		assertTrue(
 			testVarnode(vec[8].getInput()[1], SpaceNames.UNIQUE_SPACE_NAME, uniqueBase + 0x400, 1));
 
-		assertEquals(vec[9].getOpcode(), PcodeOp.COPY);
+		assertEquals(PcodeOp.COPY, vec[9].getOpcode());
 		assertTrue(testVarnode(vec[9].getOutput(), "register", 4, 2));
-		assertEquals(vec[9].getInput().length, 1);
+		assertEquals(1, vec[9].getInput().length);
 		assertTrue(testVarnode(vec[9].getInput()[0], SpaceNames.CONSTANT_SPACE_NAME, 0, 2));
 
-		assertEquals(vec[10].getOpcode(), PcodeOp.PTRADD);		// label
+		assertEquals(PcodeOp.PTRADD, vec[10].getOpcode());		// label
 		assertNull(vec[10].getOutput());
-		assertEquals(vec[10].getInput().length, 1);
+		assertEquals(1, vec[10].getInput().length);
 		assertTrue(testVarnode(vec[10].getInput()[0], SpaceNames.CONSTANT_SPACE_NAME, 0, 4));
 
-		assertEquals(vec[11].getOpcode(), PcodeOp.INT_LEFT);
+		assertEquals(PcodeOp.INT_LEFT, vec[11].getOpcode());
 		assertTrue(testVarnode(vec[11].getOutput(), "register", 0xc, 2));
-		assertEquals(vec[11].getInput().length, 2);
+		assertEquals(2, vec[11].getInput().length);
 		assertTrue(testVarnode(vec[11].getInput()[0], "register", 0x4, 2));
 		assertTrue(testVarnode(vec[11].getInput()[1], SpaceNames.CONSTANT_SPACE_NAME, 2, 4));
 
-		assertEquals(vec[12].getOpcode(), PcodeOp.INT_ADD);
+		assertEquals(PcodeOp.INT_ADD, vec[12].getOpcode());
 		assertTrue(testParameter(vec[12].getOutput(), 0));
-		assertEquals(vec[12].getInput().length, 2);
+		assertEquals(2, vec[12].getInput().length);
 		assertTrue(testParameter(vec[12].getInput()[0], 1));
 		assertTrue(
 			testVarnodeHandleSize(vec[12].getInput()[1], SpaceNames.CONSTANT_SPACE_NAME, 7, 0));

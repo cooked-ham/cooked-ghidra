@@ -131,7 +131,7 @@ public class ValidateProgramPlugin extends Plugin {
 		return list;
 	}
 
-	private class ConditionsComparator implements Comparator<ConditionTester> {
+	private static class ConditionsComparator implements Comparator<ConditionTester> {
 		@Override
 		public int compare(ConditionTester o1, ConditionTester o2) {
 			return o1.getName().compareTo(o2.getName());

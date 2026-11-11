@@ -311,7 +311,7 @@ public class MenuData {
 	 * @return the mnemonic key for encoded in the actions menu text. Returns 0 if there is none.
 	 */
 	public static int getMnemonic(String menuName) {
-		String cleaned = menuName.replaceAll("&&", "");
+		String cleaned = menuName.replace("&&", "");
 		int firstIndex = cleaned.indexOf('&');
 		if (firstIndex >= 0 && firstIndex < cleaned.length() - 1) {
 			return cleaned.charAt(firstIndex + 1);

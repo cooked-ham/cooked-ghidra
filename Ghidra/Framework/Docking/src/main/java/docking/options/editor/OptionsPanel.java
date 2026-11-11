@@ -428,7 +428,7 @@ public class OptionsPanel extends JPanel {
 // Inner Classes
 //==================================================================================================
 
-	public class OptionsDataTransformer extends DefaultGTreeDataTransformer {
+	public static class OptionsDataTransformer extends DefaultGTreeDataTransformer {
 		@Override
 		public List<String> transform(GTreeNode node) {
 			List<String> results = super.transform(node);

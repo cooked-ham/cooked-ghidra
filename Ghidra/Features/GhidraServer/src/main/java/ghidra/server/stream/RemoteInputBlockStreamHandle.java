@@ -16,6 +16,7 @@
 package ghidra.server.stream;
 
 import java.io.*;
+import java.io.Serial;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.zip.Deflater;
@@ -34,6 +35,7 @@ public class RemoteInputBlockStreamHandle extends RemoteBlockStreamHandle<InputB
 		implements BlockStreamHandle<InputBlockStream> {
 
 	@SuppressWarnings("hiding")
+	@Serial
 	public static final long serialVersionUID = 1L;
 
 	private boolean includesHeaderBlock;

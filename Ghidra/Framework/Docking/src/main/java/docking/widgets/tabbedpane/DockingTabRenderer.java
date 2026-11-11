@@ -252,7 +252,7 @@ public class DockingTabRenderer extends JPanel {
 	 * we are, tabbed panes that are larger than the renderer will not get mouse events that
 	 * are over the tab, but not the renderer.
 	 */
-	private class TabContainerForwardingMouseListener extends MouseAdapter {
+	private static class TabContainerForwardingMouseListener extends MouseAdapter {
 
 		private final JTabbedPane tabbedPane;
 

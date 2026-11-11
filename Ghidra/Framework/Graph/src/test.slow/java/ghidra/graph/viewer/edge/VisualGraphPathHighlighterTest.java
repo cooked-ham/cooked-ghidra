@@ -704,25 +704,25 @@ public class VisualGraphPathHighlighterTest extends AbstractVisualGraphTest {
 
 	private void assertNoEdgesInFocusedPath() {
 		Collection<TestEdge> edges = graph.getEdges();
-		TestEdge[] asArray = edges.toArray(new TestEdge[edges.size()]);
+		TestEdge[] asArray = edges.toArray(new TestEdge[0]);
 		assertNotInFocusedPath(asArray);
 	}
 
 	private void assertNoEdgesHovered() {
 		Collection<TestEdge> edges = graph.getEdges();
-		TestEdge[] asArray = edges.toArray(new TestEdge[edges.size()]);
+		TestEdge[] asArray = edges.toArray(new TestEdge[0]);
 		assertNotHovered(asArray);
 	}
 
 	private void assertAllEdgesInFocusedPath() {
 		Collection<TestEdge> edges = graph.getEdges();
-		TestEdge[] asArray = edges.toArray(new TestEdge[edges.size()]);
+		TestEdge[] asArray = edges.toArray(new TestEdge[0]);
 		assertInFocusedPath(asArray);
 	}
 
 	private void assertAllEdgesHovered() {
 		Collection<TestEdge> edges = graph.getEdges();
-		TestEdge[] asArray = edges.toArray(new TestEdge[edges.size()]);
+		TestEdge[] asArray = edges.toArray(new TestEdge[0]);
 		assertHovered(asArray);
 	}
 

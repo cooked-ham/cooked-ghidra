@@ -231,7 +231,7 @@ class LocationReferencesHighlighter {
 
 	}
 
-	private class MarkerRemover {
+	private static class MarkerRemover {
 		private final MarkerSet markerSet;
 		private final MarkerService markerSerivce;
 		private final Program program;

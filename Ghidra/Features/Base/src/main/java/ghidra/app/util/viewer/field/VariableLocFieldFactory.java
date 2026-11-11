@@ -15,12 +15,9 @@
  */
 package ghidra.app.util.viewer.field;
 
-import java.awt.FontMetrics;
-import java.math.BigInteger;
-
-import javax.swing.Icon;
-
-import docking.widgets.fieldpanel.field.*;
+import docking.widgets.fieldpanel.field.AttributedString;
+import docking.widgets.fieldpanel.field.FieldElement;
+import docking.widgets.fieldpanel.field.TextFieldElement;
 import docking.widgets.fieldpanel.support.FieldLocation;
 import generic.theme.GIcon;
 import generic.theme.GThemeDefaults.Colors.Messages;
@@ -36,117 +33,123 @@ import ghidra.program.util.VariableLocFieldLocation;
 import resources.MultiIcon;
 import resources.icons.EmptyIcon;
 
+import javax.swing.*;
+import java.awt.*;
+import java.math.BigInteger;
+
 /**
- *  Generates VariableOffset Fields.
+ * Generates VariableOffset Fields.
  */
 public class VariableLocFieldFactory extends AbstractVariableFieldFactory {
-	public static final String FIELD_NAME = "Variable Location";
+    public static final String FIELD_NAME = "Variable Location";
 
-	private static final Icon INVALID_STORAGE_ICON =
-		new GIcon("icon.base.util.viewer.fieldfactory.variable");
+    private static final Icon INVALID_STORAGE_ICON =
+            new GIcon("icon.base.util.viewer.fieldfactory.variable");
 
-	/**
-	 * Constructor
-	 */
-	public VariableLocFieldFactory() {
-		super(FIELD_NAME);
-	}
+    /**
+     * Constructor
+     */
+    public VariableLocFieldFactory() {
+        super(FIELD_NAME);
+    }
 
-	/**
-	* Constructor
-	 * @param model the model that the field belongs to.
-	 * @param hlProvider the HightLightStringProvider.
-	 * @param displayOptions the Options for display properties.
-	 * @param fieldOptions the Options for field specific properties.
-	*/
-	private VariableLocFieldFactory(FieldFormatModel model, ListingHighlightProvider hlProvider,
-			Options displayOptions, Options fieldOptions) {
+    /**
+     * Constructor
+     *
+     * @param model          the model that the field belongs to.
+     * @param hlProvider     the HightLightStringProvider.
+     * @param displayOptions the Options for display properties.
+     * @param fieldOptions   the Options for field specific properties.
+     */
+    private VariableLocFieldFactory(FieldFormatModel model, ListingHighlightProvider hlProvider,
+                                    Options displayOptions, Options fieldOptions) {
 
-		super(FIELD_NAME, model, hlProvider, displayOptions, fieldOptions);
-	}
+        super(FIELD_NAME, model, hlProvider, displayOptions, fieldOptions);
+    }
 
-	private Icon getStorageIcon(FontMetrics metrics, boolean isInvalid) {
+    private Icon getStorageIcon(FontMetrics metrics, boolean isInvalid) {
 
-		Icon icon = new EmptyIcon(18, metrics.getHeight());
-		if (isInvalid) {
-			icon = new MultiIcon(icon, INVALID_STORAGE_ICON);
-		}
-		return icon;
-	}
+        Icon icon = new EmptyIcon(18, metrics.getHeight());
+        if (isInvalid) {
+            icon = new MultiIcon(icon, INVALID_STORAGE_ICON);
+        }
+        return icon;
+    }
 
-	@Override
-	public ListingField getField(ProxyObj<?> proxy, int varWidth) {
-		Object obj = proxy.getObject();
+    @Override
+    public ListingField getField(ProxyObj<?> proxy, int varWidth) {
+        Object obj = proxy.getObject();
 
-		if (!enabled || !(obj instanceof Variable)) {
-			return null;
-		}
-		Variable var = (Variable) obj;
-		FontMetrics fontMetrics = getMetrics(var);
-		boolean hasInvalidStorage = !var.isValid();
-		String loc = var.getVariableStorage().toString();
-		AttributedString as = new AttributedString(getStorageIcon(fontMetrics, hasInvalidStorage),
-			loc, hasInvalidStorage ? Messages.ERROR : getColor(var), fontMetrics, false, null);
-		FieldElement field = new TextFieldElement(as, 0, 0);
-		return ListingTextField.createSingleLineTextField(this, proxy, field, startX + varWidth,
-			width, hlProvider);
-	}
+        if (!enabled || !(obj instanceof Variable)) {
+            return null;
+        }
+        Variable var = (Variable) obj;
+        FontMetrics fontMetrics = getMetrics(var);
+        boolean hasInvalidStorage = !var.isValid();
+        String loc = var.getVariableStorage().toString();
+        AttributedString as = new AttributedString(getStorageIcon(fontMetrics, hasInvalidStorage),
+                loc, hasInvalidStorage ? Messages.ERROR : getColor(var), fontMetrics, false, null);
+        FieldElement field = new TextFieldElement(as, 0, 0);
+        return ListingTextField.createSingleLineTextField(this, proxy, field, startX + varWidth,
+                width, hlProvider);
+    }
 
-	/**
-	 * Returns the string representing the offset.
-	 * @param offset the offset to get a string for
-	 * @return the offset string
-	 */
-	public String getOffsetString(int offset) {
-		String offString =
-			(offset >= 0 ? Integer.toHexString(offset) : "-" + Integer.toHexString(-offset));
-		return offString;
-	}
+    /**
+     * Returns the string representing the offset.
+     *
+     * @param offset the offset to get a string for
+     * @return the offset string
+     */
+    public String getOffsetString(int offset) {
+        String offString =
+                (offset >= 0 ? Integer.toHexString(offset) : "-" + Integer.toHexString(-offset));
+        return offString;
+    }
 
-	@Override
-	public ProgramLocation getProgramLocation(int row, int col, ListingField bf) {
-		ProxyObj<?> proxy = bf.getProxy();
-		if (proxy instanceof VariableProxy) {
-			VariableProxy variableProxy = (VariableProxy) proxy;
-			Variable sv = variableProxy.getObject();
-			return new VariableLocFieldLocation(sv.getProgram(), variableProxy.getLocationAddress(),
-				sv, col);
-		}
+    @Override
+    public ProgramLocation getProgramLocation(int row, int col, ListingField bf) {
+        ProxyObj<?> proxy = bf.getProxy();
+        if (proxy instanceof VariableProxy) {
+            VariableProxy variableProxy = (VariableProxy) proxy;
+            Variable sv = variableProxy.getObject();
+            return new VariableLocFieldLocation(sv.getProgram(), variableProxy.getLocationAddress(),
+                    sv, col);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public FieldLocation getFieldLocation(ListingField bf, BigInteger index, int fieldNum,
-			ProgramLocation loc) {
+    @Override
+    public FieldLocation getFieldLocation(ListingField bf, BigInteger index, int fieldNum,
+                                          ProgramLocation loc) {
 
-		if (!(loc instanceof VariableLocFieldLocation)) {
-			return null;
-		}
+        if (!(loc instanceof VariableLocFieldLocation)) {
+            return null;
+        }
 
-		Object obj = bf.getProxy().getObject();
-		if (obj instanceof Variable) {
-			Variable sv = (Variable) obj;
-			VariableLocFieldLocation varStorageLoc = (VariableLocFieldLocation) loc;
-			if (varStorageLoc.isLocationFor(sv)) {
-				return new FieldLocation(index, fieldNum, 0, varStorageLoc.getCharOffset());
-			}
-		}
+        Object obj = bf.getProxy().getObject();
+        if (obj instanceof Variable) {
+            Variable sv = (Variable) obj;
+            VariableLocFieldLocation varStorageLoc = (VariableLocFieldLocation) loc;
+            if (varStorageLoc.isLocationFor(sv)) {
+                return new FieldLocation(index, fieldNum, 0, varStorageLoc.getCharOffset());
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public boolean acceptsType(int category, Class<?> proxyObjectClass) {
-		if (!Variable.class.isAssignableFrom(proxyObjectClass)) {
-			return false;
-		}
-		return (category == FieldFormatModel.FUNCTION_VARS);
-	}
+    @Override
+    public boolean acceptsType(int category, Class<?> proxyObjectClass) {
+        if (!Variable.class.isAssignableFrom(proxyObjectClass)) {
+            return false;
+        }
+        return (category == FieldFormatModel.FUNCTION_VARS);
+    }
 
-	@Override
-	public FieldFactory newInstance(FieldFormatModel formatModel, ListingHighlightProvider provider,
-			ToolOptions toolOptions, ToolOptions fieldOptions) {
-		return new VariableLocFieldFactory(formatModel, provider, toolOptions, fieldOptions);
-	}
+    @Override
+    public FieldFactory newInstance(FieldFormatModel formatModel, ListingHighlightProvider provider,
+                                    ToolOptions toolOptions, ToolOptions fieldOptions) {
+        return new VariableLocFieldFactory(formatModel, provider, toolOptions, fieldOptions);
+    }
 }

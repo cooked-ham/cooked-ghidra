@@ -15,10 +15,6 @@
  */
 package ghidra.app.util.exporter;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import ghidra.app.util.DomainObjectService;
 import ghidra.app.util.Option;
 import ghidra.framework.model.DomainFile;
@@ -29,92 +25,91 @@ import ghidra.util.HelpLocation;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
 public class GzfExporter extends Exporter {
 
-	public static final String EXTENSION = "gzf";
-	public static final String SUFFIX = "." + EXTENSION;
+    public static final String EXTENSION = "gzf";
+    public static final String SUFFIX = "." + EXTENSION;
 
-	public static final String NAME = "Ghidra Zip File";
+    public static final String NAME = "Ghidra Zip File";
 
-	public GzfExporter() {
-		super(NAME, EXTENSION, new HelpLocation("ExporterPlugin", "gzf"));
-	}
+    public GzfExporter() {
+        super(NAME, EXTENSION, new HelpLocation("ExporterPlugin", "gzf"));
+    }
 
-	@Override
-	public boolean canExportDomainFile(DomainFile domainFile) {
-		// Avoid exporting link-file itself or non-Program files
-		return !domainFile.isLink() && canExportDomainObject(domainFile.getDomainObjectClass());
-	}
+    @Override
+    public boolean canExportDomainFile(DomainFile domainFile) {
+        // Avoid exporting link-file itself or non-Program files
+        return !domainFile.isLink() && canExportDomainObject(domainFile.getDomainObjectClass());
+    }
 
-	@Override
-	public boolean canExportDomainObject(Class<? extends DomainObject> domainObjectClass) {
-		return ProgramDB.class.isAssignableFrom(domainObjectClass);
-	}
+    @Override
+    public boolean canExportDomainObject(Class<? extends DomainObject> domainObjectClass) {
+        return ProgramDB.class.isAssignableFrom(domainObjectClass);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		return (obj instanceof GzfExporter);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof GzfExporter);
+    }
 
-	@Override
-	public boolean export(File file, DomainObject domainObj, AddressSetView addrSet,
-			TaskMonitor monitor) {
-		if (!canExportDomainObject(domainObj.getClass())) {
-			throw new UnsupportedOperationException("only ProgramDB objects are supported");
-		}
-		try {
-			file.delete();
-			domainObj.saveToPackedFile(file, monitor);
-		}
-		catch (UnsupportedOperationException e) {
-			log.appendMsg("Content does not support packed file export!");
-			log.appendException(e);
-			return false;
-		}
-		catch (CancelledException ce) {
-			return false;
-		}
-		catch (Exception e) {
-			log.appendMsg("Unexpected exception exporting file: " + e.getMessage());
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean export(File file, DomainObject domainObj, AddressSetView addrSet,
+                          TaskMonitor monitor) {
+        if (!canExportDomainObject(domainObj.getClass())) {
+            throw new UnsupportedOperationException("only ProgramDB objects are supported");
+        }
+        try {
+            file.delete();
+            domainObj.saveToPackedFile(file, monitor);
+        } catch (UnsupportedOperationException e) {
+            log.appendMsg("Content does not support packed file export!");
+            log.appendException(e);
+            return false;
+        } catch (CancelledException ce) {
+            return false;
+        } catch (Exception e) {
+            log.appendMsg("Unexpected exception exporting file: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public boolean export(File file, DomainFile domainFile, TaskMonitor monitor)
-			throws ExporterException, IOException {
-		if (!canExportDomainFile(domainFile)) {
-			throw new UnsupportedOperationException("only ProgramDB files are supported");
-		}
-		try {
-			domainFile.packFile(file, monitor);
-		}
-		catch (CancelledException e) {
-			return false;
-		}
-		catch (Exception e) {
-			log.appendMsg("Unexpected exception exporting file: " + e.getMessage());
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public boolean export(File file, DomainFile domainFile, TaskMonitor monitor)
+            throws ExporterException, IOException {
+        if (!canExportDomainFile(domainFile)) {
+            throw new UnsupportedOperationException("only ProgramDB files are supported");
+        }
+        try {
+            domainFile.packFile(file, monitor);
+        } catch (CancelledException e) {
+            return false;
+        } catch (Exception e) {
+            log.appendMsg("Unexpected exception exporting file: " + e.getMessage());
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public List<Option> getOptions(DomainObjectService domainObjectService) {
-		return EMPTY_OPTIONS;
-	}
+    @Override
+    public List<Option> getOptions(DomainObjectService domainObjectService) {
+        return EMPTY_OPTIONS;
+    }
 
-	@Override
-	public void setOptions(List<Option> options) {
-		// no options for this exporter
-	}
+    @Override
+    public void setOptions(List<Option> options) {
+        // no options for this exporter
+    }
 
-	/**
-	 * Returns false.  GZF export only supports entire database.
-	 */
-	@Override
-	public boolean supportsAddressRestrictedExport() {
-		return false;
-	}
+    /**
+     * Returns false.  GZF export only supports entire database.
+     */
+    @Override
+    public boolean supportsAddressRestrictedExport() {
+        return false;
+    }
 }

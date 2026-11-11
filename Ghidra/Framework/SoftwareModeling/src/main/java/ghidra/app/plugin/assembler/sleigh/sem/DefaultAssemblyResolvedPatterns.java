@@ -612,11 +612,11 @@ public class DefaultAssemblyResolvedPatterns extends AbstractAssemblyResolution
 		}
 		for (AssemblyResolvedBackfill bf : backfills) {
 			sb.append(indent);
-			sb.append("backfill: " + bf + "\n");
+			sb.append("backfill: ").append(bf).append("\n");
 		}
 		for (AssemblyResolvedPatterns f : forbids) {
 			sb.append(indent);
-			sb.append("forbidden: " + f + "\n");
+			sb.append("forbidden: ").append(f).append("\n");
 		}
 		return sb.substring(0, sb.length() - 1);
 	}

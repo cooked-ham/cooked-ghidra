@@ -225,7 +225,7 @@ public class ProgramTreePlugin3Test extends AbstractProgramTreePluginTest {
 
 		ProgramNode[] nodes = findNodes(".data");
 		for (ProgramNode element : nodes) {
-			assertTrue(element.getParent() != root);
+			assertNotSame(element.getParent(), root);
 		}
 		boolean found = false;
 		for (ProgramNode element : nodes) {
@@ -255,7 +255,7 @@ public class ProgramTreePlugin3Test extends AbstractProgramTreePluginTest {
 
 		ProgramNode[] nodes = findNodes("Functions");
 		for (ProgramNode element : nodes) {
-			assertTrue(element.getParent() != root);
+			assertNotSame(element.getParent(), root);
 		}
 		boolean found = false;
 		for (ProgramNode element : nodes) {

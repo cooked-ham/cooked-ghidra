@@ -322,7 +322,7 @@ class BsfvTableModel extends AddressBasedTableModel<BsfvRowObject> {
 	// Inner Classes (Table Columns)
 	//==============================================================================================
 
-	private class PreviousOpInfoTableColumn
+	private static class PreviousOpInfoTableColumn
 			extends AbstractDynamicTableColumn<BsfvRowObject, String, Object> {
 
 		@Override
@@ -342,7 +342,7 @@ class BsfvTableModel extends AddressBasedTableModel<BsfvRowObject> {
 
 	}
 
-	private class PcodeOpNameTableColumn
+	private static class PcodeOpNameTableColumn
 			extends AbstractDynamicTableColumn<BsfvRowObject, String, Object> {
 
 		@Override
@@ -375,7 +375,7 @@ class BsfvTableModel extends AddressBasedTableModel<BsfvRowObject> {
 		}
 	}
 
-	private class BSimFeatureTableColumn
+	private static class BSimFeatureTableColumn
 			extends AbstractDynamicTableColumn<BsfvRowObject, BsfvFeatureColumnObject, Object> {
 
 		@Override
@@ -390,7 +390,7 @@ class BsfvTableModel extends AddressBasedTableModel<BsfvRowObject> {
 		}
 	}
 
-	private class OpSequenceNumberTableColumn
+	private static class OpSequenceNumberTableColumn
 			extends AbstractDynamicTableColumn<BsfvRowObject, SequenceNumber, Object> {
 
 		@Override
@@ -406,7 +406,7 @@ class BsfvTableModel extends AddressBasedTableModel<BsfvRowObject> {
 
 	}
 
-	private class BasicBlockAddressTableColumn
+	private static class BasicBlockAddressTableColumn
 			extends AbstractDynamicTableColumn<BsfvRowObject, Address, Object> {
 
 		@Override
@@ -422,7 +422,7 @@ class BsfvTableModel extends AddressBasedTableModel<BsfvRowObject> {
 
 	}
 
-	private class AddressTableColumn
+	private static class AddressTableColumn
 			extends AbstractDynamicTableColumn<BsfvRowObject, Address, Object> {
 
 		@Override
@@ -437,7 +437,7 @@ class BsfvTableModel extends AddressBasedTableModel<BsfvRowObject> {
 		}
 	}
 
-	private class BSimFeatureTypeTableColumn
+	private static class BSimFeatureTypeTableColumn
 			extends AbstractDynamicTableColumn<BsfvRowObject, String, Object> {
 
 		@Override
@@ -453,7 +453,7 @@ class BsfvTableModel extends AddressBasedTableModel<BsfvRowObject> {
 
 	}
 
-	private class BasicBlockIndexColumn
+	private static class BasicBlockIndexColumn
 			extends AbstractDynamicTableColumn<BsfvRowObject, Integer, Object> {
 
 		@Override

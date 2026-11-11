@@ -423,7 +423,7 @@ public class DataManagerTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals(it.next(), struct1);
 		assertTrue(it.hasNext());
 		assertEquals(it.next(), struct2);
-		assertTrue(!it.hasNext());
+		assertFalse(it.hasNext());
 	}
 
 	@Test
@@ -457,9 +457,9 @@ public class DataManagerTest extends AbstractGhidraHeadedIntegrationTest {
 		int id = dtm.startTransaction("");
 		DataType byteDT = dtm.resolve(new ByteDataType(), null);
 		DataType myByteDT = dataMgr.resolve(byteDT, null);
-		assertTrue(myByteDT == dataMgr.getDataType("/byte"));
+		assertSame(myByteDT, dataMgr.getDataType("/byte"));
 		assertNotNull(myByteDT);
-		assertEquals(myByteDT.getCategoryPath(), CategoryPath.ROOT);
+		assertEquals(CategoryPath.ROOT, myByteDT.getCategoryPath());
 		dtm.endTransaction(id, true);
 		dtm.close();
 	}
@@ -474,7 +474,7 @@ public class DataManagerTest extends AbstractGhidraHeadedIntegrationTest {
 
 		DataType myByteDT = dataMgr.resolve(byteDT, null);
 		assertNotNull(myByteDT);
-		assertEquals(myByteDT.getCategoryPath().getName(), "subc");
+		assertEquals("subc", myByteDT.getCategoryPath().getName());
 		dtm.endTransaction(id, true);
 		dtm.close();
 	}

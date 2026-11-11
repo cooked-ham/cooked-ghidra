@@ -17,6 +17,7 @@
 package ghidra.program.model.listing;
 
 import ghidra.util.exception.InvalidInputException;
+import java.io.Serial;
 
 /**
  * <code>VariableSizeException</code> is thrown when a variable
@@ -24,6 +25,7 @@ import ghidra.util.exception.InvalidInputException;
  */
 public class VariableSizeException extends InvalidInputException {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private final boolean canForce;

@@ -52,7 +52,7 @@ public class DataTypeCopyMoveDrag2Test extends AbstractGTest {
 		assertEquals("Copy_11_of_" + name, DataTypesCopyMoveTask.getNextCopyName(category, name));
 	}
 
-	private class CountBasedStubCategory extends TestDoubleCategory {
+	private static class CountBasedStubCategory extends TestDoubleCategory {
 
 		private int threshold;
 		private int count;

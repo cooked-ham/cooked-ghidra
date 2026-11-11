@@ -266,7 +266,7 @@ public class GhidraProjectUtils {
 			classpathEntries.add(entry);
 		}
 		javaProject.setRawClasspath(
-			classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), monitor);
+			classpathEntries.toArray(new IClasspathEntry[0]), monitor);
 	}
 
 	/**
@@ -474,7 +474,7 @@ public class GhidraProjectUtils {
 
 		// Set classpath
 		javaProject.setRawClasspath(
-			classpathEntriesToKeep.toArray(new IClasspathEntry[classpathEntriesToKeep.size()]),
+			classpathEntriesToKeep.toArray(new IClasspathEntry[0]),
 			null);
 
 		// Update link to the Ghidra installation directory

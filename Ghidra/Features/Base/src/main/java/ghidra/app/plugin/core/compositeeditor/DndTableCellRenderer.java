@@ -17,6 +17,7 @@ package ghidra.app.plugin.core.compositeeditor;
 
 import java.awt.*;
 
+import java.io.Serial;
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
@@ -42,6 +43,7 @@ public class DndTableCellRenderer implements TableCellRenderer {
 	}
 
 	public static class DndBorder extends AbstractBorder {
+		@Serial
 		private static final long serialVersionUID = 1L;
 		private int borders;
 		private int thickness;

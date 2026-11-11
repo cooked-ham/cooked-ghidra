@@ -112,10 +112,10 @@ public class PERichTableDataType extends DynamicDataType {
 		offset = addComp(new PERichSignatureDataType(), 4, "signature", comps, offset, null);
 		offset = addComp(DWordDataType.dataType, 4, "mask", comps, offset, null);
 
-		return comps.toArray(new DataTypeComponent[comps.size()]);
+		return comps.toArray(new DataTypeComponent[0]);
 	}
 
-	private class PERichDanSDataType extends BuiltIn {
+	private static class PERichDanSDataType extends BuiltIn {
 		private final int mask;
 
 		public PERichDanSDataType(int mask) {
@@ -181,7 +181,7 @@ public class PERichTableDataType extends DynamicDataType {
 		}
 	}
 
-	private class PERichSignatureDataType extends BuiltIn {
+	private static class PERichSignatureDataType extends BuiltIn {
 
 		public PERichSignatureDataType() {
 			this(null);
@@ -245,7 +245,7 @@ public class PERichTableDataType extends DynamicDataType {
 		}
 	}
 
-	private class PERichXorDataType extends BuiltIn {
+	private static class PERichXorDataType extends BuiltIn {
 
 		private final int mask;
 

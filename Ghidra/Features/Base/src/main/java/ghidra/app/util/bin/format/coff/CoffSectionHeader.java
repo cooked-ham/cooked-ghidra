@@ -361,11 +361,11 @@ public class CoffSectionHeader implements StructConverter {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(getName());
 		buffer.append(' ');
-		buffer.append("PhysAddr:0x" + Integer.toHexString(s_paddr));
+		buffer.append("PhysAddr:0x").append(Integer.toHexString(s_paddr));
 		buffer.append(' ');
-		buffer.append("Size:0x" + Integer.toHexString(s_size));
+		buffer.append("Size:0x").append(Integer.toHexString(s_size));
 		buffer.append(' ');
-		buffer.append("Flags:0x" + Integer.toHexString(s_flags));
+		buffer.append("Flags:0x").append(Integer.toHexString(s_flags));
 		buffer.append(' ');
 		return buffer.toString();
 	}

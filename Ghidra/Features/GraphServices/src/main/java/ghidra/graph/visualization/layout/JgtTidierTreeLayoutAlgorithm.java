@@ -15,44 +15,43 @@
  */
 package ghidra.graph.visualization.layout;
 
-import java.util.function.Function;
-
+import ghidra.service.graph.AttributedEdge;
+import ghidra.service.graph.AttributedVertex;
 import org.jgrapht.Graph;
 import org.jungrapht.visualization.layout.algorithms.TidierTreeLayoutAlgorithm;
 import org.jungrapht.visualization.layout.model.Dimension;
 import org.jungrapht.visualization.layout.model.Rectangle;
 
-import ghidra.service.graph.AttributedEdge;
-import ghidra.service.graph.AttributedVertex;
+import java.util.function.Function;
 
 /**
  * Overridden to fix spacing issues on the vertical and horizontal axes.
  */
 public class JgtTidierTreeLayoutAlgorithm
-		extends TidierTreeLayoutAlgorithm<AttributedVertex, AttributedEdge> {
+        extends TidierTreeLayoutAlgorithm<AttributedVertex, AttributedEdge> {
 
-	@SuppressWarnings("unchecked")
-	public static Builder<?, ?> edgeAwareBuilder() {
-		return new Builder<>();
-	}
+    public JgtTidierTreeLayoutAlgorithm(Builder<?, ?> builder) {
+        super(builder);
 
-	public JgtTidierTreeLayoutAlgorithm(Builder<?, ?> builder) {
-		super(builder);
+        // when true, excess vertical space sometimes appears that users don't like
+        expandLayout = false;
+    }
 
-		// when true, excess vertical space sometimes appears that users don't like
-		expandLayout = false;
-	}
+    @SuppressWarnings("unchecked")
+    public static Builder<?, ?> edgeAwareBuilder() {
+        return new Builder<>();
+    }
 
-	@Override
-	protected <E> Dimension computeAverageVertexDimension(Graph<AttributedVertex, E> graph,
-			Function<AttributedVertex, Rectangle> shapeFunction) {
+    @Override
+    protected <E> Dimension computeAverageVertexDimension(Graph<AttributedVertex, E> graph,
+                                                          Function<AttributedVertex, Rectangle> shapeFunction) {
 
-		// The super call uses the average size of the vertices to create spacing.  Large vertices
-		// can cause a large amount of space to be used on the x axis. 
-		return Dimension.of(50, 50);
-	}
+        // The super call uses the average size of the vertices to create spacing.  Large vertices
+        // can cause a large amount of space to be used on the x axis.
+        return Dimension.of(50, 50);
+    }
 
-	//@formatter:off
+    //@formatter:off
 	public static class Builder<
 		T extends TidierTreeLayoutAlgorithm<AttributedVertex, AttributedEdge>,
 		B extends Builder<T, B>>

@@ -594,7 +594,7 @@ public class ErrLogDialog extends AbstractErrDialog {
 		}
 	}
 
-	private class MaxWidthHtmlLabel extends GHtmlLabel {
+	private static class MaxWidthHtmlLabel extends GHtmlLabel {
 
 		MaxWidthHtmlLabel(String text) {
 			super(text);

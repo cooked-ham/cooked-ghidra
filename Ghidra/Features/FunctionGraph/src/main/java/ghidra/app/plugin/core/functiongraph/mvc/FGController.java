@@ -1187,7 +1187,7 @@ public class FGController implements ProgramLocationListener, ProgramSelectionLi
 			highlighter.buttonPressed(location, fieldLocation, field, event);
 		}
 
-		private class FgMiddleMouseHighlightProvider extends ListingMiddleMouseHighlightProvider {
+		private static class FgMiddleMouseHighlightProvider extends ListingMiddleMouseHighlightProvider {
 
 			private Supplier<Component> repaintSupplier;
 

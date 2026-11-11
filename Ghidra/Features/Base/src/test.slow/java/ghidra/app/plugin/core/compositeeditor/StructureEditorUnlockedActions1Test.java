@@ -43,7 +43,7 @@ public class StructureEditorUnlockedActions1Test
 		checkSelection(new int[] { 2 });
 		assertEquals(getDataType(1), dt1);
 		assertTrue(getDataType(2).isEquivalent(new CharDataType()));
-		assertEquals(getDataType(3), DataType.DEFAULT);
+		assertEquals(DataType.DEFAULT, getDataType(3));
 		assertEquals(getDataType(4), dt3);
 
 		invoke(action, false);
@@ -79,7 +79,7 @@ public class StructureEditorUnlockedActions1Test
 		checkSelection(new int[] { 2 });
 		assertEquals(getDataType(1), dt1);
 		assertTrue(getDataType(2).isEquivalent(new CharDataType()));
-		assertEquals(getDataType(3), DataType.DEFAULT);
+		assertEquals(DataType.DEFAULT, getDataType(3));
 		assertEquals(getDataType(4), dt3);
 	}
 }

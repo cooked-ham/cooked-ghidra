@@ -82,7 +82,7 @@ public class DBTraceProgramViewEquate implements Equate {
 	@Override
 	public EquateReference[] getReferences() {
 		Collection<? extends TraceEquateReference> refs = equate.getReferences();
-		return refs.toArray(new EquateReference[refs.size()]);
+		return refs.toArray(new EquateReference[0]);
 	}
 
 	@Override

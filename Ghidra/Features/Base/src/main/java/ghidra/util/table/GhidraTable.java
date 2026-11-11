@@ -378,7 +378,7 @@ public class GhidraTable extends GTable {
 		}
 	}
 
-	private class GoToServiceProvider extends ServiceProviderStub {
+	private static class GoToServiceProvider extends ServiceProviderStub {
 
 		private GoToService goToService;
 

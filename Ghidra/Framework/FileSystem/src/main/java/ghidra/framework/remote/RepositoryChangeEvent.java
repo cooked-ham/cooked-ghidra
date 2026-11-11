@@ -15,6 +15,7 @@
  */
 package ghidra.framework.remote;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -22,6 +23,7 @@ import java.io.Serializable;
  */
 public class RepositoryChangeEvent implements Serializable {
 
+	@Serial
 	public final static long serialVersionUID = 1L;
 
 	public static final int REP_NULL_EVENT = -1;

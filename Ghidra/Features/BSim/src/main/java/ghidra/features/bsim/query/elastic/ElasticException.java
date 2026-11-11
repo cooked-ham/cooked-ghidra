@@ -15,8 +15,11 @@
  */
 package ghidra.features.bsim.query.elastic;
 
+import java.io.Serial;
+
 public class ElasticException extends Exception {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public ElasticException(String msg) {

@@ -580,7 +580,7 @@ public class TableChooserDialogTest extends AbstractGhidraHeadedIntegrationTest 
 		public boolean decide(AddressableRowObject rowObject);
 	}
 
-	private abstract class SpyExecutor implements TableChooserExecutor {
+	private static abstract class SpyExecutor implements TableChooserExecutor {
 		protected Map<AddressableRowObject, AtomicInteger> callbacks = new HashMap<>();
 
 		@Override
@@ -708,7 +708,7 @@ public class TableChooserDialogTest extends AbstractGhidraHeadedIntegrationTest 
 		}
 	}
 
-	private class TestAction extends DockingAction {
+	private static class TestAction extends DockingAction {
 
 		private int invoked;
 

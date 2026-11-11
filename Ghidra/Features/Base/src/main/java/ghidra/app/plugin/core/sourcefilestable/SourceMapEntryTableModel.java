@@ -123,7 +123,7 @@ public class SourceMapEntryTableModel extends GhidraProgramTableModel<SourceMapE
 		return baseAddress.add(length - 1);
 	}
 
-	private class BaseAddressTableColumn
+	private static class BaseAddressTableColumn
 			extends AbstractDynamicTableColumn<SourceMapEntryRowObject, Address, Object> {
 
 		@Override
@@ -153,7 +153,7 @@ public class SourceMapEntryTableModel extends GhidraProgramTableModel<SourceMapE
 		}
 	}
 
-	private class LengthTableColumn
+	private static class LengthTableColumn
 			extends AbstractDynamicTableColumn<SourceMapEntryRowObject, Long, Object> {
 
 		@Override
@@ -168,7 +168,7 @@ public class SourceMapEntryTableModel extends GhidraProgramTableModel<SourceMapE
 		}
 	}
 
-	private class LineNumberTableColumn
+	private static class LineNumberTableColumn
 			extends AbstractDynamicTableColumn<SourceMapEntryRowObject, Integer, Object> {
 
 		@Override
@@ -183,7 +183,7 @@ public class SourceMapEntryTableModel extends GhidraProgramTableModel<SourceMapE
 		}
 	}
 
-	private class CountTableColumn
+	private static class CountTableColumn
 			extends AbstractDynamicTableColumn<SourceMapEntryRowObject, Integer, Object> {
 
 		@Override

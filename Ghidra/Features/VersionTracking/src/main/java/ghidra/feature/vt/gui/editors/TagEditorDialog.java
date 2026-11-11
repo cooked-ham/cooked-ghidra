@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,16 +14,6 @@
  * limitations under the License.
  */
 package ghidra.feature.vt.gui.editors;
-
-import static ghidra.feature.vt.gui.editors.TagEditorDialog.TagState.Action.*;
-
-import java.awt.BorderLayout;
-import java.awt.event.*;
-import java.util.*;
-
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import docking.DialogComponentProvider;
 import docking.widgets.OptionDialog;
@@ -36,357 +26,361 @@ import ghidra.framework.model.TransactionInfo;
 import ghidra.program.model.listing.Program;
 import ghidra.util.Msg;
 import ghidra.util.exception.CancelledException;
-import ghidra.util.task.*;
+import ghidra.util.task.Task;
+import ghidra.util.task.TaskLauncher;
+import ghidra.util.task.TaskMonitor;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.util.*;
+import java.util.List;
+
+import static ghidra.feature.vt.gui.editors.TagEditorDialog.TagState.Action.*;
 
 public class TagEditorDialog extends DialogComponentProvider {
 
-	private final VTSession session;
-	private JList<TagState> list;
-	private TagStateListModel listModel;
+    private final VTSession session;
+    private JList<TagState> list;
+    private TagStateListModel listModel;
 
-	public TagEditorDialog(VTSession session) {
-		super("Tag Editor", true, true, true, false);
-		this.session = session;
+    public TagEditorDialog(VTSession session) {
+        super("Tag Editor", true, true, true, false);
+        this.session = session;
 
-		addWorkPanel(buildWorkPanel());
+        addWorkPanel(buildWorkPanel());
 
-		addOKButton();
-		addCancelButton();
+        addOKButton();
+        addCancelButton();
 
-		setPreferredSize(200, 400);
-	}
+        setPreferredSize(200, 400);
+    }
 
-	private JComponent buildWorkPanel() {
-		JPanel mainPanel = new JPanel(new BorderLayout());
+    private JComponent buildWorkPanel() {
+        JPanel mainPanel = new JPanel(new BorderLayout());
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.getAccessibleContext().setAccessibleName("Tag List");
-		listModel = new TagStateListModel(getTags());
-		list = new JList<>(listModel);
-		list.getAccessibleContext().setAccessibleName("Tag");
-		list.setBackground(scrollPane.getBackground());
-		list.setCellRenderer(new TagEditorRenderer(list, listModel));
-		list.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.getAccessibleContext().setAccessibleName("Tag List");
+        listModel = new TagStateListModel(getTags());
+        list = new JList<>(listModel);
+        list.getAccessibleContext().setAccessibleName("Tag");
+        list.setBackground(scrollPane.getBackground());
+        list.setCellRenderer(new TagEditorRenderer(list, listModel));
+        list.getSelectionModel().setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-		MouseAdapter mouseAdapter = new ListRendererMouseEventForwarder();
+        MouseAdapter mouseAdapter = new ListRendererMouseEventForwarder();
 
-		list.addMouseMotionListener(mouseAdapter);
-		list.addMouseListener(mouseAdapter);
+        list.addMouseMotionListener(mouseAdapter);
+        list.addMouseListener(mouseAdapter);
 
-		scrollPane.setViewportView(list);
-		mainPanel.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setViewportView(list);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
 
-		JButton addButton = new JButton("Add");
-		addButton.getAccessibleContext().setAccessibleName("Add");
-		addButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				TagState newState = createNewTag();
-				if (newState == null) {
-					return;
-				}
-				listModel.addElement(newState);
-				list.repaint();
-			}
+        JButton addButton = new JButton("Add");
+        addButton.getAccessibleContext().setAccessibleName("Add");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TagState newState = createNewTag();
+                if (newState == null) {
+                    return;
+                }
+                listModel.addElement(newState);
+                list.repaint();
+            }
 
-			private TagState createNewTag() {
-				String tagName = OptionDialog.showInputSingleLineDialog(getComponent(),
-					"Create Tag", "Enter tag name: ", "");
-				if (tagName == null || "".equals(tagName.trim())) {
-					return null;
-				}
-				return new TagState(tagName, new VTMatchTagImpl(tagName), ADD);
-			}
-		});
+            private TagState createNewTag() {
+                String tagName = OptionDialog.showInputSingleLineDialog(getComponent(),
+                        "Create Tag", "Enter tag name: ", "");
+                if (tagName == null || "".equals(tagName.trim())) {
+                    return null;
+                }
+                return new TagState(tagName, new VTMatchTagImpl(tagName), ADD);
+            }
+        });
 
-		final JButton deleteButton = new JButton("Delete");
-		deleteButton.getAccessibleContext().setAccessibleName("Delete");
-		deleteButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				List<TagState> selectedValues = list.getSelectedValuesList();
-				for (TagState state : selectedValues) {
-					Action action = state.getAction();
-					if (action == UNMODIFIED) {
-						// mark for deletion, but don't actually delete yet
-						state.setAction(DELETE);
-					}
-					else if (action == ADD) {
-						// just remove tags added by the user
-						listModel.removeElement(state);
-					}
-				}
-				list.repaint();
-			}
-		});
-		deleteButton.setEnabled(false);
+        final JButton deleteButton = new JButton("Delete");
+        deleteButton.getAccessibleContext().setAccessibleName("Delete");
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<TagState> selectedValues = list.getSelectedValuesList();
+                for (TagState state : selectedValues) {
+                    Action action = state.getAction();
+                    if (action == UNMODIFIED) {
+                        // mark for deletion, but don't actually delete yet
+                        state.setAction(DELETE);
+                    } else if (action == ADD) {
+                        // just remove tags added by the user
+                        listModel.removeElement(state);
+                    }
+                }
+                list.repaint();
+            }
+        });
+        deleteButton.setEnabled(false);
 
-		list.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				if (e.getValueIsAdjusting()) {
-					return;
-				}
+        list.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (e.getValueIsAdjusting()) {
+                    return;
+                }
 
-				int[] selectedIndices = list.getSelectedIndices();
-				if (selectedIndices == null || selectedIndices.length == 0) {
-					deleteButton.setEnabled(false);
-				}
-				else {
-					deleteButton.setEnabled(true);
-				}
-			}
-		});
+                int[] selectedIndices = list.getSelectedIndices();
+                if (selectedIndices == null || selectedIndices.length == 0) {
+                    deleteButton.setEnabled(false);
+                } else {
+                    deleteButton.setEnabled(true);
+                }
+            }
+        });
 
-		JPanel editPanel = new JPanel();
-		editPanel.getAccessibleContext().setAccessibleName("Edit");
-		editPanel.add(addButton);
-		editPanel.add(Box.createHorizontalStrut(5));
-		editPanel.add(deleteButton);
+        JPanel editPanel = new JPanel();
+        editPanel.getAccessibleContext().setAccessibleName("Edit");
+        editPanel.add(addButton);
+        editPanel.add(Box.createHorizontalStrut(5));
+        editPanel.add(deleteButton);
 
-		mainPanel.add(editPanel, BorderLayout.SOUTH);
-		mainPanel.getAccessibleContext().setAccessibleName("Tag Editor");
-		return mainPanel;
-	}
+        mainPanel.add(editPanel, BorderLayout.SOUTH);
+        mainPanel.getAccessibleContext().setAccessibleName("Tag Editor");
+        return mainPanel;
+    }
 
-	private Set<VTMatchTag> getTags() {
-		return session.getMatchTags();
-	}
+    private Set<VTMatchTag> getTags() {
+        return session.getMatchTags();
+    }
 
-	@Override
-	protected void okCallback() {
-		int size = listModel.getSize();
-		Set<TagState> tags = new HashSet<TagState>(size);
-		for (int i = 0; i < size; i++) {
-			tags.add(listModel.getElementAt(i));
-		}
+    @Override
+    protected void okCallback() {
+        int size = listModel.getSize();
+        Set<TagState> tags = new HashSet<TagState>(size);
+        for (int i = 0; i < size; i++) {
+            tags.add(listModel.getElementAt(i));
+        }
 
-		CommitTagEditsTask task = new CommitTagEditsTask(session, tags);
-		new TaskLauncher(task, getComponent());
-		close();
-	}
+        CommitTagEditsTask task = new CommitTagEditsTask(session, tags);
+        new TaskLauncher(task, getComponent());
+        close();
+    }
 
 //==================================================================================================
 // Inner Classes
 //==================================================================================================
 
-	class TagStateListModel extends AbstractListModel<TagState> {
+    static class TagStateListModel extends AbstractListModel<TagState> {
 
-		private List<TagState> data = new ArrayList<TagState>();
+        private List<TagState> data = new ArrayList<TagState>();
 
-		TagStateListModel(Set<VTMatchTag> tags) {
-			for (VTMatchTag tag : tags) {
-				addElement(new TagState(tag.getName(), tag, UNMODIFIED));
-			}
-		}
+        TagStateListModel(Set<VTMatchTag> tags) {
+            for (VTMatchTag tag : tags) {
+                addElement(new TagState(tag.getName(), tag, UNMODIFIED));
+            }
+        }
 
-		void addElement(TagState state) {
-			data.add(state);
-			Collections.sort(data);
-			fireContentsChanged(this, 0, getSize());
-		}
+        void addElement(TagState state) {
+            data.add(state);
+            Collections.sort(data);
+            fireContentsChanged(this, 0, getSize());
+        }
 
-		void removeElement(TagState state) {
-			int index = data.indexOf(state);
-			data.remove(state);
-			fireIntervalRemoved(state, index, index);
-		}
+        void removeElement(TagState state) {
+            int index = data.indexOf(state);
+            data.remove(state);
+            fireIntervalRemoved(state, index, index);
+        }
 
-		@Override
-		public TagState getElementAt(int index) {
-			return data.get(index);
-		}
+        @Override
+        public TagState getElementAt(int index) {
+            return data.get(index);
+        }
 
-		@Override
-		public int getSize() {
-			return data.size();
-		}
-	}
+        @Override
+        public int getSize() {
+            return data.size();
+        }
+    }
 
-	static class TagState implements Comparable<TagState> {
+    static class TagState implements Comparable<TagState> {
 
-		enum Action {
-			UNMODIFIED, ADD, DELETE
-		}
+        private final String tagName;
+        private VTMatchTag tag;
+        private Action action;
+        private boolean mousePressed;
+        TagState(String tagName, VTMatchTag tag, Action action) {
+            this.tagName = tagName;
+            this.tag = tag;
+            this.action = action;
+        }
 
-		private VTMatchTag tag;
-		private final String tagName;
-		private Action action;
-		private boolean mousePressed;
+        Action getAction() {
+            return action;
+        }
 
-		TagState(String tagName, VTMatchTag tag, Action action) {
-			this.tagName = tagName;
-			this.tag = tag;
-			this.action = action;
-		}
+        void setAction(Action action) {
+            this.action = action;
+        }
 
-		Action getAction() {
-			return action;
-		}
+        boolean isUnmodified() {
+            return action == UNMODIFIED;
+        }
 
-		boolean isUnmodified() {
-			return action == UNMODIFIED;
-		}
+        String getTagName() {
+            return tagName;
+        }
 
-		void setAction(Action action) {
-			this.action = action;
-		}
+        VTMatchTag getTag() {
+            return tag;
+        }
 
-		String getTagName() {
-			return tagName;
-		}
+        boolean isMousePressed() {
+            return mousePressed;
+        }
 
-		VTMatchTag getTag() {
-			return tag;
-		}
+        void setMousePressed(boolean pressed) {
+            mousePressed = pressed;
+        }
 
-		void setMousePressed(boolean pressed) {
-			mousePressed = pressed;
-		}
+        @Override
+        public int compareTo(TagState o) {
+            if (tagName == null) {
+                return o.tagName == null ? 0 : 1;
+            } else if (o.tagName == null) {
+                return -1;
+            }
 
-		boolean isMousePressed() {
-			return mousePressed;
-		}
+            return tagName.compareToIgnoreCase(o.tagName);
+        }
 
-		@Override
-		public int compareTo(TagState o) {
-			if (tagName == null) {
-				return o.tagName == null ? 0 : 1;
-			}
-			else if (o.tagName == null) {
-				return -1;
-			}
+        @Override
+        public String toString() {
+            return getClass().getSimpleName() + "[" + tagName + ", " + action + "]";
+        }
 
-			return tagName.compareToIgnoreCase(o.tagName);
-		}
+        public void restoreState() {
+            if (tag instanceof VTMatchTagImpl) {
+                // we are not yet created, so our state should go back to ADD
+                action = ADD;
+            } else {
+                // we exist, so our default state is unmodified
+                action = UNMODIFIED;
+            }
+        }
 
-		@Override
-		public String toString() {
-			return getClass().getSimpleName() + "[" + tagName + ", " + action + "]";
-		}
+        enum Action {
+            UNMODIFIED, ADD, DELETE
+        }
+    }
 
-		public void restoreState() {
-			if (tag instanceof VTMatchTagImpl) {
-				// we are not yet created, so our state should go back to ADD
-				action = ADD;
-			}
-			else {
-				// we exist, so our default state is unmodified
-				action = UNMODIFIED;
-			}
-		}
-	}
+    private static class VTMatchTagImpl implements VTMatchTag {
 
-	private class CommitTagEditsTask extends Task {
+        private final String name;
 
-		private final Set<TagState> tags;
+        VTMatchTagImpl(String name) {
+            this.name = name;
+        }
 
-		public CommitTagEditsTask(VTSession session, Set<TagState> tags) {
-			super("Commiting Tag Edits", true, true, true);
-			this.tags = tags;
-		}
+        @Override
+        public String getName() {
+            return name;
+        }
 
-		@Override
-		public void run(TaskMonitor monitor) {
-			boolean commit = true;
-			VTSessionDB sessionDB = (VTSessionDB) session;
-			Program program = sessionDB.getDestinationProgram();
+        @Override
+        public int compareTo(VTMatchTag o) {
+            return getName().compareTo(o.getName());
+        }
+    }
 
-			if (hasTransactionsOpen(sessionDB)) {
-				return;
-			}
+    private class CommitTagEditsTask extends Task {
 
-			int programTransactionID = program.startTransaction(getTaskTitle());
-			int matchSetTransactionID = sessionDB.startTransaction(getTaskTitle());
-			try {
-				doWork(monitor);
-			}
-			catch (CancelledException e) {
-				commit = false;
-			}
-			catch (Exception e) {
-				commit = false;
-				Msg.showError(this, null, "Unable to Set Match Tag",
-					"An unexpected error occurred attempting to set match tag.", e);
-			}
-			finally {
-				try {
-					program.endTransaction(programTransactionID, commit);
-				}
-				catch (Exception e) {
-					// don't care
-				}
-				finally {
-					sessionDB.endTransaction(matchSetTransactionID, commit);
-				}
-			}
-		}
+        private final Set<TagState> tags;
 
-		private void doWork(TaskMonitor monitor) throws CancelledException {
-			monitor.initialize(tags.size());
+        public CommitTagEditsTask(VTSession session, Set<TagState> tags) {
+            super("Commiting Tag Edits", true, true, true);
+            this.tags = tags;
+        }
 
-			for (TagState tagState : tags) {
-				monitor.checkCancelled();
-				switch (tagState.action) {
-					case ADD:
-						addTag(tagState.getTagName());
-						break;
-					case DELETE:
-						deleteTag(tagState.getTag());
-						break;
-					case UNMODIFIED:
-						// nothing to do
-				}
+        @Override
+        public void run(TaskMonitor monitor) {
+            boolean commit = true;
+            VTSessionDB sessionDB = (VTSessionDB) session;
+            Program program = sessionDB.getDestinationProgram();
 
-				monitor.incrementProgress(1);
-			}
-		}
+            if (hasTransactionsOpen(sessionDB)) {
+                return;
+            }
 
-		private void deleteTag(VTMatchTag tag) {
-			session.deleteMatchTag(tag);
-		}
+            int programTransactionID = program.startTransaction(getTaskTitle());
+            int matchSetTransactionID = sessionDB.startTransaction(getTaskTitle());
+            try {
+                doWork(monitor);
+            } catch (CancelledException e) {
+                commit = false;
+            } catch (Exception e) {
+                commit = false;
+                Msg.showError(this, null, "Unable to Set Match Tag",
+                        "An unexpected error occurred attempting to set match tag.", e);
+            } finally {
+                try {
+                    program.endTransaction(programTransactionID, commit);
+                } catch (Exception e) {
+                    // don't care
+                } finally {
+                    sessionDB.endTransaction(matchSetTransactionID, commit);
+                }
+            }
+        }
 
-		private void addTag(String tagName) {
-			session.createMatchTag(tagName);
-		}
+        private void doWork(TaskMonitor monitor) throws CancelledException {
+            monitor.initialize(tags.size());
 
-		private boolean hasTransactionsOpen(VTSessionDB sessionDB) {
-			Program program = sessionDB.getDestinationProgram();
-			TransactionInfo transaction = program.getCurrentTransactionInfo();
-			if (transaction != null) {
-				Msg.showWarn(this, null, "Unable to Set Match Tag",
-					"The program \"" + program.getName() + "\"already has a transaction open: " +
-						transaction.getDescription());
-				return true;
-			}
+            for (TagState tagState : tags) {
+                monitor.checkCancelled();
+                switch (tagState.action) {
+                    case ADD:
+                        addTag(tagState.getTagName());
+                        break;
+                    case DELETE:
+                        deleteTag(tagState.getTag());
+                        break;
+                    case UNMODIFIED:
+                        // nothing to do
+                }
 
-			TransactionInfo matchSetTransaction = sessionDB.getCurrentTransactionInfo();
-			if (matchSetTransaction != null) {
-				Msg.showWarn(this, null, "Unable to Set Match Tag",
-					"Transaction already open for the Match Set Manager ");
-				return true;
-			}
-			return false;
-		}
+                monitor.incrementProgress(1);
+            }
+        }
 
-	}
+        private void deleteTag(VTMatchTag tag) {
+            session.deleteMatchTag(tag);
+        }
 
-	private class VTMatchTagImpl implements VTMatchTag {
+        private void addTag(String tagName) {
+            session.createMatchTag(tagName);
+        }
 
-		private final String name;
+        private boolean hasTransactionsOpen(VTSessionDB sessionDB) {
+            Program program = sessionDB.getDestinationProgram();
+            TransactionInfo transaction = program.getCurrentTransactionInfo();
+            if (transaction != null) {
+                Msg.showWarn(this, null, "Unable to Set Match Tag",
+                        "The program \"" + program.getName() + "\"already has a transaction open: " +
+                                transaction.getDescription());
+                return true;
+            }
 
-		VTMatchTagImpl(String name) {
-			this.name = name;
-		}
+            TransactionInfo matchSetTransaction = sessionDB.getCurrentTransactionInfo();
+            if (matchSetTransaction != null) {
+                Msg.showWarn(this, null, "Unable to Set Match Tag",
+                        "Transaction already open for the Match Set Manager ");
+                return true;
+            }
+            return false;
+        }
 
-		@Override
-		public String getName() {
-			return name;
-		}
-
-		@Override
-		public int compareTo(VTMatchTag o) {
-			return getName().compareTo(o.getName());
-		}
-	}
+    }
 }

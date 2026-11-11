@@ -523,7 +523,7 @@ public class SimilarFunctionQueryService implements AutoCloseable {
 	 * No action is tacken for all results
 	 * @param <R> the final result implementation class.
 	 */
-	private class NullListener<R> implements SFResultsUpdateListener<R> {
+	private static class NullListener<R> implements SFResultsUpdateListener<R> {
 
 		@Override
 		public void resultAdded(QueryResponseRecord response) {

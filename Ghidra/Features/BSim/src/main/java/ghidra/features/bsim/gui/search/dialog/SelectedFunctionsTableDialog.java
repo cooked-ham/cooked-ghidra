@@ -123,7 +123,7 @@ public class SelectedFunctionsTableDialog extends DialogComponentProvider {
 			accumulator.addAll(functions);
 		}
 
-		private class SymbolNameColumn
+		private static class SymbolNameColumn
 				extends AbstractProgramBasedDynamicTableColumn<FunctionSymbol, String> {
 
 			@Override
@@ -166,7 +166,7 @@ public class SelectedFunctionsTableDialog extends DialogComponentProvider {
 			}
 		}
 
-		private class SymbolAddressColumn
+		private static class SymbolAddressColumn
 				extends AbstractProgramBasedDynamicTableColumn<FunctionSymbol, String> {
 
 			@Override

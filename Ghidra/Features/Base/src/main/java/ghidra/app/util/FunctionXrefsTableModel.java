@@ -98,7 +98,7 @@ public class FunctionXrefsTableModel extends ReferencesFromTableModel {
 // Inner Classes
 //=================================================================================================
 
-	private class ThunkIncomingReferenceEndpoint extends IncomingReferenceEndpoint {
+	private static class ThunkIncomingReferenceEndpoint extends IncomingReferenceEndpoint {
 
 		public ThunkIncomingReferenceEndpoint(Reference r, boolean isOffcut) {
 			super(r, isOffcut);

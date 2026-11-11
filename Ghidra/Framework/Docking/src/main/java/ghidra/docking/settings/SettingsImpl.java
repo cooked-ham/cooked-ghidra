@@ -15,6 +15,7 @@
  */
 package ghidra.docking.settings;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 import java.util.function.Predicate;
@@ -29,6 +30,7 @@ import ghidra.util.Msg;
  * Basic implementation of the Settings object
  */
 public class SettingsImpl implements Settings, Serializable {
+	@Serial
 	private final static long serialVersionUID = 1;
 
 	private Map<String, Object> map;

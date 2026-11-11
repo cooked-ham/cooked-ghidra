@@ -18,6 +18,7 @@ package ghidra.framework.remote;
 import java.io.IOException;
 import java.io.InvalidClassException;
 
+import java.io.Serial;
 import org.apache.commons.lang3.StringUtils;
 
 import ghidra.framework.store.FileSystem;
@@ -33,6 +34,7 @@ public class RepositoryItem implements java.io.Serializable {
 	// server.  The optional schema version if present can be used to identify the additional 
 	// serialized data which may following the schema version number.
 
+	@Serial
 	public final static long serialVersionUID = 2L;
 
 	private static final byte SERIALIZATION_SCHEMA_VERSION = 1;

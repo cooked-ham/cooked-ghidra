@@ -23,7 +23,7 @@ eclipse.project.name = 'Features WildcardAssembler'
 
 dependencies {
 
-	api project(':Base')
-	
-	testImplementation project(path: ':SoftwareModeling', configuration: 'testArtifacts')
+    api project(':Base')
+
+    testImplementation project(path: ':SoftwareModeling', configuration: 'testArtifacts')
 }

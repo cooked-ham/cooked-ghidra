@@ -231,8 +231,8 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 
 		waitForDialogToClose(dockingDialog);
 
-		assertTrue("The data type selection tree dialog was not closed after pressing OK.",
-			!dockingDialog.isValid());
+		assertFalse("The data type selection tree dialog was not closed after pressing OK.",
+			dockingDialog.isValid());
 
 		// make sure that the selected node can be retrieved
 		DataType dataType = (DataType) getInstanceField("selectedDataType", provider);
@@ -253,8 +253,8 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 		pressButton(cancelButton);
 		waitForDialogToClose(dockingDialog);
 
-		assertTrue("The data type selection tree dialog was not closed after pressing cancel.",
-			!dockingDialog.isValid());
+		assertFalse("The data type selection tree dialog was not closed after pressing cancel.",
+			dockingDialog.isValid());
 
 		assertTrue("Did not find the data type chooser tree",
 			(provider instanceof DataTypeChooserDialog));
@@ -277,8 +277,8 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 		JButton cancelButton = (JButton) getInstanceField("cancelButton", dialog);
 		pressButton(cancelButton);
 
-		assertTrue("The dialog did not close when the cancel button was pressed.",
-			!dialog.isVisible());
+		assertFalse("The dialog did not close when the cancel button was pressed.",
+			dialog.isVisible());
 
 		showDialogWithoutBlocking(tool, dialog);
 		assertTrue("The dialog was not made visible when tool.showDialog() was called.",
@@ -300,10 +300,10 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 
 		pressOKButtonToSelectChoice(okButton);
 
-		assertTrue(
+		assertFalse(
 			"The dialog was not closed after pressing the 'OK' button with a valid " +
 				"data type in the selection field.  Status text: " + dialog.getStatusText(),
-			!dialog.isVisible());
+			dialog.isVisible());
 	}
 
 	// the completion field within the dialog also uses the ESCAPE key, so we must make sure
@@ -374,8 +374,8 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 //        // fire the second enter key and make sure the dialog closes
 //        typeActionKey( 0, KeyEvent.VK_ENTER );
 
-		assertTrue("The data type selection dialog was not closed after pressing enter " +
-			"with no completion window open.", !dialog.isVisible());
+		assertFalse("The data type selection dialog was not closed after pressing enter " +
+			"with no completion window open.", dialog.isVisible());
 	}
 
 	@Test
@@ -920,8 +920,8 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 		JButton cancelButton = (JButton) getInstanceField("cancelButton", dialog);
 		pressButton(cancelButton);
 
-		assertTrue("The dialog did not close when the cancel button was pressed.",
-			!dialog.isVisible());
+		assertFalse("The dialog did not close when the cancel button was pressed.",
+			dialog.isVisible());
 
 		showDialogWithoutBlocking(tool, dialog);
 
@@ -950,9 +950,9 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 		if (hasMatches) {
 			String editorText = getEditorTextField(dialog).getText();
 			String statusText = dialog.getStatusText();
-			assertTrue("The dialog was not closed after pressing the 'OK' button with a valid " +
+			assertFalse("The dialog was not closed after pressing the 'OK' button with a valid " +
 				"data type in the selection field (" + text + ")." + "\nThe status text: " +
-				statusText + "\nEditor text: " + editorText, !dialog.isVisible());
+				statusText + "\nEditor text: " + editorText, dialog.isVisible());
 		}
 		else {
 			pressButton(cancelButton);
@@ -1024,7 +1024,7 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 	 * be hidden.  We need this due to focus issues encountered in parallel mode.  Once we removed
 	 * the focus-sensitive issues, we have to track being hidden using this mock method.
 	 */
-	private class SpyDropDownSelectionTextField extends DropDownSelectionTextField<DataType> {
+	private static class SpyDropDownSelectionTextField extends DropDownSelectionTextField<DataType> {
 
 		private volatile int hideId;
 
@@ -1042,7 +1042,7 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 		}
 	}
 
-	private class ReportingDataListener implements DataTypeManagerChangeListener {
+	private static class ReportingDataListener implements DataTypeManagerChangeListener {
 
 		@Override
 		public void categoryAdded(DataTypeManager dtm, CategoryPath path) {
@@ -1125,7 +1125,7 @@ public class DataTypeSelectionDialogTest extends AbstractGhidraHeadedIntegration
 		}
 	}
 
-	private class CustomDataType extends StructureDataType {
+	private static class CustomDataType extends StructureDataType {
 		public CustomDataType(CategoryPath path, String name, int length, DataTypeManager dtm) {
 			super(path, name, length, dtm);
 		}

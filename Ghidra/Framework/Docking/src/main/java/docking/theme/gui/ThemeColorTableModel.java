@@ -142,7 +142,7 @@ public class ThemeColorTableModel extends GDynamicColumnTableModel<ColorValue, O
 		return null;
 	}
 
-	private class IdColumn extends AbstractDynamicTableColumn<ColorValue, String, Object> {
+	private static class IdColumn extends AbstractDynamicTableColumn<ColorValue, String, Object> {
 
 		@Override
 		public String getColumnName() {
@@ -222,7 +222,7 @@ public class ThemeColorTableModel extends GDynamicColumnTableModel<ColorValue, O
 
 	}
 
-	private class ThemeColorRenderer extends AbstractGColumnRenderer<ResolvedColor> {
+	private static class ThemeColorRenderer extends AbstractGColumnRenderer<ResolvedColor> {
 
 		@Override
 		protected Font getDefaultFont() {

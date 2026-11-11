@@ -15,6 +15,7 @@
  */
 package ghidra.framework.model;
 
+import java.io.Serial;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -31,6 +32,7 @@ import java.util.function.Consumer;
 public class DomainObjectChangedEvent extends EventObject
 		implements Iterable<DomainObjectChangeRecord> {
 
+	@Serial
 	private final static long serialVersionUID = 1;
 
 	private List<DomainObjectChangeRecord> subEvents;

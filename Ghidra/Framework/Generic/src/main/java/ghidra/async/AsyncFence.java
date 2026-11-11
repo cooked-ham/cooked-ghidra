@@ -81,7 +81,7 @@ public class AsyncFence {
 	public synchronized CompletableFuture<Void> ready() {
 		if (ready == null) {
 			ready = CompletableFuture
-					.allOf((participants.toArray(new CompletableFuture[participants.size()])));
+					.allOf((participants.toArray(new CompletableFuture[0])));
 		}
 		return ready;
 	}

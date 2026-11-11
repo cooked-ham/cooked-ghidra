@@ -127,7 +127,7 @@ public class DecompilerStackProblemsFinderScript extends GhidraScript {
 		return rows;
 	}
 
-	class StackErrorConfigurer implements DecompileConfigurer {
+	static class StackErrorConfigurer implements DecompileConfigurer {
 		private Program p;
 
 		public StackErrorConfigurer(Program prog) {

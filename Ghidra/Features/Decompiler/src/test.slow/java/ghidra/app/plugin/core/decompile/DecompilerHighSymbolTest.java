@@ -135,8 +135,8 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		assertNull(codeSymbol);	// A DAT_ should not have a permanent CodeSymbol
 		Data data = highCode.getData();
 		assertNotNull(data);
-		assertEquals(data.getAddress().getOffset(), 0x10056a0L);
-		assertEquals(data.getBaseDataType().getLength(), 2);
+		assertEquals(0x10056a0L, data.getAddress().getOffset());
+		assertEquals(2, data.getBaseDataType().getLength());
 
 		renameGlobalVariable(highSymbol, token, "newGlobal");
 		waitForDecompiler();
@@ -197,7 +197,7 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		assertTrue(highSymbol.isNameLocked());
 		assertFalse(highSymbol.isTypeLocked());
 		assertEquals(numInst, variable.getInstances().length);
-		assertEquals(variable.getRepresentative().getAddress().getOffset(), 0xfffffffffffffff0L);
+		assertEquals(0xfffffffffffffff0L, variable.getRepresentative().getAddress().getOffset());
 		renameExisting(highSymbol, token, "nameAgain");
 	}
 
@@ -215,22 +215,22 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		HighFunction highFunction = getHighFunction();
 		LocalSymbolMap lsym = highFunction.getLocalSymbolMap();
 		HighSymbol highSymbol = lsym.findLocal(addr, null);
-		assertEquals(highSymbol.getName(), "local_44");
+		assertEquals("local_44", highSymbol.getName());
 		renameVariable(highSymbol, token, "newArray");
 		line = getLineStarting("wsprintfW");
 		token = line.getToken(loc);
 		assertTrue(token instanceof ClangVariableToken);
-		assertEquals(token.getText(), "newArray");		// Name has changed
+		assertEquals("newArray", token.getText());		// Name has changed
 		highFunction = getHighFunction();
 		lsym = highFunction.getLocalSymbolMap();
 		highSymbol = lsym.findLocal(addr, null);
-		assertEquals(highSymbol.getName(), "newArray");
+		assertEquals("newArray", highSymbol.getName());
 		assertTrue(highSymbol.isNameLocked());
 		assertFalse(highSymbol.isTypeLocked());
 		SymbolEntry entry = highSymbol.getFirstWholeMap();
 		assertTrue(entry instanceof MappedEntry);
 		assertEquals(entry.getStorage().getMinAddress(), addr);
-		assertEquals(entry.getSize(), 64);
+		assertEquals(64, entry.getSize());
 		renameExisting(highSymbol, token, "nameAgain");
 	}
 
@@ -247,7 +247,7 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		SymbolEntry entry = highSymbol.getFirstWholeMap();
 		Address addr = entry.getStorage().getMinAddress();
 		assertTrue(entry instanceof MappedEntry);		// Comes back initially as untied stack location
-		assertEquals(addr.getAddressSpace().getName(), "register");
+		assertEquals("register", addr.getAddressSpace().getName());
 		renameVariable(highSymbol, token, "newReg");
 		line = getLineContaining("newReg < 0x40");
 		assertNotNull(line);
@@ -256,7 +256,7 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		HighFunction highFunction = getHighFunction();
 		highSymbol = highFunction.getLocalSymbolMap().findLocal(addr, entry.getPCAdress());
 		assertNotNull(highSymbol);
-		assertEquals(highSymbol.getName(), "newReg");
+		assertEquals("newReg", highSymbol.getName());
 		assertTrue(highSymbol.isNameLocked());
 		assertFalse(highSymbol.isTypeLocked());
 		renameExisting(highSymbol, token, "nameAgain");
@@ -272,12 +272,12 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		HighVariable variable = token.getHighVariable();
 		assertTrue(variable instanceof HighParam);
 		HighSymbol highSymbol = variable.getSymbol();
-		assertEquals(highSymbol.getName(), "param_2");
+		assertEquals("param_2", highSymbol.getName());
 		assertTrue(highSymbol.isParameter());
-		assertEquals(highSymbol.getCategoryIndex(), 1);
+		assertEquals(1, highSymbol.getCategoryIndex());
 		SymbolEntry entry = highSymbol.getFirstWholeMap();
 		Address addr = entry.getStorage().getMinAddress();
-		assertEquals(addr.getOffset(), 8L);
+		assertEquals(8L, addr.getOffset());
 		renameExisting(highSymbol, token, "paramAgain");
 	}
 
@@ -298,7 +298,7 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		line = getLineContaining("0x4e");
 		token = line.getToken(loc);
 		assertTrue(token instanceof ClangVariableToken);
-		assertEquals(token.getText(), "newLocal");		// Name has changed
+		assertEquals("newLocal", token.getText());		// Name has changed
 		variable = token.getHighVariable();
 		highSymbol = variable.getSymbol();
 		entry = highSymbol.getFirstWholeMap();
@@ -325,7 +325,7 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 
 		HighVariable variable = token.getHighVariable();
 		assertTrue(variable instanceof HighParam);
-		assertEquals(((HighParam) variable).getSlot(), 3);
+		assertEquals(3, ((HighParam) variable).getSlot());
 
 		highSymbol = variable.getSymbol();
 		assertTrue(highSymbol.isNameLocked());
@@ -333,13 +333,13 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 
 		Function function = highSymbol.getHighFunction().getFunction();
 		Parameter[] parameters = function.getParameters();
-		assertEquals(parameters.length, 4);
+		assertEquals(4, parameters.length);
 		for (int i = 0; i < 4; ++i) {
 			DataType dt = parameters[i].getDataType();
 			assertTrue(Undefined.isUndefined(dt));
-			assertEquals(dt.getLength(), 4);
+			assertEquals(4, dt.getLength());
 		}
-		assertEquals(parameters[3].getName(), "newParam");
+		assertEquals("newParam", parameters[3].getName());
 	}
 
 	@Test
@@ -357,13 +357,13 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 				maxMerge = vn.getMergeGroup();
 			}
 		}
-		assertEquals(maxMerge, 1);		// Make sure there are 2 merge groups
+		assertEquals(1, maxMerge);		// Make sure there are 2 merge groups
 		String name = token.getText();
 		isolateVariable(variable.getSymbol(), token, name);
 		line = getLineContaining(" >> 1");
 		token = line.getToken(loc);
 		variable = token.getHighVariable();
-		assertEquals(variable.getInstances().length, 1);
+		assertEquals(1, variable.getInstances().length);
 		HighSymbol highSymbol = variable.getSymbol();
 		assertEquals(highSymbol.getName(), name);
 		assertTrue(highSymbol.isNameLocked());
@@ -386,8 +386,8 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		HighSymbol highSymbol = variable.getSymbol();
 		assertTrue(highSymbol instanceof EquateSymbol);
 		EquateSymbol eqSymbol = (EquateSymbol) highSymbol;
-		assertEquals(eqSymbol.getConvert(), EquateSymbol.FORMAT_BIN);
-		assertEquals(eqSymbol.getValue(), equateValue);
+		assertEquals(EquateSymbol.FORMAT_BIN, eqSymbol.getConvert());
+		assertEquals(equateValue, eqSymbol.getValue());
 	}
 
 	@Test
@@ -412,8 +412,8 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		HighSymbol highSymbol = variable.getSymbol();
 		assertTrue(highSymbol instanceof EquateSymbol);
 		EquateSymbol eqSymbol = (EquateSymbol) highSymbol;
-		assertEquals(eqSymbol.getConvert(), EquateSymbol.FORMAT_DEC);
-		assertEquals(eqSymbol.getValue(), convValue);
+		assertEquals(EquateSymbol.FORMAT_DEC, eqSymbol.getConvert());
+		assertEquals(convValue, eqSymbol.getValue());
 
 		line = getLineContaining("DAT_010056a8 = ");
 		loc = loc(line.getLineNumber(), 39);
@@ -424,8 +424,8 @@ public class DecompilerHighSymbolTest extends AbstractDecompilerTest {
 		highSymbol = variable.getSymbol();
 		assertTrue(highSymbol instanceof EquateSymbol);
 		eqSymbol = (EquateSymbol) highSymbol;
-		assertEquals(eqSymbol.getConvert(), 0);
-		assertEquals(eqSymbol.getValue(), eqValue);
+		assertEquals(0, eqSymbol.getConvert());
+		assertEquals(eqValue, eqSymbol.getValue());
 	}
 
 	@Test

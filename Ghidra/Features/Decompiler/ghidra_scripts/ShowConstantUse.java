@@ -345,7 +345,7 @@ public class ShowConstantUse extends GhidraScript {
 
 	// Object that gathers the constant used locations within the program
 	//
-	class ConstUseLocation implements AddressableRowObject {
+	static class ConstUseLocation implements AddressableRowObject {
 		private Program program;
 		private Address addr;
 		private Long constVal;
@@ -500,7 +500,7 @@ public class ShowConstantUse extends GhidraScript {
 	// These contains fields that are part of the back-tracking process if a
 	// variable is traced
 	// to the parameter of function, this is an entry for that location
-	public class FunctionParamUse {
+	public static class FunctionParamUse {
 		String name;
 		Address addr;
 		Integer paramIndex;

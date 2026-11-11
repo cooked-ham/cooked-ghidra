@@ -312,7 +312,7 @@ public class GThreadedTablePanel<T> extends JPanel {
 	 * This task monitor is shown in the GUI when the given threaded model of this class is
 	 * loading incrementally (see {@link ThreadedTableModel#isLoadIncrementally()}.
 	 */
-	private class IncrementalLoadingTaskMonitor extends TaskMonitorComponent {
+	private static class IncrementalLoadingTaskMonitor extends TaskMonitorComponent {
 
 		private final TaskMonitorComponent defaultMonitorComponent;
 

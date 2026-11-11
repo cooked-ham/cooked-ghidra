@@ -15,8 +15,13 @@
  */
 package ghidra.app.util.bin.format.macos.rm;
 
-import ghidra.app.util.bin.*;
-import ghidra.program.model.data.*;
+import ghidra.app.util.bin.BinaryReader;
+import ghidra.app.util.bin.StructConverter;
+import ghidra.app.util.bin.StructConverterUtil;
+import ghidra.program.model.data.DataType;
+import ghidra.program.model.data.StringDataType;
+import ghidra.program.model.data.Structure;
+import ghidra.program.model.data.StructureDataType;
 import ghidra.util.exception.DuplicateNameException;
 
 import java.io.IOException;
@@ -24,102 +29,103 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceType implements StructConverter {
-	private int type;
-	private byte [] _typeBytes;
-	private short numberOfResources;//minus 1
-	private short offsetToReferenceList;
+    private int type;
+    private byte[] _typeBytes;
+    private short numberOfResources;//minus 1
+    private short offsetToReferenceList;
 
-	private List<ReferenceListEntry> _referenceList = new ArrayList<ReferenceListEntry>();
-	private Object _resourceObject;
+    private List<ReferenceListEntry> _referenceList = new ArrayList<ReferenceListEntry>();
+    private Object _resourceObject;
 
-	ResourceType(BinaryReader reader, ResourceHeader header, ResourceMap map, long resourceTypeListStartIndex) throws IOException {
-		type = reader.peekNextInt();
-		_typeBytes = reader.readNextByteArray(4);
-		numberOfResources = reader.readNextShort();
-		offsetToReferenceList = reader.readNextShort();
+    ResourceType(BinaryReader reader, ResourceHeader header, ResourceMap map, long resourceTypeListStartIndex) throws IOException {
+        type = reader.peekNextInt();
+        _typeBytes = reader.readNextByteArray(4);
+        numberOfResources = reader.readNextShort();
+        offsetToReferenceList = reader.readNextShort();
 
-		parseReferenceList(reader, map);
+        parseReferenceList(reader, map);
 
-		_resourceObject = ResourceTypeFactory.getResourceObject(reader, header, this);
-	}
+        _resourceObject = ResourceTypeFactory.getResourceObject(reader, header, this);
+    }
 
-	private void parseReferenceList(BinaryReader reader, ResourceMap map) throws IOException {
-		long referenceListStartIndex = map.getMapStartIndex() + map.getResourceTypeListOffset() + offsetToReferenceList;
+    private void parseReferenceList(BinaryReader reader, ResourceMap map) throws IOException {
+        long referenceListStartIndex = map.getMapStartIndex() + map.getResourceTypeListOffset() + offsetToReferenceList;
 
-		long oldIndex = reader.getPointerIndex();
-		reader.setPointerIndex(referenceListStartIndex);
-		try {
-			for (int i = 0 ; i < numberOfResources + 1 ; ++i) {
-				_referenceList.add(new ReferenceListEntry(reader, map));
-			}
-		}
-		finally {
-			reader.setPointerIndex(oldIndex);
-		}
-	}
+        long oldIndex = reader.getPointerIndex();
+        reader.setPointerIndex(referenceListStartIndex);
+        try {
+            for (int i = 0; i < numberOfResources + 1; ++i) {
+                _referenceList.add(new ReferenceListEntry(reader, map));
+            }
+        } finally {
+            reader.setPointerIndex(oldIndex);
+        }
+    }
 
-	public Object getResourceObject() {
-		return _resourceObject;
-	}
+    public Object getResourceObject() {
+        return _resourceObject;
+    }
 
-	/**
-	 * Returns the resource type.
-	 * @return the resource type
-	 */
-	public int getType() {
-		return type;
-	}
+    /**
+     * Returns the resource type.
+     *
+     * @return the resource type
+     */
+    public int getType() {
+        return type;
+    }
 
-	public String getTypeAsString() {
-		if (isAscii()) {
-			return new String(_typeBytes);
-		}
-		return "0x"+Integer.toHexString(type);
-	}
+    public String getTypeAsString() {
+        if (isAscii()) {
+            return new String(_typeBytes);
+        }
+        return "0x" + Integer.toHexString(type);
+    }
 
-	/**
-	 * Returns the number of resources of this type
-	 * in map minus 1.
-	 * @return the number of resources
-	 */
-	public short getNumberOfResources() {
-		return numberOfResources;
-	}
+    /**
+     * Returns the number of resources of this type
+     * in map minus 1.
+     *
+     * @return the number of resources
+     */
+    public short getNumberOfResources() {
+        return numberOfResources;
+    }
 
-	/**
-	 * Returns the offset from the beginning of the 
-	 * resource type list to reference list for this type.
-	 * @return the offset to reference list
-	 */
-	public short getOffsetToReferenceList() {
-		return offsetToReferenceList;
-	}
+    /**
+     * Returns the offset from the beginning of the
+     * resource type list to reference list for this type.
+     *
+     * @return the offset to reference list
+     */
+    public short getOffsetToReferenceList() {
+        return offsetToReferenceList;
+    }
 
-	public List<ReferenceListEntry> getReferenceList() {
-		return _referenceList;
-	}
+    public List<ReferenceListEntry> getReferenceList() {
+        return _referenceList;
+    }
 
-	@Override
-	public DataType toDataType() throws DuplicateNameException, IOException {
-		String name = StructConverterUtil.parseName(ResourceType.class);
-		Structure struct = new StructureDataType(name, 0);
-		if (isAscii()) {
-			struct.add(new StringDataType(), 4, "type", null);
-		}
-		else {
-			struct.add(DWORD, "type", null);
-		}
-		struct.add(WORD, "numberOfResources", null);
-		struct.add(WORD, "offsetToReferenceList", null);
-		return struct;
-	}
+    @Override
+    public DataType toDataType() throws DuplicateNameException, IOException {
+        String name = StructConverterUtil.parseName(ResourceType.class);
+        Structure struct = new StructureDataType(name, 0);
+        if (isAscii()) {
+            struct.add(new StringDataType(), 4, "type", null);
+        } else {
+            struct.add(DWORD, "type", null);
+        }
+        struct.add(WORD, "numberOfResources", null);
+        struct.add(WORD, "offsetToReferenceList", null);
+        return struct;
+    }
 
-	private boolean isAscii() {
-		for (byte b : _typeBytes) {
-			if (b < ' ' || b > 126) {
-				return false;
-			}
-		}
-		return true;
-	}
+    private boolean isAscii() {
+        for (byte b : _typeBytes) {
+            if (b < ' ' || b > 126) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

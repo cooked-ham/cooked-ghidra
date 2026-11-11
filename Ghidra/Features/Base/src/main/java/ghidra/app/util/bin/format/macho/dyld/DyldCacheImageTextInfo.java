@@ -15,63 +15,66 @@
  */
 package ghidra.app.util.bin.format.macho.dyld;
 
-import java.io.IOException;
-
 import ghidra.app.util.bin.BinaryReader;
 import ghidra.app.util.bin.StructConverter;
 import ghidra.app.util.bin.format.macho.MachConstants;
-import ghidra.program.model.data.*;
+import ghidra.program.model.data.ArrayDataType;
+import ghidra.program.model.data.CategoryPath;
+import ghidra.program.model.data.DataType;
+import ghidra.program.model.data.StructureDataType;
 import ghidra.util.exception.DuplicateNameException;
+
+import java.io.IOException;
 
 /**
  * Represents a dyld_cache_image_text_info structure.
- * 
- * @see <a href="https://github.com/apple-oss-distributions/dyld/blob/main/include/mach-o/dyld_cache_format.h">dyld_cache_format.h</a> 
+ *
+ * @see <a href="https://github.com/apple-oss-distributions/dyld/blob/main/include/mach-o/dyld_cache_format.h">dyld_cache_format.h</a>
  */
 @SuppressWarnings("unused")
 public class DyldCacheImageTextInfo implements DyldCacheImage, StructConverter {
 
-	private byte[] uuid;
-	private long loadAddress;
-	private int textSegmentSize;
-	private int pathOffset;
+    private byte[] uuid;
+    private long loadAddress;
+    private int textSegmentSize;
+    private int pathOffset;
 
-	private String path;
+    private String path;
 
-	/**
-	 * Create a new {@link DyldCacheImageTextInfo}.
-	 * 
-	 * @param reader A {@link BinaryReader} positioned at the start of a DYLD image text info
-	 * @throws IOException if there was an IO-related problem creating the DYLD image text info
-	 */
-	public DyldCacheImageTextInfo(BinaryReader reader) throws IOException {
-		uuid = reader.readNextByteArray(16);
-		loadAddress = reader.readNextLong();
-		textSegmentSize = reader.readNextInt();
-		pathOffset = reader.readNextInt();
+    /**
+     * Create a new {@link DyldCacheImageTextInfo}.
+     *
+     * @param reader A {@link BinaryReader} positioned at the start of a DYLD image text info
+     * @throws IOException if there was an IO-related problem creating the DYLD image text info
+     */
+    public DyldCacheImageTextInfo(BinaryReader reader) throws IOException {
+        uuid = reader.readNextByteArray(16);
+        loadAddress = reader.readNextLong();
+        textSegmentSize = reader.readNextInt();
+        pathOffset = reader.readNextInt();
 
-		path = reader.readAsciiString(pathOffset);
-	}
-	
-	@Override
-	public long getAddress() {
-		return loadAddress;
-	}
+        path = reader.readAsciiString(pathOffset);
+    }
 
-	@Override
-	public String getPath() {
-		return path;
-	}
+    @Override
+    public long getAddress() {
+        return loadAddress;
+    }
 
-	@Override
-	public DataType toDataType() throws DuplicateNameException, IOException {
-		StructureDataType struct = new StructureDataType("dyld_cache_image_text_info", 0);
-		struct.add(new ArrayDataType(BYTE, 16, 1), "uuid", "");
-		struct.add(QWORD, "loadAddress", "");
-		struct.add(DWORD, "textSegmentSize", "");
-		struct.add(DWORD, "pathOffset", "");
-		struct.setCategoryPath(new CategoryPath(MachConstants.DATA_TYPE_CATEGORY));
-		return struct;
-	}
+    @Override
+    public String getPath() {
+        return path;
+    }
+
+    @Override
+    public DataType toDataType() throws DuplicateNameException, IOException {
+        StructureDataType struct = new StructureDataType("dyld_cache_image_text_info", 0);
+        struct.add(new ArrayDataType(BYTE, 16, 1), "uuid", "");
+        struct.add(QWORD, "loadAddress", "");
+        struct.add(DWORD, "textSegmentSize", "");
+        struct.add(DWORD, "pathOffset", "");
+        struct.setCategoryPath(new CategoryPath(MachConstants.DATA_TYPE_CATEGORY));
+        return struct;
+    }
 }
 

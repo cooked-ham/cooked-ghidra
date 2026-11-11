@@ -982,7 +982,7 @@ public class VisualGraphPathHighlighter<V extends VisualVertex, E extends Visual
 	 * A class meant to run in the hover RunManager that is slow or open-ended.  Work will
 	 * be performed as long as possible, updating results along the way.  
 	 */
-	private class SlowSetHoveredEdgesRunnable implements MonitoredRunnable {
+	private static class SlowSetHoveredEdgesRunnable implements MonitoredRunnable {
 
 		private Callback callback;
 

@@ -1016,7 +1016,7 @@ public class OptionsGui extends JPanel {
 		}
 	}
 
-	private class ScreenElementTextField extends ClippingTextField {
+	private static class ScreenElementTextField extends ClippingTextField {
 		private ScreenElement screenElement;
 
 		ScreenElementTextField(ScreenElement screenElement, int startX, int length,

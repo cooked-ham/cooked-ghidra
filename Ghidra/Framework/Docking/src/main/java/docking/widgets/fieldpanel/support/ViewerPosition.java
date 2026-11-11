@@ -15,6 +15,7 @@
  */
 package docking.widgets.fieldpanel.support;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigInteger;
 
@@ -24,6 +25,7 @@ import java.math.BigInteger;
 
 public class ViewerPosition implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1;
  
 	private BigInteger index;

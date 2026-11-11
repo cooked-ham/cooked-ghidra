@@ -62,7 +62,7 @@ public class CliBlobCustomAttrib extends CliBlob {
 	private static final int CLIBLOBCUSTOMATTRIB_UTF8_LOW = 0x1F;
 	private static final int CLIBLOBCUSTOMATTRIB_UTF8_HIGH = 0x7F;
 
-	private class CliFixedArg {
+	private static class CliFixedArg {
 		private CliElementType elem;
 		private Object value;
 
@@ -80,7 +80,7 @@ public class CliBlobCustomAttrib extends CliBlob {
 		}
 	}
 
-	private class CliNamedArg {
+	private static class CliNamedArg {
 		private int fieldOrProp;
 		private CliElementType fieldOrPropType;
 		private String fieldOrPropName;

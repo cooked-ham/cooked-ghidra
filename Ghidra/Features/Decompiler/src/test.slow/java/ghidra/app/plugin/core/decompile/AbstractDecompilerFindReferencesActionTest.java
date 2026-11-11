@@ -226,7 +226,7 @@ public abstract class AbstractDecompilerFindReferencesActionTest extends Abstrac
 		}
 	}
 
-	public class SpyLocationReferencesService implements LocationReferencesService {
+	public static class SpyLocationReferencesService implements LocationReferencesService {
 
 		private AtomicInteger showReferencesCallCount = new AtomicInteger();
 		private LocationReferencesService lrService;

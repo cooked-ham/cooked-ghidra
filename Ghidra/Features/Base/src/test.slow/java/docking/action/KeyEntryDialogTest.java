@@ -68,7 +68,7 @@ public class KeyEntryDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		pressDialogOK();
 		acceleratorKey = unboundAction.getKeyBinding();
 		assertNotNull(acceleratorKey);
-		assertEquals(acceleratorKey.getKeyCode(), KeyEvent.VK_Q);
+		assertEquals(KeyEvent.VK_Q, acceleratorKey.getKeyCode());
 
 		// clear the action
 		showDialog(unboundAction);
@@ -89,7 +89,7 @@ public class KeyEntryDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		pressDialogOK();
 		acceleratorKey = boundAction.getKeyBinding();
 		assertNotNull(acceleratorKey);
-		assertEquals(acceleratorKey.getKeyCode(), KeyEvent.VK_Q);
+		assertEquals(KeyEvent.VK_Q, acceleratorKey.getKeyCode());
 	}
 
 	@Test
@@ -158,7 +158,7 @@ public class KeyEntryDialogTest extends AbstractGhidraHeadedIntegrationTest {
 
 		KeyStroke acceleratorKey = unboundAction.getKeyBinding();
 		assertNotNull(acceleratorKey);
-		assertEquals(acceleratorKey.getKeyCode(), KeyEvent.VK_G);
+		assertEquals(KeyEvent.VK_G, acceleratorKey.getKeyCode());
 	}
 
 	@Test
@@ -174,7 +174,7 @@ public class KeyEntryDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		KeyStroke keyBindingKeyStroke = KeyStroke.getKeyStroke(KeyEvent.VK_F4, 0);
 		triggerActionKey(keyEntryField, keyBindingKeyStroke.getModifiers(),
 			keyBindingKeyStroke.getKeyCode());
-		assertEquals(keyEntryDialog.getStatusText().trim(), "");
+		assertEquals("", keyEntryDialog.getStatusText().trim());
 
 		pressButton(clearButton);
 		triggerText(keyEntryField, "g");
@@ -182,7 +182,7 @@ public class KeyEntryDialogTest extends AbstractGhidraHeadedIntegrationTest {
 
 		KeyStroke acceleratorKey = unboundAction.getKeyBinding();
 		assertNotNull(acceleratorKey);
-		assertEquals(acceleratorKey.getKeyCode(), KeyEvent.VK_G);
+		assertEquals(KeyEvent.VK_G, acceleratorKey.getKeyCode());
 	}
 
 	@Test

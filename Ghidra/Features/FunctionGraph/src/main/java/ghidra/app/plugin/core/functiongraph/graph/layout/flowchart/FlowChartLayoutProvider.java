@@ -15,8 +15,6 @@
  */
 package ghidra.app.plugin.core.functiongraph.graph.layout.flowchart;
 
-import javax.swing.Icon;
-
 import generic.theme.GIcon;
 import ghidra.app.plugin.core.functiongraph.graph.FunctionGraph;
 import ghidra.app.plugin.core.functiongraph.graph.layout.FGLayout;
@@ -25,36 +23,38 @@ import ghidra.util.HelpLocation;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
 
+import javax.swing.*;
+
 /**
  * Makes the Flow Chart Layout available for the function graph feature.
  */
 public class FlowChartLayoutProvider extends FGLayoutProviderExtensionPoint {
-	private static final Icon ICON = new GIcon("icon.plugin.functiongraph.layout.flowchart");
+    private static final Icon ICON = new GIcon("icon.plugin.functiongraph.layout.flowchart");
 
-	@Override
-	public String getLayoutName() {
-		return "Flow Chart";
-	}
+    @Override
+    public String getLayoutName() {
+        return "Flow Chart";
+    }
 
-	@Override
-	public Icon getActionIcon() {
-		return ICON;
-	}
+    @Override
+    public Icon getActionIcon() {
+        return ICON;
+    }
 
-	@Override
-	public int getPriorityLevel() {
-		return 140;
-	}
+    @Override
+    public int getPriorityLevel() {
+        return 140;
+    }
 
-	@Override
-	public FGLayout getFGLayout(FunctionGraph graph, TaskMonitor monitor)
-			throws CancelledException {
-		return new FGFlowChartLayout(graph, false);
-	}
+    @Override
+    public FGLayout getFGLayout(FunctionGraph graph, TaskMonitor monitor)
+            throws CancelledException {
+        return new FGFlowChartLayout(graph, false);
+    }
 
-	@Override
-	public HelpLocation getHelpLocation() {
-		return new HelpLocation("FunctionGraphPlugin", "Flow_Chart_Layout");
-	}
+    @Override
+    public HelpLocation getHelpLocation() {
+        return new HelpLocation("FunctionGraphPlugin", "Flow_Chart_Layout");
+    }
 
 }

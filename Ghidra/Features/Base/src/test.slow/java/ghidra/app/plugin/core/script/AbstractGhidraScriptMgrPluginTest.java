@@ -261,8 +261,8 @@ public abstract class AbstractGhidraScriptMgrPluginTest
 		assertNotNull(newFile);
 
 		JTextField textField = (JTextField) getInstanceField("nameField", saveDialog);
-		assertTrue("New script dialog did not close.  Message: " + saveDialog.getStatusText() +
-			" - text: " + textField.getText(), !saveDialog.isShowing());
+		assertFalse("New script dialog did not close.  Message: " + saveDialog.getStatusText() +
+			" - text: " + textField.getText(), saveDialog.isShowing());
 
 		return newFile;
 	}
@@ -1563,7 +1563,7 @@ public abstract class AbstractGhidraScriptMgrPluginTest
 // Inner Classes
 //==================================================================================================
 
-	protected class TaskListenerFlag implements TrackedTaskListener {
+	protected static class TaskListenerFlag implements TrackedTaskListener {
 
 		protected String taskName;
 		volatile boolean ended;
@@ -1591,7 +1591,7 @@ public abstract class AbstractGhidraScriptMgrPluginTest
 		}
 	}
 
-	protected class TestChangeProgramScript extends GhidraScript {
+	protected static class TestChangeProgramScript extends GhidraScript {
 
 		protected CountDownLatch startedLatch = new CountDownLatch(1);
 		protected CountDownLatch doneLatch = new CountDownLatch(1);

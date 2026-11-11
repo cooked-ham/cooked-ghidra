@@ -215,7 +215,7 @@ public class RStarPlotProvider extends ComponentProviderAdapter {
 		return component;
 	}
 
-	private abstract class MyPainter implements Painter {
+	private static abstract class MyPainter implements Painter {
 		private final double xScale;
 		private final double yScale;
 		private final long xShift;

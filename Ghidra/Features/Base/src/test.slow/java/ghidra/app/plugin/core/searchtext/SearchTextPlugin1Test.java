@@ -863,7 +863,7 @@ public class SearchTextPlugin1Test extends AbstractGhidraHeadedIntegrationTest {
 
 		ProgramSelection sel = cbPlugin.getCurrentSelection();
 		assertNotNull(sel);
-		assertTrue(!sel.isEmpty());
+		assertFalse(sel.isEmpty());
 		assertEquals(set, sel);
 
 		JCheckBox cb = (JCheckBox) findButton(container, "Search Selection");

@@ -44,7 +44,7 @@ public final class MultiDexLinker implements AutoCloseable {
 	private Map<DexHeader, Map<ClassMethodPrototype, Integer>> cmpMap = new HashMap<>();
 	private Map<Program, List<Address>> changeMap = new HashMap<>();
 
-	private class ClassMethodPrototype {
+	private static class ClassMethodPrototype {
 		private final String className;
 		private final String methodName;
 		private final String prototype;
@@ -72,7 +72,7 @@ public final class MultiDexLinker implements AutoCloseable {
 		}
 	}
 
-	private class ProgramAddress {
+	private static class ProgramAddress {
 		private final Program program;
 		private final Address address;
 

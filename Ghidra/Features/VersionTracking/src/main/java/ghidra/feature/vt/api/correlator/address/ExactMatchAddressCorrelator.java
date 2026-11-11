@@ -15,9 +15,9 @@
  */
 package ghidra.feature.vt.api.correlator.address;
 
-import java.util.List;
-
-import ghidra.feature.vt.api.correlator.program.*;
+import ghidra.feature.vt.api.correlator.program.ExactMatchBytesProgramCorrelatorFactory;
+import ghidra.feature.vt.api.correlator.program.ExactMatchInstructionsProgramCorrelatorFactory;
+import ghidra.feature.vt.api.correlator.program.ExactMatchMnemonicsProgramCorrelatorFactory;
 import ghidra.feature.vt.api.impl.VTProgramCorrelatorInfo;
 import ghidra.feature.vt.api.main.*;
 import ghidra.feature.vt.gui.plugin.VTSessionSupplier;
@@ -28,61 +28,63 @@ import ghidra.program.model.listing.Function;
 import ghidra.program.util.AddressCorrelation;
 import ghidra.program.util.AddressCorrelator;
 
+import java.util.List;
+
 public class ExactMatchAddressCorrelator implements AddressCorrelator {
 
-	private static final String CORRELATOR_NAME = "ExactMatchAddressCorrelator";
-	private ToolOptions options = new ToolOptions(CORRELATOR_NAME);
-	private VTSessionSupplier sessionSupplier;
+    private static final String CORRELATOR_NAME = "ExactMatchAddressCorrelator";
+    private ToolOptions options = new ToolOptions(CORRELATOR_NAME);
+    private VTSessionSupplier sessionSupplier;
 
-	public ExactMatchAddressCorrelator(VTSessionSupplier sessionSupplier) {
-		this.sessionSupplier = sessionSupplier;
-	}
+    public ExactMatchAddressCorrelator(VTSessionSupplier sessionSupplier) {
+        this.sessionSupplier = sessionSupplier;
+    }
 
-	@Override
-	public synchronized AddressCorrelation correlate(Function sourceFunction,
-			Function destinationFunction) {
+    @Override
+    public synchronized AddressCorrelation correlate(Function sourceFunction,
+                                                     Function destinationFunction) {
 
-		VTSession session = sessionSupplier.getSession();
-		VTAssociationManager associationManager = session.getAssociationManager();
-		VTAssociation association = associationManager.getAssociation(
-			sourceFunction.getEntryPoint(), destinationFunction.getEntryPoint());
-		List<VTMatch> matches = session.getMatches(association);
-		for (VTMatch match : matches) {
-			VTMatchSet matchSet = match.getMatchSet();
-			VTProgramCorrelatorInfo info = matchSet.getProgramCorrelatorInfo();
-			String correlatorName = info.getName();
-			if (correlatorName.equals(ExactMatchBytesProgramCorrelatorFactory.EXACT_MATCH) ||
-				correlatorName.equals(ExactMatchInstructionsProgramCorrelatorFactory.EXACT_MATCH) ||
-				correlatorName.equals(ExactMatchMnemonicsProgramCorrelatorFactory.EXACT_MATCH)) {
-				return new StraightLineCorrelation(sourceFunction, destinationFunction);
-			}
-		}
+        VTSession session = sessionSupplier.getSession();
+        VTAssociationManager associationManager = session.getAssociationManager();
+        VTAssociation association = associationManager.getAssociation(
+                sourceFunction.getEntryPoint(), destinationFunction.getEntryPoint());
+        List<VTMatch> matches = session.getMatches(association);
+        for (VTMatch match : matches) {
+            VTMatchSet matchSet = match.getMatchSet();
+            VTProgramCorrelatorInfo info = matchSet.getProgramCorrelatorInfo();
+            String correlatorName = info.getName();
+            if (correlatorName.equals(ExactMatchBytesProgramCorrelatorFactory.EXACT_MATCH) ||
+                    correlatorName.equals(ExactMatchInstructionsProgramCorrelatorFactory.EXACT_MATCH) ||
+                    correlatorName.equals(ExactMatchMnemonicsProgramCorrelatorFactory.EXACT_MATCH)) {
+                return new StraightLineCorrelation(sourceFunction, destinationFunction);
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public AddressCorrelation correlate(Data sourceData, Data destinationData) {
-		return null;
-	}
+    @Override
+    public AddressCorrelation correlate(Data sourceData, Data destinationData) {
+        return null;
+    }
 
-	@Override
-	public ToolOptions getOptions() {
-		return options;
-	}
+    @Override
+    public ToolOptions getOptions() {
+        return options;
+    }
 
-	@Override
-	public void setOptions(ToolOptions options) {
-		this.options = options.copy();
-	}
+    @Override
+    public void setOptions(ToolOptions options) {
+        this.options = options.copy();
+    }
 
-	@Override
-	public Options getDefaultOptions() {
-		return new ToolOptions(CORRELATOR_NAME);
-	}
+    @Override
+    public Options getDefaultOptions() {
+        return new ToolOptions(CORRELATOR_NAME);
+    }
 
-	@Override
-	public int getPriority() {
-		return EARLY_PRIORITY;
-	}
+    @Override
+    public int getPriority() {
+        return EARLY_PRIORITY;
+    }
 }

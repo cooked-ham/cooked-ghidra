@@ -383,7 +383,7 @@ public class CategoryMerge4Test extends AbstractDataTypeMergeTest {
 
 		waitForCompletion();
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MY_MISC")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MY_MISC")));
 		assertTrue(dtm.containsCategory(new CategoryPath("/MISC_TEMP")));
 		Category c = dtm.getCategory(new CategoryPath("/MISC_TEMP"));
 		DataType[] dts = c.getDataTypes();
@@ -814,7 +814,7 @@ public class CategoryMerge4Test extends AbstractDataTypeMergeTest {
 		}
 		waitForCompletion();
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC")));
 		Category c2 = dtm.getCategory(new CategoryPath("/Category1/Category2"));
 		DataType[] dts = c2.getDataTypes();
 		int count = 0;
@@ -868,7 +868,7 @@ public class CategoryMerge4Test extends AbstractDataTypeMergeTest {
 		for (int i = 0; i < 7; i++) {
 			chooseOption(DataTypeMergeManager.OPTION_LATEST);// LATEST data type 
 		}
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC")));
 		Category c2 = dtm.getCategory(new CategoryPath("/Category1/Category2"));
 		DataType[] dts = c2.getDataTypes();
 		int count = 0;
@@ -931,7 +931,7 @@ public class CategoryMerge4Test extends AbstractDataTypeMergeTest {
 		}
 		waitForCompletion();
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC")));
 		Category c2 = dtm.getCategory(new CategoryPath("/Category1/Category2"));
 		DataType[] dts = c2.getDataTypes();
 		int count = 0;
@@ -1138,7 +1138,7 @@ public class CategoryMerge4Test extends AbstractDataTypeMergeTest {
 		executeMerge(true);
 		DataTypeManager dtm = resultProgram.getDataTypeManager();
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC")));
 		assertTrue(dtm.containsCategory(new CategoryPath("/Category1/Category2/MISC")));
 		Category misc = dtm.getCategory(new CategoryPath("/MISC"));
 		assertNull(misc);
@@ -1185,7 +1185,7 @@ public class CategoryMerge4Test extends AbstractDataTypeMergeTest {
 		executeMerge(true);
 		DataTypeManager dtm = resultProgram.getDataTypeManager();
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC")));
 		assertTrue(dtm.containsCategory(new CategoryPath("/Category1/Category2/MISC")));
 		Category misc = dtm.getCategory(new CategoryPath("/Category1/Category2/MISC"));
 		assertEquals(0, misc.getDataTypes().length);
@@ -1242,7 +1242,7 @@ public class CategoryMerge4Test extends AbstractDataTypeMergeTest {
 
 		waitForCompletion();
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MY_A")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MY_A")));
 		assertTrue(dtm.containsCategory(new CategoryPath("/A_TEMP")));
 		Category c = dtm.getCategory(new CategoryPath("/A_TEMP"));
 		Category[] cats = c.getCategories();
@@ -1305,7 +1305,7 @@ public class CategoryMerge4Test extends AbstractDataTypeMergeTest {
 		waitForCompletion();
 
 		assertTrue(dtm.containsCategory(new CategoryPath("/MY_A")));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/A_TEMP")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/A_TEMP")));
 		Category c = dtm.getCategory(new CategoryPath("/MY_A"));
 		Category[] cats = c.getCategories();
 		assertEquals(2, cats.length);

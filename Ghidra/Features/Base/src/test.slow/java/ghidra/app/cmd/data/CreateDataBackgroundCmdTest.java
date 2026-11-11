@@ -106,7 +106,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 		Address addr1 = addr(UNDEFINED_AREA);
 		Data d = listing.getDataAt(addr1);
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		Address addr2 = addr(INSTRUCTION_AREA);
 		Instruction instr = listing.getInstructionAt(addr2);
@@ -121,7 +121,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr1);
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		instr = listing.getInstructionAt(addr2);
 		assertNotNull(instr);
@@ -134,7 +134,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 		Address addr = addr(UNDEFINED_AREA);
 		Data d = listing.getDataAt(addr);
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		AddressSet set = new AddressSet(addr, addr(UNDEFINED_AREA + 8));
 
@@ -155,7 +155,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr(UNDEFINED_AREA + 9));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 	}
 
 	@Test
@@ -164,7 +164,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 		Address addr = addr(UNDEFINED_AREA);
 		Data d = listing.getDataAt(addr);
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		AddressSet set = new AddressSet(addr, addr(UNDEFINED_AREA + 8));
 
@@ -189,7 +189,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr(UNDEFINED_AREA + 10));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 	}
 
@@ -199,7 +199,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 		Address addr = addr(UNDEFINED_AREA);
 		Data d = listing.getDataAt(addr);
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		AddressSet set = new AddressSet(addr, addr(UNDEFINED_AREA + 8));
 
@@ -227,7 +227,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr(UNDEFINED_AREA + 8));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 	}
 
@@ -249,7 +249,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr(STRING_AREA1 + 17));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		d = listing.getDataAt(addr2);
 		assertNotNull(d);
@@ -259,7 +259,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr(STRING_AREA2 + 5));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 	}
 
 	@Test
@@ -292,7 +292,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr1.add(15));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		d = listing.getDataAt(addr2);
 		assertNotNull(d);
@@ -302,7 +302,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr2.add(11));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 	}
 
 	@Test
@@ -329,7 +329,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr(UNICODE_AREA2 + 12));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 	}
 
 	@Test
@@ -357,7 +357,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr1.add(25));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		d = listing.getDataAt(addr2);
 		assertNotNull(d);
@@ -367,7 +367,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr(UNICODE_AREA2 + 12));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 	}
 
 	@Test
@@ -376,7 +376,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 		Address addr = addr(UNDEFINED_AREA);
 		Data d = listing.getDataAt(addr);
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		AddressSet set = new AddressSet(addr, addr(UNDEFINED_AREA + 8));
 
@@ -400,7 +400,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr(UNDEFINED_AREA + 12));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 	}
 
 	@Test
@@ -409,7 +409,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 		Address addr = addr(UNDEFINED_AREA);
 		Data d = listing.getDataAt(addr);
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 		CreateDataCmd cmd = new CreateDataCmd(addr(UNDEFINED_AREA), new PointerDataType());
 		cmd.applyTo(program);
@@ -436,7 +436,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		d = listing.getDataAt(addr(UNDEFINED_AREA + 12));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 	}
 
@@ -470,7 +470,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		Data d = listing.getDataAt(addr(UNDEFINED_AREA + 12));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 
 	}
 
@@ -522,7 +522,7 @@ public class CreateDataBackgroundCmdTest extends AbstractGhidraHeadedIntegration
 
 		Data d = listing.getDataAt(addr(UNDEFINED_AREA + 10));
 		assertNotNull(d);
-		assertTrue(!d.isDefined());
+		assertFalse(d.isDefined());
 	}
 
 }

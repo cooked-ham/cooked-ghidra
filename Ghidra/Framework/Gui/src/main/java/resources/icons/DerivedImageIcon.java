@@ -15,84 +15,83 @@
  */
 package resources.icons;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.util.Objects;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import generic.theme.GIcon;
 import generic.util.image.ImageUtils;
 import resources.ResourceManager;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 /**
  * {@link LazyImageIcon} that is created from an {@link Icon} or an {@link Image}
  */
 public class DerivedImageIcon extends LazyImageIcon {
-	private Icon sourceIcon;
-	private Image sourceImage;
-	private Icon cachedDelegate;
+    private Icon sourceIcon;
+    private Image sourceImage;
+    private Icon cachedDelegate;
 
-	/**
-	 * Constructor for deriving from an icon
-	 * @param icon the source icon
-	 */
-	public DerivedImageIcon(Icon icon) {
-		super(ResourceManager.getIconName(icon));
-		this.sourceIcon = Objects.requireNonNull(icon);
-	}
+    /**
+     * Constructor for deriving from an icon
+     *
+     * @param icon the source icon
+     */
+    public DerivedImageIcon(Icon icon) {
+        super(ResourceManager.getIconName(icon));
+        this.sourceIcon = Objects.requireNonNull(icon);
+    }
 
-	/**
-	 * Constructor for deriving from an image
-	 * @param name the name of the image
-	 * @param image the source image
-	 */
-	public DerivedImageIcon(String name, Image image) {
-		super(name);
-		this.sourceImage = Objects.requireNonNull(image);
-	}
+    /**
+     * Constructor for deriving from an image
+     *
+     * @param name  the name of the image
+     * @param image the source image
+     */
+    public DerivedImageIcon(String name, Image image) {
+        super(name);
+        this.sourceImage = Objects.requireNonNull(image);
+    }
 
-	public Icon getSourceIcon() {
-		return sourceIcon;
-	}
+    public Icon getSourceIcon() {
+        return sourceIcon;
+    }
 
-	@Override
-	protected boolean sourceIconChanged() {
-		if (sourceIcon instanceof GIcon gIcon) {
-			if (cachedDelegate != gIcon.getDelegate()) {
-				cachedDelegate = gIcon.getDelegate();
-				return true;
-			}
-		}
-		return false;
-	}
+    @Override
+    protected boolean sourceIconChanged() {
+        if (sourceIcon instanceof GIcon gIcon) {
+            if (cachedDelegate != gIcon.getDelegate()) {
+                cachedDelegate = gIcon.getDelegate();
+                return true;
+            }
+        }
+        return false;
+    }
 
-	@Override
-	protected ImageIcon createImageIcon() {
-		Image image = createImage();
-		String imageName = getFilename();
-		if (!ImageUtils.waitForImage(imageName, image)) {
-			return null;
-		}
-		return new ImageIcon(image, imageName);
-	}
+    @Override
+    protected ImageIcon createImageIcon() {
+        Image image = createImage();
+        String imageName = getFilename();
+        if (!ImageUtils.waitForImage(imageName, image)) {
+            return null;
+        }
+        return new ImageIcon(image, imageName);
+    }
 
-	protected Image createImage() {
-		if (sourceImage != null) {
-			return sourceImage;
-		}
+    protected Image createImage() {
+        if (sourceImage != null) {
+            return sourceImage;
+        }
 
-		// if sourceImage is null, then sourceIcon can't be null
-		if (sourceIcon instanceof ImageIcon) {
-			return ((ImageIcon) sourceIcon).getImage();
-		}
-		BufferedImage bufferedImage = new BufferedImage(sourceIcon.getIconWidth(),
-			sourceIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
-		Graphics graphics = bufferedImage.getGraphics();
-		sourceIcon.paintIcon(null, graphics, 0, 0);
-		graphics.dispose();
-		return bufferedImage;
-	}
+        // if sourceImage is null, then sourceIcon can't be null
+        if (sourceIcon instanceof ImageIcon) {
+            return ((ImageIcon) sourceIcon).getImage();
+        }
+        BufferedImage bufferedImage = new BufferedImage(sourceIcon.getIconWidth(),
+                sourceIcon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics graphics = bufferedImage.getGraphics();
+        sourceIcon.paintIcon(null, graphics, 0, 0);
+        graphics.dispose();
+        return bufferedImage;
+    }
 }

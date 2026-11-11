@@ -1213,7 +1213,7 @@ class StructureDB extends CompositeDB implements StructureInternal {
 	public DataTypeComponentDB[] getDefinedComponents() {
 		try (Closeable c = lock.read()) {
 			refreshIfNeeded();
-			return components.toArray(new DataTypeComponentDB[components.size()]);
+			return components.toArray(new DataTypeComponentDB[0]);
 		}
 	}
 

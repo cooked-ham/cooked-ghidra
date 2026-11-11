@@ -1206,7 +1206,7 @@ public class GdbCommandsTest extends AbstractGdbTraceRmiTest {
 						PathFilter.parse("Inferiors[1].Threads[1].Stack[]"))
 					.map(p -> p.getDestination(null))
 					.toList();
-			assertEquals(stack.size(), 2);
+			assertEquals(2, stack.size());
 		}
 	}
 }

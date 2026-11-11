@@ -19,6 +19,8 @@ import java.awt.*;
 
 import javax.swing.border.EmptyBorder;
 
+import docking.DockingChrome;
+
 /**
  * Custom border for the {@link GTab}. For non selected tabs, it basically draws a variation of 
  * a bevel border that is offset from the top by 2 pixels from the selected tab. Selected tabs
@@ -26,16 +28,16 @@ import javax.swing.border.EmptyBorder;
  * to connect to the border of the overall tab panel.
  */
 class GTabBorder extends EmptyBorder {
-	private static int LEFT_MARGIN = 7;	// 2 for drawn border and 5 pixels for a left margin 
-	private static int TOP_MARGIN = 4;	// 2 for border and 2 to play with offset on non-selected
-	private static int RIGHT_MARGIN = 2; // 2 for border. Close Icon adds enough of a visual margin
-	private static int BOTTOM_MARGIN = 2; // 2 for border
 	private int offset = 0;
 
-	private boolean selected;
+	private final boolean selected;
 
 	GTabBorder(boolean selected) {
-		super(TOP_MARGIN, LEFT_MARGIN, BOTTOM_MARGIN, RIGHT_MARGIN);
+		// top: 2 for border and 2 to play with offset on non-selected
+		// left: 2 for drawn border and 5 pixels for a left margin
+		// bottom: 2 for border
+		// right: 2 for border. Close Icon adds enough of a visual margin
+		super(4, 7, 2, 2);
 		this.selected = selected;
 
 		// paint non-selected tabs a bit lower
@@ -50,6 +52,10 @@ class GTabBorder extends EmptyBorder {
 	 */
 	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+		if (DockingChrome.isModern()) {
+			paintModern(c, g, x, y, w, h);
+			return;
+		}
 		Color oldColor = g.getColor();
 		g.translate(x, y);
 
@@ -82,6 +88,26 @@ class GTabBorder extends EmptyBorder {
 		}
 
 		g.translate(-x, -y);
+		g.setColor(oldColor);
+	}
+
+	/**
+	 * Modern chrome: flat tabs. The selected tab carries an underline (accent while its tab panel
+	 * is active, border color otherwise); the others get a thin trailing separator. Insets are
+	 * the same as the stock border, so tab sizes do not change on a theme switch.
+	 */
+	private void paintModern(Component c, Graphics g, int x, int y, int w, int h) {
+		Color oldColor = g.getColor();
+		if (selected) {
+			boolean active = c instanceof GTab<?> tab && tab.isPanelActive();
+			g.setColor(active ? DockingChrome.accentColor() : DockingChrome.frameColor());
+			int u = DockingChrome.TAB_UNDERLINE;
+			g.fillRect(x, y + h - u, w, u);
+		}
+		else {
+			g.setColor(DockingChrome.frameColor());
+			g.fillRect(x + w - 1, y + 6, 1, Math.max(0, h - 12));
+		}
 		g.setColor(oldColor);
 	}
 

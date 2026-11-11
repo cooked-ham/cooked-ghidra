@@ -139,7 +139,7 @@ public class ChecksumTableModel extends GDynamicColumnTableModel<ChecksumAlgorit
 		}
 	}
 
-	private class CaseInsensitiveComparator implements Comparator<String> {
+	private static class CaseInsensitiveComparator implements Comparator<String> {
 
 		@Override
 		public int compare(String o1, String o2) {

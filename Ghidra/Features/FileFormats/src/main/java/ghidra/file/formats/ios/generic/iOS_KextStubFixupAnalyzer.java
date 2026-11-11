@@ -353,7 +353,7 @@ public class iOS_KextStubFixupAnalyzer extends FileFormatAnalyzer {
 		return false;
 	}
 
-	class DestinationProgramInfo {
+	static class DestinationProgramInfo {
 		String programName;
 		String programPath;
 		String symbolName;

@@ -180,8 +180,8 @@ public class TraceExportPlugin extends Plugin {
 
 		StringBuffer resultsBuffer = new StringBuffer();
 
-		resultsBuffer.append("Destination file:       " + outputFile.getAbsolutePath() + "\n\n");
-		resultsBuffer.append("Destination file Size:  " + outputFile.length() + "\n");
+		resultsBuffer.append("Destination file:       ").append(outputFile.getAbsolutePath()).append("\n\n");
+		resultsBuffer.append("Destination file Size:  ").append(outputFile.length()).append("\n");
 		resultsBuffer.append("Format:                 " + GztExporter.NAME + "\n\n");
 		resultsBuffer.append(log.toString());
 

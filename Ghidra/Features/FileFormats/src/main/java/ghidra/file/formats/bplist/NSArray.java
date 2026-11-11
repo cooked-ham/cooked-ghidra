@@ -95,7 +95,7 @@ public class NSArray extends NSObject {
 		StringBuilder builder = new StringBuilder();
 		builder.append("NSArray {");
 		for (int i = 0; i < values.size(); ++i) {
-			builder.append("{0x" + Integer.toHexString(values.get(i)) + "}");
+			builder.append("{0x").append(Integer.toHexString(values.get(i))).append("}");
 		}
 		builder.append("}");
 		return builder.toString();

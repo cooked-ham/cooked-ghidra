@@ -16,6 +16,8 @@
  */
 package ghidra.app.util.bin.format.ne;
 
+import java.io.Serial;
+
 /**
  * An exception class to handle encountering
  * invalid Windows Headers.
@@ -25,6 +27,7 @@ package ghidra.app.util.bin.format.ne;
  * 
  */
 public class InvalidWindowsHeaderException extends Exception {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 }

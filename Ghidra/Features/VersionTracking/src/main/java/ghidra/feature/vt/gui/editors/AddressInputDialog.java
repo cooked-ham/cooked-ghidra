@@ -142,7 +142,7 @@ public class AddressInputDialog extends AbstractCellEditor implements TableCellE
 // Inner Classes    
 //==================================================================================================
 
-	private class DialogProvider extends DialogComponentProvider
+	private static class DialogProvider extends DialogComponentProvider
 			implements AddressEditorPanelListener {
 
 		private EditableAddress editableAddress;

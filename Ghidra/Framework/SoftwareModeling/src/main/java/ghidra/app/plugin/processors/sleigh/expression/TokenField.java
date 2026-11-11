@@ -151,14 +151,14 @@ public class TokenField extends PatternValue {
 		while (tmpsize >= 4) {
 			tmp = walker.getInstructionBytes(bs, 4);
 			res = res << 32;
-			res |= (tmp & 0xffffffffl);
+			res |= (tmp & 0xffffffffL);
 			bs += 4;
 			tmpsize -= 4;
 		}
 		if (tmpsize > 0) {
 			tmp = walker.getInstructionBytes(bs, tmpsize);
 			res = res << (8 * tmpsize);
-			res |= (tmp & 0xffffffffl);
+			res |= (tmp & 0xffffffffL);
 		}
 		if (!bigendian) {
 			res = byteSwap(res, size);
@@ -232,8 +232,8 @@ public class TokenField extends PatternValue {
 		if (bigendian) {
 			sb.append(", bigendian");
 		}
-		sb.append(", bytes " + bytestart + "-" + byteend);
-		sb.append(", shift=" + shift);
+		sb.append(", bytes ").append(bytestart).append("-").append(byteend);
+		sb.append(", shift=").append(shift);
 		sb.append("]");
 		return sb.toString();
 	}

@@ -101,7 +101,7 @@ public class DataTypeMerge5Test extends AbstractDataTypeMergeTest {
 		DataType dt = dtcs[6].getDataType();
 		assertTrue(dt instanceof TypeDef);
 		dt = ((TypeDef) dt).getBaseDataType();
-		assertEquals(dt, DataType.DEFAULT);
+		assertEquals(DataType.DEFAULT, dt);
 		assertEquals(dll, dtcs[3].getDataType());
 
 		checkConflictCount(0);

@@ -15,10 +15,11 @@
  */
 package ghidra.feature.vt.gui.task;
 
-import java.util.List;
-
 import ghidra.feature.vt.api.db.VTSessionDB;
-import ghidra.feature.vt.api.main.*;
+import ghidra.feature.vt.api.main.VTMarkupItem;
+import ghidra.feature.vt.api.main.VTMarkupItemConsideredStatus;
+import ghidra.feature.vt.api.main.VTMarkupItemStatus;
+import ghidra.feature.vt.api.main.VTSession;
 import ghidra.feature.vt.api.util.VersionTrackingApplyException;
 import ghidra.program.model.address.Address;
 import ghidra.program.util.AddressCorrelation;
@@ -26,78 +27,79 @@ import ghidra.program.util.AddressCorrelationRange;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
 
+import java.util.List;
+
 public class UnapplyMarkupItemTask extends VtTask {
 
-	protected final List<VTMarkupItem> markupItems;
-	private final AddressCorrelation correlation;
+    protected final List<VTMarkupItem> markupItems;
+    private final AddressCorrelation correlation;
 
-	public UnapplyMarkupItemTask(VTSession session, AddressCorrelation correlation,
-			List<VTMarkupItem> markupItems) {
-		super("Reset Markup Items", session);
-		this.correlation = correlation;
-		this.markupItems = markupItems;
+    public UnapplyMarkupItemTask(VTSession session, AddressCorrelation correlation,
+                                 List<VTMarkupItem> markupItems) {
+        super("Reset Markup Items", session);
+        this.correlation = correlation;
+        this.markupItems = markupItems;
 
-		if (!(session instanceof VTSessionDB)) {
-			throw new IllegalArgumentException(
-				"Unexpected condition - VTSession is not a DB object!");
-		}
-	}
+        if (!(session instanceof VTSessionDB)) {
+            throw new IllegalArgumentException(
+                    "Unexpected condition - VTSession is not a DB object!");
+        }
+    }
 
-	@Override
-	protected boolean shouldSuspendSessionEvents() {
-		return markupItems.size() > 20;
-	}
+    @Override
+    protected boolean shouldSuspendSessionEvents() {
+        return markupItems.size() > 20;
+    }
 
-	@Override
-	protected boolean doWork(TaskMonitor monitor) throws Exception {
-		monitor.initialize(markupItems.size());
-		for (VTMarkupItem markupItem : markupItems) {
-			monitor.checkCancelled();
+    @Override
+    protected boolean doWork(TaskMonitor monitor) throws Exception {
+        monitor.initialize(markupItems.size());
+        for (VTMarkupItem markupItem : markupItems) {
+            monitor.checkCancelled();
 
-			try {
-				maybeUnapply(markupItem);
-				maybeClearStatus(markupItem);
-				maybeResetDestinationAddressToDefault(markupItem, monitor);
-			}
-			catch (VersionTrackingApplyException e) {
-				reportError(e);
-			}
+            try {
+                maybeUnapply(markupItem);
+                maybeClearStatus(markupItem);
+                maybeResetDestinationAddressToDefault(markupItem, monitor);
+            } catch (VersionTrackingApplyException e) {
+                reportError(e);
+            }
 
-			monitor.incrementProgress(1);
-		}
-		return true;
-	}
+            monitor.incrementProgress(1);
+        }
+        return true;
+    }
 
-	private void maybeUnapply(VTMarkupItem markupItem) throws VersionTrackingApplyException {
-		if (markupItem.canUnapply()) {
-			markupItem.unapply();
-		}
-	}
+    private void maybeUnapply(VTMarkupItem markupItem) throws VersionTrackingApplyException {
+        if (markupItem.canUnapply()) {
+            markupItem.unapply();
+        }
+    }
 
-	private void maybeClearStatus(VTMarkupItem markupItem) {
-		VTMarkupItemStatus status = markupItem.getStatus();
-		if (!status.isDefault() && !status.isUnappliable()) {
-			markupItem.setConsidered(VTMarkupItemConsideredStatus.UNCONSIDERED);
-		}
-	}
+    private void maybeClearStatus(VTMarkupItem markupItem) {
+        VTMarkupItemStatus status = markupItem.getStatus();
+        if (!status.isDefault() && !status.isUnappliable()) {
+            markupItem.setConsidered(VTMarkupItemConsideredStatus.UNCONSIDERED);
+        }
+    }
 
-	// Note: this method currently does a bad thing to the user--it will reset the address, which
-	//       may not be what they want, if all they want to do is unapply :(  I suppose an undo
-	//       will let the get the address back?
-	private void maybeResetDestinationAddressToDefault(VTMarkupItem markupItem, TaskMonitor monitor)
-			throws CancelledException {
+    // Note: this method currently does a bad thing to the user--it will reset the address, which
+    //       may not be what they want, if all they want to do is unapply :(  I suppose an undo
+    //       will let the get the address back?
+    private void maybeResetDestinationAddressToDefault(VTMarkupItem markupItem, TaskMonitor monitor)
+            throws CancelledException {
 
-		Address destinationAddress = null;
-		String source = null;
-		if (correlation != null) {
-			AddressCorrelationRange range =
-				correlation.getCorrelatedDestinationRange(markupItem.getSourceAddress(), monitor);
-			if (range != null) {
-				destinationAddress = range.getMinAddress();
-				source = range.getCorrelatorName();
-			}
-		}
+        Address destinationAddress = null;
+        String source = null;
+        if (correlation != null) {
+            AddressCorrelationRange range =
+                    correlation.getCorrelatedDestinationRange(markupItem.getSourceAddress(), monitor);
+            if (range != null) {
+                destinationAddress = range.getMinAddress();
+                source = range.getCorrelatorName();
+            }
+        }
 
-		markupItem.setDefaultDestinationAddress(destinationAddress, source);
-	}
+        markupItem.setDefaultDestinationAddress(destinationAddress, source);
+    }
 }

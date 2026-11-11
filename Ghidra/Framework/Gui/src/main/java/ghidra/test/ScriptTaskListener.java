@@ -5,9 +5,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,30 +22,30 @@ import ghidra.util.task.TaskListener;
 
 public class ScriptTaskListener implements TaskListener {
 
-	protected volatile boolean completed;
-	protected String scriptName;
+    protected volatile boolean completed;
+    protected String scriptName;
 
-	ScriptTaskListener(String scriptName) {
-		this.scriptName = scriptName;
-	}
+    ScriptTaskListener(String scriptName) {
+        this.scriptName = scriptName;
+    }
 
-	@Override
-	public void taskCompleted(Task task) {
-		Msg.debug(this, "taskCompleted(): " + scriptName);
-		completed = true;
-	}
+    @Override
+    public void taskCompleted(Task task) {
+        Msg.debug(this, "taskCompleted(): " + scriptName);
+        completed = true;
+    }
 
-	@Override
-	public void taskCancelled(Task task) {
-		Msg.debug(this, "taskCancelled(): " + scriptName);
-		completed = true;
-	}
+    @Override
+    public void taskCancelled(Task task) {
+        Msg.debug(this, "taskCancelled(): " + scriptName);
+        completed = true;
+    }
 
-	boolean isCompleted() {
-		return completed;
-	}
+    boolean isCompleted() {
+        return completed;
+    }
 
-	String getScriptName() {
-		return scriptName;
-	}
+    String getScriptName() {
+        return scriptName;
+    }
 }

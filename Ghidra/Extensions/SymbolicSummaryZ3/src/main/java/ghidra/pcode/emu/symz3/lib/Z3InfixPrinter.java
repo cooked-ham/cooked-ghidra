@@ -138,7 +138,7 @@ public class Z3InfixPrinter {
 		return "(print helper needed)" + e.toString();
 	}
 
-	public class RegisterPlusConstant {
+	public static class RegisterPlusConstant {
 		public String registerName;
 		public BigInteger constant;
 		public boolean isNegative;

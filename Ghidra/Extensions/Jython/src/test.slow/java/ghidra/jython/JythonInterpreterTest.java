@@ -56,7 +56,7 @@ public class JythonInterpreterTest extends AbstractGhidraHeadedIntegrationTest {
 	public void testJythonPush() {
 		final String str = "hi";
 		interpreter.push("print \"" + str + "\"", null);
-		assertEquals(out.toString().trim(), str);
+		assertEquals(str, out.toString().trim());
 	}
 
 	/**

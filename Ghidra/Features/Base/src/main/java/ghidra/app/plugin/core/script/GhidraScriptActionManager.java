@@ -166,7 +166,7 @@ class GhidraScriptActionManager {
 			scriptPaths.add(generic.util.Path.toPathString(file));
 		}
 
-		String[] array = scriptPaths.toArray(new String[scriptPaths.size()]);
+		String[] array = scriptPaths.toArray(new String[0]);
 		saveState.putStrings(SCRIPT_ACTIONS_KEY, array);
 	}
 

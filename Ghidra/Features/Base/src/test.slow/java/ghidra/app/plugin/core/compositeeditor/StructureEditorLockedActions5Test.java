@@ -62,7 +62,7 @@ public class StructureEditorLockedActions5Test extends AbstractStructureEditorTe
 
 		assertEquals(len, model.getLength());
 		assertEquals(num + 4, model.getNumComponents());
-		assertTrue(!getDataType(11).isEquivalent(simpleStructure));
+		assertFalse(getDataType(11).isEquivalent(simpleStructure));
 		for (int i = 0; i < 5; i++) {
 			DataTypeComponent dtc = model.getComponent(11 + i);
 			DataType sdt = dtc.getDataType();
@@ -118,7 +118,7 @@ public class StructureEditorLockedActions5Test extends AbstractStructureEditorTe
 
 		assertEquals(len, model.getLength());
 		assertEquals(num + numComps - 1, model.getNumComponents());
-		assertTrue(!getDataType(17).isEquivalent(simpleStructure));
+		assertFalse(getDataType(17).isEquivalent(simpleStructure));
 		for (int i = 0; i < numComps; i++) {
 			DataTypeComponent dtc = getComponent(17 + i);
 			DataType sdt = simpleStructure.getComponent(i).getDataType();

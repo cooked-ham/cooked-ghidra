@@ -517,7 +517,7 @@ public class GTableColumnModel
 	 * A small class to provide a method to quickly see if a column is visible by calling contains
 	 * on a hash set
 	 */
-	private class VisibleColumns {
+	private static class VisibleColumns {
 		private Set<TableColumn> visibleSet = new HashSet<>();
 		private List<TableColumn> visibleList = new ArrayList<>();
 

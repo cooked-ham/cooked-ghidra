@@ -15,8 +15,6 @@
  */
 package ghidra.app.util.viewer.field;
 
-import java.awt.event.MouseEvent;
-
 import ghidra.app.nav.Navigatable;
 import ghidra.app.services.GoToService;
 import ghidra.framework.plugintool.ServiceProvider;
@@ -24,32 +22,34 @@ import ghidra.program.util.FunctionRepeatableCommentFieldLocation;
 import ghidra.program.util.ProgramLocation;
 import ghidra.util.StringUtilities;
 
+import java.awt.event.MouseEvent;
+
 /**
  * A handler to process {@link FunctionRepeatableCommentFieldLocation}.
  */
 public class FunctionRepeatableCommentFieldMouseHandler extends CommentFieldMouseHandler {
-	private final static Class<?>[] SUPPORTED_CLASSES =
-		new Class[] { FunctionRepeatableCommentFieldLocation.class };
+    private final static Class<?>[] SUPPORTED_CLASSES =
+            new Class[]{FunctionRepeatableCommentFieldLocation.class};
 
-	@Override
-	public boolean fieldElementClicked(Object clickedObject, Navigatable sourceNavigatable,
-			ProgramLocation location, MouseEvent mouseEvent, ServiceProvider serviceProvider) {
-		String[] comments = getComment(location);
-		int commentRow = getCommentRow(location);
-		int column = getCommentColumn(location);
-		String clickedWord =
-			StringUtilities.findWord(comments[commentRow], column, GoToService.VALID_GOTO_CHARS);
+    @Override
+    public boolean fieldElementClicked(Object clickedObject, Navigatable sourceNavigatable,
+                                       ProgramLocation location, MouseEvent mouseEvent, ServiceProvider serviceProvider) {
+        String[] comments = getComment(location);
+        int commentRow = getCommentRow(location);
+        int column = getCommentColumn(location);
+        String clickedWord =
+                StringUtilities.findWord(comments[commentRow], column, GoToService.VALID_GOTO_CHARS);
 
-		return checkWord(clickedWord, serviceProvider, sourceNavigatable);
-	}
+        return checkWord(clickedWord, serviceProvider, sourceNavigatable);
+    }
 
-	@Override
-	protected String[] getComment(ProgramLocation programLocation) {
-		return ((FunctionRepeatableCommentFieldLocation) programLocation).getComment();
-	}
+    @Override
+    protected String[] getComment(ProgramLocation programLocation) {
+        return ((FunctionRepeatableCommentFieldLocation) programLocation).getComment();
+    }
 
-	@Override
-	public Class<?>[] getSupportedProgramLocations() {
-		return SUPPORTED_CLASSES;
-	}
+    @Override
+    public Class<?>[] getSupportedProgramLocations() {
+        return SUPPORTED_CLASSES;
+    }
 }

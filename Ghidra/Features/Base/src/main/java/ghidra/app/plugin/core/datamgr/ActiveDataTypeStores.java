@@ -210,7 +210,7 @@ class ActiveDataTypeStores {
 		for (PersistentDataTypeArchive archive : openArchives) {
 			managers.add(archive.getDataTypeManager());
 		}
-		return managers.toArray(new DataTypeManager[managers.size()]);
+		return managers.toArray(new DataTypeManager[0]);
 	}
 
 	/**

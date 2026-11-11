@@ -17,6 +17,7 @@ package ghidra.util.graph;
 
 import ghidra.util.datastruct.LongIntHashtable;
 import ghidra.util.exception.NoValueException;
+import java.io.Serial;
 
 /**
 *
@@ -26,6 +27,7 @@ import ghidra.util.exception.NoValueException;
 */
 public class AddableLongIntHashtable extends LongIntHashtable {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public AddableLongIntHashtable(int capacity) {

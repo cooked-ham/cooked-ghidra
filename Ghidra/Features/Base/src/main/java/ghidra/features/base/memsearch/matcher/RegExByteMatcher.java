@@ -66,7 +66,7 @@ public class RegExByteMatcher extends UserInputByteMatcher {
 	 * Class for converting byte sequences into a {@link CharSequence} that can be used by
 	 * the java regular expression engine
 	 */
-	private class ByteCharSequence implements CharSequence {
+	private static class ByteCharSequence implements CharSequence {
 
 		private ExtendedByteSequence byteSequence;
 		private int preLength;

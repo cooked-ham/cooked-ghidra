@@ -15,54 +15,52 @@
  */
 package ghidra.app.plugin.core.decompiler.taint.slicetree;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.swing.Icon;
-
 import ghidra.app.plugin.core.decompiler.taint.TaintSliceTreeProvider;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.listing.Function;
 import ghidra.program.model.listing.Program;
+
+import javax.swing.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * For this plugin there are two trees side by side.
  * This tree is on the right.  This node is the "root" or at the top of that tree.  All nodes that flow from it
  * are actually LOWER in the call stack. They are nodes that ARE CALLED OUT OF this node via
  * some call path.
-
  */
 public class OutSliceRootNode extends OutSliceNode {
 
-	public OutSliceRootNode(Program program, Function function, Address sourceAddress,
-			boolean filterDuplicates, AtomicInteger filterDepth) {
-		super(program, function, sourceAddress, TaintSliceTreeProvider.HIGH_VARIABLE_ICON,
-			filterDuplicates,
-			filterDepth);
-	}
+    public OutSliceRootNode(Program program, Function function, Address sourceAddress,
+                            boolean filterDuplicates, AtomicInteger filterDepth) {
+        super(program, function, sourceAddress, TaintSliceTreeProvider.HIGH_VARIABLE_ICON,
+                filterDuplicates,
+                filterDepth);
+    }
 
-	@Override
-	public SliceNode recreate() {
-		return new OutSliceRootNode(program, function, getSourceAddress(), filterDuplicates,
-			filterDepth);
-	}
+    @Override
+    public SliceNode recreate() {
+        return new OutSliceRootNode(program, function, getSourceAddress(), filterDuplicates,
+                filterDepth);
+    }
 
-	@Override
-	public Icon getIcon(boolean expanded) {
-		return TaintSliceTreeProvider.TAINT_ICON;
-	}
+    @Override
+    public Icon getIcon(boolean expanded) {
+        return TaintSliceTreeProvider.TAINT_ICON;
+    }
 
-	@Override
-	public String getName() {
-		return "Forward Taint from " + name;
-	}
+    @Override
+    public String getName() {
+        return "Forward Taint from " + name;
+    }
 
-	@Override
-	public boolean isLeaf() {
-		return false;
-	}
+    @Override
+    public boolean isLeaf() {
+        return false;
+    }
 
-	@Override
-	public String getToolTip() {
-		return null;
-	}
+    @Override
+    public String getToolTip() {
+        return null;
+    }
 }

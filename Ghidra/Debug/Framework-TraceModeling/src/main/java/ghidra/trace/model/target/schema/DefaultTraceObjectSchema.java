@@ -295,12 +295,12 @@ public class DefaultTraceObjectSchema
 		sb.append("]\n" + INDENT);
 		sb.append("elements = ");
 		sb.append(elementSchemas);
-		sb.append(" default " + defaultElementSchema);
+		sb.append(" default ").append(defaultElementSchema);
 		sb.append("\n" + INDENT);
 		sb.append("attributes = ");
 		sb.append(attributeSchemas);
-		sb.append(" default " + defaultAttributeSchema);
-		sb.append(" aliases " + attributeAliases);
+		sb.append(" default ").append(defaultAttributeSchema);
+		sb.append(" aliases ").append(attributeAliases);
 		sb.append("\n}");
 	}
 

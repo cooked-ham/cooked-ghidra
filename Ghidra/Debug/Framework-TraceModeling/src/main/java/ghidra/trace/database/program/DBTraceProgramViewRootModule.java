@@ -108,7 +108,7 @@ public class DBTraceProgramViewRootModule implements ProgramModule {
 				frags.add(listing.fragmentsByRegion.computeIfAbsent(e.region,
 					r -> new DBTraceProgramViewFragment(listing, r, e.snap)));
 			});
-			return frags.toArray(new DBTraceProgramViewFragment[frags.size()]);
+			return frags.toArray(new DBTraceProgramViewFragment[0]);
 		}
 	}
 

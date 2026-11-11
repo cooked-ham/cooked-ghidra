@@ -271,7 +271,7 @@ public class InputDialog extends DialogComponentProvider {
 		return inputValues;
 	}
 
-	private class MyTextField extends JTextField {
+	private static class MyTextField extends JTextField {
 
 		MyTextField(String str) {
 			super(str, 20);
@@ -282,7 +282,7 @@ public class InputDialog extends DialogComponentProvider {
 			return new MyDocument(this);
 		}
 
-		private class MyDocument extends PlainDocument {
+		private static class MyDocument extends PlainDocument {
 			private JTextField textField;
 
 			private MyDocument(JTextField textField) {

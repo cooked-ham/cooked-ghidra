@@ -30,12 +30,12 @@ public class BooleanValueTest extends AbstractValueTest {
 
 		assertTrue(values.isDefined(NAME));
 		assertTrue(values.hasValue(NAME));
-		assertEquals(false, values.getBoolean(NAME));
+		assertFalse(values.getBoolean(NAME));
 
 		values.setBoolean(NAME, true);
 		assertTrue(values.hasValue(NAME));
 
-		assertEquals(true, values.getBoolean(NAME));
+		assertTrue(values.getBoolean(NAME));
 	}
 
 	@Test
@@ -64,7 +64,7 @@ public class BooleanValueTest extends AbstractValueTest {
 		showDialogOnSwingWithoutBlocking();
 		pressOk();
 
-		assertEquals(false, values.getBoolean(NAME));
+		assertFalse(values.getBoolean(NAME));
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class BooleanValueTest extends AbstractValueTest {
 		setBoolean(values.getAbstractValue(NAME), true);
 		pressOk();
 
-		assertEquals(true, values.getBoolean(NAME));
+		assertTrue(values.getBoolean(NAME));
 	}
 
 	private void setBoolean(AbstractValue<?> boolValue, boolean b) {

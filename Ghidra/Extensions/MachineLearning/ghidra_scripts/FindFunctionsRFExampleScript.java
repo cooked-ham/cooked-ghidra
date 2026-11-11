@@ -64,7 +64,7 @@ public class FindFunctionsRFExampleScript extends GhidraScript {
 		//params.setIncludeBitFeatures(true);
 
 		//bound for reducing the size of the test sets
-		long testSetMax = 1000000l;
+		long testSetMax = 1000000L;
 
 		//this is where the trained models will go
 		List<RandomForestRowObject> trainedModels = new ArrayList<>();

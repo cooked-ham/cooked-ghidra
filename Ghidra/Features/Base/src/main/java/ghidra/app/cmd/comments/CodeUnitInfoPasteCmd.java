@@ -129,7 +129,7 @@ public class CodeUnitInfoPasteCmd implements Command<Program> {
 				function.setName(fnName, info.getPrimarySymbolSource());
 			}
 			catch (DuplicateNameException e) {
-				messages.append("Could not set function name--duplicate name: " + fnName)
+				messages.append("Could not set function name--duplicate name: ").append(fnName)
 						.append('\n');
 			}
 			catch (InvalidInputException e) {
@@ -200,7 +200,7 @@ public class CodeUnitInfoPasteCmd implements Command<Program> {
 						var.setName(varNames[i], varSources[i]);
 					}
 					catch (DuplicateNameException e) {
-						messages.append("Could not set variable name--duplicate name: " + fnName)
+						messages.append("Could not set variable name--duplicate name: ").append(fnName)
 								.append('\n');
 					}
 					catch (InvalidInputException e) {
@@ -271,7 +271,7 @@ public class CodeUnitInfoPasteCmd implements Command<Program> {
 				}
 			}
 			catch (DuplicateNameException e) {
-				messages.append("Could not set label name--duplicate name: " + primaryName)
+				messages.append("Could not set label name--duplicate name: ").append(primaryName)
 						.append('\n');
 			}
 			catch (InvalidInputException e) {

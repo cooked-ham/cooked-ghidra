@@ -455,10 +455,10 @@ public class StackEditorActions2Test extends AbstractStackEditorTest {
 		assertEquals("", model.getStatus());
 		assertEquals(num + 3, model.getNumComponents());
 		checkSelection(new int[] { 0, 1, 2, 3 });
-		assertEquals(getDataType(0), DataType.DEFAULT);
-		assertEquals(getDataType(1), DataType.DEFAULT);
-		assertEquals(getDataType(2), DataType.DEFAULT);
-		assertEquals(getDataType(3), DataType.DEFAULT);
+		assertEquals(DataType.DEFAULT, getDataType(0));
+		assertEquals(DataType.DEFAULT, getDataType(1));
+		assertEquals(DataType.DEFAULT, getDataType(2));
+		assertEquals(DataType.DEFAULT, getDataType(3));
 		assertEquals(dt1, getDataType(4));
 		assertNull(getFieldName(0));
 		assertNull(getComment(0));

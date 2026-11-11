@@ -49,7 +49,7 @@ public class VTMatchDestinationAddressToAddressTableRowMapper extends
 		return association.getDestinationAddress();
 	}
 
-	private class VTMatchDestinationWrappedMappedProgramLocationTableColumn<COLUMN_TYPE> extends
+	private static class VTMatchDestinationWrappedMappedProgramLocationTableColumn<COLUMN_TYPE> extends
 			MappedProgramLocationTableColumn<VTMatch, Address, COLUMN_TYPE> {
 
 		public VTMatchDestinationWrappedMappedProgramLocationTableColumn(
@@ -82,7 +82,7 @@ public class VTMatchDestinationAddressToAddressTableRowMapper extends
 		}
 	}
 
-	private class VTMatchDestinationWrappedMappedTableColumn<COLUMN_TYPE> extends
+	private static class VTMatchDestinationWrappedMappedTableColumn<COLUMN_TYPE> extends
 			MappedTableColumn<VTMatch, Address, COLUMN_TYPE, Program> {
 
 		public VTMatchDestinationWrappedMappedTableColumn(

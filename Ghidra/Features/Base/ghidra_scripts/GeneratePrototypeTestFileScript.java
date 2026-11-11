@@ -63,7 +63,7 @@ public class GeneratePrototypeTestFileScript extends GhidraScript {
 	private static String LONG_LONG_TYPE = "ulonglong";
 
 	private long variableVal = 0x01;
-	private long multiplier = 0x0101010101010101l;
+	private long multiplier = 0x0101010101010101L;
 	private int funcCounter = 0;
 	private String ccGhidraName;
 	private String preSpecifier = "";
@@ -1135,7 +1135,7 @@ public class GeneratePrototypeTestFileScript extends GhidraScript {
 	}
 
 	private String getNextHexValue(int size) {
-		long localMultiplier = size == 8 ? multiplier : multiplier & ((1l << (8 * size)) - 1);
+		long localMultiplier = size == 8 ? multiplier : multiplier & ((1L << (8 * size)) - 1);
 		long retVal = localMultiplier * variableVal;
 		// if the value is larger than one byte, make the most significant byte 0xff
 		// this helps diagnose endianness issues

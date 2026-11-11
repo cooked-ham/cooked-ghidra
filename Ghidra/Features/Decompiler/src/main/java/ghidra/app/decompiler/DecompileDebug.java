@@ -70,7 +70,7 @@ public class DecompileDebug {
 	private boolean readonlycacheval;		//    Current readonly value (for internal use) 
 	private PcodeDataTypeManager dtmanage;	// Decompiler's data-type manager
 
-	class ByteChunk implements Comparable<ByteChunk> {
+	static class ByteChunk implements Comparable<ByteChunk> {
 		public Address addr;
 		public int min, max;
 		public byte[] val;

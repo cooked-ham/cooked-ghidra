@@ -15,6 +15,7 @@
  */
 package ghidra.program.model.lang;
 
+import java.io.Serial;
 import java.util.*;
 
 import ghidra.program.model.address.Address;
@@ -30,6 +31,7 @@ public class Register implements java.io.Serializable, Comparable<Register> {
 
 	private static final List<String> EMPTY_COLLECTION = new ArrayList<>();
 
+	@Serial
 	private final static long serialVersionUID = 1;
 	public final static int TYPE_NONE = 0; // nothing special
 	public final static int TYPE_FP = 1; // frame pointer

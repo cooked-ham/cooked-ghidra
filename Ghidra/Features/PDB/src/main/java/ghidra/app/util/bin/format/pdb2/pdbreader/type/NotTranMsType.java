@@ -45,7 +45,7 @@ public class NotTranMsType extends AbstractMsType {
 	@Override
 	public void emit(StringBuilder builder, Bind bind) {
 		// There is no documented API.
-		builder.append("<<" + getClass().getSimpleName() + ">>");
+		builder.append("<<").append(getClass().getSimpleName()).append(">>");
 	}
 
 }

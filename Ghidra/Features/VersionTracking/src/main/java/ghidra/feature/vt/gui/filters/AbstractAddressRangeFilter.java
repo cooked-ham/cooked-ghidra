@@ -582,7 +582,7 @@ public abstract class AbstractAddressRangeFilter<T> extends AncillaryFilter<T>
 		}
 	}
 
-	private class FormattedFieldComboBoxEditor implements ComboBoxEditor {
+	private static class FormattedFieldComboBoxEditor implements ComboBoxEditor {
 
 		private EventListenerList listeners = new EventListenerList();
 		private final GFormattedTextField textField;
@@ -628,7 +628,7 @@ public abstract class AbstractAddressRangeFilter<T> extends AncillaryFilter<T>
 		}
 	}
 
-	private class BackgroundColorChangeListener implements PropertyChangeListener {
+	private static class BackgroundColorChangeListener implements PropertyChangeListener {
 
 		private final JComboBox<?> comboBox;
 

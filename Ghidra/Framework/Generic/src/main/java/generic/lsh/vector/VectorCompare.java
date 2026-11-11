@@ -54,14 +54,14 @@ public class VectorCompare {
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("\nVectorCompare: ");
-		buffer.append("\n  Result of the dot product     = " + dotproduct);
-		buffer.append("\n  # of hashes in first vector   = " + acount);
-		buffer.append("\n  # of hashes in second vector  = " + bcount);
-		buffer.append("\n  # of hashes in common         = " + intersectcount);
-		buffer.append("\n  Minimum vector count          = " + min);
-		buffer.append("\n  Maximum vector count          = " + max);
-		buffer.append("\n  Number of hashes flipped      = " + numflip);
-		buffer.append("\n  Difference in # of hashes     = " + diff);
+		buffer.append("\n  Result of the dot product     = ").append(dotproduct);
+		buffer.append("\n  # of hashes in first vector   = ").append(acount);
+		buffer.append("\n  # of hashes in second vector  = ").append(bcount);
+		buffer.append("\n  # of hashes in common         = ").append(intersectcount);
+		buffer.append("\n  Minimum vector count          = ").append(min);
+		buffer.append("\n  Maximum vector count          = ").append(max);
+		buffer.append("\n  Number of hashes flipped      = ").append(numflip);
+		buffer.append("\n  Difference in # of hashes     = ").append(diff);
 		return buffer.toString();
 	}
 }

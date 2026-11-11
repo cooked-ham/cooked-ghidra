@@ -16,6 +16,7 @@
 package ghidra.server.stream;
 
 import java.io.*;
+import java.io.Serial;
 import java.net.Socket;
 import java.security.SecureRandom;
 
@@ -49,6 +50,7 @@ import ghidra.util.StringUtilities;
  */
 public abstract class RemoteBlockStreamHandle<T extends BlockStream> implements Serializable {
 
+	@Serial
 	public static final long serialVersionUID = 1L;
 
 	public static final String HEADER_PREFIX = "@stream:";

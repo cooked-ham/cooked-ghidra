@@ -18,56 +18,62 @@ package db.buffers;
 import java.io.File;
 
 /**
- * <code>DummyBufferFileMgr</code> produces buffer file names and 
+ * <code>DummyBufferFileMgr</code> produces buffer file names and
  * tracks the current buffer file version.  No maintenance of buffer
  * files is provided.
  */
 public class DummyBufferFileMgr implements BufferFileManager {
-	
-	protected File dir;
-	protected String name;
-	protected boolean enableVersionFiles;
-	protected boolean enableChangeFiles;
-	protected int cur = 0;
-	
-	public DummyBufferFileMgr(File dir, String name, boolean enableVersionFiles, boolean enableChangeFiles) {
-		this.dir = dir;
-		this.name = name;
-		this.enableVersionFiles = enableVersionFiles;
-		this.enableChangeFiles = enableChangeFiles;
-	}
-	
-	@Override
-	public int getCurrentVersion() {
-		return cur;
-	}
-	@Override
-	public File getBufferFile(int version) {
-		return new File(dir, name + version + ".bf" );
-	}
-	@Override
-	public File getVersionFile(int version) {
-		if (enableVersionFiles) {
-			return new File(dir, name + version + ".vf" );
-		}
-		return null;
-	}
-	@Override
-	public File getChangeDataFile(int version) {
-		if (enableChangeFiles) {
-			return new File(dir, name + version + ".cf" );
-		}
-		return null;
-	}
-	@Override
-	public File getChangeMapFile() {
-		return null;
-	}
-	@Override
-	public void versionCreated(int version, String comment, long checkinId) {
-		cur = version;
-	}
-	@Override
-	public void updateEnded(long checkinId) {
-	}
+
+    protected File dir;
+    protected String name;
+    protected boolean enableVersionFiles;
+    protected boolean enableChangeFiles;
+    protected int cur = 0;
+
+    public DummyBufferFileMgr(File dir, String name, boolean enableVersionFiles, boolean enableChangeFiles) {
+        this.dir = dir;
+        this.name = name;
+        this.enableVersionFiles = enableVersionFiles;
+        this.enableChangeFiles = enableChangeFiles;
+    }
+
+    @Override
+    public int getCurrentVersion() {
+        return cur;
+    }
+
+    @Override
+    public File getBufferFile(int version) {
+        return new File(dir, name + version + ".bf");
+    }
+
+    @Override
+    public File getVersionFile(int version) {
+        if (enableVersionFiles) {
+            return new File(dir, name + version + ".vf");
+        }
+        return null;
+    }
+
+    @Override
+    public File getChangeDataFile(int version) {
+        if (enableChangeFiles) {
+            return new File(dir, name + version + ".cf");
+        }
+        return null;
+    }
+
+    @Override
+    public File getChangeMapFile() {
+        return null;
+    }
+
+    @Override
+    public void versionCreated(int version, String comment, long checkinId) {
+        cur = version;
+    }
+
+    @Override
+    public void updateEnded(long checkinId) {
+    }
 }

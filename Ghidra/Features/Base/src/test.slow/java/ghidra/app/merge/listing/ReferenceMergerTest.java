@@ -184,10 +184,10 @@ public class ReferenceMergerTest extends AbstractListingMergeManagerTest {
 		assertTrue(refs[0].isPrimary());
 		assertEquals(addr("0x10025d8"), refs[1].getToAddress());
 		assertEquals(RefType.DATA, refs[1].getReferenceType());
-		assertTrue(!refs[1].isPrimary());
+		assertFalse(refs[1].isPrimary());
 		assertEquals(addr("0x1002608"), refs[2].getToAddress());
 		assertEquals(RefType.CONDITIONAL_JUMP, refs[2].getReferenceType());
-		assertTrue(!refs[2].isPrimary());
+		assertFalse(refs[2].isPrimary());
 	}
 
 @Test
@@ -256,13 +256,13 @@ public class ReferenceMergerTest extends AbstractListingMergeManagerTest {
 		assertTrue(refs[0].isPrimary());
 		assertEquals(addr("0x10024ce"), refs[1].getToAddress());
 		assertEquals(RefType.DATA, refs[1].getReferenceType());
-		assertTrue(!refs[1].isPrimary());
+		assertFalse(refs[1].isPrimary());
 		assertEquals(addr("0x10025f1"), refs[2].getToAddress());
 		assertEquals(RefType.CONDITIONAL_JUMP, refs[2].getReferenceType());
-		assertTrue(!refs[2].isPrimary());
+		assertFalse(refs[2].isPrimary());
 		assertEquals(addr("0x1002ee2"), refs[3].getToAddress());
 		assertEquals(RefType.CONDITIONAL_JUMP, refs[3].getReferenceType());
-		assertTrue(!refs[3].isPrimary());
+		assertFalse(refs[3].isPrimary());
 
 		refs = refMgr.getReferencesFrom(addr("01002510"), 0);
 		assertEquals("USER32.DLL::getMessage",
@@ -521,10 +521,10 @@ public class ReferenceMergerTest extends AbstractListingMergeManagerTest {
 		assertEquals(2, refs.length);
 		assertEquals(addr("0x01002f55"), refs[0].getToAddress());
 		assertEquals(RefType.READ_WRITE, refs[0].getReferenceType());
-		assertEquals(true, refs[0].isPrimary());
+		assertTrue(refs[0].isPrimary());
 		assertEquals(addr("0x01002f5d"), refs[1].getToAddress());
 		assertEquals(RefType.FALL_THROUGH, refs[1].getReferenceType());
-		assertEquals(false, refs[1].isPrimary());
+		assertFalse(refs[1].isPrimary());
 	}
 
 	/**
@@ -571,10 +571,10 @@ public class ReferenceMergerTest extends AbstractListingMergeManagerTest {
 		assertEquals(2, refs.length);
 		assertEquals(addr("0x01002f55"), refs[0].getToAddress());
 		assertEquals(RefType.READ_WRITE, refs[0].getReferenceType());
-		assertEquals(true, refs[0].isPrimary());
+		assertTrue(refs[0].isPrimary());
 		assertEquals(addr("0x01002f5d"), refs[1].getToAddress());
 		assertEquals(RefType.FALL_THROUGH, refs[1].getReferenceType());
-		assertEquals(false, refs[1].isPrimary());
+		assertFalse(refs[1].isPrimary());
 	}
 
 	/**
@@ -620,7 +620,7 @@ public class ReferenceMergerTest extends AbstractListingMergeManagerTest {
 		assertEquals(1, refs.length);
 		assertEquals(addr("0x01002f55"), refs[0].getToAddress());
 		assertEquals(RefType.FALL_THROUGH, refs[0].getReferenceType());
-		assertEquals(true, refs[0].isPrimary());
+		assertTrue(refs[0].isPrimary());
 	}
 
 	/**
@@ -670,10 +670,10 @@ public class ReferenceMergerTest extends AbstractListingMergeManagerTest {
 		Arrays.sort(refs);
 		assertEquals(addr("0x01002f55"), refs[0].getToAddress());
 		assertEquals(RefType.READ_WRITE, refs[0].getReferenceType());
-		assertEquals(true, refs[0].isPrimary());
+		assertTrue(refs[0].isPrimary());
 		assertEquals(addr("0x01002f5d"), refs[1].getToAddress());
 		assertEquals(RefType.FALL_THROUGH, refs[1].getReferenceType());
-		assertEquals(false, refs[1].isPrimary());
+		assertFalse(refs[1].isPrimary());
 	}
 
 	/**
@@ -723,10 +723,10 @@ public class ReferenceMergerTest extends AbstractListingMergeManagerTest {
 		Arrays.sort(refs);
 		assertEquals(addr("0x01002f55"), refs[0].getToAddress());
 		assertEquals(RefType.FALL_THROUGH, refs[0].getReferenceType());
-		assertEquals(true, refs[0].isPrimary());
+		assertTrue(refs[0].isPrimary());
 		assertEquals(addr("0x01002f5d"), refs[1].getToAddress());
 		assertEquals(RefType.READ_WRITE, refs[1].getReferenceType());
-		assertEquals(false, refs[1].isPrimary());
+		assertFalse(refs[1].isPrimary());
 	}
 
 @Test
@@ -876,11 +876,11 @@ public class ReferenceMergerTest extends AbstractListingMergeManagerTest {
 		assertEquals(SourceType.IMPORTED, refs[0].getSource());
 		assertEquals(addr("0x10025d8"), refs[1].getToAddress());
 		assertEquals(RefType.DATA, refs[1].getReferenceType());
-		assertTrue(!refs[1].isPrimary());
+		assertFalse(refs[1].isPrimary());
 		assertEquals(SourceType.ANALYSIS, refs[1].getSource());
 		assertEquals(addr("0x1002608"), refs[2].getToAddress());
 		assertEquals(RefType.CONDITIONAL_JUMP, refs[2].getReferenceType());
-		assertTrue(!refs[2].isPrimary());
+		assertFalse(refs[2].isPrimary());
 		assertEquals(SourceType.DEFAULT, refs[2].getSource());
 	}
 

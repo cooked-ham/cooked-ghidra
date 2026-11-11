@@ -184,7 +184,7 @@ public class ToolBarManager {
 // Inner Classes
 //==================================================================================================
 
-	private class GroupComparator implements Comparator<String> {
+	private static class GroupComparator implements Comparator<String> {
 
 		@Override
 		public int compare(String group1, String group2) {
@@ -201,7 +201,7 @@ public class ToolBarManager {
 		}
 	}
 
-	private class ToolBarItemManagerComparator implements Comparator<ToolBarItemManager> {
+	private static class ToolBarItemManagerComparator implements Comparator<ToolBarItemManager> {
 
 		@Override
 		public int compare(ToolBarItemManager t1, ToolBarItemManager t2) {

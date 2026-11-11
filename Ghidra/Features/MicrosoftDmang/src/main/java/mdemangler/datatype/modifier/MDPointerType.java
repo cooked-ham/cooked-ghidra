@@ -23,35 +23,33 @@ import mdemangler.MDMang;
  */
 public class MDPointerType extends MDModifierType {
 
-	public MDPointerType(MDMang dmang, boolean isHighest, boolean isConst, boolean isVolatile) {
-		super(dmang);
-		if (isHighest) {
-			setConst(isConst);
-			setVolatile(isVolatile);
-		}
-		else {
-			setConst(false);
-			setVolatile(false);
-		}
-		cvMod.setPointerType();
-	}
+    public MDPointerType(MDMang dmang, boolean isHighest, boolean isConst, boolean isVolatile) {
+        super(dmang);
+        if (isHighest) {
+            setConst(isConst);
+            setVolatile(isVolatile);
+        } else {
+            setConst(false);
+            setVolatile(false);
+        }
+        cvMod.setPointerType();
+    }
 
-	@Override
-	protected void parseInternal() throws MDException {
-		super.parseInternal();
-	}
+    @Override
+    protected void parseInternal() throws MDException {
+        super.parseInternal();
+    }
 
-	@Override
-	public void insertCVMod(StringBuilder builder) {
-		if (cvMod.isFunction()) {
-			StringBuilder cvBuilder = new StringBuilder();
-			cvMod.insert(cvBuilder);
-			dmang.insertString(builder, cvBuilder.toString());
-		}
-		else {
-			cvMod.insert(builder);
-		}
-		// Following is to clean the Based5 "bug" if seen.  See comments in MDBasedAttribute.
-		dmang.cleanOutput(builder);
-	}
+    @Override
+    public void insertCVMod(StringBuilder builder) {
+        if (cvMod.isFunction()) {
+            StringBuilder cvBuilder = new StringBuilder();
+            cvMod.insert(cvBuilder);
+            dmang.insertString(builder, cvBuilder.toString());
+        } else {
+            cvMod.insert(builder);
+        }
+        // Following is to clean the Based5 "bug" if seen.  See comments in MDBasedAttribute.
+        dmang.cleanOutput(builder);
+    }
 }

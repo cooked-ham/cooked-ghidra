@@ -159,7 +159,7 @@ public class JgtLayoutFactory<V extends FGVertex, E extends FGEdge> {
 		}
 	}
 
-	private class FGVertexShapeFunction implements Function<FGVertex, Rectangle> {
+	private static class FGVertexShapeFunction implements Function<FGVertex, Rectangle> {
 
 		private VisualGraphVertexShapeTransformer<FGVertex> vgShaper =
 			new VisualGraphVertexShapeTransformer<>();

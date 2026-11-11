@@ -209,10 +209,10 @@ public class ShowCCallsScript extends GhidraScript {
 				if (refAddr.getAddressSpace().isOverlaySpace()) {
 					nodeAddr = refAddr.getAddressSpace().getOverlayAddress(nodeAddr);
 				}
-				buff.append(" " + nodeAddr + "   : ");
+				buff.append(" ").append(nodeAddr).append("   : ");
 			}
 
-			buff.append("   " + toString(stmt));
+			buff.append("   ").append(toString(stmt));
 			return true;
 			//}
 		}

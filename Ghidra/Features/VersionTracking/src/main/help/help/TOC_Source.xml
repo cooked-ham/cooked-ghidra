@@ -49,133 +49,132 @@
 
 
 <tocroot>
-	<tocref id="Ghidra Functionality">
-	
-		<tocdef id="Version Tracking"
-		        text="Version Tracking"  
-		        target="help/topics/VersionTrackingPlugin/Version_Tracking_Intro.html" >
-		        
-		        
-		    <!-- Workflow -->
-		    <tocdef id="VTWorkflow" 
-		    	sortgroup="a"
-		    	text="Workflow" 
-	            target="help/topics/VersionTrackingPlugin/VT_Workflow.html">
-	            
-	            
-	            <tocdef id="Preconditions"
-	            	sortgroup="a"
-		    		text="Preconditions" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Preconditions.html" />
-	            	
-	            <tocdef id="VersionTrackingExampleWorkflow"
-	            	sortgroup="b"
-		    		text="Example Workflow" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Workflow.html#Workflow" />
-	            	
-	            <tocdef id="VersionTrackingWorkflowFAQ"
-	            	sortgroup="c"
-		    		text="Workflow FAQ" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Workflow.html#FAQ" />
-	            	
-	            <tocdef id="VersionTrackingCommonProblems"
-	            	sortgroup="d"
-		    		text="Common Problems" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Workflow.html#Common_Problems" />
-	            
-	        </tocdef>
-	            
-	    	<!-- Correlators -->
-	    	<tocdef id="VTCorrelators"
-	    		sortgroup="b" 
-		    	text="Program Correlators" 
-	            target="help/topics/VersionTrackingPlugin/VT_Correlators.html" >
-	            
-	    		<!-- Data Match Correlator -->
-	    		<tocdef id="DataMatchCorrelator"
-		    		text="Data Match Correlator" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Data_Match" />
-	    		
-	    		<!-- Function Match Correlator -->
-	    		<tocdef id="FunctionMatchCorrelator"
-		    		text="Function Match Correlator" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Function_Match" />
-	            	
-	    		<!-- Legacy Import Correlator -->
-	    		<tocdef id="LegacyMatchCorrelator"
-		    		text="Legacy Import Match Correlator" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Legacy_Import" />
-	    		
-	    		<!-- Implied Match Correlator -->
-	    		<tocdef id="ImpliedMatchCorrelator"
-		    		text="Implied Match Correlator" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Implied_Match" />
-	    		
-	    		<!-- Manual Match Correlator -->
-	    		<tocdef id="ManualMatchCorrelator"
-		    		text="Manual Match Correlator" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Manual_Match" />
-	    		
-	    		<!-- Symbol Name Correlator -->
-	    		<tocdef id="SymbolMatchCorrelator"
-		    		text="Symbol Name Match Correlator" 
-	            	target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Symbol_Match" />
-	    		
-	    	</tocdef>
-	    		
-	    	<!-- Wizard -->
-	    	<tocdef id="VTWizard" 
-		    	sortgroup="c"
-		    	text="Session Wizard" 
-	            target="help/topics/VersionTrackingPlugin/VT_Wizard.html" />
-	            
-	    		<!-- New Session Panel -->
-	    		<!-- Address Set Panel -->
-	    		<!-- Preconditions Panel -->
-	    		<!-- Correlator Panel -->
-	    		<!-- Options Panel -->
-	    		<!-- Summary Panel -->
-		    		
-		    	
-		    
-		    <!-- Tool -->
-		    <tocdef id="VTTool" 
-		    	sortgroup="d"
-		    	text="Tool" 
-	            target="help/topics/VersionTrackingPlugin/VT_Tool.html" >
-	            
-		    	<!-- Matches Table -->
-		    	<tocdef id="VTMatchTable"
-		    		sortgroup="a"
-		    		text="Matches Table" 
-	            	target="help/topics/VersionTrackingPlugin/providers/VT_Matches_Table.html" />
-		    	
-		    	<!-- Markup Items Table -->
-		    	<tocdef id="VTMarkupTable"
-		    		sortgroup="b"
-		    		text="Markup Items Table" 
-	            	target="help/topics/VersionTrackingPlugin/providers/VT_Markup_Table.html" />
-		    	
-		    	<!-- Functions Table -->
-		    	<tocdef id="VTFunctionsTable"
-		    		sortgroup="c"
-		    		text="Functions Table" 
-	            	target="help/topics/VersionTrackingPlugin/providers/VT_Functions_Table.html" />
-		    	
-		    	<!-- Related Associations Tables -->
-		    	<tocdef id="VTRelatedAssociationsTable"
-		    		sortgroup="d"
-		    		text="Related Matches Table" 
-	            	target="help/topics/VersionTrackingPlugin/providers/VT_Related_Associations_Table.html" />
-		    	
-		    	<!-- Implied Matches Tables -->
-		    	<tocdef id="VTImpliedMatchTable"
-		    		sortgroup="e"
-		    		text="Implied Matches Table" 
-	            	target="help/topics/VersionTrackingPlugin/providers/VT_Implied_Matches_Table.html" />
-		    	
-		    </tocdef>
+    <tocref id="Ghidra Functionality">
 
-	    </tocdef>
-	</tocref>
+        <tocdef id="Version Tracking"
+                text="Version Tracking"
+                target="help/topics/VersionTrackingPlugin/Version_Tracking_Intro.html">
+
+
+            <!-- Workflow -->
+            <tocdef id="VTWorkflow"
+                    sortgroup="a"
+                    text="Workflow"
+                    target="help/topics/VersionTrackingPlugin/VT_Workflow.html">
+
+
+                <tocdef id="Preconditions"
+                        sortgroup="a"
+                        text="Preconditions"
+                        target="help/topics/VersionTrackingPlugin/VT_Preconditions.html"/>
+
+                <tocdef id="VersionTrackingExampleWorkflow"
+                        sortgroup="b"
+                        text="Example Workflow"
+                        target="help/topics/VersionTrackingPlugin/VT_Workflow.html#Workflow"/>
+
+                <tocdef id="VersionTrackingWorkflowFAQ"
+                        sortgroup="c"
+                        text="Workflow FAQ"
+                        target="help/topics/VersionTrackingPlugin/VT_Workflow.html#FAQ"/>
+
+                <tocdef id="VersionTrackingCommonProblems"
+                        sortgroup="d"
+                        text="Common Problems"
+                        target="help/topics/VersionTrackingPlugin/VT_Workflow.html#Common_Problems"/>
+
+            </tocdef>
+
+            <!-- Correlators -->
+            <tocdef id="VTCorrelators"
+                    sortgroup="b"
+                    text="Program Correlators"
+                    target="help/topics/VersionTrackingPlugin/VT_Correlators.html">
+
+                <!-- Data Match Correlator -->
+                <tocdef id="DataMatchCorrelator"
+                        text="Data Match Correlator"
+                        target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Data_Match"/>
+
+                <!-- Function Match Correlator -->
+                <tocdef id="FunctionMatchCorrelator"
+                        text="Function Match Correlator"
+                        target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Function_Match"/>
+
+                <!-- Legacy Import Correlator -->
+                <tocdef id="LegacyMatchCorrelator"
+                        text="Legacy Import Match Correlator"
+                        target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Legacy_Import"/>
+
+                <!-- Implied Match Correlator -->
+                <tocdef id="ImpliedMatchCorrelator"
+                        text="Implied Match Correlator"
+                        target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Implied_Match"/>
+
+                <!-- Manual Match Correlator -->
+                <tocdef id="ManualMatchCorrelator"
+                        text="Manual Match Correlator"
+                        target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Manual_Match"/>
+
+                <!-- Symbol Name Correlator -->
+                <tocdef id="SymbolMatchCorrelator"
+                        text="Symbol Name Match Correlator"
+                        target="help/topics/VersionTrackingPlugin/VT_Correlators.html#Symbol_Match"/>
+
+            </tocdef>
+
+            <!-- Wizard -->
+            <tocdef id="VTWizard"
+                    sortgroup="c"
+                    text="Session Wizard"
+                    target="help/topics/VersionTrackingPlugin/VT_Wizard.html"/>
+
+            <!-- New Session Panel -->
+            <!-- Address Set Panel -->
+            <!-- Preconditions Panel -->
+            <!-- Correlator Panel -->
+            <!-- Options Panel -->
+            <!-- Summary Panel -->
+
+
+            <!-- Tool -->
+            <tocdef id="VTTool"
+                    sortgroup="d"
+                    text="Tool"
+                    target="help/topics/VersionTrackingPlugin/VT_Tool.html">
+
+                <!-- Matches Table -->
+                <tocdef id="VTMatchTable"
+                        sortgroup="a"
+                        text="Matches Table"
+                        target="help/topics/VersionTrackingPlugin/providers/VT_Matches_Table.html"/>
+
+                <!-- Markup Items Table -->
+                <tocdef id="VTMarkupTable"
+                        sortgroup="b"
+                        text="Markup Items Table"
+                        target="help/topics/VersionTrackingPlugin/providers/VT_Markup_Table.html"/>
+
+                <!-- Functions Table -->
+                <tocdef id="VTFunctionsTable"
+                        sortgroup="c"
+                        text="Functions Table"
+                        target="help/topics/VersionTrackingPlugin/providers/VT_Functions_Table.html"/>
+
+                <!-- Related Associations Tables -->
+                <tocdef id="VTRelatedAssociationsTable"
+                        sortgroup="d"
+                        text="Related Matches Table"
+                        target="help/topics/VersionTrackingPlugin/providers/VT_Related_Associations_Table.html"/>
+
+                <!-- Implied Matches Tables -->
+                <tocdef id="VTImpliedMatchTable"
+                        sortgroup="e"
+                        text="Implied Matches Table"
+                        target="help/topics/VersionTrackingPlugin/providers/VT_Implied_Matches_Table.html"/>
+
+            </tocdef>
+
+        </tocdef>
+    </tocref>
 </tocroot>

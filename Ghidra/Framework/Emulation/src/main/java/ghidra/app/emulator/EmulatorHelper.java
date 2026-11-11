@@ -701,7 +701,7 @@ public class EmulatorHelper implements MemoryFaultHandler, EmulatorConfiguration
 		return null;
 	}
 
-	private class MemoryWriteTracker extends MemoryAccessFilter {
+	private static class MemoryWriteTracker extends MemoryAccessFilter {
 
 		AddressSet writeSet = new AddressSet();
 

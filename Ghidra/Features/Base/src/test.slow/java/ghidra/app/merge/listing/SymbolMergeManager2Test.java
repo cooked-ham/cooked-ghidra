@@ -817,7 +817,7 @@ public class SymbolMergeManager2Test extends AbstractListingMergeManagerTest {
 		checkSymbol(symbols[0], "ADVAPI32.DLL::IsTextUnicode", true);
 		assertTrue(symbols[0].isPrimary());
 		checkSymbol(symbols[1], "ME", true);
-		assertTrue(!symbols[1].isPrimary());
+		assertFalse(symbols[1].isPrimary());
 
 		symbols = symtab.getSymbols(addr("0x1001b97"));
 		assertEquals(1, symbols.length);
@@ -829,7 +829,7 @@ public class SymbolMergeManager2Test extends AbstractListingMergeManagerTest {
 		checkSymbol(symbols[0], "ME", true);
 		assertTrue(symbols[0].isPrimary());
 		checkSymbol(symbols[1], "YOU", false);
-		assertTrue(!symbols[1].isPrimary());
+		assertFalse(symbols[1].isPrimary());
 	}
 
 	@Test

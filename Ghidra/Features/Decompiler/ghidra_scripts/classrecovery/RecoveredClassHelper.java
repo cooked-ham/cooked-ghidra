@@ -3332,7 +3332,7 @@ public class RecoveredClassHelper {
 				}
 			}
 		}
-		parentStringBuffer.append("class " + classString);
+		parentStringBuffer.append("class ").append(classString);
 		return parentStringBuffer;
 	}
 
@@ -8868,7 +8868,7 @@ public class RecoveredClassHelper {
 		return classStructureDataType;
 	}
 
-	public class ReferencedClassObject {
+	public static class ReferencedClassObject {
 
 		Address referenceLocation;
 		RecoveredClass containingClass;

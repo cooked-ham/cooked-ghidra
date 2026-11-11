@@ -682,7 +682,7 @@ public class ListingCodeComparisonView
 		}
 
 		MultiAddressRangeIterator multiIterator = new MultiAddressRangeIterator(
-			iteratorList.toArray(new AddressRangeIterator[iteratorList.size()]), forward);
+			iteratorList.toArray(new AddressRangeIterator[0]), forward);
 
 		if (multiIterator.hasNext()) {
 			AddressRange nextRange = multiIterator.next();

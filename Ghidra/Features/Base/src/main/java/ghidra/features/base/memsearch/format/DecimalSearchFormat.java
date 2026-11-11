@@ -235,7 +235,7 @@ class DecimalSearchFormat extends SearchFormat {
 		}
 		boolean padNegative = shouldPadNegative(text);
 		String valueString = getValueString(bytes, newSettings, padNegative);
-		return valueString.replaceAll(",", "");
+		return valueString.replace(",", "");
 	}
 
 	private boolean shouldPadNegative(String text) {

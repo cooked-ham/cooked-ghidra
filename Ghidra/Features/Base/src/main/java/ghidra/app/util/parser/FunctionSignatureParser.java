@@ -222,7 +222,7 @@ public class FunctionSignatureParser {
 		for (String arg : split) {
 			addParameter(parameterList, arg.trim());
 		}
-		return parameterList.toArray(new ParameterDefinition[parameterList.size()]);
+		return parameterList.toArray(new ParameterDefinition[0]);
 	}
 
 	private void addParameter(List<ParameterDefinition> parameterList, String arg)

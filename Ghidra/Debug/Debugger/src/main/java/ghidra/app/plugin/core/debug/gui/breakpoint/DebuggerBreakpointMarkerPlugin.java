@@ -540,7 +540,7 @@ public class DebuggerBreakpointMarkerPlugin extends Plugin {
 		return breakpointService.computeState(col, locs.get(0));
 	}
 
-	public abstract class AbstractToggleBreakpointAction extends DockingAction {
+	public static abstract class AbstractToggleBreakpointAction extends DockingAction {
 		public static final String NAME = "Toggle Breakpoint";
 		// TODO: A "toggle breakpoint" icon
 		public static final Icon ICON = LogicalBreakpoint.ICON_MARKER_MIXED;

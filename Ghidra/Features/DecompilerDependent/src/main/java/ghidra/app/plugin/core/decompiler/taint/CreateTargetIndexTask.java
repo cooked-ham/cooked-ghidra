@@ -15,13 +15,6 @@
  */
 package ghidra.app.plugin.core.decompiler.taint;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-
 import docking.widgets.filechooser.GhidraFileChooser;
 import docking.widgets.filechooser.GhidraFileChooserMode;
 import ghidra.app.services.ConsoleService;
@@ -33,137 +26,142 @@ import ghidra.util.exception.CancelledException;
 import ghidra.util.task.Task;
 import ghidra.util.task.TaskMonitor;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
 public class CreateTargetIndexTask extends Task {
 
-	private TaintPlugin plugin;
-	private Program program;
+    private TaintPlugin plugin;
+    private Program program;
 
-	public CreateTargetIndexTask(TaintPlugin plugin, Program program) {
-		super("Create Target Index Action", true, true, false, false);
-		this.plugin = plugin;
-		this.program = program;
-	}
+    public CreateTargetIndexTask(TaintPlugin plugin, Program program) {
+        super("Create Target Index Action", true, true, false, false);
+        this.plugin = plugin;
+        this.program = program;
+    }
 
-	private File getFilePath(String initial_directory, String title) {
+    private File getFilePath(String initial_directory, String title) {
 
-		GhidraFileChooser chooser = new GhidraFileChooser(null);
-		chooser.setCurrentDirectory(new File(initial_directory));
-		chooser.setFileSelectionMode(GhidraFileChooserMode.FILES_ONLY);
-		chooser.setTitle(title);
-		File selectedFile = chooser.getSelectedFile();
-		if (selectedFile != null) {
-			return selectedFile;
-		}
+        GhidraFileChooser chooser = new GhidraFileChooser(null);
+        chooser.setCurrentDirectory(new File(initial_directory));
+        chooser.setFileSelectionMode(GhidraFileChooserMode.FILES_ONLY);
+        chooser.setTitle(title);
+        File selectedFile = chooser.getSelectedFile();
+        if (selectedFile != null) {
+            return selectedFile;
+        }
 
-		return selectedFile;
-	}
+        return selectedFile;
+    }
 
-	private String getDirectoryPath(String path, String title) {
+    private String getDirectoryPath(String path, String title) {
 
-		GhidraFileChooser chooser = new GhidraFileChooser(null);
-		chooser.setCurrentDirectory(new File(path));
-		chooser.setFileSelectionMode(GhidraFileChooserMode.DIRECTORIES_ONLY);
-		chooser.setTitle(title);
-		File selectedDir = chooser.getCurrentDirectory();
-		if (selectedDir != null && !chooser.wasCancelled()) {
-			return selectedDir.getAbsolutePath();
-		}
-		return null;
-	}
+        GhidraFileChooser chooser = new GhidraFileChooser(null);
+        chooser.setCurrentDirectory(new File(path));
+        chooser.setFileSelectionMode(GhidraFileChooserMode.DIRECTORIES_ONLY);
+        chooser.setTitle(title);
+        File selectedDir = chooser.getCurrentDirectory();
+        if (selectedDir != null && !chooser.wasCancelled()) {
+            return selectedDir.getAbsolutePath();
+        }
+        return null;
+    }
 
-	private boolean indexProgram(String engine_path, String facts_path, String index_directory) {
+    private boolean indexProgram(String engine_path, String facts_path, String index_directory) {
 
-		boolean rvalue = true;
+        boolean rvalue = true;
 
-		List<String> param_list = new ArrayList<String>();
-		plugin.getTaintState().buildIndex(param_list, engine_path, facts_path, index_directory);
-		Msg.info(this, "Index Param List: " + param_list.toString());
+        List<String> param_list = new ArrayList<String>();
+        plugin.getTaintState().buildIndex(param_list, engine_path, facts_path, index_directory);
+        Msg.info(this, "Index Param List: " + param_list.toString());
 
-		try {
-			ProcessBuilder pb = new ProcessBuilder(param_list);
-			pb.directory(new File(facts_path));
-			pb.redirectError(Redirect.INHERIT);
-			Process p = pb.start();
-			p.waitFor();
+        try {
+            ProcessBuilder pb = new ProcessBuilder(param_list);
+            pb.directory(new File(facts_path));
+            pb.redirectError(Redirect.INHERIT);
+            Process p = pb.start();
+            p.waitFor();
 
-		}
-		catch (IOException | InterruptedException e) {
-			Msg.error(this, "Problems running index: " + e);
-			rvalue = false;
-		}
+        } catch (IOException | InterruptedException e) {
+            Msg.error(this, "Problems running index: " + e);
+            rvalue = false;
+        }
 
-		return rvalue;
-	}
+        return rvalue;
+    }
 
-	@Override
-	public void run(TaskMonitor monitor) throws CancelledException {
+    @Override
+    public void run(TaskMonitor monitor) throws CancelledException {
 
-		monitor.initialize(program.getFunctionManager().getFunctionCount());
-		PluginTool tool = plugin.getTool();
-		ConsoleService consoleService = tool.getService(ConsoleService.class);
+        monitor.initialize(program.getFunctionManager().getFunctionCount());
+        PluginTool tool = plugin.getTool();
+        ConsoleService consoleService = tool.getService(ConsoleService.class);
 
-		ToolOptions options = tool.getOptions("Decompiler");
+        ToolOptions options = tool.getOptions("Decompiler");
 
-		// This will pull all the Taint options default set in the plugin.  These could also be set in Ghidra configuration files.
-		String enginePathName = options.getString(TaintOptions.OP_KEY_TAINT_ENGINE_PATH,
-			"/home/user/workspace/engine_binary").trim();
-		String factsDirectory =
-			options.getString(TaintOptions.OP_KEY_TAINT_FACTS_DIR, "/tmp/export").trim();
-		String indexDirectory =
-			options.getString(TaintOptions.OP_KEY_TAINT_OUTPUT_DIR, "/tmp/output").trim();
-		String indexDBName = options.getString(TaintOptions.OP_KEY_TAINT_DB, "ctadlir.db").trim();
+        // This will pull all the Taint options default set in the plugin.  These could also be set in Ghidra configuration files.
+        String enginePathName = options.getString(TaintOptions.OP_KEY_TAINT_ENGINE_PATH,
+                "/home/user/workspace/engine_binary").trim();
+        String factsDirectory =
+                options.getString(TaintOptions.OP_KEY_TAINT_FACTS_DIR, "/tmp/export").trim();
+        String indexDirectory =
+                options.getString(TaintOptions.OP_KEY_TAINT_OUTPUT_DIR, "/tmp/output").trim();
+        String indexDBName = options.getString(TaintOptions.OP_KEY_TAINT_DB, "ctadlir.db").trim();
 
-		// builds a custom db name with the string of the binary embedded in it for better identification.
-		indexDBName = TaintOptions.makeDBName(indexDBName, program.getName());
+        // builds a custom db name with the string of the binary embedded in it for better identification.
+        indexDBName = TaintOptions.makeDBName(indexDBName, program.getName());
 
-		Path enginePath = Path.of(enginePathName);
-		File engineFile = enginePath.toFile();
+        Path enginePath = Path.of(enginePathName);
+        File engineFile = enginePath.toFile();
 
-		if (!engineFile.exists() || !engineFile.canExecute()) {
-			Msg.info(this, "The engine binary (" + engineFile.toString() +
-				") cannot be found or executed.");
-			engineFile = getFilePath(enginePathName, "Select the engine binary");
-		}
+        if (!engineFile.exists() || !engineFile.canExecute()) {
+            Msg.info(this, "The engine binary (" + engineFile.toString() +
+                    ") cannot be found or executed.");
+            engineFile = getFilePath(enginePathName, "Select the engine binary");
+        }
 
-		consoleService.addMessage("Create Index", "using engine at: " + engineFile.toString());
+        consoleService.addMessage("Create Index", "using engine at: " + engineFile.toString());
 
-		Path factsPath = Path.of(factsDirectory);
+        Path factsPath = Path.of(factsDirectory);
 
-		if (!factsPath.toFile().exists() || !factsPath.toFile().isDirectory()) {
-			Msg.info(this, "Facts Path: " + factsPath.toString() + " does not exist.");
-			factsDirectory = getDirectoryPath(factsDirectory,
-				"Select full path to the directory containing the FACTS files");
-			if (factsDirectory == null) {
-				Msg.info(this, "User cancelled operation; existing script.");
-				return;
-			}
-			Msg.info(this, "Using .facts files in: " + factsDirectory);
-			options.setString(TaintOptions.OP_KEY_TAINT_FACTS_DIR, factsDirectory);
-		}
-		else {
-			factsDirectory = factsPath.toString();
-		}
+        if (!factsPath.toFile().exists() || !factsPath.toFile().isDirectory()) {
+            Msg.info(this, "Facts Path: " + factsPath.toString() + " does not exist.");
+            factsDirectory = getDirectoryPath(factsDirectory,
+                    "Select full path to the directory containing the FACTS files");
+            if (factsDirectory == null) {
+                Msg.info(this, "User cancelled operation; existing script.");
+                return;
+            }
+            Msg.info(this, "Using .facts files in: " + factsDirectory);
+            options.setString(TaintOptions.OP_KEY_TAINT_FACTS_DIR, factsDirectory);
+        } else {
+            factsDirectory = factsPath.toString();
+        }
 
-		consoleService.addMessage("Create Index", "using facts path: " + factsDirectory);
-		Path indexPath0 = Path.of(indexDirectory);
-		Path indexPath = Path.of(indexDirectory, indexDBName);
+        consoleService.addMessage("Create Index", "using facts path: " + factsDirectory);
+        Path indexPath0 = Path.of(indexDirectory);
+        Path indexPath = Path.of(indexDirectory, indexDBName);
 
-		if (!indexPath0.toFile().exists() || !indexPath0.toFile().isDirectory()) {
-			// the index has already been build. Use it?
-			Msg.info(this, "Index Path: " + indexPath.toString() + " does not exist.");
-			indexDirectory = getDirectoryPath(indexDirectory,
-				"Select full path to the directory to containthe INDEX file");
-			indexPath = Path.of(indexDirectory, indexDBName);
-			options.setString(TaintOptions.OP_KEY_TAINT_OUTPUT_DIR, indexDirectory);
-		}
+        if (!indexPath0.toFile().exists() || !indexPath0.toFile().isDirectory()) {
+            // the index has already been build. Use it?
+            Msg.info(this, "Index Path: " + indexPath.toString() + " does not exist.");
+            indexDirectory = getDirectoryPath(indexDirectory,
+                    "Select full path to the directory to containthe INDEX file");
+            indexPath = Path.of(indexDirectory, indexDBName);
+            options.setString(TaintOptions.OP_KEY_TAINT_OUTPUT_DIR, indexDirectory);
+        }
 
-		consoleService.addMessage("Create Index", "using index path: " + indexDirectory);
-		Msg.info(this, "Engine Path: " + engineFile.toString());
-		Msg.info(this, "Facts Path: " + factsDirectory);
-		Msg.info(this, "Index Path: " + indexDirectory);
+        consoleService.addMessage("Create Index", "using index path: " + indexDirectory);
+        Msg.info(this, "Engine Path: " + engineFile.toString());
+        Msg.info(this, "Facts Path: " + factsDirectory);
+        Msg.info(this, "Index Path: " + indexDirectory);
 
-		boolean success = indexProgram(engineFile.toString(), factsDirectory, indexDirectory);
-		consoleService.addMessage("Create Index", "indexing status: " + success);
-		monitor.clearCancelled();
-	}
+        boolean success = indexProgram(engineFile.toString(), factsDirectory, indexDirectory);
+        consoleService.addMessage("Create Index", "indexing status: " + success);
+        monitor.clearCancelled();
+    }
 }

@@ -472,7 +472,7 @@ public class FgDisplay implements OptionsChangeListener {
 
 	}
 
-	private class FgMemento extends LocationMemento {
+	private static class FgMemento extends LocationMemento {
 		FgMemento() {
 			super((Program) null, null);
 		}
@@ -518,7 +518,7 @@ public class FgDisplay implements OptionsChangeListener {
 		}
 	}
 
-	private class FgOptions extends FunctionGraphOptions {
+	private static class FgOptions extends FunctionGraphOptions {
 
 		@Override
 		public void setUseAnimation(boolean useAnimation) {

@@ -372,7 +372,7 @@ public class JythonPlugin extends ProgramPlugin
 	/**
 	 * Support for cancelling execution using a TaskMonitor.
 	 */
-	class JythonInteractiveTaskMonitor extends TaskMonitorAdapter {
+	static class JythonInteractiveTaskMonitor extends TaskMonitorAdapter {
 		private PrintWriter output = null;
 
 		public JythonInteractiveTaskMonitor(PrintWriter stdOut) {

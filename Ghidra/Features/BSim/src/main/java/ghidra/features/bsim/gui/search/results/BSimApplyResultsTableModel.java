@@ -131,7 +131,7 @@ public class BSimApplyResultsTableModel extends AddressBasedTableModel<BSimApply
 		}
 	}
 
-	private class AddressColumn
+	private static class AddressColumn
 			extends AbstractProgramLocationTableColumn<BSimApplyResult, String> {
 
 		@Override
@@ -161,7 +161,7 @@ public class BSimApplyResultsTableModel extends AddressBasedTableModel<BSimApply
 	 * Defines the column in the table for displaying the original function name (the name
 	 * to be changed).
 	 */
-	private class OriginalNameColumn
+	private static class OriginalNameColumn
 			extends AbstractDynamicTableColumn<BSimApplyResult, String, Object> {
 
 		@Override
@@ -186,7 +186,7 @@ public class BSimApplyResultsTableModel extends AddressBasedTableModel<BSimApply
 	 * name to use as the replacement).
 	 *
 	 */
-	private class DestinationNameColumn
+	private static class DestinationNameColumn
 			extends AbstractDynamicTableColumn<BSimApplyResult, String, Object> {
 
 		@Override
@@ -211,7 +211,7 @@ public class BSimApplyResultsTableModel extends AddressBasedTableModel<BSimApply
 	 * is where error information will be displayed for rename operations that fail.
 	 *
 	 */
-	private class MessageColumn
+	private static class MessageColumn
 			extends AbstractDynamicTableColumn<BSimApplyResult, String, Object> {
 
 		@Override

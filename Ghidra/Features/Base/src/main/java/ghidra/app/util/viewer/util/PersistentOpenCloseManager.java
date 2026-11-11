@@ -20,145 +20,140 @@ import ghidra.program.model.listing.ProgramUserData;
 import ghidra.program.model.util.VoidPropertyMap;
 
 /**
- * Address based open/close management that uses the {@link ProgramUserData} to persist the 
+ * Address based open/close management that uses the {@link ProgramUserData} to persist the
  * open/close state for that address. Currently used for persisting the open/close state
  * of functions in the listing.
  */
 public class PersistentOpenCloseManager implements OpenCloseManager {
-	private boolean openByDefault = true;
-	private ProgramUserData programUserData;
+    private boolean openByDefault = true;
+    private ProgramUserData programUserData;
 
-	// Often, isOpen will be called on the same function address many times in a row so cache
-	// the last address and result
-	private Address cachedAddress;
-	private boolean cachedResult;
-	private String defaultOpenClosePropertyname;
+    // Often, isOpen will be called on the same function address many times in a row so cache
+    // the last address and result
+    private Address cachedAddress;
+    private boolean cachedResult;
+    private String defaultOpenClosePropertyname;
 
-	private String owner;
-	private String propertyName;
-	private VoidPropertyMap cachedPropertyMap;
+    private String owner;
+    private String propertyName;
+    private VoidPropertyMap cachedPropertyMap;
 
-	public PersistentOpenCloseManager(ProgramUserData data, String owner, String propertyName) {
-		this.owner = owner;
-		this.propertyName = propertyName;
-		this.defaultOpenClosePropertyname = propertyName + "Default";
-		programUserData = data;
+    public PersistentOpenCloseManager(ProgramUserData data, String owner, String propertyName) {
+        this.owner = owner;
+        this.propertyName = propertyName;
+        this.defaultOpenClosePropertyname = propertyName + "Default";
+        programUserData = data;
 
-		// Get the default open state. Only addresses different from default have properties stored.
-		String functionState =
-			programUserData.getStringProperty(defaultOpenClosePropertyname, "Open");
-		openByDefault = functionState.equals("Open");
-	}
+        // Get the default open state. Only addresses different from default have properties stored.
+        String functionState =
+                programUserData.getStringProperty(defaultOpenClosePropertyname, "Open");
+        openByDefault = functionState.equals("Open");
+    }
 
-	private VoidPropertyMap getExistingProperty() {
-		if (cachedPropertyMap != null) {
-			return cachedPropertyMap;
-		}
+    private VoidPropertyMap getExistingProperty() {
+        if (cachedPropertyMap != null) {
+            return cachedPropertyMap;
+        }
 
-		cachedPropertyMap = programUserData.getBooleanProperty(owner, propertyName, false);
-		return cachedPropertyMap;
-	}
+        cachedPropertyMap = programUserData.getBooleanProperty(owner, propertyName, false);
+        return cachedPropertyMap;
+    }
 
-	private VoidPropertyMap getOrCreatePropertyMap() {
-		if (cachedPropertyMap != null) {
-			return cachedPropertyMap;
-		}
+    private VoidPropertyMap getOrCreatePropertyMap() {
+        if (cachedPropertyMap != null) {
+            return cachedPropertyMap;
+        }
 
-		cachedPropertyMap = programUserData.getBooleanProperty(owner, propertyName, true);
-		return cachedPropertyMap;
-	}
+        cachedPropertyMap = programUserData.getBooleanProperty(owner, propertyName, true);
+        return cachedPropertyMap;
+    }
 
-	@Override
-	public boolean isOpen(Address address) {
-		VoidPropertyMap propertyMap = getExistingProperty();
-		if (propertyMap == null) {
-			return openByDefault;
-		}
+    @Override
+    public boolean isOpen(Address address) {
+        VoidPropertyMap propertyMap = getExistingProperty();
+        if (propertyMap == null) {
+            return openByDefault;
+        }
 
-		if (address.equals(cachedAddress)) {
-			return cachedResult;
-		}
+        if (address.equals(cachedAddress)) {
+            return cachedResult;
+        }
 
-		cachedAddress = address;
-		boolean contains = propertyMap.hasProperty(address);
-		cachedResult = openByDefault ? !contains : contains;
-		return cachedResult;
-	}
+        cachedAddress = address;
+        boolean contains = propertyMap.hasProperty(address);
+        cachedResult = openByDefault ? !contains : contains;
+        return cachedResult;
+    }
 
-	@Override
-	public void open(Address address) {
-		cachedAddress = null;
-		if (openByDefault) {
-			removeAddressProperty(address);
-		}
-		else {
-			addAddressProperty(address);
-		}
-	}
+    @Override
+    public void open(Address address) {
+        cachedAddress = null;
+        if (openByDefault) {
+            removeAddressProperty(address);
+        } else {
+            addAddressProperty(address);
+        }
+    }
 
-	@Override
-	public void close(Address address) {
-		cachedAddress = null;
-		if (openByDefault) {
-			addAddressProperty(address);
-		}
-		else {
-			removeAddressProperty(address);
-		}
-	}
+    @Override
+    public void close(Address address) {
+        cachedAddress = null;
+        if (openByDefault) {
+            addAddressProperty(address);
+        } else {
+            removeAddressProperty(address);
+        }
+    }
 
-	@Override
-	public boolean isOpenByDefault() {
-		return openByDefault;
-	}
+    @Override
+    public boolean isOpenByDefault() {
+        return openByDefault;
+    }
 
-	@Override
-	public void openAll() {
-		cachedAddress = null;
-		openByDefault = true;
-		clearProperties();
-		programUserData.setStringProperty(defaultOpenClosePropertyname, "Open");
-	}
+    @Override
+    public void openAll() {
+        cachedAddress = null;
+        openByDefault = true;
+        clearProperties();
+        programUserData.setStringProperty(defaultOpenClosePropertyname, "Open");
+    }
 
-	@Override
-	public void closeAll() {
-		cachedAddress = null;
-		openByDefault = false;
-		clearProperties();
-		programUserData.setStringProperty(defaultOpenClosePropertyname, "Closed");
-	}
+    @Override
+    public void closeAll() {
+        cachedAddress = null;
+        openByDefault = false;
+        clearProperties();
+        programUserData.setStringProperty(defaultOpenClosePropertyname, "Closed");
+    }
 
-	private void addAddressProperty(Address address) {
-		int tx = programUserData.startTransaction();
-		try {
-			VoidPropertyMap propertyMap = getOrCreatePropertyMap();
-			propertyMap.add(address);
-		}
-		finally {
-			programUserData.endTransaction(tx);
-		}
-	}
+    private void addAddressProperty(Address address) {
+        int tx = programUserData.startTransaction();
+        try {
+            VoidPropertyMap propertyMap = getOrCreatePropertyMap();
+            propertyMap.add(address);
+        } finally {
+            programUserData.endTransaction(tx);
+        }
+    }
 
-	private void removeAddressProperty(Address address) {
-		int tx = programUserData.startTransaction();
-		try {
-			VoidPropertyMap propertyMap = getOrCreatePropertyMap();
-			propertyMap.remove(address);
-		}
-		finally {
-			programUserData.endTransaction(tx);
-		}
-	}
+    private void removeAddressProperty(Address address) {
+        int tx = programUserData.startTransaction();
+        try {
+            VoidPropertyMap propertyMap = getOrCreatePropertyMap();
+            propertyMap.remove(address);
+        } finally {
+            programUserData.endTransaction(tx);
+        }
+    }
 
-	private void clearProperties() {
-		int tx = programUserData.startTransaction();
-		try {
-			VoidPropertyMap propertyMap = getOrCreatePropertyMap();
-			propertyMap.clear();
-		}
-		finally {
-			programUserData.endTransaction(tx);
-		}
+    private void clearProperties() {
+        int tx = programUserData.startTransaction();
+        try {
+            VoidPropertyMap propertyMap = getOrCreatePropertyMap();
+            propertyMap.clear();
+        } finally {
+            programUserData.endTransaction(tx);
+        }
 
-	}
+    }
 }

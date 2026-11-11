@@ -231,7 +231,7 @@ public class SourceFileTest extends AbstractSourceFileTest {
 		SourceFile sourceFile = new SourceFile(path, SourceFileIdType.MD5,
 			hexFormat.parseHex("0123456789abcdef0123456789abcdef"));
 		assertEquals(SourceFileIdType.MD5, sourceFile.getIdType());
-		assertEquals(sourceFile.getIdAsString(), "0123456789abcdef0123456789abcdef");
+		assertEquals("0123456789abcdef0123456789abcdef", sourceFile.getIdAsString());
 
 		sourceFile = new SourceFile(path);
 		assertEquals(SourceFileIdType.NONE, sourceFile.getIdType());

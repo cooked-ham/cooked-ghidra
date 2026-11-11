@@ -1172,8 +1172,8 @@ public abstract class AbstractFunctionGraphTest extends AbstractGhidraHeadedInte
 
 	protected void assertVertexRemoved(Graph<FGVertex, FGEdge> graph,
 			GroupedFunctionGraphVertex groupedVertex) {
-		assertTrue("The grouped vertex was not removed from the graph after ungrouping",
-			!graph.containsVertex(groupedVertex));
+		assertFalse("The grouped vertex was not removed from the graph after ungrouping",
+			graph.containsVertex(groupedVertex));
 	}
 
 	protected void assertVerticesAdded(Graph<FGVertex, FGEdge> graph,
@@ -1190,8 +1190,8 @@ public abstract class AbstractFunctionGraphTest extends AbstractGhidraHeadedInte
 		FunctionGraph functionGraph = getFunctionGraph();
 		Graph<FGVertex, FGEdge> graph = functionGraph;
 		for (FGVertex vertex : ungroupedVertices) {
-			assertTrue("Graph still contains grouped vertex: " + vertex,
-				!graph.containsVertex(vertex));
+			assertFalse("Graph still contains grouped vertex: " + vertex,
+				graph.containsVertex(vertex));
 		}
 	}
 
@@ -1199,8 +1199,8 @@ public abstract class AbstractFunctionGraphTest extends AbstractGhidraHeadedInte
 			Set<FGVertex> ungroupedVertices) {
 
 		for (FGVertex vertex : ungroupedVertices) {
-			assertTrue("Graph still contains grouped vertex: " + vertex,
-				!graph.containsVertex(vertex));
+			assertFalse("Graph still contains grouped vertex: " + vertex,
+				graph.containsVertex(vertex));
 		}
 	}
 
@@ -1692,8 +1692,8 @@ public abstract class AbstractFunctionGraphTest extends AbstractGhidraHeadedInte
 		// ...we expect that the two original grouped vertices have again been grouped...
 		FGVertex splitVertex =
 			functionGraph.getVertexForAddress(getAddress("01002d11") /* LAB_01002d11 */);
-		assertTrue("The split vertex should not have been regrouped",
-			!(splitVertex instanceof GroupedFunctionGraphVertex));
+		assertFalse("The split vertex should not have been regrouped",
+			splitVertex instanceof GroupedFunctionGraphVertex);
 
 		FGVertex unchangedVertex =
 			functionGraph.getVertexForAddress(getAddress("01002cf5") /* ghidra */);
@@ -2010,7 +2010,7 @@ public abstract class AbstractFunctionGraphTest extends AbstractGhidraHeadedInte
 		// data saved in the program has been used to re-group.
 		//
 		String otherAddress = "0100415a";
-		assertNotEquals(functionAddress, otherAddress);
+		assertNotEquals(otherAddress, functionAddress);
 		graphFunction(otherAddress);
 
 		//

@@ -210,7 +210,7 @@ class EquateTableModel extends GDynamicColumnTableModel<Equate, Object> {
 
 	}
 
-	private class EquateValueColumn extends AbstractDynamicTableColumn<Equate, Long, Object> {
+	private static class EquateValueColumn extends AbstractDynamicTableColumn<Equate, Long, Object> {
 
 		public static final String NAME = "Value";
 
@@ -269,7 +269,7 @@ class EquateTableModel extends GDynamicColumnTableModel<Equate, Object> {
 
 	}
 
-	private class EquateReferenceCountColumn
+	private static class EquateReferenceCountColumn
 			extends AbstractDynamicTableColumn<Equate, Integer, Object> {
 
 		public static final String NAME = "# Refs";
@@ -287,7 +287,7 @@ class EquateTableModel extends GDynamicColumnTableModel<Equate, Object> {
 
 	}
 
-	private class IsEnumBasedEquateColumn
+	private static class IsEnumBasedEquateColumn
 			extends AbstractDynamicTableColumn<Equate, Boolean, Object> {
 
 		public static final String NAME = "Is Enum-Based";

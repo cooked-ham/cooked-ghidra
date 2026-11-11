@@ -130,18 +130,18 @@ public class EncodedValue implements StructConverter {
 			case ValueFormats.VALUE_ENUM: {
 				int length = (valueArgs & 0xff) + 1;
 				structure.add(new ArrayDataType(BYTE, length, BYTE.getLength()), "value", null);
-				builder.append("_" + length);
+				builder.append("_").append(length);
 				break;
 			}
 			case ValueFormats.VALUE_ARRAY: {
-				builder.append("_" + array.getValues().length);
+				builder.append("_").append(array.getValues().length);
 				structure.add(array.toDataType(), "value", null);
 				break;
 			}
 			case ValueFormats.VALUE_ANNOTATION: {
 				DataType dataType = annotation.toDataType();
 				structure.add(dataType, "value", null);
-				builder.append("_" + dataType.getName());
+				builder.append("_").append(dataType.getName());
 				break;
 			}
 			case ValueFormats.VALUE_NULL: {

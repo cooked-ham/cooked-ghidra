@@ -37,7 +37,7 @@ import ghidra.util.exception.DuplicateNameException;
 
 public class DBTraceModule implements TraceModule, DBTraceObjectInterface {
 
-	protected class ModuleChangeTranslator extends Translator<TraceModule> {
+	protected static class ModuleChangeTranslator extends Translator<TraceModule> {
 		private static final Map<TraceObjectSchema, Set<String>> KEYS_BY_SCHEMA =
 			new WeakHashMap<>();
 

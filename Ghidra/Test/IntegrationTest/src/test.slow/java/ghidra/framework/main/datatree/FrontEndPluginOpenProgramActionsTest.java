@@ -91,14 +91,14 @@ public class FrontEndPluginOpenProgramActionsTest extends AbstractGhidraHeadedIn
 	public void testOpenActionsEnabled() throws Exception {
 		setSelectionPath(rootNode.getTreePath());
 		DockingActionIf openAction = getAction("Open File");
-		assertTrue(!openAction.isEnabledForContext(getDomainFileActionContext(rootNode)));
+		assertFalse(openAction.isEnabledForContext(getDomainFileActionContext(rootNode)));
 
 		ToolChest tc = env.getProject().getLocalToolChest();
 		ToolTemplate[] configs = tc.getToolTemplates();
 		for (ToolTemplate config : configs) {
 			DockingActionIf action = getAction("Open" + config.getName());
-			assertTrue(!action.isEnabledForContext(getDomainFileActionContext(rootNode)));
-			assertTrue(!openAction.isEnabledForContext(getDomainFileActionContext(rootNode)));
+			assertFalse(action.isEnabledForContext(getDomainFileActionContext(rootNode)));
+			assertFalse(openAction.isEnabledForContext(getDomainFileActionContext(rootNode)));
 		}
 	}
 

@@ -90,7 +90,7 @@ class SymbolFileTableModel
 		return descriptor;
 	}
 
-	private class PdbExactMatchColumn
+	private static class PdbExactMatchColumn
 			extends AbstractDynamicTableColumnStub<SymbolFileRow, Boolean> {
 
 		BooleanIconColumnRenderer renderer =
@@ -120,7 +120,7 @@ class SymbolFileTableModel
 
 	}
 
-	private class PdbFileNameColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
+	private static class PdbFileNameColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
 
 		@Override
 		public String getValue(SymbolFileRow rowObject, Settings settings,
@@ -140,7 +140,7 @@ class SymbolFileTableModel
 
 	}
 
-	private class PdbFilePathColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
+	private static class PdbFilePathColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
 
 		@Override
 		public String getValue(SymbolFileRow rowObject, Settings settings,
@@ -155,7 +155,7 @@ class SymbolFileTableModel
 
 	}
 
-	private class GuidColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
+	private static class GuidColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
 
 		@Override
 		public String getValue(SymbolFileRow rowObject, Settings settings,
@@ -175,7 +175,7 @@ class SymbolFileTableModel
 
 	}
 
-	private class PdbVersionColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
+	private static class PdbVersionColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
 
 		@Override
 		public String getValue(SymbolFileRow rowObject, Settings settings,
@@ -190,7 +190,7 @@ class SymbolFileTableModel
 
 	}
 
-	private class PdbAgeColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, Integer> {
+	private static class PdbAgeColumn extends AbstractDynamicTableColumnStub<SymbolFileRow, Integer> {
 
 		@Override
 		public Integer getValue(SymbolFileRow rowObject, Settings settings,
@@ -210,7 +210,7 @@ class SymbolFileTableModel
 
 	}
 
-	private class PdbFileStatusColumn
+	private static class PdbFileStatusColumn
 			extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
 
 		@Override
@@ -231,7 +231,7 @@ class SymbolFileTableModel
 
 	}
 
-	private class PdbFileLocationColumn
+	private static class PdbFileLocationColumn
 			extends AbstractDynamicTableColumnStub<SymbolFileRow, String> {
 
 		@Override

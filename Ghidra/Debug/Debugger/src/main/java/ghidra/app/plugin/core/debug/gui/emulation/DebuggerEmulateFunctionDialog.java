@@ -913,7 +913,7 @@ public class DebuggerEmulateFunctionDialog extends DialogComponentProvider {
 		}
 	}
 
-	protected class VarDataSettingsDialog extends AbstractSettingsDialog {
+	protected static class VarDataSettingsDialog extends AbstractSettingsDialog {
 		private final Settings mySettings;
 
 		public VarDataSettingsDialog(DataType type, Settings mySettings) {

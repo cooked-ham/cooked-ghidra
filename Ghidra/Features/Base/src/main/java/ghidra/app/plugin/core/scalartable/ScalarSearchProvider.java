@@ -125,7 +125,7 @@ public class ScalarSearchProvider extends ComponentProviderAdapter {
 
 		buffy = new StringBuilder();
 		if (currentSelection != null) {
-			buffy.append("in Selection: " + getSelectionAsString(currentSelection));
+			buffy.append("in Selection: ").append(getSelectionAsString(currentSelection));
 		}
 
 		buffy.append(" (").append(plugin.getCurrentProgram().getName()).append(')');

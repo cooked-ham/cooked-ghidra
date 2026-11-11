@@ -72,8 +72,8 @@ public class DiffApply2Test extends DiffApplyTestAdapter {
 		assertEquals(addr("10022d4"), getDiffAddress());
 		eqs = program.getEquateTable().getEquates(addr("1002261"), 0);
 		assertEquals(1, eqs.size());
-		assertEquals(eqs.get(0).getName(), "uno");
-		assertEquals(eqs.get(0).getValue(), 1);
+		assertEquals("uno", eqs.get(0).getName());
+		assertEquals(1, eqs.get(0).getValue());
 	}
 
 	@Test
@@ -87,7 +87,7 @@ public class DiffApply2Test extends DiffApplyTestAdapter {
 		AddressSet addrSet = new AddressSet(addr("1005e4f"), addr("1005e53"));
 		setDiffSelection(addrSet);
 		setLocation("1005e4f");
-		assertTrue(!applyDiffsNext.isEnabled());
+		assertFalse(applyDiffsNext.isEnabled());
 	}
 
 	@Test
@@ -181,8 +181,8 @@ public class DiffApply2Test extends DiffApplyTestAdapter {
 
 		eqs = program.getEquateTable().getEquates(addr("1002261"), 0);
 		assertEquals(1, eqs.size());
-		assertEquals(eqs.get(0).getName(), "uno");
-		assertEquals(eqs.get(0).getValue(), 1);
+		assertEquals("uno", eqs.get(0).getName());
+		assertEquals(1, eqs.get(0).getValue());
 		assertEquals(newDiffs, diffPlugin.getDiffHighlightSelection());
 
 		undo(program);
@@ -195,8 +195,8 @@ public class DiffApply2Test extends DiffApplyTestAdapter {
 
 		eqs = program.getEquateTable().getEquates(addr("1002261"), 0);
 		assertEquals(1, eqs.size());
-		assertEquals(eqs.get(0).getName(), "uno");
-		assertEquals(eqs.get(0).getValue(), 1);
+		assertEquals("uno", eqs.get(0).getName());
+		assertEquals(1, eqs.get(0).getValue());
 		assertEquals(newDiffs, diffPlugin.getDiffHighlightSelection());
 	}
 

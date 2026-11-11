@@ -44,7 +44,7 @@ public class DtArchiveChangeRecord extends DomainObjectChangeRecord {
 	public String toString() {
 		StringBuilder builder = new StringBuilder(super.toString());
 		if (dataTypeStore != null) {
-			builder.append(", archive = " + dataTypeStore.getName());
+			builder.append(", archive = ").append(dataTypeStore.getName());
 		}
 		return builder.toString();
 	}

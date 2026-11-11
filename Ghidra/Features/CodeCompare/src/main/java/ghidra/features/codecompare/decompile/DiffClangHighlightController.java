@@ -279,7 +279,7 @@ public class DiffClangHighlightController extends LocationClangHighlightControll
 		}
 	}
 
-	private class DummyListener implements DiffClangHighlightListener {
+	private static class DummyListener implements DiffClangHighlightListener {
 		@Override
 		public void locationTokenChanged(TokenBin tokenBin) {
 			// stub

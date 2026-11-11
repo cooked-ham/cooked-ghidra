@@ -92,7 +92,7 @@ public class ReferenceTagProcessor extends TagProcessor {
 				}
 				catch (URISyntaxException e) {
 					errorCount++;
-					errors.append("Malformed IMG Tag at (line " + lineNum + "): " + htmlFile + EOL);
+					errors.append("Malformed IMG Tag at (line ").append(lineNum).append("): ").append(htmlFile).append(EOL);
 				}
 			}
 			else {
@@ -164,12 +164,12 @@ public class ReferenceTagProcessor extends TagProcessor {
 
 		if (title == null) {
 			errorCount++;
-			errors.append("Missing TITLE in: " + htmlFile + EOL);
+			errors.append("Missing TITLE in: ").append(htmlFile).append(EOL);
 		}
 
 		if (styleSheets.isEmpty()) {
 			errorCount++;
-			errors.append("Missing Stylesheet in: " + htmlFile + EOL);
+			errors.append("Missing Stylesheet in: ").append(htmlFile).append(EOL);
 		}
 
 		boolean hasDefaultStyleSheet = false;

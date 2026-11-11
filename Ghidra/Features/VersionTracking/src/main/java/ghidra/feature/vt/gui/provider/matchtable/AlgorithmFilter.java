@@ -111,7 +111,7 @@ public class AlgorithmFilter extends CheckBoxBasedAncillaryFilter<VTMatch> {
 // Inner Classes
 //==================================================================================================
 
-	private class AlgorithmNameCheckBoxInfo extends CheckBoxInfo<VTMatch> {
+	private static class AlgorithmNameCheckBoxInfo extends CheckBoxInfo<VTMatch> {
 
 		private final String algorithmName;
 

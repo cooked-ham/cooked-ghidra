@@ -112,7 +112,7 @@ public class NSSet extends NSObject {
 		builder.append("{");
 		for (Integer object : set) {
 			builder.append(" ");
-			builder.append("0x" + Integer.toHexString(object));
+			builder.append("0x").append(Integer.toHexString(object));
 			builder.append(",");
 		}
 		builder.deleteCharAt(builder.length() - 1);// pop last comma

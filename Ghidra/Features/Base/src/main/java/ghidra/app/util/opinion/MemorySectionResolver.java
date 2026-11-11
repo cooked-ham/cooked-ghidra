@@ -165,7 +165,7 @@ public abstract class MemorySectionResolver {
 		return new AddressRangeImpl(startAddress, endAddress);
 	}
 
-	private class AllocatedFileSectionRange {
+	private static class AllocatedFileSectionRange {
 
 		final MemorySection section;
 		final long rangeStartFileOffset;
@@ -209,7 +209,7 @@ public abstract class MemorySectionResolver {
 	/**
 	 * Indicates range supplied by another section (same file region mapping)
 	 */
-	private class ProxyAddressRange extends AddressRangeImpl {
+	private static class ProxyAddressRange extends AddressRangeImpl {
 		ProxyAddressRange(Address min, Address max) {
 			super(min, max);
 		}
@@ -218,7 +218,7 @@ public abstract class MemorySectionResolver {
 	/**
 	 * Indicates range must be converted to a named overlay 
 	 */
-	private class OverlayAddressRange extends AddressRangeImpl {
+	private static class OverlayAddressRange extends AddressRangeImpl {
 		OverlayAddressRange(Address min, Address max) {
 			super(min, max);
 		}

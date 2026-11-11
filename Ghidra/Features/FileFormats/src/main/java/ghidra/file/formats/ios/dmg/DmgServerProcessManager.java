@@ -218,7 +218,7 @@ class DmgServerProcessManager implements Closeable {
 		return cmd.results;
 	}
 
-	private class Cmd {
+	private static class Cmd {
 		static final int UNKNOWN_RESPONSE_COUNT = Integer.MIN_VALUE;
 		String cmdStr;
 		int expectedResponseCount;
@@ -318,7 +318,7 @@ class DmgServerProcessManager implements Closeable {
 		argList.add(pathValue);// for Windows
 		argList.add(ldLibraryPathValue);// for Linux
 
-		return argList.toArray(new String[argList.size()]);
+		return argList.toArray(new String[0]);
 	}
 
 	private String getLibraryPathVariable(String pathKey, String pathValue) {

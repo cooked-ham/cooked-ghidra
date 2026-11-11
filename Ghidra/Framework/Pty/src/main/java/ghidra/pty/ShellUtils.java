@@ -147,7 +147,7 @@ public class ShellUtils {
 		StringBuilder line = new StringBuilder(shell.generateArgument(args.get(0)));
 		for (int i = 1; i < args.size(); i++) {
 			String a = args.get(i);
-			line.append(" " + shell.generateArgument(a));
+			line.append(" ").append(shell.generateArgument(a));
 		}
 		return line.toString();
 	}

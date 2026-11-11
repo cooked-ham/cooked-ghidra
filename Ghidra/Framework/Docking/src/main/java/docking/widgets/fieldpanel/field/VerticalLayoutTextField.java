@@ -561,7 +561,7 @@ public class VerticalLayoutTextField implements TextField {
 		return 0;
 	}
 
-	private class FieldRow {
+	private static class FieldRow {
 		private TextField field;
 		private int dataRow;
 		@SuppressWarnings("unused") // used by Json

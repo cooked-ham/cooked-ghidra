@@ -76,7 +76,7 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 
 		AnalyzeProgramStrategySpy spy = new AnalyzeProgramStrategySpy();
 		AnalyzeAllOpenProgramsTask task = new AnalyzeAllOpenProgramsTask(tool, openPrograms.get(0),
-			openPrograms.toArray(new Program[openPrograms.size()]), spy);
+			openPrograms.toArray(new Program[0]), spy);
 		runTask(task);
 
 		String optionName = "Stack";
@@ -104,7 +104,7 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 
 		AnalyzeProgramStrategySpy spy = new AnalyzeProgramStrategySpy();
 		AnalyzeAllOpenProgramsTask task = new AnalyzeAllOpenProgramsTask(tool, openPrograms.get(0),
-			openPrograms.toArray(new Program[openPrograms.size()]), spy);
+			openPrograms.toArray(new Program[0]), spy);
 		runTask(task);
 
 		String optionName = "Stack";
@@ -132,7 +132,7 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 
 		AnalyzeProgramStrategySpy spy = new AnalyzeProgramStrategySpy();
 		AnalyzeAllOpenProgramsTask task = new AnalyzeAllOpenProgramsTask(tool, openPrograms.get(0),
-			openPrograms.toArray(new Program[openPrograms.size()]), spy);
+			openPrograms.toArray(new Program[0]), spy);
 		runTask(task);
 
 		cancelAnalysisDialog();
@@ -156,7 +156,7 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 
 		AnalyzeProgramStrategySpy spy = new AnalyzeProgramStrategySpy();
 		AnalyzeAllOpenProgramsTask task = new AnalyzeAllOpenProgramsTask(tool, openPrograms.get(0),
-			openPrograms.toArray(new Program[openPrograms.size()]), spy);
+			openPrograms.toArray(new Program[0]), spy);
 		runTask(task);
 
 		waitForTasks();
@@ -189,7 +189,7 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 
 		AnalyzeProgramStrategySpy spy = new AnalyzeProgramStrategySpy();
 		AnalyzeAllOpenProgramsTask task = new AnalyzeAllOpenProgramsTask(tool, openPrograms.get(0),
-			openPrograms.toArray(new Program[openPrograms.size()]), spy);
+			openPrograms.toArray(new Program[0]), spy);
 		runTask(task);
 
 		String optionName = "Stack";
@@ -224,7 +224,7 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 
 		AnalyzeProgramStrategySpy spy = new AnalyzeProgramStrategySpy();
 		AnalyzeAllOpenProgramsTask task = new AnalyzeAllOpenProgramsTask(tool, openPrograms.get(0),
-			openPrograms.toArray(new Program[openPrograms.size()]), spy);
+			openPrograms.toArray(new Program[0]), spy);
 		runTask(task);
 
 		OptionDialog warningDialog = waitForDialogComponent(OptionDialog.class);
@@ -290,7 +290,7 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 	private void disableAllAnalyzers() {
 		AnalyzeProgramStrategySpy spy = new AnalyzeProgramStrategySpy();
 		AnalyzeAllOpenProgramsTask task = new AnalyzeAllOpenProgramsTask(tool, openPrograms.get(0),
-			openPrograms.toArray(new Program[openPrograms.size()]), spy);
+			openPrograms.toArray(new Program[0]), spy);
 		runTask(task);
 
 		AnalysisOptionsDialog optionsDialog = waitForDialogComponent(AnalysisOptionsDialog.class);
@@ -383,8 +383,8 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 		Set<Program> analyzed = spy.analyzed;
 		assertArraysEqualUnordered(
 			"Some open programs that share the same architecture were not analyzed ",
-			toAnalyze.toArray(new Program[toAnalyze.size()]),
-			analyzed.toArray(new Program[analyzed.size()]));
+			toAnalyze.toArray(new Program[0]),
+			analyzed.toArray(new Program[0]));
 		//@formatter:on
 	}
 
@@ -400,7 +400,7 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 // Inner Classes
 //==================================================================================================
 
-	private class PluginToolStub extends PluginTool {
+	private static class PluginToolStub extends PluginTool {
 
 		private ToolOptions options = new ToolOptions(GhidraOptions.CATEGORY_AUTO_ANALYSIS);
 
@@ -436,7 +436,7 @@ public class AnalyzeAllOpenProgramsTaskTest extends AbstractGhidraHeadedIntegrat
 		}
 	}
 
-	private class AnalyzeProgramStrategySpy extends AnalyzeProgramStrategy {
+	private static class AnalyzeProgramStrategySpy extends AnalyzeProgramStrategy {
 
 		private Set<Program> analyzed = new HashSet<>();
 

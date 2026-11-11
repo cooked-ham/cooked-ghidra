@@ -108,7 +108,7 @@ public class DBPropertyMapManagerTest extends AbstractGhidraHeadedIntegrationTes
 		IntPropertyMap map = mgr.createIntPropertyMap("TEST");
 		map.add(addr(100), 100);
 		program.endTransaction(transactionID, true);
-		assertEquals(map.getSize(), 1);
+		assertEquals(1, map.getSize());
 	}
 
 	@Test
@@ -116,7 +116,7 @@ public class DBPropertyMapManagerTest extends AbstractGhidraHeadedIntegrationTes
 		LongPropertyMap map = mgr.createLongPropertyMap("TEST");
 		map.add(addr(100), 100);
 		program.endTransaction(transactionID, true);
-		assertEquals(map.getSize(), 1);
+		assertEquals(1, map.getSize());
 	}
 
 	@Test
@@ -124,7 +124,7 @@ public class DBPropertyMapManagerTest extends AbstractGhidraHeadedIntegrationTes
 		StringPropertyMap map = mgr.createStringPropertyMap("TEST");
 		map.add(addr(100), "STR100");
 		program.endTransaction(transactionID, true);
-		assertEquals(map.getSize(), 1);
+		assertEquals(1, map.getSize());
 	}
 
 	@Test
@@ -133,7 +133,7 @@ public class DBPropertyMapManagerTest extends AbstractGhidraHeadedIntegrationTes
 			mgr.createObjectPropertyMap("TEST", TestSaveable.class);
 		map.add(addr(100), new TestSaveable());
 		program.endTransaction(transactionID, true);
-		assertEquals(map.getSize(), 1);
+		assertEquals(1, map.getSize());
 	}
 
 	@Test
@@ -141,7 +141,7 @@ public class DBPropertyMapManagerTest extends AbstractGhidraHeadedIntegrationTes
 		VoidPropertyMap map = mgr.createVoidPropertyMap("TEST");
 		map.add(addr(100));
 		program.endTransaction(transactionID, true);
-		assertEquals(map.getSize(), 1);
+		assertEquals(1, map.getSize());
 	}
 
 	@Test
@@ -284,10 +284,10 @@ public class DBPropertyMapManagerTest extends AbstractGhidraHeadedIntegrationTes
 		Iterator<String> iter = mgr.propertyManagers();
 		while (iter.hasNext()) {
 			String name = iter.next();
-			assertEquals(name.indexOf("TEST"), 0);
+			assertEquals(0, name.indexOf("TEST"));
 			++cnt;
 		}
-		assertEquals(cnt, 2);
+		assertEquals(2, cnt);
 	}
 
 	@Override

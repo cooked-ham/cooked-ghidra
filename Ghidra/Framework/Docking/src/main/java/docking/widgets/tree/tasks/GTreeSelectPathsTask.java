@@ -67,7 +67,7 @@ public class GTreeSelectPathsTask extends GTreeTask {
 			}
 			monitor.incrementProgress(1);
 		}
-		selectPaths(translatedPaths.toArray(new TreePath[translatedPaths.size()]), monitor);
+		selectPaths(translatedPaths.toArray(new TreePath[0]), monitor);
 	}
 
 	private void selectPaths(TreePath[] treePaths, TaskMonitor monitor) {

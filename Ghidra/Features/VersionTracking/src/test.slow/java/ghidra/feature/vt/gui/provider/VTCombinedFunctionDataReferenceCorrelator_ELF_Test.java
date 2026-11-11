@@ -85,7 +85,7 @@ public class VTCombinedFunctionDataReferenceCorrelator_ELF_Test extends Abstract
 		 */
 		VTMatchSet vtMatchSet = getVTMatchSet(testCorrelator);
 		Assert.assertNotEquals("vtMatchSet does not exist", null, vtMatchSet);
-		assertEquals(vtMatchSet.getMatchCount(), 0);
+		assertEquals(0, vtMatchSet.getMatchCount());
 
 	}
 

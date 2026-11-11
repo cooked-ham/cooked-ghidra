@@ -1109,7 +1109,7 @@ public class AnnotationTest extends AbstractGhidraHeadedIntegrationTest {
 		}
 	}
 
-	private class FakeRootFolder extends TestDummyDomainFolder {
+	private static class FakeRootFolder extends TestDummyDomainFolder {
 
 		public FakeRootFolder() {
 			super(null, "Fake Root Folder");
@@ -1122,7 +1122,7 @@ public class AnnotationTest extends AbstractGhidraHeadedIntegrationTest {
 		}
 	}
 
-	private class SpyProgramManager extends TestDummyProgramManager {
+	private static class SpyProgramManager extends TestDummyProgramManager {
 
 		private Set<String> openedPrograms = new HashSet<>();
 		private Set<String> closedPrograms = new HashSet<>();
@@ -1192,7 +1192,7 @@ public class AnnotationTest extends AbstractGhidraHeadedIntegrationTest {
 		}
 	}
 
-	private class SpyGoToService extends TestDummyGoToService {
+	private static class SpyGoToService extends TestDummyGoToService {
 
 		@Override
 		public boolean goTo(Navigatable navigatable, ProgramLocation loc, Program p) {

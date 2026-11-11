@@ -138,7 +138,7 @@ public class BSimSearchDialog extends AbstractBSimSearchDialog {
 		return panel;
 	}
 
-	private class OneOrMoreIntegerFormatter extends IntegerFormatter {
+	private static class OneOrMoreIntegerFormatter extends IntegerFormatter {
 
 		@Override
 		protected Predicate<Number> createIsValidNumberPredicate() {

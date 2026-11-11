@@ -166,7 +166,7 @@ public class XmlTestHelper {
 		xmlList.clear();
 	}
 
-	class MyErrorHandler implements ErrorHandler {
+	static class MyErrorHandler implements ErrorHandler {
 
 		/**
 		 * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)

@@ -80,7 +80,7 @@ class SampleTableModel extends ThreadedTableModelStub<FunctionStatsRowObject> {
 // Inner Classes
 //==================================================================================================
 
-	private class FunctionNameTableColumn extends
+	private static class FunctionNameTableColumn extends
 			AbstractDynamicTableColumn<FunctionStatsRowObject, String, Object> {
 
 		@Override
@@ -95,7 +95,7 @@ class SampleTableModel extends ThreadedTableModelStub<FunctionStatsRowObject> {
 		}
 	}
 
-	private class AlgorithmTableColumn extends
+	private static class AlgorithmTableColumn extends
 			AbstractDynamicTableColumn<FunctionStatsRowObject, String, Object> {
 
 		@Override
@@ -110,7 +110,7 @@ class SampleTableModel extends ThreadedTableModelStub<FunctionStatsRowObject> {
 		}
 	}
 
-	private class ScoreTableColumn extends
+	private static class ScoreTableColumn extends
 			AbstractDynamicTableColumn<FunctionStatsRowObject, Integer, Object> {
 
 		@Override
@@ -125,7 +125,7 @@ class SampleTableModel extends ThreadedTableModelStub<FunctionStatsRowObject> {
 		}
 	}
 
-	private class AddressTableColumn extends
+	private static class AddressTableColumn extends
 			AbstractDynamicTableColumn<FunctionStatsRowObject, Address, Object> {
 
 		@Override

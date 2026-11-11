@@ -236,7 +236,7 @@ public class MultipleActionDockingToolbarButton extends EmptyBorderButton {
 //==================================================================================================
 // Inner Classes
 //==================================================================================================
-	private class IconWithDropDownArrow implements Icon {
+	private static class IconWithDropDownArrow implements Icon {
 
 		private int width;
 		private int height;
@@ -394,7 +394,7 @@ public class MultipleActionDockingToolbarButton extends EmptyBorderButton {
 		}
 	}
 
-	private class HoverChangeListener implements ChangeListener {
+	private static class HoverChangeListener implements ChangeListener {
 		private final DockingActionIf delegateAction;
 
 		public HoverChangeListener(DockingActionIf delegateAction) {

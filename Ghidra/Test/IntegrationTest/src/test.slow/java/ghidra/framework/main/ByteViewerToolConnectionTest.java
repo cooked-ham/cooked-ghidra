@@ -177,7 +177,7 @@ public class ByteViewerToolConnectionTest extends AbstractGhidraHeadedIntegratio
 		selectListItem(consumerList, 1);
 
 		cb = (JCheckBox) eventList.getModel().getElementAt(0);
-		assertTrue(!cb.getText().equals("ByteBlockChange"));
+		assertFalse(cb.getText().equals("ByteBlockChange"));
 	}
 
 	@Test
@@ -215,7 +215,7 @@ public class ByteViewerToolConnectionTest extends AbstractGhidraHeadedIntegratio
 		selectListItem(consumerList, 1);
 
 		cb = (JCheckBox) eventList.getModel().getElementAt(0);
-		assertTrue(!cb.getText().equals("ByteBlockChange"));
+		assertFalse(cb.getText().equals("ByteBlockChange"));
 		close(dialog);
 
 		// add ByteViewer back in 

@@ -270,7 +270,7 @@ class DirectoryTable extends GTable implements GhidraFileChooserDirectoryModelIf
 	/**
 	 * Table cell renderer to display file sizes in more friendly terms 
 	 */
-	private class FileSizeRenderer extends GTableCellRenderer {
+	private static class FileSizeRenderer extends GTableCellRenderer {
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 

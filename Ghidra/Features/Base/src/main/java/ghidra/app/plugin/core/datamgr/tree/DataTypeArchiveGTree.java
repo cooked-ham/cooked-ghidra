@@ -310,7 +310,7 @@ public class DataTypeArchiveGTree extends GTree {
 //==================================================================================================
 
 	/** Only filters on name or display name, not dt contents */
-	private class DefaultDtTreeDataTransformer extends DefaultGTreeDataTransformer {
+	private static class DefaultDtTreeDataTransformer extends DefaultGTreeDataTransformer {
 
 		private boolean filterOnNameOnly;
 

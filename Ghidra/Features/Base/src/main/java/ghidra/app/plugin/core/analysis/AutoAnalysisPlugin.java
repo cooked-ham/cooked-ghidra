@@ -415,7 +415,7 @@ public class AutoAnalysisPlugin extends Plugin implements AutoAnalysisManagerLis
 
 	// Small class to register actions by name before the various editors have been shown. We need
 	// this for the Analysis OptionsDialog actions to appear in the key binding options.
-	private class AnalysisOptionsSharedActionPlaceholder implements SharedDockingActionPlaceholder {
+	private static class AnalysisOptionsSharedActionPlaceholder implements SharedDockingActionPlaceholder {
 
 		private String actionName;
 

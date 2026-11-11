@@ -140,7 +140,7 @@ class RelocationTableXmlMgr {
 			if (buf.length() != 0) {
 				buf.append(',');
 			}
-			buf.append("0x" + Long.toHexString(v));
+			buf.append("0x").append(Long.toHexString(v));
 		}
 		return buf.toString();
 	}
@@ -154,7 +154,7 @@ class RelocationTableXmlMgr {
 			if (buf.length() != 0) {
 				buf.append(',');
 			}
-			buf.append("0x" + Integer.toHexString(v & 0xff));
+			buf.append("0x").append(Integer.toHexString(v & 0xff));
 		}
 		return buf.toString();
 	}

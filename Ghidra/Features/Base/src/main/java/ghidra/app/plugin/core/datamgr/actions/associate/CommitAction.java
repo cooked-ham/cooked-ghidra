@@ -84,7 +84,7 @@ public class CommitAction extends SyncAction {
 			buf.append("You are committing one or more conflicts which will OVERWRITE\n");
 			buf.append("changes in the source archive!\n\n");
 		}
-		buf.append("Are you sure you want to COMMIT " + infos.size() + " datatype(s)?");
+		buf.append("Are you sure you want to COMMIT ").append(infos.size()).append(" datatype(s)?");
 		return buf.toString();
 	}
 

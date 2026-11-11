@@ -1396,7 +1396,7 @@ public class DefaultGraphDisplay implements GraphDisplay {
 //==================================================================================================
 
 	// class passed to the PopupRegulator to help construct info popups for the graph
-	private class GraphDisplayPopupSource implements PopupSource<AttributedVertex, AttributedEdge> {
+	private static class GraphDisplayPopupSource implements PopupSource<AttributedVertex, AttributedEdge> {
 
 		private VisualizationViewer<AttributedVertex, AttributedEdge> vv;
 

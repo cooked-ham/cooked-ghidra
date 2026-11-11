@@ -77,8 +77,8 @@ public class Undefined6DataType extends Undefined {
 	}
 
 	private long getValue(MemBuffer buf) throws MemoryAccessException {
-		long val = (buf.getInt(0) << 16) + (buf.getShort(4) & 0xffffl);
-		return val & 0xffffffffffffl;
+		long val = (buf.getInt(0) << 16) + (buf.getShort(4) & 0xffffL);
+		return val & 0xffffffffffffL;
 	}
 
 	/**

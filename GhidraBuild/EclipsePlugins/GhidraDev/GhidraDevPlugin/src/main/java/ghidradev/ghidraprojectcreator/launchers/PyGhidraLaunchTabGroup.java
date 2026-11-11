@@ -51,7 +51,7 @@ public class PyGhidraLaunchTabGroup extends PythonTabGroup {
 		tabs.add(getCommonTab());
 
 		// Set the tabs
-		setTabs(tabs.toArray(new ILaunchConfigurationTab[tabs.size()]));
+		setTabs(tabs.toArray(new ILaunchConfigurationTab[0]));
 	}
 
 	/**

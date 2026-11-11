@@ -47,7 +47,7 @@ public class StringParameterPropagator extends GhidraScript {
 
 	private DecompInterface decomplib;
 
-	class FuncInfo {
+	static class FuncInfo {
 		int minParamSeen = 256;
 		int maxParamSeen = 0;
 		BitSet paramsNoted = new BitSet();

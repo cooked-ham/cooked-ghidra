@@ -67,7 +67,7 @@ public class FacePatterns {
 
 	//Set up the initial n choose 2 clusters consisting of the n dimension 0 data points (but with weight).
 	private TreeSet<Face> createEdges() {
-		Face[] faceList = this.patterns.toArray(new Face[this.patterns.size()]);
+		Face[] faceList = this.patterns.toArray(new Face[0]);
 		TreeSet<Face> edgesConsidered = new TreeSet<Face>();			//Ordered list of joins to agglomerate.
 		for (int indexA = 0; indexA < faceList.length - 1; indexA++) {
 			Face f1 = faceList[indexA];

@@ -135,7 +135,7 @@ class LocationReferencesTableModel extends AddressBasedTableModel<LocationRefere
 //  Inner Classes
 //==================================================================================================
 
-	private class ContextColumn
+	private static class ContextColumn
 			extends AbstractProgramBasedDynamicTableColumn<LocationReference, LocationReference> {
 
 		private static final String OFFCUT_STRING = "<< OFFCUT >>";
@@ -286,7 +286,7 @@ class LocationReferencesTableModel extends AddressBasedTableModel<LocationRefere
 
 	}
 
-	private class FieldNameColumn
+	private static class FieldNameColumn
 			extends AbstractProgramBasedDynamicTableColumn<LocationReference, String> {
 
 		@Override

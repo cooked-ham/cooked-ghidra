@@ -404,7 +404,7 @@ public class CommentsPluginTest extends AbstractGhidraHeadedIntegrationTest {
 		pressButtonByText(commentsDialog.getComponent(), "Dismiss", false);
 		waitForSwing();
 		assertEquals("Bla bla bla", cu.getComment(CommentType.REPEATABLE));
-		assertTrue(!commentsDialog.isVisible());
+		assertFalse(commentsDialog.isVisible());
 	}
 
 	@Test
@@ -774,10 +774,10 @@ public class CommentsPluginTest extends AbstractGhidraHeadedIntegrationTest {
 		assertTrue("Unable to use the code browser to go to a function " + "signature location.",
 			browser.goToField(functionAddress, VariableCommentFieldFactory.FIELD_NAME, 0, 0));
 
-		assertTrue(
+		assertFalse(
 			"The edit comments action is enabled over a variable " +
 				"location when editing these comments is covered by a different " + "action.",
-			!editAction.isEnabledForContext(browser.getProvider().getActionContext(null)));
+			editAction.isEnabledForContext(browser.getProvider().getActionContext(null)));
 	}
 
 	@Test

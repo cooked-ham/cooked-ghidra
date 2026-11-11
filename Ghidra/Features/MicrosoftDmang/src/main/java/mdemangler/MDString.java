@@ -264,7 +264,7 @@ public class MDString extends MDParsableItem {
 	 * This class is responsible for performing Cyclic Redundancy Check (CRC) calculations
 	 * using the CRC-32 polynomial and prefill.
 	 */
-	private class CrcChecker {
+	private static class CrcChecker {
 		long crc;
 
 		private long reflectBits(long val) {

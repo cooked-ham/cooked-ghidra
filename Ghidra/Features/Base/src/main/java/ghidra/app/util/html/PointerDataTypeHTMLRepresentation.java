@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,120 +15,120 @@
  */
 package ghidra.app.util.html;
 
-import org.apache.commons.lang3.StringUtils;
-
 import ghidra.app.util.ToolTipUtils;
-import ghidra.program.model.data.*;
+import ghidra.program.model.data.BuiltInDataType;
+import ghidra.program.model.data.DataType;
+import ghidra.program.model.data.Pointer;
 import ghidra.util.HTMLUtilities;
 import ghidra.util.StringUtilities;
 import ghidra.util.exception.AssertException;
+import org.apache.commons.lang3.StringUtils;
 
 public class PointerDataTypeHTMLRepresentation extends HTMLDataTypeRepresentation {
 
-	private String truncatedHtmlData;
+    private String truncatedHtmlData;
 
-	public PointerDataTypeHTMLRepresentation(Pointer pointer) {
-		super(buildHTMLText(pointer, false));
+    public PointerDataTypeHTMLRepresentation(Pointer pointer) {
+        super(buildHTMLText(pointer, false));
 
-		truncatedHtmlData = buildHTMLText(pointer, true);
-	}
+        truncatedHtmlData = buildHTMLText(pointer, true);
+    }
 
-	// overridden to return truncated text by default
-	@Override
-	public String getHTMLString() {
-		return HTML_OPEN + truncatedHtmlData + HTML_CLOSE;
-	}
+    static String buildHTMLText(Pointer pointer, boolean trim) {
 
-	// overridden to return truncated text by default
-	@Override
-	public String getHTMLContentString() {
-		return truncatedHtmlData;
-	}
+        DataType baseDataType = pointer;
+        while (baseDataType instanceof Pointer) {
+            baseDataType = ((Pointer) baseDataType).getDataType();
+        }
 
-	static String buildHTMLText(Pointer pointer, boolean trim) {
+        if (baseDataType == null) {
+            return getDefaultDescription(pointer);
+        }
 
-		DataType baseDataType = pointer;
-		while (baseDataType instanceof Pointer) {
-			baseDataType = ((Pointer) baseDataType).getDataType();
-		}
+        StringBuilder buffer = new StringBuilder();
+        int length = pointer.getLength();
+        String bits = (length * 8) + " bit ";
+        String baseName = baseDataType.getName();
+        if (trim) {
+            baseName = StringUtilities.trimMiddle(baseName, ToolTipUtils.LINE_LENGTH);
+        }
+        String fullDescription = bits + " Pointer";
 
-		if (baseDataType == null) {
-			return getDefaultDescription(pointer);
-		}
+        fullDescription = HTMLUtilities.friendlyEncodeHTML(fullDescription);
+        buffer.append(HTMLUtilities.friendlyEncodeHTML(pointer.getName()));
+        buffer.append(BR);
+        buffer.append(INDENT_OPEN);
+        buffer.append(fullDescription);
+        buffer.append(BR);
+        addDataTypeLengthAndAlignment(pointer, buffer);
+        buffer.append(INDENT_CLOSE);
 
-		StringBuilder buffer = new StringBuilder();
-		int length = pointer.getLength();
-		String bits = (length * 8) + " bit ";
-		String baseName = baseDataType.getName();
-		if (trim) {
-			baseName = StringUtilities.trimMiddle(baseName, ToolTipUtils.LINE_LENGTH);
-		}
-		String fullDescription = bits + " Pointer";
+        buffer.append(BR);
+        if (baseDataType instanceof BuiltInDataType) {
+            String simpleName = baseDataType.getDisplayName();
+            buffer.append(TT_OPEN).append(simpleName).append(TT_CLOSE);
+            buffer.append(BR).append(INDENT_OPEN);
 
-		fullDescription = HTMLUtilities.friendlyEncodeHTML(fullDescription);
-		buffer.append(HTMLUtilities.friendlyEncodeHTML(pointer.getName()));
-		buffer.append(BR);
-		buffer.append(INDENT_OPEN);
-		buffer.append(fullDescription);
-		buffer.append(BR);
-		addDataTypeLengthAndAlignment(pointer, buffer);
-		buffer.append(INDENT_CLOSE);
+            String description = baseDataType.getDescription();
+            if (!StringUtils.isBlank(description)) {
+                String encodedDescription =
+                        HTMLUtilities.friendlyEncodeHTML(description);
+                buffer.append(encodedDescription).append(BR);
+            }
+            addDataTypeLengthAndAlignment(baseDataType, buffer);
+            buffer.append(INDENT_CLOSE);
+        } else {
+            HTMLDataTypeRepresentation representation =
+                    ToolTipUtils.getHTMLRepresentation(baseDataType);
+            String baseHTML = representation.getFullHTMLContentString();
+            if (trim) {
+                baseHTML = representation.getHTMLContentString();
+            }
 
-		buffer.append(BR);
-		if (baseDataType instanceof BuiltInDataType) {
-			String simpleName = baseDataType.getDisplayName();
-			buffer.append(TT_OPEN).append(simpleName).append(TT_CLOSE);
-			buffer.append(BR).append(INDENT_OPEN);
+            buffer.append(baseHTML);
 
-			String description = baseDataType.getDescription();
-			if (!StringUtils.isBlank(description)) {
-				String encodedDescription =
-					HTMLUtilities.friendlyEncodeHTML(description);
-				buffer.append(encodedDescription).append(BR);
-			}
-			addDataTypeLengthAndAlignment(baseDataType, buffer);
-			buffer.append(INDENT_CLOSE);
-		}
-		else {
-			HTMLDataTypeRepresentation representation =
-				ToolTipUtils.getHTMLRepresentation(baseDataType);
-			String baseHTML = representation.getFullHTMLContentString();
-			if (trim) {
-				baseHTML = representation.getHTMLContentString();
-			}
+            if (baseHTML.indexOf(LENGTH_PREFIX) < 0) {
+                addDataTypeLengthAndAlignment(baseDataType, buffer);
+            }
+        }
 
-			buffer.append(baseHTML);
+        return buffer.toString();
+    }
 
-			if (baseHTML.indexOf(LENGTH_PREFIX) < 0) {
-				addDataTypeLengthAndAlignment(baseDataType, buffer);
-			}
-		}
+    private static String getDefaultDescription(Pointer pointer) {
+        String description = pointer.getDescription();
+        if (StringUtils.isBlank(description)) {
+            description = pointer.getDisplayName();
+        }
 
-		return buffer.toString();
-	}
+        // the base pointer description does not start with an upper case; fix it
+        char firstChar = description.charAt(0);
+        if (!Character.isUpperCase(firstChar)) {
+            description = Character.toUpperCase(firstChar) + description.substring(1);
+        }
 
-	private static String getDefaultDescription(Pointer pointer) {
-		String description = pointer.getDescription();
-		if (StringUtils.isBlank(description)) {
-			description = pointer.getDisplayName();
-		}
+        int length = pointer.getLength();
+        description += BR;
+        description += LENGTH_PREFIX + (length >= 0 ? length : "default");
 
-		// the base pointer description does not start with an upper case; fix it
-		char firstChar = description.charAt(0);
-		if (!Character.isUpperCase(firstChar)) {
-			description = Character.toUpperCase(firstChar) + description.substring(1);
-		}
+        return description;
+    }
 
-		int length = pointer.getLength();
-		description += BR;
-		description += LENGTH_PREFIX + (length >= 0 ? length : "default");
+    // overridden to return truncated text by default
+    @Override
+    public String getHTMLString() {
+        return HTML_OPEN + truncatedHtmlData + HTML_CLOSE;
+    }
 
-		return description;
-	}
+    // overridden to return truncated text by default
+    @Override
+    public String getHTMLContentString() {
+        return truncatedHtmlData;
+    }
 
-	@Override
-	public HTMLDataTypeRepresentation[] diff(HTMLDataTypeRepresentation otherRepresentation) {
-		throw new AssertException("Pointer types are not diffable at this time");
-	}
+    @Override
+    public HTMLDataTypeRepresentation[] diff(HTMLDataTypeRepresentation otherRepresentation) {
+        throw new AssertException("Pointer types are not diffable at this time");
+    }
 
 }

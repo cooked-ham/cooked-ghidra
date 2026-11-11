@@ -121,7 +121,7 @@ public class DecompilerTextFinderTableModel extends GhidraProgramTableModel<Text
 //Inner Classes
 //=================================================================================================		
 
-	private class LineNumberTableColumn
+	private static class LineNumberTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<TextMatch, Integer> {
 
 		@Override
@@ -163,7 +163,7 @@ public class DecompilerTextFinderTableModel extends GhidraProgramTableModel<Text
 		}
 	}
 
-	private class ContextCellRenderer
+	private static class ContextCellRenderer
 			extends SearchLocationContextRenderer {
 
 		@Override

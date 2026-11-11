@@ -1458,7 +1458,7 @@ public class StructureDataType extends CompositeDataTypeImpl implements Structur
 
 	@Override
 	public DataTypeComponent[] getDefinedComponents() {
-		return components.toArray(new DataTypeComponentImpl[components.size()]);
+		return components.toArray(new DataTypeComponentImpl[0]);
 	}
 
 	@Override

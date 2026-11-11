@@ -35,43 +35,43 @@ public class GhidraScriptUtilTest extends AbstractGenericTest {
 	@Test
 	public void fixupName_WithExtension() {
 		String input = "Bob.java";
-		assertEquals(GhidraScriptUtil.fixupName(input), "Bob.java");
+		assertEquals("Bob.java", GhidraScriptUtil.fixupName(input));
 	}
 
 	@Test
 	public void fixupName_WithoutExtension() {
 		String input = "Bob";
-		assertEquals(GhidraScriptUtil.fixupName(input), "Bob.java");
+		assertEquals("Bob.java", GhidraScriptUtil.fixupName(input));
 	}
 
 	@Test
 	public void fixupName_WithPackageDots() {
 		String input = "a.b.c.Bob";
-		assertEquals(GhidraScriptUtil.fixupName(input), "a/b/c/Bob.java");
+		assertEquals("a/b/c/Bob.java", GhidraScriptUtil.fixupName(input));
 	}
 
 	@Test
 	public void fixupName_WithPackageSlashes() {
 		String input = "a/b/c/Bob";
-		assertEquals(GhidraScriptUtil.fixupName(input), "a/b/c/Bob.java");
+		assertEquals("a/b/c/Bob.java", GhidraScriptUtil.fixupName(input));
 	}
 
 	@Test
 	public void fixupName_InnerClass() {
 		String input = "Bob$InnerClass";
-		assertEquals(GhidraScriptUtil.fixupName(input), "Bob.java");
+		assertEquals("Bob.java", GhidraScriptUtil.fixupName(input));
 	}
 
 	@Test
 	public void fixupName_InnerClass_WithPackageDots() {
 		String input = "a.b.c.Bob$InnerClass";
-		assertEquals(GhidraScriptUtil.fixupName(input), "a/b/c/Bob.java");
+		assertEquals("a/b/c/Bob.java", GhidraScriptUtil.fixupName(input));
 	}
 
 	@Test
 	public void fixupName_Python() {
 		String input = "Bob.py";
-		assertEquals(GhidraScriptUtil.fixupName(input), "Bob.py");
+		assertEquals("Bob.py", GhidraScriptUtil.fixupName(input));
 	}
 
 }

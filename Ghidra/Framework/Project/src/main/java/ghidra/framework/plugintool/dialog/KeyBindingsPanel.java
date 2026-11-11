@@ -647,7 +647,7 @@ public class KeyBindingsPanel extends JPanel {
 		}
 	}
 
-	private class KeyBindingsTableModel
+	private static class KeyBindingsTableModel
 			extends GDynamicColumnTableModel<ActionBindingsDescriptor, Object> {
 
 		private List<ActionBindingsDescriptor> actions;

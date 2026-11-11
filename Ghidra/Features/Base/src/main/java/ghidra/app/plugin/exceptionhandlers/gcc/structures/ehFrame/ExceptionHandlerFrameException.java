@@ -16,9 +16,12 @@
  */
 package ghidra.app.plugin.exceptionhandlers.gcc.structures.ehFrame;
 
+import java.io.Serial;
+
 /** Generic Exception class for classes contained in the ehFrame package */
 public class ExceptionHandlerFrameException extends Exception {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

@@ -82,7 +82,7 @@ public class TransientProjectManager {
 	 */
 	public synchronized void dispose() {
 		TransientProjectData[] projectDataArray =
-			repositoryMap.values().toArray(new TransientProjectData[repositoryMap.size()]);
+			repositoryMap.values().toArray(new TransientProjectData[0]);
 		for (TransientProjectData projectData : projectDataArray) {
 			projectData.forcedDispose();
 		}

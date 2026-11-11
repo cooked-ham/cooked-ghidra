@@ -1046,7 +1046,7 @@ public class FormatManager implements OptionsChangeListener {
 // Inner Classes
 //==================================================================================================
 
-	private class MultipleHighlighterProvider implements ListingHighlightProvider {
+	private static class MultipleHighlighterProvider implements ListingHighlightProvider {
 
 		private List<ListingHighlightProvider> highlightProviders = new CopyOnWriteArrayList<>();
 
@@ -1070,7 +1070,7 @@ public class FormatManager implements OptionsChangeListener {
 				}
 			}
 
-			return list.toArray(new Highlight[list.size()]);
+			return list.toArray(new Highlight[0]);
 		}
 
 		List<ListingHighlightProvider> getHighlightProviders() {

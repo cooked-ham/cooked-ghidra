@@ -54,7 +54,7 @@ public class BooleanColumnAdapter extends AbstractColumnAdapter {
 		return renderer;
 	}
 
-	private class BooleanRenderer extends GBooleanCellRenderer implements GColumnRenderer<Object> {
+	private static class BooleanRenderer extends GBooleanCellRenderer implements GColumnRenderer<Object> {
 		@Override
 		public String getFilterString(Object t, Settings settings) {
 			Boolean b = (Boolean) t;

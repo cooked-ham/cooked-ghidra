@@ -15,25 +15,25 @@
  */
 package ghidra.app.plugin.core.decompiler.taint.slicetree;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import ghidra.app.plugin.core.decompiler.taint.TaintSliceTreeProvider;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.listing.Function;
 import ghidra.program.model.listing.Program;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class OutFunctionCallNode extends OutSliceNode {
 
-	OutFunctionCallNode(Program program, Function function, Address sourceAddress,
-			boolean filterDuplicates, AtomicInteger filterDepth) {
-		super(program, function, sourceAddress, TaintSliceTreeProvider.HIGH_VARIABLE_ICON,
-			filterDuplicates,
-			filterDepth);
-	}
+    OutFunctionCallNode(Program program, Function function, Address sourceAddress,
+                        boolean filterDuplicates, AtomicInteger filterDepth) {
+        super(program, function, sourceAddress, TaintSliceTreeProvider.HIGH_VARIABLE_ICON,
+                filterDuplicates,
+                filterDepth);
+    }
 
-	@Override
-	public SliceNode recreate() {
-		return new OutFunctionCallNode(program, function, getSourceAddress(),
-			filterDuplicates, filterDepth);
-	}
+    @Override
+    public SliceNode recreate() {
+        return new OutFunctionCallNode(program, function, getSourceAddress(),
+                filterDuplicates, filterDepth);
+    }
 }

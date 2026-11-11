@@ -695,7 +695,7 @@ public class SearchTextPlugin3Test extends AbstractGhidraHeadedIntegrationTest {
 	/*
 	 * A task monitor class that will cancel itself when it is run from the SearchTask
 	 */
-	private class CancellingStubTaskMonitorComponent extends TaskMonitorComponent {
+	private static class CancellingStubTaskMonitorComponent extends TaskMonitorComponent {
 
 		@Override
 		public void checkCancelled() throws CancelledException {

@@ -19,17 +19,17 @@ import java.io.IOException;
 
 /**
  * Interface used by structure mapped classes that need to manually deserialize themselves from
- * the raw data, required when the structure contains variable length fields. 
- * 
+ * the raw data, required when the structure contains variable length fields.
+ *
  * @param <T> structure mapped type
  */
 public interface StructureReader<T> {
-	/**
-	 * Called after an instance has been created and its context has been initialized, to give
-	 * the struct a chance to deserialize itself using the BinaryReaders and such found in the
-	 * context information.
-	 * 
-	 * @throws IOException if error deserializing data for this struct
-	 */
-	void readStructure() throws IOException;
+    /**
+     * Called after an instance has been created and its context has been initialized, to give
+     * the struct a chance to deserialize itself using the BinaryReaders and such found in the
+     * context information.
+     *
+     * @throws IOException if error deserializing data for this struct
+     */
+    void readStructure() throws IOException;
 }

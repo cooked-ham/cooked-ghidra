@@ -198,7 +198,7 @@ public class FuncRecord implements Comparable<FuncRecord> {
 		buf.append(" funcName=\"");
 		SpecXmlUtils.xmlEscape(buf, this.funcName);
 		buf.append("\"");
-		buf.append(" hashVal=\"" + this.hashValue + "\"");
+		buf.append(" hashVal=\"").append(this.hashValue).append("\"");
 		buf.append(">\n");
 
 		fwrite.append(buf.toString());

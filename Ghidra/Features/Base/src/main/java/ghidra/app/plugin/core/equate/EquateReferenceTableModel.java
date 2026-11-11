@@ -110,7 +110,7 @@ class EquateReferenceTableModel extends GDynamicColumnTableModel<EquateReference
 		return new ProgramSelection(addressSet);
 	}
 
-	private class EquateReferenceAddressColumn
+	private static class EquateReferenceAddressColumn
 			extends AbstractDynamicTableColumn<EquateReference, Address, Object> {
 
 		@Override
@@ -126,7 +126,7 @@ class EquateReferenceTableModel extends GDynamicColumnTableModel<EquateReference
 
 	}
 
-	private class EquateOperandIndexColumn
+	private static class EquateOperandIndexColumn
 			extends AbstractDynamicTableColumn<EquateReference, Short, Object> {
 
 		@Override

@@ -81,7 +81,7 @@ public class BundleStatusManagerTest extends AbstractGhidraScriptMgrPluginTest {
 		assertScriptInTable(scriptFile);
 
 		disableViaGUI(viewRow);
-		assertTrue(!status.isEnabled());
+		assertFalse(status.isEnabled());
 		assertScriptNotInTable(scriptFile);
 
 		enableViaGUI(viewRow);
@@ -93,7 +93,7 @@ public class BundleStatusManagerTest extends AbstractGhidraScriptMgrPluginTest {
 	public void testRunCleanRun() throws Exception {
 
 		int viewRow = getBundleRow(BUNDLE_PATH);
-		assertNotEquals(viewRow, -1);
+		assertNotEquals(-1, viewRow);
 
 		selectRows(viewRow);
 
@@ -186,8 +186,8 @@ public class BundleStatusManagerTest extends AbstractGhidraScriptMgrPluginTest {
 
 			int row1 = getBundleRow(dir1);
 			int row2 = getBundleRow(dir2);
-			assertNotEquals(row1, -1);
-			assertNotEquals(row2, -1);
+			assertNotEquals(-1, row1);
+			assertNotEquals(-1, row2);
 
 			cleanViaGUI(row1, row2);
 
@@ -195,8 +195,8 @@ public class BundleStatusManagerTest extends AbstractGhidraScriptMgrPluginTest {
 
 			row1 = getBundleRow(dir1);
 			row2 = getBundleRow(dir2);
-			assertEquals(row1, -1);
-			assertEquals(row2, -1);
+			assertEquals(-1, row1);
+			assertEquals(-1, row2);
 		}
 		finally {
 			delete(dir1.toPath());
@@ -231,7 +231,7 @@ public class BundleStatusManagerTest extends AbstractGhidraScriptMgrPluginTest {
 	}
 
 	private void selectRow(int viewRow) {
-		assertNotEquals(viewRow, -1);
+		assertNotEquals(-1, viewRow);
 		runSwing(() -> {
 			bundleStatusTable.selectRow(viewRow);
 			bundleStatusTable.scrollToSelectedRow();
@@ -403,7 +403,7 @@ public class BundleStatusManagerTest extends AbstractGhidraScriptMgrPluginTest {
 	/**
 	 * A {@link BundleHostListener} to help serialize bundle operations. 
 	 */
-	private class TestBundleHostListener implements BundleHostListener {
+	private static class TestBundleHostListener implements BundleHostListener {
 		CountDownLatch activationLatch;
 		CountDownLatch disablementLatch;
 

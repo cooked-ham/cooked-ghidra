@@ -449,7 +449,7 @@ public class GenericHeader extends JPanel {
 			repaint();
 		}
 
-		private class PopupMouseListener extends MouseAdapter {
+		private static class PopupMouseListener extends MouseAdapter {
 
 			private MouseListener popupListenerDelegate;
 

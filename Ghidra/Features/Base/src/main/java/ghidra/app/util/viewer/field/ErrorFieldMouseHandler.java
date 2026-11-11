@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,25 +27,25 @@ import java.awt.event.MouseEvent;
  */
 public class ErrorFieldMouseHandler implements FieldMouseHandlerExtension {
 
-	private final static Class<?>[] SUPPORTED_CLASSES = new Class[] { ErrorListingField.class };
+    private final static Class<?>[] SUPPORTED_CLASSES = new Class[]{ErrorListingField.class};
 
-	@Override
-	public boolean fieldElementClicked(Object clickedObject, Navigatable sourceNavigatable,
-			ProgramLocation location, MouseEvent mouseEvent, ServiceProvider serviceProvider) {
+    @Override
+    public boolean fieldElementClicked(Object clickedObject, Navigatable sourceNavigatable,
+                                       ProgramLocation location, MouseEvent mouseEvent, ServiceProvider serviceProvider) {
 
-		if (mouseEvent.getClickCount() != 2 || mouseEvent.getButton() != MouseEvent.BUTTON1) {
-			return false;
-		}
-		ErrorListingField errorField = (ErrorListingField) clickedObject;
-		String fieldName = errorField.getFieldFactory().getFieldName();
-		Msg.showError(this, null, "Listing Field Exception", "Exception occurred while rendering '" +
-			fieldName + "' field", errorField.getThrowable());
-		return true;
-	}
+        if (mouseEvent.getClickCount() != 2 || mouseEvent.getButton() != MouseEvent.BUTTON1) {
+            return false;
+        }
+        ErrorListingField errorField = (ErrorListingField) clickedObject;
+        String fieldName = errorField.getFieldFactory().getFieldName();
+        Msg.showError(this, null, "Listing Field Exception", "Exception occurred while rendering '" +
+                fieldName + "' field", errorField.getThrowable());
+        return true;
+    }
 
-	@Override
-	public Class<?>[] getSupportedProgramLocations() {
-		return SUPPORTED_CLASSES;
-	}
+    @Override
+    public Class<?>[] getSupportedProgramLocations() {
+        return SUPPORTED_CLASSES;
+    }
 
 }

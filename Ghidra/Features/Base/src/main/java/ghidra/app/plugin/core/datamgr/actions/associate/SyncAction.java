@@ -268,16 +268,16 @@ public abstract class SyncAction extends DockingAction implements Comparable<Syn
 		}
 		StringBuilder buf = new StringBuilder();
 		if (updateCount > 0) {
-			buf.append("\nNumber of UPDATES remaining:   " + updateCount);
+			buf.append("\nNumber of UPDATES remaining:   ").append(updateCount);
 		}
 		if (commitCount > 0) {
-			buf.append("\nNumber of COMMITS remaining:   " + commitCount);
+			buf.append("\nNumber of COMMITS remaining:   ").append(commitCount);
 		}
 		if (conflictCount > 0) {
-			buf.append("\nNumber of CONFLICTS remaining: " + conflictCount);
+			buf.append("\nNumber of CONFLICTS remaining: ").append(conflictCount);
 		}
 		if (orphanCount > 0) {
-			buf.append("\nNumber of ORPHANS remaining:   " + orphanCount);
+			buf.append("\nNumber of ORPHANS remaining:   ").append(orphanCount);
 		}
 
 		return buf.toString();

@@ -113,21 +113,21 @@ public class CreateEnumFromSelectionTest extends AbstractGhidraHeadedIntegration
 
 		Enum newEnum = getEnum("myNewEnum");
 		long values[] = newEnum.getValues();
-		assertEquals(values.length, 6);
+		assertEquals(6, values.length);
 
-		assertEquals(newEnum.getName(0x00L), "Red");
-		assertEquals(newEnum.getName(0x10L), "Green");
-		assertEquals(newEnum.getName(0x20L), "Blue");
-		assertEquals(newEnum.getName(0x30L), "Purple");
-		assertEquals(newEnum.getName(0x40L), "White");
-		assertEquals(newEnum.getName(0x50L), "Yellow");
+		assertEquals("Red", newEnum.getName(0x00L));
+		assertEquals("Green", newEnum.getName(0x10L));
+		assertEquals("Blue", newEnum.getName(0x20L));
+		assertEquals("Purple", newEnum.getName(0x30L));
+		assertEquals("White", newEnum.getName(0x40L));
+		assertEquals("Yellow", newEnum.getName(0x50L));
 
-		assertEquals(newEnum.getValue("Red"), 0x00L);
-		assertEquals(newEnum.getValue("Green"), 0x10L);
-		assertEquals(newEnum.getValue("Blue"), 0x20L);
-		assertEquals(newEnum.getValue("Purple"), 0x30L);
-		assertEquals(newEnum.getValue("White"), 0x40L);
-		assertEquals(newEnum.getValue("Yellow"), 0x50L);
+		assertEquals(0x00L, newEnum.getValue("Red"));
+		assertEquals(0x10L, newEnum.getValue("Green"));
+		assertEquals(0x20L, newEnum.getValue("Blue"));
+		assertEquals(0x30L, newEnum.getValue("Purple"));
+		assertEquals(0x40L, newEnum.getValue("White"));
+		assertEquals(0x50L, newEnum.getValue("Yellow"));
 	}
 
 	@Test
@@ -197,31 +197,31 @@ public class CreateEnumFromSelectionTest extends AbstractGhidraHeadedIntegration
 
 		Enum newEnum = getEnum(newEnumName);
 		long values[] = newEnum.getValues();
-		assertEquals(values.length, 7);
+		assertEquals(7, values.length);
 		String names[] = newEnum.getNames();
-		assertEquals(names.length, 8);
+		assertEquals(8, names.length);
 
-		assertEquals(newEnum.getName(0x00L), "Red");
-		assertEquals(newEnum.getName(0x5L), "Green_"); // underscore for name conflict
-		assertEquals(newEnum.getName(0x10L), "Black"); // getName() return first alphabetically
-		assertEquals(newEnum.getName(0x20L), "Blue");
-		assertEquals(newEnum.getName(0x30L), "Purple");
-		assertEquals(newEnum.getName(0x40L), "White");
-		assertEquals(newEnum.getName(0x50L), "Yellow");
+		assertEquals("Red", newEnum.getName(0x00L));
+		assertEquals("Green_", newEnum.getName(0x5L)); // underscore for name conflict
+		assertEquals("Black", newEnum.getName(0x10L)); // getName() return first alphabetically
+		assertEquals("Blue", newEnum.getName(0x20L));
+		assertEquals("Purple", newEnum.getName(0x30L));
+		assertEquals("White", newEnum.getName(0x40L));
+		assertEquals("Yellow", newEnum.getName(0x50L));
 
 		String[] namesfor10 = newEnum.getNames(0x10);
-		assertEquals(namesfor10.length, 2);
-		assertEquals(namesfor10[0], "Black");
-		assertEquals(namesfor10[1], "Green");
+		assertEquals(2, namesfor10.length);
+		assertEquals("Black", namesfor10[0]);
+		assertEquals("Green", namesfor10[1]);
 
-		assertEquals(newEnum.getValue("Red"), 0x00L);
-		assertEquals(newEnum.getValue("Green_"), 0x5L); // underscore for name conflict
-		assertEquals(newEnum.getValue("Green"), 0x10L);
-		assertEquals(newEnum.getValue("Black"), 0x10L);
-		assertEquals(newEnum.getValue("Blue"), 0x20L);
-		assertEquals(newEnum.getValue("Purple"), 0x30L);
-		assertEquals(newEnum.getValue("White"), 0x40L);
-		assertEquals(newEnum.getValue("Yellow"), 0x50L);
+		assertEquals(0x00L, newEnum.getValue("Red"));
+		assertEquals(0x5L, newEnum.getValue("Green_")); // underscore for name conflict
+		assertEquals(0x10L, newEnum.getValue("Green"));
+		assertEquals(0x10L, newEnum.getValue("Black"));
+		assertEquals(0x20L, newEnum.getValue("Blue"));
+		assertEquals(0x30L, newEnum.getValue("Purple"));
+		assertEquals(0x40L, newEnum.getValue("White"));
+		assertEquals(0x50L, newEnum.getValue("Yellow"));
 	}
 
 	@Test

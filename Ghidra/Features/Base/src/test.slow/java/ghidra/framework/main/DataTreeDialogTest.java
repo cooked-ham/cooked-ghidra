@@ -277,7 +277,7 @@ public class DataTreeDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		waitForTree(getGTree());
 
 		Set<DomainFile> selectedData = getSelectedFiles();
-		assertEquals(selectedData.size(), 2);
+		assertEquals(2, selectedData.size());
 		assertTrue(selectedData.contains(file1));
 		assertTrue(selectedData.contains(file2));
 	}
@@ -296,7 +296,7 @@ public class DataTreeDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		waitForTree(getGTree());
 
 		Set<DomainFolder> selectedData = getSelectedFolders();
-		assertEquals(selectedData.size(), 1);
+		assertEquals(1, selectedData.size());
 		assertTrue("'dir2' not selected", selectedData.contains(dir2));
 	}
 

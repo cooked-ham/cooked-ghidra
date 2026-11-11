@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.*;
 
+import java.io.Serial;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.ListSelectionListener;
@@ -28,6 +29,7 @@ import javax.swing.event.ListSelectionListener;
  * @param <T> The type for the items in this list
  */
 public class ListPanel<T> extends JPanel {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private static final String DEFAULT_WARNING = "You must first select an item from the list.";

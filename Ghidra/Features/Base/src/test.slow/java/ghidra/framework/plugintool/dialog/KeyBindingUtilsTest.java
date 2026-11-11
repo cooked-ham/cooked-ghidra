@@ -735,7 +735,7 @@ public class KeyBindingUtilsTest extends AbstractGhidraHeadedIntegrationTest {
 
 	// class to call KeyBindingUtils.importKeyBindings() and to store the
 	// return value
-	class ImportRunnable implements Runnable {
+	static class ImportRunnable implements Runnable {
 		ToolOptions importedOptions;
 		boolean optionsImported;
 

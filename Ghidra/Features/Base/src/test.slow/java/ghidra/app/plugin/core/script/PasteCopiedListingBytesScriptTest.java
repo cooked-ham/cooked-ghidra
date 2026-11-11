@@ -151,20 +151,20 @@ public class PasteCopiedListingBytesScriptTest extends AbstractGhidraHeadedInteg
 		assertEquals(2,blocks.length);
 		MemoryBlock block = blocks[0];
 	
-		assertEquals(block.getStart().getOffset(), 0x10004L);
-		assertEquals(block.getEnd().getOffset(), 0x1000fL);
+		assertEquals(0x10004L, block.getStart().getOffset());
+		assertEquals(0x1000fL, block.getEnd().getOffset());
 		Address addr = block.getStart();
-		assertEquals(block.getByte(addr),(byte)0xf0);
-		assertEquals(block.getByte(addr.getAddress("0x1000c")),(byte)0x81);
-		assertEquals(block.getByte(addr.getAddress("0x1000f")),(byte)0x00);
+		assertEquals((byte)0xf0,block.getByte(addr));
+		assertEquals((byte)0x81,block.getByte(addr.getAddress("0x1000c")));
+		assertEquals((byte)0x00,block.getByte(addr.getAddress("0x1000f")));
 		
 		block = blocks[1];
-		assertEquals(block.getStart().getOffset(), 0x10024L);
-		assertEquals(block.getEnd().getOffset(), 0x1002eL);
+		assertEquals(0x10024L, block.getStart().getOffset());
+		assertEquals(0x1002eL, block.getEnd().getOffset());
 		addr = block.getStart();
-		assertEquals(block.getByte(addr.getAddress("0x10024")),(byte)0xf0);
-		assertEquals(block.getByte(addr.getAddress("0x1002a")),(byte)0x03);
-		assertEquals(block.getByte(addr.getAddress("0x1002e")),(byte)0xbf);
+		assertEquals((byte)0xf0,block.getByte(addr.getAddress("0x10024")));
+		assertEquals((byte)0x03,block.getByte(addr.getAddress("0x1002a")));
+		assertEquals((byte)0xbf,block.getByte(addr.getAddress("0x1002e")));
 
 	}
 	
@@ -203,20 +203,20 @@ public class PasteCopiedListingBytesScriptTest extends AbstractGhidraHeadedInteg
 		assertEquals(2,blocks.length);
 		MemoryBlock block = blocks[0];
 	
-		assertEquals(block.getStart().getOffset(), 0x10000L);
-		assertEquals(block.getEnd().getOffset(), 0x1000fL);
+		assertEquals(0x10000L, block.getStart().getOffset());
+		assertEquals(0x1000fL, block.getEnd().getOffset());
 		Address addr = block.getStart();
-		assertEquals(block.getByte(addr),(byte)0x9d);
-		assertEquals(block.getByte(addr.getAddress("0x1000c")),(byte)0x81);
-		assertEquals(block.getByte(addr.getAddress("0x1000f")),(byte)0x00);
+		assertEquals((byte)0x9d,block.getByte(addr));
+		assertEquals((byte)0x81,block.getByte(addr.getAddress("0x1000c")));
+		assertEquals((byte)0x00,block.getByte(addr.getAddress("0x1000f")));
 		
 		block = blocks[1];
-		assertEquals(block.getStart().getOffset(), 0x10014L);
-		assertEquals(block.getEnd().getOffset(), 0x10017L);
+		assertEquals(0x10014L, block.getStart().getOffset());
+		assertEquals(0x10017L, block.getEnd().getOffset());
 		addr = block.getStart();
-		assertEquals(block.getByte(addr),(byte)0xb0);
-		assertEquals(block.getByte(addr.getAddress("0x10016")),(byte)0xbf);
-		assertEquals(block.getByte(addr.getAddress("0x10017")),(byte)0xf8);
+		assertEquals((byte)0xb0,block.getByte(addr));
+		assertEquals((byte)0xbf,block.getByte(addr.getAddress("0x10016")));
+		assertEquals((byte)0xf8,block.getByte(addr.getAddress("0x10017")));
 
 	}
 	
@@ -240,12 +240,12 @@ public class PasteCopiedListingBytesScriptTest extends AbstractGhidraHeadedInteg
 		assertEquals(1,blocks.length);
 		MemoryBlock block = blocks[0];
 	
-		assertEquals(block.getStart().getOffset(), 0x0000L);
-		assertEquals(block.getEnd().getOffset(), 0x004fL);
+		assertEquals(0x0000L, block.getStart().getOffset());
+		assertEquals(0x004fL, block.getEnd().getOffset());
 		Address addr = block.getStart();
-		assertEquals(block.getByte(addr),(byte)0x80);
-		assertEquals(block.getByte(addr.getAddress("0x0024")),(byte)0x03);
-		assertEquals(block.getByte(addr.getAddress("0x004f")),(byte)0xb0);
+		assertEquals((byte)0x80,block.getByte(addr));
+		assertEquals((byte)0x03,block.getByte(addr.getAddress("0x0024")));
+		assertEquals((byte)0xb0,block.getByte(addr.getAddress("0x004f")));
 	}
 	
 	@Test
@@ -269,7 +269,7 @@ public class PasteCopiedListingBytesScriptTest extends AbstractGhidraHeadedInteg
 		MemoryBlock block = blocks[0];
 	
 		assertEquals(28, block.getSize());
-		assertEquals(block.getStart().getOffset(), 0x00000L);
+		assertEquals(0x00000L, block.getStart().getOffset());
 
 		Address addr = block.getStart();
 		assertEquals((byte)0x80,block.getByte(addr.getAddress("0x00000")));
@@ -279,22 +279,22 @@ public class PasteCopiedListingBytesScriptTest extends AbstractGhidraHeadedInteg
 		block = blocks[1];
 		
 		assertEquals(26, block.getSize());
-		assertEquals(block.getStart().getOffset(), 0x00020L);
+		assertEquals(0x00020L, block.getStart().getOffset());
 
 		addr = block.getStart();
-		assertEquals(block.getByte(addr.getAddress("0x00020")),(byte)0x03);
-		assertEquals(block.getByte(addr.getAddress("0x00030")),(byte)0x70);
-		assertEquals(block.getByte(addr.getAddress("0x00039")),(byte)0xed);
+		assertEquals((byte)0x03,block.getByte(addr.getAddress("0x00020")));
+		assertEquals((byte)0x70,block.getByte(addr.getAddress("0x00030")));
+		assertEquals((byte)0xed,block.getByte(addr.getAddress("0x00039")));
 		
 		block = blocks[2];
 		
 		assertEquals(16, block.getSize());
-		assertEquals(block.getStart().getOffset(), 0x00040L);
+		assertEquals(0x00040L, block.getStart().getOffset());
 
 		addr = block.getStart();
-		assertEquals(block.getByte(addr.getAddress("0x00040")),(byte)0x18);
-		assertEquals(block.getByte(addr.getAddress("0x00048")),(byte)0x04);
-		assertEquals(block.getByte(addr.getAddress("0x0004f")),(byte)0xb0);
+		assertEquals((byte)0x18,block.getByte(addr.getAddress("0x00040")));
+		assertEquals((byte)0x04,block.getByte(addr.getAddress("0x00048")));
+		assertEquals((byte)0xb0,block.getByte(addr.getAddress("0x0004f")));
 	}
 
 	private Clipboard setClipBoardContents(String str) {

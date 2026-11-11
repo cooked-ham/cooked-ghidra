@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,7 +15,10 @@
  */
 package ghidra.app.util.bin.format.golang.structmapping;
 
-import java.lang.annotation.*;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Indicates that the tagged class corresponds to a Ghidra structure.
@@ -35,7 +38,7 @@ import java.lang.annotation.*;
  * will be marked up in the Ghidra program.
  * <p>
  * The tagged class must be {@link DataTypeMapper#registerStructure(Class, DataTypeMapperContext)
- * registered} with the {@link DataTypeMapper program context} to enable the suite of structure 
+ * registered} with the {@link DataTypeMapper program context} to enable the suite of structure
  * mapped classes to work together when applied to a Ghidra binary.
  * <p>
  * For variable length structure classes, when the struct mapping system creates a custom-fitted
@@ -52,25 +55,25 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface StructureMapping {
-	/**
-	 * Specifies the name, and optionally alternate names, of a Ghidra structure that the tagged 
-	 * class represents.  For fixed length structures, the {@link DataTypeMapper} will search 
-	 * for this Ghidra data type in it's configured
-	 * {@link DataTypeMapper#addArchiveSearchCategoryPath(ghidra.program.model.data.CategoryPath...) archive}
-	 * and
-	 * {@link DataTypeMapper#addProgramSearchCategoryPath(ghidra.program.model.data.CategoryPath...) program}
-	 * search paths.
-	 *
-	 * @return name(s) of a Ghidra structure data type
-	 */
-	String[] structureName();
+    /**
+     * Specifies the name, and optionally alternate names, of a Ghidra structure that the tagged
+     * class represents.  For fixed length structures, the {@link DataTypeMapper} will search
+     * for this Ghidra data type in it's configured
+     * {@link DataTypeMapper#addArchiveSearchCategoryPath(ghidra.program.model.data.CategoryPath...) archive}
+     * and
+     * {@link DataTypeMapper#addProgramSearchCategoryPath(ghidra.program.model.data.CategoryPath...) program}
+     * search paths.
+     *
+     * @return name(s) of a Ghidra structure data type
+     */
+    String[] structureName();
 
-	/**
-	 * Optional reference to a 'function' (implemented via a class) that will be called to do
-	 * custom markup.
-	 *
-	 * @return {@link StructureMarkupFunction} class
-	 */
-	@SuppressWarnings("rawtypes")
-	Class<? extends StructureMarkupFunction> markupFunc() default StructureMarkupFunction.class;
+    /**
+     * Optional reference to a 'function' (implemented via a class) that will be called to do
+     * custom markup.
+     *
+     * @return {@link StructureMarkupFunction} class
+     */
+    @SuppressWarnings("rawtypes")
+    Class<? extends StructureMarkupFunction> markupFunc() default StructureMarkupFunction.class;
 }

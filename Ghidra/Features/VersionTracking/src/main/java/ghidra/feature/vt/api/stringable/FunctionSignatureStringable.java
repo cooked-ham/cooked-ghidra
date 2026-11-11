@@ -1298,7 +1298,7 @@ public class FunctionSignatureStringable extends Stringable {
 		}
 	}
 
-	private class ParameterInfo {
+	private static class ParameterInfo {
 
 		private final DataType dataType;
 		private final String name;

@@ -60,7 +60,7 @@ public class OffcutReferencesValidator extends PostAnalysisValidator {
 					if (!toAddr.equals(instAddr)) {
 						offcutRefCount++;
 						if (offcutRefCount < MAX_OFFCUTS_TO_REPORT) {
-							messages.append("&nbsp;&nbsp;&nbsp;&nbsp;" + toAddr + "\n");
+							messages.append("&nbsp;&nbsp;&nbsp;&nbsp;").append(toAddr).append("\n");
 						}
 						else if (offcutRefCount == MAX_OFFCUTS_TO_REPORT) {
 							messages.append(

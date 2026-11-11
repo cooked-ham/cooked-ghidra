@@ -178,7 +178,7 @@ public class AssociateDataTypeAction extends DockingAction {
 		TaskLauncher.launch(task);
 	}
 
-	private class ChooseArchiveDialog extends DialogComponentProvider {
+	private static class ChooseArchiveDialog extends DialogComponentProvider {
 
 		private Category category;
 		private PersistentDataTypeArchive archive;

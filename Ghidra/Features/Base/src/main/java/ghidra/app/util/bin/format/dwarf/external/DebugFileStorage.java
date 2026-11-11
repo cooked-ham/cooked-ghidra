@@ -15,18 +15,18 @@
  */
 package ghidra.app.util.bin.format.dwarf.external;
 
-import java.io.File;
-import java.io.IOException;
-
 import ghidra.app.util.bin.format.dwarf.external.DebugStreamProvider.StreamInfo;
 import ghidra.util.exception.CancelledException;
 import ghidra.util.task.TaskMonitor;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * A {@link DebugInfoProvider} that also allows storing files
  */
 public interface DebugFileStorage extends DebugFileProvider {
-	File putStream(ExternalDebugInfo id, StreamInfo stream, TaskMonitor monitor)
-			throws IOException, CancelledException;
+    File putStream(ExternalDebugInfo id, StreamInfo stream, TaskMonitor monitor)
+            throws IOException, CancelledException;
 
 }

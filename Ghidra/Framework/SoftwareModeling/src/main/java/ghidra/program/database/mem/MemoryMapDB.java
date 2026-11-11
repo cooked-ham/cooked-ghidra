@@ -814,7 +814,7 @@ public class MemoryMapDB implements Memory, ProgramDBModule {
 
 	@Override
 	public MemoryBlock[] getBlocks() {
-		return lock.withRead(() -> blocks.toArray(new MemoryBlock[blocks.size()]));
+		return lock.withRead(() -> blocks.toArray(new MemoryBlock[0]));
 	}
 
 	@Override

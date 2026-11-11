@@ -1388,7 +1388,7 @@ public class AutoVersionTrackingTask extends Task {
 	}
 
 	/** A task monitor that allows us to control the message content and the progress */
-	private class SubTaskMonitor extends WrappingTaskMonitor {
+	private static class SubTaskMonitor extends WrappingTaskMonitor {
 
 		private String prefix;
 

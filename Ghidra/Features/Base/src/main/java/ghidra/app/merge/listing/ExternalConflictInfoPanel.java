@@ -17,6 +17,7 @@ package ghidra.app.merge.listing;
 
 import java.awt.BorderLayout;
 
+import java.io.Serial;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
@@ -33,6 +34,7 @@ import ghidra.app.merge.util.ConflictUtility;
  */
 public class ExternalConflictInfoPanel extends JPanel {
 
+	@Serial
 	private final static long serialVersionUID = 1;
 	private String conflictType;
 	private int conflictNum;
@@ -104,11 +106,11 @@ public class ExternalConflictInfoPanel extends JPanel {
 	}
 
 	private void addCount(StringBuffer buf, int value) {
-		buf.append("<font color=\"" + Palette.MAROON + "\">" + value + "</font>");
+		buf.append("<font color=\"").append(Palette.MAROON).append("\">").append(value).append("</font>");
 	}
 
 	private void addName(StringBuffer buf, String name) {
-		buf.append("<font color=\"" + Palette.MAROON + "\">" + name + "</font>");
+		buf.append("<font color=\"").append(Palette.MAROON).append("\">").append(name).append("</font>");
 	}
 
 	private void updateWest() {

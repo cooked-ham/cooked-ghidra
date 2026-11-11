@@ -19,6 +19,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -406,7 +407,8 @@ public class DiffApplySettingsProvider extends ComponentProviderAdapter {
 		return plugin;
 	}
 
-	class Choice extends JPanel implements Comparable<Choice> {
+	static class Choice extends JPanel implements Comparable<Choice> {
+		@Serial
 		private final static long serialVersionUID = 1L;
 		String type;
 		boolean allowMerge;
@@ -463,6 +465,7 @@ public class DiffApplySettingsProvider extends ComponentProviderAdapter {
 	}
 
 	class SymbolsChoice extends Choice {
+		@Serial
 		private final static long serialVersionUID = 1L;
 
 		public SymbolsChoice() {

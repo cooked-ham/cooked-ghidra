@@ -185,7 +185,7 @@ public class BSimFilterPanelTest extends AbstractBSimPluginTest {
 		// And verify that those two clauses are separated by an OR.
 		String glue = getTextBetween(clause.whereClause(), clause1, clause2);
 		assertTrue(glue.contains("OR"));
-		assertTrue(!glue.contains("AND"));
+		assertFalse(glue.contains("AND"));
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class BSimFilterPanelTest extends AbstractBSimPluginTest {
 		// And verify that those two clauses are separated by an OR.
 		String glue = getTextBetween(clause.whereClause(), clause1, clause2);
 		assertTrue(glue.contains("OR"));
-		assertTrue(!glue.contains("AND"));
+		assertFalse(glue.contains("AND"));
 
 	}
 
@@ -241,7 +241,7 @@ public class BSimFilterPanelTest extends AbstractBSimPluginTest {
 
 		// And verify that those two clauses are separated by an OR.
 		String glue = getTextBetween(clause.whereClause(), clause1, clause2);
-		assertTrue(!glue.contains("OR"));
+		assertFalse(glue.contains("OR"));
 		assertTrue(glue.contains("AND"));
 	}
 
@@ -269,7 +269,7 @@ public class BSimFilterPanelTest extends AbstractBSimPluginTest {
 
 		// And verify that those two clauses are separated by an OR.
 		String glue = getTextBetween(clause.whereClause(), clause1, clause2);
-		assertTrue(!glue.contains("OR"));
+		assertFalse(glue.contains("OR"));
 		assertTrue(glue.contains("AND"));
 	}
 

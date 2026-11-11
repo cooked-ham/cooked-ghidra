@@ -147,8 +147,8 @@ public class ProgramMerge1Test extends AbstractGhidraHeadedIntegrationTest {
 
 		try {
 			programMerge = new ProgramMergeManager(p1, p2);
-			assertTrue("Memory in program 1 and program 2 should have been different.",
-				!programMerge.memoryMatches());
+			assertFalse("Memory in program 1 and program 2 should have been different.",
+				programMerge.memoryMatches());
 		}
 		catch (ProgramConflictException e) {
 			Assert.fail("Address spaces in program 1 and program 2 should have been the same.");

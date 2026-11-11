@@ -139,7 +139,7 @@ public class BoundImportDescriptor implements StructConverter, ByteArrayConverte
 	@Override
     public String toString() {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("TimeStamp:"+Integer.toHexString(timeDateStamp)+",");
+		buffer.append("TimeStamp:").append(Integer.toHexString(timeDateStamp)).append(",");
 		buffer.append(
 			"OffsetModuleName:" + Integer.toHexString(Short.toUnsignedInt(offsetModuleName)) + "[" +
 				moduleName + "]" + ",");
@@ -148,7 +148,7 @@ public class BoundImportDescriptor implements StructConverter, ByteArrayConverte
 		buffer.append("\n");
 		for(int i=0;i<forwarders.size();i++) {
 			BoundImportForwarderRef ref = forwarders.get(i);
-			buffer.append("\t"+"TimeStamp:"+Integer.toHexString(ref.getTimeDateStamp())+",");
+			buffer.append("\t").append("TimeStamp:").append(Integer.toHexString(ref.getTimeDateStamp())).append(",");
 			buffer.append("\t" + "OffsetModuleName:" +
 				Integer.toHexString(Short.toUnsignedInt(ref.getOffsetModuleName())) + "[" +
 				ref.getModuleName() + "]" + ",");

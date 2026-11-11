@@ -49,7 +49,7 @@ public class EditArchivePathAction extends DockingAction {
 		plugin.getTool().showDialog(pathManagerDialog);
 	}
 
-	class PathManagerDialog extends DialogComponentProvider {
+	static class PathManagerDialog extends DialogComponentProvider {
 
 		private PathManager pathManager;
 

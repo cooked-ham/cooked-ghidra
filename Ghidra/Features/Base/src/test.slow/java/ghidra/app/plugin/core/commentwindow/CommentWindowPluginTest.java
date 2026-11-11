@@ -189,7 +189,7 @@ public class CommentWindowPluginTest extends AbstractGhidraHeadedIntegrationTest
 
 		waitForTable();
 
-		assertEquals(commentTable.getRowCount(), 0);
+		assertEquals(0, commentTable.getRowCount());
 		loadProgram("notepad");
 	}
 

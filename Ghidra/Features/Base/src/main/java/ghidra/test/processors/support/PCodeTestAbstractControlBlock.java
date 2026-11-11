@@ -15,6 +15,7 @@
  */
 package ghidra.test.processors.support;
 
+import java.io.Serial;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -471,6 +472,7 @@ public abstract class PCodeTestAbstractControlBlock {
 
 	static class InvalidControlBlockException extends Exception {
 
+		@Serial
 		private static final long serialVersionUID = 9137869694955008327L;
 
 		public InvalidControlBlockException(String msg) {

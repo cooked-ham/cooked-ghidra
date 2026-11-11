@@ -340,12 +340,12 @@ public abstract class SwiftNode {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(" ".repeat(properties.depth() * 2));
-		sb.append("kind=" + properties.kind());
+		sb.append("kind=").append(properties.kind());
 		if (properties.text() != null) {
-			sb.append(", text=\"" + properties.text() + "\"");
+			sb.append(", text=\"").append(properties.text()).append("\"");
 		}
 		if (properties.index() != null) {
-			sb.append(", index=" + properties.index() + "");
+			sb.append(", index=").append(properties.index()).append("");
 		}
 		return sb.toString();
 	}

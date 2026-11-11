@@ -16,6 +16,7 @@
  */
 package ghidra.program.util;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -23,6 +24,7 @@ import java.io.Serializable;
  */
 public class GroupView implements Serializable {
 
+    @Serial
     private final static long serialVersionUID = 1;
  
     private GroupPath []paths;

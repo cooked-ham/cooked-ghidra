@@ -16,6 +16,7 @@
 package ghidra.framework.store;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Date;
@@ -27,6 +28,7 @@ import java.util.Date;
  */
 public class ItemCheckoutStatus implements java.io.Serializable {
 
+	@Serial
 	public static final long serialVersionUID = 1L;
 
 	private static final int VERSION = 3;

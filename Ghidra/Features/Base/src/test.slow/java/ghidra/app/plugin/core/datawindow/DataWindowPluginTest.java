@@ -126,7 +126,7 @@ public class DataWindowPluginTest extends AbstractGhidraHeadedIntegrationTest {
 		filterType(type);
 
 		int filteredRows = dataTable.getRowCount();
-		assertEquals(totalRows > filteredRows, true);
+		assertTrue(totalRows > filteredRows);
 
 		for (int i = 0; i < filteredRows; i++) {
 			int row = i;
@@ -144,7 +144,7 @@ public class DataWindowPluginTest extends AbstractGhidraHeadedIntegrationTest {
 		closeProgram();
 		waitForNotBusy(dataTable);
 
-		assertEquals(dataTable.getRowCount(), 0);
+		assertEquals(0, dataTable.getRowCount());
 		loadProgram("notepad");
 	}
 

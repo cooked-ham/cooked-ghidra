@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,17 +34,18 @@ import ghidra.util.task.TaskMonitor;
  */
 public class VTTaskMonitor {
 
-	private static TaskMonitor monitor = TaskMonitor.DUMMY;
+    private static TaskMonitor monitor = TaskMonitor.DUMMY;
 
-	static void setTaskMonitor(TaskMonitor m) {
-		monitor = TaskMonitor.dummyIfNull(m);
-	}
+    /**
+     * Returns the current in-use task monitor or a dummy monitor if there is no task running
+     *
+     * @return the monitor
+     */
+    public static TaskMonitor getTaskMonitor() {
+        return monitor;
+    }
 
-	/**
-	 * Returns the current in-use task monitor or a dummy monitor if there is no task running
-	 * @return the monitor
-	 */
-	public static TaskMonitor getTaskMonitor() {
-		return monitor;
-	}
+    static void setTaskMonitor(TaskMonitor m) {
+        monitor = TaskMonitor.dummyIfNull(m);
+    }
 }

@@ -234,7 +234,7 @@ public class TextShaper {
 		}
 	}
 
-	abstract class TextShaperLine {
+	static abstract class TextShaperLine {
 		abstract float getHeight();
 
 		abstract float getWidth();

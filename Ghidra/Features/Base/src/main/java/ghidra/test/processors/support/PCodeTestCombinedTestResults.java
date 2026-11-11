@@ -311,13 +311,13 @@ public class PCodeTestCombinedTestResults {
 			}
 		}
 
-		String[] groupNames = allTestNamesMap.keySet().toArray(new String[allTestNamesMap.size()]);
+		String[] groupNames = allTestNamesMap.keySet().toArray(new String[0]);
 		Arrays.sort(groupNames);
 
 		Map<String, NamedTestColumn[]> allTestNamesByGroup = new HashMap<>();
 		for (String groupName : groupNames) {
 			Set<NamedTestColumn> set = allTestNamesMap.get(groupName);
-			NamedTestColumn[] namedTestColumns = set.toArray(new NamedTestColumn[set.size()]);
+			NamedTestColumn[] namedTestColumns = set.toArray(new NamedTestColumn[0]);
 			Arrays.sort(namedTestColumns);
 			allTestNamesByGroup.put(groupName, namedTestColumns);
 		}

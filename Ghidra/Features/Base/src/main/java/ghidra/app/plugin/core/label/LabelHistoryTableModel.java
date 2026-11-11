@@ -15,6 +15,7 @@
  */
 package ghidra.app.plugin.core.label;
 
+import java.io.Serial;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import ghidra.program.model.symbol.LabelHistory;
  * Table model for showing label history.
  */
 class LabelHistoryTableModel extends AbstractSortedTableModel<LabelHistory> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	final static String ADDRESS = "Address";

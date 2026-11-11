@@ -79,11 +79,11 @@ public abstract class AbstractExternalMergerTest extends AbstractListingMergeMan
 		ExternalLocation externalLocation =
 			externalManager.getUniqueExternalLocation(library, label);
 		assertNotNull(externalLocation);
-		assertEquals(false, externalLocation.isFunction());
+		assertFalse(externalLocation.isFunction());
 
 		assertEquals(library + "::" + label, externalLocation.toString());
 		assertEquals(address, externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == sourceType);
+		assertSame(externalLocation.getSource(), sourceType);
 		DataType extDataType = externalLocation.getDataType();
 		if (dataType == null) {
 			assertNull(extDataType);
@@ -146,11 +146,11 @@ public abstract class AbstractExternalMergerTest extends AbstractListingMergeMan
 		ExternalLocation externalLocation =
 			externalManager.getUniqueExternalLocation(library, label);
 		assertNotNull(externalLocation);
-		assertEquals(true, externalLocation.isFunction());
+		assertTrue(externalLocation.isFunction());
 
 		assertEquals(library + "::" + label, externalLocation.toString());
 		assertEquals(address, externalLocation.getAddress());
-		assertTrue(externalLocation.getSource() == sourceType);
+		assertSame(externalLocation.getSource(), sourceType);
 		DataType extDataType = externalLocation.getDataType();
 		assertNull(extDataType);
 		Function function = externalLocation.getFunction();
@@ -200,7 +200,7 @@ public abstract class AbstractExternalMergerTest extends AbstractListingMergeMan
 			externalManager.getUniqueExternalLocation(libraryName, label);
 		assertNull(externalLocation);
 		FunctionIterator externalFunctions = program.getFunctionManager().getExternalFunctions();
-		assertEquals(false, externalFunctions.hasNext());
+		assertFalse(externalFunctions.hasNext());
 	}
 
 	void changeExternalFunctionIntoExternalLabel(Program program, String library, String[] path) {
@@ -406,7 +406,7 @@ public abstract class AbstractExternalMergerTest extends AbstractListingMergeMan
 		assertNotNull(externalLocation);
 		assertEquals(library + "::" + label, externalLocation.toString());
 		SourceType sourceType = externalLocation.getSource();
-		assertTrue(sourceType == externalSourceType);
+		assertSame(sourceType, externalSourceType);
 	}
 
 	void changeExternalLabelIntoFunction(ProgramDB program, String transactionDescription,

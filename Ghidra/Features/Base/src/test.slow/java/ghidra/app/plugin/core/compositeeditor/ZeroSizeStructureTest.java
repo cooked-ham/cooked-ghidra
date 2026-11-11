@@ -44,8 +44,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(emptyStructure.getName(), model.getCompositeName());
 		assertEquals(pgmRootCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(true, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertTrue(applyAction.isEnabled());
 		assertStatus("");
 
 		invoke(applyAction);
@@ -61,8 +61,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(emptyStructure.getName(), model.getCompositeName());
 		assertEquals(pgmRootCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 		assertStatus("");
 	}
 
@@ -89,8 +89,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(29);
 		assertEquals(simpleStructure.getName(), model.getCompositeName());
 		assertEquals(pgmBbCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 		assertStatus("");
 
 		deleteAllComponents();
@@ -113,8 +113,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(simpleStructure.getName(), model.getCompositeName());
 		assertEquals(pgmBbCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(true, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertTrue(applyAction.isEnabled());
 		assertStatus("");
 
 		invoke(applyAction);
@@ -134,8 +134,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(simpleStructure.getName(), model.getCompositeName());
 		assertEquals(pgmBbCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 	}
 
 	@Test
@@ -191,8 +191,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(1);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 		assertStatus("");
 
 		deleteAllComponents();
@@ -212,8 +212,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(true, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertTrue(applyAction.isEnabled());
 		assertStatus("");
 
 		invoke(applyAction);
@@ -229,8 +229,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 		assertStatus("");
 	}
 
@@ -287,8 +287,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(1);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 		assertStatus("");
 
 		deleteAllComponents();
@@ -308,8 +308,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(true, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertTrue(applyAction.isEnabled());
 		assertStatus("");
 
 		invoke(applyAction);
@@ -329,8 +329,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 //		assertStatus("/testCat/innerStructure is contained in /testCat/outerStructure and can't be changed to a zero size data type.");
 	}
 
@@ -382,8 +382,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(1);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 		assertStatus("");
 
 		deleteAllComponents();
@@ -403,8 +403,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(true, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertTrue(applyAction.isEnabled());
 		assertStatus("");
 
 		invoke(applyAction);
@@ -424,8 +424,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 //		assertStatus("/testCat/innerStructure is contained in /testCat/innerStructureTypedef and can't be changed to a zero size data type.");
 
 		assertFalse(innerTypedef.isNotYetDefined()); // Typedef is always defined even if referenced type is not
@@ -481,8 +481,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(2);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 		assertStatus("");
 
 		deleteAllComponents();
@@ -502,8 +502,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(true, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertTrue(applyAction.isEnabled());
 		assertStatus("");
 
 		invoke(applyAction);
@@ -523,8 +523,8 @@ public class ZeroSizeStructureTest extends AbstractStructureEditorTest {
 		assertLength(0);
 		assertEquals(innerStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
-		assertEquals(false, applyAction.isEnabled());
+		assertEquals("Structure", model.getTypeName());
+		assertFalse(applyAction.isEnabled());
 //		assertStatus("/testCat/innerStructure is contained in /testCat/innerStructure[5] and can't be changed to a zero size data type.");
 
 		assertEquals(5, innerArray.getLength());

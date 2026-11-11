@@ -180,7 +180,7 @@ public class OffsetTablePlugin extends Plugin {
 		return iter.hasNext();
 	}
 
-	private class ClearCmd implements Command<Program> {
+	private static class ClearCmd implements Command<Program> {
 		private AddressRange range;
 
 		ClearCmd(AddressRange range) {
@@ -205,7 +205,7 @@ public class OffsetTablePlugin extends Plugin {
 		}
 	}
 
-	private class MyCreateDataCmd extends CreateDataCmd {
+	private static class MyCreateDataCmd extends CreateDataCmd {
 		private Address dataAddr;
 		private Address baseAddr;
 		private String msg;

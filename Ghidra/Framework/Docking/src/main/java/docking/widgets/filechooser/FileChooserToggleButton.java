@@ -151,7 +151,7 @@ public class FileChooserToggleButton extends JToggleButton {
 		}
 	}
 
-	private class FocusedBorder extends CompoundBorder {
+	private static class FocusedBorder extends CompoundBorder {
 		FocusedBorder(Border outsideBorder, Border insideBorder) {
 			super(outsideBorder, insideBorder);
 		}

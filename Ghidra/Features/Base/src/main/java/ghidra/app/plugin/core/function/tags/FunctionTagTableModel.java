@@ -112,7 +112,7 @@ public class FunctionTagTableModel extends ThreadedTableModel<FunctionTagRowObje
 	 * Table column that displays a count of the number of times a function tag has been
 	 * applied to a function (in the selected program)
 	 */
-	private class FunctionTagCountColumn
+	private static class FunctionTagCountColumn
 			extends AbstractDynamicTableColumnStub<FunctionTagRowObject, Integer> {
 
 		@Override
@@ -142,7 +142,7 @@ public class FunctionTagTableModel extends ThreadedTableModel<FunctionTagRowObje
 	/**
 	 * Table column that displays the name of a function tag
 	 */
-	private class FunctionTagNameColumn
+	private static class FunctionTagNameColumn
 			extends AbstractDynamicTableColumnStub<FunctionTagRowObject, String> {
 
 		@Override

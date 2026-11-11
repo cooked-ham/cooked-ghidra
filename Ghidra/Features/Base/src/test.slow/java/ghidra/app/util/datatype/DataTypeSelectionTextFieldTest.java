@@ -141,8 +141,8 @@ public class DataTypeSelectionTextFieldTest extends AbstractDropDownTextFieldTes
 
 		// sanity check
 		assertEquals("The number and type of 'double's in the test program has changed.",
-			builtInDouble.getName(), "double");
-		assertEquals(builtInDouble.getDataTypeManager().getName(), "BuiltInTypes");
+			"double", builtInDouble.getName());
+		assertEquals("BuiltInTypes", builtInDouble.getDataTypeManager().getName());
 
 		String text = "zzzzz";
 		setText(text);
@@ -174,8 +174,8 @@ public class DataTypeSelectionTextFieldTest extends AbstractDropDownTextFieldTes
 		// sanity check
 		String programName = "sample";
 		assertEquals("The number and type of 'double's in the test program has changed.",
-			programDouble.getName(), "double");
-		assertEquals(programDouble.getDataTypeManager().getName(), programName);
+			"double", programDouble.getName());
+		assertEquals(programName, programDouble.getDataTypeManager().getName());
 
 		setSelectedValue(programDouble);
 		assertTextFieldText(programDouble.getName());

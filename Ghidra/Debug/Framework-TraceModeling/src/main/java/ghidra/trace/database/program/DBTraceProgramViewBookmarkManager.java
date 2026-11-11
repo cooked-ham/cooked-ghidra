@@ -57,7 +57,7 @@ public class DBTraceProgramViewBookmarkManager implements TraceProgramViewBookma
 	@Override
 	public BookmarkType[] getBookmarkTypes() {
 		Collection<? extends TraceBookmarkType> types = bookmarkManager.getDefinedBookmarkTypes();
-		return types.toArray(new BookmarkType[types.size()]);
+		return types.toArray(new BookmarkType[0]);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class DBTraceProgramViewBookmarkManager implements TraceProgramViewBookma
 			return EMPTY_STRING_ARRAY;
 		}
 		Collection<String> categories = bmt.getCategories();
-		return categories.toArray(new String[categories.size()]);
+		return categories.toArray(new String[0]);
 	}
 
 	@Override
@@ -230,7 +230,7 @@ public class DBTraceProgramViewBookmarkManager implements TraceProgramViewBookma
 					list.add(bm);
 				}
 			}
-			return list.toArray(new Bookmark[list.size()]);
+			return list.toArray(new Bookmark[0]);
 		}
 	}
 
@@ -251,7 +251,7 @@ public class DBTraceProgramViewBookmarkManager implements TraceProgramViewBookma
 					list.add(bm);
 				}
 			}
-			return list.toArray(new Bookmark[list.size()]);
+			return list.toArray(new Bookmark[0]);
 		}
 	}
 

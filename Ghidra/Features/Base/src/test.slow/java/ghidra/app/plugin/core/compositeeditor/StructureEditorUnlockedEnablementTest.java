@@ -42,7 +42,7 @@ public class StructureEditorUnlockedEnablementTest extends AbstractStructureEdit
 		checkSelection(new int[] { 0 });
 		assertEquals(emptyStructure.getName(), model.getCompositeName());
 		assertEquals(pgmTestCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Structure");
+		assertEquals("Structure", model.getTypeName());
 
 		// Check enablement.
 		for (CompositeEditorTableAction action : actions) {
@@ -71,7 +71,7 @@ public class StructureEditorUnlockedEnablementTest extends AbstractStructureEdit
 		assertEquals(simpleStructure.getNumComponents(), model.getNumComponents());
 		assertEquals(simpleStructure.getNumComponents() + 1, model.getRowCount());
 		assertEquals(simpleStructure.getLength(), model.getLength());
-		assertTrue(!model.hasChanges());// no Changes yet
+		assertFalse(model.hasChanges());// no Changes yet
 		assertTrue(model.isValidName());// name should be valid
 		assertEquals(simpleStructure.getDescription(), model.getDescription());
 		assertEquals(0, model.getNumSelectedComponentRows());
@@ -274,11 +274,11 @@ public class StructureEditorUnlockedEnablementTest extends AbstractStructureEdit
 
 		setSelection(new int[] { 2 });
 		assertEquals("char:2", getDataType(2).getDisplayName());
-		assertTrue(!editComponentAction.isEnabled());
+		assertFalse(editComponentAction.isEnabled());
 
 		setSelection(new int[] { 3 });
 		assertEquals("word", getDataType(3).getDisplayName());
-		assertTrue(!editComponentAction.isEnabled());
+		assertFalse(editComponentAction.isEnabled());
 
 		setSelection(new int[] { 5 });
 		assertEquals("simpleUnion", getDataType(5).getDisplayName());
@@ -290,7 +290,7 @@ public class StructureEditorUnlockedEnablementTest extends AbstractStructureEdit
 
 		setSelection(new int[] { 15 });
 		assertEquals("byte[7]", getDataType(15).getDisplayName());
-		assertTrue(!editComponentAction.isEnabled());
+		assertFalse(editComponentAction.isEnabled());
 
 		setSelection(new int[] { 20 });
 		assertEquals("simpleStructureTypedef", getDataType(20).getDisplayName());
@@ -302,7 +302,7 @@ public class StructureEditorUnlockedEnablementTest extends AbstractStructureEdit
 
 		setSelection(new int[] { 24 });
 		assertEquals(24, model.getNumComponents());
-		assertTrue(!editComponentAction.isEnabled());
+		assertFalse(editComponentAction.isEnabled());
 	}
 
 	@Test
@@ -320,18 +320,18 @@ public class StructureEditorUnlockedEnablementTest extends AbstractStructureEdit
 
 		setSelection(new int[] { 3 });
 		assertEquals("word", getDataType(3).getDisplayName());
-		assertTrue(!editBitFieldAction.isEnabled());
+		assertFalse(editBitFieldAction.isEnabled());
 
 		structureModel.setPackingType(PackingType.DEFAULT, 0);
 
 		// Edit Bitfield action not enabled for Aligned mode
 		setSelection(new int[] { 1 });
 		assertEquals("char:2", getDataType(1).getDisplayName());
-		assertTrue(!editBitFieldAction.isEnabled());
+		assertFalse(editBitFieldAction.isEnabled());
 
 		setSelection(new int[] { 2 });
 		assertEquals("word", getDataType(2).getDisplayName());
-		assertTrue(!editBitFieldAction.isEnabled());
+		assertFalse(editBitFieldAction.isEnabled());
 	}
 
 	@Test
@@ -340,15 +340,15 @@ public class StructureEditorUnlockedEnablementTest extends AbstractStructureEdit
 
 		setSelection(new int[] { 2 });
 		assertEquals("word", getDataType(2).getDisplayName());
-		assertTrue(!unpackageAction.isEnabled());
+		assertFalse(unpackageAction.isEnabled());
 
 		setSelection(new int[] { 4 });
 		assertEquals("simpleUnion", getDataType(4).getDisplayName());
-		assertTrue(!unpackageAction.isEnabled());
+		assertFalse(unpackageAction.isEnabled());
 
 		setSelection(new int[] { 6 });
 		assertEquals("simpleStructure *", getDataType(6).getDisplayName());
-		assertTrue(!unpackageAction.isEnabled());
+		assertFalse(unpackageAction.isEnabled());
 
 		setSelection(new int[] { 14 });
 		assertEquals("byte[7]", getDataType(14).getDisplayName());
@@ -364,7 +364,7 @@ public class StructureEditorUnlockedEnablementTest extends AbstractStructureEdit
 
 		setSelection(new int[] { 23 });
 		assertEquals(23, model.getNumComponents());
-		assertTrue(!unpackageAction.isEnabled());
+		assertFalse(unpackageAction.isEnabled());
 	}
 
 }

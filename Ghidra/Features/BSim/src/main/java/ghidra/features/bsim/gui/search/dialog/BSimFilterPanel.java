@@ -170,7 +170,7 @@ public class BSimFilterPanel extends JPanel {
 //==================================================================================================
 // Inner classes
 //==================================================================================================
-	private class ScrollablePanel extends JPanel implements Scrollable {
+	private static class ScrollablePanel extends JPanel implements Scrollable {
 		public ScrollablePanel() {
 			super(new VerticalLayout(5));
 			setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));

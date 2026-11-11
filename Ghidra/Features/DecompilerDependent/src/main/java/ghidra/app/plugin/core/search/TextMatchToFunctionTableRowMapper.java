@@ -21,10 +21,10 @@ import ghidra.program.model.listing.Program;
 import ghidra.util.table.ProgramLocationTableRowMapper;
 
 public class TextMatchToFunctionTableRowMapper
-		extends ProgramLocationTableRowMapper<TextMatch, Function> {
+        extends ProgramLocationTableRowMapper<TextMatch, Function> {
 
-	@Override
-	public Function map(TextMatch rowObject, Program data, ServiceProvider serviceProvider) {
-		return rowObject.getFunction();
-	}
+    @Override
+    public Function map(TextMatch rowObject, Program data, ServiceProvider serviceProvider) {
+        return rowObject.getFunction();
+    }
 }

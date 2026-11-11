@@ -678,7 +678,7 @@ public class DWARFDataTypeManager {
 			new FunctionDefinitionDataType(dni.getParentCP(), dni.getName(), dataTypeManager);
 		funcDef.setReturnType(returnDataType);
 		funcDef.setNoReturn(diea.getBool(DW_AT_noreturn, false));
-		funcDef.setArguments(params.toArray(new ParameterDefinition[params.size()]));
+		funcDef.setArguments(params.toArray(new ParameterDefinition[0]));
 
 		if (!diea.getHeadFragment().getChildren(DWARFTag.DW_TAG_unspecified_parameters).isEmpty()) {
 			funcDef.setVarArgs(true);

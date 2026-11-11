@@ -17,6 +17,7 @@ package ghidra.app.plugin.core.compositeeditor;
 
 import java.awt.Component;
 
+import java.io.Serial;
 import javax.swing.JLabel;
 
 import docking.widgets.table.GTableCellRenderer;
@@ -28,6 +29,7 @@ import ghidra.util.HTMLUtilities;
 import ghidra.util.SystemUtilities;
 
 public class DataTypeCellRenderer extends GTableCellRenderer {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private DataTypeManager originalDTM;

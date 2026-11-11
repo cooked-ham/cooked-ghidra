@@ -15,13 +15,6 @@
  */
 package ghidra.app.util.bin.format.golang;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
-
-import org.jdom2.*;
-import org.jdom2.input.SAXBuilder;
-
 import generic.jar.ResourceFile;
 import ghidra.app.util.bin.format.dwarf.DWARFUtil;
 import ghidra.app.util.bin.format.golang.GoRegisterInfo.RegType;
@@ -29,6 +22,16 @@ import ghidra.program.model.lang.Language;
 import ghidra.program.model.lang.Register;
 import ghidra.util.Msg;
 import ghidra.util.xml.XmlUtilities;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * XML config file format:
@@ -46,168 +49,166 @@ import ghidra.util.xml.XmlUtilities;
  * 		&lt;register_info versions="1.2">
  * 			...
  * 		&lt;/register_info>
- *	&lt;/golang> 
+ * 	&lt;/golang>
  * </pre>
  */
 public class GoRegisterInfoManager {
-	private static final String REGISTER_INFO_EXTERNAL_NAME = "Golang.register.info.file";
+    private static final String REGISTER_INFO_EXTERNAL_NAME = "Golang.register.info.file";
 
-	private static class SingletonHolder {
-		private static GoRegisterInfoManager instance = new GoRegisterInfoManager();
-	}
+    public static GoRegisterInfoManager getInstance() {
+        return SingletonHolder.instance;
+    }
 
-	public static GoRegisterInfoManager getInstance() {
-		return SingletonHolder.instance;
-	}
+    /**
+     * Returns a {@link GoRegisterInfo} instance for the specified {@link Language}.
+     * <p>
+     * If the language didn't define Go register info, a generic/empty instance will be
+     * returned that forces all parameters to be stack allocated.
+     *
+     * @param lang  {@link Language}
+     * @param goVer {@link GoVer}
+     * @return {@link GoRegisterInfo}, never null
+     */
+    public synchronized GoRegisterInfo getRegisterInfoForLang(Language lang, GoVer goVer) {
+        List<GoRegisterInfo> registerInfos = loadRegisterInfo(lang);
+        for (GoRegisterInfo registerInfo : registerInfos) {
+            if (registerInfo.getValidVersions().contains(goVer)) {
+                return registerInfo;
+            }
+        }
 
-	/**
-	 * Returns a {@link GoRegisterInfo} instance for the specified {@link Language}.
-	 * <p>
-	 * If the language didn't define Go register info, a generic/empty instance will be
-	 * returned that forces all parameters to be stack allocated.
-	 * 
-	 * @param lang {@link Language}
-	 * @param goVer {@link GoVer}
-	 * @return {@link GoRegisterInfo}, never null
-	 */
-	public synchronized GoRegisterInfo getRegisterInfoForLang(Language lang, GoVer goVer) {
-		List<GoRegisterInfo> registerInfos = loadRegisterInfo(lang);
-		for(GoRegisterInfo registerInfo : registerInfos) {
-			if ( registerInfo.getValidVersions().contains(goVer)) {
-				return registerInfo;
-			}
-		}
-		
-		int goSize = lang.getInstructionAlignment();
-		Msg.warn(this, "Missing Go register info for: %s, defaulting to abi0, size=%d"
-				.formatted(lang.getLanguageID(), goSize));
-		return getDefault(lang);
-	}
+        int goSize = lang.getInstructionAlignment();
+        Msg.warn(this, "Missing Go register info for: %s, defaulting to abi0, size=%d"
+                .formatted(lang.getLanguageID(), goSize));
+        return getDefault(lang);
+    }
 
-	private List<GoRegisterInfo> loadRegisterInfo(Language lang) {
-		try {
-			ResourceFile f = DWARFUtil.getLanguageExternalFile(lang, REGISTER_INFO_EXTERNAL_NAME);
-			if (f != null) {
-				return read(f, lang);
-			}
-			Msg.warn(GoRegisterInfoManager.class,
-				"Missing Go register info file for: %s".formatted(lang.getLanguageID()));
-		}
-		catch (IOException e) {
-			Msg.warn(GoRegisterInfoManager.class, "Failed to read Go register info file", e);
-		}
-		return List.of();
-	}
+    private List<GoRegisterInfo> loadRegisterInfo(Language lang) {
+        try {
+            ResourceFile f = DWARFUtil.getLanguageExternalFile(lang, REGISTER_INFO_EXTERNAL_NAME);
+            if (f != null) {
+                return read(f, lang);
+            }
+            Msg.warn(GoRegisterInfoManager.class,
+                    "Missing Go register info file for: %s".formatted(lang.getLanguageID()));
+        } catch (IOException e) {
+            Msg.warn(GoRegisterInfoManager.class, "Failed to read Go register info file", e);
+        }
+        return List.of();
+    }
 
-	//-------------------------------------------------------------------------------------------
-	private List<GoRegisterInfo> read(ResourceFile f, Language lang)
-			throws IOException {
-		SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
-		try (InputStream fis = f.getInputStream()) {
-			Document doc = sax.build(fis);
-			Element rootElem = doc.getRootElement();
-			return readFrom(rootElem, lang);
-		}
-		catch (JDOMException | IOException e) {
-			Msg.error(GoRegisterInfo.class, "Bad Go register info file " + f, e);
-			throw new IOException("Failed to read Go register info file " + f, e);
-		}
+    //-------------------------------------------------------------------------------------------
+    private List<GoRegisterInfo> read(ResourceFile f, Language lang)
+            throws IOException {
+        SAXBuilder sax = XmlUtilities.createSecureSAXBuilder(false, false);
+        try (InputStream fis = f.getInputStream()) {
+            Document doc = sax.build(fis);
+            Element rootElem = doc.getRootElement();
+            return readFrom(rootElem, lang);
+        } catch (JDOMException | IOException e) {
+            Msg.error(GoRegisterInfo.class, "Bad Go register info file " + f, e);
+            throw new IOException("Failed to read Go register info file " + f, e);
+        }
 
-	}
+    }
 
-	@SuppressWarnings("unchecked")
-	private List<GoRegisterInfo> readFrom(Element rootElem, Language lang) throws IOException {
+    @SuppressWarnings("unchecked")
+    private List<GoRegisterInfo> readFrom(Element rootElem, Language lang) throws IOException {
 
-		List<GoRegisterInfo> result = new ArrayList<>();
-		for (Element regInfoElem : (List<Element>) rootElem.getChildren("register_info")) {
-			GoRegisterInfo registerInfo = readRegInfoElement(regInfoElem, lang);
-			result.add(registerInfo);
-		}
-		return result;
-	}
+        List<GoRegisterInfo> result = new ArrayList<>();
+        for (Element regInfoElem : (List<Element>) rootElem.getChildren("register_info")) {
+            GoRegisterInfo registerInfo = readRegInfoElement(regInfoElem, lang);
+            result.add(registerInfo);
+        }
+        return result;
+    }
 
-	private GoRegisterInfo readRegInfoElement(Element regInfoElem, Language lang)
-			throws IOException {
-		GoVerSet validGoVersions =
-			GoVerSet.parse(XmlUtilities.requireStringAttr(regInfoElem, "versions"));
+    private GoRegisterInfo readRegInfoElement(Element regInfoElem, Language lang)
+            throws IOException {
+        GoVerSet validGoVersions =
+                GoVerSet.parse(XmlUtilities.requireStringAttr(regInfoElem, "versions"));
 
-		Element intRegsElem = regInfoElem.getChild("int_registers");
-		Element floatRegsElem = regInfoElem.getChild("float_registers");
-		Element stackElem = regInfoElem.getChild("stack");
-		Element goRoutineElem = regInfoElem.getChild("current_goroutine");
-		Element zeroRegElem = regInfoElem.getChild("zero_register");
-		Element duffZeroElem = regInfoElem.getChild("duffzero");
-		Element closureContextElem = regInfoElem.getChild("closurecontext");
-		if (intRegsElem == null || floatRegsElem == null || stackElem == null ||
-			goRoutineElem == null || zeroRegElem == null || duffZeroElem == null ||
-			closureContextElem == null) {
-			throw new IOException("Bad format");
-		}
+        Element intRegsElem = regInfoElem.getChild("int_registers");
+        Element floatRegsElem = regInfoElem.getChild("float_registers");
+        Element stackElem = regInfoElem.getChild("stack");
+        Element goRoutineElem = regInfoElem.getChild("current_goroutine");
+        Element zeroRegElem = regInfoElem.getChild("zero_register");
+        Element duffZeroElem = regInfoElem.getChild("duffzero");
+        Element closureContextElem = regInfoElem.getChild("closurecontext");
+        if (intRegsElem == null || floatRegsElem == null || stackElem == null ||
+                goRoutineElem == null || zeroRegElem == null || duffZeroElem == null ||
+                closureContextElem == null) {
+            throw new IOException("Bad format");
+        }
 
-		List<Register> intRegs = parseRegListStr(intRegsElem.getAttributeValue("list"), lang);
-		List<Register> floatRegs = parseRegListStr(floatRegsElem.getAttributeValue("list"), lang);
+        List<Register> intRegs = parseRegListStr(intRegsElem.getAttributeValue("list"), lang);
+        List<Register> floatRegs = parseRegListStr(floatRegsElem.getAttributeValue("list"), lang);
 
-		int stackInitialOffset =
-			XmlUtilities.parseBoundedIntAttr(stackElem, "initialoffset", 0, Integer.MAX_VALUE);
-		int maxAlign =
-			XmlUtilities.parseBoundedIntAttr(stackElem, "maxalign", 1, Integer.MAX_VALUE);
+        int stackInitialOffset =
+                XmlUtilities.parseBoundedIntAttr(stackElem, "initialoffset", 0, Integer.MAX_VALUE);
+        int maxAlign =
+                XmlUtilities.parseBoundedIntAttr(stackElem, "maxalign", 1, Integer.MAX_VALUE);
 
-		Register currentGoRoutineReg =
-			parseRegStr(goRoutineElem.getAttributeValue("register"), lang);
-		Register zeroReg = parseRegStr(zeroRegElem.getAttributeValue("register"), lang);
-		boolean zeroRegIsBuiltin =
-			XmlUtilities.parseOptionalBooleanAttr(zeroRegElem, "builtin", false);
-		
-		Register duffzeroDest = parseRegStr(duffZeroElem.getAttributeValue("dest"), lang);
-		Register duffzeroZero = parseRegStr(duffZeroElem.getAttributeValue("zero_arg"), lang);
-		RegType duffzeroZeroType = parseRegTypeStr(duffZeroElem.getAttributeValue("zero_type"));
+        Register currentGoRoutineReg =
+                parseRegStr(goRoutineElem.getAttributeValue("register"), lang);
+        Register zeroReg = parseRegStr(zeroRegElem.getAttributeValue("register"), lang);
+        boolean zeroRegIsBuiltin =
+                XmlUtilities.parseOptionalBooleanAttr(zeroRegElem, "builtin", false);
 
-		Register closureContextReg =
-			parseRegStr(closureContextElem.getAttributeValue("register"), lang);
+        Register duffzeroDest = parseRegStr(duffZeroElem.getAttributeValue("dest"), lang);
+        Register duffzeroZero = parseRegStr(duffZeroElem.getAttributeValue("zero_arg"), lang);
+        RegType duffzeroZeroType = parseRegTypeStr(duffZeroElem.getAttributeValue("zero_type"));
 
-		GoRegisterInfo registerInfo = new GoRegisterInfo(intRegs, floatRegs, stackInitialOffset,
-			maxAlign, currentGoRoutineReg, zeroReg, zeroRegIsBuiltin, duffzeroDest, duffzeroZero,
-			duffzeroZeroType, closureContextReg, validGoVersions);
-		return registerInfo;
-	}
+        Register closureContextReg =
+                parseRegStr(closureContextElem.getAttributeValue("register"), lang);
 
-	private GoRegisterInfo getDefault(Language lang) {
-		int goSize = lang.getInstructionAlignment();
-		return new GoRegisterInfo(List.of(), List.of(), goSize, goSize, null, null, false, null,
-			null, RegType.INT, null, GoVerSet.ALL);
-	}
+        GoRegisterInfo registerInfo = new GoRegisterInfo(intRegs, floatRegs, stackInitialOffset,
+                maxAlign, currentGoRoutineReg, zeroReg, zeroRegIsBuiltin, duffzeroDest, duffzeroZero,
+                duffzeroZeroType, closureContextReg, validGoVersions);
+        return registerInfo;
+    }
 
-	private List<Register> parseRegListStr(String s, Language lang) throws IOException {
-		List<Register> result = new ArrayList<>();
-		for (String regName : s.split(",")) {
-			regName = regName.trim();
-			if (regName.isEmpty()) {
-				continue;
-			}
-			Register register = parseRegStr(regName, lang);
-			if (register != null) {
-				result.add(register);
-			}
-		}
-		return result;
-	}
+    private GoRegisterInfo getDefault(Language lang) {
+        int goSize = lang.getInstructionAlignment();
+        return new GoRegisterInfo(List.of(), List.of(), goSize, goSize, null, null, false, null,
+                null, RegType.INT, null, GoVerSet.ALL);
+    }
 
-	private Register parseRegStr(String regName, Language lang) throws IOException {
-		if (regName == null || regName.isBlank()) {
-			return null;
-		}
-		Register register = lang.getRegister(regName);
-		if (register == null) {
-			throw new IOException("Unknown register: " + regName);
-		}
-		return register;
-	}
+    private List<Register> parseRegListStr(String s, Language lang) throws IOException {
+        List<Register> result = new ArrayList<>();
+        for (String regName : s.split(",")) {
+            regName = regName.trim();
+            if (regName.isEmpty()) {
+                continue;
+            }
+            Register register = parseRegStr(regName, lang);
+            if (register != null) {
+                result.add(register);
+            }
+        }
+        return result;
+    }
 
-	private RegType parseRegTypeStr(String s) {
-		return switch (Objects.requireNonNullElse(s, "int").toLowerCase()) {
-			default -> RegType.INT;
-			case "float" -> RegType.FLOAT;
-		};
+    private Register parseRegStr(String regName, Language lang) throws IOException {
+        if (regName == null || regName.isBlank()) {
+            return null;
+        }
+        Register register = lang.getRegister(regName);
+        if (register == null) {
+            throw new IOException("Unknown register: " + regName);
+        }
+        return register;
+    }
 
-	}
+    private RegType parseRegTypeStr(String s) {
+        return switch (Objects.requireNonNullElse(s, "int").toLowerCase()) {
+            default -> RegType.INT;
+            case "float" -> RegType.FLOAT;
+        };
+
+    }
+
+    private static class SingletonHolder {
+        private static GoRegisterInfoManager instance = new GoRegisterInfoManager();
+    }
 }

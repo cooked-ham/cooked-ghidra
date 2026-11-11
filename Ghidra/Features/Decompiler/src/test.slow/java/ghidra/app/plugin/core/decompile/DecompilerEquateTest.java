@@ -137,7 +137,7 @@ public class DecompilerEquateTest extends AbstractDecompilerTest {
 		Equate equate = equateTable.getEquate(eqName);
 		assertNotNull(equate);
 		List<EquateReference> references = equate.getReferences(eqSym.getPCAddress());
-		assertEquals(references.size(), 1);
+		assertEquals(1, references.size());
 		EquateReference ref = references.get(0);
 		assertEquals(equate.getValue(), eqSym.getValue());
 		boolean foundHash = false;
@@ -227,7 +227,7 @@ public class DecompilerEquateTest extends AbstractDecompilerTest {
 		verifyMatch("MYMINUS", "MYMINUS", 0x1002862, false);
 		Equate equate = program.getEquateTable().getEquate("MYMINUS");
 		// Table value should be sign-extended version of original scalar
-		assertEquals(equate.getValue(), 0xffffffffffffffc8L);
+		assertEquals(0xffffffffffffffc8L, equate.getValue());
 	}
 
 	@Test

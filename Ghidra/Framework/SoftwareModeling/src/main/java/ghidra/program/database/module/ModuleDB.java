@@ -804,7 +804,7 @@ class ModuleDB extends DbObject implements ProgramModule {
 		moduleAdapter.updateModuleRecord(record);
 	}
 
-	private class ParentChildRecordComparator implements Comparator<DBRecord> {
+	private static class ParentChildRecordComparator implements Comparator<DBRecord> {
 		@Override
 		public int compare(DBRecord r1, DBRecord r2) {
 			int index1 = r1.getIntValue(ParentChildDBAdapter.ORDER_COL);

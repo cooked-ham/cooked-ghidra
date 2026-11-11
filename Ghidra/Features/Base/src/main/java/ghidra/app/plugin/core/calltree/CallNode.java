@@ -188,7 +188,7 @@ public abstract class CallNode extends GTreeSlowLoadingNode {
 		return true; // return true to signal we have handled the new node
 	}
 
-	protected class CallNodeComparator implements Comparator<GTreeNode> {
+	protected static class CallNodeComparator implements Comparator<GTreeNode> {
 		@Override
 		public int compare(GTreeNode o1, GTreeNode o2) {
 			CallNode node1 = (CallNode) o1;

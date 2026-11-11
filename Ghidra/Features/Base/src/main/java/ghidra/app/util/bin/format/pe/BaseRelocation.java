@@ -246,7 +246,7 @@ public class BaseRelocation implements StructConverter, ByteArrayConverter {
 		return bytes;
 	}
 
-	public class TypeOffset implements StructConverter {
+	public static class TypeOffset implements StructConverter {
 		short typeOffset;
 		int type;
 		int offset;

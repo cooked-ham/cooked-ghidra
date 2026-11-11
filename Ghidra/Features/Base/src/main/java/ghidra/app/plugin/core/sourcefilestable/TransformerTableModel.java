@@ -91,7 +91,7 @@ public class TransformerTableModel extends ThreadedTableModelStub<SourcePathTran
 		reload();
 	}
 
-	private class SourceColumn
+	private static class SourceColumn
 			extends AbstractDynamicTableColumn<SourcePathTransformRecord, String, Object> {
 
 		@Override
@@ -109,7 +109,7 @@ public class TransformerTableModel extends ThreadedTableModelStub<SourcePathTran
 		}
 	}
 
-	private class TargetColumn
+	private static class TargetColumn
 			extends AbstractDynamicTableColumn<SourcePathTransformRecord, String, Object> {
 
 		@Override
@@ -124,7 +124,7 @@ public class TransformerTableModel extends ThreadedTableModelStub<SourcePathTran
 		}
 	}
 
-	private class IsDirectoryTransformColumn
+	private static class IsDirectoryTransformColumn
 			extends AbstractDynamicTableColumn<SourcePathTransformRecord, Boolean, Object> {
 
 		@Override

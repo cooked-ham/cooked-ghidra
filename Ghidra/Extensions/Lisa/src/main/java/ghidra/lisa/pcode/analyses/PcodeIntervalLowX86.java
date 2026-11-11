@@ -31,7 +31,7 @@ import it.unive.lisa.util.numeric.MathNumber;
  */
 public class PcodeIntervalLowX86 extends PcodeInterval {
 
-	private class KeyPattern {
+	private static class KeyPattern {
 
 		// NB: At some point, we may want to convert this to a more generic type
 		private String key;

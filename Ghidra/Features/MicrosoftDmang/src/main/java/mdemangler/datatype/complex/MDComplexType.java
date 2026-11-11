@@ -26,55 +26,55 @@ import mdemangler.naming.MDQualifiedName;
  * with complex numbers.
  */
 public class MDComplexType extends MDDataType {
-	private MDQualifiedName qualifiedName;
+    private MDQualifiedName qualifiedName;
 
-	public MDComplexType(MDMang dmang) {
-		this(dmang, 1);
-	}
+    public MDComplexType(MDMang dmang) {
+        this(dmang, 1);
+    }
 
-	public MDComplexType(MDMang dmang, int startIndexOffset) {
-		super(dmang, startIndexOffset);
-		qualifiedName = new MDQualifiedName(dmang);
-	}
+    public MDComplexType(MDMang dmang, int startIndexOffset) {
+        super(dmang, startIndexOffset);
+        qualifiedName = new MDQualifiedName(dmang);
+    }
 
-	@Override
-	public String getTypeName() {
-		return "";
-	}
+    @Override
+    public String getTypeName() {
+        return "";
+    }
 
-	public String getTypeNamespace() {
-		return qualifiedName.toString();
-	}
+    public String getTypeNamespace() {
+        return qualifiedName.toString();
+    }
 
-	public MDQualifiedName getNamespace() {
-		return qualifiedName;
-	}
+    public MDQualifiedName getNamespace() {
+        return qualifiedName;
+    }
 
-	@Override
-	protected void parseInternal() throws MDException {
-		qualifiedName.parse();
-	}
+    @Override
+    protected void parseInternal() throws MDException {
+        qualifiedName.parse();
+    }
 
-	@Override
-	public void insert(StringBuilder builder) {
-		// TODO: look at what needs to be done to get rid of this?
-		if ((builder.length() != 0) && (builder.charAt(0) != ' ')) {
-			dmang.insertString(builder, " ");
-		}
-		qualifiedName.insert(builder);
-		super.insert(builder);
-	}
+    @Override
+    public void insert(StringBuilder builder) {
+        // TODO: look at what needs to be done to get rid of this?
+        if ((builder.length() != 0) && (builder.charAt(0) != ' ')) {
+            dmang.insertString(builder, " ");
+        }
+        qualifiedName.insert(builder);
+        super.insert(builder);
+    }
 
-	@Override
-	public void insertAsArg(StringBuilder builder) {
-		// TODO: look at what needs to be done to get rid of this?
-		if ((builder.length() != 0) && (builder.charAt(0) != ' ')) {
-			dmang.insertString(builder, " ");
-		}
-		qualifiedName.insert(builder);
-		if (dmang.getOutputOptions().applyUdtArgumentTypeTag()) {
-			super.insert(builder);
-		}
-	}
+    @Override
+    public void insertAsArg(StringBuilder builder) {
+        // TODO: look at what needs to be done to get rid of this?
+        if ((builder.length() != 0) && (builder.charAt(0) != ' ')) {
+            dmang.insertString(builder, " ");
+        }
+        qualifiedName.insert(builder);
+        if (dmang.getOutputOptions().applyUdtArgumentTypeTag()) {
+            super.insert(builder);
+        }
+    }
 
 }

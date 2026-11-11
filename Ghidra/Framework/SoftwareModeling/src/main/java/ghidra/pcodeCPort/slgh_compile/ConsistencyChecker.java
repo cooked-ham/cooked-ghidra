@@ -502,15 +502,15 @@ class ConsistencyChecker {
 
 		sb.append("  Problem");
 		if ((op1 != null) && (op2 != null)) {
-			sb.append(" with '" + op1.getName() + "' and '" + op2.getName() + "'");
+			sb.append(" with '").append(op1.getName()).append("' and '").append(op2.getName()).append("'");
 		}
 		else if (op1 != null) {
-			sb.append(" with '" + op1.getName() + "'");
+			sb.append(" with '").append(op1.getName()).append("'");
 		}
 		else if (op2 != null) {
-			sb.append(" with '" + op2.getName() + "'");
+			sb.append(" with '").append(op2.getName()).append("'");
 		}
-		sb.append(" in '" + getOpName(op) + "' operator");
+		sb.append(" in '").append(getOpName(op)).append("' operator");
 
 		sb.append("\n  ").append(message);
 

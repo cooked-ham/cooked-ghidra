@@ -23,63 +23,61 @@ import ghidra.app.util.opinion.UnixAoutProgramLoader;
  * by the UNIX a.out executable.
  */
 public class UnixAoutRelocation {
-	public long address;
-	public int symbolNum;
-	public byte flags;
-	public boolean pcRelativeAddressing;
-	public byte pointerLength;
-	public boolean extern;
-	public boolean baseRelative;
-	public boolean jmpTable;
-	public boolean relative;
-	public boolean copy;
+    public long address;
+    public int symbolNum;
+    public byte flags;
+    public boolean pcRelativeAddressing;
+    public byte pointerLength;
+    public boolean extern;
+    public boolean baseRelative;
+    public boolean jmpTable;
+    public boolean relative;
+    public boolean copy;
 
-	/**
-	 * 
-	 * @param address First of the two words in the table entry (a 32-bit address)
-	 * @param flags Second of the two words in the table entry (containing several bitfields)
-	 * @param bigEndian True if big endian; otherwise, false
-	 */
-	public UnixAoutRelocation(long address, long flags, boolean bigEndian) {
-		this.address = (0xFFFFFFFF & address);
+    /**
+     *
+     * @param address   First of the two words in the table entry (a 32-bit address)
+     * @param flags     Second of the two words in the table entry (containing several bitfields)
+     * @param bigEndian True if big endian; otherwise, false
+     */
+    public UnixAoutRelocation(long address, long flags, boolean bigEndian) {
+        this.address = (0xFFFFFFFF & address);
 
-		if (bigEndian) {
-			this.symbolNum = (int) ((flags & 0xFFFFFF00) >> 8);
-			this.flags = (byte) (flags & 0xFF);
-			this.pcRelativeAddressing = ((flags & 0x80) != 0);
-			this.pointerLength = (byte) (1 << ((flags & 0x60) >> 5));
-			this.extern = ((flags & 0x10) != 0);
-			this.baseRelative = ((flags & 0x8) != 0);
-			this.jmpTable = ((flags & 0x4) != 0);
-			this.relative = ((flags & 0x2) != 0);
-			this.copy = ((flags & 0x1) != 0);
-		}
-		else {
-			this.symbolNum = (int) (flags & 0x00FFFFFF);
-			this.flags = (byte) ((flags & 0xFF000000) >> 24);
-			this.pcRelativeAddressing = ((this.flags & 0x01) != 0);
-			this.pointerLength = (byte) (1 << ((this.flags & 0x06) >> 1));
-			this.extern = ((this.flags & 0x08) != 0);
-			this.baseRelative = ((this.flags & 0x10) != 0);
-			this.jmpTable = ((this.flags & 0x20) != 0);
-			this.relative = ((this.flags & 0x40) != 0);
-			this.copy = ((this.flags & 0x80) != 0);
-		}
-	}
+        if (bigEndian) {
+            this.symbolNum = (int) ((flags & 0xFFFFFF00) >> 8);
+            this.flags = (byte) (flags & 0xFF);
+            this.pcRelativeAddressing = ((flags & 0x80) != 0);
+            this.pointerLength = (byte) (1 << ((flags & 0x60) >> 5));
+            this.extern = ((flags & 0x10) != 0);
+            this.baseRelative = ((flags & 0x8) != 0);
+            this.jmpTable = ((flags & 0x4) != 0);
+            this.relative = ((flags & 0x2) != 0);
+            this.copy = ((flags & 0x1) != 0);
+        } else {
+            this.symbolNum = (int) (flags & 0x00FFFFFF);
+            this.flags = (byte) ((flags & 0xFF000000) >> 24);
+            this.pcRelativeAddressing = ((this.flags & 0x01) != 0);
+            this.pointerLength = (byte) (1 << ((this.flags & 0x06) >> 1));
+            this.extern = ((this.flags & 0x08) != 0);
+            this.baseRelative = ((this.flags & 0x10) != 0);
+            this.jmpTable = ((this.flags & 0x20) != 0);
+            this.relative = ((this.flags & 0x40) != 0);
+            this.copy = ((this.flags & 0x80) != 0);
+        }
+    }
 
-	public String getSymbolName(UnixAoutSymbolTable symtab) {
-		if (extern && symbolNum < symtab.size()) {
-			return symtab.get(symbolNum).name;
-		}
-		else if (!extern) {
-			return switch (symbolNum) {
-				case 4 -> UnixAoutProgramLoader.dot_text;
-				case 6 -> UnixAoutProgramLoader.dot_data;
-				case 8 -> UnixAoutProgramLoader.dot_bss;
-				default -> null;
-			};
-		}
+    public String getSymbolName(UnixAoutSymbolTable symtab) {
+        if (extern && symbolNum < symtab.size()) {
+            return symtab.get(symbolNum).name;
+        } else if (!extern) {
+            return switch (symbolNum) {
+                case 4 -> UnixAoutProgramLoader.dot_text;
+                case 6 -> UnixAoutProgramLoader.dot_data;
+                case 8 -> UnixAoutProgramLoader.dot_bss;
+                default -> null;
+            };
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

@@ -638,7 +638,7 @@ abstract public class DataTypeManagerDB implements DataTypeManager {
 			if (set.isEmpty()) {
 				return Settings.EMPTY_STRING_ARRAY;
 			}
-			return set.toArray(new String[set.size()]);
+			return set.toArray(new String[0]);
 		}
 	}
 

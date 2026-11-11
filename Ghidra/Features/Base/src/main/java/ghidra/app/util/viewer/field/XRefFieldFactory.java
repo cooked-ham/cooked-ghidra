@@ -830,7 +830,7 @@ public class XRefFieldFactory extends FieldFactory {
 // Inner Classes
 //==================================================================================================
 
-	private class XrefAttributedString extends CompositeAttributedString {
+	private static class XrefAttributedString extends CompositeAttributedString {
 
 		private AttributedString content;
 		private AttributedString delimiter;
@@ -890,7 +890,7 @@ public class XRefFieldFactory extends FieldFactory {
 		}
 	}
 
-	private class XrefListingField extends ListingTextField {
+	private static class XrefListingField extends ListingTextField {
 
 		XrefListingField(XRefFieldFactory factory, ProxyObj<?> proxy, TextField field,
 				ListingFieldHighlightFactoryAdapter hlFactory) {

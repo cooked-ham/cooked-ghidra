@@ -15,6 +15,7 @@
  */
 package ghidra.app.plugin.core.stackeditor;
 
+import java.io.Serial;
 import java.util.*;
 
 import docking.widgets.OptionDialog;
@@ -46,6 +47,7 @@ import ghidra.util.task.TaskMonitor;
 
 public class StackEditorModel extends CompositeEditorModel<StackFrameDataType> {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 	public static final int OFFSET = 0;
 	public static final int LENGTH = 1;
@@ -506,7 +508,7 @@ public class StackEditorModel extends CompositeEditorModel<StackFrameDataType> {
 		}
 	}
 
-	private class XYPair {
+	private static class XYPair {
 		int x;
 		int y;
 

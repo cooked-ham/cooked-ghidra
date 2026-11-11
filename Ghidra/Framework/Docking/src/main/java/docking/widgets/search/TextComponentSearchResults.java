@@ -651,7 +651,7 @@ public class TextComponentSearchResults extends SearchResults {
 	}
 
 	// marker class
-	private class SearchResultsHighlightPainter extends DefaultHighlightPainter {
+	private static class SearchResultsHighlightPainter extends DefaultHighlightPainter {
 		public SearchResultsHighlightPainter(Color c) {
 			super(c);
 		}

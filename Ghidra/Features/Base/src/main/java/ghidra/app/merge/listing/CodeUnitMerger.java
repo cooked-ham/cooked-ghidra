@@ -308,7 +308,7 @@ class CodeUnitMerger extends AbstractListingMerger {
 				manualSet.add(addRange);
 			}
 		}
-		return list.toArray(new AddressRange[list.size()]);
+		return list.toArray(new AddressRange[0]);
 	}
 
 	/**
@@ -667,7 +667,7 @@ class CodeUnitMerger extends AbstractListingMerger {
 			count++;
 		}
 		if (conflictBuf.length() > 0) {
-			buf.append("Conflicting change" + ((count > 1) ? "s are" : " is") + ": ");
+			buf.append("Conflicting change").append(((count > 1) ? "s are" : " is")).append(": ");
 			buf.append(conflictBuf);
 			buf.append(".");
 		}

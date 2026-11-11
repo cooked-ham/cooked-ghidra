@@ -808,7 +808,7 @@ class MemoryMapProvider extends ComponentProviderAdapter {
 // Inner Classes
 //==================================================================================================
 
-	private class MemoryMapTable extends GhidraTable {
+	private static class MemoryMapTable extends GhidraTable {
 		MemoryMapTable(TableModel model) {
 			super(model);
 			setAutoEditEnabled(true);

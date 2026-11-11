@@ -112,7 +112,7 @@ public class FunctionComparisonProvider extends ComponentProviderAdapter
 		buff.append("Tab Text: ");
 		buff.append(getTabText() + "\n");
 		buff.append(functionComparisonPanel.getDescription());
-		buff.append("tool = " + tool + "\n");
+		buff.append("tool = ").append(tool).append("\n");
 		return buff.toString();
 	}
 

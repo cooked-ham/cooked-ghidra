@@ -36,20 +36,20 @@ public interface InternalDataTypeComponent extends DataTypeComponent {
 
 	public static String toString(DataTypeComponent c) {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("  " + c.getOrdinal());
-		buffer.append("  " + c.getOffset());
-		buffer.append("  " + c.getDataType().getName());
+		buffer.append("  ").append(c.getOrdinal());
+		buffer.append("  ").append(c.getOffset());
+		buffer.append("  ").append(c.getDataType().getName());
 		if (c.isBitFieldComponent()) {
-			buffer.append("(" + ((BitFieldDataType) c.getDataType()).getBitOffset() + ")");
+			buffer.append("(").append(((BitFieldDataType) c.getDataType()).getBitOffset()).append(")");
 		}
-		buffer.append("  " + c.getLength());
+		buffer.append("  ").append(c.getLength());
 		String name = c.getFieldName();
 		if (name == null) {
 			name = "";
 		}
-		buffer.append("  " + name);
+		buffer.append("  ").append(name);
 		String cmt = c.getComment();
-		buffer.append("  " + ((cmt != null) ? ("\"" + cmt + "\"") : ""));
+		buffer.append("  ").append(((cmt != null) ? ("\"" + cmt + "\"") : ""));
 		return buffer.toString();
 	}
 

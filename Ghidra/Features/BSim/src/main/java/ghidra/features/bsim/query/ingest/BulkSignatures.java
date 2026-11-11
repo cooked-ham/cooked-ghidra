@@ -1095,7 +1095,7 @@ public class BulkSignatures implements AutoCloseable {
 		}
 	}
 
-	private class UpdateRepository extends IterateRepository {
+	private static class UpdateRepository extends IterateRepository {
 		private File outdirectory;
 		private String repo;
 		private boolean overwrite;
@@ -1151,7 +1151,7 @@ public class BulkSignatures implements AutoCloseable {
 		}
 	}
 
-	private class SignatureRepository extends IterateRepository {
+	private static class SignatureRepository extends IterateRepository {
 
 		private File outdirectory;
 		private String repo; // Repository URL to include with signature metadata

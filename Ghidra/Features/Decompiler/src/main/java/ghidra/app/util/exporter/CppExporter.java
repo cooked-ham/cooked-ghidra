@@ -591,7 +591,7 @@ public class CppExporter extends ProgramExporter {
 	 * chunk. So, we wrap a real monitor, overriding the behavior such that initialize() has
 	 * no effect when it is called by the queue.
 	 */
-	private class ChunkingTaskMonitor extends TaskMonitorAdapter {
+	private static class ChunkingTaskMonitor extends TaskMonitorAdapter {
 		private TaskMonitor monitor;
 
 		ChunkingTaskMonitor(TaskMonitor monitor) {

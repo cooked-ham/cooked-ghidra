@@ -51,7 +51,7 @@ public class JTreeMouseListenerDelegate extends MouseAdapter {
 		if (listeners.isEmpty()) {
 			return new MouseListener[0];
 		}
-		return listeners.toArray(new MouseListener[listeners.size()]);
+		return listeners.toArray(new MouseListener[0]);
 	}
 
 	public void addMouseListener(MouseListener listener) {

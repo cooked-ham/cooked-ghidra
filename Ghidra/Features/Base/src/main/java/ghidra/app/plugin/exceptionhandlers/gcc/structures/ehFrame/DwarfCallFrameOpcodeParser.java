@@ -122,7 +122,7 @@ public class DwarfCallFrameOpcodeParser {
 					case DW_CFA_advance_loc:
 						primaryOpcode = true;
 
-						sb.append("DW_CFA_advance_loc delta[" + exOpcodeOrParam + "]");
+						sb.append("DW_CFA_advance_loc delta[").append(exOpcodeOrParam).append("]");
 						break;
 					case DW_CFA_offset:
 						primaryOpcode = true;
@@ -133,11 +133,11 @@ public class DwarfCallFrameOpcodeParser {
 
 						curr = curr.add(operand1Len);
 
-						sb.append("DW_CFA_offset reg[" + exOpcodeOrParam + "] " + operand1);
+						sb.append("DW_CFA_offset reg[").append(exOpcodeOrParam).append("] ").append(operand1);
 						break;
 					case DW_CFA_restore:
 						primaryOpcode = true;
-						sb.append("DW_CFA_restore reg[" + exOpcodeOrParam + "]");
+						sb.append("DW_CFA_restore reg[").append(exOpcodeOrParam).append("]");
 						break;
 				}
 			}
@@ -156,28 +156,28 @@ public class DwarfCallFrameOpcodeParser {
 						operand1 = GccAnalysisUtils.readDWord(program, curr) & 0xFFFFFFFF;
 						curr = curr.add(4);
 
-						sb.append("DW_CFA_set_loc addr[" + operand1 + "]");
+						sb.append("DW_CFA_set_loc addr[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_advance_loc1:
 						operand1 = GccAnalysisUtils.readByte(program, curr) & 0xFF;
 						curr = curr.add(1);
 
-						sb.append("DW_CFA_advance_loc1 delta[" + operand1 + "]");
+						sb.append("DW_CFA_advance_loc1 delta[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_advance_loc2:
 						operand1 = GccAnalysisUtils.readWord(program, curr) & 0xFFFF;
 						curr = curr.add(2);
 
-						sb.append("DW_CFA_advance_loc2 delta[" + operand1 + "]");
+						sb.append("DW_CFA_advance_loc2 delta[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_advance_loc4:
 						operand1 = GccAnalysisUtils.readDWord(program, curr) & 0xFFFFFFFF;
 						curr = curr.add(4);
 
-						sb.append("DW_CFA_advance_loc4 delta[" + operand1 + "]");
+						sb.append("DW_CFA_advance_loc4 delta[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_offset_extended:
@@ -201,7 +201,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand1Len = uleb128.getLength();
 						curr = curr.add(operand1Len);
 
-						sb.append("DW_CFA_restore_extended reg[" + operand1 + "]");
+						sb.append("DW_CFA_restore_extended reg[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_undefined:
@@ -210,7 +210,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand1Len = uleb128.getLength();
 						curr = curr.add(operand1Len);
 
-						sb.append("DW_CFA_undefined reg[" + operand1 + "]");
+						sb.append("DW_CFA_undefined reg[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_same_value:
@@ -219,7 +219,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand1Len = uleb128.getLength();
 						curr = curr.add(operand1Len);
 
-						sb.append("DW_CFA_same_value reg[" + operand1 + "]");
+						sb.append("DW_CFA_same_value reg[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_register:
@@ -233,7 +233,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand2Len = uleb128.getLength();
 						curr = curr.add(operand2Len);
 
-						sb.append("DW_CFA_register reg[" + operand1 + "] reg[" + operand2 + "]");
+						sb.append("DW_CFA_register reg[").append(operand1).append("] reg[").append(operand2).append("]");
 						break;
 
 					case DW_CFA_remember_state:
@@ -255,7 +255,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand2Len = uleb128.getLength();
 						curr = curr.add(operand2Len);
 
-						sb.append("DW_CFA_def_cfa reg[" + operand1 + "] offs[" + operand2 + "]");
+						sb.append("DW_CFA_def_cfa reg[").append(operand1).append("] offs[").append(operand2).append("]");
 						break;
 
 					case DW_CFA_def_cfa_register:
@@ -264,7 +264,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand1Len = uleb128.getLength();
 						curr = curr.add(operand1Len);
 
-						sb.append("DW_CFA_def_cfa_register reg[" + operand1 + "]");
+						sb.append("DW_CFA_def_cfa_register reg[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_def_cfa_offset:
@@ -273,7 +273,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand1Len = uleb128.getLength();
 						curr = curr.add(operand1Len);
 
-						sb.append("DW_CFA_def_cfa_offset offs[" + operand1 + "]");
+						sb.append("DW_CFA_def_cfa_offset offs[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_def_cfa_expression:
@@ -286,7 +286,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand1Len = uleb128.getLength();
 						curr = curr.add(operand1Len);
 
-						sb.append("DW_CFA_expression reg[" + operand1 + "] BLOCK");
+						sb.append("DW_CFA_expression reg[").append(operand1).append("] BLOCK");
 						break;
 
 					case DW_CFA_offset_extended_sf:
@@ -315,7 +315,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand2Len = uleb128.getLength();
 						curr = curr.add(operand2Len);
 
-						sb.append("DW_CFA_def_cfa_sf reg[" + operand1 + "] offs[" + operand2 + "]");
+						sb.append("DW_CFA_def_cfa_sf reg[").append(operand1).append("] offs[").append(operand2).append("]");
 						break;
 
 					case DW_CFA_def_cfa_offset_sf:
@@ -324,7 +324,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand1Len = uleb128.getLength();
 						curr = curr.add(operand1Len);
 
-						sb.append("DW_CFA_def_cfa_offset_sf offs[" + operand1 + "]");
+						sb.append("DW_CFA_def_cfa_offset_sf offs[").append(operand1).append("]");
 						break;
 
 					case DW_CFA_val_offset:
@@ -338,7 +338,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand2Len = uleb128.getLength();
 						curr = curr.add(operand2Len);
 
-						sb.append("DW_CFA_val_offset [" + operand1 + "] [" + operand2 + "]");
+						sb.append("DW_CFA_val_offset [").append(operand1).append("] [").append(operand2).append("]");
 						break;
 
 					case DW_CFA_val_offset_sf:
@@ -352,7 +352,7 @@ public class DwarfCallFrameOpcodeParser {
 						operand2Len = uleb128.getLength();
 						curr = curr.add(operand2Len);
 
-						sb.append("DW_CFA_val_offset_sf [" + operand1 + "] [" + operand2 + "]");
+						sb.append("DW_CFA_val_offset_sf [").append(operand1).append("] [").append(operand2).append("]");
 						break;
 
 					case DW_CFA_val_expression:
@@ -361,14 +361,14 @@ public class DwarfCallFrameOpcodeParser {
 						operand1Len = uleb128.getLength();
 						curr = curr.add(operand1Len);
 
-						sb.append("DW_CFA_val_expression [" + operand1 + "] BLOCK");
+						sb.append("DW_CFA_val_expression [").append(operand1).append("] BLOCK");
 						break;
 
 					case DW_CFA_MIPS_advance_loc8:
 						operand1 = GccAnalysisUtils.readQWord(program, curr) & 0xFFFF;
 						curr = curr.add(8);
 
-						sb.append("DW_CFA_MIPS_advance_loc8 + " + operand1);
+						sb.append("DW_CFA_MIPS_advance_loc8 + ").append(operand1);
 
 						break;
 
@@ -379,7 +379,7 @@ public class DwarfCallFrameOpcodeParser {
 					case DW_CFA_GNU_args_size:
 						operand1 = GccAnalysisUtils.readByte(program, curr);
 						curr = curr.add(1);
-						sb.append("DW_CFA_GNU_args_size [" + operand1 + "]");
+						sb.append("DW_CFA_GNU_args_size [").append(operand1).append("]");
 						break;
 
 					case DW_CFA_lo_user:

@@ -258,7 +258,7 @@ public class ProjectCopyPasteTest extends AbstractGhidraHeadedIntegrationTest {
 
 		DomainFolderNode abcCopyNode = env.waitForFolderNode("/xyz/abc");
 		DomainFolder folder = abcCopyNode.getDomainFolder();
-		assertTrue(!folder.isEmpty());
+		assertFalse(folder.isEmpty());
 
 		DomainFile file = folder.getFile("foo");
 		assertNotNull(file);

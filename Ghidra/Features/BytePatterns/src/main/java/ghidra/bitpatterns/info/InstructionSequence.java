@@ -360,9 +360,9 @@ public class InstructionSequence {
 		}
 
 		InstructionSequence result = new InstructionSequence();
-		result.setInstructions(instructionsList.toArray(new String[instructionsList.size()]));
-		result.setCommaSeparatedOperands(csoList.toArray(new String[csoList.size()]));
-		result.setSizes(sizesList.toArray(new Integer[sizesList.size()]));
+		result.setInstructions(instructionsList.toArray(new String[0]));
+		result.setCommaSeparatedOperands(csoList.toArray(new String[0]));
+		result.setSizes(sizesList.toArray(new Integer[0]));
 
 		return result;
 	}

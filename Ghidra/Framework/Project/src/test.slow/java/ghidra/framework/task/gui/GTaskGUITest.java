@@ -607,7 +607,7 @@ public class GTaskGUITest extends AbstractDockingTest {
 		}
 	}
 
-	private class AdvanceableTask extends SimpleTask {
+	private static class AdvanceableTask extends SimpleTask {
 		private static final int DEFAULT_LOOP_COUNT = 4;
 
 		protected CountDownLatch taskStartLatch = new CountDownLatch(1);

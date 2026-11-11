@@ -59,7 +59,7 @@ public class CallotherCensusScript extends GhidraScript {
 
 	}
 
-	class CountAndLocationInfo implements Comparable<CountAndLocationInfo> {
+	static class CountAndLocationInfo implements Comparable<CountAndLocationInfo> {
 		private String mnemonic;
 		private String firstOccurrence;
 		private Integer count;

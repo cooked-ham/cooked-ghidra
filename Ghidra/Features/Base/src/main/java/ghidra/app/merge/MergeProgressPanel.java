@@ -134,7 +134,7 @@ public class MergeProgressPanel extends JPanel {
 		StringBuffer buf = new StringBuffer();
 		buf.append(phase[0]);
 		for (int i = 1; i < phase.length; i++) {
-			buf.append(":" + phase[i]);
+			buf.append(":").append(phase[i]);
 		}
 		return buf.toString();
 	}

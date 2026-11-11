@@ -447,7 +447,7 @@ public abstract class ByteViewerComponentProvider extends ComponentProviderAdapt
 
 	protected void writeConfigState(SaveState saveState) {
 		List<String> viewNames = panel.getViewNamesInDisplayOrder();
-		saveState.putStrings(VIEW_NAMES, viewNames.toArray(new String[viewNames.size()]));
+		saveState.putStrings(VIEW_NAMES, viewNames.toArray(new String[0]));
 		configOptions.write(saveState);
 		SaveState columnState = new SaveState(VIEW_WIDTHS);
 		int indexWidth = panel.getViewWidth(INDEX_COLUMN_NAME);

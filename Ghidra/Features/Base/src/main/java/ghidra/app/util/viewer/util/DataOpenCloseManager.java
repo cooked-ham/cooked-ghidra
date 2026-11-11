@@ -304,7 +304,7 @@ public class DataOpenCloseManager {
 // Inner Classes
 //==================================================================================================
 
-	private class NoProgressMonitor extends TaskMonitorAdapter {
+	private static class NoProgressMonitor extends TaskMonitorAdapter {
 
 		private final TaskMonitor realMonitor;
 

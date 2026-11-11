@@ -22,20 +22,21 @@ import ghidra.util.task.TaskMonitor;
  * {@link DebugStreamProvider}.
  */
 public interface DebugInfoProvider {
-	/**
-	 * {@return the name of this instance, which should be a serialized copy of this instance, 
-	 * typically like "something://serialized_data"}
-	 */
-	String getName();
+    /**
+     * {@return the name of this instance, which should be a serialized copy of this instance,
+     * typically like "something://serialized_data"}
+     */
+    String getName();
 
-	/**
-	 * {@return a human formatted string describing this provider, used in UI prompts or lists}
-	 */
-	String getDescriptiveName();
+    /**
+     * {@return a human formatted string describing this provider, used in UI prompts or lists}
+     */
+    String getDescriptiveName();
 
-	/**
-	 * {@return DebugInfoProviderStatus representing this provider's current status} 
-	 * @param monitor {@link TaskMonitor}
-	 */
-	DebugInfoProviderStatus getStatus(TaskMonitor monitor);
+    /**
+     * {@return DebugInfoProviderStatus representing this provider's current status}
+     *
+     * @param monitor {@link TaskMonitor}
+     */
+    DebugInfoProviderStatus getStatus(TaskMonitor monitor);
 }

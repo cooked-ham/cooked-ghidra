@@ -281,7 +281,7 @@ public class ActionChooserDialog extends DialogComponentProvider {
 	 * has been returned to the original component that had focus before this dialog was invoked.
 	 */
 	// class not private to allow test access
-	class ActionRunner implements PropertyChangeListener {
+	static class ActionRunner implements PropertyChangeListener {
 
 		private DockingActionIf action;
 		private ActionContext context;

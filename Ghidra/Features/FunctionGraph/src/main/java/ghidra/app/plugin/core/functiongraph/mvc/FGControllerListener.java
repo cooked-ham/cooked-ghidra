@@ -20,37 +20,41 @@ import ghidra.program.util.ProgramSelection;
 
 public interface FGControllerListener {
 
-	/**
-	 * Called when the {@link FGData} for the current viewer has been set on the controller.
-	 */
-	public void dataChanged();
+    /**
+     * Called when the {@link FGData} for the current viewer has been set on the controller.
+     */
+    public void dataChanged();
 
-	/**
-	 * A notification for when the user has changed the location by interacting with the Function 
-	 * Graph UI.  
-	 * @param location the new location
-	 * @param vertexChanged true if a new vertex has been selected
-	 */
-	public void userChangedLocation(ProgramLocation location, boolean vertexChanged);
+    /**
+     * A notification for when the user has changed the location by interacting with the Function
+     * Graph UI.
+     *
+     * @param location      the new location
+     * @param vertexChanged true if a new vertex has been selected
+     */
+    public void userChangedLocation(ProgramLocation location, boolean vertexChanged);
 
-	/**
-	 * A notification for when the user has changed the selection by interacting with the Function 
-	 * Graph UI.  
-	 * @param selection the new selection
-	 */
-	public void userChangedSelection(ProgramSelection selection);
+    /**
+     * A notification for when the user has changed the selection by interacting with the Function
+     * Graph UI.
+     *
+     * @param selection the new selection
+     */
+    public void userChangedSelection(ProgramSelection selection);
 
-	/**
-	 * A notification for when the user has selected text in a vertex by interacting with the 
-	 * Function Graph UI.  
-	 * @param s the selected text
-	 */
-	public void userSelectedText(String s);
+    /**
+     * A notification for when the user has selected text in a vertex by interacting with the
+     * Function Graph UI.
+     *
+     * @param s the selected text
+     */
+    public void userSelectedText(String s);
 
-	/**
-	 * Called when the users requests the tool to navigate to a new location, such as when 
-	 * double-clicking an xref.
-	 * @param location the location
-	 */
-	public void userNavigated(ProgramLocation location);
+    /**
+     * Called when the users requests the tool to navigate to a new location, such as when
+     * double-clicking an xref.
+     *
+     * @param location the location
+     */
+    public void userNavigated(ProgramLocation location);
 }

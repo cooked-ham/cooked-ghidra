@@ -381,11 +381,11 @@ public class SortedRangeList implements Iterable<Range> {
 		Iterator<Range> it = getRanges();
 		if (it.hasNext()) {
 			Range r = it.next();
-			buf.append("[" + r.min + "," + r.max + "]");
+			buf.append("[").append(r.min).append(",").append(r.max).append("]");
 		}
 		while (it.hasNext()) {
 			Range r = it.next();
-			buf.append(" [" + r.min + "," + r.max + "]");
+			buf.append(" [").append(r.min).append(",").append(r.max).append("]");
 		}
 		return buf.toString();
 	}

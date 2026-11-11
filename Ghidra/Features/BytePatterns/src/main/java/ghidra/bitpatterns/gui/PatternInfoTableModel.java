@@ -124,7 +124,7 @@ public class PatternInfoTableModel extends ThreadedTableModelStub<PatternInfoRow
 	// Inner Classes
 	//==================================================================================================
 
-	class PatternTypeTableColumn
+	static class PatternTypeTableColumn
 			extends AbstractDynamicTableColumn<PatternInfoRowObject, String, Object> {
 
 		@Override
@@ -142,7 +142,7 @@ public class PatternInfoTableModel extends ThreadedTableModelStub<PatternInfoRow
 		}
 	}
 
-	class NoteTableColumn extends AbstractDynamicTableColumn<PatternInfoRowObject, String, Object> {
+	static class NoteTableColumn extends AbstractDynamicTableColumn<PatternInfoRowObject, String, Object> {
 
 		@Override
 		public String getColumnName() {
@@ -176,7 +176,7 @@ public class PatternInfoTableModel extends ThreadedTableModelStub<PatternInfoRow
 		}
 	}
 
-	class BitsOfCheckTableColumn
+	static class BitsOfCheckTableColumn
 			extends AbstractDynamicTableColumn<PatternInfoRowObject, Integer, Object> {
 
 		@Override
@@ -191,7 +191,7 @@ public class PatternInfoTableModel extends ThreadedTableModelStub<PatternInfoRow
 		}
 	}
 
-	class ContextRegisterFilterTableColumn
+	static class ContextRegisterFilterTableColumn
 			extends AbstractDynamicTableColumn<PatternInfoRowObject, String, Object> {
 
 		@Override
@@ -209,7 +209,7 @@ public class PatternInfoTableModel extends ThreadedTableModelStub<PatternInfoRow
 		}
 	}
 
-	class AlignmentTableColumn
+	static class AlignmentTableColumn
 			extends AbstractDynamicTableColumn<PatternInfoRowObject, Integer, Object> {
 
 		@Override

@@ -144,12 +144,12 @@ public final class Objc1TypeEncodings {
 			}
 			args.add(new ParameterDefinitionImpl(null, paramDT, null));
 		}
-		sig.setArguments(args.toArray(new ParameterDefinition[args.size()]));
+		sig.setArguments(args.toArray(new ParameterDefinition[0]));
 
 		new ApplyFunctionSignatureCmd(methodAddress, sig, SourceType.ANALYSIS).applyTo(program);
 
 		StringBuffer commentBuffer = new StringBuffer();
-		commentBuffer.append("Function Stack Size: 0x" + Integer.toHexString(totalSize) + " bytes");
+		commentBuffer.append("Function Stack Size: 0x").append(Integer.toHexString(totalSize)).append(" bytes");
 
 		if (method.getComment() == null) {
 			method.setComment(commentBuffer.toString());
@@ -182,7 +182,7 @@ public final class Objc1TypeEncodings {
 			arguments.add(parameter);
 		}
 
-		fSig.setArguments(arguments.toArray(new ParameterDefinition[arguments.size()]));
+		fSig.setArguments(arguments.toArray(new ParameterDefinition[0]));
 
 		return fSig;
 	}

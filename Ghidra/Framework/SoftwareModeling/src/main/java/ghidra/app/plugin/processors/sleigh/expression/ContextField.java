@@ -167,8 +167,8 @@ public class ContextField extends PatternValue {
 		if (signbit) {
 			sb.append(", signed");
 		}
-		sb.append(", bytes " + startbyte + "-" + endbyte);
-		sb.append(", shift=" + shift);
+		sb.append(", bytes ").append(startbyte).append("-").append(endbyte);
+		sb.append(", shift=").append(shift);
 		sb.append("]");
 		return sb.toString();
 	}

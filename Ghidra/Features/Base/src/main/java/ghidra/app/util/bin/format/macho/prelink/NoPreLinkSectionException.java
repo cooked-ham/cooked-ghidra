@@ -15,12 +15,15 @@
  */
 package ghidra.app.util.bin.format.macho.prelink;
 
+import java.io.Serial;
+
 
 public class NoPreLinkSectionException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-	public NoPreLinkSectionException( String message ) {
-		super( message );
-	}
+    public NoPreLinkSectionException(String message) {
+        super(message);
+    }
 }

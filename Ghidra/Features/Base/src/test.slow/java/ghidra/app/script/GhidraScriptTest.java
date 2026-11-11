@@ -407,7 +407,7 @@ public class GhidraScriptTest extends AbstractGhidraHeadedIntegrationTest {
 		// Press the execute button on an item
 		//
 		JButton executeButton = (JButton) getInstanceField("okButton", dialog);
-		assertTrue("Execute button enabled when no row selected", !executeButton.isEnabled());
+		assertFalse("Execute button enabled when no row selected", executeButton.isEnabled());
 
 		GTable table = (GTable) getInstanceField("table", dialog);
 		ListSelectionModel selectionModel = table.getSelectionModel();
@@ -808,7 +808,7 @@ public class GhidraScriptTest extends AbstractGhidraHeadedIntegrationTest {
 
 		Msg.debug(this,
 			"waitForTableChooserDialog(): waited a total of: " + (numWaits * sleepyTime));
-		Assert.assertNotEquals(numWaits, 20);
+		Assert.assertNotEquals(20, numWaits);
 	}
 
 	private Address addr(String address) {
@@ -833,11 +833,11 @@ public class GhidraScriptTest extends AbstractGhidraHeadedIntegrationTest {
 		// nope
 	}
 
-	private class ATestInterface implements TestInterface {
+	private static class ATestInterface implements TestInterface {
 		// nope
 	}
 
-	private class BTestInterface implements TestInterface {
+	private static class BTestInterface implements TestInterface {
 		// nope
 	}
 
@@ -897,7 +897,7 @@ public class GhidraScriptTest extends AbstractGhidraHeadedIntegrationTest {
 		}
 	}
 
-	private class TestAddressableRowObject implements AddressableRowObject {
+	private static class TestAddressableRowObject implements AddressableRowObject {
 
 		private final Address address;
 

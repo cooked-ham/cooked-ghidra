@@ -813,7 +813,7 @@ public class ComponentInfoDialog extends DialogComponentProvider implements Prop
 		}
 	}
 
-	class EventDisplayPanel extends JPanel {
+	static class EventDisplayPanel extends JPanel {
 		private static int NUM_MESSAGES = 20;
 		private JTextArea text;
 		private List<String> messages = new LinkedList<>();

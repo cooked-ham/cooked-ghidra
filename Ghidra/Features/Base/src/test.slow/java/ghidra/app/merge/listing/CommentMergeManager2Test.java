@@ -280,28 +280,28 @@ public class CommentMergeManager2Test extends AbstractListingMergeManagerTest {
 		Listing listing = resultProgram.getListing();
 
 		// EOL Comment @ 100283e
-		assertEquals(listing.getCodeUnitAt(addr("0x100283e")).getComment(CommentType.EOL),
-			"EOL Comment");
+		assertEquals("EOL Comment",
+			listing.getCodeUnitAt(addr("0x100283e")).getComment(CommentType.EOL));
 
 		// Pre Comment @ 1002840
-		assertEquals(listing.getCodeUnitAt(addr("0x1002840")).getComment(CommentType.PRE),
-			"Pre Comment");
+		assertEquals("Pre Comment",
+			listing.getCodeUnitAt(addr("0x1002840")).getComment(CommentType.PRE));
 
 		// Post Comment @ 1002843
-		assertEquals(listing.getCodeUnitAt(addr("0x1002843")).getComment(CommentType.POST),
-			"Post Comment");
+		assertEquals("Post Comment",
+			listing.getCodeUnitAt(addr("0x1002843")).getComment(CommentType.POST));
 
 		// Plate Comment @ 1002847
-		assertEquals(listing.getCodeUnitAt(addr("0x1002847")).getComment(CommentType.PLATE),
-			"Plate Comment");
+		assertEquals("Plate Comment",
+			listing.getCodeUnitAt(addr("0x1002847")).getComment(CommentType.PLATE));
 
 		// Repeatable Comment @ 100284a
-		assertEquals(listing.getCodeUnitAt(addr("0x100284a")).getComment(CommentType.REPEATABLE),
-			"Repeatable Comment");
+		assertEquals("Repeatable Comment",
+			listing.getCodeUnitAt(addr("0x100284a")).getComment(CommentType.REPEATABLE));
 
 		// Latest has comment
-		assertEquals(listing.getCodeUnitAt(addr("0x1001000")).getComment(CommentType.EOL),
-			"EOL Comment");
+		assertEquals("EOL Comment",
+			listing.getCodeUnitAt(addr("0x1001000")).getComment(CommentType.EOL));
 
 		// Conflicts become combined comments @ 10028b1
 		CodeUnit cu = listing.getCodeUnitAt(addr("0x10028b1"));
@@ -383,28 +383,28 @@ public class CommentMergeManager2Test extends AbstractListingMergeManagerTest {
 		Listing listing = resultProgram.getListing();
 
 		// EOL Comment @ 100283e
-		assertEquals(listing.getCodeUnitAt(addr("0x100283e")).getComment(CommentType.EOL),
-			"EOL Comment");
+		assertEquals("EOL Comment",
+			listing.getCodeUnitAt(addr("0x100283e")).getComment(CommentType.EOL));
 
 		// Pre Comment @ 1002840
-		assertEquals(listing.getCodeUnitAt(addr("0x1002840")).getComment(CommentType.PRE),
-			"Pre Comment");
+		assertEquals("Pre Comment",
+			listing.getCodeUnitAt(addr("0x1002840")).getComment(CommentType.PRE));
 
 		// Post Comment @ 1002843
-		assertEquals(listing.getCodeUnitAt(addr("0x1002843")).getComment(CommentType.POST),
-			"Post Comment");
+		assertEquals("Post Comment",
+			listing.getCodeUnitAt(addr("0x1002843")).getComment(CommentType.POST));
 
 		// Plate Comment @ 1002847
-		assertEquals(listing.getCodeUnitAt(addr("0x1002847")).getComment(CommentType.PLATE),
-			"Plate Comment");
+		assertEquals("Plate Comment",
+			listing.getCodeUnitAt(addr("0x1002847")).getComment(CommentType.PLATE));
 
 		// Repeatable Comment @ 100284a
-		assertEquals(listing.getCodeUnitAt(addr("0x100284a")).getComment(CommentType.REPEATABLE),
-			"Repeatable Comment");
+		assertEquals("Repeatable Comment",
+			listing.getCodeUnitAt(addr("0x100284a")).getComment(CommentType.REPEATABLE));
 
 		// Latest has comment
-		assertEquals(listing.getCodeUnitAt(addr("0x1001000")).getComment(CommentType.EOL),
-			"EOL Comment");
+		assertEquals("EOL Comment",
+			listing.getCodeUnitAt(addr("0x1001000")).getComment(CommentType.EOL));
 
 		// Conflicts become latest comments @ 10028b1
 		CodeUnit cu = listing.getCodeUnitAt(addr("0x10028b1"));

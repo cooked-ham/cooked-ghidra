@@ -91,8 +91,8 @@ public class GhidraTableColumnModelTest extends AbstractGhidraHeadedIntegrationT
 
 		for (int i = 0; i < columnCount; i++) {
 			TableColumn column = allColumns.get(i);
-			assertTrue("Column is visible when it was made hidden.",
-				!ghidraColumnModel.isVisible(column));
+			assertFalse("Column is visible when it was made hidden.",
+				ghidraColumnModel.isVisible(column));
 		}
 	}
 
@@ -280,7 +280,7 @@ public class GhidraTableColumnModelTest extends AbstractGhidraHeadedIntegrationT
 		assertEquals(2, tableSortState.getSortedColumnCount());
 		columnSortState = tableSortState.getColumnSortState(columnZero);
 		sortDirection = columnSortState.getSortDirection();
-		assertTrue(!sortDirection.isAscending());// sanity check--check the model's data
+		assertFalse(sortDirection.isAscending());// sanity check--check the model's data
 		columnSortState = tableSortState.getColumnSortState(columnOne);
 		sortDirection = columnSortState.getSortDirection();
 		assertTrue(sortDirection.isAscending());
@@ -292,7 +292,7 @@ public class GhidraTableColumnModelTest extends AbstractGhidraHeadedIntegrationT
 		columnSortState = savedSortState.getColumnSortState(columnZero);
 		assertNotNull(columnSortState);
 		sortDirection = columnSortState.getSortDirection();
-		assertTrue(!sortDirection.isAscending());
+		assertFalse(sortDirection.isAscending());
 
 		columnSortState = savedSortState.getColumnSortState(columnOne);
 		assertNotNull(columnSortState);
@@ -398,9 +398,9 @@ public class GhidraTableColumnModelTest extends AbstractGhidraHeadedIntegrationT
 
 		// make sure the item is de-selected
 		Boolean isVisible = (Boolean) dialogTable.getValueAt(0, 0);
-		assertTrue(
+		assertFalse(
 			"The table column was not made visible after clicking the checkbox in the " + "table.",
-			!isVisible);
+			isVisible);
 
 		// press OK
 		final JButton okButton = (JButton) TestUtils.getInstanceField("okButton", dialog);
@@ -669,7 +669,7 @@ public class GhidraTableColumnModelTest extends AbstractGhidraHeadedIntegrationT
 // Inner Classes
 //==================================================================================================
 
-	private class GhidraTableTestColumn extends TableColumn {
+	private static class GhidraTableTestColumn extends TableColumn {
 		private boolean visible;
 
 		GhidraTableTestColumn(int modelIndex) {

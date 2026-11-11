@@ -136,7 +136,7 @@ public class ThemeIconTableModel extends GDynamicColumnTableModel<IconValue, Obj
 		return themeValues.getIcon(id);
 	}
 
-	private class IdColumn extends AbstractDynamicTableColumn<IconValue, String, Object> {
+	private static class IdColumn extends AbstractDynamicTableColumn<IconValue, String, Object> {
 
 		@Override
 		public String getColumnName() {
@@ -213,7 +213,7 @@ public class ThemeIconTableModel extends GDynamicColumnTableModel<IconValue, Obj
 
 	}
 
-	private class ThemeIconRenderer extends AbstractGColumnRenderer<ResolvedIcon> {
+	private static class ThemeIconRenderer extends AbstractGColumnRenderer<ResolvedIcon> {
 
 		public ThemeIconRenderer() {
 			setFont(getFixedWidthFont());

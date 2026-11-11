@@ -334,7 +334,7 @@ public class ImportDataDirectory extends DataDirectory {
 				}
 				if (id.isBound()) {
 					long boundAddr = iatThunk.getAddressOfData();
-					cmt.append("[Bound to: 0x" + Long.toHexString(boundAddr) + "]");
+					cmt.append("[Bound to: 0x").append(Long.toHexString(boundAddr)).append("]");
 				}
 				else {
 					cmt.append("<<not bound>>");
@@ -369,7 +369,7 @@ public class ImportDataDirectory extends DataDirectory {
 	@Override
 	public String toString() {
 		StringBuffer buff = new StringBuffer();
-		buff.append("\t\t" + "Import Directory: [" + super.toString() + "]" + "\n");
+		buff.append("\t\t").append("Import Directory: [").append(super.toString()).append("]").append("\n");
 		for (ImportInfo info : imports) {
 			buff.append("\t\t\t" + "0x" + Long.toHexString(info.getAddress()) + "  " +
 				info.getDLL() + " " + info.getName() + "\n");

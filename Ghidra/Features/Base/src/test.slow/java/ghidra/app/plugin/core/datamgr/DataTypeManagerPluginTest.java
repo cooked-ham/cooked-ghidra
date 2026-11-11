@@ -1152,7 +1152,7 @@ public class DataTypeManagerPluginTest extends AbstractGhidraHeadedIntegrationTe
 		Collection<DataTypeNode> values = nodesByName.values();
 		for (DataTypeNode node : values) {
 			DataType dt = node.getDataType();
-			assertTrue("Found an array in '%s'".formatted(dtm.getName()), !(dt instanceof Array));
+			assertFalse("Found an array in '%s'".formatted(dtm.getName()), dt instanceof Array);
 		}
 	}
 
@@ -1161,8 +1161,8 @@ public class DataTypeManagerPluginTest extends AbstractGhidraHeadedIntegrationTe
 		Collection<DataTypeNode> values = nodesByName.values();
 		for (DataTypeNode node : values) {
 			DataType dt = node.getDataType();
-			assertTrue("Found a pointer in '%s'".formatted(dtm.getName()),
-				!(dt instanceof Pointer));
+			assertFalse("Found a pointer in '%s'".formatted(dtm.getName()),
+				dt instanceof Pointer);
 		}
 	}
 
@@ -1709,7 +1709,7 @@ public class DataTypeManagerPluginTest extends AbstractGhidraHeadedIntegrationTe
 		}
 	}
 
-	private class SpyAction extends AbstractAction {
+	private static class SpyAction extends AbstractAction {
 
 		private Action defaultAction;
 		private AtomicBoolean actionFired = new AtomicBoolean();

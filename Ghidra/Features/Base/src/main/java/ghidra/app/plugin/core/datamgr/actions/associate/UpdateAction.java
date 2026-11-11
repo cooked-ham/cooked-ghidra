@@ -83,7 +83,7 @@ public class UpdateAction extends SyncAction {
 			buf.append("You are updating one or more conflicts which will OVERWRITE\n");
 			buf.append("changes in this program or archive!\n\n");
 		}
-		buf.append("Are you sure you want to UPDATE " + infos.size() + " datatype(s)?");
+		buf.append("Are you sure you want to UPDATE ").append(infos.size()).append(" datatype(s)?");
 		return buf.toString();
 	}
 

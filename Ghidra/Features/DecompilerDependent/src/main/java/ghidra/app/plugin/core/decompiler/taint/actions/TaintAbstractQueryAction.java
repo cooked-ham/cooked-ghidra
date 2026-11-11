@@ -15,12 +15,12 @@
  */
 package ghidra.app.plugin.core.decompiler.taint.actions;
 
-import javax.swing.Icon;
-
 import docking.action.MenuData;
 import ghidra.app.plugin.core.decompile.DecompilerActionContext;
-import ghidra.app.plugin.core.decompiler.taint.*;
+import ghidra.app.plugin.core.decompiler.taint.TaintPlugin;
 import ghidra.app.plugin.core.decompiler.taint.TaintPlugin.TaintFormat;
+import ghidra.app.plugin.core.decompiler.taint.TaintProvider;
+import ghidra.app.plugin.core.decompiler.taint.TaintState;
 import ghidra.app.plugin.core.decompiler.taint.TaintState.QueryType;
 import ghidra.app.plugin.core.decompiler.taint.sarif.SarifTaintGraphRunHandler;
 import ghidra.framework.plugintool.PluginTool;
@@ -30,6 +30,8 @@ import ghidra.util.task.Task;
 import ghidra.util.task.TaskMonitor;
 import sarif.SarifService;
 
+import javax.swing.*;
+
 /**
  * Action triggered from a specific token in the decompiler window to mark a variable as a source or
  * sink and generate the requisite query. This can be an input parameter, a stack variable, a
@@ -37,78 +39,77 @@ import sarif.SarifService;
  */
 public abstract class TaintAbstractQueryAction extends TaintAbstractDecompilerAction {
 
-	protected TaintPlugin plugin;
-	protected String desc;
-	protected String title;
+    protected TaintPlugin plugin;
+    protected String desc;
+    protected String title;
 
-	protected String executeTaintQueryIconString;
-	protected Icon executeTaintQueryIcon;
-	protected QueryType queryType;
+    protected String executeTaintQueryIconString;
+    protected Icon executeTaintQueryIcon;
+    protected QueryType queryType;
 
-	public TaintAbstractQueryAction(TaintPlugin plugin, String desc, String title, String cmd) {
-		super(cmd);
+    public TaintAbstractQueryAction(TaintPlugin plugin, String desc, String title, String cmd) {
+        super(cmd);
 
-		setHelpLocation(new HelpLocation(TaintPlugin.HELP_LOCATION, "Taint"+desc));
-		setMenuBarData(new MenuData(new String[] { "Source-Sink", getName() }));
+        setHelpLocation(new HelpLocation(TaintPlugin.HELP_LOCATION, "Taint" + desc));
+        setMenuBarData(new MenuData(new String[]{"Source-Sink", getName()}));
 
-		this.plugin = plugin;
-		this.desc = desc;
-		this.title = title;
-	}
+        this.plugin = plugin;
+        this.desc = desc;
+        this.title = title;
+    }
 
-	/*
-	 * We can only perform a query if we have an index database for this program and we have selected a sink.
-	 */
-	@Override
-	protected boolean isEnabledForDecompilerContext(DecompilerActionContext context) {
-		if (plugin.getTaintState() == null) {
-			return false;
-		}
-		return true;
-	}
+    /*
+     * We can only perform a query if we have an index database for this program and we have selected a sink.
+     */
+    @Override
+    protected boolean isEnabledForDecompilerContext(DecompilerActionContext context) {
+        if (plugin.getTaintState() == null) {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	protected void decompilerActionPerformed(DecompilerActionContext context) {
-		Program program = context.getProgram();
-		PluginTool tool = context.getTool();
+    @Override
+    protected void decompilerActionPerformed(DecompilerActionContext context) {
+        Program program = context.getProgram();
+        PluginTool tool = context.getTool();
 
-		Task defaultQueryTask = new Task(title, true, true, true, true) {
-			@Override
-			public void run(TaskMonitor monitor) {
-				TaintState state = plugin.getTaintState();
-				state.setMonitor(monitor);
-				state.queryIndex(program, tool, queryType);
-				state.setMonitor(null);
-			}
-		};
+        Task defaultQueryTask = new Task(title, true, true, true, true) {
+            @Override
+            public void run(TaskMonitor monitor) {
+                TaintState state = plugin.getTaintState();
+                state.setMonitor(monitor);
+                state.queryIndex(program, tool, queryType);
+                state.setMonitor(null);
+            }
+        };
 
-		// This task will block -- see params above.
-		// The blocking is necessary because of the table provider we create below.
-		// It is problematic to do GUI stuff in the thread.
-		// We still get a progress bar and option to cancel.
-		tool.execute(defaultQueryTask);
+        // This task will block -- see params above.
+        // The blocking is necessary because of the table provider we create below.
+        // It is problematic to do GUI stuff in the thread.
+        // We still get a progress bar and option to cancel.
+        tool.execute(defaultQueryTask);
 
-		TaintState state = plugin.getTaintState();
-		if (!defaultQueryTask.isCancelled()) {
-			TaintFormat format = state.getOptions().getTaintOutputForm();
-			if (!format.equals(TaintFormat.NONE)) {
-				SarifService sarifService = plugin.getSarifService();
-				sarifService.getController().setDefaultGraphHander(SarifTaintGraphRunHandler.class);
-				String queryName = state.getQueryName();
-				if (queryName != null) {
-					desc = queryName;
-				}
-				sarifService.showSarif(desc, state.getData());
-			}
+        TaintState state = plugin.getTaintState();
+        if (!defaultQueryTask.isCancelled()) {
+            TaintFormat format = state.getOptions().getTaintOutputForm();
+            if (!format.equals(TaintFormat.NONE)) {
+                SarifService sarifService = plugin.getSarifService();
+                sarifService.getController().setDefaultGraphHander(SarifTaintGraphRunHandler.class);
+                String queryName = state.getQueryName();
+                if (queryName != null) {
+                    desc = queryName;
+                }
+                sarifService.showSarif(desc, state.getData());
+            }
 
-			plugin.consoleMessage("executing query...");
-			TaintProvider provider = plugin.getProvider();
-			provider.setTaint();
+            plugin.consoleMessage("executing query...");
+            TaintProvider provider = plugin.getProvider();
+            provider.setTaint();
 
-			plugin.consoleMessage("query complete");
-		}
-		else {
-			plugin.consoleMessage("Source-Sink query was cancelled.");
-		}
-	}
+            plugin.consoleMessage("query complete");
+        } else {
+            plugin.consoleMessage("Source-Sink query was cancelled.");
+        }
+    }
 }

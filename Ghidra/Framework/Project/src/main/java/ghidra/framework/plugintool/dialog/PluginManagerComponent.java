@@ -149,7 +149,7 @@ public class PluginManagerComponent extends JPanel implements Scrollable {
 //=================================================================================================
 
 	/** A panel that represents a group of plugins, typically all plugins in a PluginPackage */
-	private abstract class GroupPanel extends JPanel {
+	private static abstract class GroupPanel extends JPanel {
 		protected static final Color BG = new GColor("color.bg");
 		protected GCheckBox selectAllCheckBox;
 

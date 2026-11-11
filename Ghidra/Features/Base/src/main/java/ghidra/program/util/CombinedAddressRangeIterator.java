@@ -77,7 +77,7 @@ public class CombinedAddressRangeIterator implements AddressRangeIterator {
 		}
 	}
 
-	private class AddressRangeManager {
+	private static class AddressRangeManager {
 		AddressRangeIterator it;
 		AddressRangeImpl range;
 

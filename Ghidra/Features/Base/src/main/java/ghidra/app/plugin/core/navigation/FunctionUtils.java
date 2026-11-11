@@ -112,6 +112,6 @@ public class FunctionUtils {
 				functionSignatureString.indexOf(parameterName, startIndex) + parameterName.length();
 		}
 
-		return list.toArray(new FieldStringInfo[list.size()]);
+		return list.toArray(new FieldStringInfo[0]);
 	}
 }

@@ -750,7 +750,7 @@ public class DefaultThreadedTableFilterTest extends AbstractDockingTest {
 //==================================================================================================
 // Inner Classes
 //==================================================================================================
-	private class EmptyCustomFilter implements TableFilter<TestRowObject> {
+	private static class EmptyCustomFilter implements TableFilter<TestRowObject> {
 
 		@Override
 		public boolean acceptsRow(TestRowObject rowObject) {
@@ -795,7 +795,7 @@ public class DefaultThreadedTableFilterTest extends AbstractDockingTest {
 
 	}
 
-	private class EmptyTextFilter implements TextFilter {
+	private static class EmptyTextFilter implements TextFilter {
 
 		@Override
 		public boolean matches(String text) {
@@ -813,7 +813,7 @@ public class DefaultThreadedTableFilterTest extends AbstractDockingTest {
 		}
 	}
 
-	private class AllPassesTableFilter implements TableFilter<TestRowObject> {
+	private static class AllPassesTableFilter implements TableFilter<TestRowObject> {
 
 		@Override
 		public boolean acceptsRow(TestRowObject rowObject) {
@@ -826,7 +826,7 @@ public class DefaultThreadedTableFilterTest extends AbstractDockingTest {
 		}
 	}
 
-	private class PredicateTableFilter implements TableFilter<TestRowObject> {
+	private static class PredicateTableFilter implements TableFilter<TestRowObject> {
 
 		private Predicate<TestRowObject> predicate;
 

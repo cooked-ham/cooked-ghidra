@@ -1514,7 +1514,7 @@ public class DialogComponentProvider
 	/**
 	 * A placeholder action that we register with the tool in order to get key event management
 	 */
-	private class DialogActionProxy extends DockingActionProxy {
+	private static class DialogActionProxy extends DockingActionProxy {
 
 		private DialogComponentProvider provider;
 

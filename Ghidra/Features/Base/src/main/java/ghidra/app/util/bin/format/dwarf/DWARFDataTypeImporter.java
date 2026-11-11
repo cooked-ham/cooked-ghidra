@@ -313,7 +313,7 @@ public class DWARFDataTypeImporter {
 
 		funcDef.setReturnType(returnType.dataType);
 		funcDef.setNoReturn(diea.getBool(DW_AT_noreturn, false));
-		funcDef.setArguments(params.toArray(new ParameterDefinition[params.size()]));
+		funcDef.setArguments(params.toArray(new ParameterDefinition[0]));
 
 		if (!diea.getChildren(DW_TAG_unspecified_parameters).isEmpty()) {
 			funcDef.setVarArgs(true);

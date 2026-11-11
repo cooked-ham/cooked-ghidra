@@ -329,7 +329,7 @@ public class NamespaceManager implements ProgramDBModule {
 		}
 	}
 
-	private class NamespaceHolder {
+	private static class NamespaceHolder {
 		long namespaceID;
 		AddressRange range;
 

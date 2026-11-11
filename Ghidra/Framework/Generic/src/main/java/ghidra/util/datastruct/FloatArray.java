@@ -20,12 +20,14 @@
  */
 
 package ghidra.util.datastruct;
+import java.io.Serial;
 import java.io.Serializable;
 /**
  *
  * Array of floats that grows as needed.
  */
 public class FloatArray implements Array, Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
     public static final int MIN_SIZE = 4;
     float[] floats;

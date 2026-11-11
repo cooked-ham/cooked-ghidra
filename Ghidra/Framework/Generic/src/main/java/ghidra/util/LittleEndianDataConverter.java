@@ -15,6 +15,7 @@
  */
 package ghidra.util;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -27,6 +28,7 @@ import java.util.Objects;
 public class LittleEndianDataConverter implements DataConverter {
 	public static final LittleEndianDataConverter INSTANCE = new LittleEndianDataConverter();
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

@@ -487,7 +487,7 @@ public class PythonTypeStubDoclet implements Doclet {
 						builder.append(getPlainDocString(label));
 					}
 					else {
-						String sig = link.getReference().getSignature().replaceAll("#", ".");
+						String sig = link.getReference().getSignature().replace("#", ".");
 						if (sig.startsWith(".")) {
 							sig = sig.substring(1);
 						}

@@ -381,7 +381,7 @@ public class LldbHooksTest extends AbstractLldbTraceRmiTest {
 				assertEquals(1, brks.size());
 				return (TraceObject) brks.get(0);
 			});
-			assertEquals(null, tb.objValue(brk, lastSnap(conn), "Condition"));
+			assertNull(tb.objValue(brk, lastSnap(conn), "Condition"));
 
 			waitStopped(conn.conn);
 			conn.execute("breakpoint modify -c 'x>3'");

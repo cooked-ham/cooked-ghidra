@@ -268,7 +268,7 @@ public class MultiStateButton<T> extends JButton {
 //==================================================================================================
 // Inner Classes
 //==================================================================================================
-	private class ArrowIcon implements Icon {
+	private static class ArrowIcon implements Icon {
 
 		@Override
 		public void paintIcon(Component c, Graphics g, int x, int y) {

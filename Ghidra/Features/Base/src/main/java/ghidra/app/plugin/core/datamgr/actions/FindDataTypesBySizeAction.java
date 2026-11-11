@@ -71,7 +71,7 @@ public class FindDataTypesBySizeAction extends DockingAction {
 		return new SizeGTreeFilter(values);
 	}
 
-	private class SizeGTreeFilter implements GTreeFilter {
+	private static class SizeGTreeFilter implements GTreeFilter {
 
 		private final SortedRangeList sizes;
 

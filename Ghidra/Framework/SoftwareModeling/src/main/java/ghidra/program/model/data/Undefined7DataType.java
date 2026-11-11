@@ -78,8 +78,8 @@ public class Undefined7DataType extends Undefined {
 
 	private long getValue(MemBuffer buf) throws MemoryAccessException {
 		long val =
-			(buf.getInt(0) << 24) + ((buf.getShort(4) & 0xffffl) << 8) + (buf.getByte(6) & 0xffl);
-		return val & 0xffffffffffffl;
+			(buf.getInt(0) << 24) + ((buf.getShort(4) & 0xffffL) << 8) + (buf.getByte(6) & 0xffL);
+		return val & 0xffffffffffffL;
 	}
 
 	/**

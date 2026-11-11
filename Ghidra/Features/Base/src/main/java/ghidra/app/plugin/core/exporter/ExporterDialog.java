@@ -654,9 +654,9 @@ public class ExporterDialog extends DialogComponentProvider implements AddressFa
 		File outputFile = getSelectedOutputFile();
 		StringBuffer resultsBuffer = new StringBuffer();
 
-		resultsBuffer.append("Destination file:       " + outputFile.getAbsolutePath() + "\n\n");
-		resultsBuffer.append("Destination file Size:  " + outputFile.length() + "\n");
-		resultsBuffer.append("Format:                 " + exporter.getName() + "\n\n");
+		resultsBuffer.append("Destination file:       ").append(outputFile.getAbsolutePath()).append("\n\n");
+		resultsBuffer.append("Destination file Size:  ").append(outputFile.length()).append("\n");
+		resultsBuffer.append("Format:                 ").append(exporter.getName()).append("\n\n");
 
 		MessageLog log = exporter.getMessageLog();
 		resultsBuffer.append(log.toString());

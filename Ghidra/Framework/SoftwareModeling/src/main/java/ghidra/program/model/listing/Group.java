@@ -112,7 +112,7 @@ public interface Group {
 	 */
 	public default GroupPath getGroupPath() {
 		List<String> parentNames = getParentNames(this);
-		return new GroupPath(parentNames.toArray(new String[parentNames.size()]));
+		return new GroupPath(parentNames.toArray(new String[0]));
 	}
 
 	private static List<String> getParentNames(Group group) {

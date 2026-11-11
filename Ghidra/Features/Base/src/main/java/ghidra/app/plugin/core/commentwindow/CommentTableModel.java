@@ -135,7 +135,7 @@ class CommentTableModel extends AddressBasedTableModel<CommentRowObject> {
 // Inner Classes
 //==================================================================================================
 
-	private class TypeTableColumn
+	private static class TypeTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<CommentRowObject, String> {
 
 		@Override

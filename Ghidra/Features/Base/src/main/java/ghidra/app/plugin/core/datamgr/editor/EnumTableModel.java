@@ -330,21 +330,21 @@ class EnumTableModel extends AbstractSortedTableModel<EnumEntry> {
 		}
 	}
 
-	private class EnumNameComparator implements Comparator<EnumEntry> {
+	private static class EnumNameComparator implements Comparator<EnumEntry> {
 		@Override
 		public int compare(EnumEntry entry1, EnumEntry entry2) {
 			return entry1.getName().compareTo(entry2.getName());
 		}
 	}
 
-	private class EnumValueComparator implements Comparator<EnumEntry> {
+	private static class EnumValueComparator implements Comparator<EnumEntry> {
 		@Override
 		public int compare(EnumEntry entry1, EnumEntry entry2) {
 			return Long.valueOf(entry1.getValue()).compareTo(Long.valueOf(entry2.getValue()));
 		}
 	}
 
-	private class EnumCommentComparator implements Comparator<EnumEntry> {
+	private static class EnumCommentComparator implements Comparator<EnumEntry> {
 		@Override
 		public int compare(EnumEntry entry1, EnumEntry entry2) {
 			return Strings.CS.compare(entry1.getComment(), entry2.getComment());

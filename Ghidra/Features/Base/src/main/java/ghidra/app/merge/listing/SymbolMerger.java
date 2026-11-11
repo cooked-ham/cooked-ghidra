@@ -15,6 +15,7 @@
  */
 package ghidra.app.merge.listing;
 
+import java.io.Serial;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -2961,7 +2962,8 @@ class SymbolMerger extends AbstractListingMerger {
 	/**
 	 * A convenience class that is simply a hash set containing long values.
 	 */
-	private class LongHashSet extends HashSet<Long> {
+	private static class LongHashSet extends HashSet<Long> {
+		@Serial
 		private final static long serialVersionUID = 1;
 
 		public boolean add(long l) {

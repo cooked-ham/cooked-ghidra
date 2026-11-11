@@ -129,11 +129,11 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 	@Test
 	public void testLoadInstructions() {
 
-		assertEquals(dialog.getSearchData().getInstructions().size(), 8);
+		assertEquals(8, dialog.getSearchData().getInstructions().size());
 
 		// Make sure the instruction table has the correct number of rows and columns.
-		assertEquals(instructionTable.getRowCount(), 8);
-		assertEquals(instructionTable.getColumnCount(), 3);
+		assertEquals(8, instructionTable.getRowCount());
+		assertEquals(3, instructionTable.getColumnCount());
 
 		// And verify the contents of each cell.
 		InstructionTableDataObject obj00 =
@@ -259,8 +259,8 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 	public void testLoadPreview() {
 
 		// Make sure it has the number of rows and columns.
-		assertEquals(previewTable.getRowCount(), 8);
-		assertEquals(previewTable.getColumnCount(), 1);
+		assertEquals(8, previewTable.getRowCount());
+		assertEquals(1, previewTable.getColumnCount());
 
 		// Verify the contents of the table
 		InstructionTableDataObject obj00 =
@@ -280,14 +280,14 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		InstructionTableDataObject obj70 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(7, 0);
 
-		assertEquals(obj00.getData().trim(), "47");
-		assertEquals(obj10.getData().trim(), "57");
-		assertEquals(obj20.getData().trim(), "8d 45 08");
-		assertEquals(obj30.getData().trim(), "50");
-		assertEquals(obj40.getData().trim(), "ff 75 0c");
-		assertEquals(obj50.getData().trim(), "e8 84 2c 00 00");
-		assertEquals(obj60.getData().trim(), "83 c4 0c");
-		assertEquals(obj70.getData().trim(), "89 45 fc");
+		assertEquals("47", obj00.getData().trim());
+		assertEquals("57", obj10.getData().trim());
+		assertEquals("8d 45 08", obj20.getData().trim());
+		assertEquals("50", obj30.getData().trim());
+		assertEquals("ff 75 0c", obj40.getData().trim());
+		assertEquals("e8 84 2c 00 00", obj50.getData().trim());
+		assertEquals("83 c4 0c", obj60.getData().trim());
+		assertEquals("89 45 fc", obj70.getData().trim());
 	}
 
 	/**
@@ -299,7 +299,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		// Verify the contents of the table
 		InstructionTableDataObject cell00 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(6, 0);
-		assertEquals(cell00.getData().trim(), "83 c4 0c");
+		assertEquals("83 c4 0c", cell00.getData().trim());
 
 		// Now activate the scalar mask tool, which should mask out the last param
 		// of the ADD instruction.
@@ -311,7 +311,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		// Now grab the preview panel content and check again.  If the last param
 		// is masked then it worked.
 		cell00 = (InstructionTableDataObject) previewTable.getModel().getValueAt(6, 0);
-		assertEquals(cell00.getData().trim(), "83 c4 [........]");
+		assertEquals("83 c4 [........]", cell00.getData().trim());
 	}
 
 	/**
@@ -327,35 +327,35 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 
 		InstructionTableDataObject cell00 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(0, 0);
-		assertEquals(cell00.getData().trim(), "01000111");
+		assertEquals("01000111", cell00.getData().trim());
 
 		InstructionTableDataObject cell10 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(1, 0);
-		assertEquals(cell10.getData().trim(), "01010111");
+		assertEquals("01010111", cell10.getData().trim());
 
 		InstructionTableDataObject cell20 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(2, 0);
-		assertEquals(cell20.getData().trim(), "10001101 01000101 00001000");
+		assertEquals("10001101 01000101 00001000", cell20.getData().trim());
 
 		InstructionTableDataObject cell30 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(3, 0);
-		assertEquals(cell30.getData().trim(), "01010000");
+		assertEquals("01010000", cell30.getData().trim());
 
 		InstructionTableDataObject cell40 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(4, 0);
-		assertEquals(cell40.getData().trim(), "11111111 01110101 00001100");
+		assertEquals("11111111 01110101 00001100", cell40.getData().trim());
 
 		InstructionTableDataObject cell50 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(5, 0);
-		assertEquals(cell50.getData().trim(), "11101000 10000100 00101100 00000000 00000000");
+		assertEquals("11101000 10000100 00101100 00000000 00000000", cell50.getData().trim());
 
 		InstructionTableDataObject cell60 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(6, 0);
-		assertEquals(cell60.getData().trim(), "10000011 11000100 00001100");
+		assertEquals("10000011 11000100 00001100", cell60.getData().trim());
 
 		InstructionTableDataObject cell70 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(7, 0);
-		assertEquals(cell70.getData().trim(), "10001001 01000101 11111100");
+		assertEquals("10001001 01000101 11111100", cell70.getData().trim());
 
 		// Now activate the address mask tool, which should mask out the last param
 		// of the ADD instruction.
@@ -366,28 +366,28 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 
 		// Now grab the preview panel content and check again.
 		cell00 = (InstructionTableDataObject) previewTable.getModel().getValueAt(0, 0);
-		assertEquals(cell00.getData().trim(), "01000...");
+		assertEquals("01000...", cell00.getData().trim());
 
 		cell10 = (InstructionTableDataObject) previewTable.getModel().getValueAt(1, 0);
-		assertEquals(cell10.getData().trim(), "01010...");
+		assertEquals("01010...", cell10.getData().trim());
 
 		cell20 = (InstructionTableDataObject) previewTable.getModel().getValueAt(2, 0);
-		assertEquals(cell20.getData().trim(), "10001101 01...... ........");
+		assertEquals("10001101 01...... ........", cell20.getData().trim());
 
 		cell30 = (InstructionTableDataObject) previewTable.getModel().getValueAt(3, 0);
-		assertEquals(cell30.getData().trim(), "01010...");
+		assertEquals("01010...", cell30.getData().trim());
 
 		cell40 = (InstructionTableDataObject) previewTable.getModel().getValueAt(4, 0);
-		assertEquals(cell40.getData().trim(), "11111111 01110... ........");
+		assertEquals("11111111 01110... ........", cell40.getData().trim());
 
 		cell50 = (InstructionTableDataObject) previewTable.getModel().getValueAt(5, 0);
-		assertEquals(cell50.getData().trim(), "11101000 ........ ........ ........ ........");
+		assertEquals("11101000 ........ ........ ........ ........", cell50.getData().trim());
 
 		cell60 = (InstructionTableDataObject) previewTable.getModel().getValueAt(6, 0);
-		assertEquals(cell60.getData().trim(), "10000011 11000... ........");
+		assertEquals("10000011 11000... ........", cell60.getData().trim());
 
 		cell70 = (InstructionTableDataObject) previewTable.getModel().getValueAt(7, 0);
-		assertEquals(cell70.getData().trim(), "10001001 01...... ........");
+		assertEquals("10001001 01...... ........", cell70.getData().trim());
 	}
 
 	/**
@@ -398,7 +398,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 
 		InstructionTableDataObject cell50 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(5, 0);
-		assertEquals(cell50.getData().trim(), "e8 84 2c 00 00");
+		assertEquals("e8 84 2c 00 00", cell50.getData().trim());
 
 		// Now activate the address mask tool, which should mask out the last param
 		// of the ADD instruction.
@@ -409,7 +409,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 
 		// Now grab the preview panel content and check again.
 		cell50 = (InstructionTableDataObject) previewTable.getModel().getValueAt(5, 0);
-		assertEquals(cell50.getData().trim(), "e8 [........] [........] [........] [........]");
+		assertEquals("e8 [........] [........] [........] [........]", cell50.getData().trim());
 	}
 
 	/**
@@ -422,7 +422,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		// First get a cell and verify it has the correct starting value.
 		InstructionTableDataObject cell21 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(1, 0);
-		assertEquals(cell21.getData().trim(), "57");
+		assertEquals("57", cell21.getData().trim());
 
 		// Now mask it by getting the cell in the instruction table and changing its state.
 		InstructionTableDataObject cell21Toggle =
@@ -433,7 +433,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		dialog.waitForCurrentTask();
 
 		// Verify it has the correct masked value.
-		assertEquals(cell21.getData().trim(), "[01010...]");
+		assertEquals("[01010...]", cell21.getData().trim());
 
 		// Now unmask it.
 		cell21Toggle.setState(OperandState.NOT_MASKED, true);
@@ -442,7 +442,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		dialog.waitForCurrentTask();
 
 		// And check that it's in good shape again.
-		assertEquals(cell21.getData().trim(), "57");
+		assertEquals("57", cell21.getData().trim());
 	}
 
 	/**
@@ -466,8 +466,8 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		// Now check the clipboard contents against what we know the search string should be.
 		try {
 			String searchString = (String) clip.getData(DataFlavor.stringFlavor);
-			assertEquals(searchString.trim(),
-				"47 57 8d 45 08 50 ff 75 0c e8 84 2c 00 00 83 c4 0c 89 45 fc");
+			assertEquals("47 57 8d 45 08 50 ff 75 0c e8 84 2c 00 00 83 c4 0c 89 45 fc",
+				searchString.trim());
 		}
 		catch (UnsupportedFlavorException | IOException e) {
 			failWithException("Unexpected", e);
@@ -562,35 +562,35 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		// Now grab the preview panel content and check again.
 		InstructionTableDataObject cell00 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(0, 0);
-		assertEquals(cell00.getData().trim(), "47");
+		assertEquals("47", cell00.getData().trim());
 
 		InstructionTableDataObject cell10 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(1, 0);
-		assertEquals(cell10.getData().trim(), "57");
+		assertEquals("57", cell10.getData().trim());
 
 		InstructionTableDataObject cell20 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(2, 0);
-		assertEquals(cell20.getData().trim(), "8d 45 08");
+		assertEquals("8d 45 08", cell20.getData().trim());
 
 		InstructionTableDataObject cell30 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(3, 0);
-		assertEquals(cell30.getData().trim(), "50");
+		assertEquals("50", cell30.getData().trim());
 
 		InstructionTableDataObject cell40 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(4, 0);
-		assertEquals(cell40.getData().trim(), "ff 75 0c");
+		assertEquals("ff 75 0c", cell40.getData().trim());
 
 		InstructionTableDataObject cell50 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(5, 0);
-		assertEquals(cell50.getData().trim(), "e8 84 2c 00 00");
+		assertEquals("e8 84 2c 00 00", cell50.getData().trim());
 
 		InstructionTableDataObject cell60 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(6, 0);
-		assertEquals(cell60.getData().trim(), "83 c4 0c");
+		assertEquals("83 c4 0c", cell60.getData().trim());
 
 		InstructionTableDataObject cell70 =
 			(InstructionTableDataObject) previewTable.getModel().getValueAt(7, 0);
-		assertEquals(cell70.getData().trim(), "89 45 fc");
+		assertEquals("89 45 fc", cell70.getData().trim());
 	}
 
 	/**
@@ -621,7 +621,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		// And finally make sure the preview panel has been updated with the correct
 		// hex/binary hybrid string.
 		cell21 = (InstructionTableDataObject) previewTable.getModel().getValueAt(2, 0);
-		assertEquals(cell21.getData().trim(), "8d [01...101] 08");
+		assertEquals("8d [01...101] 08", cell21.getData().trim());
 	}
 
 	/**
@@ -637,7 +637,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 		AddressSet addrSet = addressFactory.getAddressSet(min, max);
 		try {
 			List<Address> results = api.search(program, addrSet.getFirstRange());
-			assertEquals(results.size(), 1);
+			assertEquals(1, results.size());
 		}
 		catch (InvalidInputException e) {
 			failWithException("Unexpected", e);
@@ -661,7 +661,7 @@ public class InstructionSearchTest extends AbstractGhidraHeadedIntegrationTest {
 
 		try {
 			List<Address> results = api.search(program, addrSet.getFirstRange(), maskSettings);
-			assertEquals(results.size(), 2);
+			assertEquals(2, results.size());
 		}
 		catch (InvalidInputException e) {
 			failWithException("Unexpected", e);

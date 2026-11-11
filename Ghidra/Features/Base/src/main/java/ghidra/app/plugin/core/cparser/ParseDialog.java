@@ -990,7 +990,7 @@ class ParseDialog extends ReusableDialogComponentProvider {
 		return parseOptionsField.getText();
 	}
 
-	class ComboBoxItem {
+	static class ComboBoxItem {
 		private ResourceFile file;
 		private boolean isUserDefined;
 		private boolean isChanged;

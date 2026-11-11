@@ -74,7 +74,7 @@ public class MemoryTypeProgramLocationBasedTableColumn
 // Inner Classes
 //==================================================================================================
 
-	private class MemoryTypeRenderer extends AbstractGhidraColumnRenderer<MemoryBlock> {
+	private static class MemoryTypeRenderer extends AbstractGhidraColumnRenderer<MemoryBlock> {
 
 		private Color disabledColor = Palette.LIGHT_GRAY;
 		private GIcon offIcon = (GIcon) Icons.EMPTY_ICON;
@@ -119,11 +119,11 @@ public class MemoryTypeProgramLocationBasedTableColumn
 
 			if (block.isVolatile()) {
 				buffy.append("<b>V</b>");
-				tooltipBuffy.append("<image src=\"" + onIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(onIcon.getUrl()).append("\">");
 			}
 			else {
 				buffy.append(HTMLUtilities.colorString(disabledColor, "V"));
-				tooltipBuffy.append("<image src=\"" + offIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(offIcon.getUrl()).append("\">");
 			}
 
 			tooltipBuffy.append(HTMLUtilities.spaces(2)).append("Volatile<br>");
@@ -134,11 +134,11 @@ public class MemoryTypeProgramLocationBasedTableColumn
 
 			if (block.isArtificial()) {
 				buffy.append("<b>A</b>");
-				tooltipBuffy.append("<image src=\"" + onIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(onIcon.getUrl()).append("\">");
 			}
 			else {
 				buffy.append(HTMLUtilities.colorString(disabledColor, "A"));
-				tooltipBuffy.append("<image src=\"" + offIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(offIcon.getUrl()).append("\">");
 			}
 
 			tooltipBuffy.append(HTMLUtilities.spaces(2)).append("Artificial<br>");
@@ -149,11 +149,11 @@ public class MemoryTypeProgramLocationBasedTableColumn
 
 			if (block.isExecute()) {
 				buffy.append("<b>E</b>");
-				tooltipBuffy.append("<image src=\"" + onIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(onIcon.getUrl()).append("\">");
 			}
 			else {
 				buffy.append(HTMLUtilities.colorString(disabledColor, "E"));
-				tooltipBuffy.append("<image src=\"" + offIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(offIcon.getUrl()).append("\">");
 			}
 			tooltipBuffy.append(HTMLUtilities.spaces(2)).append("Execute<br>");
 		}
@@ -163,11 +163,11 @@ public class MemoryTypeProgramLocationBasedTableColumn
 
 			if (block.isWrite()) {
 				buffy.append("<b>W</b>");
-				tooltipBuffy.append("<image src=\"" + onIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(onIcon.getUrl()).append("\">");
 			}
 			else {
 				buffy.append(HTMLUtilities.colorString(disabledColor, "W"));
-				tooltipBuffy.append("<image src=\"" + offIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(offIcon.getUrl()).append("\">");
 			}
 			tooltipBuffy.append(HTMLUtilities.spaces(2)).append("Write<br>");
 		}
@@ -177,11 +177,11 @@ public class MemoryTypeProgramLocationBasedTableColumn
 
 			if (block.isRead()) {
 				buffy.append("<b>R</b>");
-				tooltipBuffy.append("<image src=\"" + onIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(onIcon.getUrl()).append("\">");
 			}
 			else {
 				buffy.append(HTMLUtilities.colorString(disabledColor, "R"));
-				tooltipBuffy.append("<image src=\"" + offIcon.getUrl() + "\">");
+				tooltipBuffy.append("<image src=\"").append(offIcon.getUrl()).append("\">");
 			}
 			tooltipBuffy.append(HTMLUtilities.spaces(2)).append("Read<br>");
 		}
@@ -199,7 +199,7 @@ public class MemoryTypeProgramLocationBasedTableColumn
 		}
 	}
 
-	private class MemoryTypeComparator implements Comparator<MemoryBlock> {
+	private static class MemoryTypeComparator implements Comparator<MemoryBlock> {
 		@Override
 		public int compare(MemoryBlock o1, MemoryBlock o2) {
 			return o1.getFlags() - o2.getFlags();

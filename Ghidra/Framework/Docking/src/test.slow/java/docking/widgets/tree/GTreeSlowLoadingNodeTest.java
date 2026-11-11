@@ -97,7 +97,7 @@ public class GTreeSlowLoadingNodeTest extends AbstractDockingTest {
 
 		assertProgressPanel(true);
 
-		assertTrue(!nonLeaf1.isLoaded());
+		assertFalse(nonLeaf1.isLoaded());
 
 		// Press the cancel button on the progress monitor
 		pressProgressPanelCancelButton();
@@ -125,7 +125,7 @@ public class GTreeSlowLoadingNodeTest extends AbstractDockingTest {
 
 		assertProgressPanel(true);
 
-		assertTrue(!nonLeaf1.isLoaded());
+		assertFalse(nonLeaf1.isLoaded());
 
 		// Press the cancel button on the progress monitor
 		pressProgressPanelCancelButton();
@@ -224,7 +224,7 @@ public class GTreeSlowLoadingNodeTest extends AbstractDockingTest {
 // Inner Classes
 //==================================================================================================
 
-	private class EmptyRootNode extends GTreeNode {
+	private static class EmptyRootNode extends GTreeNode {
 
 		EmptyRootNode() {
 			setChildren(new ArrayList<GTreeNode>());
@@ -344,7 +344,7 @@ public class GTreeSlowLoadingNodeTest extends AbstractDockingTest {
 
 	}
 
-	private class TestLeafNode extends GTreeNode {
+	private static class TestLeafNode extends GTreeNode {
 
 		private String name = getClass().getSimpleName() + getRandomString();
 

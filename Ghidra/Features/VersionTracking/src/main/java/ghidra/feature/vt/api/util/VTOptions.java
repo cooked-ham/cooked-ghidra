@@ -15,45 +15,47 @@
  */
 package ghidra.feature.vt.api.util;
 
+import ghidra.framework.options.Option;
+import ghidra.framework.options.OptionType;
+import ghidra.framework.options.ToolOptions;
 import org.jdom2.Element;
-
-import ghidra.framework.options.*;
 
 public class VTOptions extends ToolOptions {
 
-	private VTOptions(Element root) {
-		super(root);
-	}
+    private VTOptions(Element root) {
+        super(root);
+    }
 
-	public VTOptions(String name) {
-		super(name);
-	}
+    public VTOptions(String name) {
+        super(name);
+    }
 
-	@Override
-	public ToolOptions copy() {
-		return new VTOptions(getXmlRoot(true));
-	}
+    @Override
+    public ToolOptions copy() {
+        return new VTOptions(getXmlRoot(true));
+    }
 
-	/**
-	 * A method that allows subclasses to tell the world where their options contain acceptable
-	 * values
-	 * @return true if valid
-	 */
-	public boolean validate() {
-		return true;
-	}
+    /**
+     * A method that allows subclasses to tell the world where their options contain acceptable
+     * values
+     *
+     * @return true if valid
+     */
+    public boolean validate() {
+        return true;
+    }
 
-	@Override
-	public String getDescription(String optionName) {
-		Option option = getOption(optionName, OptionType.NO_TYPE, null);
-		String description = option.getDescription();
+    @Override
+    public String getDescription(String optionName) {
+        Option option = getOption(optionName, OptionType.NO_TYPE, null);
+        String description = option.getDescription();
 
-		// Correlator factories may create an options object and set values without ever having 
-		// registered the option.  Ideally we would update the VTOptions usage to make sure the 
-		// options are all registered.  This check here is an easier fix.
-		if (description.equals(Option.UNREGISTERED_OPTION)) {
-			return option.getName();
-		}
-		return description;
-	}
+        // Correlator factories may create an options object and set values without ever having
+        // registered the option.  Ideally we would update the VTOptions usage to make sure the
+        // options are all registered.  This check here is an easier fix.
+        if (description.equals(Option.UNREGISTERED_OPTION)) {
+            return option.getName();
+        }
+        return description;
+    }
 }

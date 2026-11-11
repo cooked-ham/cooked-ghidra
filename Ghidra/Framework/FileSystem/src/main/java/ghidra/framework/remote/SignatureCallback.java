@@ -15,6 +15,7 @@
  */
 package ghidra.framework.remote;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.security.Principal;
 import java.security.cert.X509Certificate;
@@ -39,6 +40,7 @@ import javax.security.auth.x500.X500Principal;
  */
 public class SignatureCallback implements Callback, Serializable {
 
+	@Serial
 	public static final long serialVersionUID = 1L;
 
 	private X500Principal[] recognizedAuthorities;

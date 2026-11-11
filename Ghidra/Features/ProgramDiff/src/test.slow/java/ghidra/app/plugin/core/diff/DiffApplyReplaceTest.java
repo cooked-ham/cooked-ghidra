@@ -199,7 +199,7 @@ public class DiffApplyReplaceTest extends DiffApplyTestAdapter {
 				FunctionTag tag = iter.next();
 				tagNames.add(tag.getName());
 			}
-			assertEquals(tagNames.size(), 3);
+			assertEquals(3, tagNames.size());
 			assertTrue(tagNames.contains("TagC"));
 			assertTrue(tagNames.contains("TagD"));
 			assertTrue(tagNames.contains("TagE"));

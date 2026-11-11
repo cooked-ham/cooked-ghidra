@@ -15,12 +15,14 @@
  */
 package ghidra.sleigh.grammar;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.Random;
 
 import org.antlr.runtime.*;
 
 public class RadixBigInteger extends BigInteger {
+	@Serial
 	private static final long serialVersionUID = -7927157989937732244L;
 	protected int preferredRadix = 10;
 	public final Location location;

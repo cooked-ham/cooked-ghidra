@@ -846,7 +846,7 @@ public class FlatProgramAPI {
                        .map(r -> r.getAddress())
                        .collect(Collectors.toList());
 		//@formatter:on
-		return addresses.toArray(new Address[addresses.size()]);
+		return addresses.toArray(new Address[0]);
 	}
 
 	/**

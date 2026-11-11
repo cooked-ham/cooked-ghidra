@@ -199,14 +199,14 @@ public class ActionsModel extends DefaultSearchListModel<DockingActionIf> {
 		}
 	}
 
-	private class ActionNameComparator implements Comparator<DockingActionIf> {
+	private static class ActionNameComparator implements Comparator<DockingActionIf> {
 		@Override
 		public int compare(DockingActionIf a1, DockingActionIf a2) {
 			return a1.getName().compareTo(a2.getName());
 		}
 	}
 
-	private class ActionMenuPathComparator implements Comparator<DockingActionIf> {
+	private static class ActionMenuPathComparator implements Comparator<DockingActionIf> {
 		@Override
 		public int compare(DockingActionIf a1, DockingActionIf a2) {
 			MenuData menuData1 = a1.getMenuBarData();
@@ -218,7 +218,7 @@ public class ActionsModel extends DefaultSearchListModel<DockingActionIf> {
 		}
 	}
 
-	private class ActionPopupPathComparator implements Comparator<DockingActionIf> {
+	private static class ActionPopupPathComparator implements Comparator<DockingActionIf> {
 		@Override
 		public int compare(DockingActionIf a1, DockingActionIf a2) {
 			MenuData menuData1 = a1.getPopupMenuData();

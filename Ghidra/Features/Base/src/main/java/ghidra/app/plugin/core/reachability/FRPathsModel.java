@@ -104,7 +104,7 @@ public class FRPathsModel extends AddressBasedTableModel<FRVertex> {
 // Inner Classes
 //==================================================================================================
 
-	private class FunctionTableColumn
+	private static class FunctionTableColumn
 			extends AbstractDynamicTableColumn<FRVertex, String, Program> {
 
 		@Override

@@ -619,7 +619,7 @@ public class ProgramTreeMergeManager3Test extends AbstractProgramTreeMergeManage
 				break;
 			}
 		}
-		assertTrue(!found);
+		assertFalse(found);
 	}
 
 	@Test
@@ -665,7 +665,7 @@ public class ProgramTreeMergeManager3Test extends AbstractProgramTreeMergeManage
 				break;
 			}
 		}
-		assertTrue(!found);
+		assertFalse(found);
 
 		ProgramFragment fragment = resultProgram.getListing().getFragment("Main Tree", ".text");
 		assertNotNull(fragment);

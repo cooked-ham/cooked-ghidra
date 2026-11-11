@@ -51,7 +51,7 @@ public class SymZ3Preconditions {
 			for (String b : preconditions) {
 				BoolExpr be = SymValueZ3.deserializeBoolExpr(ctx, b);
 				be = (BoolExpr) be.simplify();
-				result.append("" + z3p.infix(be));
+				result.append("").append(z3p.infix(be));
 				result.append(System.lineSeparator());
 			}
 		}

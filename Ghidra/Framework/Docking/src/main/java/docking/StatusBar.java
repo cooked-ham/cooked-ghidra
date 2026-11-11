@@ -43,28 +43,31 @@ import ghidra.util.layout.MiddleLayout;
  */
 public class StatusBar extends JPanel {
 
+	// stock: lowered bevel boxes; modern chrome: flat fields with thin separators (DockingChrome)
 	private static final Border STATUS_BORDER = BorderFactory.createCompoundBorder(
-		BorderFactory.createLoweredBevelBorder(), BorderFactory.createEmptyBorder(1, 2, 1, 2));
+		DockingChrome.statusFieldBorder(false), BorderFactory.createEmptyBorder(1, 2, 1, 2));
 
-	private static final Border STATUS_ITEM_BORDER = BorderFactory
-			.createCompoundBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0), STATUS_BORDER);
+	private static final Border STATUS_ITEM_BORDER =
+		BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 3, 0, 0),
+			BorderFactory.createCompoundBorder(DockingChrome.statusFieldBorder(true),
+				BorderFactory.createEmptyBorder(1, 2, 1, 2)));
 
 	private static final int STATUS_BAR_GAP = 3;
 	private static final int MESSAGE_QUEUE_MAX_SIZE = 10;
 
 	private Animator animator;
 
-	private JPanel homeButtonPanel;
-	private JPanel statusAreaPanel;
-	private JLabel statusLabel;
+	private final JPanel homeButtonPanel;
+	private final JPanel statusAreaPanel;
+	private final JLabel statusLabel;
 	private int minHeight;
 
-	private LinkedList<String> messageQueue = new LinkedList<>();
+	private final LinkedList<String> messageQueue = new LinkedList<>();
 
 	// fading and flashing members
-	private Timer messageFadeTimer = new FadeTimer();
-	private Timer flashTimer = new FlashTimer();
-	private Timer animationDelayTimer = new AnimationDelayTimer();
+	private final Timer messageFadeTimer = new FadeTimer();
+	private final Timer flashTimer = new FlashTimer();
+	private final Timer animationDelayTimer = new AnimationDelayTimer();
 
 	/**
 	 * Construct a status bar with a single status text area.
@@ -74,7 +77,7 @@ public class StatusBar extends JPanel {
 		super(new BorderLayout());
 
 		int borderPadding = STATUS_BAR_GAP;
-		setBorder(BorderFactory.createEmptyBorder(borderPadding, 0, 0, 0));
+		setBorder(DockingChrome.statusBarBorder(borderPadding));
 
 		homeButtonPanel = new JPanel(new BorderLayout());
 		add(homeButtonPanel, BorderLayout.WEST);
@@ -121,7 +124,7 @@ public class StatusBar extends JPanel {
 		SystemUtilities.assertTrue(count == 0, "Can only set the home button once");
 
 		EmptyBorderButton button = new EmptyBorderButton(icon);
-		button.addActionListener(e -> callback.run());
+		button.addActionListener(_ -> callback.run());
 		button.setToolTipText("Press to show the primary application window");
 
 		// We currently don't support components outside of DockingComponents (Except for 
@@ -180,7 +183,7 @@ public class StatusBar extends JPanel {
 	 * @deprecated Call {@link #setStatusText(String)} instead.  Remove after 9.3
 	 */
 	@Deprecated
-	public void setStatusText(String text, boolean isActiveWindow) {
+	public void setStatusText(String text, @SuppressWarnings("unused") boolean isActiveWindow) {
 		setStatusText(text);
 	}
 
@@ -264,12 +267,11 @@ public class StatusBar extends JPanel {
 	}
 
 	private void addMessageToQueue(String message) {
-		if (message != null && message.trim()
-				.length() != 0) {
+		if (message != null && !message.trim().isEmpty()) {
 			if (message.endsWith("\n")) {
 				message = message.substring(0, message.length() - 1);
 			}
-			messageQueue.add(0, message + " [" + DateUtils.formatCurrentTime() + "]");
+			messageQueue.addFirst(message + " [" + DateUtils.formatCurrentTime() + "]");
 
 			if (messageQueue.size() > MESSAGE_QUEUE_MAX_SIZE) {
 				messageQueue.removeLast();
@@ -286,8 +288,8 @@ public class StatusBar extends JPanel {
 	 */
 	@Override
 	public String getToolTipText() {
-		if (messageQueue.size() > 0) {
-			StringBuffer buffer = new StringBuffer("<html>");
+		if (!messageQueue.isEmpty()) {
+			StringBuilder buffer = new StringBuilder("<html>");
 
 			Iterator<String> iter = messageQueue.iterator();
 			for (int i = 0; iter.hasNext(); i++) {
@@ -310,7 +312,7 @@ public class StatusBar extends JPanel {
 	// slowly grays out as it ages
 	private class FadeTimer extends Timer implements ActionListener {
 
-		private Map<Color, Color> fadeColorMap = new HashMap<>();
+		private final Map<Color, Color> fadeColorMap = new HashMap<>();
 
 		private FadeTimer() {
 			super(5000, null);
@@ -357,7 +359,7 @@ public class StatusBar extends JPanel {
 		}
 	}
 
-	private class AnimationDelayTimer extends Timer implements ActionListener {
+	private static class AnimationDelayTimer extends Timer implements ActionListener {
 
 		public AnimationDelayTimer() {
 			super(5000, null);

@@ -98,7 +98,7 @@ public class KeyBindingsTest extends AbstractGhidraHeadedIntegrationTest {
 
 		String actualText = getText(statusPane);
 		String description = action1.getDescription();
-		String escaped = description.replaceAll("&", "&amp;");
+		String escaped = description.replace("&", "&amp;");
 		assertTrue(
 			"Description is not updated for action '" + action1.getName() + "'; instead the " +
 				"description is '" + actualText + "'\n\tDescrption: " + escaped,
@@ -278,7 +278,7 @@ public class KeyBindingsTest extends AbstractGhidraHeadedIntegrationTest {
 		assertMessage("F4 in use by System action 'Set KeyBinding'");
 
 		apply();
-		assertEquals(null, getKeyStroke(action1));
+		assertNull(getKeyStroke(action1));
 
 		// set a valid binding
 		setUpDialog();
@@ -370,7 +370,7 @@ public class KeyBindingsTest extends AbstractGhidraHeadedIntegrationTest {
 		selectRowForAction(systemAction);
 		pressButtonByName(panel, "Clear Key Binding");
 		apply();
-		assertEquals(null, getKeyStroke(systemAction));
+		assertNull(getKeyStroke(systemAction));
 
 		selectRowForAction(action1);
 		typeKeyStroke(systemKs);

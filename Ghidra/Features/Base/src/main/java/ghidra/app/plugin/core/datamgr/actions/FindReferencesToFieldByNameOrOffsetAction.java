@@ -88,7 +88,7 @@ public class FindReferencesToFieldByNameOrOffsetAction extends AbstractFindRefer
 		return dialog.show();
 	}
 
-	private class FieldInputDialog extends InputWithChoicesDialog {
+	private static class FieldInputDialog extends InputWithChoicesDialog {
 
 		private static final Icon ICON =
 			OptionDialog.getIconForMessageType(OptionDialog.QUESTION_MESSAGE);

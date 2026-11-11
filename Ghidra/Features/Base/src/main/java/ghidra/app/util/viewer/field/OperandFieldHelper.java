@@ -894,7 +894,7 @@ abstract class OperandFieldHelper extends FieldFactory {
 	}
 
 	// local dummy container for returning related style information
-	private class ColorStyleAttributes {
+	private static class ColorStyleAttributes {
 		private Color colorAttribute;
 		private int styleAttribute;
 

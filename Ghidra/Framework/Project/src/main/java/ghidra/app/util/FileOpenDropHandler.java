@@ -61,7 +61,7 @@ public class FileOpenDropHandler implements DropTargetHandler, Droppable, Contai
 		this.component = component;
 
 		Set<DataFlavor> keySet = handlers.keySet();
-		DataFlavor[] handlersFlavorArray = keySet.toArray(new DataFlavor[keySet.size()]);
+		DataFlavor[] handlersFlavorArray = keySet.toArray(new DataFlavor[0]);
 		dropTargetAdapter =
 			new DropTgtAdapter(this, DnDConstants.ACTION_COPY_OR_MOVE, handlersFlavorArray);
 		globalDropTarget =

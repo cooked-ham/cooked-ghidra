@@ -246,7 +246,7 @@ public abstract class CliAbstractSig extends CliBlob implements CliRepresentable
 		}
 	}
 
-	public abstract class CliSigType implements CliRepresentable {
+	public static abstract class CliSigType implements CliRepresentable {
 		protected CliElementType baseTypeCode;
 
 		public static final String PATH = "/PE/CLI/Types";
@@ -1184,7 +1184,7 @@ public abstract class CliAbstractSig extends CliBlob implements CliRepresentable
 		}
 	}
 
-	public class CliArrayShape {
+	public static class CliArrayShape {
 		private int rank;
 		private int rankBytes;
 		private int numSizes;

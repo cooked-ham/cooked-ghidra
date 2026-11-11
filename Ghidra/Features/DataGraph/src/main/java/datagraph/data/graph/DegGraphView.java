@@ -39,7 +39,7 @@ public class DegGraphView extends VisualGraphView<DegVertex, DegEdge, DataExplor
 		viewer.setVertexTooltipProvider(new DataGraphVertexTipProvider());
 	}
 
-	private class DataGraphVertexTipProvider implements VertexTooltipProvider<DegVertex, DegEdge> {
+	private static class DataGraphVertexTipProvider implements VertexTooltipProvider<DegVertex, DegEdge> {
 
 		@Override
 		public JComponent getTooltip(DegVertex v) {

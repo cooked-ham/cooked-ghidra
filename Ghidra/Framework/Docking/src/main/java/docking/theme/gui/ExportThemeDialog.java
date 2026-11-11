@@ -133,7 +133,7 @@ public class ExportThemeDialog extends DialogComponentProvider {
 		File homeDir = new File(System.getProperty("user.home")); // prefer the home directory
 
 		String name = themeManager.getActiveTheme().getName();
-		String filename = name.replaceAll(" ", "_") + ".";
+		String filename = name.replace(" ", "_") + ".";
 		filename += exportAsZip ? GTheme.ZIP_FILE_EXTENSION : GTheme.FILE_EXTENSION;
 		File file = new File(homeDir, filename);
 

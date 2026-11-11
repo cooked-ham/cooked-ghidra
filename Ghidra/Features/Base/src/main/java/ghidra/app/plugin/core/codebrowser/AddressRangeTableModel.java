@@ -159,7 +159,7 @@ public class AddressRangeTableModel extends GhidraProgramTableModel<AddressRange
 		return null;
 	}
 
-	private class MinAddressTableColumn
+	private static class MinAddressTableColumn
 			extends AbstractDynamicTableColumn<AddressRangeInfo, Address, Object> {
 
 		@Override
@@ -174,7 +174,7 @@ public class AddressRangeTableModel extends GhidraProgramTableModel<AddressRange
 		}
 	}
 
-	private class MaxAddressTableColumn
+	private static class MaxAddressTableColumn
 			extends AbstractDynamicTableColumn<AddressRangeInfo, Address, Object> {
 
 		@Override
@@ -189,7 +189,7 @@ public class AddressRangeTableModel extends GhidraProgramTableModel<AddressRange
 		}
 	}
 
-	private class LengthTableColumn
+	private static class LengthTableColumn
 			extends AbstractDynamicTableColumn<AddressRangeInfo, Long, Object> {
 
 		@Override
@@ -204,7 +204,7 @@ public class AddressRangeTableModel extends GhidraProgramTableModel<AddressRange
 		}
 	}
 
-	private class IdenticalBytesTableColumn
+	private static class IdenticalBytesTableColumn
 			extends AbstractDynamicTableColumn<AddressRangeInfo, Boolean, Object> {
 
 		@Override
@@ -239,7 +239,7 @@ public class AddressRangeTableModel extends GhidraProgramTableModel<AddressRange
 		}
 	}
 
-	private class NumRefsToTableColumn
+	private static class NumRefsToTableColumn
 			extends AbstractDynamicTableColumn<AddressRangeInfo, Integer, Object> {
 
 		@Override
@@ -254,7 +254,7 @@ public class AddressRangeTableModel extends GhidraProgramTableModel<AddressRange
 		}
 	}
 
-	private class NumRefsFromTableColumn
+	private static class NumRefsFromTableColumn
 			extends AbstractDynamicTableColumn<AddressRangeInfo, Integer, Object> {
 
 		@Override

@@ -252,7 +252,7 @@ public class DmgFileReader implements Closeable {
 		return new RestrictedInflaterInputStream(tempCompressedFile, expectedLength);
 	}
 
-	private class RestrictedInflaterInputStream extends InflaterInputStream {
+	private static class RestrictedInflaterInputStream extends InflaterInputStream {
 
 		private File tempCompressedFile;
 		private int readLimit;

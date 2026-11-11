@@ -289,16 +289,16 @@ public class DiffApplyTestAdapter extends DiffTestAdapter {
 			buf.append(missingList.get(0).toString());
 			int numMissing = missingList.size();
 			for (int index = 1; index < numMissing; index++) {
-				buf.append(", " + missingList.get(index).toString());
+				buf.append(", ").append(missingList.get(index).toString());
 			}
 			buf.append(".\n");
 		}
 		if (!extraList.isEmpty()) {
-			buf.append("Unexpectedly found " + type + "s at ");
+			buf.append("Unexpectedly found ").append(type).append("s at ");
 			buf.append(extraList.get(0).toString());
 			int numMissing = extraList.size();
 			for (int index = 1; index < numMissing; index++) {
-				buf.append(", " + extraList.get(index).toString());
+				buf.append(", ").append(extraList.get(index).toString());
 			}
 			buf.append(".\n");
 		}

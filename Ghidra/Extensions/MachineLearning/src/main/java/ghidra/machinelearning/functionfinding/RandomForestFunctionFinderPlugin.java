@@ -68,11 +68,11 @@ public class RandomForestFunctionFinderPlugin extends ProgramPlugin
 	private static final String ACTION_NAME = "Search for Code and Functions";
 	private static final String MENU_PATH_ENTRY = "For Code and Functions...";
 	private static final String TEST_SET_MAX_SIZE_OPTION_NAME = "Maximum size of test sets";
-	static final Long TEST_SET_MAX_SIZE_DEFAULT = 1000000l;
+	static final Long TEST_SET_MAX_SIZE_DEFAULT = 1000000L;
 	private Long testSetMax;
 	private static final String MIN_UNDEFINED_RANGE_SIZE_OPTION_NAME =
 		"Minimum Length of Undefined Range to Search";
-	static final Long MIN_UNDEFINED_RANGE_SIZE_DEFAULT = 16l;
+	static final Long MIN_UNDEFINED_RANGE_SIZE_DEFAULT = 16L;
 	private Long minUndefinedRangeSize;
 
 	private FunctionStartRFParamsDialog paramsDialog;

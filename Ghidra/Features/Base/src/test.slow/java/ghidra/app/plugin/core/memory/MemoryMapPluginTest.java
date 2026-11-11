@@ -133,7 +133,7 @@ public class MemoryMapPluginTest extends AbstractGhidraHeadedIntegrationTest {
 			table.editCellAt(namedRow, nameColumn, editMouseEvent);
 		});
 
-		assertEquals(true, table.isEditing());
+		assertTrue(table.isEditing());
 
 		Component editorComponent = table.getEditorComponent();
 		assertNotNull(editorComponent);
@@ -213,7 +213,7 @@ public class MemoryMapPluginTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals(blocks.length + 1, table.getModel().getRowCount());
 		assertEquals(".test", table.getModel().getValueAt(0, MemoryMapModel.NAME));
 		assertEquals("Default", table.getModel().getValueAt(0, MemoryMapModel.BLOCK_TYPE));
-		assertTrue(!((Boolean) table.getModel().getValueAt(0, MemoryMapModel.INIT)).booleanValue());
+		assertFalse(((Boolean) table.getModel().getValueAt(0, MemoryMapModel.INIT)).booleanValue());
 
 		tx(program, () -> {
 			memory.convertToInitialized(memory.getBlock(getAddr(0)), (byte) 0xff);

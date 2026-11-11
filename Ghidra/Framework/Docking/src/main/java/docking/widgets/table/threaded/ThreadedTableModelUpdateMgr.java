@@ -426,7 +426,7 @@ class ThreadedTableModelUpdateMgr<T> {
 	 * done in {@link ThreadedTableModelUpdateMgr#dispose()}.  This is useful if we want to never
 	 * again perform any work, such as when we are disposed.
 	 */
-	private class PermantentlyCancelledMonitor extends TaskMonitorAdapter {
+	private static class PermantentlyCancelledMonitor extends TaskMonitorAdapter {
 		public PermantentlyCancelledMonitor() {
 			setCancelEnabled(true);
 			cancel();

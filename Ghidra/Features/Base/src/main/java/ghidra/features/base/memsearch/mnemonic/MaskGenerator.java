@@ -291,7 +291,7 @@ class MaskGenerator {
 		return combineInstructionMasks(masks, values, totalLength);
 	}
 
-	private class MnemonicMaskValue extends MaskValue {
+	private static class MnemonicMaskValue extends MaskValue {
 
 		/**
 		 * 
@@ -304,7 +304,7 @@ class MaskGenerator {
 		}
 	}
 
-	private class OperandMaskValue extends MaskValue {
+	private static class OperandMaskValue extends MaskValue {
 		private boolean constant = false;
 
 		/**

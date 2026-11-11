@@ -10,6 +10,7 @@
  */
 package ghidra.app.plugin.core.analysis.rust.demangler;
 
+import java.io.Serial;
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
 import java.nio.charset.StandardCharsets;
@@ -161,6 +162,7 @@ public final class RustDemanglerV0 {
 	}
 
 	private static final class ParseException extends Exception {
+		@Serial
 		private static final long serialVersionUID = 1L;
 		final ParseErrorKind kind;
 

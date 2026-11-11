@@ -1634,7 +1634,7 @@ public class SymbolManager implements SymbolTable, ProgramDBModule {
 		}
 	}
 
-	private class SingleSymbolIterator implements SymbolIterator {
+	private static class SingleSymbolIterator implements SymbolIterator {
 
 		Symbol sym;
 
@@ -1864,7 +1864,7 @@ public class SymbolManager implements SymbolTable, ProgramDBModule {
 		}
 	}
 
-	private class SymbolQueryIterator implements SymbolIterator {
+	private static class SymbolQueryIterator implements SymbolIterator {
 		private SymbolIterator it;
 		private Symbol nextMatch;
 		private Pattern pattern;

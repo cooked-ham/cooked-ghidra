@@ -414,7 +414,7 @@ public class OldProgramContextDB implements ProgramContext, DefaultProgramContex
 					tmp.add(register);
 				}
 			}
-			registersWithValues = tmp.toArray(new Register[tmp.size()]);
+			registersWithValues = tmp.toArray(new Register[0]);
 		}
 		return registersWithValues;
 	}

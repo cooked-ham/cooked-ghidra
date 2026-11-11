@@ -37,7 +37,7 @@ import ghidra.util.exception.InvalidInputException;
 
 public class JumpTable {
 
-	public class LoadTable {
+	public static class LoadTable {
 		Address addr;		// Starting address of table
 		int size;			// Size of a table entry in bytes
 		int num;				// Number of entries in table
@@ -75,7 +75,7 @@ public class JumpTable {
 		}
 	}
 
-	public class BasicOverride {
+	public static class BasicOverride {
 		private Address[] destlist;		// List of jump destinations, must be addresses of instructions
 
 		public BasicOverride(ArrayList<Address> dlist) {

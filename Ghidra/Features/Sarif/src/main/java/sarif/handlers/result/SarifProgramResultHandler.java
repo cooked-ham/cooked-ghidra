@@ -75,7 +75,7 @@ public class SarifProgramResultHandler extends SarifResultHandler {
 		return new CommitToProgramTask(provider);
 	}
 
-	private class CommitToProgramTask extends ProgramTask {
+	private static class CommitToProgramTask extends ProgramTask {
 
 		private SarifResultsTableProvider provider;
 		private ProgramSarifMgr programMgr;

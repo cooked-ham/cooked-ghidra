@@ -246,7 +246,7 @@ public class ImageDialogProvider extends DialogComponentProvider {
 		}
 	}
 
-	private class ShapePainter implements GGlassPanePainter {
+	private static class ShapePainter implements GGlassPanePainter {
 		private Shape shape;
 		private Color color;
 

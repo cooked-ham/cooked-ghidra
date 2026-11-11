@@ -180,7 +180,7 @@ public class ApplyFidEntriesCommand extends BackgroundCommand<Program> {
 			}
 		}
 		if (iterator.hasNext()) {
-			buffer.append("  " + nameAnalysis.numNames() + " names - too many to list\n");
+			buffer.append("  ").append(nameAnalysis.numNames()).append(" names - too many to list\n");
 		}
 
 		return buffer.toString();

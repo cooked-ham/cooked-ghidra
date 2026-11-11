@@ -70,7 +70,7 @@ public class FindEnumsByValueAction extends DockingAction {
 		newProvider.setVisible(true);
 	}
 
-	private class OffsetGTreeFilter implements GTreeFilter {
+	private static class OffsetGTreeFilter implements GTreeFilter {
 
 		private final SortedRangeList offsets;
 
@@ -112,7 +112,7 @@ public class FindEnumsByValueAction extends DockingAction {
 			return false;
 		}
 
-		private class OffsetIterator implements Iterator<Long> {
+		private static class OffsetIterator implements Iterator<Long> {
 
 			private int index = 0;
 			private int length;

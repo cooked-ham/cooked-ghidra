@@ -16,6 +16,7 @@
 package ghidra.util.map;
 
 import java.io.*;
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ import ghidra.util.exception.NoValueException;
  * @param <T> data value type
  */
 public abstract class ValueMap<T> implements Serializable {
+	@Serial
 	private final static long serialVersionUID = 1;
 	protected static final NoValueException noValueException = new NoValueException();
 	private final static int DEFAULT_NUMBER_PAGE_BITS = 12;

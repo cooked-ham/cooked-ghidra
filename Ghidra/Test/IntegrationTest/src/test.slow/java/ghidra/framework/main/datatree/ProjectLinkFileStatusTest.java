@@ -493,7 +493,7 @@ public class ProjectLinkFileStatusTest extends AbstractGhidraHeadedIntegrationTe
 		// Verify that folder-link /xyz/abc is broken due to missing /abc
 		//
 		DomainFileNode n = waitForFileNode("/xyz/abc"); // wait for refresh
-		assertTrue(n == xyzAbcLinkNode);
+		assertSame(n, xyzAbcLinkNode);
 		assertTrue(xyzAbcLinkNode.isFolderLink());
 		assertEquals(LinkStatus.BROKEN,
 			LinkHandler.getLinkFileStatus(xyzAbcLinkNode.getDomainFile(), null));

@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,13 +15,13 @@
  */
 package ghidra.app.util.bin.format.golang.structmapping;
 
-import static java.lang.annotation.ElementType.FIELD;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import ghidra.program.model.address.Address;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
-import ghidra.program.model.address.Address;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
  * Indicates that the <b>target</b> of the tagged field should be decorated in Ghidra as
@@ -39,10 +39,10 @@ import ghidra.program.model.address.Address;
 @Target(FIELD)
 public @interface MarkupReference {
 
-	/**
-	 * Optional name of a 'getter' method to use instead of the getter for the tagged field.
-	 * 
-	 * @return name of 'getter' method, if unset the field's normal getter will be used
-	 */
-	String value() default "";
+    /**
+     * Optional name of a 'getter' method to use instead of the getter for the tagged field.
+     *
+     * @return name of 'getter' method, if unset the field's normal getter will be used
+     */
+    String value() default "";
 }

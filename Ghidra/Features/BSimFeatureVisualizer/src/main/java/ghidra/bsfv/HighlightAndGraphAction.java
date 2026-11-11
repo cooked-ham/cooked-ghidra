@@ -475,7 +475,7 @@ public class HighlightAndGraphAction extends DockingAction {
 		return baseVertex;
 	}
 
-	private class DataflowQueueElement {
+	private static class DataflowQueueElement {
 		public int remainingHops;
 		public VarnodeAST vn;
 

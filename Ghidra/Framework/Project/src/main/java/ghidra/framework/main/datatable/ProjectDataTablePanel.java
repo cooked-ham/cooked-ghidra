@@ -309,7 +309,7 @@ public class ProjectDataTablePanel extends JPanel {
 			return new DomainFileTransferable(items);
 		}
 
-		private class DomainFileTransferable implements Transferable {
+		private static class DomainFileTransferable implements Transferable {
 			private List<DomainFileInfo> list;
 
 			DomainFileTransferable(List<DomainFileInfo> list) {
@@ -473,7 +473,7 @@ public class ProjectDataTablePanel extends JPanel {
 		}
 	}
 
-	private class ProjectDataTable extends GTable {
+	private static class ProjectDataTable extends GTable {
 
 		public ProjectDataTable(ThreadedTableModel<DomainFileInfo, ?> m) {
 			super(m);
@@ -514,7 +514,7 @@ public class ProjectDataTablePanel extends JPanel {
 		}
 	}
 
-	private class DateCellRenderer extends GTableCellRenderer {
+	private static class DateCellRenderer extends GTableCellRenderer {
 
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
@@ -533,7 +533,7 @@ public class ProjectDataTablePanel extends JPanel {
 		}
 	}
 
-	private class TypeCellRenderer extends GTableCellRenderer {
+	private static class TypeCellRenderer extends GTableCellRenderer {
 
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
@@ -557,7 +557,7 @@ public class ProjectDataTablePanel extends JPanel {
 		}
 	}
 
-	private class NameCellRenderer extends GTableCellRenderer {
+	private static class NameCellRenderer extends GTableCellRenderer {
 
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {

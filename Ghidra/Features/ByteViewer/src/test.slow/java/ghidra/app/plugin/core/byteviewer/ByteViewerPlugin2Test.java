@@ -1247,7 +1247,7 @@ public class ByteViewerPlugin2Test extends AbstractByteViewerPluginTest {
 
 		clickMiddleMouseLocation(provider, modifiers);
 		currentHighlightText = highlightProvider.getText();
-		assertEquals(null, currentHighlightText);
+		assertNull(currentHighlightText);
 	}
 
 	@Test

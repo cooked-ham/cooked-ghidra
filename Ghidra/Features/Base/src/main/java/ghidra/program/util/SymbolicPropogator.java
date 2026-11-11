@@ -288,7 +288,7 @@ public class SymbolicPropogator {
 	 * <code>Value</code> corresponds to a constant value or register relative value.
 	 * @see SymbolicPropogator#getRegisterValue(Address, Register)
 	 */
-	public class Value {
+	public static class Value {
 		final Register relativeRegister;
 		final long value;
 

@@ -257,7 +257,7 @@ public class SettingsDialog extends DialogComponentProvider {
 		}
 	}
 
-	private class SettingsEditor extends AbstractCellEditor
+	private static class SettingsEditor extends AbstractCellEditor
 			implements TableCellEditor, PopupMenuListener {
 
 		final static int ENUM = 0;

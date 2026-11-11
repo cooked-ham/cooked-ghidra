@@ -82,7 +82,7 @@ public class PairedTransactionTest extends AbstractGuiTest {
 	private static String UNDO_STATE_CHANGE1 = "UndoRedo1";
 	private static String UNDO_STATE_CHANGE2 = "UndoRedo2";
 
-	class MyListener implements TransactionListener {
+	static class MyListener implements TransactionListener {
 
 		private List<String> events = new ArrayList<>();
 		private TransactionInfo lastTransaction;

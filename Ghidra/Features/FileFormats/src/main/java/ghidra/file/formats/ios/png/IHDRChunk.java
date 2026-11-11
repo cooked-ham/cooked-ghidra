@@ -203,18 +203,18 @@ public class IHDRChunk {
 	public String toString() {
 		StringBuffer buff = new StringBuffer();
 
-		buff.append("Data Length: " + length + "\n");
-		buff.append("Chunk ID: " + new String(chunkID) + "\n");
-		buff.append("Width: " + imgWidth + "\n");
-		buff.append("Height: " + imgHeight + "\n");
-		buff.append("Bit Depth: " + bitDepth + "\n");
-		buff.append("Color Type: " + colorType + "\n");
-		buff.append("Compression Method: " + compressionMethod + "\n");
-		buff.append("Filter Method: " + filterMethod + "\n");
-		buff.append("Interlace Method: " + interlaceMethod + "\n");
-		buff.append("Bits Per Palette: " + bitsPerPalette + "\n");
+		buff.append("Data Length: ").append(length).append("\n");
+		buff.append("Chunk ID: ").append(new String(chunkID)).append("\n");
+		buff.append("Width: ").append(imgWidth).append("\n");
+		buff.append("Height: ").append(imgHeight).append("\n");
+		buff.append("Bit Depth: ").append(bitDepth).append("\n");
+		buff.append("Color Type: ").append(colorType).append("\n");
+		buff.append("Compression Method: ").append(compressionMethod).append("\n");
+		buff.append("Filter Method: ").append(filterMethod).append("\n");
+		buff.append("Interlace Method: ").append(interlaceMethod).append("\n");
+		buff.append("Bits Per Palette: ").append(bitsPerPalette).append("\n");
 		buff.append("Bytes Per Line: " + (imgWidth * bitsPerPalette + 7) / 8 + "\n");
-		buff.append("CRC32: " + crc32 + "\n");
+		buff.append("CRC32: ").append(crc32).append("\n");
 
 		return buff.toString();
 	}

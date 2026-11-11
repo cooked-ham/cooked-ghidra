@@ -103,8 +103,8 @@ public class SleighCompileOptionsTest extends AbstractGenericTest {
 		SleighCompileOptions opts = SleighCompileOptions.parse(args);
 
 		assertEquals("TESTVALUE", opts.preprocs.get("TESTNAME"));
-		assertEquals(opts.inputFile.getName(), "inputfile.slaspec");
-		assertEquals(opts.outputFile.getName(), "inputfile.sla");
+		assertEquals("inputfile.slaspec", opts.inputFile.getName());
+		assertEquals("inputfile.sla", opts.outputFile.getName());
 	}
 
 	@Test
@@ -116,8 +116,8 @@ public class SleighCompileOptionsTest extends AbstractGenericTest {
 		SleighCompileOptions opts = SleighCompileOptions.parse(args);
 
 		assertEquals("TESTVALUE", opts.preprocs.get("TESTNAME"));
-		assertEquals(opts.inputFile.getName(), "inputfile.slaspec");
-		assertEquals(opts.outputFile.getName(), "inputfile.sla");
+		assertEquals("inputfile.slaspec", opts.inputFile.getName());
+		assertEquals("inputfile.sla", opts.outputFile.getName());
 	}
 
 	@Test
@@ -129,8 +129,8 @@ public class SleighCompileOptionsTest extends AbstractGenericTest {
 		SleighCompileOptions opts = SleighCompileOptions.parse(args);
 
 		assertEquals("TESTVALUE", opts.preprocs.get("TESTNAME"));
-		assertEquals(opts.inputFile.getName(), "inputfile.slaspec");
-		assertEquals(opts.outputFile.getName(), "outputfile.sla");
+		assertEquals("inputfile.slaspec", opts.inputFile.getName());
+		assertEquals("outputfile.sla", opts.outputFile.getName());
 	}
 
 	@Test

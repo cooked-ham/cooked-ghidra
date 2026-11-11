@@ -15,6 +15,7 @@
  */
 package ghidra.util;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.Objects;
 
@@ -28,6 +29,7 @@ import java.util.Objects;
 public class BigEndianDataConverter implements DataConverter {
 	public static final BigEndianDataConverter INSTANCE = new BigEndianDataConverter();
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

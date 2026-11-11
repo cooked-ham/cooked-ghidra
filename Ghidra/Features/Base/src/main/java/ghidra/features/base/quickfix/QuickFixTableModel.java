@@ -106,7 +106,7 @@ public class QuickFixTableModel extends GhidraProgramTableModel<QuickFix>
 		fireTableDataChanged();
 	}
 
-	private class QuickFixStatusColumn
+	private static class QuickFixStatusColumn
 			extends AbstractDynamicTableColumnStub<QuickFix, QuickFixStatus> {
 
 		QuickFixStatusRenderer renderer = new QuickFixStatusRenderer();
@@ -133,7 +133,7 @@ public class QuickFixTableModel extends GhidraProgramTableModel<QuickFix>
 		}
 	}
 
-	private class TypeColumn
+	private static class TypeColumn
 			extends AbstractDynamicTableColumnStub<QuickFix, String> {
 
 		@Override
@@ -153,7 +153,7 @@ public class QuickFixTableModel extends GhidraProgramTableModel<QuickFix>
 		}
 	}
 
-	private class ActionColumn
+	private static class ActionColumn
 			extends AbstractDynamicTableColumnStub<QuickFix, String> {
 
 		@Override
@@ -250,7 +250,7 @@ public class QuickFixTableModel extends GhidraProgramTableModel<QuickFix>
 		}
 	}
 
-	private class AddressColumn
+	private static class AddressColumn
 			extends AbstractDynamicTableColumnStub<QuickFix, Address> {
 
 		@Override
@@ -270,7 +270,7 @@ public class QuickFixTableModel extends GhidraProgramTableModel<QuickFix>
 		}
 	}
 
-	private class PathColumn
+	private static class PathColumn
 			extends AbstractDynamicTableColumnStub<QuickFix, String> {
 
 		@Override
@@ -290,7 +290,7 @@ public class QuickFixTableModel extends GhidraProgramTableModel<QuickFix>
 		}
 	}
 
-	public class QuickFixRenderer extends AbstractGhidraColumnRenderer<String> {
+	public static class QuickFixRenderer extends AbstractGhidraColumnRenderer<String> {
 
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {

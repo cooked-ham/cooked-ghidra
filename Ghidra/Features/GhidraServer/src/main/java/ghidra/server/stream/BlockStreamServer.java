@@ -119,7 +119,7 @@ public class BlockStreamServer extends Thread {
 		INIT, READ_HEADER_TIMEOUT, CONNECTED, CLOSED
 	}
 
-	private class BlockStreamRegistration {
+	private static class BlockStreamRegistration {
 
 		final RemoteBlockStreamHandle<?> streamHandle;
 		final BlockStream blockStream;

@@ -214,7 +214,7 @@ public abstract class AbstractFunctionTypeApplier extends MsDataTypeApplier {
 			}
 		}
 		functionDefinition.setArguments(parameterDefinitionList
-				.toArray(new ParameterDefinition[parameterDefinitionList.size()]));
+				.toArray(new ParameterDefinition[0]));
 		return true;
 	}
 

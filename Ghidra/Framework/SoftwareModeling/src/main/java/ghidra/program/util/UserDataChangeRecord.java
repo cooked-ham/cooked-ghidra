@@ -16,9 +16,11 @@
 package ghidra.program.util;
 
 import ghidra.framework.model.DomainObjectChangeRecord;
+import java.io.Serial;
 
 public class UserDataChangeRecord extends DomainObjectChangeRecord {
 
+	@Serial
 	private final static long serialVersionUID = 1;
 	private String propertyName;
 

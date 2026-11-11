@@ -18,12 +18,14 @@ package ghidra.program.model.lang;
 import ghidra.program.model.mem.MemBuffer;
 import ghidra.program.model.mem.MemoryAccessException;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * Implements the Mask interface as a byte array.
  */
 public class MaskImpl implements Mask, Serializable {
+	@Serial
 	private final static long serialVersionUID = 1;
 
 	private byte[] mask;

@@ -558,7 +558,7 @@ public class GTree extends JPanel implements BusyListener {
 	}
 
 	public void setSelectionPaths(List<TreePath> pathsList) {
-		TreePath[] treePaths = pathsList.toArray(new TreePath[pathsList.size()]);
+		TreePath[] treePaths = pathsList.toArray(new TreePath[0]);
 		setSelectionPaths(treePaths, EventOrigin.API_GENERATED);
 	}
 
@@ -1778,7 +1778,7 @@ public class GTree extends JPanel implements BusyListener {
 		}
 	}
 
-	private class GTreeMouseListenerDelegate extends JTreeMouseListenerDelegate {
+	private static class GTreeMouseListenerDelegate extends JTreeMouseListenerDelegate {
 		private final GTree gTree;
 
 		GTreeMouseListenerDelegate(JTree jTree, GTree gTree) {

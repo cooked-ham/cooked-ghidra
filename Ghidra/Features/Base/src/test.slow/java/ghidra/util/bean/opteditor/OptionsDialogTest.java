@@ -141,7 +141,7 @@ public class OptionsDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		assertTrue(okButton.isEnabled());
 		pressButton(okButton);
 
-		assertTrue(!dialog.isShowing());
+		assertFalse(dialog.isShowing());
 
 		// see if the color has taken effect
 		Color newAddressFieldColor = getAddressFieldColor(optionsGui);
@@ -190,7 +190,7 @@ public class OptionsDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		assertTrue(okButton.isEnabled());
 		pressButton(okButton);
 
-		assertTrue(!dialog.isShowing());
+		assertFalse(dialog.isShowing());
 
 		// save the tool and program
 		String toolName = "OptionsTestTool";
@@ -340,7 +340,7 @@ public class OptionsDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		Object root = treeModel.getRoot();
 		Object toolNode = getGTreeNode(root, TOOL_NODE_NAME);
 		selectNode(toolNode);
-		assertTrue(!defaultPanel.isShowing());
+		assertFalse(defaultPanel.isShowing());
 
 		ScrollableOptionsEditor simpleOptionsPanel =
 			(ScrollableOptionsEditor) getEditorPanel(toolNode);
@@ -848,7 +848,7 @@ public class OptionsDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		Object root = treeModel.getRoot();
 		Object toolNode = getGTreeNode(root, TOOL_NODE_NAME);
 		selectNode(toolNode);
-		assertTrue(!defaultPanel.isShowing());
+		assertFalse(defaultPanel.isShowing());
 
 		ScrollableOptionsEditor simpleOptionsPanel =
 			(ScrollableOptionsEditor) getEditorPanel(toolNode);
@@ -1170,7 +1170,7 @@ public class OptionsDialogTest extends AbstractGhidraHeadedIntegrationTest {
 		Object root = treeModel.getRoot();
 		Object toolNode = getGTreeNode(root, category);
 		selectNode(toolNode);
-		assertTrue(!defaultPanel.isShowing());
+		assertFalse(defaultPanel.isShowing());
 
 		ScrollableOptionsEditor editor = (ScrollableOptionsEditor) getEditorPanel(toolNode);
 		assertNotNull(editor);

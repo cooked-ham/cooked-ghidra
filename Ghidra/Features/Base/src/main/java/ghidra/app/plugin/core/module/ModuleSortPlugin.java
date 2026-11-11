@@ -196,7 +196,7 @@ public class ModuleSortPlugin extends ProgramPlugin {
 		}
 	}
 
-	private class GroupComparator implements Comparator<Group> {
+	private static class GroupComparator implements Comparator<Group> {
 		private int sortType;
 
 		GroupComparator(int sortType) {

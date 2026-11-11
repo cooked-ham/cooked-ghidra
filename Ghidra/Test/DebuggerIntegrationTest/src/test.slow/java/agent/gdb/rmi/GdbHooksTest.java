@@ -20,6 +20,7 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -426,7 +427,7 @@ public class GdbHooksTest extends AbstractGdbTraceRmiTest {
 				assertEquals(1, brks.size());
 				return (TraceObject) brks.get(0);
 			});
-			assertEquals(null, tb.objValue(brk, lastSnap(conn), "Commands"));
+			assertNull(tb.objValue(brk, lastSnap(conn), "Commands"));
 
 			conn.execute("""
 					commands %s

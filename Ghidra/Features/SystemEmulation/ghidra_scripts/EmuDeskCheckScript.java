@@ -209,7 +209,7 @@ public class EmuDeskCheckScript extends GhidraScript implements FlatDebuggerAPI 
 		}
 	}
 
-	class TypeLoader extends StructuredSleigh {
+	static class TypeLoader extends StructuredSleigh {
 		protected TypeLoader(Program program) {
 			super(program);
 		}

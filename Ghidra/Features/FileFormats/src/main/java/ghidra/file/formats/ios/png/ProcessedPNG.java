@@ -109,10 +109,10 @@ public class ProcessedPNG implements StructConverter {
 		StringBuffer buff = new StringBuffer();
 
 		buff.append("Type: Crushed PNG Image\n");
-		buff.append("Size: " + totalLength + " bytes\n");
+		buff.append("Size: ").append(totalLength).append(" bytes\n");
 		buff.append("PNG Chunks: \n");
 		for (PNGChunk chunk : chunks) {
-			buff.append("    " + chunk.getIDString() + "\n");
+			buff.append("    ").append(chunk.getIDString()).append("\n");
 		}
 		return buff.toString();
 	}

@@ -84,7 +84,7 @@ class VarnodeTableModel extends AbstractGTableModel<VarnodeInfo> {
 		return columns.get(column).getName();
 	}
 
-	private abstract class VarnodeCol {
+	private static abstract class VarnodeCol {
 		private String name;
 		private boolean isEditable;
 		private Class<?> classType;

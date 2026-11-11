@@ -170,7 +170,7 @@ public class DefaultClientAuthenticator extends PopupKeyStorePasswordProvider
 		}
 	}
 
-	private class ServerPasswordPrompt implements Runnable {
+	private static class ServerPasswordPrompt implements Runnable {
 
 		private static final String NAME_PREFERENCE = "PasswordPrompt.Name";
 		private static final String CHOICE_PREFERENCE = "PasswordPrompt.Choice";

@@ -19,13 +19,14 @@ import java.awt.*;
 
 import javax.swing.border.EmptyBorder;
 
+import docking.DockingChrome;
+
 /**
  * Custom border for the {@link GTab}.
  */
 public class GTabPanelBorder extends EmptyBorder {
-	public static final int MARGIN_SIZE = 2;
 	public static final int BOTTOM_SOLID_COLOR_SIZE = 3;
-	private GTabPanel<?> tabPanel;
+	private final GTabPanel<?> tabPanel;
 
 	public GTabPanelBorder(GTabPanel<?> tabPanel) {
 		super(0, 0, BOTTOM_SOLID_COLOR_SIZE, 0);
@@ -37,7 +38,22 @@ public class GTabPanelBorder extends EmptyBorder {
 	 * the area that doesn't have tabs, still paints a bottom border
 	 */
 	@Override
+	public Insets getBorderInsets(Component c, Insets insets) {
+		if (DockingChrome.isModern()) {
+			// a 1 px baseline instead of the 3 px band in the selected tab's color
+			insets.set(0, 0, 1, 0);
+			return insets;
+		}
+		return super.getBorderInsets(c, insets);
+	}
+
+	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+		if (DockingChrome.isModern()) {
+			g.setColor(DockingChrome.frameColor());
+			g.fillRect(x, y + h - 1, w, 1);
+			return;
+		}
 		Insets insets = getBorderInsets(c);
 		Color oldColor = g.getColor();
 		g.translate(x, y);

@@ -177,7 +177,7 @@ class ListingDisplaySearcher implements Searcher {
 					.getPrimarySymbolIterator(searchAddresses, options.isForward());
 			iterators.add(new LabelSearchAddressIterator(labels));
 		}
-		return iterators.toArray(new AddressIterator[iterators.size()]);
+		return iterators.toArray(new AddressIterator[0]);
 	}
 
 	TextSearchResult next() {
@@ -615,7 +615,7 @@ class ListingDisplaySearcher implements Searcher {
 // Inner Classes
 //==================================================================================================
 
-	private class MnemonicText {
+	private static class MnemonicText {
 		private String mnemonic;
 		private String text;
 

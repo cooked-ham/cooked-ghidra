@@ -48,7 +48,7 @@ public class UnionEditorActions1Test extends AbstractUnionEditorTest {
 		assertLength(0);
 		assertEquals(emptyUnion.getName(), model.getCompositeName());
 		assertEquals(pgmRootCat.getCategoryPathName(), model.getOriginalCategoryPath().getPath());
-		assertEquals(model.getTypeName(), "Union");
+		assertEquals("Union", model.getTypeName());
 
 		// Check enablement.
 		CompositeEditorTableAction[] pActions = provider.getActions();
@@ -824,9 +824,9 @@ public class UnionEditorActions1Test extends AbstractUnionEditorTest {
 		assertEquals("complexUnion", complexUnion.getName());
 		assertTrue(complexUnion.isEquivalent(model.viewComposite));
 		assertTrue(viewCopy.isEquivalent(model.viewComposite));
-		assertEquals(model.getStatus(), "complexUnion#/$ is not a valid name.");
+		assertEquals("complexUnion#/$ is not a valid name.", model.getStatus());
 		invoke(applyAction);
-		assertEquals(model.getStatus(), "Name is not valid.");
+		assertEquals("Name is not valid.", model.getStatus());
 		assertTrue(complexUnion.isEquivalent(model.viewComposite));
 		assertTrue(viewCopy.isEquivalent(model.viewComposite));
 		assertTrue(model.getStatus().length() > 0);
@@ -865,7 +865,7 @@ public class UnionEditorActions1Test extends AbstractUnionEditorTest {
 		assertFalse(simpleUnion.isEquivalent(model.viewComposite));
 		assertTrue(viewCopy.isEquivalent(model.viewComposite));
 		assertEquals(0, model.getNumComponents());
-		assertEquals(model.getStatus(), "");
+		assertEquals("", model.getStatus());
 		invoke(applyAction);
 		assertTrue(simpleUnion.isEquivalent(model.viewComposite));
 		assertTrue(viewCopy.isEquivalent(model.viewComposite));
@@ -877,17 +877,17 @@ public class UnionEditorActions1Test extends AbstractUnionEditorTest {
 		assertEquals("", model.getStatus());
 		UnionEditorPanel panel = (UnionEditorPanel) provider.getComponent();
 
-		assertEquals(false, model.isShowingNumbersInHex());
+		assertFalse(model.isShowingNumbersInHex());
 		assertEquals("45", model.getValueAt(11, model.getLengthColumn()));
 		assertEquals("87", ((JTextField) findComponentByName(panel, "Total Length")).getText());
 
 		invoke(hexNumbersAction);
-		assertEquals(true, model.isShowingNumbersInHex());
+		assertTrue(model.isShowingNumbersInHex());
 		assertEquals("0x2d", model.getValueAt(11, model.getLengthColumn()));
 		assertEquals("0x57", ((JTextField) findComponentByName(panel, "Total Length")).getText());
 
 		invoke(hexNumbersAction);
-		assertEquals(false, model.isShowingNumbersInHex());
+		assertFalse(model.isShowingNumbersInHex());
 		assertEquals("45", model.getValueAt(11, model.getLengthColumn()));
 		assertEquals("87", ((JTextField) findComponentByName(panel, "Total Length")).getText());
 	}

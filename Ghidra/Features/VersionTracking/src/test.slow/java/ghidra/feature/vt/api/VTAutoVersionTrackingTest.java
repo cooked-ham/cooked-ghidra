@@ -222,9 +222,9 @@ public class VTAutoVersionTrackingTest extends AbstractGhidraHeadedIntegrationTe
 
 		// verify that they have correct statuses
 		VTAssociationStatus status = match.getAssociation().getStatus();
-		assertEquals(status, VTAssociationStatus.BLOCKED);
+		assertEquals(VTAssociationStatus.BLOCKED, status);
 		VTAssociationStatus status2 = match2.getAssociation().getStatus();
-		assertEquals(status2, VTAssociationStatus.ACCEPTED);
+		assertEquals(VTAssociationStatus.ACCEPTED, status2);
 
 		// run auto VT which would normally accept the match we blocked
 		ToolOptions vtOptions = getVTToolOptions(tool);
@@ -237,9 +237,9 @@ public class VTAutoVersionTrackingTest extends AbstractGhidraHeadedIntegrationTe
 		// Now test that the match we blocked is still blocked to verify that auto VT
 		// does not accept blocked matches
 		assertEquals(
+			VTAssociationStatus.BLOCKED,
 			getMatchStatus(session, "Combined Function and Data Reference Match",
-				addr("0x00411860", sourceProgram), addr("0x00411830", destinationProgram)),
-			VTAssociationStatus.BLOCKED);
+				addr("0x00411860", sourceProgram), addr("0x00411830", destinationProgram)));
 	}
 
 	private ToolOptions getVTToolOptions(PluginTool tool) {
@@ -829,8 +829,7 @@ public class VTAutoVersionTrackingTest extends AbstractGhidraHeadedIntegrationTe
 		}
 
 		// Now check the one that should not have a comment at all
-		assertEquals(null,
-			destListing.getComment(CommentType.EOL, addr("0x4119af", destinationProgram)));
+		assertNull(destListing.getComment(CommentType.EOL, addr("0x4119af", destinationProgram)));
 
 		// Now get the bottom section
 		AddressSet bottomAddressSet = destinationProgram.getAddressFactory()

@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 package ghidra.util.datastruct;
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -24,6 +25,7 @@ import java.io.Serializable;
 
 
 public class IntObjectHashtable<T> implements Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
 
     private IntKeyIndexer indexer;    // allocates and manages index values for keys.

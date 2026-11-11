@@ -86,6 +86,7 @@
 //     against it then check in any changes with the given commit message.
 // 
 //@category Version Tracking
+
 import ghidra.app.script.GhidraScript;
 import ghidra.feature.vt.api.db.VTSessionContentHandler;
 import ghidra.feature.vt.api.db.VTSessionDB;
@@ -104,256 +105,257 @@ import ghidra.util.task.TaskLauncher;
 
 public class AutoVersionTrackingScript extends GhidraScript {
 
-	private static final int NUM_ARGS = 3;
+    private static final int NUM_ARGS = 3;
 
-	@Override
-	public void run() throws Exception {
+    @Override
+    public void run() throws Exception {
 
-		if (currentProgram == null) {
-			println("Please open the destination program.");
-			return;
-		}
+        if (currentProgram == null) {
+            println("Please open the destination program.");
+            return;
+        }
 
-		Program destinationProgram = currentProgram;
+        Program destinationProgram = currentProgram;
 
-		if (!destinationProgram.canSave()) {
-			println("VT Session destination program " + destinationProgram.getName() +
-				" is read-only which prevents its use.");
-			return;
-		}
+        if (!destinationProgram.canSave()) {
+            println("VT Session destination program " + destinationProgram.getName() +
+                    " is read-only which prevents its use.");
+            return;
+        }
 
-		GhidraValuesMap startupValues = new GhidraValuesMap();
+        GhidraValuesMap startupValues = new GhidraValuesMap();
 
-		startupValues.defineProjectFolder("Version Tracking Session Folder", "/");
-		startupValues.defineString("Version Tracking Session Name");
-		startupValues.defineProjectFile("Please select the SOURCE program", "/");
+        startupValues.defineProjectFolder("Version Tracking Session Folder", "/");
+        startupValues.defineString("Version Tracking Session Name");
+        startupValues.defineProjectFile("Please select the SOURCE program", "/");
 
-		startupValues.setValidator((valueMap, status) -> {
+        startupValues.setValidator((valueMap, status) -> {
 
-			GhidraValuesMap map = (GhidraValuesMap) valueMap;
+            GhidraValuesMap map = (GhidraValuesMap) valueMap;
 
-			if (!valueMap.hasValue("Version Tracking Session Name")) {
-				status.setStatusText("Session Name must be filled in!", MessageType.ERROR);
-				return false;
-			}
+            if (!valueMap.hasValue("Version Tracking Session Name")) {
+                status.setStatusText("Session Name must be filled in!", MessageType.ERROR);
+                return false;
+            }
 
-			try {
-				if (hasExistingSession(map.getString("Version Tracking Session Name"),
-					map.getProjectFolder("Version Tracking Session Folder"))) {
-					status.setStatusText("Session cannot be an existing session!",
-						MessageType.ERROR);
-					return false;
-				}
-			}
-			catch (CancelledException e) {
-				return false;
-			}
+            try {
+                if (hasExistingSession(map.getString("Version Tracking Session Name"),
+                        map.getProjectFolder("Version Tracking Session Folder"))) {
+                    status.setStatusText("Session cannot be an existing session!",
+                            MessageType.ERROR);
+                    return false;
+                }
+            } catch (CancelledException e) {
+                return false;
+            }
 
-			if (!valueMap.hasValue("Please select the SOURCE program")) {
-				status.setStatusText("Must choose a SOURCE program!", MessageType.ERROR);
-				return false;
-			}
-			return true;
-		});
+            if (!valueMap.hasValue("Please select the SOURCE program")) {
+                status.setStatusText("Must choose a SOURCE program!", MessageType.ERROR);
+                return false;
+            }
+            return true;
+        });
 
-		startupValues = askValues("Enter Auto Version Tracking Information",
-			"The currently opened program is assumed to be the DESTINATION program.",
-			startupValues);
+        startupValues = askValues("Enter Auto Version Tracking Information",
+                "The currently opened program is assumed to be the DESTINATION program.",
+                startupValues);
 
-		DomainFolder folder = startupValues.getProjectFolder("Version Tracking Session Folder");
+        DomainFolder folder = startupValues.getProjectFolder("Version Tracking Session Folder");
 
-		String name = startupValues.getString("Version Tracking Session Name");
+        String name = startupValues.getString("Version Tracking Session Name");
 
-		// setting auto upgrade to isHeadless, will cause headless uses to auto upgrade, but in
-		// GUI mode, will prompt before upgrading.
-		boolean autoUpgradeIfNeeded = isRunningHeadless();
+        // setting auto upgrade to isHeadless, will cause headless uses to auto upgrade, but in
+        // GUI mode, will prompt before upgrading.
+        boolean autoUpgradeIfNeeded = isRunningHeadless();
 
-		DomainFile sourceProgramDF =
-			startupValues.getProjectFile("Please select the SOURCE program");
-		if (!Program.class.isAssignableFrom(sourceProgramDF.getDomainObjectClass())) {
-			println(sourceProgramDF.getContentType() + " file " + sourceProgramDF.getName() +
-				" may not be specified as the SOURCE Program.");
-			return;
-		}
+        DomainFile sourceProgramDF =
+                startupValues.getProjectFile("Please select the SOURCE program");
+        if (!Program.class.isAssignableFrom(sourceProgramDF.getDomainObjectClass())) {
+            println(sourceProgramDF.getContentType() + " file " + sourceProgramDF.getName() +
+                    " may not be specified as the SOURCE Program.");
+            return;
+        }
 
-		Program sourceProgram =
-			(Program) sourceProgramDF.getDomainObject(this, autoUpgradeIfNeeded, false, monitor);
+        Program sourceProgram =
+                (Program) sourceProgramDF.getDomainObject(this, autoUpgradeIfNeeded, false, monitor);
 
-		VTSession session = null;
-		try {
-			// Need to end the script transaction or it interferes with vt things that need locks
-			end(true);
+        VTSession session = null;
+        try {
+            // Need to end the script transaction or it interferes with vt things that need locks
+            end(true);
 
-			session = new VTSessionDB(name, sourceProgram, destinationProgram, this);
+            session = new VTSessionDB(name, sourceProgram, destinationProgram, this);
 
-			if (folder.getFile(name) == null) {
-				folder.createFile(name, session, monitor);
-			}
+            if (folder.getFile(name) == null) {
+                folder.createFile(name, session, monitor);
+            }
 
-			// create a default options map in case cannot get user input
-			GhidraValuesMap optionsMap = createDefaultOptions();
+            // create a default options map in case cannot get user input
+            GhidraValuesMap optionsMap = createDefaultOptions();
 
-			// if running script in GUI get options from user and update the vtOptions with them
-			if (!isRunningHeadless()) {
-				optionsMap = getOptionsFromUser();
+            // if running script in GUI get options from user and update the vtOptions with them
+            if (!isRunningHeadless()) {
+                optionsMap = getOptionsFromUser();
 
-			}
-			// else if running script in headless get possible options set by prescript that saves
-			// optionsMap in script state variable and update the vtOptions with them
-			else {
-				// try to get options map from state if running headless
-				// if user runs prescript to set up their own options map those options will be used
-				// See SetAutoVersionTrackingOptionsScript.java as an example
-				GhidraValuesMap stateOptionsMap =
-					(GhidraValuesMap) state.getEnvironmentVar("autoVTOptionsMap");
-				if (stateOptionsMap != null) {
-					optionsMap = stateOptionsMap;
-				}
+            }
+            // else if running script in headless get possible options set by prescript that saves
+            // optionsMap in script state variable and update the vtOptions with them
+            else {
+                // try to get options map from state if running headless
+                // if user runs prescript to set up their own options map those options will be used
+                // See SetAutoVersionTrackingOptionsScript.java as an example
+                GhidraValuesMap stateOptionsMap =
+                        (GhidraValuesMap) state.getEnvironmentVar("autoVTOptionsMap");
+                if (stateOptionsMap != null) {
+                    optionsMap = stateOptionsMap;
+                }
 
-			}
+            }
 
-			ToolOptions vtOptions = setToolOptionsFromOptionsMap(optionsMap);
+            ToolOptions vtOptions = setToolOptionsFromOptionsMap(optionsMap);
 
-			AutoVersionTrackingTask autoVtTask = new AutoVersionTrackingTask(session, vtOptions);
+            AutoVersionTrackingTask autoVtTask = new AutoVersionTrackingTask(session, vtOptions);
 
-			TaskLauncher.launch(autoVtTask);
+            TaskLauncher.launch(autoVtTask);
 
-			// Save destination program and session changes
-			destinationProgram.save("Updated with Auto Version Tracking", monitor);
-			session.save();
+            // Save destination program and session changes
+            destinationProgram.save("Updated with Auto Version Tracking", monitor);
+            session.save();
 
-			println(autoVtTask.getStatusMsg());
-		}
-		catch (CancelledException e) {
-			// let finally clean up
-			return;
-		}
-		finally {
-			if (sourceProgram != null) {
-				sourceProgram.release(this);
-			}
-			if (session != null) {
-				session.release(this);
+            println(autoVtTask.getStatusMsg());
+        } catch (CancelledException e) {
+            // let finally clean up
+            return;
+        } finally {
+            if (sourceProgram != null) {
+                sourceProgram.release(this);
+            }
+            if (session != null) {
+                session.release(this);
 
-			}
-		}
+            }
+        }
 
-		// try adding to version control if it is a transient project (ie headless operating against
-		// a shared project repository
-		if (state.getProject().getProjectLocator().isTransient()) {
+        // try adding to version control if it is a transient project (ie headless operating against
+        // a shared project repository
+        if (state.getProject().getProjectLocator().isTransient()) {
 
-			session.getDomainFile()
-					.addToVersionControl("Added new session + " + session.getName(), false,
-						monitor);
-			println("Added session " + session.getName() + " to version control.");
-		}
+            session.getDomainFile()
+                    .addToVersionControl("Added new session + " + session.getName(), false,
+                            monitor);
+            println("Added session " + session.getName() + " to version control.");
+        }
 
-	}
+    }
 
-	/**
-	 * Method to determine if there is an existing VTSession in the given folder with the given name
-	 * @param name the given name
-	 * @param folder the given Ghidra project folder
-	 * @return true if there is an existing VTSession with the given name in the given folder, false
-	 *          otherwise
-	 * @throws CancelledException if cancelled
-	 */
-	private boolean hasExistingSession(String name, DomainFolder folder) throws CancelledException {
-		DomainFile file = folder.getFile(name);
-		return file != null && file.getContentType().equals(VTSessionContentHandler.CONTENT_TYPE);
-	}
+    /**
+     * Method to determine if there is an existing VTSession in the given folder with the given name
+     *
+     * @param name   the given name
+     * @param folder the given Ghidra project folder
+     * @return true if there is an existing VTSession with the given name in the given folder, false
+     * otherwise
+     * @throws CancelledException if cancelled
+     */
+    private boolean hasExistingSession(String name, DomainFolder folder) throws CancelledException {
+        DomainFile file = folder.getFile(name);
+        return file != null && file.getContentType().equals(VTSessionContentHandler.CONTENT_TYPE);
+    }
 
-	/**
-	 * Method to create the default GhidraValuesMap AutoVT options
-	 * @return the default GhidraValuesMap AutoVT options
-	 */
-	private GhidraValuesMap createDefaultOptions() {
-		GhidraValuesMap optionsValues = new GhidraValuesMap();
+    /**
+     * Method to create the default GhidraValuesMap AutoVT options
+     *
+     * @return the default GhidraValuesMap AutoVT options
+     */
+    private GhidraValuesMap createDefaultOptions() {
+        GhidraValuesMap optionsValues = new GhidraValuesMap();
 
-		optionsValues.defineBoolean(VTOptionDefines.CREATE_IMPLIED_MATCHES_OPTION_TEXT, true);
-		optionsValues.defineBoolean(VTOptionDefines.RUN_EXACT_SYMBOL_OPTION_TEXT, true);
-		optionsValues.defineBoolean(VTOptionDefines.RUN_EXACT_DATA_OPTION_TEXT, true);
-		optionsValues.defineBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_BYTES_OPTION_TEXT, true);
-		optionsValues.defineBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_INST_OPTION_TEXT, true);
-		optionsValues.defineBoolean(VTOptionDefines.RUN_DUPE_FUNCTION_OPTION_TEXT, true);
-		optionsValues.defineBoolean(VTOptionDefines.RUN_REF_CORRELATORS_OPTION_TEXT, true);
-		optionsValues.defineInt(VTOptionDefines.DATA_CORRELATOR_MIN_LEN_OPTION_TEXT, 5);
-		optionsValues.defineInt(VTOptionDefines.SYMBOL_CORRELATOR_MIN_LEN_OPTION_TEXT, 3);
-		optionsValues.defineInt(VTOptionDefines.FUNCTION_CORRELATOR_MIN_LEN_OPTION_TEXT, 10);
-		optionsValues.defineInt(VTOptionDefines.DUPE_FUNCTION_CORRELATOR_MIN_LEN_OPTION_TEXT, 10);
-		optionsValues.defineBoolean(VTOptionDefines.APPLY_IMPLIED_MATCHES_OPTION_TEXT, true);
-		optionsValues.defineInt(VTOptionDefines.MIN_VOTES_OPTION_TEXT, 2);
-		optionsValues.defineInt(VTOptionDefines.MAX_CONFLICTS_OPTION_TEXT, 0);
-		optionsValues.defineDouble(VTOptionDefines.REF_CORRELATOR_MIN_SCORE_OPTION_TEXT, 0.95);
-		optionsValues.defineDouble(VTOptionDefines.REF_CORRELATOR_MIN_CONF_OPTION_TEXT, 10.0);
+        optionsValues.defineBoolean(VTOptionDefines.CREATE_IMPLIED_MATCHES_OPTION_TEXT, true);
+        optionsValues.defineBoolean(VTOptionDefines.RUN_EXACT_SYMBOL_OPTION_TEXT, true);
+        optionsValues.defineBoolean(VTOptionDefines.RUN_EXACT_DATA_OPTION_TEXT, true);
+        optionsValues.defineBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_BYTES_OPTION_TEXT, true);
+        optionsValues.defineBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_INST_OPTION_TEXT, true);
+        optionsValues.defineBoolean(VTOptionDefines.RUN_DUPE_FUNCTION_OPTION_TEXT, true);
+        optionsValues.defineBoolean(VTOptionDefines.RUN_REF_CORRELATORS_OPTION_TEXT, true);
+        optionsValues.defineInt(VTOptionDefines.DATA_CORRELATOR_MIN_LEN_OPTION_TEXT, 5);
+        optionsValues.defineInt(VTOptionDefines.SYMBOL_CORRELATOR_MIN_LEN_OPTION_TEXT, 3);
+        optionsValues.defineInt(VTOptionDefines.FUNCTION_CORRELATOR_MIN_LEN_OPTION_TEXT, 10);
+        optionsValues.defineInt(VTOptionDefines.DUPE_FUNCTION_CORRELATOR_MIN_LEN_OPTION_TEXT, 10);
+        optionsValues.defineBoolean(VTOptionDefines.APPLY_IMPLIED_MATCHES_OPTION_TEXT, true);
+        optionsValues.defineInt(VTOptionDefines.MIN_VOTES_OPTION_TEXT, 2);
+        optionsValues.defineInt(VTOptionDefines.MAX_CONFLICTS_OPTION_TEXT, 0);
+        optionsValues.defineDouble(VTOptionDefines.REF_CORRELATOR_MIN_SCORE_OPTION_TEXT, 0.95);
+        optionsValues.defineDouble(VTOptionDefines.REF_CORRELATOR_MIN_CONF_OPTION_TEXT, 10.0);
 
-		return optionsValues;
-	}
+        return optionsValues;
+    }
 
-	/**
-	 * Method to ask the user for AutoVT options
-	 * @return a GhidraValuesMap containing AutoVT options values
-	 * @throws CancelledException if cancelled
-	 */
-	private GhidraValuesMap getOptionsFromUser() throws CancelledException {
+    /**
+     * Method to ask the user for AutoVT options
+     *
+     * @return a GhidraValuesMap containing AutoVT options values
+     * @throws CancelledException if cancelled
+     */
+    private GhidraValuesMap getOptionsFromUser() throws CancelledException {
 
-		GhidraValuesMap optionsValues = createDefaultOptions();
+        GhidraValuesMap optionsValues = createDefaultOptions();
 
-		optionsValues = askValues("Enter Auto Version Tracking Options",
-			"These options will not be saved to your current tool options.", optionsValues);
+        optionsValues = askValues("Enter Auto Version Tracking Options",
+                "These options will not be saved to your current tool options.", optionsValues);
 
-		return optionsValues;
-	}
+        return optionsValues;
+    }
 
-	/**
-	 * Set the Auto Version Tracking options given a GhidraValuesMap containing the options values
-	 * @param optionsValues the option values in a GhidraValuesMap
-	 * @return ToolOptions containing the Auto Version Tracking options values
-	 */
-	private ToolOptions setToolOptionsFromOptionsMap(GhidraValuesMap optionsValues) {
+    /**
+     * Set the Auto Version Tracking options given a GhidraValuesMap containing the options values
+     *
+     * @param optionsValues the option values in a GhidraValuesMap
+     * @return ToolOptions containing the Auto Version Tracking options values
+     */
+    private ToolOptions setToolOptionsFromOptionsMap(GhidraValuesMap optionsValues) {
 
-		ToolOptions toolOptions = new VTOptions("Dummy");
+        ToolOptions toolOptions = new VTOptions("Dummy");
 
-		toolOptions.setBoolean(VTOptionDefines.CREATE_IMPLIED_MATCHES_OPTION,
-			optionsValues.getBoolean(VTOptionDefines.CREATE_IMPLIED_MATCHES_OPTION_TEXT));
-		toolOptions.setBoolean(VTOptionDefines.RUN_EXACT_SYMBOL_OPTION,
-			optionsValues.getBoolean(VTOptionDefines.RUN_EXACT_SYMBOL_OPTION_TEXT));
-		toolOptions.setBoolean(VTOptionDefines.RUN_EXACT_DATA_OPTION,
-			optionsValues.getBoolean(VTOptionDefines.RUN_EXACT_DATA_OPTION_TEXT));
-		toolOptions.setBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_BYTES_OPTION,
-			optionsValues.getBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_BYTES_OPTION_TEXT));
-		toolOptions.setBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_INST_OPTION,
-			optionsValues.getBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_INST_OPTION_TEXT));
-		toolOptions.setBoolean(VTOptionDefines.RUN_DUPE_FUNCTION_OPTION,
-			optionsValues.getBoolean(VTOptionDefines.RUN_DUPE_FUNCTION_OPTION_TEXT));
-		toolOptions.setBoolean(VTOptionDefines.RUN_REF_CORRELATORS_OPTION,
-			optionsValues.getBoolean(VTOptionDefines.RUN_REF_CORRELATORS_OPTION_TEXT));
+        toolOptions.setBoolean(VTOptionDefines.CREATE_IMPLIED_MATCHES_OPTION,
+                optionsValues.getBoolean(VTOptionDefines.CREATE_IMPLIED_MATCHES_OPTION_TEXT));
+        toolOptions.setBoolean(VTOptionDefines.RUN_EXACT_SYMBOL_OPTION,
+                optionsValues.getBoolean(VTOptionDefines.RUN_EXACT_SYMBOL_OPTION_TEXT));
+        toolOptions.setBoolean(VTOptionDefines.RUN_EXACT_DATA_OPTION,
+                optionsValues.getBoolean(VTOptionDefines.RUN_EXACT_DATA_OPTION_TEXT));
+        toolOptions.setBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_BYTES_OPTION,
+                optionsValues.getBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_BYTES_OPTION_TEXT));
+        toolOptions.setBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_INST_OPTION,
+                optionsValues.getBoolean(VTOptionDefines.RUN_EXACT_FUNCTION_INST_OPTION_TEXT));
+        toolOptions.setBoolean(VTOptionDefines.RUN_DUPE_FUNCTION_OPTION,
+                optionsValues.getBoolean(VTOptionDefines.RUN_DUPE_FUNCTION_OPTION_TEXT));
+        toolOptions.setBoolean(VTOptionDefines.RUN_REF_CORRELATORS_OPTION,
+                optionsValues.getBoolean(VTOptionDefines.RUN_REF_CORRELATORS_OPTION_TEXT));
 
-		toolOptions.setInt(VTOptionDefines.DATA_CORRELATOR_MIN_LEN_OPTION,
-			optionsValues.getInt(VTOptionDefines.DATA_CORRELATOR_MIN_LEN_OPTION_TEXT));
-		toolOptions.setInt(VTOptionDefines.SYMBOL_CORRELATOR_MIN_LEN_OPTION,
-			optionsValues.getInt(VTOptionDefines.SYMBOL_CORRELATOR_MIN_LEN_OPTION_TEXT));
-		toolOptions.setInt(VTOptionDefines.FUNCTION_CORRELATOR_MIN_LEN_OPTION,
-			optionsValues.getInt(VTOptionDefines.FUNCTION_CORRELATOR_MIN_LEN_OPTION_TEXT));
-		toolOptions.setInt(VTOptionDefines.DUPE_FUNCTION_CORRELATOR_MIN_LEN_OPTION,
-			optionsValues.getInt(VTOptionDefines.DUPE_FUNCTION_CORRELATOR_MIN_LEN_OPTION_TEXT));
+        toolOptions.setInt(VTOptionDefines.DATA_CORRELATOR_MIN_LEN_OPTION,
+                optionsValues.getInt(VTOptionDefines.DATA_CORRELATOR_MIN_LEN_OPTION_TEXT));
+        toolOptions.setInt(VTOptionDefines.SYMBOL_CORRELATOR_MIN_LEN_OPTION,
+                optionsValues.getInt(VTOptionDefines.SYMBOL_CORRELATOR_MIN_LEN_OPTION_TEXT));
+        toolOptions.setInt(VTOptionDefines.FUNCTION_CORRELATOR_MIN_LEN_OPTION,
+                optionsValues.getInt(VTOptionDefines.FUNCTION_CORRELATOR_MIN_LEN_OPTION_TEXT));
+        toolOptions.setInt(VTOptionDefines.DUPE_FUNCTION_CORRELATOR_MIN_LEN_OPTION,
+                optionsValues.getInt(VTOptionDefines.DUPE_FUNCTION_CORRELATOR_MIN_LEN_OPTION_TEXT));
 
-		toolOptions.setDouble(VTOptionDefines.REF_CORRELATOR_MIN_SCORE_OPTION,
-			optionsValues.getDouble(VTOptionDefines.REF_CORRELATOR_MIN_SCORE_OPTION_TEXT));
-		toolOptions.setDouble(VTOptionDefines.REF_CORRELATOR_MIN_CONF_OPTION,
-			optionsValues.getDouble(VTOptionDefines.REF_CORRELATOR_MIN_CONF_OPTION_TEXT));
+        toolOptions.setDouble(VTOptionDefines.REF_CORRELATOR_MIN_SCORE_OPTION,
+                optionsValues.getDouble(VTOptionDefines.REF_CORRELATOR_MIN_SCORE_OPTION_TEXT));
+        toolOptions.setDouble(VTOptionDefines.REF_CORRELATOR_MIN_CONF_OPTION,
+                optionsValues.getDouble(VTOptionDefines.REF_CORRELATOR_MIN_CONF_OPTION_TEXT));
 
-		toolOptions.setBoolean(VTOptionDefines.APPLY_IMPLIED_MATCHES_OPTION,
-			optionsValues.getBoolean(VTOptionDefines.APPLY_IMPLIED_MATCHES_OPTION_TEXT));
+        toolOptions.setBoolean(VTOptionDefines.APPLY_IMPLIED_MATCHES_OPTION,
+                optionsValues.getBoolean(VTOptionDefines.APPLY_IMPLIED_MATCHES_OPTION_TEXT));
 
-		toolOptions.setInt(VTOptionDefines.MIN_VOTES_OPTION,
-			optionsValues.getInt(VTOptionDefines.MIN_VOTES_OPTION_TEXT));
+        toolOptions.setInt(VTOptionDefines.MIN_VOTES_OPTION,
+                optionsValues.getInt(VTOptionDefines.MIN_VOTES_OPTION_TEXT));
 
-		toolOptions.setInt(VTOptionDefines.MAX_CONFLICTS_OPTION,
-			optionsValues.getInt(VTOptionDefines.MAX_CONFLICTS_OPTION_TEXT));
+        toolOptions.setInt(VTOptionDefines.MAX_CONFLICTS_OPTION,
+                optionsValues.getInt(VTOptionDefines.MAX_CONFLICTS_OPTION_TEXT));
 
-		return toolOptions;
+        return toolOptions;
 
-	}
+    }
 
 }

@@ -16,6 +16,7 @@
  */
 package ghidra.app.merge.listing;
 
+import java.io.Serial;
 import javax.swing.event.ChangeEvent;
 
 /**
@@ -24,6 +25,7 @@ import javax.swing.event.ChangeEvent;
  * VerticalChoicesPanel or VariousChoicesPanel.
  */
 class ResolveConflictChangeEvent extends ChangeEvent {
+    @Serial
     private final static long serialVersionUID = 1;
 	int choice;
 	int row;

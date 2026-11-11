@@ -109,10 +109,10 @@ public class FontModifier {
 	public String getSerializationString() {
 		StringBuilder builder = new StringBuilder();
 		if (family != null) {
-			builder.append("[" + family + "]");
+			builder.append("[").append(family).append("]");
 		}
 		if (size != null) {
-			builder.append("[" + size + "]");
+			builder.append("[").append(size).append("]");
 		}
 		if (style != null) {
 			switch (style.intValue()) {

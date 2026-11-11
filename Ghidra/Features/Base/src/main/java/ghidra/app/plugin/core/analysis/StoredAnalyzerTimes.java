@@ -130,7 +130,7 @@ public class StoredAnalyzerTimes implements CustomOption {
 	 */
 	public String[] getTaskNames() {
 		if (names == null) {
-			names = taskTimes.keySet().toArray(new String[taskTimes.size()]);
+			names = taskTimes.keySet().toArray(new String[0]);
 			Arrays.sort(names);
 		}
 		return names;

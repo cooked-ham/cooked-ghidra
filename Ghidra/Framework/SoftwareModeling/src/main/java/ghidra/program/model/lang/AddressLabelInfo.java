@@ -176,13 +176,13 @@ public class AddressLabelInfo implements Comparable<AddressLabelInfo> {
 		buf.append("LABEL INFO NAME=");
 		buf.append(label);
 		buf.append(", ");
-		buf.append("ADDR=" + addr);
+		buf.append("ADDR=").append(addr);
 		buf.append(", ");
-		buf.append("isEntry = " + isEntry);
+		buf.append("isEntry = ").append(isEntry);
 		buf.append(", ");
-		buf.append("type = " + processorSymbolType);
+		buf.append("type = ").append(processorSymbolType);
 		if (description != null) {
-			buf.append("description = " + description);
+			buf.append("description = ").append(description);
 		}
 		return buf.toString();
 	}

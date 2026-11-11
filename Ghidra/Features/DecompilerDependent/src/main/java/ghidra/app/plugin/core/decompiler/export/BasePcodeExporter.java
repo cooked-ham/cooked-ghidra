@@ -19,44 +19,42 @@ import java.io.*;
 
 public class BasePcodeExporter {
 
-	protected final PcodeDatabase db = new PcodeDatabase();
-	protected final Writer debug;
-	protected final String directory;
+    final static char SEP = ':';
+    final static char TAB = '\t';
+    final static char QUOTE = '\"';
+    protected final PcodeDatabase db = new PcodeDatabase();
+    protected final Writer debug;
+    protected final String directory;
 
-	final static char SEP = ':';
-	final static char TAB = '\t';
-	final static char QUOTE = '\"';
+    public BasePcodeExporter(String directory) throws IOException {
+        this.directory = directory;
+        debug = new BufferedWriter(new FileWriter(new File(directory, "PcodeOps.facts")));
+    }
 
-	public BasePcodeExporter(String directory) throws IOException {
-		this.directory = directory;
-		debug = new BufferedWriter(new FileWriter(new File(directory, "PcodeOps.facts")));
-	}
+    public void writeFacts(boolean writeAll) {
+        db.writeFacts(directory, writeAll);
+    }
 
-	public void writeFacts(boolean writeAll) {
-		db.writeFacts(directory, writeAll);
-	}
+    public void writeDebug() throws IOException {
+        debug.close();
+    }
 
-	public void writeDebug() throws IOException {
-		debug.close();
-	}
+    public PcodeDatabase getDatabase() {
+        return db;
+    }
 
-	public PcodeDatabase getDatabase() {
-		return db;
-	}
-
-	void export(String pfile, String key, String value) {
-		db.addExport(pfile, key, value);
-	}
+    void export(String pfile, String key, String value) {
+        db.addExport(pfile, key, value);
+    }
 
 
-	protected void debug(String s) {
-		try {
-			this.debug.write(s);
-			this.debug.write('\n');
-		}
-		catch (IOException e) {
-			throw new RuntimeException(e.toString());
-		}
-		db.addExport("PcodeOps", s);
-	}
+    protected void debug(String s) {
+        try {
+            this.debug.write(s);
+            this.debug.write('\n');
+        } catch (IOException e) {
+            throw new RuntimeException(e.toString());
+        }
+        db.addExport("PcodeOps", s);
+    }
 }

@@ -235,7 +235,7 @@ public class AnimationRunner {
 	/**
 	 * A painter that will call the user-supplied painter with the current value.
 	 */
-	private class UserDefinedPainter implements GGlassPanePainter {
+	private static class UserDefinedPainter implements GGlassPanePainter {
 
 		private AnimationPainter userPainter;
 		private double value;

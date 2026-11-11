@@ -17,8 +17,10 @@ package ghidra.trace.util;
 
 import ghidra.framework.model.DomainObjectChangeRecord;
 import ghidra.program.model.address.AddressSpace;
+import java.io.Serial;
 
 public class TraceChangeRecord<T, U> extends DomainObjectChangeRecord {
+	@Serial
 	private static final long serialVersionUID = 1;
 
 	private final AddressSpace space;

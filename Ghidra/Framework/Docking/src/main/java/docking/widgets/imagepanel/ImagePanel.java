@@ -495,7 +495,7 @@ public class ImagePanel extends JPanel {
 		translateEnabled = enabled;
 	}
 
-	private class PanAndZoomComponent extends GIconLabel {
+	private static class PanAndZoomComponent extends GIconLabel {
 
 		public static final String TRANSLATION_RESET_PROPERTY = "translation-reset";
 

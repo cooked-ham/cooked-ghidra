@@ -98,7 +98,7 @@ public class ChooseMatchTagAction extends DockingAction {
 // Inner Classes    
 //==================================================================================================
 
-	private class TagChooserDialog extends DialogComponentProvider {
+	private static class TagChooserDialog extends DialogComponentProvider {
 
 		private JPanel editorPanel;
 		private MatchTagComboBox tagComboBox;

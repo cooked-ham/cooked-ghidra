@@ -170,10 +170,10 @@ public abstract class VirtualFunctionTable implements VFTable {
 	}
 
 	void emit(StringBuilder builder) {
-		builder.append("VBT for the following classes within: " + owner);
+		builder.append("VBT for the following classes within: ").append(owner);
 		builder.append("\n");
 		for (ClassID id : parentage) {
-			builder.append("   " + id);
+			builder.append("   ").append(id);
 			builder.append("\n");
 		}
 	}

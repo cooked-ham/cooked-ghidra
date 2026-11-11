@@ -61,7 +61,7 @@ public class HexagonEmulateInstructionStateModifier extends EmulateInstructionSt
 	private static final long FP_INFINITE_CLASS_MASK = 0x08;
 	private static final long FP_NAN_CLASS_MASK = 0x10;
 
-	private class ClassifyFloatOpBehavior implements OpBehaviorOther {
+	private static class ClassifyFloatOpBehavior implements OpBehaviorOther {
 
 		@Override
 		public void evaluate(Emulate e, Varnode out, Varnode[] inputs) {
@@ -121,7 +121,7 @@ public class HexagonEmulateInstructionStateModifier extends EmulateInstructionSt
 	/**
 	 * out = min(in1,in2) where in1/in2 may be constant
 	 */
-	private class SignedMinimumOpBehavior implements OpBehaviorOther {
+	private static class SignedMinimumOpBehavior implements OpBehaviorOther {
 
 		@Override
 		public void evaluate(Emulate e, Varnode out, Varnode[] inputs) {
@@ -155,7 +155,7 @@ public class HexagonEmulateInstructionStateModifier extends EmulateInstructionSt
 	/**
 	 * Rdd = vmux(Pn,Rss,Rtt)
 	 */
-	private class VectorMultiplexOpBehavior implements OpBehaviorOther {
+	private static class VectorMultiplexOpBehavior implements OpBehaviorOther {
 
 		@Override
 		public void evaluate(Emulate e, Varnode out, Varnode[] inputs) {
@@ -197,7 +197,7 @@ public class HexagonEmulateInstructionStateModifier extends EmulateInstructionSt
 
 	}
 
-	private abstract class VectorOpBehavior implements OpBehaviorOther {
+	private static abstract class VectorOpBehavior implements OpBehaviorOther {
 
 		protected final String opName;
 		protected final int slotBitSize;
@@ -343,7 +343,7 @@ public class HexagonEmulateInstructionStateModifier extends EmulateInstructionSt
 		}
 	}
 
-	private class DFMultiplyFixOpBehavior implements OpBehaviorOther {
+	private static class DFMultiplyFixOpBehavior implements OpBehaviorOther {
 
 		@Override
 		public void evaluate(Emulate e, Varnode out, Varnode[] inputs) {
@@ -383,7 +383,7 @@ public class HexagonEmulateInstructionStateModifier extends EmulateInstructionSt
 
 	}
 
-	private class DFMultiplyHHOpBehavior implements OpBehaviorOther {
+	private static class DFMultiplyHHOpBehavior implements OpBehaviorOther {
 
 		@Override
 		public void evaluate(Emulate e, Varnode out, Varnode[] inputs) {
@@ -628,7 +628,7 @@ public class HexagonEmulateInstructionStateModifier extends EmulateInstructionSt
 
 	}
 
-	private class DFMultiplyLHOpBehavior implements OpBehaviorOther {
+	private static class DFMultiplyLHOpBehavior implements OpBehaviorOther {
 
 		@Override
 		public void evaluate(Emulate e, Varnode out, Varnode[] inputs) {
@@ -662,7 +662,7 @@ public class HexagonEmulateInstructionStateModifier extends EmulateInstructionSt
 
 	}
 
-	private class DFMultiplyLLOpBehavior implements OpBehaviorOther {
+	private static class DFMultiplyLLOpBehavior implements OpBehaviorOther {
 
 		@Override
 		public void evaluate(Emulate e, Varnode out, Varnode[] inputs) {

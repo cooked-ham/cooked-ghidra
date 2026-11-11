@@ -25,7 +25,7 @@ import ghidra.program.model.data.*;
  * Describes the AssemblyRefOS table. Apparently it is ignored by the CLI and shouldn't be found in an assembly.
  */
 public class CliTableAssemblyRefOS extends CliAbstractTable {
-	public class CliAssemblyRefOSRow extends CliAbstractTableRow {
+	public static class CliAssemblyRefOSRow extends CliAbstractTableRow {
 		public int osPlatformID;
 		public int osMajorVersion;
 		public int osMinorVersion;

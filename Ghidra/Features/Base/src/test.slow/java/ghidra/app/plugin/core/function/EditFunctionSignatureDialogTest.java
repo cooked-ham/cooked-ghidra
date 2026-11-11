@@ -156,7 +156,7 @@ public class EditFunctionSignatureDialogTest extends AbstractGhidraHeadedIntegra
 
 	}
 
-	private class LocalFunctionSignatureTestDouble extends TestDoubleFunctionSignature {
+	private static class LocalFunctionSignatureTestDouble extends TestDoubleFunctionSignature {
 
 		public LocalFunctionSignatureTestDouble(String name, String signature) {
 			super(name, signature);

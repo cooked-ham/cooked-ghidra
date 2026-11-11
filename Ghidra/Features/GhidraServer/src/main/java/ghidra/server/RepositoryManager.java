@@ -244,7 +244,7 @@ public class RepositoryManager {
 
 	private synchronized String[] getRepositoryNames() {
 		Set<String> nameSet = repositoryMap.keySet();
-		String[] names = nameSet.toArray(new String[nameSet.size()]);
+		String[] names = nameSet.toArray(new String[0]);
 		Arrays.sort(names);
 		return names;
 	}
@@ -537,7 +537,7 @@ public class RepositoryManager {
 
 		if (outputHeader) {
 			System.out.println("No repository access found for user(s):");
-			String[] userNames = usernameSet.toArray(new String[usernameSet.size()]);
+			String[] userNames = usernameSet.toArray(new String[0]);
 			Arrays.sort(userNames);
 			for (String n : userNames) {
 				System.out.println("    " + n);

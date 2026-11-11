@@ -38,15 +38,15 @@ public class ScalarColumnConstraintProvider implements ColumnConstraintProvider 
 		 */
 
 		// @formatter:off
-		list.add(makeSignedConstraint(new AtLeastColumnConstraint<>("At Least (signed)", 0l, new LongEditorProvider(), "scalar")));
-		list.add(makeSignedConstraint(new AtMostColumnConstraint<>("At Most (signed)", 0l, new LongEditorProvider(), "scalar")));
-		list.add(makeSignedConstraint(new InRangeColumnConstraint<>("In Range (signed)", 0l, 0l, new LongRangeEditorProvider(), "scalar")));
-		list.add(makeSignedConstraint(new NotInRangeColumnConstraint<>("Not In Range (signed)", 0l, 0l, new LongRangeEditorProvider(), "scalar")));
+		list.add(makeSignedConstraint(new AtLeastColumnConstraint<>("At Least (signed)", 0L, new LongEditorProvider(), "scalar")));
+		list.add(makeSignedConstraint(new AtMostColumnConstraint<>("At Most (signed)", 0L, new LongEditorProvider(), "scalar")));
+		list.add(makeSignedConstraint(new InRangeColumnConstraint<>("In Range (signed)", 0L, 0L, new LongRangeEditorProvider(), "scalar")));
+		list.add(makeSignedConstraint(new NotInRangeColumnConstraint<>("Not In Range (signed)", 0L, 0L, new LongRangeEditorProvider(), "scalar")));
 
-		list.add(makeUnsignedConstraint(new AtLeastColumnConstraint<>("At Least (unsigned)", 0l, new LongEditorProvider(), "scalar-unsigned")));
-		list.add(makeUnsignedConstraint(new AtMostColumnConstraint<>("At Most (unsigned)", 0l, new LongEditorProvider(), "scalar-unsigned")));
-		list.add(makeUnsignedConstraint(new InRangeColumnConstraint<>("In Range (unsigned)", 0l, 0l, new LongRangeEditorProvider(), "scalar-unsigned")));
-		list.add(makeUnsignedConstraint(new NotInRangeColumnConstraint<>("Not In Range (unsigned)", 0l, 0l, new LongRangeEditorProvider(), "scalar-unsigned")));
+		list.add(makeUnsignedConstraint(new AtLeastColumnConstraint<>("At Least (unsigned)", 0L, new LongEditorProvider(), "scalar-unsigned")));
+		list.add(makeUnsignedConstraint(new AtMostColumnConstraint<>("At Most (unsigned)", 0L, new LongEditorProvider(), "scalar-unsigned")));
+		list.add(makeUnsignedConstraint(new InRangeColumnConstraint<>("In Range (unsigned)", 0L, 0L, new LongRangeEditorProvider(), "scalar-unsigned")));
+		list.add(makeUnsignedConstraint(new NotInRangeColumnConstraint<>("Not In Range (unsigned)", 0L, 0L, new LongRangeEditorProvider(), "scalar-unsigned")));
 		// @formatter:on
 
 		return list;

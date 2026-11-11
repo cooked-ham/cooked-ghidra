@@ -51,7 +51,7 @@ public class VTMatchDestinationAddressToProgramLocationTableRowMapper extends
 		return new ProgramLocation(program, destinationAddress);
 	}
 
-	private class VTMatchDestinationWrappedMappedProgramLocationTableColumn<COLUMN_TYPE> extends
+	private static class VTMatchDestinationWrappedMappedProgramLocationTableColumn<COLUMN_TYPE> extends
 			MappedProgramLocationTableColumn<VTMatch, ProgramLocation, COLUMN_TYPE> {
 
 		public VTMatchDestinationWrappedMappedProgramLocationTableColumn(
@@ -84,7 +84,7 @@ public class VTMatchDestinationAddressToProgramLocationTableRowMapper extends
 		}
 	}
 
-	private class VTMatchDestinationWrappedMappedTableColumn<COLUMN_TYPE> extends
+	private static class VTMatchDestinationWrappedMappedTableColumn<COLUMN_TYPE> extends
 			MappedTableColumn<VTMatch, ProgramLocation, COLUMN_TYPE, Program> {
 
 		public VTMatchDestinationWrappedMappedTableColumn(

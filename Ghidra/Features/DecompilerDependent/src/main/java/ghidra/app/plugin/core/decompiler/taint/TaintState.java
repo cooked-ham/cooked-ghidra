@@ -15,13 +15,11 @@
  */
 package ghidra.app.plugin.core.decompiler.taint;
 
-import java.io.File;
-import java.lang.reflect.Constructor;
-import java.util.*;
-
 import com.contrastsecurity.sarif.SarifSchema210;
-
-import ghidra.app.decompiler.*;
+import ghidra.app.decompiler.ClangFieldToken;
+import ghidra.app.decompiler.ClangToken;
+import ghidra.app.decompiler.ClangTokenGroup;
+import ghidra.app.decompiler.ClangVariableToken;
 import ghidra.app.script.GhidraScript;
 import ghidra.app.services.ConsoleService;
 import ghidra.framework.plugintool.PluginTool;
@@ -37,6 +35,13 @@ import ghidra.util.classfinder.ClassSearcher;
 import ghidra.util.classfinder.ExtensionPoint;
 import ghidra.util.task.TaskMonitor;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 /**
  * The interface for the methods that collect desired taint information from the decompiler window and store them
  * for construction of queries and indexing.
@@ -46,191 +51,190 @@ import ghidra.util.task.TaskMonitor;
  */
 public interface TaintState extends ExtensionPoint {
 
-	public enum MarkType {
-		SOURCE, SINK, GATE
-	}
+    public static TaintState newInstance(TaintPlugin plugin, String type) {
+        List<Class<? extends TaintState>> list = ClassSearcher.getClasses(TaintState.class)
+                .stream()
+                .toList();
+        Class<?>[] constructorArgumentTypes = {TaintPlugin.class};
+        Object[] args = new Object[1];
+        args[0] = plugin;
+        for (Class<? extends TaintState> clazz : list) {
+            if (clazz.getName().toLowerCase().contains(type)) {
+                try {
+                    Constructor<?> constructor = clazz.getConstructor(constructorArgumentTypes);
+                    Object obj = constructor.newInstance(plugin);
+                    return TaintState.class.cast(obj);
+                } catch (Exception e) {
+                    throw new RuntimeException("Unable to instantiate TaintState");
+                }
+            }
+        }
+        Msg.error(plugin, "No match for engine = " + type);
+        return null;
+    }
 
-	public enum QueryType {
-		SRCSINK, DEFAULT, CUSTOM
-	}
+    public static String varName(ClangToken token, boolean append) {
+        String tokenText = token.getText();
+        if (token instanceof ClangFieldToken ftoken) {
+            ClangVariableToken vtoken = TaintState.getParentToken(ftoken);
+            if (vtoken == null) {
+                return tokenText;
+            }
+            HighVariable hv = vtoken.getHighVariable();
+            Varnode rep = hv.getRepresentative();
+            return rep.getAddress().toString();
+        }
 
-	public enum TaskType {
-		SET_TAINT, SET_DELTA, APPLY_DELTA
-	}
+        HighVariable hv = token.getHighVariable();
+        if (hv != null) {
+            if (hv instanceof HighLocal && token.getVarnode() == null) {
+                int offset = hv.getOffset();
+                Varnode rep = hv.getRepresentative();
+                return rep.getAddress().subtract(offset).toString();
+            }
+            return hvarName(hv);
+        }
+        return tokenText;
+    }
 
-	public static TaintState newInstance(TaintPlugin plugin, String type) {
-		List<Class<? extends TaintState>> list = ClassSearcher.getClasses(TaintState.class)
-				.stream()
-				.toList();
-		Class<?>[] constructorArgumentTypes = {TaintPlugin.class};
-		Object[] args = new Object[1];
-		args[0] = plugin;
-		for (Class<? extends TaintState> clazz : list) {
-			if (clazz.getName().toLowerCase().contains(type)) {
-				try {
-					Constructor<?> constructor = clazz.getConstructor(constructorArgumentTypes);
-					Object obj = constructor.newInstance(plugin);
-					return TaintState.class.cast(obj);
-				}
-				catch (Exception e) {
-					throw new RuntimeException("Unable to instantiate TaintState");
-				}
-			}
-		}
-		Msg.error(plugin, "No match for engine = "+type);
-		return null;
-	}
+    private static String hvarName(HighVariable hv) {
+        Varnode rep = hv.getRepresentative();
+        if (rep.getAddress().isUniqueAddress()) {
+            HighFunction hf = hv.getHighFunction();
+            DynamicHash dynamicHash = new DynamicHash(rep, hf);
+            return "hv" + Long.toString(dynamicHash.getHash());
+        }
+        if (hv.getName() == null || hv.getName().equals("UNNAMED")) {
+            if (hv instanceof HighConstant || hv instanceof HighOther) {
+                Address addr = rep.getAddress();
+                return addr.toString();
+            }
+            if (hv instanceof HighLocal) {
+                Address addr = rep.getAddress();
+                return addr.toString();
+            }
+            if (hv instanceof HighGlobal) {
+                Function fn = hv.getHighFunction().getFunction();
+                SymbolTable symbolTable = fn.getProgram().getSymbolTable();
+                Address addr = rep.getAddress();
+                Symbol symbol = symbolTable.getPrimarySymbol(addr);
+                if (symbol != null) {
+                    return symbol.getName();
+                }
+                return addr.toString();
+            }
+            return null;
+        }
+        return hv.getName();
+    }
 
-	public String getName();
+    public static ClangVariableToken getParentToken(ClangFieldToken token) {
+        ClangTokenGroup group = (ClangTokenGroup) token.Parent();
+        Iterator<ClangToken> iterator = group.tokenIterator(true);
+        ClangVariableToken parent = null;
+        while (iterator.hasNext()) {
+            ClangToken next = iterator.next();
+            if (next instanceof ClangVariableToken vtoken) {
+                parent = vtoken;
+            }
+            if (next instanceof ClangFieldToken ftoken) {
+                if (ftoken.equals(token)) {
+                    return parent;
+                }
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Perform a Source-Sink query on the index database.
-	 * 
-	 * @param program the program whose pcode is being queried.
-	 * @param tool - 
-	 * @param queryType true -> perform the default query (i.e., do not build the query from the selected source) 
-	 * @return success
-	 */
-	public boolean queryIndex(Program program, PluginTool tool, QueryType queryType);
+    public static boolean isActualParam(ClangToken token) {
+        PcodeOp pcodeOp = token.getPcodeOp();
+        if (pcodeOp != null) {
+            String mnemonic = pcodeOp.getMnemonic();
+            if (mnemonic.contains("CALL")) {
+                for (Varnode input : pcodeOp.getInputs()) {
+                    if (input.equals(token.getVarnode())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
-	public String getQueryName();
+    public String getName();
 
-	public TaintLabel toggleMark(MarkType mtype, ClangToken token) throws PcodeException;
+    /**
+     * Perform a Source-Sink query on the index database.
+     *
+     * @param program   the program whose pcode is being queried.
+     * @param tool      -
+     * @param queryType true -> perform the default query (i.e., do not build the query from the selected source)
+     * @return success
+     */
+    public boolean queryIndex(Program program, PluginTool tool, QueryType queryType);
 
-	public Set<TaintLabel> getTaintLabels(MarkType mtype);
+    public String getQueryName();
 
-	public boolean isValid();
+    public TaintLabel toggleMark(MarkType mtype, ClangToken token) throws PcodeException;
 
-	public AddressSet getTaintAddressSet();
+    public Set<TaintLabel> getTaintLabels(MarkType mtype);
 
-	public void setTaintAddressSet(AddressSet aset);
+    public boolean isValid();
 
-	public void augmentAddressSet(ClangToken token);
+    public AddressSet getTaintAddressSet();
 
-	public void clearTaint();
+    public void setTaintAddressSet(AddressSet aset);
 
-	public boolean isSink(HighVariable hvar);
+    public void augmentAddressSet(ClangToken token);
 
-	public void clearMarkers();
+    public void clearTaint();
 
-	public void loadTaintData(Program program, File sarif_file);
+    public boolean isSink(HighVariable hvar);
 
-	public SarifSchema210 getData();
+    public void clearMarkers();
 
-	public void clearData();
+    public void loadTaintData(Program program, File sarif_file);
 
-	public TaintOptions getOptions();
+    public SarifSchema210 getData();
 
-	// predicate that indicates there are sources, sinks, or gates.
-	public boolean hasMarks();
+    public void clearData();
 
-	public void setMonitor(TaskMonitor monitor);
+    public TaintOptions getOptions();
 
-	public boolean isCancelled();
+    // predicate that indicates there are sources, sinks, or gates.
+    public boolean hasMarks();
 
-	public void cancel();
+    public void setMonitor(TaskMonitor monitor);
 
-	public void setTaintVarnodeMap(Map<Address, Set<TaintQueryResult>> vmap, TaskType delta);
+    public boolean isCancelled();
 
-	public Map<Address, Set<TaintQueryResult>> getTaintVarnodeMap();
+    public void cancel();
 
-	public Set<TaintQueryResult> getQuerySet(Address addr);
+    public void setTaintVarnodeMap(Map<Address, Set<TaintQueryResult>> vmap, TaskType delta);
 
-	public void buildIndex(List<String> param_list, String engine_path, String facts_path,
-			String index_directory);
+    public Map<Address, Set<TaintQueryResult>> getTaintVarnodeMap();
 
-	public GhidraScript getExportScript(ConsoleService console, boolean perFunction);
+    public Set<TaintQueryResult> getQuerySet(Address addr);
 
-	public void setTaskType(TaskType taskType);
+    public void buildIndex(List<String> param_list, String engine_path, String facts_path,
+                           String index_directory);
 
-	public TaintLabel getLabelForToken(MarkType type, ClangToken token);
+    public GhidraScript getExportScript(ConsoleService console, boolean perFunction);
 
-	public static String varName(ClangToken token, boolean append) {
-		String tokenText = token.getText();
-		if (token instanceof ClangFieldToken ftoken) {
-			ClangVariableToken vtoken = TaintState.getParentToken(ftoken);
-			if (vtoken == null) {
-				return tokenText;
-			}
-			HighVariable hv = vtoken.getHighVariable();
-			Varnode rep = hv.getRepresentative();
-			return rep.getAddress().toString();
-		}
-		
-		HighVariable hv = token.getHighVariable();
-		if (hv != null) {
-			if (hv instanceof HighLocal && token.getVarnode() == null) {
-				int offset = hv.getOffset();
-				Varnode rep = hv.getRepresentative();
-				return rep.getAddress().subtract(offset).toString();
-			}
-			return hvarName(hv);
-		}
-		return tokenText;
-	}
+    public void setTaskType(TaskType taskType);
 
-	private static String hvarName(HighVariable hv) {
-		Varnode rep = hv.getRepresentative();
-		if (rep.getAddress().isUniqueAddress()) {
-			HighFunction hf = hv.getHighFunction();
-			DynamicHash dynamicHash = new DynamicHash(rep, hf);
-			return "hv"+Long.toString(dynamicHash.getHash());
-		}
-		if (hv.getName() == null || hv.getName().equals("UNNAMED")) {
-			if (hv instanceof HighConstant || hv instanceof HighOther) {
-				Address addr = rep.getAddress();
-				return addr.toString();
-			}
-			if (hv instanceof HighLocal) {
-				Address addr = rep.getAddress();
-				return addr.toString();
-			}
-			if (hv instanceof HighGlobal) {
-				Function fn = hv.getHighFunction().getFunction();
-				SymbolTable symbolTable = fn.getProgram().getSymbolTable();
-				Address addr = rep.getAddress();
-				Symbol symbol = symbolTable.getPrimarySymbol(addr);
-				if (symbol != null) {
-					return symbol.getName();
-				}
-				return addr.toString();
-			}
-			return null;
-		}
-		return hv.getName();
-	}
+    public TaintLabel getLabelForToken(MarkType type, ClangToken token);
 
-	public static ClangVariableToken getParentToken(ClangFieldToken token) {
-		ClangTokenGroup group = (ClangTokenGroup) token.Parent();
-		Iterator<ClangToken> iterator = group.tokenIterator(true);
-		ClangVariableToken parent = null;
-		while (iterator.hasNext()) {
-			ClangToken next = iterator.next();
-			if (next instanceof ClangVariableToken vtoken) {
-				parent = vtoken;
-			}
-			if (next instanceof ClangFieldToken ftoken) {
-				if (ftoken.equals(token)) {
-					return parent;
-				}
-			}
-		}
-		return null;
-	}
+    public enum MarkType {
+        SOURCE, SINK, GATE
+    }
 
-	public static boolean isActualParam(ClangToken token) {
-		PcodeOp pcodeOp = token.getPcodeOp();
-		if (pcodeOp != null) {
-			String mnemonic = pcodeOp.getMnemonic();
-			if (mnemonic.contains("CALL")) {
-				for (Varnode input : pcodeOp.getInputs()) {
-					if (input.equals(token.getVarnode())) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+    public enum QueryType {
+        SRCSINK, DEFAULT, CUSTOM
+    }
+
+    public enum TaskType {
+        SET_TAINT, SET_DELTA, APPLY_DELTA
+    }
 
 }

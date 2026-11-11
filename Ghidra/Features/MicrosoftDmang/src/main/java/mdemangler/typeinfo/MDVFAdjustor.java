@@ -15,38 +15,40 @@
  */
 package mdemangler.typeinfo;
 
-import mdemangler.*;
+import mdemangler.MDEncodedNumber;
+import mdemangler.MDException;
+import mdemangler.MDMang;
 import mdemangler.functiontype.MDFunctionType;
 
 /**
  * This class represents a Virtual Function Adjustor (Microsoft C++ mangling parlance)
- *  derivative of MDTypeInfo.
+ * derivative of MDTypeInfo.
  */
 public class MDVFAdjustor extends MDMemberFunctionInfo {
 
-	private MDEncodedNumber adjustment;
+    private MDEncodedNumber adjustment;
 
-	// Comment from wiki page: This kind of thunk (G,H,O,P,W,X) function is always virtual, and
-	// used to represent the logical "this" adjustor property, which means an offset to the
-	// true "this" value in some multiple inheritance situations.
-	public MDVFAdjustor(MDMang dmang) {
-		super(dmang);
-		mdtype = new MDFunctionType(dmang);
-		adjustment = new MDEncodedNumber(dmang);
-		setVirtual();
-		setThunk();
-	}
+    // Comment from wiki page: This kind of thunk (G,H,O,P,W,X) function is always virtual, and
+    // used to represent the logical "this" adjustor property, which means an offset to the
+    // true "this" value in some multiple inheritance situations.
+    public MDVFAdjustor(MDMang dmang) {
+        super(dmang);
+        mdtype = new MDFunctionType(dmang);
+        adjustment = new MDEncodedNumber(dmang);
+        setVirtual();
+        setThunk();
+    }
 
-	@Override
-	public String getModifier() {
-		return "`adjustor{" + adjustment + "}' ";
-	}
+    @Override
+    public String getModifier() {
+        return "`adjustor{" + adjustment + "}' ";
+    }
 
-	@Override
-	protected void parseInternal() throws MDException {
-		adjustment.parse();
-		super.parseInternal(); // TODO evaluate whether parseInternal() or parse.
-	}
+    @Override
+    protected void parseInternal() throws MDException {
+        adjustment.parse();
+        super.parseInternal(); // TODO evaluate whether parseInternal() or parse.
+    }
 }
 
 /******************************************************************************/

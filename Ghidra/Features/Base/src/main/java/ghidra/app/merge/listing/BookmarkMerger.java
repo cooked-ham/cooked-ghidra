@@ -566,7 +566,7 @@ class BookmarkMerger extends AbstractListingMerger {
 		}
 	}
 
-	private class BookmarkUid {
+	private static class BookmarkUid {
 		Address address;
 		String bookmarkType;
 		String bookmarkCategory;

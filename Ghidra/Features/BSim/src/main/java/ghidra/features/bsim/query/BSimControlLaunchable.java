@@ -3273,7 +3273,7 @@ public class BSimControlLaunchable implements GhidraLaunchable {
 	 * Class for processing standard output or standard error for processes invoked by BSimControl
 	 * The streams can be optionally suppressed or dumped to System.out
 	 */
-	private class IOThread extends Thread {
+	private static class IOThread extends Thread {
 		private BufferedReader shellOutput;		// Reader for the particular output stream
 		private boolean suppressOutput;			// If false, shell output is printed on the console
 

@@ -200,7 +200,7 @@ public class TableServicePlugin extends ProgramPlugin
 
 	public TableComponentProvider<?>[] getManagedComponents() {
 		List<TableComponentProvider<?>> clist = getProviders();
-		return clist.toArray(new TableComponentProvider[clist.size()]);
+		return clist.toArray(new TableComponentProvider[0]);
 	}
 
 	Program getProgram() {

@@ -61,7 +61,7 @@ public class SarifReturnTypeResultHandler extends SarifResultHandler {
 		return new ReturnTypeTaxonomyTask(tableProvider);
 	}
 
-	private class ReturnTypeTaxonomyTask extends ProgramTask {
+	private static class ReturnTypeTaxonomyTask extends ProgramTask {
 
 		private SarifResultsTableProvider tableProvider;
 

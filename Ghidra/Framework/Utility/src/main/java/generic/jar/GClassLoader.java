@@ -39,7 +39,7 @@ public class GClassLoader extends URLClassLoader {
 			addModuleJars(urls, new File(moduleDir, "lib"));
 		}
 
-		return urls.toArray(new URL[urls.size()]);
+		return urls.toArray(new URL[0]);
 	}
 
 	private static void addFileURL(List<URL> urls, File binDir) {

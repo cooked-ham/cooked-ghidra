@@ -159,7 +159,7 @@ class AutoTableDisassemblerModel extends AddressBasedTableModel<AddressTable> {
 		boolean contains(Address address);
 	}
 
-	private class NullStorage implements AddressTableStorage {
+	private static class NullStorage implements AddressTableStorage {
 
 		@Override
 		public void put(Address address, AddressTable table) {
@@ -177,7 +177,7 @@ class AutoTableDisassemblerModel extends AddressBasedTableModel<AddressTable> {
 		}
 	}
 
-	private class MapStorage implements AddressTableStorage {
+	private static class MapStorage implements AddressTableStorage {
 
 		private Map<Address, AddressTable> map = new HashMap<>();
 

@@ -115,7 +115,7 @@ public class ClosedPatternTableModel extends ThreadedTableModelStub<ClosedPatter
 
 	}
 
-	class ClosedPatternNumOccurrencesTableColumn
+	static class ClosedPatternNumOccurrencesTableColumn
 			extends AbstractDynamicTableColumn<ClosedPatternRowObject, Integer, Object> {
 
 		@Override
@@ -131,7 +131,7 @@ public class ClosedPatternTableModel extends ThreadedTableModelStub<ClosedPatter
 
 	}
 
-	class ClosedPatternFixedBitsTableColumn
+	static class ClosedPatternFixedBitsTableColumn
 			extends AbstractDynamicTableColumn<ClosedPatternRowObject, Integer, Object> {
 
 		@Override
@@ -147,7 +147,7 @@ public class ClosedPatternTableModel extends ThreadedTableModelStub<ClosedPatter
 
 	}
 
-	class ClosedPatternPercentageTableColumn
+	static class ClosedPatternPercentageTableColumn
 			extends AbstractDynamicTableColumn<ClosedPatternRowObject, Double, Object> {
 
 		@Override

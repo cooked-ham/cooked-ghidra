@@ -118,6 +118,6 @@ public class CommentUtilsTest extends AbstractGhidraHeadlessIntegrationTest {
 
 		comment = "Null\0 character test";
 		sanitized = CommentUtils.sanitize(comment);
-		assertEquals(sanitized, "Null character test");
+		assertEquals("Null character test", sanitized);
 	}
 }

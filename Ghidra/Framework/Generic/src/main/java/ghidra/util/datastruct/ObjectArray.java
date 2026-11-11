@@ -15,12 +15,14 @@
  */
 package ghidra.util.datastruct;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * Array of objects that grows as needed.
  */
 public class ObjectArray implements Array, Serializable {
+	@Serial
 	private final static long serialVersionUID = 1;
 
     static final int MIN_SIZE = 4;

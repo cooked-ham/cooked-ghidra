@@ -15,6 +15,7 @@
  */
 package ghidra.util.datastruct;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -22,6 +23,7 @@ import java.io.Serializable;
  * 
  */
 public class BooleanArray implements Array, Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
     private static final int MIN_SIZE = 4;
     private static final int[]  ONBITS = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };

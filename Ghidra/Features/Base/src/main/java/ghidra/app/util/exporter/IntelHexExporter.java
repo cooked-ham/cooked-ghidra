@@ -126,7 +126,7 @@ public class IntelHexExporter extends ProgramExporter {
 	 * <p>
 	 * Input may be specified in either decimal or hex.
 	 */
-	private class BoundedIntegerVerifier extends InputVerifier {
+	private static class BoundedIntegerVerifier extends InputVerifier {
 
 		@Override
 		public boolean verify(JComponent input) {

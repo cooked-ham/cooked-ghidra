@@ -15,6 +15,7 @@
  */
 package docking.widgets.filechooser;
 
+import java.io.Serial;
 import java.util.*;
 
 import java.io.File;
@@ -22,6 +23,7 @@ import java.io.File;
 import docking.widgets.table.AbstractSortedTableModel;
 
 class DirectoryTableModel extends AbstractSortedTableModel<File> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	final static int FILE_COL = 0;

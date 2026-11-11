@@ -328,7 +328,7 @@ public abstract class AbstractEditorTest extends AbstractGhidraHeadedIntegration
 		runSwing(() -> dialog.setInput(input));
 		waitForSwing();
 		JButton okButton = (JButton) getInstanceField("okButton", dialog);
-		assertTrue("Expected OkButton to be disabled", !okButton.isEnabled());
+		assertFalse("Expected OkButton to be disabled", okButton.isEnabled());
 	}
 
 	protected void okInput(NumberInputDialog dialog, int input) {
@@ -499,7 +499,7 @@ public abstract class AbstractEditorTest extends AbstractGhidraHeadedIntegration
 		program.endTransaction(txId, saveChanges);
 	}
 
-	protected class StatusListener extends CompositeEditorModelAdapter {
+	protected static class StatusListener extends CompositeEditorModelAdapter {
 		String status = null;
 		boolean beep = false;
 
@@ -734,7 +734,7 @@ public abstract class AbstractEditorTest extends AbstractGhidraHeadedIntegration
 	}
 
 	protected void assertNotEditingField() {
-		assertTrue("Editing cell when it should not be.", !isEditing());
+		assertFalse("Editing cell when it should not be.", isEditing());
 	}
 
 	protected void assertStatus(String status) {

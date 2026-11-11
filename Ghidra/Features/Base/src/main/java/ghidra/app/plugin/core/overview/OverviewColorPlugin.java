@@ -120,7 +120,7 @@ public class OverviewColorPlugin extends ProgramPlugin {
 		List<String> names =
 			activeServices.keySet().stream().map(s -> s.getName()).collect(Collectors.toList());
 
-		return names.toArray(new String[names.size()]);
+		return names.toArray(new String[0]);
 	}
 
 	private void createActions() {

@@ -15,6 +15,7 @@
  */
 package ghidra.program.model.data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -29,6 +30,7 @@ import ghidra.util.exception.DuplicateNameException;
  * Basic implementation of a DataTypeComponent
  */
 public class DataTypeComponentImpl implements InternalDataTypeComponent, Serializable {
+	@Serial
 	private final static long serialVersionUID = 1;
 
 	private DataType dataType;

@@ -17,6 +17,7 @@ package ghidra.app.merge.listing;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -44,6 +45,7 @@ import ghidra.util.layout.MaximizeSpecificColumnGridLayout;
  */
 public class VariousChoicesPanel extends ConflictPanel {
 
+	@Serial
 	private final static long serialVersionUID = 1;
 	private static final Border UNDERLINE_BORDER =
 		BorderFactory.createMatteBorder(0, 0, 1, 0, Colors.BORDER);
@@ -497,7 +499,7 @@ public class VariousChoicesPanel extends ConflictPanel {
 		return rows.size() > 0;
 	}
 
-	private class MyLabel extends GLabel {
+	private static class MyLabel extends GLabel {
 
 		/**
 		 * @param text the text of this label.
@@ -544,6 +546,7 @@ public class VariousChoicesPanel extends ConflictPanel {
 	}
 
 	private class MyRadioButton extends GRadioButton {
+		@Serial
 		private final static long serialVersionUID = 1;
 
 		/**
@@ -589,6 +592,7 @@ public class VariousChoicesPanel extends ConflictPanel {
 	}
 
 	private class MyCheckBox extends GCheckBox {
+		@Serial
 		private final static long serialVersionUID = 1;
 
 		/**

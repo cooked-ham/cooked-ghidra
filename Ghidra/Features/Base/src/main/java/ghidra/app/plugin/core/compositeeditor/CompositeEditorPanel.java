@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.*;
 import java.awt.event.*;
+import java.io.Serial;
 import java.math.BigInteger;
 import java.util.*;
 import java.util.List;
@@ -1144,6 +1145,7 @@ public abstract class CompositeEditorPanel<T extends Composite, M extends Compos
 	}
 
 	private class ComponentNameCellEditor extends ComponentStringCellEditor {
+		@Serial
 		private static final long serialVersionUID = 1L;
 
 		public ComponentNameCellEditor() {
@@ -1384,7 +1386,7 @@ public abstract class CompositeEditorPanel<T extends Composite, M extends Compos
 		}
 	}
 
-	private class CompositeEditorTable extends GTable {
+	private static class CompositeEditorTable extends GTable {
 
 		public CompositeEditorTable(TableModel model) {
 			super(model);

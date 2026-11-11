@@ -20,6 +20,7 @@ import ghidra.program.model.listing.Program;
 import ghidra.program.model.util.PropertyMap;
 import ghidra.program.model.util.PropertyMapManager;
 
+import java.io.Serial;
 import java.util.*;
 
 import javax.swing.table.AbstractTableModel;
@@ -28,6 +29,7 @@ import javax.swing.table.AbstractTableModel;
  * PropertyManagerTableModel
  */
 class PropertyManagerTableModel extends AbstractTableModel {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	static final int PROPERTY_NAME_COLUMN = 0;

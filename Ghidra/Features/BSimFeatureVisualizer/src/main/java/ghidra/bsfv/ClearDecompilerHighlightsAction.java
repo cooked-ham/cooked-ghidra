@@ -61,7 +61,7 @@ public class ClearDecompilerHighlightsAction extends DockingAction {
 		highlighter.applyHighlights();
 	}
 
-	private class ClearingHighlightMatcher implements CTokenHighlightMatcher {
+	private static class ClearingHighlightMatcher implements CTokenHighlightMatcher {
 		@Override
 		public Color getTokenHighlight(ClangToken token) {
 			return null;

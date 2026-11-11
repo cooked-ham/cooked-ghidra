@@ -61,7 +61,7 @@ public class ProjectDataOpenToolAction extends FrontendProjectTreeAction {
 		ToolTemplate template = toolChest.getToolTemplate(toolName);
 		PluginTool newTool = activeWorkspace.runTool(template);
 
-		DomainFile[] files = fileList.toArray(new DomainFile[fileList.size()]);
+		DomainFile[] files = fileList.toArray(new DomainFile[0]);
 		newTool.acceptDomainFiles(files);
 	}
 }

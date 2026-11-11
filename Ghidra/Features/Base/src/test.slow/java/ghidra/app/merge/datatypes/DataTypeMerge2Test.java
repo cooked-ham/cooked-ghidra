@@ -1457,7 +1457,7 @@ public class DataTypeMerge2Test extends AbstractDataTypeMergeTest {
 		assertEquals(1, vars.length);
 		checkDataType(new Pointer32DataType(new StringDataType()), vars[0].getDataType());
 		assertEquals("format", vars[0].getName());
-		assertEquals(null, vars[0].getComment());
+		assertNull(vars[0].getComment());
 		checkDataType(new WordDataType(), fd1.getReturnType());
 		assertFalse(fd1.hasVarArgs());
 
@@ -1468,7 +1468,7 @@ public class DataTypeMerge2Test extends AbstractDataTypeMergeTest {
 		assertEquals(1, vars2.length);
 		checkDataType(new Pointer32DataType(new StringDataType()), vars2[0].getDataType());
 		assertEquals("format", vars2[0].getName());
-		assertEquals(null, vars2[0].getComment());
+		assertNull(vars2[0].getComment());
 		checkDataType(new WordDataType(), fd2.getReturnType());
 		assertTrue(fd2.hasVarArgs());
 	}
@@ -1512,7 +1512,7 @@ public class DataTypeMerge2Test extends AbstractDataTypeMergeTest {
 		assertEquals(1, vars.length);
 		checkDataType(IntegerDataType.dataType, vars[0].getDataType());
 		assertEquals("rc", vars[0].getName());
-		assertEquals(null, vars[0].getComment());
+		assertNull(vars[0].getComment());
 		checkDataType(VoidDataType.dataType, fd1.getReturnType());
 		assertFalse(fd1.hasNoReturn());
 
@@ -1523,7 +1523,7 @@ public class DataTypeMerge2Test extends AbstractDataTypeMergeTest {
 		assertEquals(1, vars2.length);
 		checkDataType(IntegerDataType.dataType, vars2[0].getDataType());
 		assertEquals("rc", vars2[0].getName());
-		assertEquals(null, vars2[0].getComment());
+		assertNull(vars2[0].getComment());
 		checkDataType(VoidDataType.dataType, fd2.getReturnType());
 		assertTrue(fd2.hasNoReturn());
 	}

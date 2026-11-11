@@ -365,7 +365,7 @@ public class ResourceDataDirectory extends DataDirectory {
 					MenuResourceDataType menuResourceDataType = new MenuResourceDataType();
 					Data createData = PeUtils.createData(program, addr, menuResourceDataType, log);
 					if (createData != null) {
-						extraComment.append("\n" + setExtraCommentForMenuResource(createData));
+						extraComment.append("\n").append(setExtraCommentForMenuResource(createData));
 					}
 				}
 				else if (info.getTypeID() == ResourceDataDirectory.RT_DIALOG) {
@@ -373,7 +373,7 @@ public class ResourceDataDirectory extends DataDirectory {
 					Data createData =
 						PeUtils.createData(program, addr, dialogResourceDataType, log);
 					if (createData != null) {
-						extraComment.append("\n" + setExtraCommentForDialogResource(createData));
+						extraComment.append("\n").append(setExtraCommentForDialogResource(createData));
 					}
 				}
 				else if (info.getTypeID() == ResourceDataDirectory.RT_VERSION) {
@@ -560,13 +560,13 @@ public class ResourceDataDirectory extends DataDirectory {
 
 				int numItems = buffer.getShort(offset + 8);
 				int currentItem = 0;
-				comment.append("\nNumber of Items in Dialog: " + numItems);
+				comment.append("\nNumber of Items in Dialog: ").append(numItems);
 
 				//get three or five components after initial structure
 				for (int i = 0; i < numAfter; i++) {
 					offset += componentAt.getLength();
 					componentAt = data.getComponentContaining(offset);
-					comment.append("\n" + afterTemplate[i] + ": ");
+					comment.append("\n").append(afterTemplate[i]).append(": ");
 					if (componentAt.getBaseDataType().getName().equals("short")) {
 						comment.append(componentAt.getDefaultValueRepresentation());
 					}
@@ -578,7 +578,7 @@ public class ResourceDataDirectory extends DataDirectory {
 					if (componentAt.getBaseDataType().getName().equals("short[2]")) {
 						if ((buffer.getShort(offset) & 0xffff) == 0xffff) {
 							int ordinal = buffer.getShort(offset + 2);
-							comment.append("External Ordinal Number " + ordinal);
+							comment.append("External Ordinal Number ").append(ordinal);
 						}
 					}
 
@@ -594,12 +594,12 @@ public class ResourceDataDirectory extends DataDirectory {
 					componentAt = data.getComponentContaining(offset);
 					if (componentAt.getBaseDataType().getName().equals("DLGITEMTEMPLATE")) {
 						currentItem++;
-						comment.append("\nItem " + currentItem + ": ");
+						comment.append("\nItem ").append(currentItem).append(": ");
 						//loop over three items after each item structure
 						for (int i = 0; i < 3; i++) {
 							offset += componentAt.getLength();
 							componentAt = data.getComponentContaining(offset);
-							comment.append("\n   " + afterItem[i] + ": ");
+							comment.append("\n   ").append(afterItem[i]).append(": ");
 							if (componentAt.getBaseDataType().getName().startsWith("short[")) {
 								//no other info
 								if (buffer.getShort(offset) == 0x0000) {
@@ -742,7 +742,7 @@ public class ResourceDataDirectory extends DataDirectory {
 	public String toString() {
 		StringBuffer buff = new StringBuffer();
 		if (hasParsed) {
-			buff.append("\t\t" + "Resource Directory: [" + super.toString() + "]" + "\n");
+			buff.append("\t\t").append("Resource Directory: [").append(super.toString()).append("]").append("\n");
 			List<ResourceInfo> resources = getResources();
 			for (ResourceInfo info : resources) {
 				buff.append(

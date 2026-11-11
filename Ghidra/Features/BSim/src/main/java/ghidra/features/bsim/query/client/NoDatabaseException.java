@@ -15,7 +15,10 @@
  */
 package ghidra.features.bsim.query.client;
 
+import java.io.Serial;
+
 public class NoDatabaseException extends Exception {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public NoDatabaseException(String msg) {

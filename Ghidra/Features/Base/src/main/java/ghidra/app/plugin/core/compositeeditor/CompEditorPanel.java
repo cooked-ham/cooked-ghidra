@@ -1326,7 +1326,7 @@ public class CompEditorPanel<T extends Composite, M extends CompEditorModel<T>>
 	 * A simple class that allows clients to focus other components when the up or down arrows keys
 	 * are pressed
 	 */
-	private class UpAndDownKeyListener extends KeyAdapter {
+	private static class UpAndDownKeyListener extends KeyAdapter {
 
 		private JRadioButton previousComponent;
 		private JRadioButton nextComponent;

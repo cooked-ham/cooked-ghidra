@@ -17,6 +17,7 @@ package ghidra.framework.remote;
 
 import java.io.*;
 
+import java.io.Serial;
 import javax.security.auth.callback.Callback;
 
 import org.bouncycastle.crypto.CryptoException;
@@ -42,6 +43,7 @@ import org.bouncycastle.util.Strings;
  */
 public class SSHSignatureCallback implements Callback, Serializable {
 
+	@Serial
 	public static final long serialVersionUID = 1L;
 
 	private final byte[] token;

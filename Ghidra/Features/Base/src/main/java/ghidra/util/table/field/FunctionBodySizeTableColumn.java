@@ -46,7 +46,7 @@ public class FunctionBodySizeTableColumn
 
 	// this renderer disables the default text filtering; this column is only filterable
 	// via the column constraint filtering
-	private class FunctionBodySizeRenderer extends GTableCellRenderer
+	private static class FunctionBodySizeRenderer extends GTableCellRenderer
 			implements AbstractWrapperTypeColumnRenderer<Integer> {
 		// body is handled by parents
 	}

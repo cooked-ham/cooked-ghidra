@@ -272,7 +272,7 @@ public class ProgramDiffMergeOverlayTest extends AbstractProgramDiffTest {
 //		System.out.println("-----");
 //	}
 
-	private class MultiOverlayProgramModifierListener implements ProgramModifierListener {
+	private static class MultiOverlayProgramModifierListener implements ProgramModifierListener {
 
 		@Override
 		public void modifyLatest(ProgramDB program) {

@@ -244,7 +244,7 @@ public class SymbolPath implements Comparable<SymbolPath> {
 	public String[] asArray() {
 		List<String> list = new ArrayList<>();
 		addToList(list);
-		return list.toArray(new String[list.size()]);
+		return list.toArray(new String[0]);
 	}
 
 	@Override

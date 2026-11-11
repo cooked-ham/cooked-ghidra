@@ -135,7 +135,7 @@ public class DepthFirstSearch {
 				//vertices in increasing key order.
 				done = true;
 				if (getAdditionalSeedsIfNeeded && !unseen.isEmpty()) {
-					seeds = unseen.toArray(new Vertex[unseen.size()]);
+					seeds = unseen.toArray(new Vertex[0]);
 					done = false;
 				}
 			}
@@ -202,7 +202,7 @@ public class DepthFirstSearch {
 				//vertices in increasing key order.
 				done = true;
 				if (getAdditionalSeedsIfNeeded && !unseen.isEmpty()) {
-					seeds = unseen.toArray(new Vertex[unseen.size()]);
+					seeds = unseen.toArray(new Vertex[0]);
 					done = false;
 				}
 			}
@@ -279,7 +279,7 @@ public class DepthFirstSearch {
 				//vertices in increasing key order.
 				done = true;
 				if (getAdditionalSeedsIfNeeded && !unseen.isEmpty()) {
-					seeds = unseen.toArray(new Vertex[unseen.size()]);
+					seeds = unseen.toArray(new Vertex[0]);
 					done = false;
 				}
 			}
@@ -308,14 +308,14 @@ public class DepthFirstSearch {
 	 * Return the back edges found in this depth first search. 
 	 */
 	public Edge[] backEdges() {
-		return backEdges.toArray(new Edge[backEdges.size()]);
+		return backEdges.toArray(new Edge[0]);
 	}
 
 	/** 
 	 * Return the tree edges in this depth first search. 
 	 */
 	public Edge[] treeEdges() {
-		return treeEdges.toArray(new Edge[treeEdges.size()]);
+		return treeEdges.toArray(new Edge[0]);
 	}
 
 	/** 
@@ -349,7 +349,7 @@ public class DepthFirstSearch {
 	 * 
 	 */
 	public Vertex[] topologicalSort() {
-		return finishListInReverseOrder.toArray(new Vertex[finishListInReverseOrder.size()]);
+		return finishListInReverseOrder.toArray(new Vertex[0]);
 	}
 
 	/** 

@@ -17,6 +17,7 @@ package ghidra.app.plugin.core.bento;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serial;
 import java.util.*;
 import java.util.List;
 
@@ -27,6 +28,7 @@ import generic.theme.GThemeDefaults.Colors;
 import ghidra.util.Radix;
 
 public class BentoPanel extends JPanel implements MouseListener, MouseMotionListener {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private static final Color ARROW_COLOR =

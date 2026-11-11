@@ -203,7 +203,7 @@ public class SymbolUtilities1Test extends AbstractGhidraHeadedIntegrationTest {
 
 		Symbol s = SymbolUtilities.createPreferredLabelOrFunctionSymbol(program, addr(0x100),
 			null, "ABC", SourceType.IMPORTED);
-		assertEquals(null, s);
+		assertNull(s);
 
 		Symbol[] symbols = symbolTable.getSymbols(addr(0x100));
 		assertEquals(1, symbols.length);

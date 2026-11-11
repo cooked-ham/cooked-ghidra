@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 public class IDFLookup {
-	public class IDFEntry {
+	public static class IDFEntry {
 		public int hash;
 		public int count;
 	}

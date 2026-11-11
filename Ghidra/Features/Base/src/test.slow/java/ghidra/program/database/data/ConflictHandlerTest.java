@@ -569,7 +569,7 @@ public class ConflictHandlerTest extends AbstractGhidraHeadedIntegrationTest {
 			DataTypeConflictHandler.REPLACE_EMPTY_STRUCTS_OR_RENAME_AND_ADD_HANDLER);
 
 		assertEquals("TestStruct", structWithSource.getName());
-		assertTrue(struct == structWithSource);
+		assertSame(struct, structWithSource);
 		SourceArchive sourceArchive = struct.getSourceArchive();
 		assertEquals(source.getSourceArchiveID(), sourceArchive.getSourceArchiveID());
 		assertEquals(source.getName(), sourceArchive.getName());
@@ -587,13 +587,13 @@ public class ConflictHandlerTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals("size_t *", ptr1resolved.getName());
 
 		DataType ptr2resolvedA = dataMgr.resolve(ptr2, DataTypeConflictHandler.KEEP_HANDLER);
-		assertTrue(ptr2resolvedA == ptr1resolved);
+		assertSame(ptr2resolvedA, ptr1resolved);
 
 		DataType ptr2resolvedB = dataMgr.resolve(ptr2, DataTypeConflictHandler.DEFAULT_HANDLER);
 		assertEquals("size_t.conflict *", ptr2resolvedB.getName());
 
 		DataType ptr2resolvedC = dataMgr.resolve(ptr2, DataTypeConflictHandler.REPLACE_HANDLER);
-		assertTrue(ptr2resolvedC == ptr2resolvedB);
+		assertSame(ptr2resolvedC, ptr2resolvedB);
 	}
 
 	@Test
@@ -608,13 +608,13 @@ public class ConflictHandlerTest extends AbstractGhidraHeadedIntegrationTest {
 		assertEquals("size_t[2]", array1resolved.getName());
 
 		DataType array2resolvedA = dataMgr.resolve(array2, DataTypeConflictHandler.KEEP_HANDLER);
-		assertTrue(array2resolvedA == array1resolved);
+		assertSame(array2resolvedA, array1resolved);
 
 		DataType array2resolvedB = dataMgr.resolve(array2, DataTypeConflictHandler.DEFAULT_HANDLER);
 		assertEquals("size_t.conflict[2]", array2resolvedB.getName());
 
 		DataType array2resolvedC = dataMgr.resolve(array2, DataTypeConflictHandler.REPLACE_HANDLER);
-		assertTrue(array2resolvedC == array2resolvedB);
+		assertSame(array2resolvedC, array2resolvedB);
 	}
 
 	@Test
@@ -635,7 +635,7 @@ public class ConflictHandlerTest extends AbstractGhidraHeadedIntegrationTest {
 		Structure struct1b = (Structure) dataMgr.resolve(struct1,
 			DataTypeConflictHandler.REPLACE_EMPTY_STRUCTS_OR_RENAME_AND_ADD_HANDLER);
 
-		assertTrue(struct1a == struct1b);
+		assertSame(struct1a, struct1b);
 
 		assertEquals(5, dataMgr.getDataTypeRecordCount());
 	}
@@ -672,7 +672,7 @@ public class ConflictHandlerTest extends AbstractGhidraHeadedIntegrationTest {
 		struct1b = (Structure) dataMgr.resolve(struct1b,
 			DataTypeConflictHandler.REPLACE_EMPTY_STRUCTS_OR_RENAME_AND_ADD_HANDLER);
 
-		assertTrue(struct1a == struct1b);
+		assertSame(struct1a, struct1b);
 
 		assertNoConflict("s1");
 		assertNoConflict("s2");
@@ -728,7 +728,7 @@ public class ConflictHandlerTest extends AbstractGhidraHeadedIntegrationTest {
 		System.out.println(struct2b);
 
 		// struct1a should get eliminated and replaced by struct1b
-		assertTrue(struct1a == struct1b);
+		assertSame(struct1a, struct1b);
 
 		assertNoConflict("s1");
 		assertNoConflict("s2");

@@ -1158,7 +1158,7 @@ public class DecompilerNestedLayout extends AbstractFGLayout {
 	 * A class that represents 2D information about the contained vertex, such as location,
 	 * bounds, row and column of the layout grid.
 	 */
-	private class Vertex2d {
+	private static class Vertex2d {
 
 		private FGVertex v;
 		private Row<FGVertex> row;
@@ -1346,7 +1346,7 @@ public class DecompilerNestedLayout extends AbstractFGLayout {
 		}
 	}
 
-	private abstract class DecompilerBlock {
+	private static abstract class DecompilerBlock {
 		protected DecompilerBlock parent;
 		protected PcodeBlock pcodeBlock;
 		private int row;

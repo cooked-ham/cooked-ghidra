@@ -121,6 +121,6 @@ public abstract class HexValueFormatModel
 
 	@Override
 	public HelpLocation getHelpLocation() {
-		return new HelpLocation("ByteViewerPlugin", name.replaceAll(" ", "")); // "Hex Long" -> "HexLong"
+		return new HelpLocation("ByteViewerPlugin", name.replace(" ", "")); // "Hex Long" -> "HexLong"
 	}
 }

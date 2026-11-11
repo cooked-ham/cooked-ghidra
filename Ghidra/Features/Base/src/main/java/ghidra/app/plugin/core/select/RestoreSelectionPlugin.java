@@ -133,7 +133,7 @@ RESTORE_SELECTION_ACTION_NAME},
      * A state class to keep track of past and current selections and to determine when we can
      * restore an old selection.
      */
-    private class SelectionState {
+    private static class SelectionState {
         // null OR empty representative
         private final ProgramSelection NUMPTY_SELECTION = new ProgramSelection(); 
         private ProgramSelection activeSelection = NUMPTY_SELECTION;

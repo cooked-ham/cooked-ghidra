@@ -16,12 +16,14 @@
 package docking.widgets.pathmanager;
 
 import java.awt.Rectangle;
+import java.io.Serial;
 import java.util.*;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 class PathnameTableModel extends AbstractTableModel {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private ArrayList<String> pathList;

@@ -15,12 +15,14 @@
  */
 package ghidra.framework.remote;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import javax.security.auth.callback.Callback;
 
 public class AnonymousCallback implements Callback, Serializable {
 
+	@Serial
 	public static final long serialVersionUID = 1L;
 
 	private boolean anonymousAccessRequested = false;

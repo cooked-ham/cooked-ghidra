@@ -48,13 +48,13 @@ public class AddressMapDBTest extends AbstractGhidraHeadedIntegrationTest {
 		AddressSpace regSpace = p.getAddressFactory().getRegisterSpace();
 		Address a = regSpace.getAddress(0);
 		long key = addrMap.getKey(a, false);
-		assertEquals(0x3000000000000000l, key);
+		assertEquals(0x3000000000000000L, key);
 		Address b = addrMap.decodeAddress(key);
 		assertEquals(a, b);
 
 		a = regSpace.getAddress(10);
 		key = addrMap.getKey(a, false);
-		assertEquals(0x300000000000000al, key);
+		assertEquals(0x300000000000000aL, key);
 		b = addrMap.decodeAddress(key);
 		assertEquals(a, b);
 	}
@@ -64,13 +64,13 @@ public class AddressMapDBTest extends AbstractGhidraHeadedIntegrationTest {
 		AddressSpace stackSpace = p.getAddressFactory().getStackSpace();
 		Address a = stackSpace.getAddress(0);
 		long key = addrMap.getKey(a, false);
-		assertEquals(0x4000000000000000l, key);
+		assertEquals(0x4000000000000000L, key);
 		Address b = addrMap.decodeAddress(key);
 		assertEquals(a, b);
 
 		a = stackSpace.getAddress(10);
 		key = addrMap.getKey(a, false);
-		assertEquals(0x400000000000000al, key);
+		assertEquals(0x400000000000000aL, key);
 		b = addrMap.decodeAddress(key);
 		assertEquals(a, b);
 	}
@@ -80,7 +80,7 @@ public class AddressMapDBTest extends AbstractGhidraHeadedIntegrationTest {
 		AddressSpace regSpace = p.getAddressFactory().getRegisterSpace();
 		Address a = regSpace.getAddress(-1);
 		long key = addrMap.getKey(a, false);
-		assertEquals(0x300000000000ffffl, key);
+		assertEquals(0x300000000000ffffL, key);
 		Address b = addrMap.decodeAddress(key);
 		assertEquals(a, b);
 		assertEquals(regSpace.getAddress(0xffffL), b);
@@ -92,7 +92,7 @@ public class AddressMapDBTest extends AbstractGhidraHeadedIntegrationTest {
 		AddressSpace stackSpace = p.getAddressFactory().getStackSpace();
 		Address a = stackSpace.getAddress(-1);
 		long key = addrMap.getKey(a, false);
-		assertEquals(0x40000000ffffffffl, key);
+		assertEquals(0x40000000ffffffffL, key);
 		Address b = addrMap.decodeAddress(key);
 		assertEquals(a, b);
 

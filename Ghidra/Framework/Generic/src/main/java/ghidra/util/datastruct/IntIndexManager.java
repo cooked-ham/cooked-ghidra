@@ -15,6 +15,7 @@
  */
 package ghidra.util.datastruct;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -24,6 +25,7 @@ import java.util.ArrayList;
  * This class manages the use and reuse of those indexes.
  */
 public class IntIndexManager implements Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
 
     private int nextIndex;        // the smallest index that has never been used.

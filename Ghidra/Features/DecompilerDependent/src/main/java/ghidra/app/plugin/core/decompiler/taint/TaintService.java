@@ -15,14 +15,14 @@
  */
 package ghidra.app.plugin.core.decompiler.taint;
 
-import java.util.Map;
-import java.util.Set;
-
 import ghidra.app.plugin.core.decompiler.taint.TaintState.TaskType;
 import ghidra.framework.plugintool.ServiceInfo;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressSet;
 import ghidra.util.Swing;
+
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The TaintService provides a general service for retrieving or setting taint from an external engine
@@ -32,38 +32,40 @@ import ghidra.util.Swing;
 @ServiceInfo(defaultProvider = TaintPlugin.class, description = "supply taint")
 public interface TaintService {
 
-	/**
-	 * Get tainted address set
-	 * @return addresses
-	 */
-	public AddressSet getAddressSet();
+    /**
+     * Get tainted address set
+     *
+     * @return addresses
+     */
+    public AddressSet getAddressSet();
 
-	/**
-	 * Set taint using address set
-	 * 
-	 * @param set tainted addresses
-	 * @param clear before setting
-	 */
-	public void setAddressSet(AddressSet set, boolean clear);
+    /**
+     * Set taint using address set
+     *
+     * @param set   tainted addresses
+     * @param clear before setting
+     */
+    public void setAddressSet(AddressSet set, boolean clear);
 
-	/**
-	 * Get tainted varnode map
-	 * @return address-to-result map
-	 */
-	public Map<Address, Set<TaintQueryResult>> getVarnodeMap();
+    /**
+     * Get tainted varnode map
+     *
+     * @return address-to-result map
+     */
+    public Map<Address, Set<TaintQueryResult>> getVarnodeMap();
 
-	/**
-	 * Set taint using varnode map
-	 * 
-	 * @param vmap tainted addresses
-	 * @param clear before setting
-	 * @param taskType operation to be performed
-	 */
-	public void setVarnodeMap(Map<Address, Set<TaintQueryResult>> vmap, boolean clear, TaskType taskType);
+    /**
+     * Set taint using varnode map
+     *
+     * @param vmap     tainted addresses
+     * @param clear    before setting
+     * @param taskType operation to be performed
+     */
+    public void setVarnodeMap(Map<Address, Set<TaintQueryResult>> vmap, boolean clear, TaskType taskType);
 
-	/**
-	 * Clear existing taint
-	 */
-	public void clearTaint();
+    /**
+     * Clear existing taint
+     */
+    public void clearTaint();
 
 }

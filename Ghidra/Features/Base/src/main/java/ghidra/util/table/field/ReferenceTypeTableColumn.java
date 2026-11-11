@@ -73,7 +73,7 @@ public class ReferenceTypeTableColumn
 		return reftypeRenderer;
 	}
 
-	private class ReferenceTypeTableCellRenderer extends AbstractGhidraColumnRenderer<RefType> {
+	private static class ReferenceTypeTableCellRenderer extends AbstractGhidraColumnRenderer<RefType> {
 
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {

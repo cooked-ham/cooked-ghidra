@@ -570,7 +570,7 @@ public class ProgramTreePlugin2Test extends AbstractProgramTreePluginTest {
 
 		ProgramNode[] nodes = findNodes("Functions");
 		for (ProgramNode node2 : nodes) {
-			assertTrue(node2.getParent() != root);
+			assertNotSame(node2.getParent(), root);
 		}
 		undo();
 		destNode = (ProgramNode) root.getChildAt(5);// DLLs
@@ -583,7 +583,7 @@ public class ProgramTreePlugin2Test extends AbstractProgramTreePluginTest {
 		assertEquals("Functions", node.getName());
 		nodes = findNodes("Functions");
 		for (ProgramNode node2 : nodes) {
-			assertTrue(node2.getParent() != root);
+			assertNotSame(node2.getParent(), root);
 		}
 	}
 

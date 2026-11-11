@@ -47,6 +47,6 @@ public class ShowEquatesInSelectionScript extends GhidraScript {
 		EquateTable equateTable = currentProgram.getEquateTable();
 		AddressIterator it = equateTable.getEquateAddresses(scope);
 		List<Address> addresses = CollectionUtils.asList((Iterable<Address>) it);
-		show(addresses.toArray(new Address[addresses.size()]));
+		show(addresses.toArray(new Address[0]));
 	}
 }

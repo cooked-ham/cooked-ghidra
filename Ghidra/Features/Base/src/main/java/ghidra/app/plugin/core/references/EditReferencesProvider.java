@@ -812,7 +812,7 @@ public class EditReferencesProvider extends ComponentProviderAdapter
 //==================================================================================================
 
 	/** Fun little storage object */
-	private class ReferenceInfo {
+	private static class ReferenceInfo {
 		private Program program;
 		private CodeUnit codeUnit;
 		private int opIndex = 0;

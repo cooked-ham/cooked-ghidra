@@ -30,7 +30,7 @@ public class CliMethodExtraSections implements StructConverter {
 
 	private List<ExtraSection> extraSections = new ArrayList<>();
 
-	private class ExtraSection {
+	private static class ExtraSection {
 		public boolean isEHTable;
 		public boolean isFat;
 		public boolean hasMoreSections;

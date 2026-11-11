@@ -409,7 +409,7 @@ class RegisterMergeManager implements ListingMergeConstants {
 		return info;
 	}
 
-	private class RegisterConflicts {
+	private static class RegisterConflicts {
 
 		String conflictRegisterName;
 		ProgramContext conflictOriginalContext;
@@ -524,7 +524,7 @@ class RegisterMergeManager implements ListingMergeConstants {
 				}
 				monitor.checkCancelled();
 			}
-			return conflicts.toArray(new AddressRange[conflicts.size()]);
+			return conflicts.toArray(new AddressRange[0]);
 		}
 	}
 }

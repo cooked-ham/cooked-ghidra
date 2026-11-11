@@ -69,7 +69,7 @@ public class ProgramCachingServiceTest extends AbstractGhidraHeadedIntegrationTe
 		assertEquals(1, program1.getConsumerList().size()); // just the cache
 
 		Program program2 = service.openCachedProgram(domainFile, consumer2);
-		assertTrue(program1 == program2);
+		assertSame(program1, program2);
 		assertEquals(2, program2.getConsumerList().size()); // consumer2 and the cache
 
 	}
@@ -87,7 +87,7 @@ public class ProgramCachingServiceTest extends AbstractGhidraHeadedIntegrationTe
 		assertTrue(program.getConsumerList().contains(consumer1));
 
 		Program other = service.openCachedProgram(domainFile, consumer2);
-		assertTrue(program != other);
+		assertNotSame(program, other);
 		assertEquals(2, other.getConsumerList().size());   // cache and consumer 2
 		assertTrue(other.getConsumerList().contains(consumer2));
 		assertFalse(other.getConsumerList().contains(consumer1));

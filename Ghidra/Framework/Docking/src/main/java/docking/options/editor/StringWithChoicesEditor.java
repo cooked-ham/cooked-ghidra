@@ -28,7 +28,7 @@ public class StringWithChoicesEditor extends PropertyEditorSupport {
 	}
 
 	public StringWithChoicesEditor(List<String> choices) {
-		this.choices = choices.toArray(new String[choices.size()]);
+		this.choices = choices.toArray(new String[0]);
 	}
 
 	@Override

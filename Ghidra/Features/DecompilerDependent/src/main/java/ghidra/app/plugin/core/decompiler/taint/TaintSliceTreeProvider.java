@@ -901,7 +901,7 @@ public class TaintSliceTreeProvider extends ComponentProviderAdapter
 		return false;
 	}
 
-	private class UpdateFunctionNodeTask extends GTreeTask {
+	private static class UpdateFunctionNodeTask extends GTreeTask {
 
 		private Function function;
 
@@ -1023,7 +1023,7 @@ public class TaintSliceTreeProvider extends ComponentProviderAdapter
 // Inner Classes
 //==================================================================================================
 
-	private class ExpandToDepthTask extends GTreeExpandAllTask {
+	private static class ExpandToDepthTask extends GTreeExpandAllTask {
 
 		private int maxDepth;
 
@@ -1058,7 +1058,7 @@ public class TaintSliceTreeProvider extends ComponentProviderAdapter
 		}
 	}
 
-	private class PendingRootNode extends GTreeNode {
+	private static class PendingRootNode extends GTreeNode {
 
 		@Override
 		public Icon getIcon(boolean expanded) {
@@ -1081,7 +1081,7 @@ public class TaintSliceTreeProvider extends ComponentProviderAdapter
 		}
 	}
 
-	private class EmptyRootNode extends GTreeNode {
+	private static class EmptyRootNode extends GTreeNode {
 
 		@Override
 		public Icon getIcon(boolean expanded) {

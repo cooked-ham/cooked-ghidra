@@ -66,7 +66,7 @@ public class FileResource implements Resource {
 				fileList.add(resourceFile);
 			}
 		}
-		return fileList.toArray(new ResourceFile[fileList.size()]);
+		return fileList.toArray(new ResourceFile[0]);
 	}
 
 	@Override

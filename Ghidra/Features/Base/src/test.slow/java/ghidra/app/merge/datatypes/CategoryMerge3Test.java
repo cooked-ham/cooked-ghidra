@@ -106,7 +106,7 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 
 		Category root = dtm.getCategory(CategoryPath.ROOT);
 		assertNull(root.getCategory("MISC"));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/Category1/Category2/Category3/MISC")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/Category1/Category2/Category3/MISC")));
 		checkConflictCount(0);
 	}
 
@@ -166,7 +166,7 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 		DataTypeManager dtm = resultProgram.getDataTypeManager();
 
 		assertTrue(dtm.containsCategory(new CategoryPath("/MISC/My Category3")));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/Other Category3")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/Other Category3")));
 		checkConflictCount(0);
 	}
 
@@ -261,7 +261,7 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 
 		DataTypeManager dtm = resultProgram.getDataTypeManager();
 		assertTrue(dtm.containsCategory(new CategoryPath("/Category3")));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/Category1/Category2/My Category3")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/Category1/Category2/My Category3")));
 
 		checkConflictCount(0);
 	}
@@ -308,7 +308,7 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 		waitForCompletion();
 
 		assertTrue(dtm.containsCategory(new CategoryPath("/MISC/Category3")));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/Category3")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/Category3")));
 		checkConflictCount(0);
 	}
 
@@ -353,7 +353,7 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 
 		waitForCompletion();
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC/Category3")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC/Category3")));
 		assertTrue(dtm.containsCategory(new CategoryPath("/Category3")));
 		checkConflictCount(0);
 	}
@@ -399,8 +399,8 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 
 		waitForCompletion();
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC/Category3")));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/Category3")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC/Category3")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/Category3")));
 		assertTrue(dtm.containsCategory(new CategoryPath("/Category1/Category2/Category3")));
 		checkConflictCount(0);
 	}
@@ -553,8 +553,8 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 
 		assertTrue(
 			dtm.containsCategory(new CategoryPath("/Category1/Category2/Category5/Category3")));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/Category1/Category2/Category3")));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC/Category3")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/Category1/Category2/Category3")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC/Category3")));
 		checkConflictCount(0);
 
 	}
@@ -619,7 +619,7 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 		assertNotNull(
 			dtm.getDataType(new CategoryPath("/Category2/Category5/MyNewCategory"), "my_struct"));
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/Category1/Category2/Category5")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/Category1/Category2/Category5")));
 		Category c5 = dtm.getCategory(new CategoryPath("/Category2/Category5"));
 		assertEquals(0, c5.getDataTypes().length);
 
@@ -757,7 +757,7 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 		waitForCompletion();
 
 		assertTrue(dtm.containsCategory(new CategoryPath("/Category1/Category2/Category5/MISC")));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/Category1/Category2/Category3")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/Category1/Category2/Category3")));
 		checkConflictCount(0);
 
 	}
@@ -812,7 +812,7 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 		assertTrue(
 			dtm.containsCategory(new CategoryPath("/Category1/Category2/Category4/Category3")));
 		assertTrue(dtm.containsCategory(new CategoryPath("/Category1/Category2/Category4/MISC")));
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC")));
 		checkConflictCount(0);
 	}
 
@@ -856,7 +856,7 @@ public class CategoryMerge3Test extends AbstractDataTypeMergeTest {
 
 		waitForCompletion();
 
-		assertTrue(!dtm.containsCategory(new CategoryPath("/MISC/Category5")));
+		assertFalse(dtm.containsCategory(new CategoryPath("/MISC/Category5")));
 		assertTrue(dtm.containsCategory(new CategoryPath("/Category1/Category2/Category5/MISC")));
 		checkConflictCount(0);
 

@@ -207,7 +207,7 @@ public class HeaderActionsTest extends AbstractGhidraHeadedIntegrationTest {
 		DockingAction headerAction = getHeaderAction("Disable Field");
 		performAction(headerAction, context, true);
 
-		assertTrue(!factories[1].isEnabled());
+		assertFalse(factories[1].isEnabled());
 
 		headerAction = getHeaderAction("Enable Field");
 		performAction(headerAction, context, true);
@@ -230,7 +230,7 @@ public class HeaderActionsTest extends AbstractGhidraHeadedIntegrationTest {
 		performAction(headerAction, context, true);
 
 		factories = functionFormat.getFactorys(0);
-		assertTrue(!(factories[2] instanceof FunctionSignatureFieldFactory));
+		assertFalse(factories[2] instanceof FunctionSignatureFieldFactory);
 		assertEquals(3, factories.length);
 	}
 

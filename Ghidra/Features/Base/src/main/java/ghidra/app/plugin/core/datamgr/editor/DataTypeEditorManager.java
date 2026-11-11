@@ -536,7 +536,7 @@ public class DataTypeEditorManager implements EditorListener {
 	 * function signature associated with a specific {@link FunctionDefinition}.
 	 * Use of this editor requires the presence of the tool-based datatype manager service.
 	 */
-	private class DTMEditFunctionSignatureDialog extends AbstractEditFunctionSignatureDialog {
+	private static class DTMEditFunctionSignatureDialog extends AbstractEditFunctionSignatureDialog {
 		private final FunctionDefinition functionDefinition; // may be null
 		private final FunctionSignature oldSignature;
 		private final Category category;

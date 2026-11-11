@@ -633,7 +633,7 @@ class FlowArrowMarginProvider implements ListingMarginProvider {
 	 * An arrow group is all arrows that will be in the same column.  The column for an arrow
 	 * will be based on the first group to assign a column.
 	 */
-	private class ArrowGroup {
+	private static class ArrowGroup {
 
 		private Set<FlowArrow> arrows = new HashSet<>();
 		private AddressSet addrs = new AddressSet();
@@ -726,7 +726,7 @@ class FlowArrowMarginProvider implements ListingMarginProvider {
 			flowsBelow.clear();
 		}
 
-		private class OffScreenFlow {
+		private static class OffScreenFlow {
 			private boolean conditional;
 			private boolean fallthrough;
 			private boolean other;

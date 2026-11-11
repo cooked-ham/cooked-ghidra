@@ -169,7 +169,7 @@ public class YaraGhidraGUIScript extends GhidraScript {
 
 		// Add the formatted string to our final output, and add some boilerplate Yara 
 		// stuff.
-		yaraString.append("\t\t$STR" + 1 + " = { " + fullStr + " }\n");
+		yaraString.append("\t\t$STR").append(1).append(" = { ").append(fullStr).append(" }\n");
 		yaraString.append("\n\tcondition:\n");
 		yaraString.append("\t\t$STR1");
 		yaraString.append("\n}\n");

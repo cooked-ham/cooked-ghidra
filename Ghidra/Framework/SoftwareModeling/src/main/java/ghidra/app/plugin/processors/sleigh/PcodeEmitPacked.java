@@ -31,7 +31,7 @@ import ghidra.program.model.pcode.*;
  */
 public class PcodeEmitPacked extends PcodeEmit {
 
-	public class LabelRef {
+	public static class LabelRef {
 		public int opIndex;		// Index of operation referencing the label
 		public int labelIndex;	// Index of label being referenced
 		public int labelSize;	// Number of bytes in the label

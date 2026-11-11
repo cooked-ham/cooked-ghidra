@@ -314,7 +314,7 @@ public class SearchGuiMulti extends SearchBaseExtended {
 		frame.dispose();
 	}
 
-	private class DataObject {
+	private static class DataObject {
 		private String data;
 		private Color background = Colors.BACKGROUND;
 

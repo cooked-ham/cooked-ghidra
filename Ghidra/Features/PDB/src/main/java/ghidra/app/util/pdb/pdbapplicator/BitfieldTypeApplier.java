@@ -69,7 +69,7 @@ public class BitfieldTypeApplier extends MsDataTypeApplier {
 	 * <code>Pdb2BitField</code> provides ability to hang onto bitfield as a datatype.
 	 * This will be transformed to a normal BitFieldDataType when cloned.
 	 */
-	private class Pdb2BitField extends PdbBitField {
+	private static class Pdb2BitField extends PdbBitField {
 		private Pdb2BitField(DataType baseDataType, int bitSize, int bitOffsetWithinBaseType)
 				throws InvalidDataTypeException {
 			super(baseDataType, bitSize, bitOffsetWithinBaseType);

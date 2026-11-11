@@ -349,7 +349,7 @@ public class FilterOptionsEditorDialog extends DialogComponentProvider {
 	 * define how multiple terms are logically applied; eg: 'AND' means that all filter terms
 	 * must be matched, 'OR' means any single term must match.
 	 */
-	class MultiTermPanel extends InlineComponentTitledPanel {
+	static class MultiTermPanel extends InlineComponentTitledPanel {
 
 		private JLayer<?> optionsPaneDisableLayer;
 
@@ -499,7 +499,7 @@ public class FilterOptionsEditorDialog extends DialogComponentProvider {
 			add(optionsPaneDisableLayer);
 		}
 
-		private class DelimiterListCellRenderer extends GComboBoxCellRenderer<String> {
+		private static class DelimiterListCellRenderer extends GComboBoxCellRenderer<String> {
 
 			public DelimiterListCellRenderer() {
 				setHTMLRenderingEnabled(true);

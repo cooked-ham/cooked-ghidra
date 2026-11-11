@@ -122,7 +122,7 @@ public class ProjectFolderValue extends AbstractValue<DomainFolder> {
 	/**
 	 * Component used by ProjectFolderValues for picking project folders
 	 */
-	class ProjectFolderBrowserPanel extends AbstractProjectBrowserPanel {
+	static class ProjectFolderBrowserPanel extends AbstractProjectBrowserPanel {
 
 		ProjectFolderBrowserPanel(Project project, String name, String startPath) {
 			super(CHOOSE_FOLDER, project, name, startPath);

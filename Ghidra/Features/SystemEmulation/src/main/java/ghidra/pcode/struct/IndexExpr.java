@@ -20,43 +20,43 @@ import ghidra.pcode.struct.StructuredSleigh.RVal;
 import ghidra.program.model.data.DataType;
 
 class IndexExpr extends Expr implements LValInternal {
-	private final RValInternal base;
-	private final RValInternal index;
-	private final int elemLen;
+    private final RValInternal base;
+    private final RValInternal index;
+    private final int elemLen;
 
-	private IndexExpr(StructuredSleigh ctx, RVal base, RVal index, int elemLen, DataType type) {
-		super(ctx, type);
-		this.base = (RValInternal) base;
-		this.index = (RValInternal) index;
-		this.elemLen = elemLen;
-	}
+    private IndexExpr(StructuredSleigh ctx, RVal base, RVal index, int elemLen, DataType type) {
+        super(ctx, type);
+        this.base = (RValInternal) base;
+        this.index = (RValInternal) index;
+        this.elemLen = elemLen;
+    }
 
-	protected IndexExpr(StructuredSleigh ctx, RVal base, RVal index) {
-		this(ctx, base, index, ctx.computeElementLength(base), base.getType());
-	}
+    protected IndexExpr(StructuredSleigh ctx, RVal base, RVal index) {
+        this(ctx, base, index, ctx.computeElementLength(base), base.getType());
+    }
 
-	@Override
-	public LVal cast(DataType type) {
-		return new IndexExpr(ctx, base, index, elemLen, type);
-	}
+    @Override
+    public LVal cast(DataType type) {
+        return new IndexExpr(ctx, base, index, elemLen, type);
+    }
 
-	@Override
-	public String toString() {
-		return "<Index " + base + " 0x" + Long.toString(elemLen, 16) + "*" + index + ">";
-	}
+    @Override
+    public String toString() {
+        return "<Index " + base + " 0x" + Long.toString(elemLen, 16) + "*" + index + ">";
+    }
 
-	@Override
-	public StringTree generate(RValInternal parent) {
-		StringTree st = new StringTree();
-		st.append("(");
-		st.append(base.generate(this));
-		st.append(" + (");
-		st.append(index.generate(this));
-		if (elemLen != 1) {
-			st.append("*");
-			st.append(Integer.toString(elemLen));
-		}
-		st.append("))");
-		return st;
-	}
+    @Override
+    public StringTree generate(RValInternal parent) {
+        StringTree st = new StringTree();
+        st.append("(");
+        st.append(base.generate(this));
+        st.append(" + (");
+        st.append(index.generate(this));
+        if (elemLen != 1) {
+            st.append("*");
+            st.append(Integer.toString(elemLen));
+        }
+        st.append("))");
+        return st;
+    }
 }

@@ -16,11 +16,14 @@
  */
 package ghidra.util.datastruct;
 
+import java.io.Serial;
+
 /**
  * Data table that keeps track of rows that are occupied.
  * 
  */
 public class ManagedDataTable extends DataTable {
+    @Serial
     private final static long serialVersionUID = 1;
 
     private BooleanArray occupied = new BooleanArray();

@@ -81,7 +81,7 @@ public class SimilarStartsTableModel extends AddressBasedTableModel<SimilarStart
 		return descriptor;
 	}
 
-	private class AddressTableColumn
+	private static class AddressTableColumn
 			extends AbstractDynamicTableColumn<SimilarStartRowObject, String, Object> {
 
 		@Override

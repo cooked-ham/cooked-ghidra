@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,118 +29,115 @@ import java.util.StringTokenizer;
 
 public class LocalVariableInfo extends LocalVariableImpl {
 
-	static LocalVariableInfo createLocalVariableInfo(Variable localVariable) {
-		try {
-			LocalVariableInfo localVarInfo =
-				new LocalVariableInfo(localVariable.getName(), localVariable.getFirstUseOffset(),
-					localVariable.getDataType(), localVariable.getVariableStorage(),
-					localVariable.getProgram(), localVariable.getSource());
+    LocalVariableInfo(String name, int firstUseOffset, DataType dataType, VariableStorage storage,
+                      Program program, SourceType sourceType) throws InvalidInputException {
+        super(name, firstUseOffset, dataType, storage, true, program, sourceType);
+    }
 
-			localVarInfo.setComment(localVariable.getComment());
+    static LocalVariableInfo createLocalVariableInfo(Variable localVariable) {
+        try {
+            LocalVariableInfo localVarInfo =
+                    new LocalVariableInfo(localVariable.getName(), localVariable.getFirstUseOffset(),
+                            localVariable.getDataType(), localVariable.getVariableStorage(),
+                            localVariable.getProgram(), localVariable.getSource());
 
-			return localVarInfo;
-		}
-		catch (InvalidInputException e) {
-			throw new AssertException("Failed to clone local variable: " +
-				localVariable.getFunction().getName() + ":" + localVariable.getName());
-		}
-	}
+            localVarInfo.setComment(localVariable.getComment());
 
-	static LocalVariableInfo createLocalVariableInfo(String localVariableInfoString, Program program) {
+            return localVarInfo;
+        } catch (InvalidInputException e) {
+            throw new AssertException("Failed to clone local variable: " +
+                    localVariable.getFunction().getName() + ":" + localVariable.getName());
+        }
+    }
 
-		try {
-			StringTokenizer tokenizer =
-				new StringTokenizer(localVariableInfoString, Stringable.DELIMITER);
-			tokenizer.nextToken(); // the first element is the class name
+    static LocalVariableInfo createLocalVariableInfo(String localVariableInfoString, Program program) {
 
-			long managerUniversalID = Long.parseLong(tokenizer.nextToken());
-			long dataTypeID = Long.parseLong(tokenizer.nextToken());
-			String dataTypeName = tokenizer.nextToken();
+        try {
+            StringTokenizer tokenizer =
+                    new StringTokenizer(localVariableInfoString, Stringable.DELIMITER);
+            tokenizer.nextToken(); // the first element is the class name
 
-			DataType dt = getDataType(program, managerUniversalID, dataTypeID);
-			if (dt == null || !dt.getName().equals(dataTypeName)) {
-				throw new AssertException("Data type name/ID mismatch " + dt.getName() +
-					" doesn't match " + dataTypeName + ".");
-			}
+            long managerUniversalID = Long.parseLong(tokenizer.nextToken());
+            long dataTypeID = Long.parseLong(tokenizer.nextToken());
+            String dataTypeName = tokenizer.nextToken();
 
-			int firstUseOffset = Integer.parseInt(tokenizer.nextToken());
-			String localVariableName = tokenizer.nextToken();
-			SourceType sourceType = SourceType.valueOf(tokenizer.nextToken());
-			String comment = tokenizer.nextToken();
+            DataType dt = getDataType(program, managerUniversalID, dataTypeID);
+            if (dt == null || !dt.getName().equals(dataTypeName)) {
+                throw new AssertException("Data type name/ID mismatch " + dt.getName() +
+                        " doesn't match " + dataTypeName + ".");
+            }
 
-			VariableStorage storage = VariableStorage.deserialize(program, tokenizer.nextToken());
+            int firstUseOffset = Integer.parseInt(tokenizer.nextToken());
+            String localVariableName = tokenizer.nextToken();
+            SourceType sourceType = SourceType.valueOf(tokenizer.nextToken());
+            String comment = tokenizer.nextToken();
 
-			LocalVariableInfo localVarInfo =
-				new LocalVariableInfo(localVariableName, firstUseOffset, dt, storage, program,
-					sourceType);
-			localVarInfo.setComment(comment);
+            VariableStorage storage = VariableStorage.deserialize(program, tokenizer.nextToken());
 
-			return localVarInfo;
-		}
-		catch (Exception e) {
-			throw new AssertException("Failed to deserialize local variable (" +
-				localVariableInfoString + "): " + e.getMessage());
-		}
-	}
+            LocalVariableInfo localVarInfo =
+                    new LocalVariableInfo(localVariableName, firstUseOffset, dt, storage, program,
+                            sourceType);
+            localVarInfo.setComment(comment);
 
-	private static DataType getDataType(Program program, long managerUniversalID, long dataTypeID) {
-		DataTypeManager dataTypeManager = program.getDataTypeManager();
-		long actualUniversalID = dataTypeManager.getUniversalID().getValue();
-		if (actualUniversalID != managerUniversalID) {
-			throw new AssertException("Provided data type manager ID of " + actualUniversalID +
-				" doesn't matched saved ID of " + managerUniversalID + ".");
-		}
-		return dataTypeManager.getDataType(dataTypeID);
-	}
+            return localVarInfo;
+        } catch (Exception e) {
+            throw new AssertException("Failed to deserialize local variable (" +
+                    localVariableInfoString + "): " + e.getMessage());
+        }
+    }
 
-	LocalVariableInfo(String name, int firstUseOffset, DataType dataType, VariableStorage storage,
-			Program program, SourceType sourceType) throws InvalidInputException {
-		super(name, firstUseOffset, dataType, storage, true, program, sourceType);
-	}
+    private static DataType getDataType(Program program, long managerUniversalID, long dataTypeID) {
+        DataTypeManager dataTypeManager = program.getDataTypeManager();
+        long actualUniversalID = dataTypeManager.getUniversalID().getValue();
+        if (actualUniversalID != managerUniversalID) {
+            throw new AssertException("Provided data type manager ID of " + actualUniversalID +
+                    " doesn't matched saved ID of " + managerUniversalID + ".");
+        }
+        return dataTypeManager.getDataType(dataTypeID);
+    }
 
-	String convertToString() {
+    String convertToString() {
 
-		DataTypeManager dataTypeMananger = getProgram().getDataTypeManager();
-		DataType dt = getDataType();
+        DataTypeManager dataTypeMananger = getProgram().getDataTypeManager();
+        DataType dt = getDataType();
 
-		StringBuffer buffy = new StringBuffer();
-		buffy.append(getClass().getSimpleName()).append(Stringable.DELIMITER);
-		buffy.append(Long.toString(dataTypeMananger.getUniversalID().getValue())).append(
-			Stringable.DELIMITER);
-		buffy.append(Long.toString(dataTypeMananger.getID(dt))).append(Stringable.DELIMITER);
-		buffy.append(dt.getName()).append(Stringable.DELIMITER);
-		buffy.append(Integer.toString(getFirstUseOffset())).append(Stringable.DELIMITER);
-		buffy.append(getName()).append(Stringable.DELIMITER);
-		buffy.append(getSource().name()).append(Stringable.DELIMITER);
-		buffy.append(getComment()).append(Stringable.DELIMITER);
-		buffy.append(getVariableStorage().getSerializationString());
-		return buffy.toString();
-	}
+        StringBuffer buffy = new StringBuffer();
+        buffy.append(getClass().getSimpleName()).append(Stringable.DELIMITER);
+        buffy.append(Long.toString(dataTypeMananger.getUniversalID().getValue())).append(
+                Stringable.DELIMITER);
+        buffy.append(Long.toString(dataTypeMananger.getID(dt))).append(Stringable.DELIMITER);
+        buffy.append(dt.getName()).append(Stringable.DELIMITER);
+        buffy.append(Integer.toString(getFirstUseOffset())).append(Stringable.DELIMITER);
+        buffy.append(getName()).append(Stringable.DELIMITER);
+        buffy.append(getSource().name()).append(Stringable.DELIMITER);
+        buffy.append(getComment()).append(Stringable.DELIMITER);
+        buffy.append(getVariableStorage().getSerializationString());
+        return buffy.toString();
+    }
 
-	public Variable createLocalVariable(Function destFunction, Address destinationStorageAddress) {
-		try {
-			long offset = destinationStorageAddress.subtract(destFunction.getEntryPoint());
-			Variable var =
-				new MyLocalVariable(getName(), (int) offset, getDataType(),
-					getVariableStorage().getSerializationString(), destFunction.getProgram(),
-					getSource());
-			var.setComment(getComment());
-			return var;
-		}
-		catch (InvalidInputException e) {
-			Msg.error(this, "Unable to apply local variable '" + getName() + "' to function " +
-				destFunction.getName() + ": " + e.getMessage());
-			return null;
-		}
-	}
+    public Variable createLocalVariable(Function destFunction, Address destinationStorageAddress) {
+        try {
+            long offset = destinationStorageAddress.subtract(destFunction.getEntryPoint());
+            Variable var =
+                    new MyLocalVariable(getName(), (int) offset, getDataType(),
+                            getVariableStorage().getSerializationString(), destFunction.getProgram(),
+                            getSource());
+            var.setComment(getComment());
+            return var;
+        } catch (InvalidInputException e) {
+            Msg.error(this, "Unable to apply local variable '" + getName() + "' to function " +
+                    destFunction.getName() + ": " + e.getMessage());
+            return null;
+        }
+    }
 
-	private static class MyLocalVariable extends LocalVariableImpl {
-		MyLocalVariable(String name, int firstUseOffset, DataType dataType,
-				String serializedStorage, Program program, SourceType sourceType)
-				throws InvalidInputException {
-			super(name, firstUseOffset, dataType, VariableStorage.deserialize(program,
-				serializedStorage), true, program, sourceType);
-		}
-	}
+    private static class MyLocalVariable extends LocalVariableImpl {
+        MyLocalVariable(String name, int firstUseOffset, DataType dataType,
+                        String serializedStorage, Program program, SourceType sourceType)
+                throws InvalidInputException {
+            super(name, firstUseOffset, dataType, VariableStorage.deserialize(program,
+                    serializedStorage), true, program, sourceType);
+        }
+    }
 
 }

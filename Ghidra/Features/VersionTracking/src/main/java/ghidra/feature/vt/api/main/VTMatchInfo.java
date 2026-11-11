@@ -156,14 +156,14 @@ public class VTMatchInfo {
 		double confScoreValue =
 			getConfidenceScore() == null ? 0.0 : getConfidenceScore().getScore();
 		buffer.append("\nMatchInfo: ");
-		buffer.append("\n  Type               = " + getAssociationType());
-		buffer.append("\n  Similarity Score   = " + simScoreValue);
-		buffer.append("\n  Confidence Score   = " + confScoreValue);
-		buffer.append("\n  SourceAddress      = " + getSourceAddress());
-		buffer.append("\n  DestinationAddress = " + getDestinationAddress());
-		buffer.append("\n  SourceLength       = " + getSourceLength());
-		buffer.append("\n  DestinationLength  = " + getDestinationLength());
-		buffer.append("\n  Tagged             = " + getTag());
+		buffer.append("\n  Type               = ").append(getAssociationType());
+		buffer.append("\n  Similarity Score   = ").append(simScoreValue);
+		buffer.append("\n  Confidence Score   = ").append(confScoreValue);
+		buffer.append("\n  SourceAddress      = ").append(getSourceAddress());
+		buffer.append("\n  DestinationAddress = ").append(getDestinationAddress());
+		buffer.append("\n  SourceLength       = ").append(getSourceLength());
+		buffer.append("\n  DestinationLength  = ").append(getDestinationLength());
+		buffer.append("\n  Tagged             = ").append(getTag());
 		return buffer.toString();
 	}
 }

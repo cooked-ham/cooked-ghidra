@@ -23,117 +23,117 @@ import ghidra.framework.options.GProperties;
  * address field display.
  */
 public class AddressFieldOptionsWrappedOption implements CustomOption {
-	private static final String PAD_WITH_ZEROS = "PadWithZeros";
-	private static final String MIN_HEXL_DIGITS = "MinHexDigits";
-	private static final String RIGHT_JUSTIFY = "RightJustify";
-	private static final String SHOW_BLOCK_NAME = "ShowBlockName";
-	private static final String DISPLAY_UPPER_CASE = "DisplayUpperCase";
+    private static final String PAD_WITH_ZEROS = "PadWithZeros";
+    private static final String MIN_HEXL_DIGITS = "MinHexDigits";
+    private static final String RIGHT_JUSTIFY = "RightJustify";
+    private static final String SHOW_BLOCK_NAME = "ShowBlockName";
+    private static final String DISPLAY_UPPER_CASE = "DisplayUpperCase";
 
-	private static final boolean DEFAULT_PAD_WITH_ZEROS = false;
-	private static final boolean DEFAULT_SHOW_BLOCK_NAME = false;
-	private static final boolean DEFAULT_RIGHT_JUSTIFY = true;
-	private static final int DEFAULT_MIN_HEX_DIGITS = 8;
-	private static final boolean DEFAULT_DISPLAY_UPPER_CASE = false;
+    private static final boolean DEFAULT_PAD_WITH_ZEROS = false;
+    private static final boolean DEFAULT_SHOW_BLOCK_NAME = false;
+    private static final boolean DEFAULT_RIGHT_JUSTIFY = true;
+    private static final int DEFAULT_MIN_HEX_DIGITS = 8;
+    private static final boolean DEFAULT_DISPLAY_UPPER_CASE = false;
 
-	// init with default values
-	private boolean padWithZeros = DEFAULT_PAD_WITH_ZEROS;
-	private boolean showBlockName = DEFAULT_SHOW_BLOCK_NAME;
-	private boolean rightJustify = DEFAULT_RIGHT_JUSTIFY;
-	private int minHexDigits = DEFAULT_MIN_HEX_DIGITS;
-	private boolean displayUpperCase = DEFAULT_DISPLAY_UPPER_CASE;
+    // init with default values
+    private boolean padWithZeros = DEFAULT_PAD_WITH_ZEROS;
+    private boolean showBlockName = DEFAULT_SHOW_BLOCK_NAME;
+    private boolean rightJustify = DEFAULT_RIGHT_JUSTIFY;
+    private int minHexDigits = DEFAULT_MIN_HEX_DIGITS;
+    private boolean displayUpperCase = DEFAULT_DISPLAY_UPPER_CASE;
 
-	public AddressFieldOptionsWrappedOption() {
-		// required for persistence
-	}
+    public AddressFieldOptionsWrappedOption() {
+        // required for persistence
+    }
 
-	public boolean padWithZeros() {
-		return padWithZeros;
-	}
+    public boolean padWithZeros() {
+        return padWithZeros;
+    }
 
-	public int getMinimumHexDigits() {
-		return minHexDigits;
-	}
+    public int getMinimumHexDigits() {
+        return minHexDigits;
+    }
 
-	public boolean rightJustify() {
-		return rightJustify;
-	}
+    public void setMinimumHexDigits(int numDigits) {
+        this.minHexDigits = numDigits;
+    }
 
-	public boolean showBlockName() {
-		return showBlockName;
-	}
+    public boolean rightJustify() {
+        return rightJustify;
+    }
 
-	public void setPadWithZeros(boolean padWithZeros) {
-		this.padWithZeros = padWithZeros;
-	}
+    public boolean showBlockName() {
+        return showBlockName;
+    }
 
-	public void setMinimumHexDigits(int numDigits) {
-		this.minHexDigits = numDigits;
-	}
+    public void setPadWithZeros(boolean padWithZeros) {
+        this.padWithZeros = padWithZeros;
+    }
 
-	public void setShowBlockName(boolean b) {
-		showBlockName = b;
-	}
+    public void setShowBlockName(boolean b) {
+        showBlockName = b;
+    }
 
-	public void setRightJustify(boolean b) {
-		rightJustify = b;
-	}
+    public void setRightJustify(boolean b) {
+        rightJustify = b;
+    }
 
-	public boolean displayUpperCase() {
-		return displayUpperCase;
-	}
+    public boolean displayUpperCase() {
+        return displayUpperCase;
+    }
 
-	public void setDisplayUpperCase(boolean b) {
-		displayUpperCase = b;
-	}
+    public void setDisplayUpperCase(boolean b) {
+        displayUpperCase = b;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (!(obj instanceof AddressFieldOptionsWrappedOption)) {
-			return false;
-		}
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof AddressFieldOptionsWrappedOption)) {
+            return false;
+        }
 
-		if (this == obj) {
-			return true;
-		}
+        if (this == obj) {
+            return true;
+        }
 
-		AddressFieldOptionsWrappedOption otherOption = (AddressFieldOptionsWrappedOption) obj;
-		return (padWithZeros == otherOption.padWithZeros) &&
-			(minHexDigits == otherOption.minHexDigits) &&
-			(rightJustify == otherOption.rightJustify) &&
-			(showBlockName == otherOption.showBlockName) &&
-			(displayUpperCase == otherOption.displayUpperCase);
-	}
+        AddressFieldOptionsWrappedOption otherOption = (AddressFieldOptionsWrappedOption) obj;
+        return (padWithZeros == otherOption.padWithZeros) &&
+                (minHexDigits == otherOption.minHexDigits) &&
+                (rightJustify == otherOption.rightJustify) &&
+                (showBlockName == otherOption.showBlockName) &&
+                (displayUpperCase == otherOption.displayUpperCase);
+    }
 
-	@Override
-	public int hashCode() {
-		int prime = 31;
-		int result = 1;
-		result = prime * result + (padWithZeros ? 1 : 0);
-		result = prime * result + (rightJustify ? 1 : 0);
-		result = prime * result + (showBlockName ? 1 : 0);
-		result = prime * result + (displayUpperCase ? 1 : 0);
-		result = prime * result + minHexDigits;
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        int prime = 31;
+        int result = 1;
+        result = prime * result + (padWithZeros ? 1 : 0);
+        result = prime * result + (rightJustify ? 1 : 0);
+        result = prime * result + (showBlockName ? 1 : 0);
+        result = prime * result + (displayUpperCase ? 1 : 0);
+        result = prime * result + minHexDigits;
+        return result;
+    }
 
-//==================================================================================================
+    //==================================================================================================
 // Persistence
 //==================================================================================================
-	@Override
-	public void readState(GProperties properties) {
-		padWithZeros = properties.getBoolean(PAD_WITH_ZEROS, padWithZeros);
-		minHexDigits = properties.getInt(MIN_HEXL_DIGITS, minHexDigits);
-		rightJustify = properties.getBoolean(RIGHT_JUSTIFY, rightJustify);
-		showBlockName = properties.getBoolean(SHOW_BLOCK_NAME, showBlockName);
-		displayUpperCase = properties.getBoolean(DISPLAY_UPPER_CASE, displayUpperCase);
-	}
+    @Override
+    public void readState(GProperties properties) {
+        padWithZeros = properties.getBoolean(PAD_WITH_ZEROS, padWithZeros);
+        minHexDigits = properties.getInt(MIN_HEXL_DIGITS, minHexDigits);
+        rightJustify = properties.getBoolean(RIGHT_JUSTIFY, rightJustify);
+        showBlockName = properties.getBoolean(SHOW_BLOCK_NAME, showBlockName);
+        displayUpperCase = properties.getBoolean(DISPLAY_UPPER_CASE, displayUpperCase);
+    }
 
-	@Override
-	public void writeState(GProperties properties) {
-		properties.putBoolean(PAD_WITH_ZEROS, padWithZeros);
-		properties.putInt(MIN_HEXL_DIGITS, minHexDigits);
-		properties.putBoolean(RIGHT_JUSTIFY, rightJustify);
-		properties.putBoolean(SHOW_BLOCK_NAME, showBlockName);
-		properties.putBoolean(DISPLAY_UPPER_CASE, displayUpperCase);
-	}
+    @Override
+    public void writeState(GProperties properties) {
+        properties.putBoolean(PAD_WITH_ZEROS, padWithZeros);
+        properties.putInt(MIN_HEXL_DIGITS, minHexDigits);
+        properties.putBoolean(RIGHT_JUSTIFY, rightJustify);
+        properties.putBoolean(SHOW_BLOCK_NAME, showBlockName);
+        properties.putBoolean(DISPLAY_UPPER_CASE, displayUpperCase);
+    }
 }

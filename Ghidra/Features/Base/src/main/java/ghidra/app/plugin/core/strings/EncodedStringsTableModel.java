@@ -280,7 +280,7 @@ class EncodedStringsTableModel extends AddressBasedTableModel<EncodedStringsRow>
 			return renderer;
 		}
 
-		private class StringRepCellRenderer extends AbstractGColumnRenderer<EncodedStringsRow> {
+		private static class StringRepCellRenderer extends AbstractGColumnRenderer<EncodedStringsRow> {
 
 			@Override
 			protected String getText(Object value) {

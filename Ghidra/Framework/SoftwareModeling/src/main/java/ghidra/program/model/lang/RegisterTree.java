@@ -95,7 +95,7 @@ public class RegisterTree implements Comparable<RegisterTree> {
 	 * @return a array of RegisterTrees
 	 */
 	public RegisterTree[] getComponents() {
-		return children.toArray(new RegisterTree[children.size()]);
+		return children.toArray(new RegisterTree[0]);
 	}
 
 	/**

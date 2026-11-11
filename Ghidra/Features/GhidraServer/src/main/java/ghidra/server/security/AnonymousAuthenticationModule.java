@@ -29,7 +29,7 @@ public class AnonymousAuthenticationModule {
 			list.addAll(Arrays.asList(primaryAuthCallbacks));
 		}
 		list.add(new AnonymousCallback());
-		return list.toArray(new Callback[list.size()]);
+		return list.toArray(new Callback[0]);
 	}
 
 	public boolean anonymousAccessRequested(Callback[] callbacks) {

@@ -414,7 +414,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 // Inner Classes
 //=================================================================================================	
 
-	private class DtTableDragProvider extends GTableDragProvider<DataType> {
+	private static class DtTableDragProvider extends GTableDragProvider<DataType> {
 
 		public DtTableDragProvider(GTable table, RowObjectTableModel<DataType> model) {
 			super(table, model);
@@ -430,7 +430,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			return new DataTypeTableTransferable(items);
 		}
 
-		private class DataTypeTableTransferable implements Transferable {
+		private static class DataTypeTableTransferable implements Transferable {
 
 			private static final DataFlavor[] FLAVORS = new DataFlavor[] {
 				DataTypeTransferable.localDataTypeFlavor,
@@ -731,7 +731,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			return null;
 		}
 
-		private class NameColumn
+		private static class NameColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, String> {
 
 			@Override
@@ -746,7 +746,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			}
 		}
 
-		private class LengthColumn
+		private static class LengthColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, Integer> {
 
 			@Override
@@ -770,7 +770,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			}
 		}
 
-		private class CategoryPathColumn
+		private static class CategoryPathColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, String> {
 
 			@Override
@@ -785,7 +785,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			}
 		}
 
-		private class LastChangedColumn
+		private static class LastChangedColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, Date> {
 
 			private DateRenderer renderer = new DateRenderer();
@@ -810,7 +810,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 				return renderer;
 			}
 
-			private class DateRenderer extends AbstractGColumnRenderer<Date> {
+			private static class DateRenderer extends AbstractGColumnRenderer<Date> {
 				@Override
 				public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 
@@ -840,7 +840,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			}
 		}
 
-		private class SourceColumn
+		private static class SourceColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, String> {
 
 			@Override
@@ -860,7 +860,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 
 		}
 
-		private class TypeColumn
+		private static class TypeColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, MyIconWrapper> {
 
 			// use a renderer to get filtering by icon text (e.g., Function, Structure, etc)
@@ -897,7 +897,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 				return renderer;
 			}
 
-			private class IconRenderer extends AbstractGColumnRenderer<MyIconWrapper> {
+			private static class IconRenderer extends AbstractGColumnRenderer<MyIconWrapper> {
 
 				@Override
 				public Component getTableCellRendererComponent(GTableCellRenderingData data) {
@@ -928,7 +928,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 
 		private record MyIconWrapper(Icon icon, String desription) {}
 
-		private class ArchiveColumn
+		private static class ArchiveColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, String> {
 
 			@Override
@@ -943,7 +943,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			}
 		}
 
-		private class CommentColumn
+		private static class CommentColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, String> {
 
 			@Override
@@ -969,7 +969,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			}
 		}
 
-		private class PackingColumn
+		private static class PackingColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, Integer> {
 
 			@Override
@@ -989,7 +989,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			}
 		}
 
-		private class AlignmentColumn
+		private static class AlignmentColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, Integer> {
 
 			@Override
@@ -1007,7 +1007,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 			}
 		}
 
-		private class AlignmentLengthColumn
+		private static class AlignmentLengthColumn
 				extends AbstractProgramBasedDynamicTableColumn<DataType, Integer> {
 
 			@Override
@@ -1087,7 +1087,7 @@ public class DataTypesTableProvider extends ComponentProvider {
 				return !sourceArchive.getSourceArchiveID().equals(localID);
 			}
 
-			private class SyncRenderer extends AbstractGColumnRenderer<DataTypeSyncState> {
+			private static class SyncRenderer extends AbstractGColumnRenderer<DataTypeSyncState> {
 
 				@Override
 				public Component getTableCellRendererComponent(GTableCellRenderingData data) {

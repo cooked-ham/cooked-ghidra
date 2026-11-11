@@ -405,7 +405,7 @@ public class JavaSourceFile {
 // Inner Classes
 //==================================================================================================
 
-	private class TokenMatcher {
+	private static class TokenMatcher {
 		private final char token;
 		private boolean foundToken;
 
@@ -433,7 +433,7 @@ public class JavaSourceFile {
 		}
 	}
 
-	private class TokenPairMatcher {
+	private static class TokenPairMatcher {
 		int runningTokenCount; // can be negative 
 		private final char leftToken;
 		private final char rightToken;

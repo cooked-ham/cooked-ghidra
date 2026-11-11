@@ -83,7 +83,7 @@ public class Patterns {
 			patternFileList.add(getPatternFile(patternDirs, patternFileName));
 		}
 
-		return patternFileList.toArray(new ResourceFile[patternFileList.size()]);
+		return patternFileList.toArray(new ResourceFile[0]);
 	}
 
 	private static ResourceFile getPatternFile(List<ResourceFile> patternDirs,

@@ -311,7 +311,7 @@ public class FixupNoReturnFunctionsScript extends GhidraScript {
 		return executor;
 	}
 
-	class NoReturnLocations implements AddressableRowObject {
+	static class NoReturnLocations implements AddressableRowObject {
 		private Program program;
 		private Address addr;
 		private Address whyAddr;

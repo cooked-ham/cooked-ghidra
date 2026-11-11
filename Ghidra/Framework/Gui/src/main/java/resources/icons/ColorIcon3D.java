@@ -15,45 +15,45 @@
  */
 package resources.icons;
 
+import javax.swing.*;
 import java.awt.*;
 
-import javax.swing.Icon;
-
 public class ColorIcon3D implements Icon {
-   	private final Color color;
-   	private final int width;
-   	private final int height;
-   	
-	public ColorIcon3D(Color color) {
-		this.color = color;
-		this.width = 16;
-		this.height = 16;
-	}
-	
-	public ColorIcon3D( Color color, int width, int height  ) {
-	    this.color = color;
-	    this.width = width;
-	    this.height = height;
-	}
-	
-	@Override
-	public int getIconHeight() {
-		return height;
-	}
+    private final Color color;
+    private final int width;
+    private final int height;
 
-	@Override
-	public int getIconWidth() {
-		return width;
-	}
-	public Color getColor() {
-		return color;
-	}
+    public ColorIcon3D(Color color) {
+        this.color = color;
+        this.width = 16;
+        this.height = 16;
+    }
 
-	@Override
-	public void paintIcon(Component c, Graphics g, int x, int y) {
-	    Color startColor = g.getColor();	    
-		g.setColor(getColor());
-		g.fill3DRect( x, y, width, height, true );		
-		g.setColor( startColor );
-	}
+    public ColorIcon3D(Color color, int width, int height) {
+        this.color = color;
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    public int getIconHeight() {
+        return height;
+    }
+
+    @Override
+    public int getIconWidth() {
+        return width;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y) {
+        Color startColor = g.getColor();
+        g.setColor(getColor());
+        g.fill3DRect(x, y, width, height, true);
+        g.setColor(startColor);
+    }
 }

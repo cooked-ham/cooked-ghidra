@@ -21,18 +21,18 @@ import ghidra.program.model.address.Address;
  * Abstract base for information about type methods and interface methods
  */
 public abstract class MethodInfo {
-	final Address address;
+    final Address address;
 
-	public MethodInfo(Address address) {
-		this.address = address;
-	}
+    public MethodInfo(Address address) {
+        this.address = address;
+    }
 
-	/**
-	 * Entry point of the method
-	 * 
-	 * @return {@link Address}
-	 */
-	public Address getAddress() {
-		return address;
-	}
+    /**
+     * Entry point of the method
+     *
+     * @return {@link Address}
+     */
+    public Address getAddress() {
+        return address;
+    }
 }

@@ -16,5 +16,5 @@
 package ghidra.app.util.bin.format.dwarf.external;
 
 public enum DebugInfoProviderStatus {
-	UNKNOWN, VALID, INVALID
+    UNKNOWN, VALID, INVALID
 }

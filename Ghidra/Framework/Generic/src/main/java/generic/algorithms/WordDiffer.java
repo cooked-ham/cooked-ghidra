@@ -213,7 +213,7 @@ public class WordDiffer {
 	 * A String that is part of a larger String.  This class also has the offset into the original
 	 * String.
 	 */
-	public abstract class WordPart {
+	public static abstract class WordPart {
 		protected String text;
 		protected int index;
 

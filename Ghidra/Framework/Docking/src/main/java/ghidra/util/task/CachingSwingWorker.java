@@ -272,7 +272,7 @@ public abstract class CachingSwingWorker<T> implements CachingLoader<T> {
 		}
 	}
 
-	private class WorkerTaskMonitor extends TaskMonitorAdapter {
+	private static class WorkerTaskMonitor extends TaskMonitorAdapter {
 		private List<TaskMonitor> monitors = new CopyOnWriteArrayList<>();
 		private int min = 0;
 		private int max = 0;
@@ -377,7 +377,7 @@ public abstract class CachingSwingWorker<T> implements CachingLoader<T> {
 		}
 	}
 
-	private class SwingWorkerCompletionWaiter implements PropertyChangeListener {
+	private static class SwingWorkerCompletionWaiter implements PropertyChangeListener {
 		private DialogComponentProvider dialog;
 
 		public SwingWorkerCompletionWaiter(DialogComponentProvider dialog) {

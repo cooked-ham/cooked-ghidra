@@ -207,7 +207,7 @@ class CheckoutManager {
 		validate();
 		List<ItemCheckoutStatus> list = new ArrayList<>(checkouts.values());
 		Collections.sort(list, (a, b) -> (int) (a.getCheckoutId() - b.getCheckoutId()));
-		return list.toArray(new ItemCheckoutStatus[list.size()]);
+		return list.toArray(new ItemCheckoutStatus[0]);
 	}
 
 	/**

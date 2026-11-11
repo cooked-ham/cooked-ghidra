@@ -239,7 +239,7 @@ public class PluginInstallerDialog extends DialogComponentProvider {
 	/**
 	 * Renderer for the status column in the table.
 	 */
-	private class StatusCellRenderer extends GTableCellRenderer {
+	private static class StatusCellRenderer extends GTableCellRenderer {
 
 		public StatusCellRenderer() {
 			setHorizontalAlignment(SwingConstants.CENTER);

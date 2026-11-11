@@ -762,7 +762,7 @@ public class ExternalFunctionMerger2Test extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals(addr(resultProgram, "77db1020"),
 			((ExternalReference) refs[0]).getExternalLocation().getAddress());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1514,11 +1514,11 @@ public class ExternalFunctionMerger2Test extends AbstractExternalMergerTest {
 				}
 				ExternalLocation applesLocation = getExternalLocation(program, library, applesPath);
 				assertNotNull(applesLocation);
-				assertEquals(false, applesLocation.isFunction());
+				assertFalse(applesLocation.isFunction());
 				ExternalLocation orangesLocation =
 					getExternalLocation(program, library, orangesPath);
 				assertNotNull(orangesLocation);
-				assertEquals(false, orangesLocation.isFunction());
+				assertFalse(orangesLocation.isFunction());
 			}
 
 			@Override
@@ -1549,7 +1549,7 @@ public class ExternalFunctionMerger2Test extends AbstractExternalMergerTest {
 				assertEquals(2, applesFunction.getParameterCount());
 				assertEquals(1, orangesFunction.getParameterCount());
 				assertEquals("Once upon a time...", applesFunction.getComment());
-				assertEquals(null, orangesFunction.getComment());
+				assertNull(orangesFunction.getComment());
 			}
 		});
 
@@ -1561,14 +1561,14 @@ public class ExternalFunctionMerger2Test extends AbstractExternalMergerTest {
 
 		ExternalLocation applesLocation = getExternalLocation(resultProgram, library, applesPath);
 		assertNotNull(applesLocation);
-		assertEquals(false, applesLocation.isFunction());
+		assertFalse(applesLocation.isFunction());
 
 		ExternalLocation orangesLocation = getExternalLocation(resultProgram, library, orangesPath);
 		assertNotNull(orangesLocation);
 		assertTrue(orangesLocation.isFunction());
 		Function orangesFunction = orangesLocation.getFunction();
 		assertEquals(1, orangesFunction.getParameterCount());
-		assertEquals(null, orangesFunction.getComment());
+		assertNull(orangesFunction.getComment());
 		Parameter parameter1 = orangesFunction.getParameter(0);
 		checkDataType(new ByteDataType(), parameter1.getDataType());
 		assertEquals("Long ago in a land far, far away", parameter1.getComment());
@@ -1641,7 +1641,7 @@ public class ExternalFunctionMerger2Test extends AbstractExternalMergerTest {
 		assertTrue(orangesLocation.isFunction());
 		Function orangesFunction = orangesLocation.getFunction();
 //		assertEquals(2, orangesFunction.getParameterCount());
-		assertEquals(null, orangesFunction.getComment());
+		assertNull(orangesFunction.getComment());
 		assertEquals(SourceType.USER_DEFINED, orangesFunction.getSignatureSource());
 	}
 
@@ -1728,7 +1728,7 @@ public class ExternalFunctionMerger2Test extends AbstractExternalMergerTest {
 		assertTrue(orangesLocation.isFunction());
 		Function orangesFunction = orangesLocation.getFunction();
 		assertEquals(2, orangesFunction.getParameterCount());
-		assertEquals(null, orangesFunction.getComment());
+		assertNull(orangesFunction.getComment());
 		assertEquals(SourceType.USER_DEFINED, orangesFunction.getSignatureSource());
 
 		Parameter parameter1 = orangesFunction.getParameter(0);
@@ -1826,7 +1826,7 @@ public class ExternalFunctionMerger2Test extends AbstractExternalMergerTest {
 		assertTrue(orangesLocation.isFunction());
 		Function orangesFunction = orangesLocation.getFunction();
 		assertEquals(2, orangesFunction.getParameterCount());
-		assertEquals(null, orangesFunction.getComment());
+		assertNull(orangesFunction.getComment());
 		assertEquals(SourceType.USER_DEFINED, orangesFunction.getSignatureSource());
 
 		Parameter parameter1 = orangesFunction.getParameter(0);

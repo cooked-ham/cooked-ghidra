@@ -31,7 +31,7 @@ public class ListSTL<T> {
 		int showSize = Math.min( 20, size() );
 		ListNodeSTL<T> current = root.next;
 		for ( int i = 0; i < showSize; i++ ) {
-			buffy.append( "\t[" + i + "]=" + current.value ).append( EOL );
+			buffy.append("\t[").append(i).append("]=").append(current.value).append( EOL );
 			current = current.next;
 		}
 		return buffy.toString();

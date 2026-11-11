@@ -128,7 +128,7 @@ public class JarResource implements Resource {
 				fileList.add(file);
 			}
 		}
-		return fileList.toArray(new ResourceFile[fileList.size()]);
+		return fileList.toArray(new ResourceFile[0]);
 	}
 
 	@Override

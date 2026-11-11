@@ -15,93 +15,95 @@
  */
 package ghidra.pcode.emu.linux;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.lang.invoke.MethodHandles;
-
 import ghidra.pcode.emu.PcodeEmulator;
-import ghidra.pcode.emu.jit.*;
+import ghidra.pcode.emu.jit.JitConfiguration;
+import ghidra.pcode.emu.jit.JitPcodeEmulator;
+import ghidra.pcode.emu.jit.JitPcodeThread;
 import ghidra.pcode.emu.jit.gen.tgt.JitCompiledPassage.EntryPoint;
 import ghidra.pcode.emu.linux.EmuLinuxAmd64SyscallUseropLibraryTest.CaptureUseropLibrary;
 import ghidra.pcode.exec.PcodeUseropLibrary;
 
+import java.lang.invoke.MethodHandles;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 public class JitLinuxX86SyscallUseropLibraryTest extends EmuLinuxX86SyscallUseropLibraryTest {
 
-	protected final class LinuxX86JitPcodeEmulator extends JitPcodeEmulator {
-		public LinuxX86JitPcodeEmulator() {
-			super(program.getLanguage(), new JitConfiguration(), MethodHandles.lookup());
-		}
+    void checkStackIsDirect() {
+        Throwable here = new Throwable();
+        StackTraceElement oneUp = here.getStackTrace()[2]; // The userop and checkStack
+        assertEquals(EntryPoint.class.getName(), oneUp.getClassName());
+        assertEquals("run", oneUp.getMethodName());
+    }
 
-		@Override
-		protected PcodeUseropLibrary<byte[]> createUseropLibrary() {
-			syscalls = new EmuLinuxX86SyscallUseropLibrary<byte[]>(this, fs, program) {
-				@Override
-				public void unix_exit(long status) {
-					checkStackIsDirect();
-					super.unix_exit(status);
-				}
+    @Override
+    protected PcodeEmulator createEmulator() {
+        return new LinuxX86JitPcodeEmulator();
+    }
 
-				@Override
-				public void unix_group_exit(long status) {
-					fail("Linux-x86 shoud use exit");
-					super.unix_group_exit(status);
-				}
+    protected final class LinuxX86JitPcodeEmulator extends JitPcodeEmulator {
+        public LinuxX86JitPcodeEmulator() {
+            super(program.getLanguage(), new JitConfiguration(), MethodHandles.lookup());
+        }
 
-				@Override
-				public int unix_read(int fd, long bufPtr, int count) {
-					checkStackIsDirect();
-					return super.unix_read(fd, bufPtr, count);
-				}
+        @Override
+        protected PcodeUseropLibrary<byte[]> createUseropLibrary() {
+            syscalls = new EmuLinuxX86SyscallUseropLibrary<byte[]>(this, fs, program) {
+                @Override
+                public void unix_exit(long status) {
+                    checkStackIsDirect();
+                    super.unix_exit(status);
+                }
 
-				@Override
-				public int unix_write(int fd, long bufPtr, int count) {
-					checkStackIsDirect();
-					return super.unix_write(fd, bufPtr, count);
-				}
+                @Override
+                public void unix_group_exit(long status) {
+                    fail("Linux-x86 shoud use exit");
+                    super.unix_group_exit(status);
+                }
 
-				@Override
-				public int unix_open(long pathnamePtr, int flags, int mode) {
-					checkStackIsDirect();
-					return super.unix_open(pathnamePtr, flags, mode);
-				}
+                @Override
+                public int unix_read(int fd, long bufPtr, int count) {
+                    checkStackIsDirect();
+                    return super.unix_read(fd, bufPtr, count);
+                }
 
-				@Override
-				public int unix_close(int fd) {
-					checkStackIsDirect();
-					return super.unix_close(fd);
-				}
-			};
-			capture = new CaptureUseropLibrary();
-			return syscalls.compose(capture);
-		}
+                @Override
+                public int unix_write(int fd, long bufPtr, int count) {
+                    checkStackIsDirect();
+                    return super.unix_write(fd, bufPtr, count);
+                }
 
-		@Override
-		protected JitPcodeThread createThread(String name) {
-			return new JitPcodeThread(name, this) {
-				int count = 0;
+                @Override
+                public int unix_open(long pathnamePtr, int flags, int mode) {
+                    checkStackIsDirect();
+                    return super.unix_open(pathnamePtr, flags, mode);
+                }
 
-				@Override
-				public void count(int instructions, int trailingOps) {
-					count += (instructions + trailingOps);
-					if (count > 1000) {
-						fail("Probably an infinite loop");
-					}
-					super.count(instructions, trailingOps);
-				}
-			};
-		}
-	}
+                @Override
+                public int unix_close(int fd) {
+                    checkStackIsDirect();
+                    return super.unix_close(fd);
+                }
+            };
+            capture = new CaptureUseropLibrary();
+            return syscalls.compose(capture);
+        }
 
-	void checkStackIsDirect() {
-		Throwable here = new Throwable();
-		StackTraceElement oneUp = here.getStackTrace()[2]; // The userop and checkStack
-		assertEquals(EntryPoint.class.getName(), oneUp.getClassName());
-		assertEquals("run", oneUp.getMethodName());
-	}
+        @Override
+        protected JitPcodeThread createThread(String name) {
+            return new JitPcodeThread(name, this) {
+                int count = 0;
 
-	@Override
-	protected PcodeEmulator createEmulator() {
-		return new LinuxX86JitPcodeEmulator();
-	}
+                @Override
+                public void count(int instructions, int trailingOps) {
+                    count += (instructions + trailingOps);
+                    if (count > 1000) {
+                        fail("Probably an infinite loop");
+                    }
+                    super.count(instructions, trailingOps);
+                }
+            };
+        }
+    }
 }

@@ -460,7 +460,7 @@ public class PathManager {
 	public boolean saveToPreferences(String enablePathKey, String disabledPathKey) {
 		List<Path> pathList = pathModel.getAllPaths();
 		return savePathsToPreferences(enablePathKey, disabledPathKey,
-			pathList.toArray(new Path[pathList.size()]));
+			pathList.toArray(new Path[0]));
 	}
 
 	private static void appendPath(StringBuilder buf, String path, boolean previousPathIsEmpty) {

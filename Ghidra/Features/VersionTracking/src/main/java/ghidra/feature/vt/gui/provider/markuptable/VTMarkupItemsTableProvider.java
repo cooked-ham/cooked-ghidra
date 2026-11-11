@@ -971,7 +971,7 @@ public class VTMarkupItemsTableProvider extends ComponentProviderAdapter
 		}
 	}
 
-	private class MarkupItemThreadedTablePanel extends GhidraThreadedTablePanel<VTMarkupItem> {
+	private static class MarkupItemThreadedTablePanel extends GhidraThreadedTablePanel<VTMarkupItem> {
 		MarkupItemThreadedTablePanel(ThreadedTableModel<VTMarkupItem, ?> model) {
 			super(model);
 		}
@@ -981,7 +981,7 @@ public class VTMarkupItemsTableProvider extends ComponentProviderAdapter
 			return new MarkupTable(model);
 		}
 
-		private class MarkupTable extends GhidraTable {
+		private static class MarkupTable extends GhidraTable {
 
 			MarkupTable(RowObjectTableModel<VTMarkupItem> model) {
 				super(model);

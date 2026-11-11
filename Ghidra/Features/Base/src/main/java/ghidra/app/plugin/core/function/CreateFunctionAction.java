@@ -86,7 +86,7 @@ class CreateFunctionAction extends ListingContextAction {
 			// TODO: do we want key-binding for thunk creation
 		}
 		else {
-			String anchor = name.replaceAll(" ", "_");
+			String anchor = name.replace(" ", "_");
 			setHelpLocation(new HelpLocation("FunctionPlugin", anchor));
 			if (!allowExisting) {
 				setKeyBindingData(new KeyBindingData(KeyEvent.VK_F, 0));

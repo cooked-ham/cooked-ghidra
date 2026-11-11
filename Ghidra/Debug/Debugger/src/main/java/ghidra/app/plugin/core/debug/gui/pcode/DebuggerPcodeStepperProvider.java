@@ -456,7 +456,7 @@ public class DebuggerPcodeStepperProvider extends ComponentProviderAdapter {
 			HTMLUtilities.escapeHTML(display));
 	}
 
-	class ToPcodeRowsAppender extends AbstractAppender<List<PcodeRow>> {
+	static class ToPcodeRowsAppender extends AbstractAppender<List<PcodeRow>> {
 		private final List<PcodeRow> rows = new ArrayList<>();
 		private final PcodeFrame frame;
 

@@ -15,6 +15,7 @@
  */
 package ghidra.util.datastruct;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 
@@ -27,6 +28,7 @@ import java.util.Arrays;
  */
 
 public class BitTree implements ShortKeySet, Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
 
     private int size;        // The maximum number of keys in the set.  Keys range from 0 to size-1

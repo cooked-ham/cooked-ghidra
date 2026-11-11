@@ -118,7 +118,7 @@ public class UnionDataType extends CompositeDataTypeImpl implements UnionInterna
 
 	@Override
 	public DataTypeComponent[] getComponents() {
-		return components.toArray(new DataTypeComponent[components.size()]);
+		return components.toArray(new DataTypeComponent[0]);
 	}
 
 	@Override

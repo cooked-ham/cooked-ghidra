@@ -189,14 +189,14 @@ public class FileDropDownSelectionDataModel implements DropDownTextFieldDataMode
 // Inner Classes
 //==================================================================================================
 
-	private class FileComparator implements Comparator<File> {
+	private static class FileComparator implements Comparator<File> {
 		@Override
 		public int compare(File f1, File f2) {
 			return f1.getName().compareToIgnoreCase(f2.getName());
 		}
 	}
 
-	private class FileSearchComparator implements Comparator<Object> {
+	private static class FileSearchComparator implements Comparator<Object> {
 		@Override
 		public int compare(Object o1, Object o2) {
 			if (o1 instanceof File && o2 instanceof String) {

@@ -108,7 +108,7 @@ public class EnumEditor1Test extends AbstractGhidraHeadedIntegrationTest {
 		assertNotNull(sizeComboBox);
 		Object selectedItem = sizeComboBox.getSelectedItem();
 		int intValue = Integer.parseInt(selectedItem.toString());
-		assertEquals(intValue, 1);
+		assertEquals(1, intValue);
 
 		// add action should be enabled
 		// apply action should be disabled
@@ -238,7 +238,7 @@ public class EnumEditor1Test extends AbstractGhidraHeadedIntegrationTest {
 		assertNotNull(sizeComboBox);
 		Object selectedItem = sizeComboBox.getSelectedItem();
 		int intValue = Integer.parseInt(selectedItem.toString());
-		assertEquals(intValue, 4);
+		assertEquals(4, intValue);
 
 		addEnumValue();
 		waitForSwing();
@@ -795,7 +795,7 @@ public class EnumEditor1Test extends AbstractGhidraHeadedIntegrationTest {
 		assertNotNull(sizeComboBox);
 		Object selectedItem = sizeComboBox.getSelectedItem();
 		int intValue = Integer.parseInt(selectedItem.toString());
-		assertEquals(intValue, 2);
+		assertEquals(2, intValue);
 
 		runSwing(() -> {
 			sizeComboBox.setSelectedItem(4);
@@ -805,7 +805,7 @@ public class EnumEditor1Test extends AbstractGhidraHeadedIntegrationTest {
 		// size should be "4"
 		selectedItem = sizeComboBox.getSelectedItem();
 		intValue = Integer.parseInt(selectedItem.toString());
-		assertEquals(intValue, 4);
+		assertEquals(4, intValue);
 
 		Structure structX = (Structure) category.getDataType("StructX");
 		assertTrue(structX.isPackingEnabled());

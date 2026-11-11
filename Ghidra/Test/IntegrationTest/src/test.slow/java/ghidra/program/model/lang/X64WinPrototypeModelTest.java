@@ -33,7 +33,7 @@ public class X64WinPrototypeModelTest extends AbstractProtoModelTest {
 		PrototypePieces pieces = parseSignature(model, "bigstruct func(int *,int)");
 		ArrayList<ParameterPieces> res = new ArrayList<>();
 		model.assignParameterStorage(pieces, dtManager, res, true);
-		Assert.assertEquals(res.size(), 4);
+		Assert.assertEquals(4, res.size());
 		Assert.assertTrue(res.get(2).hiddenReturnPtr);
 		Assert.assertTrue(res.get(1).isThisPointer);
 	}

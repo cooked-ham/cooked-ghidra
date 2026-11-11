@@ -15,6 +15,7 @@
  */
 package ghidra.app.plugin.core.decompiler.taint;
 
+import java.io.Serial;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,7 @@ public class TaintLabelsTableModelFactory {
 	}
 
 	public class TaintLabelsTableModel extends AddressBasedTableModel<Map<String, Object>> {
+		@Serial
 		private static final long serialVersionUID = 1L;
 		private TaintLabelsDataFrame df;
 		private TaintLabelsTableProvider provider;
@@ -157,7 +159,7 @@ public class TaintLabelsTableModelFactory {
 			return descriptor;
 		}
 
-		public class Column
+		public static class Column
 				extends AbstractDynamicTableColumn<Map<String, Object>, Object, Object> {
 			private String columnName;
 
@@ -178,7 +180,7 @@ public class TaintLabelsTableModelFactory {
 
 		}
 
-		public class HighVariableColumn
+		public static class HighVariableColumn
 				extends AbstractDynamicTableColumn<Map<String, Object>, HighVariable, Object> {
 			private String columnName;
 
@@ -199,7 +201,7 @@ public class TaintLabelsTableModelFactory {
 
 		}
 
-		public class TaintLabelColumn
+		public static class TaintLabelColumn
 				extends AbstractDynamicTableColumn<Map<String, Object>, TaintLabel, Object> {
 			private String columnName;
 
@@ -219,7 +221,7 @@ public class TaintLabelsTableModelFactory {
 			}
 		}
 
-		public class StringColumn
+		public static class StringColumn
 				extends AbstractDynamicTableColumn<Map<String, Object>, String, Object> {
 			private String name;
 
@@ -246,7 +248,7 @@ public class TaintLabelsTableModelFactory {
 
 		}
 
-		public class BooleanColumn
+		public static class BooleanColumn
 				extends AbstractDynamicTableColumn<Map<String, Object>, Boolean, Object> {
 			private String name;
 
@@ -267,7 +269,7 @@ public class TaintLabelsTableModelFactory {
 
 		}
 
-		public class AddressColumn
+		public static class AddressColumn
 				extends AbstractDynamicTableColumn<Map<String, Object>, Address, Object> {
 			private String name;
 
@@ -288,7 +290,7 @@ public class TaintLabelsTableModelFactory {
 
 		}
 
-		public class IntegerColumn
+		public static class IntegerColumn
 				extends AbstractDynamicTableColumn<Map<String, Object>, Integer, Object> {
 			private String name;
 

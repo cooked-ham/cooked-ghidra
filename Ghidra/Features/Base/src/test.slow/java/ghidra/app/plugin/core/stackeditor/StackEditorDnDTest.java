@@ -42,7 +42,7 @@ public class StackEditorDnDTest extends AbstractStackEditorTest {
 		model.addCompositeEditorModelListener(myListener);
 	}
 
-	private class StatusListener extends CompositeEditorModelAdapter {
+	private static class StatusListener extends CompositeEditorModelAdapter {
 
 		private List<String> messages = new ArrayList<>();
 

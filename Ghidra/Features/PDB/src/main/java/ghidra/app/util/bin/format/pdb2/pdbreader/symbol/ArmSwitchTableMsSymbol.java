@@ -123,7 +123,7 @@ public class ArmSwitchTableMsSymbol extends AbstractMsSymbol {
 		builder.append(String.format("   Table address:  [%04X:%08X]\n", sectionIndexOfTable,
 			offsetToStartOfTable));
 		builder.append(String.format("   Entry count = %d\n", numberOfSwitchTableEntries));
-		builder.append("   Switch entry type = " + switchType + "\n");
+		builder.append("   Switch entry type = ").append(switchType).append("\n");
 	}
 
 	@Override

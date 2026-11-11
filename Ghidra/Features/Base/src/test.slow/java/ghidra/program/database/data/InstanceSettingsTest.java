@@ -196,7 +196,7 @@ public class InstanceSettingsTest extends AbstractGhidraHeadedIntegrationTest {
 		data.setString(STRING_SETTING_NAME, "red");
 		data.setLong(LONG_SETTING_NAME, 10);
 
-		assertTrue(!data.isEmpty());
+		assertFalse(data.isEmpty());
 		data.clearAllSettings();
 
 		assertTrue(data.isEmpty());

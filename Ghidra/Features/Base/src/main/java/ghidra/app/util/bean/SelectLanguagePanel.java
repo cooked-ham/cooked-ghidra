@@ -21,6 +21,7 @@ package ghidra.app.util.bean;
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.*;
+import java.io.Serial;
 import java.util.*;
 
 import javax.swing.*;
@@ -39,6 +40,7 @@ import ghidra.util.table.GhidraTable;
  * Also, supports a filter to limit languages that are displayed.
  */
 public class SelectLanguagePanel extends JPanel {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public static void main(String[] args) {

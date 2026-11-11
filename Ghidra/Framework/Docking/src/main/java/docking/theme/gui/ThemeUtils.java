@@ -274,7 +274,7 @@ public class ThemeUtils {
 		if (!themeDir.exists()) {
 			themeDir.mkdir();
 		}
-		String cleanedName = themeName.replaceAll(" ", "_") + "." + GTheme.FILE_EXTENSION;
+		String cleanedName = themeName.replace(" ", "_") + "." + GTheme.FILE_EXTENSION;
 		return new File(themeDir, cleanedName);
 	}
 }

@@ -119,7 +119,7 @@ public class MultipleLabelsRenderer extends AbstractGhidraColumnRenderer<Symbol[
 					buffer.append("\n...");
 					break;
 				}
-				buffer.append("\n" + symbol.getName());
+				buffer.append("\n").append(symbol.getName());
 			}
 			String text = buffer.toString();
 			String htmlString = HTMLUtilities.toWrappedHTML(text);
@@ -154,7 +154,7 @@ public class MultipleLabelsRenderer extends AbstractGhidraColumnRenderer<Symbol[
 					buffer.append("\n...");
 					break;
 				}
-				buffer.append("\n" + symbol.getName());
+				buffer.append("\n").append(symbol.getName());
 			}
 			String text = buffer.toString();
 			return labelCount + " " + text;

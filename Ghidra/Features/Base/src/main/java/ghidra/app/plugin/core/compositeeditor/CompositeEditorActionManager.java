@@ -99,7 +99,7 @@ public class CompositeEditorActionManager {
 	 * @return the composite editor actions
 	 */
 	public CompositeEditorTableAction[] getEditorActions() {
-		return editorActions.toArray(new CompositeEditorTableAction[editorActions.size()]);
+		return editorActions.toArray(new CompositeEditorTableAction[0]);
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class CompositeEditorActionManager {
 	 * @return the cycle group actions
 	 */
 	public CompositeEditorTableAction[] getFavoritesActions() {
-		return favoritesActions.toArray(new CompositeEditorTableAction[favoritesActions.size()]);
+		return favoritesActions.toArray(new CompositeEditorTableAction[0]);
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class CompositeEditorActionManager {
 	 * @return the favorites actions
 	 */
 	public CompositeEditorTableAction[] getCycleGroupActions() {
-		return cycleGroupActions.toArray(new CompositeEditorTableAction[cycleGroupActions.size()]);
+		return cycleGroupActions.toArray(new CompositeEditorTableAction[0]);
 	}
 
 	/**
@@ -226,7 +226,7 @@ public class CompositeEditorActionManager {
 		}
 		int length = listeners.size();
 		CompositeEditorTableAction[] cea =
-			actions.toArray(new CompositeEditorTableAction[actions.size()]);
+			actions.toArray(new CompositeEditorTableAction[0]);
 		for (int i = 0; i < length; i++) {
 			listeners.get(i).actionsAdded(cea);
 		}
@@ -238,7 +238,7 @@ public class CompositeEditorActionManager {
 		}
 		int length = listeners.size();
 		CompositeEditorTableAction[] cea =
-			actions.toArray(new CompositeEditorTableAction[actions.size()]);
+			actions.toArray(new CompositeEditorTableAction[0]);
 		for (int i = 0; i < length; i++) {
 			listeners.get(i).actionsRemoved(cea);
 		}

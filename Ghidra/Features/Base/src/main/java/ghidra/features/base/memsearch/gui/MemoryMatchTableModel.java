@@ -218,7 +218,7 @@ public class MemoryMatchTableModel extends AddressBasedTableModel<MemoryMatch<Se
 		}
 	}
 
-	private class ByteArrayRenderer extends AbstractGColumnRenderer<String> {
+	private static class ByteArrayRenderer extends AbstractGColumnRenderer<String> {
 		public ByteArrayRenderer() {
 			setHTMLRenderingEnabled(true);
 		}

@@ -15,36 +15,34 @@
  */
 package resources.icons;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.util.Objects;
-
-import javax.swing.ImageIcon;
-
 import generic.util.image.ImageUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Objects;
 
 /**
  * {@link LazyImageIcon} that is created from a byte array
  */
 public class BytesImageIcon extends LazyImageIcon {
-	private byte[] bytes;
+    private byte[] bytes;
 
-	public BytesImageIcon(String name, byte[] imageBytes) {
-		super(name);
-		this.bytes = Objects.requireNonNull(imageBytes);
-	}
+    public BytesImageIcon(String name, byte[] imageBytes) {
+        super(name);
+        this.bytes = Objects.requireNonNull(imageBytes);
+    }
 
-	@Override
-	protected ImageIcon createImageIcon() {
-		String name = getFilename();
-		Image image = createImage();
-		if (!ImageUtils.waitForImage(name, image)) {
-			return null;
-		}
-		return new ImageIcon(image, name);
-	}
+    @Override
+    protected ImageIcon createImageIcon() {
+        String name = getFilename();
+        Image image = createImage();
+        if (!ImageUtils.waitForImage(name, image)) {
+            return null;
+        }
+        return new ImageIcon(image, name);
+    }
 
-	protected Image createImage() {
-		return Toolkit.getDefaultToolkit().createImage(bytes);
-	}
+    protected Image createImage() {
+        return Toolkit.getDefaultToolkit().createImage(bytes);
+    }
 }

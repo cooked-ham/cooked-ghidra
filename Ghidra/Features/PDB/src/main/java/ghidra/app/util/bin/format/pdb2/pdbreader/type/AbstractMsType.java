@@ -110,7 +110,7 @@ public abstract class AbstractMsType extends AbstractParsableItem implements MsT
 	 * @param bind Bind ordinal used for determining when parentheses should surround components. 
 	 */
 	public void emit(StringBuilder builder, Bind bind) {
-		builder.append("IncompleteImpl(" + this.getClass().getSimpleName() + ")");
+		builder.append("IncompleteImpl(").append(this.getClass().getSimpleName()).append(")");
 	}
 
 	@Override

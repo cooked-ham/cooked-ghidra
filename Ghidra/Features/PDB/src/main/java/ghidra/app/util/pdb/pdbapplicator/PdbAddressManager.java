@@ -301,7 +301,7 @@ public class PdbAddressManager {
 	//==============================================================================================
 	//==============================================================================================
 	// TODO: this class might go away if we use ImageSectionHeaders directly.
-	private class SegmentInfo {
+	private static class SegmentInfo {
 		private Address start;
 		private long length;
 

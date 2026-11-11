@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -570,11 +570,11 @@ public class MDCVModifier {
 ////					iter.previous();
 ////					iter.previous();
 ////					break;
-////			}
-////		}
+////            }
+////        }
 ////		if (done) {
 ////			return;
-////		}
+////        }
 //
 //		boolean prefixDone = false;
 //		while (!prefixDone) {
@@ -647,31 +647,31 @@ public class MDCVModifier {
 ////						int rank;
 ////						if (ch >= '0' && ch <= '9') {
 ////							rank = ch - '0';
-////						}
+////                        }
 ////						else if (ch >= 'A' && ch <= 'F') {
 ////							rank = ch - 'A' + 10;
-////						}
+////                        }
 ////						else {
 ////							throw new MDException("invalid cli:array rank");
-////						}
+////                        }
 ////						ch = iter.getAndIncrement();
 ////						if (ch >= '0' && ch <= '9') {
 ////							rank = rank * 16 + ch - '0';
-////						}
+////                        }
 ////						else if (ch >= 'A' && ch <= 'F') {
 ////							rank = rank * 16 + ch - 'A' + 10;
-////						}
+////                        }
 ////						else {
 ////							throw new MDException("invalid cli:array rank");
-////						}
+////                        }
 ////						isCliArray = true;
 ////						arrayRank = Integer.toString(rank);
-////					}
+////                    }
 ////						break;
 ////					default:
 ////						// Could be others.
 ////						break;
-////				}
+////                }
 //			}
 //				iter.previous();
 //				break;
@@ -898,14 +898,14 @@ public class MDCVModifier {
 ////		if (!"".equals(typeName)) {
 ////			buffer.append(typeName);
 //////			nameBuffer.append(typeName);
-////		}
+////        }
 //
 ////		if (isPointer64) {
 ////			rightBuffer.append(SPACE + PTR64);
-////		}
+////        }
 ////		if (isRestrict) {
 ////			rightBuffer.append(SPACE + RESTRICT);
-////		}
+////        }
 //		for (CvPrefix p : prefixList) {
 //			switch (p) {
 //				case ptr64:
@@ -923,7 +923,7 @@ public class MDCVModifier {
 ////			typeName =
 ////				cvMod.emit(typeName.toString(), isReferredTo, leftBuffer.toString(),
 ////					rightBuffer.toString());
-////		}
+////        }
 //
 ////		if (cvMod != null) {
 //		if (isCLI) {
@@ -946,10 +946,10 @@ public class MDCVModifier {
 ////		if (isCLI) {
 ////			typeName = cvMod.emit(typeName.toString(), isReferredTo);
 //////			buffer.append(cvMod.emit(nameBuffer.toString(), isReferredTo));
-////		}
+////        }
 ////		else {
 ////			buffer.append(nameBuffer.toString());
-////		}
+////        }
 //
 ////		for (CvPrefix p : prefixList) {
 ////			switch (p) {
@@ -958,14 +958,14 @@ public class MDCVModifier {
 ////					break;
 ////				default:
 ////					break;
-////			}
-////		}
+////            }
+////        }
 ////		if (isCLI) {
 ////			typeName = cvMod.emit(typeName.toString(), isReferredTo);
-////		}
+////        }
 ////		if (!"".equals(typeName)) {
 ////			buffer.append(typeName);
-////		}
+////        }
 ////		for (CvPrefix p : prefixList) {
 ////			switch (p) {
 ////				case ptr64:
@@ -976,13 +976,13 @@ public class MDCVModifier {
 ////					break;
 ////				default:
 ////					break;
-////			}
-////		}
+////            }
+////        }
 //
 ////		if ((buffer.length() != 0) && (rightBuffer.length() != 0) &&
-////			(buffer.charAt(buffer.length() - 1) == ' ')) {
+////            (buffer.charAt(buffer.length() - 1) == ' ')) {
 ////			buffer.deleteCharAt(buffer.length() - 1);
-////		}
+////        }
 ////		buffer.append(rightBuffer);
 //		return buffer.toString();
 //	}

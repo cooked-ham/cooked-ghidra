@@ -16,7 +16,10 @@
  */
 package ghidra.app.util.bin.format.pdb;
 
+import java.io.Serial;
+
 public class PdbException extends Exception {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public PdbException(String message) {

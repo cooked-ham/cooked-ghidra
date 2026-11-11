@@ -865,7 +865,7 @@ public class FunctionGraphPluginScreenShots extends AbstractFunctionGraphTest {
 // Inner Classes
 //==================================================================================================
 
-	private class MyScreen extends GhidraScreenShotGenerator {
+	private static class MyScreen extends GhidraScreenShotGenerator {
 
 		public MyScreen() {
 			super();

@@ -107,7 +107,7 @@ public class TaskUtilities {
 			return false;
 		}
 
-		Task[] tasks = runningTasks.keySet().toArray(new Task[runningTasks.size()]);
+		Task[] tasks = runningTasks.keySet().toArray(new Task[0]);
 		for (Task task : tasks) {
 			if (task.getTaskTitle().equals(title)) {
 				return true;

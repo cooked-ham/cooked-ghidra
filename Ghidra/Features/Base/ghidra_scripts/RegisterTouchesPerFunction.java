@@ -134,7 +134,7 @@ public class RegisterTouchesPerFunction extends GhidraScript {
 
 		if (pushPops.size() > 0) {
 			buffer.append("Registers Remaining on Stack:\r\n");
-			buffer.append("   " + getString(pushPops, 8));
+			buffer.append("   ").append(getString(pushPops, 8));
 		}
 
 		list.setComment(func.getEntryPoint(), CommentType.PLATE, buffer.toString());

@@ -16,6 +16,7 @@
 package ghidra.framework.store.local;
 
 import java.io.*;
+import java.io.Serial;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
@@ -938,7 +939,7 @@ public class IndexedLocalFileSystem extends LocalFileSystem {
 					fileList.add(name);
 				}
 			}
-			return fileList.toArray(new String[fileList.size()]);
+			return fileList.toArray(new String[0]);
 		}
 		catch (NotFoundException e) {
 			throw new FileNotFoundException("Folder not found: " + folderPath);
@@ -971,7 +972,7 @@ public class IndexedLocalFileSystem extends LocalFileSystem {
 		try {
 			Folder folder = getFolder(folderPath, GetFolderOption.READ_ONLY);
 			Set<String> nameSet = folder.folders.keySet();
-			return nameSet.toArray(new String[nameSet.size()]);
+			return nameSet.toArray(new String[0]);
 		}
 		catch (NotFoundException e) {
 			throw new FileNotFoundException("Folder not found: " + folderPath);
@@ -1780,6 +1781,7 @@ public class IndexedLocalFileSystem extends LocalFileSystem {
 	 */
 	public static class BadStorageNameException extends IOException {
 
+		@Serial
 		private static final long serialVersionUID = 1L;
 
 		BadStorageNameException(String storageName) {
@@ -1793,6 +1795,7 @@ public class IndexedLocalFileSystem extends LocalFileSystem {
 	 */
 	public static class IndexReadException extends IOException {
 
+		@Serial
 		private static final long serialVersionUID = 1L;
 
 		IndexReadException(String msg) {
@@ -1810,6 +1813,7 @@ public class IndexedLocalFileSystem extends LocalFileSystem {
 	 */
 	public static class IndexVersionException extends IndexReadException {
 
+		@Serial
 		private static final long serialVersionUID = 1L;
 
 		boolean canUpgrade = false;

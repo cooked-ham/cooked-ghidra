@@ -331,25 +331,25 @@ public class RandomForestTrainingTaskTest extends AbstractProgramBasedTest {
 
 		int numContained = 0;
 		Address entry_1006420 = begin;
-		Address entry_1006425 = begin.add(5l);
-		Address entry_1006435 = begin.add(0x15l);
+		Address entry_1006425 = begin.add(5L);
+		Address entry_1006435 = begin.add(0x15L);
 
 		if (data.getTrainingPositive().contains(entry_1006420)) {
 			numContained += 1;
-			assertTrue(data.getTrainingNegative().contains(entry_1006420.subtract(1l)));
-			assertTrue(data.getTrainingNegative().contains(entry_1006420.add(1l)));
+			assertTrue(data.getTrainingNegative().contains(entry_1006420.subtract(1L)));
+			assertTrue(data.getTrainingNegative().contains(entry_1006420.add(1L)));
 		}
 
 		if (data.getTrainingPositive().contains(entry_1006425)) {
 			numContained += 1;
-			assertTrue(data.getTrainingNegative().contains(entry_1006425.subtract(2l)));
-			assertTrue(data.getTrainingNegative().contains(entry_1006425.add(5l)));
+			assertTrue(data.getTrainingNegative().contains(entry_1006425.subtract(2L)));
+			assertTrue(data.getTrainingNegative().contains(entry_1006425.add(5L)));
 		}
 
 		if (data.getTrainingPositive().contains(entry_1006435)) {
 			numContained += 1;
-			assertTrue(data.getTrainingNegative().contains(entry_1006435.subtract(6l)));
-			assertTrue(data.getTrainingNegative().contains(entry_1006435.add(1l)));
+			assertTrue(data.getTrainingNegative().contains(entry_1006435.subtract(6L)));
+			assertTrue(data.getTrainingNegative().contains(entry_1006435.add(1L)));
 		}
 
 		assertEquals(2, numContained);

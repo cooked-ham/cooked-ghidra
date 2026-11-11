@@ -163,7 +163,7 @@ public class MangledLocalFileSystem extends LocalFileSystem {
 			}
 		}
 		Collections.sort(fileList);
-		return fileList.toArray(new String[fileList.size()]);
+		return fileList.toArray(new String[0]);
 	}
 
 	/*
@@ -188,7 +188,7 @@ public class MangledLocalFileSystem extends LocalFileSystem {
 			}
 		}
 		Collections.sort(folderList);
-		return folderList.toArray(new String[folderList.size()]);
+		return folderList.toArray(new String[0]);
 	}
 
 	/*

@@ -89,7 +89,7 @@ public class AskDialog<T> extends DialogComponentProvider {
 			panel.add(textField, BorderLayout.CENTER);
 		}
 		else {
-			comboField = new GComboBox<>(choices.toArray(new Object[choices.size()]));
+			comboField = new GComboBox<>(choices.toArray(new Object[0]));
 			comboField.setEditable(false);
 			comboField.setName("JComboBox");
 			if (defaultValue != null) {

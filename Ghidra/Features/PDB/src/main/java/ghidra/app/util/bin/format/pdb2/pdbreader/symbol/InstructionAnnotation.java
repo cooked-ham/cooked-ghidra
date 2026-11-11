@@ -116,7 +116,7 @@ public class InstructionAnnotation extends AbstractParsableItem {
 				String.format(" %x %x", (parameter1 >> 4) & 0x0fffffff, parameter1 & 0x0f));
 		}
 		else {
-			builder.append("  " + instructionCode + String.format(" %x", (int) parameter1));
+			builder.append("  ").append(instructionCode).append(String.format(" %x", (int) parameter1));
 		}
 	}
 

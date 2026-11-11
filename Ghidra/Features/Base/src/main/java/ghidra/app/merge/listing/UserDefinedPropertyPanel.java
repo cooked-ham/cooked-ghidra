@@ -16,6 +16,8 @@
  */
 package ghidra.app.merge.listing;
 
+import java.io.Serial;
+
 /**
  * <code>UserDefinedPropertyPanel</code> adds a checkbox as the southern component
  * of the <code>VerticalChoicesPanel</code>. The check box allows the user to 
@@ -24,6 +26,7 @@ package ghidra.app.merge.listing;
  */
 class UserDefinedPropertyPanel extends VerticalChoicesPanel {
 
+	@Serial
 	private final static long serialVersionUID = 1;
 
 	/**

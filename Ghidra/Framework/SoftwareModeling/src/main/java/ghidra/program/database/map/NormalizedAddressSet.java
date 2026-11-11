@@ -226,7 +226,7 @@ public class NormalizedAddressSet implements AddressSetView {
 
 		long minBase = (bases.get(0)).longValue();
 		SortedRangeList list = baseLists.get(minBase);
-		long min = minBase + ((list.getMin() - Integer.MIN_VALUE) & 0xffffffffl);
+		long min = minBase + ((list.getMin() - Integer.MIN_VALUE) & 0xffffffffL);
 		return addrMap.decodeAddress(min);
 	}
 
@@ -241,7 +241,7 @@ public class NormalizedAddressSet implements AddressSetView {
 
 		long maxBase = (bases.get(bases.size() - 1)).longValue();
 		SortedRangeList list = baseLists.get(maxBase);
-		long max = maxBase + ((list.getMax() - Integer.MIN_VALUE) & 0xffffffffl);
+		long max = maxBase + ((list.getMax() - Integer.MIN_VALUE) & 0xffffffffL);
 		return addrMap.decodeAddress(max);
 	}
 
@@ -530,9 +530,9 @@ public class NormalizedAddressSet implements AddressSetView {
 			if (hasNext()) {
 				Range range = currIt.next();
 				Address a1 =
-					addrMap.decodeAddress(base + ((range.min - Integer.MIN_VALUE) & 0xffffffffl));
+					addrMap.decodeAddress(base + ((range.min - Integer.MIN_VALUE) & 0xffffffffL));
 				Address a2 =
-					addrMap.decodeAddress(base + ((range.max - Integer.MIN_VALUE) & 0xffffffffl));
+					addrMap.decodeAddress(base + ((range.max - Integer.MIN_VALUE) & 0xffffffffL));
 				return new AddressRangeImpl(a1, a2);
 			}
 			return null;

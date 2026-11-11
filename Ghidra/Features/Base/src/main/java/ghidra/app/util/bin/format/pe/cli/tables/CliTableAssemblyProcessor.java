@@ -25,7 +25,7 @@ import ghidra.program.model.data.*;
  * Describes the AssemblyProcessor table. It is apparently ignored by the CLI and shouldn't be found in an assembly.
  */
 public class CliTableAssemblyProcessor extends CliAbstractTable {
-	public class CliAssemblyProcessorRow extends CliAbstractTableRow {
+	public static class CliAssemblyProcessorRow extends CliAbstractTableRow {
 		public int processor;
 		
 		public CliAssemblyProcessorRow(int processor) {

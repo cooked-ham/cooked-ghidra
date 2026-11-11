@@ -223,7 +223,7 @@ public class FindDialogResultsProvider extends ComponentProvider
 		return new ArrayList<>(model.getModelData());
 	}
 
-	private class FindResultsModel extends GDynamicColumnTableModel<SearchLocation, Object> {
+	private static class FindResultsModel extends GDynamicColumnTableModel<SearchLocation, Object> {
 
 		private List<SearchLocation> data;
 
@@ -264,7 +264,7 @@ public class FindDialogResultsProvider extends ComponentProvider
 			return null;
 		}
 
-		private class LineNumberColumn
+		private static class LineNumberColumn
 				extends AbstractDynamicTableColumnStub<SearchLocation, Integer> {
 
 			@Override
@@ -284,7 +284,7 @@ public class FindDialogResultsProvider extends ComponentProvider
 			}
 		}
 
-		private class ContextColumn extends
+		private static class ContextColumn extends
 				AbstractDynamicTableColumnStub<SearchLocation, SearchLocationContext> {
 
 			private SearchLocationContextRenderer renderer = new SearchLocationContextRenderer() {

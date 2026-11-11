@@ -173,7 +173,7 @@ public class LibreTranslateStringTranslationServiceTest extends AbstractProgramB
 					AUTO, "en", 100, 1000, 1000);
 
 			Swing.runNow(() -> sts.translate(program, List.of(progLoc(0)), TranslateOptions.NONE));
-			assertEquals(translateRequestCount.get(), 1);
+			assertEquals(1, translateRequestCount.get());
 
 			String xlatedStr =
 				TranslationSettingsDefinition.TRANSLATION.getTranslatedValue(strings.get(0));
@@ -210,7 +210,7 @@ public class LibreTranslateStringTranslationServiceTest extends AbstractProgramB
 
 			waitForTasks();
 
-			assertEquals(translateRequestCount.get(), 1);
+			assertEquals(1, translateRequestCount.get());
 			assertEquals(1, translateSourceLangs.size());
 			assertEquals(langToPick.langCode(), translateSourceLangs.get(0));
 		}

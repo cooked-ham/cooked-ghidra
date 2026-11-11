@@ -69,14 +69,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.DEFAULT, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(false, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertFalse(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(false, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertFalse(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(2, function.getParameterCount());
 
@@ -87,7 +87,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("P2", parameter2.getName());
@@ -96,7 +96,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter2.getSource());
 				assertEquals(4, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 			}
 
 			@Override
@@ -144,14 +144,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(true, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertTrue(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(true, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertTrue(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(3, function.getParameterCount());
 
@@ -162,7 +162,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("Value", parameter2.getName());
@@ -171,7 +171,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter2.getSource());
 				assertEquals(1, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 
 				Parameter parameter3 = function.getParameter(2);
 				assertEquals("P3", parameter3.getName());
@@ -180,7 +180,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter3.getSource());
 				assertEquals(4, parameter3.getLength());
 				assertEquals(12, parameter3.getStackOffset());
-				assertEquals(null, parameter3.getRegister());
+				assertNull(parameter3.getRegister());
 			}
 
 			@Override
@@ -202,14 +202,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 		assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 		assertEquals("unknown", function.getCallingConventionName());
 		assertEquals(new AddressSet(), function.getBody());
-		assertEquals(null, function.getComment());
-		assertEquals(null, function.getRepeatableComment());
-		assertEquals(true, function.hasCustomVariableStorage());
+		assertNull(function.getComment());
+		assertNull(function.getRepeatableComment());
+		assertTrue(function.hasCustomVariableStorage());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-		assertEquals(true, function.hasVarArgs());
-		assertEquals(true, function.isExternal());
-		assertEquals(false, function.isInline());
-		assertEquals(false, function.isThunk());
+		assertTrue(function.hasVarArgs());
+		assertTrue(function.isExternal());
+		assertFalse(function.isInline());
+		assertFalse(function.isThunk());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 		assertEquals(3, function.getParameterCount());
 
@@ -220,7 +220,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 		assertEquals(4, parameter1.getLength());
 		assertEquals(4, parameter1.getStackOffset());
-		assertEquals(null, parameter1.getRegister());
+		assertNull(parameter1.getRegister());
 
 		Parameter parameter2 = function.getParameter(1);
 		assertEquals("Value", parameter2.getName());
@@ -229,7 +229,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter2.getSource());
 		assertEquals(1, parameter2.getLength());
 		assertEquals(8, parameter2.getStackOffset());
-		assertEquals(null, parameter2.getRegister());
+		assertNull(parameter2.getRegister());
 
 		Parameter parameter3 = function.getParameter(2);
 		assertEquals("P3", parameter3.getName());
@@ -238,7 +238,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter3.getSource());
 		assertEquals(4, parameter3.getLength());
 		assertEquals(12, parameter3.getStackOffset());
-		assertEquals(null, parameter3.getRegister());
+		assertNull(parameter3.getRegister());
 	}
 
 	@Test
@@ -269,14 +269,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.DEFAULT, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(false, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertFalse(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(false, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertFalse(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(2, function.getParameterCount());
 
@@ -287,7 +287,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("P2", parameter2.getName());
@@ -296,7 +296,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter2.getSource());
 				assertEquals(4, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 			}
 
 			@Override
@@ -349,14 +349,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(true, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertTrue(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(true, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertTrue(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(3, function.getParameterCount());
 
@@ -367,7 +367,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("Value", parameter2.getName());
@@ -376,7 +376,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter2.getSource());
 				assertEquals(1, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 
 				Parameter parameter3 = function.getParameter(2);
 				assertEquals("P3", parameter3.getName());
@@ -385,7 +385,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter3.getSource());
 				assertEquals(4, parameter3.getLength());
 				assertEquals(12, parameter3.getStackOffset());
-				assertEquals(null, parameter3.getRegister());
+				assertNull(parameter3.getRegister());
 			}
 		});
 
@@ -402,14 +402,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 		assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 		assertEquals("unknown", function.getCallingConventionName());
 		assertEquals(new AddressSet(), function.getBody());
-		assertEquals(null, function.getComment());
-		assertEquals(null, function.getRepeatableComment());
-		assertEquals(true, function.hasCustomVariableStorage());
+		assertNull(function.getComment());
+		assertNull(function.getRepeatableComment());
+		assertTrue(function.hasCustomVariableStorage());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-		assertEquals(true, function.hasVarArgs());
-		assertEquals(true, function.isExternal());
-		assertEquals(false, function.isInline());
-		assertEquals(false, function.isThunk());
+		assertTrue(function.hasVarArgs());
+		assertTrue(function.isExternal());
+		assertFalse(function.isInline());
+		assertFalse(function.isThunk());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 		assertEquals(3, function.getParameterCount());
 
@@ -420,7 +420,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 		assertEquals(4, parameter1.getLength());
 		assertEquals(4, parameter1.getStackOffset());
-		assertEquals(null, parameter1.getRegister());
+		assertNull(parameter1.getRegister());
 
 		Parameter parameter2 = function.getParameter(1);
 		assertEquals("Value", parameter2.getName());
@@ -429,7 +429,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter2.getSource());
 		assertEquals(1, parameter2.getLength());
 		assertEquals(8, parameter2.getStackOffset());
-		assertEquals(null, parameter2.getRegister());
+		assertNull(parameter2.getRegister());
 
 		Parameter parameter3 = function.getParameter(2);
 		assertEquals("P3", parameter3.getName());
@@ -438,7 +438,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter3.getSource());
 		assertEquals(4, parameter3.getLength());
 		assertEquals(12, parameter3.getStackOffset());
-		assertEquals(null, parameter3.getRegister());
+		assertNull(parameter3.getRegister());
 	}
 
 	@Test
@@ -469,14 +469,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.DEFAULT, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(false, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertFalse(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(false, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertFalse(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(2, function.getParameterCount());
 
@@ -487,7 +487,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("P2", parameter2.getName());
@@ -496,7 +496,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter2.getSource());
 				assertEquals(4, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 			}
 
 			@Override
@@ -544,14 +544,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(true, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertTrue(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(true, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertTrue(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(3, function.getParameterCount());
 
@@ -562,7 +562,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("Value", parameter2.getName());
@@ -571,7 +571,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter2.getSource());
 				assertEquals(1, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 
 				Parameter parameter3 = function.getParameter(2);
 				assertEquals("P3", parameter3.getName());
@@ -580,7 +580,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter3.getSource());
 				assertEquals(4, parameter3.getLength());
 				assertEquals(12, parameter3.getStackOffset());
-				assertEquals(null, parameter3.getRegister());
+				assertNull(parameter3.getRegister());
 			}
 
 			@Override
@@ -610,14 +610,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 		assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 		assertEquals("unknown", function.getCallingConventionName());
 		assertEquals(new AddressSet(), function.getBody());
-		assertEquals(null, function.getComment());
-		assertEquals(null, function.getRepeatableComment());
-		assertEquals(true, function.hasCustomVariableStorage());
+		assertNull(function.getComment());
+		assertNull(function.getRepeatableComment());
+		assertTrue(function.hasCustomVariableStorage());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-		assertEquals(true, function.hasVarArgs());
-		assertEquals(true, function.isExternal());
-		assertEquals(false, function.isInline());
-		assertEquals(false, function.isThunk());
+		assertTrue(function.hasVarArgs());
+		assertTrue(function.isExternal());
+		assertFalse(function.isInline());
+		assertFalse(function.isThunk());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 		assertEquals(3, function.getParameterCount());
 
@@ -628,7 +628,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 		assertEquals(4, parameter1.getLength());
 		assertEquals(4, parameter1.getStackOffset());
-		assertEquals(null, parameter1.getRegister());
+		assertNull(parameter1.getRegister());
 
 		Parameter parameter2 = function.getParameter(1);
 		assertEquals("Value", parameter2.getName());
@@ -637,7 +637,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter2.getSource());
 		assertEquals(1, parameter2.getLength());
 		assertEquals(8, parameter2.getStackOffset());
-		assertEquals(null, parameter2.getRegister());
+		assertNull(parameter2.getRegister());
 
 		Parameter parameter3 = function.getParameter(2);
 		assertEquals("P3", parameter3.getName());
@@ -646,7 +646,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter3.getSource());
 		assertEquals(4, parameter3.getLength());
 		assertEquals(12, parameter3.getStackOffset());
-		assertEquals(null, parameter3.getRegister());
+		assertNull(parameter3.getRegister());
 	}
 
 	@Test
@@ -677,14 +677,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.DEFAULT, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(false, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertFalse(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(false, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertFalse(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(2, function.getParameterCount());
 
@@ -695,7 +695,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("P2", parameter2.getName());
@@ -704,7 +704,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter2.getSource());
 				assertEquals(4, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 			}
 
 			@Override
@@ -752,14 +752,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(true, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertTrue(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(true, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertTrue(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(3, function.getParameterCount());
 
@@ -770,7 +770,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("Value", parameter2.getName());
@@ -779,7 +779,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter2.getSource());
 				assertEquals(1, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 
 				Parameter parameter3 = function.getParameter(2);
 				assertEquals("P3", parameter3.getName());
@@ -788,7 +788,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter3.getSource());
 				assertEquals(4, parameter3.getLength());
 				assertEquals(12, parameter3.getStackOffset());
-				assertEquals(null, parameter3.getRegister());
+				assertNull(parameter3.getRegister());
 			}
 
 			@Override
@@ -842,14 +842,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.DEFAULT, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(false, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertFalse(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(false, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertFalse(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(2, function.getParameterCount());
 
@@ -860,7 +860,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("P2", parameter2.getName());
@@ -869,7 +869,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter2.getSource());
 				assertEquals(4, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 			}
 
 			@Override
@@ -929,14 +929,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(true, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertTrue(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(true, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertTrue(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(3, function.getParameterCount());
 
@@ -947,7 +947,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("Value", parameter2.getName());
@@ -956,7 +956,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter2.getSource());
 				assertEquals(1, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 
 				Parameter parameter3 = function.getParameter(2);
 				assertEquals("P3", parameter3.getName());
@@ -965,7 +965,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter3.getSource());
 				assertEquals(4, parameter3.getLength());
 				assertEquals(12, parameter3.getStackOffset());
-				assertEquals(null, parameter3.getRegister());
+				assertNull(parameter3.getRegister());
 			}
 		});
 
@@ -1007,14 +1007,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.DEFAULT, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(false, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertFalse(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(false, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertFalse(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(2, function.getParameterCount());
 
@@ -1025,7 +1025,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("P2", parameter2.getName());
@@ -1034,7 +1034,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter2.getSource());
 				assertEquals(4, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 			}
 
 			@Override
@@ -1094,14 +1094,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(true, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertTrue(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(true, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertTrue(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(3, function.getParameterCount());
 
@@ -1112,7 +1112,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("Value", parameter2.getName());
@@ -1121,7 +1121,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter2.getSource());
 				assertEquals(1, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 
 				Parameter parameter3 = function.getParameter(2);
 				assertEquals("P3", parameter3.getName());
@@ -1130,7 +1130,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter3.getSource());
 				assertEquals(4, parameter3.getLength());
 				assertEquals(12, parameter3.getStackOffset());
-				assertEquals(null, parameter3.getRegister());
+				assertNull(parameter3.getRegister());
 			}
 		});
 
@@ -1148,14 +1148,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 		assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 		assertEquals("unknown", function.getCallingConventionName());
 		assertEquals(new AddressSet(), function.getBody());
-		assertEquals(null, function.getComment());
-		assertEquals(null, function.getRepeatableComment());
-		assertEquals(true, function.hasCustomVariableStorage());
+		assertNull(function.getComment());
+		assertNull(function.getRepeatableComment());
+		assertTrue(function.hasCustomVariableStorage());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-		assertEquals(true, function.hasVarArgs());
-		assertEquals(true, function.isExternal());
-		assertEquals(false, function.isInline());
-		assertEquals(false, function.isThunk());
+		assertTrue(function.hasVarArgs());
+		assertTrue(function.isExternal());
+		assertFalse(function.isInline());
+		assertFalse(function.isThunk());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 		assertEquals(3, function.getParameterCount());
 
@@ -1166,7 +1166,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 		assertEquals(4, parameter1.getLength());
 		assertEquals(4, parameter1.getStackOffset());
-		assertEquals(null, parameter1.getRegister());
+		assertNull(parameter1.getRegister());
 
 		Parameter parameter2 = function.getParameter(1);
 		assertEquals("Value", parameter2.getName());
@@ -1175,7 +1175,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter2.getSource());
 		assertEquals(1, parameter2.getLength());
 		assertEquals(8, parameter2.getStackOffset());
-		assertEquals(null, parameter2.getRegister());
+		assertNull(parameter2.getRegister());
 
 		Parameter parameter3 = function.getParameter(2);
 		assertEquals("P3", parameter3.getName());
@@ -1184,7 +1184,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter3.getSource());
 		assertEquals(4, parameter3.getLength());
 		assertEquals(12, parameter3.getStackOffset());
-		assertEquals(null, parameter3.getRegister());
+		assertNull(parameter3.getRegister());
 	}
 
 	@Test
@@ -1215,14 +1215,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.DEFAULT, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(false, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertFalse(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(false, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertFalse(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(2, function.getParameterCount());
 
@@ -1233,7 +1233,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("P2", parameter2.getName());
@@ -1242,7 +1242,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, parameter2.getSource());
 				assertEquals(4, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 			}
 
 			@Override
@@ -1328,14 +1328,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 				assertEquals("unknown", function.getCallingConventionName());
 				assertEquals(new AddressSet(), function.getBody());
-				assertEquals(null, function.getComment());
-				assertEquals(null, function.getRepeatableComment());
-				assertEquals(true, function.hasCustomVariableStorage());
+				assertNull(function.getComment());
+				assertNull(function.getRepeatableComment());
+				assertTrue(function.hasCustomVariableStorage());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-				assertEquals(true, function.hasVarArgs());
-				assertEquals(true, function.isExternal());
-				assertEquals(false, function.isInline());
-				assertEquals(false, function.isThunk());
+				assertTrue(function.hasVarArgs());
+				assertTrue(function.isExternal());
+				assertFalse(function.isInline());
+				assertFalse(function.isThunk());
 				assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 				assertEquals(3, function.getParameterCount());
 
@@ -1346,7 +1346,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 				assertEquals(4, parameter1.getLength());
 				assertEquals(4, parameter1.getStackOffset());
-				assertEquals(null, parameter1.getRegister());
+				assertNull(parameter1.getRegister());
 
 				Parameter parameter2 = function.getParameter(1);
 				assertEquals("Value", parameter2.getName());
@@ -1355,7 +1355,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter2.getSource());
 				assertEquals(1, parameter2.getLength());
 				assertEquals(8, parameter2.getStackOffset());
-				assertEquals(null, parameter2.getRegister());
+				assertNull(parameter2.getRegister());
 
 				Parameter parameter3 = function.getParameter(2);
 				assertEquals("P3", parameter3.getName());
@@ -1364,7 +1364,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 				assertEquals(SourceType.IMPORTED, parameter3.getSource());
 				assertEquals(4, parameter3.getLength());
 				assertEquals(12, parameter3.getStackOffset());
-				assertEquals(null, parameter3.getRegister());
+				assertNull(parameter3.getRegister());
 			}
 		});
 
@@ -1388,14 +1388,14 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 		assertEquals(SourceType.USER_DEFINED, function.getReturn().getSource());
 		assertEquals("unknown", function.getCallingConventionName());
 		assertEquals(new AddressSet(), function.getBody());
-		assertEquals(null, function.getComment());
-		assertEquals(null, function.getRepeatableComment());
-		assertEquals(true, function.hasCustomVariableStorage());
+		assertNull(function.getComment());
+		assertNull(function.getRepeatableComment());
+		assertTrue(function.hasCustomVariableStorage());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
-		assertEquals(true, function.hasVarArgs());
-		assertEquals(true, function.isExternal());
-		assertEquals(false, function.isInline());
-		assertEquals(false, function.isThunk());
+		assertTrue(function.hasVarArgs());
+		assertTrue(function.isExternal());
+		assertFalse(function.isInline());
+		assertFalse(function.isThunk());
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
 		assertEquals(3, function.getParameterCount());
 
@@ -1406,7 +1406,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.ANALYSIS, parameter1.getSource());
 		assertEquals(4, parameter1.getLength());
 		assertEquals(4, parameter1.getStackOffset());
-		assertEquals(null, parameter1.getRegister());
+		assertNull(parameter1.getRegister());
 
 		Parameter parameter2 = function.getParameter(1);
 		assertEquals("Value", parameter2.getName());
@@ -1415,7 +1415,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter2.getSource());
 		assertEquals(1, parameter2.getLength());
 		assertEquals(8, parameter2.getStackOffset());
-		assertEquals(null, parameter2.getRegister());
+		assertNull(parameter2.getRegister());
 
 		Parameter parameter3 = function.getParameter(2);
 		assertEquals("P3", parameter3.getName());
@@ -1424,7 +1424,7 @@ public class ExternalFunctionMergeManagerTest extends AbstractExternalMergerTest
 //		assertEquals(SourceType.IMPORTED, parameter3.getSource());
 		assertEquals(4, parameter3.getLength());
 		assertEquals(12, parameter3.getStackOffset());
-		assertEquals(null, parameter3.getRegister());
+		assertNull(parameter3.getRegister());
 	}
 
 	@Test

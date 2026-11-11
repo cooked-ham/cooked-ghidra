@@ -49,7 +49,7 @@ public class MarkupStatusFilter extends CheckBoxBasedAncillaryFilter<VTMarkupIte
 // Inner Classes
 //==================================================================================================
 
-	private class MatchStatusCheckBoxInfo extends CheckBoxInfo<VTMarkupItem> {
+	private static class MatchStatusCheckBoxInfo extends CheckBoxInfo<VTMarkupItem> {
 
 		private VTMarkupItemStatus status;
 

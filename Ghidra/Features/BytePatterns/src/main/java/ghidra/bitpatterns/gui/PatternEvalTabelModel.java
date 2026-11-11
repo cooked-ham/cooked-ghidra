@@ -94,7 +94,7 @@ public class PatternEvalTabelModel extends AddressBasedTableModel<PatternEvalRow
 
 	//******************************************************************************************//
 
-	private class MatchTypeTableColumn
+	private static class MatchTypeTableColumn
 			extends AbstractDynamicTableColumn<PatternEvalRowObject, PatternMatchType, Object> {
 
 		@Override
@@ -109,7 +109,7 @@ public class PatternEvalTabelModel extends AddressBasedTableModel<PatternEvalRow
 		}
 	}
 
-	private class AddressTableColumn
+	private static class AddressTableColumn
 			extends AbstractDynamicTableColumn<PatternEvalRowObject, Address, Object> {
 
 		@Override
@@ -124,7 +124,7 @@ public class PatternEvalTabelModel extends AddressBasedTableModel<PatternEvalRow
 		}
 	}
 
-	private class PostBitsColumn
+	private static class PostBitsColumn
 			extends AbstractDynamicTableColumn<PatternEvalRowObject, Integer, Object> {
 
 		@Override
@@ -139,7 +139,7 @@ public class PatternEvalTabelModel extends AddressBasedTableModel<PatternEvalRow
 		}
 	}
 
-	private class TotalBitsColumn
+	private static class TotalBitsColumn
 			extends AbstractDynamicTableColumn<PatternEvalRowObject, Integer, Object> {
 
 		@Override

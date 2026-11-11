@@ -312,7 +312,7 @@ public class GdbMethodsTest extends AbstractGdbTraceRmiTest {
 							PathFilter.parse("Inferiors[1].Threads[1].Stack[]"))
 						.map(p -> p.getDestination(null))
 						.toList();
-				assertEquals(list.size(), 2);
+				assertEquals(2, list.size());
 			}
 		}
 	}
@@ -391,7 +391,7 @@ public class GdbMethodsTest extends AbstractGdbTraceRmiTest {
 					tb.trace.getMemoryManager().getAllRegions();
 				if (IS_WINDOWS) {
 					// NB: "info proc mappings" not supported for current gdb on Windows
-					assertEquals(all.size(), 1);
+					assertEquals(1, all.size());
 				}
 				else {
 					assertThat(all.size(), greaterThan(2));
@@ -519,7 +519,7 @@ public class GdbMethodsTest extends AbstractGdbTraceRmiTest {
 							PathFilter.parse("Inferiors[1].Threads[1].Stack[]"))
 						.map(p -> p.getDestination(null))
 						.toList();
-				assertEquals(list.size(), 2);
+				assertEquals(2, list.size());
 
 				for (TraceObject f : list) {
 					activateFrame.invoke(Map.of("frame", f));

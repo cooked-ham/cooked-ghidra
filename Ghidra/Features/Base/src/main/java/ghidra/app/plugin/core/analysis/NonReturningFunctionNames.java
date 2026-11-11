@@ -91,7 +91,7 @@ public class NonReturningFunctionNames {
 			fileList.add(getDataFile(dataDirs, patternFileName));
 		}
 
-		return fileList.toArray(new ResourceFile[fileList.size()]);
+		return fileList.toArray(new ResourceFile[0]);
 	}
 
 	private static ResourceFile getDataFile(List<ResourceFile> dataDirs, String fileName)

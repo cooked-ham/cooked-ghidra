@@ -17,6 +17,7 @@
 package ghidra.util.datastruct;
 import ghidra.util.exception.NoValueException;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Iterator;
 
@@ -26,6 +27,7 @@ import java.util.Iterator;
 
 
 public class StringIntHashtable implements Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
 
 

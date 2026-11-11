@@ -55,7 +55,7 @@ public class TableDescriptor {
 
 		}
 
-		return list.toArray(new TableColumn[list.size()]);
+		return list.toArray(new TableColumn[0]);
 	}
 
 	public int[] getIndexedColumns() {

@@ -48,7 +48,7 @@ public class DefaultFidPopulateResultReporter implements FidPopulateResultReport
 		buffer.append("\n");
 		for (Entry<Disposition, Integer> entry : result.getFailures().entrySet()) {
 			if (entry.getKey() != Disposition.INCLUDED) {
-				buffer.append("    " + entry.getKey() + ": " + entry.getValue());
+				buffer.append("    ").append(entry.getKey()).append(": ").append(entry.getValue());
 				buffer.append("\n");
 			}
 		}

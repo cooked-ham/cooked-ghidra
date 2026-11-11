@@ -843,7 +843,7 @@ public class SymbolTreeProvider extends ComponentProviderAdapter {
 // Inner Classes
 //==================================================================================================
 
-	private class SearchTask extends GTreeTask {
+	private static class SearchTask extends GTreeTask {
 
 		private SymbolTreeRootNode rootNode;
 		private Symbol searchSymbol;
@@ -876,7 +876,7 @@ public class SymbolTreeProvider extends ComponentProviderAdapter {
 		}
 	}
 
-	private abstract class AbstractSymbolUpdateTask extends GTreeTask {
+	private static abstract class AbstractSymbolUpdateTask extends GTreeTask {
 
 		protected final Symbol symbol;
 

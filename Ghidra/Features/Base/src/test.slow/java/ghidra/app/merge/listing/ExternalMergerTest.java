@@ -132,7 +132,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("01234567",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -200,7 +200,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		assertEquals("advapi32.dll::oranges",
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertNull(((ExternalReference) refs[0]).getExternalLocation().getAddress());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -264,7 +264,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		assertEquals("advapi32.dll::oranges",
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertNull(((ExternalReference) refs[0]).getExternalLocation().getAddress());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -328,7 +328,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		assertEquals("advapi32.dll::apples",
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertNull(((ExternalReference) refs[0]).getExternalLocation().getAddress());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -380,7 +380,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -411,7 +411,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -435,7 +435,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("01234567",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -487,7 +487,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -517,7 +517,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -546,7 +546,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("01234567",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -598,7 +598,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -629,7 +629,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -657,7 +657,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("01234567",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -709,7 +709,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -739,7 +739,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -767,7 +767,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("01234567",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -819,7 +819,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override
@@ -849,7 +849,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 					((ExternalReference) refs[0]).getExternalLocation().toString());
 				assertEquals("01234567",
 					((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-				assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+				assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 			}
 		});
 
@@ -877,7 +877,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("01234567",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -965,7 +965,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("11111111",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1046,7 +1046,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("11111111",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1127,7 +1127,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("87654321",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1182,7 +1182,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("77db1020",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1238,7 +1238,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("77db1020",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1294,7 +1294,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("77db1130",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1349,7 +1349,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("77db1020",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1405,7 +1405,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("77db1020",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1461,7 +1461,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("77db1130",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 	}
 
 	@Test
@@ -1516,7 +1516,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("77db1020",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 
 		ExternalManager externalManager = resultProgram.getExternalManager();
 
@@ -1580,7 +1580,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 			((ExternalReference) refs[0]).getExternalLocation().toString());
 		assertEquals("77db1020",
 			((ExternalReference) refs[0]).getExternalLocation().getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 
 		ExternalManager externalManager = resultProgram.getExternalManager();
 		ExternalLocation latestExtLoc =
@@ -1668,7 +1668,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		ExternalLocation externalLocation = ((ExternalReference) refs[0]).getExternalLocation();
 		assertEquals("advapi32.dll::oranges", externalLocation.toString());
 		assertEquals("77db1020", externalLocation.getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 		Function function = externalLocation.getFunction();
 		assertNotNull(function);
 		assertEquals("undefined oranges()", function.getPrototypeString(false, false));
@@ -1726,7 +1726,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		ExternalLocation externalLocation = ((ExternalReference) refs[0]).getExternalLocation();
 		assertEquals("advapi32.dll::oranges", externalLocation.toString());
 		assertEquals("77db1020", externalLocation.getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 		Function function = externalLocation.getFunction();
 		assertNotNull(function);
 		assertEquals("undefined oranges()", function.getPrototypeString(false, false));
@@ -1787,7 +1787,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		ExternalLocation externalLocation = ((ExternalReference) refs[0]).getExternalLocation();
 		assertEquals("advapi32.dll::oranges", externalLocation.toString());
 		assertEquals("77db1020", externalLocation.getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 		Function function = externalLocation.getFunction();
 		assertNotNull(function);
 		assertEquals(SourceType.USER_DEFINED, function.getSignatureSource());
@@ -1873,7 +1873,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		ExternalLocation externalLocation = ((ExternalReference) refs[0]).getExternalLocation();
 		assertEquals("advapi32.dll::oranges", externalLocation.toString());
 		assertEquals("77db1020", externalLocation.getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 		Function function = externalLocation.getFunction();
 		assertNotNull(function);
 		assertEquals("undefined oranges(dword P1)", function.getPrototypeString(false, false));
@@ -1960,7 +1960,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		ExternalLocation externalLocation = ((ExternalReference) refs[0]).getExternalLocation();
 		assertEquals("advapi32.dll::oranges", externalLocation.toString());
 		assertEquals("77db1020", externalLocation.getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 		Function function = externalLocation.getFunction();
 		assertNotNull(function);
 		assertEquals(SourceType.DEFAULT, function.getSignatureSource());
@@ -2049,7 +2049,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		ExternalLocation externalLocation = ((ExternalReference) refs[0]).getExternalLocation();
 		assertEquals("advapi32.dll::oranges", externalLocation.toString());
 		assertEquals("77db1020", externalLocation.getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 		Function function = externalLocation.getFunction();
 		assertNotNull(function);
 		assertEquals("undefined oranges(dword P1)", function.getPrototypeString(false, false));
@@ -2137,7 +2137,7 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 		ExternalLocation externalLocation = ((ExternalReference) refs[0]).getExternalLocation();
 		assertEquals("advapi32.dll::oranges", externalLocation.toString());
 		assertEquals("77db1020", externalLocation.getAddress().toString());
-		assertTrue(refs[0].getSource() == SourceType.USER_DEFINED);
+		assertSame(refs[0].getSource(), SourceType.USER_DEFINED);
 		Function function = externalLocation.getFunction();
 		assertNotNull(function);
 		assertEquals("undefined oranges(byte Size)", function.getPrototypeString(false, false));
@@ -2163,11 +2163,11 @@ public class ExternalMergerTest extends AbstractExternalMergerTest {
 				ExternalLocation externalLocation =
 					externalManager.getUniqueExternalLocation("advapi32.dll", "apples");
 				assertNotNull(externalLocation);
-				assertEquals(true, externalLocation.isFunction());
+				assertTrue(externalLocation.isFunction());
 
 				assertEquals("advapi32.dll::apples", externalLocation.toString());
 				assertEquals(addr(program, "77db1020"), externalLocation.getAddress());
-				assertTrue(externalLocation.getSource() == SourceType.USER_DEFINED);
+				assertSame(externalLocation.getSource(), SourceType.USER_DEFINED);
 			}
 
 			@Override

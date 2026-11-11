@@ -761,7 +761,7 @@ public class FloatFormat {
 	 * @return {@link BigFloat} equal to {@code f}
 	 */
 	public static BigFloat toBigFloat(float f) {
-		return JAVA_FLOAT_FORMAT.decodeBigFloat(0xffffffffl & Float.floatToRawIntBits(f));
+		return JAVA_FLOAT_FORMAT.decodeBigFloat(0xffffffffL & Float.floatToRawIntBits(f));
 	}
 
 	/**
@@ -786,7 +786,7 @@ public class FloatFormat {
 	 * @return binary representation of {@code f}
 	 */
 	static String toBinaryString(float f) {
-		return JAVA_FLOAT_FORMAT.toBinaryString(0xffffffffl & Float.floatToRawIntBits(f));
+		return JAVA_FLOAT_FORMAT.toBinaryString(0xffffffffL & Float.floatToRawIntBits(f));
 	}
 
 	/**

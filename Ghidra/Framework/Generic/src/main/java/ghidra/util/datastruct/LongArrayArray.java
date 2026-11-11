@@ -21,6 +21,7 @@
 
 package ghidra.util.datastruct;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -28,6 +29,7 @@ import java.io.Serializable;
  * Array of long[] that grows as needed.
  */
 public class LongArrayArray implements Array, Serializable {
+	@Serial
 	private final static long serialVersionUID = 1;
 
     static final int MIN_SIZE = 4;

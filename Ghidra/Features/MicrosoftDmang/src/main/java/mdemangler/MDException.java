@@ -15,12 +15,15 @@
  */
 package mdemangler;
 
+import java.io.Serial;
+
 /**
  * A class to handle exceptions that occur demangling for MDMang and
  * related derived and subordinate classes.
  */
 public class MDException extends Exception {
 	private boolean invalidMangledName;
+	@Serial
 	private static final long serialVersionUID = 0;
 
 	/**

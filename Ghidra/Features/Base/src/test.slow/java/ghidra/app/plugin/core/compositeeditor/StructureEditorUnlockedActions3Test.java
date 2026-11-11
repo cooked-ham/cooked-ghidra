@@ -88,10 +88,10 @@ public class StructureEditorUnlockedActions3Test
 		assertEquals(getDataType(1), dt1);
 		assertEquals(getDataType(2), dt1);
 		assertEquals(getDataType(3), dt1);
-		assertEquals(getDataType(0).getDisplayName(), "byte");
-		assertEquals(getDataType(1).getDisplayName(), "string");
-		assertEquals(getDataType(2).getDisplayName(), "string");
-		assertEquals(getDataType(3).getDisplayName(), "string");
+		assertEquals("byte", getDataType(0).getDisplayName());
+		assertEquals("string", getDataType(1).getDisplayName());
+		assertEquals("string", getDataType(2).getDisplayName());
+		assertEquals("string", getDataType(3).getDisplayName());
 		assertEquals(1, getLength(0));
 		assertEquals(5, getLength(1));
 		assertEquals(5, getLength(2));

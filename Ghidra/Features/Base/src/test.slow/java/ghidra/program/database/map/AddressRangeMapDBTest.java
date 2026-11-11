@@ -218,7 +218,7 @@ public class AddressRangeMapDBTest extends AbstractGhidraHeadedIntegrationTest
 		assertEquals(new AddressRangeImpl(addr(0x0100001001L), addr(0x01ffffffefL)), iter.next());
 		assertTrue(iter.hasNext());
 		assertEquals(new AddressRangeImpl(addr(0x0200000011L), addr(0x0200001000L)), iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 
 		// Limited range of addresses starting at 0x0100000100
 		iter = map.getAddressRanges(addr(0x0100000100L));
@@ -230,7 +230,7 @@ public class AddressRangeMapDBTest extends AbstractGhidraHeadedIntegrationTest
 		assertEquals(new AddressRangeImpl(addr(0x0100001001L), addr(0x01ffffffefL)), iter.next());
 		assertTrue(iter.hasNext());
 		assertEquals(new AddressRangeImpl(addr(0x0200000011L), addr(0x0200001000L)), iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 
 		// Limited range of addresses from 0x0100000100 to 0x0200000100L
 		iter = map.getAddressRanges(addr(0x0100000100L), addr(0x0200000100L));
@@ -242,7 +242,7 @@ public class AddressRangeMapDBTest extends AbstractGhidraHeadedIntegrationTest
 		assertEquals(new AddressRangeImpl(addr(0x0100001001L), addr(0x01ffffffefL)), iter.next());
 		assertTrue(iter.hasNext());
 		assertEquals(new AddressRangeImpl(addr(0x0200000011L), addr(0x0200000100L)), iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 	}
 
 	@Test
@@ -289,7 +289,7 @@ public class AddressRangeMapDBTest extends AbstractGhidraHeadedIntegrationTest
 		assertTrue(iter.hasNext());
 		assertEquals(new AddressRangeImpl(addr(0xfffffffffffff000L), addr(0xffffffffffffffffL)),
 			iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 
 		// Limited range of addresses starting at 0x0100000100
 		iter = map.getAddressRanges(addr(0x0100000100L));
@@ -300,7 +300,7 @@ public class AddressRangeMapDBTest extends AbstractGhidraHeadedIntegrationTest
 		assertTrue(iter.hasNext());
 		assertEquals(new AddressRangeImpl(addr(0xfffffffffffff000L), addr(0xffffffffffffffffL)),
 			iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 
 		// Limited range of addresses from 0x0100000100 to 0x0200000100L
 		iter = map.getAddressRanges(addr(0x0100000100L), addr(0x0200000100L));
@@ -308,7 +308,7 @@ public class AddressRangeMapDBTest extends AbstractGhidraHeadedIntegrationTest
 		assertEquals(new AddressRangeImpl(addr(0x0100000100L), addr(0x01ffffefefL)), iter.next());
 		assertTrue(iter.hasNext());
 		assertEquals(new AddressRangeImpl(addr(0x01fffff011L), addr(0x0200000000L)), iter.next());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 	}
 
 	@Test

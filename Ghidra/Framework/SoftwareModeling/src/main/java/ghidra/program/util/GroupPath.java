@@ -17,12 +17,14 @@ package ghidra.program.util;
 
 import ghidra.program.model.listing.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * The <CODE>GroupPath</CODE> is a class to represent a unique path in a tree for a Group.
  */
 public class GroupPath implements Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
 
 	private String []groupNames;

@@ -173,7 +173,7 @@ public class ProjectDataTableModel extends ThreadedTableModel<DomainFileInfo, Pr
 // Inner Classes
 //==================================================================================================
 
-	private class DomainFileTypeColumn
+	private static class DomainFileTypeColumn
 			extends AbstractDynamicTableColumn<DomainFileInfo, DomainFileType, ProjectData> {
 
 		@Override
@@ -193,7 +193,7 @@ public class ProjectDataTableModel extends ThreadedTableModel<DomainFileInfo, Pr
 		}
 	}
 
-	private class DomainFileNameColumn
+	private static class DomainFileNameColumn
 			extends AbstractDynamicTableColumn<DomainFileInfo, String, ProjectData> {
 
 		@Override
@@ -222,7 +222,7 @@ public class ProjectDataTableModel extends ThreadedTableModel<DomainFileInfo, Pr
 		}
 	}
 
-	private class ModificationDateColumn
+	private static class ModificationDateColumn
 			extends AbstractDynamicTableColumn<DomainFileInfo, Date, ProjectData> {
 
 		@Override
@@ -243,7 +243,7 @@ public class ProjectDataTableModel extends ThreadedTableModel<DomainFileInfo, Pr
 		}
 	}
 
-	private class DomainFilePathColumn
+	private static class DomainFilePathColumn
 			extends AbstractDynamicTableColumn<DomainFileInfo, String, ProjectData> {
 
 		@Override

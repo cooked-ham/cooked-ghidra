@@ -353,7 +353,7 @@ public class MsVxtManager extends VxtManager {
 		if (list == null) {
 			return null;
 		}
-		return list.toArray(new VirtualBaseTable[list.size()]);
+		return list.toArray(new VirtualBaseTable[0]);
 	}
 
 	/**
@@ -366,7 +366,7 @@ public class MsVxtManager extends VxtManager {
 		if (list == null) {
 			return null;
 		}
-		return list.toArray(new VirtualFunctionTable[list.size()]);
+		return list.toArray(new VirtualFunctionTable[0]);
 	}
 
 	/**

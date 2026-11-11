@@ -15,10 +15,6 @@
  */
 package ghidra.app.util.dialog;
 
-import java.awt.BorderLayout;
-
-import javax.swing.*;
-
 import docking.DialogComponentProvider;
 import docking.DockingWindowManager;
 import docking.widgets.MultiLineLabel;
@@ -31,88 +27,92 @@ import ghidra.framework.remote.User;
 import ghidra.util.HelpLocation;
 import ghidra.util.Swing;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class CheckoutDialog extends DialogComponentProvider {
 
-	public static final int CHECKOUT = 0;
-	public static final int DO_NOT_CHECKOUT = 1;
+    public static final int CHECKOUT = 0;
+    public static final int DO_NOT_CHECKOUT = 1;
 
-	private boolean exclusiveCheckout;
-	private int actionID = DO_NOT_CHECKOUT;
+    private boolean exclusiveCheckout;
+    private int actionID = DO_NOT_CHECKOUT;
 
-	public CheckoutDialog(DomainFile df, User user) {
-		super("Versioned File not Checked Out", true);
+    public CheckoutDialog(DomainFile df, User user) {
+        super("Versioned File not Checked Out", true);
 
-		addWorkPanel(buildMainPanel(df, user));
-		setHelpLocation(new HelpLocation(HelpTopics.PROGRAM, "FileNotCheckedOut"));
+        addWorkPanel(buildMainPanel(df, user));
+        setHelpLocation(new HelpLocation(HelpTopics.PROGRAM, "FileNotCheckedOut"));
 
-		JButton checkoutButton = new JButton("Yes");
-		checkoutButton.addActionListener(e -> {
-			actionID = CHECKOUT;
-			close();
-		});
-		checkoutButton.getAccessibleContext().setAccessibleName("Checkout file");
-		addButton(checkoutButton);
+        JButton checkoutButton = new JButton("Yes");
+        checkoutButton.addActionListener(e -> {
+            actionID = CHECKOUT;
+            close();
+        });
+        checkoutButton.getAccessibleContext().setAccessibleName("Checkout file");
+        addButton(checkoutButton);
 
-		JButton noCheckoutButton = new JButton("No");
-		noCheckoutButton.addActionListener(e -> {
-			actionID = DO_NOT_CHECKOUT;
-			close();
-		});
-		noCheckoutButton.getAccessibleContext().setAccessibleName("Don't checkout file");
-		addButton(noCheckoutButton);
+        JButton noCheckoutButton = new JButton("No");
+        noCheckoutButton.addActionListener(e -> {
+            actionID = DO_NOT_CHECKOUT;
+            close();
+        });
+        noCheckoutButton.getAccessibleContext().setAccessibleName("Don't checkout file");
+        addButton(noCheckoutButton);
 
-	}
+    }
 
-	/**
-	 * Show the dialog; return an ID for the action that the user chose.
-	 * @return OK, or CANCEL
-	 */
-	public int showDialog() {
-		Swing.runNow(() -> DockingWindowManager.showDialog(null, CheckoutDialog.this));
-		return actionID;
-	}
+    /**
+     * Show the dialog; return an ID for the action that the user chose.
+     *
+     * @return OK, or CANCEL
+     */
+    public int showDialog() {
+        Swing.runNow(() -> DockingWindowManager.showDialog(null, CheckoutDialog.this));
+        return actionID;
+    }
 
-	public boolean exclusiveCheckout() {
-		return exclusiveCheckout;
-	}
+    public boolean exclusiveCheckout() {
+        return exclusiveCheckout;
+    }
 
-	private JPanel buildMainPanel(DomainFile df, User user) {
-		JPanel innerPanel = new JPanel();
-		innerPanel.setLayout(new BorderLayout());
-		innerPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-		innerPanel.getAccessibleContext().setAccessibleName("File Checkout");
+    private JPanel buildMainPanel(DomainFile df, User user) {
+        JPanel innerPanel = new JPanel();
+        innerPanel.setLayout(new BorderLayout());
+        innerPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        innerPanel.getAccessibleContext().setAccessibleName("File Checkout");
 
-		JPanel msgPanel = new JPanel(new BorderLayout());
-		msgPanel.add(
-			new GIconLabel(OptionDialog.getIconForMessageType(OptionDialog.WARNING_MESSAGE)),
-			BorderLayout.WEST);
-		msgPanel.getAccessibleContext().setAccessibleName("Message");
+        JPanel msgPanel = new JPanel(new BorderLayout());
+        msgPanel.add(
+                new GIconLabel(OptionDialog.getIconForMessageType(OptionDialog.WARNING_MESSAGE)),
+                BorderLayout.WEST);
+        msgPanel.getAccessibleContext().setAccessibleName("Message");
 
-		MultiLineLabel msgText = new MultiLineLabel("File " + df.getName() +
-			" is NOT CHECKED OUT.\n" + "If you want to make changes and save them\n" +
-			"to THIS file, then you must first check out the file.\n" +
-			"Do you want to Check Out this file?");
-		msgText.setMaximumSize(msgText.getPreferredSize());
-		msgPanel.add(msgText, BorderLayout.CENTER);
+        MultiLineLabel msgText = new MultiLineLabel("File " + df.getName() +
+                " is NOT CHECKED OUT.\n" + "If you want to make changes and save them\n" +
+                "to THIS file, then you must first check out the file.\n" +
+                "Do you want to Check Out this file?");
+        msgText.setMaximumSize(msgText.getPreferredSize());
+        msgPanel.add(msgText, BorderLayout.CENTER);
 
-		innerPanel.add(msgPanel, BorderLayout.CENTER);
+        innerPanel.add(msgPanel, BorderLayout.CENTER);
 
-		exclusiveCheckout = true;
-		if (user != null) {
-			exclusiveCheckout = false;
-			if (user.hasWritePermission()) {
-				final JCheckBox exclusiveCB = new GCheckBox("Request exclusive check out");
-				exclusiveCB.setSelected(false);
-				exclusiveCB.addActionListener(e -> exclusiveCheckout = exclusiveCB.isSelected());
-				JPanel cbPanel = new JPanel(new BorderLayout());
-				cbPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
-				exclusiveCB.getAccessibleContext()
-						.setAccessibleDescription("Exclusize Checkout Box");
-				cbPanel.add(exclusiveCB);
-				cbPanel.getAccessibleContext().setAccessibleDescription("Checkboxes");
-				innerPanel.add(cbPanel, BorderLayout.SOUTH);
-			}
-		}
-		return innerPanel;
-	}
+        exclusiveCheckout = true;
+        if (user != null) {
+            exclusiveCheckout = false;
+            if (user.hasWritePermission()) {
+                final JCheckBox exclusiveCB = new GCheckBox("Request exclusive check out");
+                exclusiveCB.setSelected(false);
+                exclusiveCB.addActionListener(e -> exclusiveCheckout = exclusiveCB.isSelected());
+                JPanel cbPanel = new JPanel(new BorderLayout());
+                cbPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+                exclusiveCB.getAccessibleContext()
+                        .setAccessibleDescription("Exclusize Checkout Box");
+                cbPanel.add(exclusiveCB);
+                cbPanel.getAccessibleContext().setAccessibleDescription("Checkboxes");
+                innerPanel.add(cbPanel, BorderLayout.SOUTH);
+            }
+        }
+        return innerPanel;
+    }
 }

@@ -15,11 +15,9 @@
  */
 package ghidra.app.plugin.core.decompiler.taint.sarif;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
-import com.contrastsecurity.sarif.*;
-
+import com.contrastsecurity.sarif.LogicalLocation;
+import com.contrastsecurity.sarif.Node;
+import com.contrastsecurity.sarif.PropertyBag;
 import ghidra.app.plugin.core.decompiler.taint.TaintService;
 import ghidra.framework.plugintool.PluginTool;
 import ghidra.program.model.address.Address;
@@ -27,54 +25,57 @@ import ghidra.service.graph.AttributedVertex;
 import sarif.SarifUtils;
 import sarif.handlers.run.SarifGraphRunHandler;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 public class SarifTaintGraphRunHandler extends SarifGraphRunHandler {
 
-	private TaintService service;
+    private TaintService service;
 
-	@Override
-	protected void populateVertex(Node n, AttributedVertex vertex) {
-		if (service == null) {
-			PluginTool tool = controller.getPlugin().getTool();
-			service = tool.getService(TaintService.class);
-		}
-		Address addr = controller.locationToAddress(run, n.getLocation());
-		String addrStr = addr == null ? "NULL" : addr.toString(true);
-		vertex.setName(addrStr);
-		String text = n.getLabel().getText();
-		PropertyBag properties = n.getProperties();
-		if (properties != null) {
-			Map<String, Object> additional = properties.getAdditionalProperties();
-			if (additional != null) {
-				for (Entry<String, Object> entry : additional.entrySet()) {
-					vertex.setAttribute(entry.getKey(), entry.getValue().toString());
-				}
-			}
-		}
-		vertex.setAttribute("Label", text);
-		vertex.setAttribute("Address", addrStr);
-		LogicalLocation ll = SarifUtils.getLogicalLocation(run, n.getLocation());
-		if (ll != null) {
-			String name = ll.getName();
-			String fqname = ll.getFullyQualifiedName();
-			String displayName = SarifUtils.extractDisplayName(ll);
-			vertex.setAttribute("originalName", name);
-			vertex.setAttribute("name", displayName);
-			if (name != null) {
-				vertex.setName(displayName);
-			}
-			addr = SarifUtils.getLocAddress(controller.getProgram(), fqname);
-			if (addr != null) {
-				vertex.setAttribute("Address", addr.toString(true));
-			}
+    @Override
+    protected void populateVertex(Node n, AttributedVertex vertex) {
+        if (service == null) {
+            PluginTool tool = controller.getPlugin().getTool();
+            service = tool.getService(TaintService.class);
+        }
+        Address addr = controller.locationToAddress(run, n.getLocation());
+        String addrStr = addr == null ? "NULL" : addr.toString(true);
+        vertex.setName(addrStr);
+        String text = n.getLabel().getText();
+        PropertyBag properties = n.getProperties();
+        if (properties != null) {
+            Map<String, Object> additional = properties.getAdditionalProperties();
+            if (additional != null) {
+                for (Entry<String, Object> entry : additional.entrySet()) {
+                    vertex.setAttribute(entry.getKey(), entry.getValue().toString());
+                }
+            }
+        }
+        vertex.setAttribute("Label", text);
+        vertex.setAttribute("Address", addrStr);
+        LogicalLocation ll = SarifUtils.getLogicalLocation(run, n.getLocation());
+        if (ll != null) {
+            String name = ll.getName();
+            String fqname = ll.getFullyQualifiedName();
+            String displayName = SarifUtils.extractDisplayName(ll);
+            vertex.setAttribute("originalName", name);
+            vertex.setAttribute("name", displayName);
+            if (name != null) {
+                vertex.setName(displayName);
+            }
+            addr = SarifUtils.getLocAddress(controller.getProgram(), fqname);
+            if (addr != null) {
+                vertex.setAttribute("Address", addr.toString(true));
+            }
 
-			vertex.setAttribute("location", fqname);
-			vertex.setAttribute("kind", ll.getKind());
-			vertex.setAttribute("function", SarifUtils.extractFQNameFunction(fqname));
-			Address faddr = SarifUtils.extractFunctionEntryAddr(controller.getProgram(), fqname);
-			if (faddr != null && faddr.getOffset() >= 0) {
-				vertex.setAttribute("func_addr", faddr.toString(true));
-			}
-		}
-	}
+            vertex.setAttribute("location", fqname);
+            vertex.setAttribute("kind", ll.getKind());
+            vertex.setAttribute("function", SarifUtils.extractFQNameFunction(fqname));
+            Address faddr = SarifUtils.extractFunctionEntryAddr(controller.getProgram(), fqname);
+            if (faddr != null && faddr.getOffset() >= 0) {
+                vertex.setAttribute("func_addr", faddr.toString(true));
+            }
+        }
+    }
 
 }

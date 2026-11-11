@@ -216,7 +216,7 @@ public class GTreeTest extends AbstractDockingTest {
 	@Test
 	public void testExpandCollapseNode() {
 		GTreeNode node = findNodeInTree(NonLeafWithOneLevelOfChildrenNodeB.class.getSimpleName());
-		assertTrue(!node.isExpanded());
+		assertFalse(node.isExpanded());
 
 		node.expand();
 		waitForTree();
@@ -224,11 +224,11 @@ public class GTreeTest extends AbstractDockingTest {
 
 		node.collapse();
 		waitForTree();
-		assertTrue(!node.isExpanded());
+		assertFalse(node.isExpanded());
 
 		GTreeNode root = node.getRoot();
 		root.collapse();
-		assertTrue(!root.isExpanded());
+		assertFalse(root.isExpanded());
 		assertTrue(gTree.getExpandedPaths().isEmpty());
 	}
 
@@ -1157,7 +1157,7 @@ public class GTreeTest extends AbstractDockingTest {
 // Inner Classes
 //==================================================================================================
 
-	private class TestGTree extends GTree {
+	private static class TestGTree extends GTree {
 
 		public TestGTree(GTreeNode root) {
 			super(root);
@@ -1184,7 +1184,7 @@ public class GTreeTest extends AbstractDockingTest {
 		}
 	}
 
-	private class TestRootNode extends GTreeNode {
+	private static class TestRootNode extends GTreeNode {
 
 		@Override
 		public String getName() {
@@ -1325,7 +1325,7 @@ public class GTreeTest extends AbstractDockingTest {
 	/**
 	 * A basic leaf node 
 	 */
-	private class LeafNode extends GTreeNode {
+	private static class LeafNode extends GTreeNode {
 
 		private final String name;
 
@@ -1484,7 +1484,7 @@ public class GTreeTest extends AbstractDockingTest {
 		}
 	}
 
-	private class DisabledGTreeFilter implements GTreeFilter {
+	private static class DisabledGTreeFilter implements GTreeFilter {
 
 		@Override
 		public boolean acceptsNode(GTreeNode node) {
@@ -1498,7 +1498,7 @@ public class GTreeTest extends AbstractDockingTest {
 
 	}
 
-	private class ReallySlowGTreeFilter implements GTreeFilter {
+	private static class ReallySlowGTreeFilter implements GTreeFilter {
 
 		@Override
 		public boolean acceptsNode(GTreeNode node) {

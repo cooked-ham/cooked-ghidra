@@ -171,7 +171,7 @@ public abstract class AbstractSelectByFlowPluginTest extends AbstractGhidraHeade
 		tool.firePluginEvent(new ProgramSelectionPluginEvent("test", selection, program));
 	}
 
-	class MySelection extends ProgramSelection {
+	static class MySelection extends ProgramSelection {
 
 		MySelection(ProgramSelection selection) {
 			super(selection);

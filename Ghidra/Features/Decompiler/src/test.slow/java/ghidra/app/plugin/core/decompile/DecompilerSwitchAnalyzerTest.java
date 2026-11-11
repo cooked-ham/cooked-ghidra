@@ -141,12 +141,12 @@ public class DecompilerSwitchAnalyzerTest extends AbstractGenericTest {
 		analyze(addressSet);
 		
 		Symbol primarySymbol = program.getSymbolTable().getPrimarySymbol(addr("0x0010125d"));
-		assertEquals("Default label set", primarySymbol.getName(), "default");
-		assertEquals("Switch space set", primarySymbol.getParentNamespace().getName(), "switchD_001011a7");
+		assertEquals("Default label set", "default", primarySymbol.getName());
+		assertEquals("Switch space set", "switchD_001011a7", primarySymbol.getParentNamespace().getName());
 		
 		primarySymbol = program.getSymbolTable().getPrimarySymbol(addr("0x0010124c"));
-		assertEquals("Case label set", primarySymbol.getName(), "caseD_9");
-		assertEquals("Switch space set", primarySymbol.getParentNamespace().getName(), "switchD_001011a7");
+		assertEquals("Case label set", "caseD_9", primarySymbol.getName());
+		assertEquals("Switch space set", "switchD_001011a7", primarySymbol.getParentNamespace().getName());
 
 		Instruction instr = listing.getInstructionAt(addr("0x001011a7"));
 		assertNoOperandReference(0, instr);

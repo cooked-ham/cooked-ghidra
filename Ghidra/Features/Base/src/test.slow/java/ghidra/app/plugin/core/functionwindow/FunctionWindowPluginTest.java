@@ -113,7 +113,7 @@ public class FunctionWindowPluginTest extends AbstractGhidraHeadedIntegrationTes
 	public void testProgramClose() throws Exception {
 		closeProgram();
 		waitForTable();
-		assertEquals(functionTable.getRowCount(), 0);
+		assertEquals(0, functionTable.getRowCount());
 	}
 
 	@Test

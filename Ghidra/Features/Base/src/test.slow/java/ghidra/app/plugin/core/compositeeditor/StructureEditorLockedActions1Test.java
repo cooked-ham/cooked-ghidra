@@ -87,8 +87,8 @@ public class StructureEditorLockedActions1Test extends AbstractStructureEditorTe
 
 		assertEquals(num + 1, getModel().getNumComponents());
 		checkSelection(new int[] { 2, 3 });
-		assertEquals(getDataType(2), DataType.DEFAULT);
-		assertEquals(getDataType(3), DataType.DEFAULT);
+		assertEquals(DataType.DEFAULT, getDataType(2));
+		assertEquals(DataType.DEFAULT, getDataType(3));
 		assertEquals(getDataType(4), dt3);
 		assertNull(getFieldName(2));
 		assertNull(getComment(2));
@@ -246,7 +246,7 @@ public class StructureEditorLockedActions1Test extends AbstractStructureEditorTe
 		assertEquals(getDataType(1), dt1);
 
 		invoke(action);
-		assertTrue(!"".equals(getModel().getStatus()));
+		assertFalse("".equals(getModel().getStatus()));
 		assertEquals(num, getModel().getNumComponents());
 		assertEquals(len, getModel().getLength());
 		assertTrue(getDataType(0).isEquivalent(new ByteDataType()));

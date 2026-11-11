@@ -219,10 +219,10 @@ public abstract class AbstractThemeReader {
 
 	protected void error(int lineNumber, String message) {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Error parsing theme file \"" + source + "\"");
+		builder.append("Error parsing theme file \"").append(source).append("\"");
 
 		if (lineNumber >= 0) {
-			builder.append(" at line: " + lineNumber);
+			builder.append(" at line: ").append(lineNumber);
 		}
 		builder.append(". ");
 		builder.append(message);

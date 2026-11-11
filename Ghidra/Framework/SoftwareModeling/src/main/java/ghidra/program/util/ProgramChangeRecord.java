@@ -76,7 +76,7 @@ public class ProgramChangeRecord extends DomainObjectChangeRecord {
 	public String toString() {
 		StringBuilder builder = new StringBuilder(super.toString());
 		if (affectedObj != null) {
-			builder.append(", affected = " + affectedObj);
+			builder.append(", affected = ").append(affectedObj);
 		}
 		if (start != null) {
 			builder.append(", start = ");

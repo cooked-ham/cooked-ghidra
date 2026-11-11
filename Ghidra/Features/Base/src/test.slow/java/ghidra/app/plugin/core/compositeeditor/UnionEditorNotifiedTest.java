@@ -478,7 +478,7 @@ public class UnionEditorNotifiedTest extends AbstractUnionEditorTest {
 		});
 		waitForSwing();
 		assertEquals(complexUnion.getDataTypePath(), model.getOriginalDataTypePath());
-		assertTrue(!complexUnion.getPathName().equals(model.viewComposite.getPathName()));
+		assertFalse(complexUnion.getPathName().equals(model.viewComposite.getPathName()));
 
 		SwingUtilities.invokeLater(() -> {
 			try {
@@ -490,7 +490,7 @@ public class UnionEditorNotifiedTest extends AbstractUnionEditorTest {
 		});
 		waitForSwing();
 		assertEquals(complexUnion.getDataTypePath(), model.getOriginalDataTypePath());
-		assertTrue(!complexUnion.getPathName().equals(model.viewComposite.getPathName()));
+		assertFalse(complexUnion.getPathName().equals(model.viewComposite.getPathName()));
 		assertEquals("EditedComplexUnion", model.getCompositeName());
 	}
 

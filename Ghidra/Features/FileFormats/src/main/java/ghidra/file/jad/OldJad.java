@@ -98,7 +98,7 @@ class OldJad {
 
 		commandsList.add(classFile.getAbsolutePath());
 
-		String[] commands = commandsList.toArray(new String[commandsList.size()]);
+		String[] commands = commandsList.toArray(new String[0]);
 
 		String[] environment = new String[] {};
 

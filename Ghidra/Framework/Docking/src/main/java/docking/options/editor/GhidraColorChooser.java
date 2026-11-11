@@ -271,7 +271,7 @@ public class GhidraColorChooser extends JColorChooser {
 		}
 	}
 
-	private class ColorHistoryCache extends LinkedHashMap<Color, Color> implements Iterable<Color> {
+	private static class ColorHistoryCache extends LinkedHashMap<Color, Color> implements Iterable<Color> {
 		private static final int MAX_SIZE = 35; // the number of squares in the UI
 
 		public ColorHistoryCache() {

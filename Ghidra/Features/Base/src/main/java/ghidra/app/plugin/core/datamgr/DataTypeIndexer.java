@@ -147,7 +147,7 @@ public class DataTypeIndexer {
 	// case-sensitive.  This produced cases where not all matching data were found during queries, 
 	// which depended on how the binary search traversed the list.  If there is a reason to use that
 	// comparator over this one, then we need to re-think how this list is sorted.
-	private class CaseInsensitiveDataTypeComparator implements Comparator<DataType> {
+	private static class CaseInsensitiveDataTypeComparator implements Comparator<DataType> {
 
 		@Override
 		public int compare(DataType dt1, DataType dt2) {
@@ -182,7 +182,7 @@ public class DataTypeIndexer {
 		}
 	}
 
-	private class CaseInsensitiveCategoryComparator implements Comparator<CategoryPath> {
+	private static class CaseInsensitiveCategoryComparator implements Comparator<CategoryPath> {
 
 		@Override
 		public int compare(CategoryPath cp1, CategoryPath cp2) {

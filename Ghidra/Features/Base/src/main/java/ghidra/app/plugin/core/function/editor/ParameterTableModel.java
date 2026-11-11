@@ -118,7 +118,7 @@ class ParameterTableModel extends AbstractGTableModel<FunctionVariableData> {
 // Inner Classes
 //==================================================================================================
 
-	private abstract class ParamCol {
+	private static abstract class ParamCol {
 		private String name;
 		private boolean isEditable;
 		private Class<?> classType;

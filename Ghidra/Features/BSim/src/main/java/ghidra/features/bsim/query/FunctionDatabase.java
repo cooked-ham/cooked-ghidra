@@ -18,6 +18,7 @@ package ghidra.features.bsim.query;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.io.Serial;
 import org.xml.sax.SAXException;
 
 import generic.jar.ResourceFile;
@@ -94,6 +95,7 @@ public interface FunctionDatabase extends AutoCloseable {
 	}
 
 	public static class DatabaseNonFatalException extends Exception {
+		@Serial
 		private static final long serialVersionUID = 1L;
 
 		public DatabaseNonFatalException(String message) {

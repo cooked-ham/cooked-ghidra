@@ -128,7 +128,7 @@ public class PdbQuery {
 			AbstractMsType typeRecord = pdb.getTypeRecord(recordNumber);
 			String recordString = typeRecord.toString();
 			if (recordString.contains(searchString)) {
-				results.append("Data number " + indexNumber + ":\n");
+				results.append("Data number ").append(indexNumber).append(":\n");
 				results.append(recordString);
 				results.append('\n');
 			}
@@ -167,7 +167,7 @@ public class PdbQuery {
 			AbstractMsType typeRecord = pdb.getTypeRecord(recordNumber);
 			String recordString = typeRecord.toString();
 			if (recordString.contains(searchString)) {
-				results.append("Item number " + indexNumber + ":\n");
+				results.append("Item number ").append(indexNumber).append(":\n");
 				results.append(recordString);
 				results.append('\n');
 			}

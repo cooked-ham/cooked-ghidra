@@ -675,7 +675,7 @@ public class PostCommentFieldFactory extends FieldFactory {
 
 	}
 
-	private class OverrideCommentData {
+	private static class OverrideCommentData {
 		private Address overridingRef;
 		private String overriddenCallOther;
 		private boolean hasMultipleCallOthers;

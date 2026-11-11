@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 package ghidra.app.util.viewer.field;
-
-import java.math.BigInteger;
 
 import docking.widgets.fieldpanel.field.AttributedString;
 import docking.widgets.fieldpanel.field.TextFieldElement;
@@ -32,89 +30,92 @@ import ghidra.program.model.symbol.SourceType;
 import ghidra.program.util.FunctionSignatureSourceFieldLocation;
 import ghidra.program.util.ProgramLocation;
 
+import java.math.BigInteger;
+
 /**
-  *  Generates Function Signature Source Fields.
-  */
+ * Generates Function Signature Source Fields.
+ */
 public class FunctionSignatureSourceFieldFactory extends FieldFactory {
 
-	public static final String FIELD_NAME = "Signature Source";
+    public static final String FIELD_NAME = "Signature Source";
 
-	//private int displayWidth;
+    //private int displayWidth;
 
-	/**
-	 * Default Constructor
-	 */
-	public FunctionSignatureSourceFieldFactory() {
-		super(FIELD_NAME);
-	}
+    /**
+     * Default Constructor
+     */
+    public FunctionSignatureSourceFieldFactory() {
+        super(FIELD_NAME);
+    }
 
-	/**
-	 * Constructor
-	 * @param model the model that the field belongs to.
-	 * @param hlProvider the HightLightProvider.
-	 * @param displayOptions the Options for display properties.
-	 * @param fieldOptions the Options for field specific properties.
-	 */
-	public FunctionSignatureSourceFieldFactory(FieldFormatModel model, ListingHighlightProvider hlProvider,
-			Options displayOptions, Options fieldOptions) {
-		super(FIELD_NAME, model, hlProvider, displayOptions, fieldOptions);
-	}
+    /**
+     * Constructor
+     *
+     * @param model          the model that the field belongs to.
+     * @param hlProvider     the HightLightProvider.
+     * @param displayOptions the Options for display properties.
+     * @param fieldOptions   the Options for field specific properties.
+     */
+    public FunctionSignatureSourceFieldFactory(FieldFormatModel model, ListingHighlightProvider hlProvider,
+                                               Options displayOptions, Options fieldOptions) {
+        super(FIELD_NAME, model, hlProvider, displayOptions, fieldOptions);
+    }
 
-	@Override
-	public ListingField getField(ProxyObj<?> proxy, int varWidth) {
-		if (!enabled) {
-			return null;
-		}
-		if (proxy instanceof FunctionProxy) {
-			FunctionProxy functionProxy = (FunctionProxy) proxy;
-			Function function = functionProxy.getObject();
-			SourceType source = function.getSignatureSource();
-			String sourceStr = "<" + source.toString() + ">";
-			AttributedString as =
-				new AttributedString(sourceStr, FunctionColors.SOURCE, getMetrics());
-			return ListingTextField.createSingleLineTextField(this, proxy,
-				new TextFieldElement(as, 0, 0), startX + varWidth, width, hlProvider);
-		}
-		return null;
-	}
+    @Override
+    public ListingField getField(ProxyObj<?> proxy, int varWidth) {
+        if (!enabled) {
+            return null;
+        }
+        if (proxy instanceof FunctionProxy) {
+            FunctionProxy functionProxy = (FunctionProxy) proxy;
+            Function function = functionProxy.getObject();
+            SourceType source = function.getSignatureSource();
+            String sourceStr = "<" + source.toString() + ">";
+            AttributedString as =
+                    new AttributedString(sourceStr, FunctionColors.SOURCE, getMetrics());
+            return ListingTextField.createSingleLineTextField(this, proxy,
+                    new TextFieldElement(as, 0, 0), startX + varWidth, width, hlProvider);
+        }
+        return null;
+    }
 
-	@Override
-	public ProgramLocation getProgramLocation(int row, int col, ListingField bf) {
-		ProxyObj<?> proxy = bf.getProxy();
-		if (proxy instanceof FunctionProxy) {
-			FunctionProxy functionProxy = (FunctionProxy) proxy;
-			Function function = functionProxy.getObject();
-			return new FunctionSignatureSourceFieldLocation(function.getProgram(),
-				functionProxy.getLocationAddress(), functionProxy.getFunctionAddress(),
-				function.getSignatureSource().toString(), col);
-		}
+    @Override
+    public ProgramLocation getProgramLocation(int row, int col, ListingField bf) {
+        ProxyObj<?> proxy = bf.getProxy();
+        if (proxy instanceof FunctionProxy) {
+            FunctionProxy functionProxy = (FunctionProxy) proxy;
+            Function function = functionProxy.getObject();
+            return new FunctionSignatureSourceFieldLocation(function.getProgram(),
+                    functionProxy.getLocationAddress(), functionProxy.getFunctionAddress(),
+                    function.getSignatureSource().toString(), col);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public FieldLocation getFieldLocation(ListingField bf, BigInteger index, int fieldNum,
-			ProgramLocation loc) {
-		if (loc instanceof FunctionSignatureSourceFieldLocation) {
-			FunctionSignatureSourceFieldLocation sigSourceLoc =
-				(FunctionSignatureSourceFieldLocation) loc;
-			return new FieldLocation(index, fieldNum, 0, sigSourceLoc.getCharOffset());
-		}
-		return null;
-	}
+    @Override
+    public FieldLocation getFieldLocation(ListingField bf, BigInteger index, int fieldNum,
+                                          ProgramLocation loc) {
+        if (loc instanceof FunctionSignatureSourceFieldLocation) {
+            FunctionSignatureSourceFieldLocation sigSourceLoc =
+                    (FunctionSignatureSourceFieldLocation) loc;
+            return new FieldLocation(index, fieldNum, 0, sigSourceLoc.getCharOffset());
+        }
+        return null;
+    }
 
-	@Override
-	public boolean acceptsType(int category, Class<?> proxyObjectClass) {
-		if (!Function.class.isAssignableFrom(proxyObjectClass)) {
-			return false;
-		}
-		return (category == FieldFormatModel.FUNCTION);
-	}
+    @Override
+    public boolean acceptsType(int category, Class<?> proxyObjectClass) {
+        if (!Function.class.isAssignableFrom(proxyObjectClass)) {
+            return false;
+        }
+        return (category == FieldFormatModel.FUNCTION);
+    }
 
-	@Override
-	public FieldFactory newInstance(FieldFormatModel formatModel, ListingHighlightProvider provider,
-			ToolOptions toolOptions, ToolOptions fieldOptions) {
-		return new FunctionSignatureSourceFieldFactory(formatModel, provider, toolOptions,
-			fieldOptions);
-	}
+    @Override
+    public FieldFactory newInstance(FieldFormatModel formatModel, ListingHighlightProvider provider,
+                                    ToolOptions toolOptions, ToolOptions fieldOptions) {
+        return new FunctionSignatureSourceFieldFactory(formatModel, provider, toolOptions,
+                fieldOptions);
+    }
 }

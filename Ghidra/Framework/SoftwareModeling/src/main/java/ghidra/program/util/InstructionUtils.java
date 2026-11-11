@@ -44,18 +44,18 @@ public class InstructionUtils {
 
 		StringBuffer textBuf = new StringBuffer("Instruction Summary");
 		textBuf.append("\n-------------------");
-		textBuf.append("\nMnemonic          : " + instruction.getMnemonicString());
-		textBuf.append("\nNumber of Operands: " + instruction.getNumOperands());
-		textBuf.append("\nAddress           : " + instruction.getMinAddress().toString(true));
+		textBuf.append("\nMnemonic          : ").append(instruction.getMnemonicString());
+		textBuf.append("\nNumber of Operands: ").append(instruction.getNumOperands());
+		textBuf.append("\nAddress           : ").append(instruction.getMinAddress().toString(true));
 		FlowType flowType = instruction.getFlowType();
-		textBuf.append("\nFlow Type         : " + flowType.toString());
+		textBuf.append("\nFlow Type         : ").append(flowType.toString());
 		FlowOverride flowOverride = instruction.getFlowOverride();
 		if (flowOverride != FlowOverride.NONE && instruction.getPrototype()
 				.getFlowType(instruction.getInstructionContext()) != flowType) {
-			textBuf.append("\n  >>> reflects " + flowOverride + " flow override");
+			textBuf.append("\n  >>> reflects ").append(flowOverride).append(" flow override");
 		}
 		Address fallAddr = instruction.getFallThrough();
-		textBuf.append("\nFallthrough       : " + (fallAddr != null ? fallAddr : "<none>"));
+		textBuf.append("\nFallthrough       : ").append((fallAddr != null ? fallAddr : "<none>"));
 		if (instruction.isFallThroughOverridden()) {
 			textBuf.append("\n  >>> reflects fallthrough override");
 		}
@@ -73,7 +73,7 @@ public class InstructionUtils {
 			"\nConstructor Line #'s:\n" + getString(debug.getConstructorLineNumbers(), true))
 				.append('\n');
 		int len = instruction.getLength();
-		textBuf.append("\nByte Length : " + len);
+		textBuf.append("\nByte Length : ").append(len);
 		if (instruction.isLengthOverridden()) {
 			textBuf.append("\n  >>> reflects length override, actual length is " +
 				instruction.getParsedLength());
@@ -82,8 +82,8 @@ public class InstructionUtils {
 			byte[] bytes = instruction.getParsedBytes();
 			textBuf.append(
 				"\nInstr Bytes : " + SleighDebugLogger.getFormattedBytes(bytes));
-			textBuf.append("\nMask        : " + debug.getFormattedInstructionMask(-1));
-			textBuf.append("\nMasked Bytes: " + debug.getFormattedMaskedValue(-1)).append('\n');
+			textBuf.append("\nMask        : ").append(debug.getFormattedInstructionMask(-1));
+			textBuf.append("\nMasked Bytes: ").append(debug.getFormattedMaskedValue(-1)).append('\n');
 		}
 		catch (MemoryAccessException e) {
 			// ignore

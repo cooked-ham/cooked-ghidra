@@ -1711,7 +1711,7 @@ public class HeadlessAnalyzer {
 		
 		// Handles windows directory paths like "d:", both real and extracted paths on non-windows 
 		// filesystem or archive files
-		folderPath = folderPath.replaceAll(":/", "/");
+		folderPath = folderPath.replace(":/", "/");
 
 		for (GFile file : fs.getListing(startDir)) {
 			String name = file.getName();

@@ -155,7 +155,7 @@ public class DBTraceDataSettingsAdapter
 		}
 	}
 
-	public class DBTraceDataSettingsSpace extends
+	public static class DBTraceDataSettingsSpace extends
 			DBTraceAddressSnapRangePropertyMapSpace<DBTraceSettingsEntry, DBTraceSettingsEntry>
 			implements DBTraceDataSettingsOperations {
 		public DBTraceDataSettingsSpace(String tableName, DBTrace trace,

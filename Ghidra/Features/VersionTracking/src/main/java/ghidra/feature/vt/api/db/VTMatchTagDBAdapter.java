@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,78 +15,78 @@
  */
 package ghidra.feature.vt.api.db;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
 import db.*;
 import ghidra.framework.data.OpenMode;
 import ghidra.util.exception.VersionException;
 import ghidra.util.task.TaskMonitor;
+
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Abstract adapter for the database table that holds tags for version tracking matches.
  */
 public abstract class VTMatchTagDBAdapter {
 
-	public enum ColumnDescription {
-		TAG_NAME_COL(StringField.INSTANCE);
+    static String TABLE_NAME = "MatchTagTable";
+    static Schema TABLE_SCHEMA = new Schema(0, "Key", ColumnDescription.getColumnFields(),
+            ColumnDescription.getColumnNames());
 
-		private final Field columnField;
+    static VTMatchTagDBAdapter createAdapter(DBHandle dbHandle) throws IOException {
+        return new VTMatchTagDBAdapterV0(dbHandle);
+    }
 
-		private ColumnDescription(Field columnField) {
-			this.columnField = columnField;
-		}
+    static VTMatchTagDBAdapter getAdapter(DBHandle dbHandle, OpenMode openMode, TaskMonitor monitor)
+            throws VersionException {
+        return new VTMatchTagDBAdapterV0(dbHandle, openMode, monitor);
+    }
 
-		public Field getColumnField() {
-			return columnField;
-		}
+    public abstract DBRecord insertRecord(String tagName) throws IOException;
 
-		public int column() {
-			return ordinal();
-		}
+    public abstract RecordIterator getRecords() throws IOException;
 
-		private static String[] getColumnNames() {
-			ColumnDescription[] columns = ColumnDescription.values();
-			List<String> list = new LinkedList<String>();
-			for (ColumnDescription column : columns) {
-				list.add(column.name());
-			}
-			return list.toArray(new String[columns.length]);
-		}
+    abstract DBRecord getRecord(long tagRecordKey) throws IOException;
 
-		private static Field[] getColumnFields() {
-			ColumnDescription[] columns = ColumnDescription.values();
-			Field[] fields = new Field[columns.length];
-			for (int i = 0; i < fields.length; i++) {
-				fields[i] = columns[i].getColumnField();
-			}
-			return fields;
-		}
-	}
+    abstract int getRecordCount();
 
-	static String TABLE_NAME = "MatchTagTable";
-	static Schema TABLE_SCHEMA = new Schema(0, "Key", ColumnDescription.getColumnFields(),
-		ColumnDescription.getColumnNames());
+    abstract void updateRecord(DBRecord record) throws IOException;
 
-	static VTMatchTagDBAdapter createAdapter(DBHandle dbHandle) throws IOException {
-		return new VTMatchTagDBAdapterV0(dbHandle);
-	}
+    abstract boolean deleteRecord(long tagRecordKey) throws IOException;
 
-	static VTMatchTagDBAdapter getAdapter(DBHandle dbHandle, OpenMode openMode, TaskMonitor monitor)
-			throws VersionException {
-		return new VTMatchTagDBAdapterV0(dbHandle, openMode, monitor);
-	}
+    public enum ColumnDescription {
+        TAG_NAME_COL(StringField.INSTANCE);
 
-	public abstract DBRecord insertRecord(String tagName) throws IOException;
+        private final Field columnField;
 
-	public abstract RecordIterator getRecords() throws IOException;
+        private ColumnDescription(Field columnField) {
+            this.columnField = columnField;
+        }
 
-	abstract DBRecord getRecord(long tagRecordKey) throws IOException;
+        private static String[] getColumnNames() {
+            ColumnDescription[] columns = ColumnDescription.values();
+            List<String> list = new LinkedList<String>();
+            for (ColumnDescription column : columns) {
+                list.add(column.name());
+            }
+            return list.toArray(new String[columns.length]);
+        }
 
-	abstract int getRecordCount();
+        private static Field[] getColumnFields() {
+            ColumnDescription[] columns = ColumnDescription.values();
+            Field[] fields = new Field[columns.length];
+            for (int i = 0; i < fields.length; i++) {
+                fields[i] = columns[i].getColumnField();
+            }
+            return fields;
+        }
 
-	abstract void updateRecord(DBRecord record) throws IOException;
+        public Field getColumnField() {
+            return columnField;
+        }
 
-	abstract boolean deleteRecord(long tagRecordKey) throws IOException;
+        public int column() {
+            return ordinal();
+        }
+    }
 }

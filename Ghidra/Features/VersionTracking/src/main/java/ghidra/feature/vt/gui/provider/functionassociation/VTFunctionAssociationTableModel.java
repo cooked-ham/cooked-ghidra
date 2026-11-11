@@ -80,7 +80,7 @@ class VTFunctionAssociationTableModel extends AddressBasedTableModel<VTFunctionR
 		return functionManager.getFunctionCount();
 	}
 
-	private class FunctionKeyIterator implements LongIterator {
+	private static class FunctionKeyIterator implements LongIterator {
 		private FunctionIterator itr;
 
 		FunctionKeyIterator(FunctionManager functionMgr) {

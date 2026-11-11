@@ -294,7 +294,7 @@ class AddBlockDialog extends DialogComponentProvider implements ChangeListener {
 	private Component buildFileBytesCombo() {
 		Memory memory = model.getProgram().getMemory();
 		List<FileBytes> allFileBytes = memory.getAllFileBytes();
-		FileBytes[] fileBytes = allFileBytes.toArray(new FileBytes[allFileBytes.size()]);
+		FileBytes[] fileBytes = allFileBytes.toArray(new FileBytes[0]);
 
 		fileBytesComboBox = new GhidraComboBox<>(fileBytes) {
 			public Dimension getPreferredSize() {

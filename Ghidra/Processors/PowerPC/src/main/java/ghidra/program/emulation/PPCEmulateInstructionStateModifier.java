@@ -34,7 +34,7 @@ public class PPCEmulateInstructionStateModifier extends EmulateInstructionStateM
 
 	}
 
-	private class vectorPermuteOpBehavior implements OpBehaviorOther {
+	private static class vectorPermuteOpBehavior implements OpBehaviorOther {
 
 		@Override
 		public void evaluate(Emulate emu, Varnode out, Varnode[] inputs) {

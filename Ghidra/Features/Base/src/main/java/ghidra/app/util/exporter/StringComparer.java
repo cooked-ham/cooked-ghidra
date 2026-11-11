@@ -15,84 +15,84 @@
  */
 package ghidra.app.util.exporter;
 
-import java.io.*;
-import java.util.List;
-
+import ghidra.util.Msg;
 import org.junit.Assert;
 
-import ghidra.util.Msg;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.List;
 
 public class StringComparer {
-	public static void compareLines(List<String> expectedList, File actualFile) throws Exception {
+    public static void compareLines(List<String> expectedList, File actualFile) throws Exception {
 
-		FilePrinter filePrinter = new FilePrinter(actualFile);
+        FilePrinter filePrinter = new FilePrinter(actualFile);
 
-		int index = 0;
-		boolean hasFailure = false;
-		try (BufferedReader reader = new BufferedReader(new FileReader(actualFile))) {
-			int excess = 0;
-			while (true) {
-				String actualLine = reader.readLine();
-				if (actualLine == null) {
-					break;
-				}
+        int index = 0;
+        boolean hasFailure = false;
+        try (BufferedReader reader = new BufferedReader(new FileReader(actualFile))) {
+            int excess = 0;
+            while (true) {
+                String actualLine = reader.readLine();
+                if (actualLine == null) {
+                    break;
+                }
 
-				if (index >= expectedList.size()) {
-					++excess;
-					continue;
-				}
-				String expectedLine = expectedList.get(index++);
+                if (index >= expectedList.size()) {
+                    ++excess;
+                    continue;
+                }
+                String expectedLine = expectedList.get(index++);
 
-				actualLine = actualLine.trim();
-				expectedLine = expectedLine.trim();
+                actualLine = actualLine.trim();
+                expectedLine = expectedLine.trim();
 
-				boolean match =
-					expectedLine.equals(actualLine) || actualLine.startsWith(expectedLine);
+                boolean match =
+                        expectedLine.equals(actualLine) || actualLine.startsWith(expectedLine);
 
-				hasFailure |= !match;
+                hasFailure |= !match;
 
-				if (!match) {
-					filePrinter.print();
-					Msg.debug(StringComparer.class,
-						"Expected line does not match actual line (" + index +
-							"): \nExpected: " + expectedLine + "\nActual: " + actualLine);
-				}
-			}
+                if (!match) {
+                    filePrinter.print();
+                    Msg.debug(StringComparer.class,
+                            "Expected line does not match actual line (" + index +
+                                    "): \nExpected: " + expectedLine + "\nActual: " + actualLine);
+                }
+            }
 
-			if (excess > 0) {
-				filePrinter.print();
-				String message = "Actual file contains " + excess + " more lines than expected";
-				Msg.debug(StringComparer.class, message);
-				Assert.fail(message);
-			}
-			else if (!hasFailure && index < expectedList.size()) {
-				filePrinter.print();
-				int fewer = expectedList.size() - index;
-				String message = "Actual file contains " + fewer +
-					" fewer lines than expected";
-				Msg.debug(StringComparer.class, message);
-				Assert.fail(message);
-			}
+            if (excess > 0) {
+                filePrinter.print();
+                String message = "Actual file contains " + excess + " more lines than expected";
+                Msg.debug(StringComparer.class, message);
+                Assert.fail(message);
+            } else if (!hasFailure && index < expectedList.size()) {
+                filePrinter.print();
+                int fewer = expectedList.size() - index;
+                String message = "Actual file contains " + fewer +
+                        " fewer lines than expected";
+                Msg.debug(StringComparer.class, message);
+                Assert.fail(message);
+            }
 
-			if (hasFailure) {
-				Assert.fail("One or more failures--see output for data");
-			}
-		}
-	}
+            if (hasFailure) {
+                Assert.fail("One or more failures--see output for data");
+            }
+        }
+    }
 
-	private static class FilePrinter {
-		private File f;
-		private boolean printed;
+    private static class FilePrinter {
+        private File f;
+        private boolean printed;
 
-		FilePrinter(File f) {
-			this.f = f;
-		}
+        FilePrinter(File f) {
+            this.f = f;
+        }
 
-		void print() {
-			if (!printed) {
-				Msg.debug(this, "Test file: " + f);
-				printed = true;
-			}
-		}
-	}
+        void print() {
+            if (!printed) {
+                Msg.debug(this, "Test file: " + f);
+                printed = true;
+            }
+        }
+    }
 }

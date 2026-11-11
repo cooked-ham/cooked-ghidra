@@ -222,7 +222,7 @@ public class FontPropertyEditor extends PropertyEditorSupport {
 		}
 
 		// A wrapper class created so that the names of fonts are comparable ignoring case
-		private class FontWrapper implements Comparable<FontWrapper> {
+		private static class FontWrapper implements Comparable<FontWrapper> {
 			private final String fontName;
 
 			private FontWrapper(String fontName) {

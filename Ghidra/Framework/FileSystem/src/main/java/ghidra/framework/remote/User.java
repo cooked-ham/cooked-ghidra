@@ -15,6 +15,7 @@
  */
 package ghidra.framework.remote;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -23,6 +24,7 @@ import java.io.Serializable;
  */
 public class User implements Comparable<User>, Serializable {
 
+	@Serial
 	public final static long serialVersionUID = 2L;
 
 	/**

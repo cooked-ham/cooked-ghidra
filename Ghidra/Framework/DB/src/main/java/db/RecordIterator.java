@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,34 +23,39 @@ import java.io.IOException;
  */
 public interface RecordIterator {
 
-	/**
-	 * Return true if a Record is available in the forward direction.
-	 * @throws IOException thrown if an IO error occurs
-	 */
-	public boolean hasNext() throws IOException;
+    /**
+     * Return true if a Record is available in the forward direction.
+     *
+     * @throws IOException thrown if an IO error occurs
+     */
+    public boolean hasNext() throws IOException;
 
-	/**
-	 * Return true if a Record is available in the reverse direction
-	 * @throws IOException thrown if an IO error occurs
-	 */
-	public boolean hasPrevious() throws IOException;
+    /**
+     * Return true if a Record is available in the reverse direction
+     *
+     * @throws IOException thrown if an IO error occurs
+     */
+    public boolean hasPrevious() throws IOException;
 
-	/**
-	 * Return the next Record or null if one is not available.
-	 * @throws IOException thrown if an IO error occurs
-	 */
-	public DBRecord next() throws IOException;
+    /**
+     * Return the next Record or null if one is not available.
+     *
+     * @throws IOException thrown if an IO error occurs
+     */
+    public DBRecord next() throws IOException;
 
-	/**
-	 * Return the previous Record or null if one is not available.
-	 * @throws IOException thrown if an IO error occurs
-	 */
-	public DBRecord previous() throws IOException;
+    /**
+     * Return the previous Record or null if one is not available.
+     *
+     * @throws IOException thrown if an IO error occurs
+     */
+    public DBRecord previous() throws IOException;
 
-	/**
-	 * Delete the last Record read via the next or previous methods.
-	 * @return true if record was successfully deleted.
-	 * @throws IOException thrown if an IO error occurs.
-	 */
-	public boolean delete() throws IOException;
+    /**
+     * Delete the last Record read via the next or previous methods.
+     *
+     * @return true if record was successfully deleted.
+     * @throws IOException thrown if an IO error occurs.
+     */
+    public boolean delete() throws IOException;
 }

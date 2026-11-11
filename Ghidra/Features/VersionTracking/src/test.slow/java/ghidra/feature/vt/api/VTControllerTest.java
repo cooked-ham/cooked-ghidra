@@ -65,7 +65,7 @@ public class VTControllerTest extends AbstractGhidraHeadedIntegrationTest {
 		String testDefaultValue = "Test Default Value";
 		String testOptionKey = "Test Option Name";
 		String value = options.getString(testOptionKey, testDefaultValue);
-		assertEquals(value, testDefaultValue);
+		assertEquals(testDefaultValue, value);
 
 		String firstNewOptionValue = "New Option Value";
 		options.setString(testOptionKey, firstNewOptionValue);

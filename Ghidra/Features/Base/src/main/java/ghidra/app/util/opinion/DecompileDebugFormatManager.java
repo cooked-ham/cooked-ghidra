@@ -639,7 +639,7 @@ public class DecompileDebugFormatManager {
 
 			parser.start("bytes");
 			String hexString = parser.end().getText().trim().replaceAll("\n", "");
-			hexString = hexString.replaceAll(" ", "");
+			hexString = hexString.replace(" ", "");
 			byte[] rawBytes = HexFormat.of().parseHex(hexString);
 			Memory memory = prog.getMemory();
 			memory.setBytes(stringAddr, rawBytes);
@@ -695,7 +695,7 @@ public class DecompileDebugFormatManager {
 	/**
 	 * Simple handling of error messages 
 	 */
-	class MyErrorHandler implements ErrorHandler {
+	static class MyErrorHandler implements ErrorHandler {
 		private MessageLog log;
 
 		MyErrorHandler(MessageLog log) {

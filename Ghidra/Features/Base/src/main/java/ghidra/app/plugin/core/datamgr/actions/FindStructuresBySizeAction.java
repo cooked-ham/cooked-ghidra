@@ -44,7 +44,7 @@ public class FindStructuresBySizeAction extends FindDataTypesBySizeAction {
 		return new StructureSizeGTreeFilter(values);
 	}
 
-	private class StructureSizeGTreeFilter implements GTreeFilter {
+	private static class StructureSizeGTreeFilter implements GTreeFilter {
 
 		private final SortedRangeList sizes;
 

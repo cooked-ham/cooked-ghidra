@@ -15,6 +15,7 @@
  */
 package ghidra.program.model.address;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import ghidra.util.datastruct.NoSuchIndexException;
@@ -390,6 +391,7 @@ public class AddressObjectMap {
 }
 
 class Mark implements Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
     
     static final int START = 1;

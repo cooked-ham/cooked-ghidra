@@ -94,7 +94,7 @@ public class OpenFileRunnable implements Runnable {
 		dialog.setTitle("Choose a File");
 		List<DisplayableIFile> displayableFiles = formatStrings(projectFiles);
 		dialog.setMultipleSelection(true);
-		dialog.setElements(displayableFiles.toArray(new DisplayableIFile[displayableFiles.size()]));
+		dialog.setElements(displayableFiles.toArray(new DisplayableIFile[0]));
 		dialog.setMessage("Select a file to open");
 
 		Dimension size = calculatePreferredSizeInCharacters(displayableFiles);

@@ -403,7 +403,7 @@ public class BundleStatusTableModel
 		return columnDescriptor;
 	}
 
-	private abstract class Column<COLUMN_TYPE>
+	private static abstract class Column<COLUMN_TYPE>
 			extends AbstractDynamicTableColumn<BundleStatus, COLUMN_TYPE, List<BundleStatus>> {
 		final String columnName;
 

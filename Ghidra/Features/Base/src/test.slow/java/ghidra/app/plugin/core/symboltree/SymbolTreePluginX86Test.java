@@ -157,7 +157,7 @@ public class SymbolTreePluginX86Test extends AbstractGhidraHeadedIntegrationTest
 		for (int i = 0; i < count - 1; i++) {
 			GTreeNode n = gNode.getChild(i);
 			Symbol s = ((SymbolNode) n).getSymbol();
-			assertTrue(!s.getName().equals("param_14"));
+			assertFalse(s.getName().equals("param_14"));
 		}
 	}
 
@@ -190,7 +190,7 @@ public class SymbolTreePluginX86Test extends AbstractGhidraHeadedIntegrationTest
 		for (int i = 0; i < count - 1; i++) {
 			GTreeNode n = gNode.getChild(i);
 			Symbol s = ((SymbolNode) n).getSymbol();
-			assertTrue(!s.getName().equals("entry"));
+			assertFalse(s.getName().equals("entry"));
 		}
 	}
 

@@ -176,7 +176,7 @@ public class DtFilterDialog extends DialogComponentProvider {
 		unionsComponent.init(filterState.getUnionsFilter());
 	}
 
-	private class TypeComponent {
+	private static class TypeComponent {
 
 		private String type;
 		private GCheckBox typeCb;

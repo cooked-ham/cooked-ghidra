@@ -41,7 +41,7 @@ class ComponentNode extends Node {
 		new HelpLocation("DockingWindows", "Closing_Tabs");
 	private ComponentPlaceholder top;
 	private int lastActiveTabIndex;
-	private List<ComponentPlaceholder> windowPlaceholders;
+	private final List<ComponentPlaceholder> windowPlaceholders;
 	private JComponent comp;
 	private boolean isDisposed;
 
@@ -70,11 +70,7 @@ class ComponentNode extends Node {
 
 		int topIndex = Integer.parseInt(element.getAttributeValue("TOP_INFO"));
 
-		List<?> children = element.getChildren();
-		Iterator<?> it = children.iterator();
-
-		while (it.hasNext()) {
-			Element e = (Element) it.next();
+		for (Element e : element.getChildren()) {
 			String name = e.getAttributeValue("NAME");
 			String owner = e.getAttributeValue("OWNER");
 			String title = e.getAttributeValue("TITLE");
@@ -83,9 +79,9 @@ class ComponentNode extends Node {
 				group = ComponentProvider.DEFAULT_WINDOW_GROUP;
 			}
 
-			boolean isActive = Boolean.valueOf(e.getAttributeValue("ACTIVE")).booleanValue();
+			boolean isActive = Boolean.parseBoolean(e.getAttributeValue("ACTIVE"));
 
-			long uniqueID = getUniqueID(e, 0);
+			long uniqueID = getUniqueID(e);
 
 			String mappedOwner = ComponentProvider.getMappedOwner(owner, name);
 			if (mappedOwner != null) {
@@ -139,10 +135,11 @@ class ComponentNode extends Node {
 		return false;
 	}
 
-	private long getUniqueID(Element e, long defaultValue) {
+	/** The saved instance id, or 0 for layouts written before instance ids existed. */
+	private static long getUniqueID(Element e) {
 		String attributeValue = e.getAttributeValue("INSTANCE_ID");
 		if (attributeValue == null) {
-			return defaultValue;
+			return 0;
 		}
 		return Long.parseLong(attributeValue);
 	}
@@ -266,7 +263,7 @@ class ComponentNode extends Node {
 		populateActiveComponents(activeComponents);
 		int count = activeComponents.size();
 		if (count == 1) {
-			top = activeComponents.get(0);
+			top = activeComponents.getFirst();
 			comp = top.getComponent();
 			comp.setBorder(DockingChrome.frameBorder());
 
@@ -275,6 +272,13 @@ class ComponentNode extends Node {
 		else if (count > 1) {
 			JTabbedPane tabbedPane =
 				new JTabbedPane(SwingConstants.BOTTOM, JTabbedPane.SCROLL_TAB_LAYOUT) {
+					@Override
+					public void updateUI() {
+						// before super, so the new UI is installed with the chrome's tab style
+						DockingChrome.styleTabStack(this);
+						super.updateUI();
+					}
+
 					@Override
 					public String getTitleAt(int index) {
 						if (index < 0) {
@@ -327,7 +331,7 @@ class ComponentNode extends Node {
 			tabbedPane.add(fullTitle, component);
 
 			DockingTabRenderer tabRenderer =
-				createTabRenderer(tabbedPane, placeholder, fullTitle, tabText, component);
+				createTabRenderer(tabbedPane, fullTitle, tabText, component);
 			c.installDragDropTarget(tabbedPane);
 			tabRenderer.installPopupMenu(createTabPopupMenu(activeComponents, placeholder));
 
@@ -382,12 +386,9 @@ class ComponentNode extends Node {
 
 	}
 
-	private DockingTabRenderer createTabRenderer(JTabbedPane pane, ComponentPlaceholder placeholder,
-			String title, String tabText, final DockableComponent component) {
-		DockingTabRenderer tabRenderer =
-			new DockingTabRenderer(pane, title, tabText, e -> closeTab(component));
-
-		return tabRenderer;
+	private DockingTabRenderer createTabRenderer(JTabbedPane pane, String title, String tabText,
+			final DockableComponent component) {
+		return new DockingTabRenderer(pane, title, tabText, _ -> closeTab(component));
 	}
 
 	private JPopupMenu createTabPopupMenu(List<ComponentPlaceholder> activeProviders,
@@ -476,26 +477,14 @@ class ComponentNode extends Node {
 	void split(ComponentPlaceholder source, WindowPosition dropCode) {
 		ComponentNode sourceNode = new ComponentNode(winMgr);
 		source.setNode(sourceNode);
-		SplitNode splitNode;
 		Node parentNode = parent;
-		switch (dropCode) {
-			case LEFT:
-				splitNode = new SplitNode(winMgr, sourceNode, this, true);
-				break;
-			case RIGHT:
-				splitNode = new SplitNode(winMgr, this, sourceNode, true);
-				break;
-			case TOP:
-				splitNode = new SplitNode(winMgr, sourceNode, this, false);
-				break;
-			case BOTTOM:
-				splitNode = new SplitNode(winMgr, this, sourceNode, false);
-				break;
-			default:
-				// default to the right
-				splitNode = new SplitNode(winMgr, this, sourceNode, true);
-
-		}
+		SplitNode splitNode = switch (dropCode) {
+			case LEFT -> new SplitNode(winMgr, sourceNode, this, true);
+			case TOP -> new SplitNode(winMgr, sourceNode, this, false);
+			case BOTTOM -> new SplitNode(winMgr, this, sourceNode, false);
+			// RIGHT, and the default for any other code
+			default -> new SplitNode(winMgr, this, sourceNode, true);
+		};
 
 		parentNode.replaceNode(this, splitNode);
 		sourceNode.add(source);
@@ -518,7 +507,7 @@ class ComponentNode extends Node {
 			return;
 		}
 
-		if (!(comp instanceof JTabbedPane)) {
+		if (!(comp instanceof JTabbedPane tab)) {
 			return;
 		}
 
@@ -528,7 +517,6 @@ class ComponentNode extends Node {
 		}
 
 		top = placeholder;
-		JTabbedPane tab = (JTabbedPane) comp;
 		if (tab.getSelectedComponent() != dc) {
 			tab.setSelectedComponent(dc);
 			lastActiveTabIndex = tab.getSelectedIndex();
@@ -574,21 +562,12 @@ class ComponentNode extends Node {
 	}
 
 	void titleChanged(ComponentPlaceholder placeholder) {
-		if (!(comp instanceof JTabbedPane)) {
-			return;
-		}
-
-		JTabbedPane pane = (JTabbedPane) comp;
-		int index = pane.indexOfComponent(placeholder.getComponent());
-		if (index == -1) {
+		int index = updateTabIcon(placeholder);
+		if (index == -1 || !(comp instanceof JTabbedPane pane)) {
 			return;
 		}
 
 		DockingTabRenderer renderer = (DockingTabRenderer) pane.getTabComponentAt(index);
-		Icon icon = placeholder.getIcon();
-		renderer.setIcon(icon);
-		pane.setIconAt(index, icon);
-
 		String tabText = placeholder.getTabText();
 		String fullTitle = placeholder.getFullTitle();
 		renderer.setTitle(tabText, fullTitle);
@@ -596,19 +575,29 @@ class ComponentNode extends Node {
 	}
 
 	public void iconChanged(ComponentPlaceholder placeholder) {
-		if (!(comp instanceof JTabbedPane)) {
-			return;
+		updateTabIcon(placeholder);
+	}
+
+	/**
+	 * Updates the icon on the placeholder's tab, when this node is a tab stack.
+	 * @param placeholder the placeholder whose icon changed
+	 * @return the tab index, or -1 when this node is not stacked or has no tab for it
+	 */
+	private int updateTabIcon(ComponentPlaceholder placeholder) {
+		if (!(comp instanceof JTabbedPane pane)) {
+			return -1;
 		}
 
-		JTabbedPane pane = (JTabbedPane) comp;
 		int index = pane.indexOfComponent(placeholder.getComponent());
 		if (index == -1) {
-			return;
+			return -1;
 		}
 
+		Icon icon = placeholder.getIcon();
 		DockingTabRenderer renderer = (DockingTabRenderer) pane.getTabComponentAt(index);
-		renderer.setIcon(placeholder.getIcon());
-		pane.setIconAt(index, placeholder.getIcon());
+		renderer.setIcon(icon);
+		pane.setIconAt(index, icon);
+		return index;
 	}
 
 	private void closeTab(Component tabComponent) {
@@ -655,7 +644,7 @@ class ComponentNode extends Node {
 //==================================================================================================
 	private static class RenameMouseListener extends MouseAdapter {
 
-		private ActionListener renameAction;
+		private final ActionListener renameAction;
 
 		RenameMouseListener(ComponentPlaceholder placeholder) {
 			renameAction = new RenameProviderAction(placeholder);
@@ -674,13 +663,8 @@ class ComponentNode extends Node {
 
 	}
 
-	private static class RenameProviderAction implements ActionListener {
-
-		private ComponentPlaceholder placeholder;
-
-		RenameProviderAction(ComponentPlaceholder placeHolder) {
-			this.placeholder = placeHolder;
-		}
+	private record RenameProviderAction(ComponentPlaceholder placeholder)
+			implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent event) {
@@ -703,13 +687,8 @@ class ComponentNode extends Node {
 		}
 	}
 
-	private static class CloseProvidersAction implements ActionListener {
-
-		private List<ComponentPlaceholder> placeholdersToClose;
-
-		public CloseProvidersAction(List<ComponentPlaceholder> placeholdersToClose) {
-			this.placeholdersToClose = placeholdersToClose;
-		}
+	private record CloseProvidersAction(List<ComponentPlaceholder> placeholdersToClose)
+			implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -717,6 +696,5 @@ class ComponentNode extends Node {
 				placeholder.getProvider().closeComponent();
 			}
 		}
-
 	}
 }

@@ -16,10 +16,13 @@
  */
 package ghidra.app.util.opinion;
 
+import java.io.Serial;
+
 /**
  * A class to represent an error when processing an opinion.
  */
 public class OpinionException extends Exception {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	/**

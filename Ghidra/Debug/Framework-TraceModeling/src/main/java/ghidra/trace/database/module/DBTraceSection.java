@@ -33,7 +33,7 @@ import ghidra.util.LockHold;
 
 public class DBTraceSection implements TraceSection, DBTraceObjectInterface {
 
-	protected class SectionTranslator extends Translator<TraceSection> {
+	protected static class SectionTranslator extends Translator<TraceSection> {
 		private static final Map<TraceObjectSchema, Set<String>> KEYS_BY_SCHEMA =
 			new WeakHashMap<>();
 

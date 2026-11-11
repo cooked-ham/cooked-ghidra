@@ -25,25 +25,25 @@ import mdemangler.MDMang;
  */
 public class MDObjectUnknownReserved extends MDObjectReserved {
 
-	private String remainder;
+    private String remainder;
 
-	public MDObjectUnknownReserved(MDMang dmang) {
-		super(dmang);
-	}
+    public MDObjectUnknownReserved(MDMang dmang) {
+        super(dmang);
+    }
 
-	@Override
-	public void insert(StringBuilder builder) {
-		super.insert(builder);
-		builder.append(remainder);
-	}
+    @Override
+    public void insert(StringBuilder builder) {
+        super.insert(builder);
+        builder.append(remainder);
+    }
 
-	@Override
-	protected void parseInternal() throws MDException {
-		String m = dmang.getMangledSymbol();
-		int index = dmang.getIndex();
-		remainder = m.substring(index);
-		//Go to end of string.
-		dmang.increment(dmang.getMangledSymbol().length() - dmang.getIndex());
-	}
+    @Override
+    protected void parseInternal() throws MDException {
+        String m = dmang.getMangledSymbol();
+        int index = dmang.getIndex();
+        remainder = m.substring(index);
+        //Go to end of string.
+        dmang.increment(dmang.getMangledSymbol().length() - dmang.getIndex());
+    }
 
 }

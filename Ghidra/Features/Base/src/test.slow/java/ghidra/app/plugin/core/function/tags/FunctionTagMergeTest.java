@@ -15,6 +15,7 @@
  */
 package ghidra.app.plugin.core.function.tags;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -304,7 +305,7 @@ public class FunctionTagMergeTest extends AbstractListingMergeManagerTest {
 
 		// Get the result program and check that: 
 		// 1. The tag does not exist in Result
-		assertTrue(!isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
+		assertFalse(isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
 	}
 
 	/**
@@ -345,7 +346,7 @@ public class FunctionTagMergeTest extends AbstractListingMergeManagerTest {
 		waitForMergeCompletion();
 
 		assertTrue(isTagInProgram(TAG_NAME_A_LATEST, mtf.getResultProgram()));
-		assertTrue(!isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
+		assertFalse(isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
 
 		assertTrue(isTagInFunction(TAG_NAME_A_LATEST, mtf.getResultProgram(), "100194b"));
 		assertTrue(isTagInFunction(TAG_NAME_A_LATEST, mtf.getResultProgram(), "100299e"));
@@ -668,7 +669,7 @@ public class FunctionTagMergeTest extends AbstractListingMergeManagerTest {
 		// 1. The edited tag exists in Result.
 		// 2. The original tag does NOT exist in Result.
 		assertTrue(isTagInProgram(TAG_NAME_A_LATEST, mtf.getResultProgram()));
-		assertTrue(!isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
+		assertFalse(isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
 	}
 
 	/**
@@ -707,7 +708,7 @@ public class FunctionTagMergeTest extends AbstractListingMergeManagerTest {
 		// 1. The edited tag exists in Result.
 		// 2. The original tag does NOT exist in Result.
 		assertTrue(isTagInProgram(TAG_NAME_A_MY, mtf.getResultProgram()));
-		assertTrue(!isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
+		assertFalse(isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
 	}
 
 	/**
@@ -795,8 +796,8 @@ public class FunctionTagMergeTest extends AbstractListingMergeManagerTest {
 		// Get the result program and check that:
 		// 1. The tag remains deleted
 		// 2. The tag is no longer associated with the function
-		assertTrue(!isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
-		assertTrue(!isTagInFunction(TAG_NAME_A, mtf.getResultProgram(), "100299e"));
+		assertFalse(isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
+		assertFalse(isTagInFunction(TAG_NAME_A, mtf.getResultProgram(), "100299e"));
 	}
 
 	/**
@@ -835,7 +836,7 @@ public class FunctionTagMergeTest extends AbstractListingMergeManagerTest {
 		// 1. The edited tag is still in Result
 		// 2. The original version is not in Result
 		assertTrue(isTagInProgram(TAG_NAME_A_LATEST, mtf.getResultProgram()));
-		assertTrue(!isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
+		assertFalse(isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
 	}
 
 	/**
@@ -873,8 +874,8 @@ public class FunctionTagMergeTest extends AbstractListingMergeManagerTest {
 		// Get the result program and check that:
 		// 1. The edited tag is NOT in Result
 		// 2. The original version is NOT in Result
-		assertTrue(!isTagInProgram(TAG_NAME_A_LATEST, mtf.getResultProgram()));
-		assertTrue(!isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
+		assertFalse(isTagInProgram(TAG_NAME_A_LATEST, mtf.getResultProgram()));
+		assertFalse(isTagInProgram(TAG_NAME_A, mtf.getResultProgram()));
 	}
 
 	/****************************************************************************************

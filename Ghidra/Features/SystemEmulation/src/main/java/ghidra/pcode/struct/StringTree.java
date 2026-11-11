@@ -29,7 +29,7 @@ public class StringTree {
 		void walk(StringBuffer buf);
 	}
 
-	class Branch implements Node {
+	static class Branch implements Node {
 		List<Node> children = new LinkedList<>();
 
 		void addChild(Node child) {
@@ -44,7 +44,7 @@ public class StringTree {
 		}
 	}
 
-	class Leaf implements Node {
+	static class Leaf implements Node {
 		final CharSequence seq;
 
 		public Leaf(CharSequence seq) {

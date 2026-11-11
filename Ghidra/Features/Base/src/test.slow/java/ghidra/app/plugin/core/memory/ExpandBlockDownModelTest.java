@@ -135,7 +135,7 @@ public class ExpandBlockDownModelTest extends AbstractGhidraHeadedIntegrationTes
 	@Test
 	public void testOverlap() {
 		model.setEndAddress(getAddr(0x1008010));
-		assertTrue(!model.execute());
+		assertFalse(model.execute());
 		assertTrue(model.getMessage().length() > 0);
 	}
 

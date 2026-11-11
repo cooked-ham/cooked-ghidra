@@ -119,7 +119,7 @@ public class OperandValue extends PatternValue {
 	public String toString() {
 		OperandSymbol sym = ct.getOperand(index);
 		StringBuilder sb = new StringBuilder();
-		sb.append("[opval:" + sym.getName());
+		sb.append("[opval:").append(sym.getName());
 		PatternExpression patexp = sym.getDefiningExpression();
 		if (patexp != null) {
 			sb.append(" exp ");

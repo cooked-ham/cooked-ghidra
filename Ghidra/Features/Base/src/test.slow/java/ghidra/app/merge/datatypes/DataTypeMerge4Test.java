@@ -929,7 +929,7 @@ public class DataTypeMerge4Test extends AbstractDataTypeMergeTest {
 
 		// Structure_1 should contain Foo from MY although its component will not reflect
 		// change in Foo size.
-		assertTrue(struct_1.getDefinedComponents()[2].getDataType() == fs);
+		assertSame(struct_1.getDefinedComponents()[2].getDataType(), fs);
 
 	}
 

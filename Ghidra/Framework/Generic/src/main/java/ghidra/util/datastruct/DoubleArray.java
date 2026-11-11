@@ -20,12 +20,14 @@
  */
 
 package ghidra.util.datastruct;
+import java.io.Serial;
 import java.io.Serializable;
 /**
  *
  * Array of doubles that grows as needed.
  */
 public class DoubleArray implements Array, Serializable {
+    @Serial
     private final static long serialVersionUID = 1;
     public static final int MIN_SIZE = 4;
     double[] doubles;

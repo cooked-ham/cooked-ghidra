@@ -86,11 +86,11 @@ public class BTreeAnnotationScript extends GhidraScript {
 			createBTreeNode(program, nodeI, i);
 
 			StringBuffer buffer = new StringBuffer();
-			buffer.append("Index:   0x" + Integer.toHexString(nodeIndex) + '\n');
-			buffer.append("flink:   0x" + Integer.toHexString(nodeI.getFLink()) + '\n');
-			buffer.append("blink:   0x" + Integer.toHexString(nodeI.getBLink()) + '\n');
-			buffer.append("kind:      " + nodeI.getKind() + '\n');
-			buffer.append("Records: 0x" + Integer.toHexString(nodeI.getNumRecords()) + '\n');
+			buffer.append("Index:   0x").append(Integer.toHexString(nodeIndex)).append('\n');
+			buffer.append("flink:   0x").append(Integer.toHexString(nodeI.getFLink())).append('\n');
+			buffer.append("blink:   0x").append(Integer.toHexString(nodeI.getBLink())).append('\n');
+			buffer.append("kind:      ").append(nodeI.getKind()).append('\n');
+			buffer.append("Records: 0x").append(Integer.toHexString(nodeI.getNumRecords())).append('\n');
 
 			setPlateComment(toAddr(i), buffer.toString());
 
@@ -155,9 +155,9 @@ public class BTreeAnnotationScript extends GhidraScript {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(header.getCompressionMagic());
 		buffer.append('\n');
-		buffer.append("CompressionType: 0x" + Integer.toHexString(header.getCompressionType()));
+		buffer.append("CompressionType: 0x").append(Integer.toHexString(header.getCompressionType()));
 		buffer.append('\n');
-		buffer.append("UncompressedSize: 0x" + Long.toHexString(header.getUncompressedSize()));
+		buffer.append("UncompressedSize: 0x").append(Long.toHexString(header.getUncompressedSize()));
 		buffer.append('\n');
 		setPlateComment(address, buffer.toString());
 	}

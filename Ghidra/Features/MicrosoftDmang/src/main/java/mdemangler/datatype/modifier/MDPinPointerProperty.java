@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,13 +21,13 @@ import mdemangler.MDMang;
  * This class represents a pin pointer managed property within a Microsoft mangled symbol.
  */
 public class MDPinPointerProperty extends MDManagedProperty {
-//
+    //
 //	private static final String prefixEmitClause = "cli::pin_ptr<";
 //	private static final String suffixEmitClause = ">";
 //
-	public MDPinPointerProperty(MDMang dmang) {
-		super(dmang);
-	}
+    public MDPinPointerProperty(MDMang dmang) {
+        super(dmang);
+    }
 
 //	public MDPinPointerProperty(String modifierTypeName, MDMang dmang)
 //			throws MDException {
@@ -53,13 +53,13 @@ public class MDPinPointerProperty extends MDManagedProperty {
 //		super.emit(builder);
 ////		if (modifierTypeName.equals("*")) {
 ////			builder.append(modifierTypeName);
-////		}
+////        }
 ////		else if (modifierTypeName.equals("%")) {
 ////
-////		}
+////        }
 ////		else {
 ////			builder.append(modifierTypeName);
-////		}
+////        }
 //		return builder.toString();
 //	}
 }

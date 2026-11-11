@@ -154,7 +154,7 @@ public class AssemblyParseStateItem implements Comparable<AssemblyParseStateItem
 		}
 		sb.append("*");
 		if (proc.size() != 0) {
-			sb.append(" " + proc);
+			sb.append(" ").append(proc);
 		}
 		return sb.toString();
 	}

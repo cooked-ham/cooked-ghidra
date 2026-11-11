@@ -525,7 +525,7 @@ public class ParseDialogParsingAndPromptsTest extends AbstractGhidraHeadedIntegr
 			Structure struct = (Structure) dataType;
 
 			DataTypeComponent component = struct.getComponent(1);
-			assertEquals(component.getDataType().getName(), "wint_t");
+			assertEquals("wint_t", component.getDataType().getName());
 		}
 		finally {
 			archive.release(this);

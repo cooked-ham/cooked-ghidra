@@ -93,7 +93,7 @@ public class ShowSourceMapEntryStartsScript extends GhidraScript {
 
 	}
 
-	class SourceMapRowObject implements AddressableRowObject {
+	static class SourceMapRowObject implements AddressableRowObject {
 
 		private Address address;
 		private int numEntries;

@@ -1251,12 +1251,12 @@ public class AutoAnalysisManager {
 				testLen = spacer.length() - 5;
 			}
 			taskTimesStringBuf
-					.append("    " + element + spacer.substring(testLen) + secString + "\n");
+					.append("    ").append(element).append(spacer.substring(testLen)).append(secString).append("\n");
 		}
 
 		taskTimesStringBuf.append("-----------------------------------------------------\n");
 		taskTimesStringBuf
-				.append("     Total Time   " + (int) (totalTaskTime / 1000.00) + " secs\n");
+				.append("     Total Time   ").append((int) (totalTaskTime / 1000.00)).append(" secs\n");
 		taskTimesStringBuf.append("-----------------------------------------------------\n");
 
 		return taskTimesStringBuf.toString();
@@ -1457,7 +1457,7 @@ public class AutoAnalysisManager {
 // Inner Classes
 //==================================================================================================
 
-	private class JointTaskMonitor implements TaskMonitor {
+	private static class JointTaskMonitor implements TaskMonitor {
 
 		private TaskMonitor primaryMonitor;
 		private TaskMonitor secondaryMonitor;

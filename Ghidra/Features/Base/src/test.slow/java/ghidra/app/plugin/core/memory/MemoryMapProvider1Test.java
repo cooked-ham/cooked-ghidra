@@ -660,7 +660,7 @@ public class MemoryMapProvider1Test extends AbstractGhidraHeadedIntegrationTest 
 		return program.getMinAddress().getNewAddress(offset);
 	}
 
-	private class StringComparator implements Comparator<String> {
+	private static class StringComparator implements Comparator<String> {
 
 		@Override
 		public int compare(String s1, String s2) {

@@ -659,7 +659,7 @@ public class VerifyHexagonTestVectors extends GhidraScript {
 
 	}
 
-	private class GhidraOperand {
+	private static class GhidraOperand {
 
 		String str;
 
@@ -1132,7 +1132,7 @@ public class VerifyHexagonTestVectors extends GhidraScript {
 		return -1;
 	}
 
-	private class TestVector {
+	private static class TestVector {
 		final int lineNo;
 		final String instr;
 

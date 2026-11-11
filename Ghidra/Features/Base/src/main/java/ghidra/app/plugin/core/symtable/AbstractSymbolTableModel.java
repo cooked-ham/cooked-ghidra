@@ -420,7 +420,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 // Table Column Classes
 //==================================================================================================
 
-	protected class NameTableColumn
+	protected static class NameTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, Symbol> {
 
 		public static final String NAME = "Name";
@@ -437,7 +437,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 		}
 	}
 
-	protected class PinnedTableColumn
+	protected static class PinnedTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, Boolean> {
 
 		private PinnedRenderer renderer = new PinnedRenderer();
@@ -462,7 +462,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 			return renderer;
 		}
 
-		private class PinnedRenderer extends GBooleanCellRenderer
+		private static class PinnedRenderer extends GBooleanCellRenderer
 				implements AbstractWrapperTypeColumnRenderer<Boolean> {
 			// body is handled by parents
 		}
@@ -494,7 +494,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 		}
 	}
 
-	protected class SymbolTypeTableColumn
+	protected static class SymbolTypeTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, String> {
 
 		public static final String NAME = "Type";
@@ -518,14 +518,14 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 		}
 	}
 
-	protected class VariableSymbolLocation extends AddressBasedLocation {
+	protected static class VariableSymbolLocation extends AddressBasedLocation {
 
 		VariableSymbolLocation(Variable variable) {
 			super(variable.getSymbol().getAddress(), variable.getVariableStorage().toString());
 		}
 	}
 
-	protected class DataTypeTableColumn
+	protected static class DataTypeTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, String> {
 
 		@Override
@@ -562,7 +562,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 		}
 	}
 
-	protected class NamespaceTableColumn
+	protected static class NamespaceTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, String> {
 
 		@Override
@@ -581,7 +581,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 		}
 	}
 
-	protected class SourceTableColumn
+	protected static class SourceTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, SourceType> {
 
 		public static final String NAME = "Source";
@@ -623,7 +623,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 		}
 	}
 
-	protected class ReferenceCountTableColumn
+	protected static class ReferenceCountTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, Integer> {
 
 		public static final String NAME = "Ref Count";
@@ -652,13 +652,13 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 
 		// this renderer disables the default text filtering; this column is only filterable
 		// via the column constraint filtering
-		private class ReferenceCountRenderer extends GTableCellRenderer
+		private static class ReferenceCountRenderer extends GTableCellRenderer
 				implements AbstractWrapperTypeColumnRenderer<Integer> {
 			// body is handled by parents
 		}
 	}
 
-	protected class OffcutReferenceCountTableColumn
+	protected static class OffcutReferenceCountTableColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, Integer> {
 
 		private OffcutReferenceCountRenderer renderer = new OffcutReferenceCountRenderer();
@@ -703,7 +703,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 
 		// this renderer disables the default text filtering; this column is only filterable
 		// via the column constraint filtering
-		private class OffcutReferenceCountRenderer extends GTableCellRenderer
+		private static class OffcutReferenceCountRenderer extends GTableCellRenderer
 				implements AbstractWrapperTypeColumnRenderer<Integer> {
 			// body is handled by parents
 		}
@@ -746,7 +746,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 
 	}
 
-	protected class OriginalNameColumn
+	protected static class OriginalNameColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, String> {
 
 		@Override
@@ -784,7 +784,7 @@ public abstract class AbstractSymbolTableModel extends AddressBasedTableModel<Sy
 		}
 	}
 
-	protected class SimplifiedNameColumn
+	protected static class SimplifiedNameColumn
 			extends AbstractProgramBasedDynamicTableColumn<SymbolRowObject, String> {
 
 		private TemplateSimplifier simplifier = new TemplateSimplifier();

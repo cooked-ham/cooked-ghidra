@@ -50,8 +50,8 @@ public class RemoveSymbolQuotesScript extends GhidraScript {
 			}
 
 			String name = symbol.getName();
-			name = name.replaceAll("`", "");
-			name = name.replaceAll("'", "");
+			name = name.replace("`", "");
+			name = name.replace("'", "");
 			symbol.setName(name, symbol.getSource());
 		}
 	}

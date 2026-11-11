@@ -402,7 +402,7 @@ public class ManagePlugins2Test extends AbstractGhidraHeadedIntegrationTest {
 		}
 	}
 
-	private class StubPluginPackagingProvider implements PluginPackagingProvider {
+	private static class StubPluginPackagingProvider implements PluginPackagingProvider {
 
 		private List<PluginPackage> packages = new ArrayList<>();
 		private List<PluginDescription> descriptions = new ArrayList<>();

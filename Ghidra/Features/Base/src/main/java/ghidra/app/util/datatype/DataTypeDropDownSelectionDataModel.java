@@ -228,7 +228,7 @@ public class DataTypeDropDownSelectionDataModel implements DropDownTextFieldData
 		for (int i = 0; i < data.size(); i++) {
 			DataType dataType = data.get(i);
 			String dataTypeName = dataType.getName();
-			dataTypeName = dataTypeName.replaceAll(" ", "");
+			dataTypeName = dataTypeName.replace(" ", "");
 			if (dataTypeName.equals(text)) {
 				// an exact match is the best possible match!
 				return i;
@@ -247,7 +247,7 @@ public class DataTypeDropDownSelectionDataModel implements DropDownTextFieldData
 		return -1; // we only get here when the list is empty
 	}
 
-	private class DataTypeDropDownRenderer extends GListCellRenderer<DataType> {
+	private static class DataTypeDropDownRenderer extends GListCellRenderer<DataType> {
 
 		@Override
 		protected String getItemText(DataType dt) {

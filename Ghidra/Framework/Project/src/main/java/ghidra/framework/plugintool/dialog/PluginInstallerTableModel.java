@@ -207,7 +207,7 @@ class PluginInstallerTableModel
 	/**
 	 * Column for displaying the status of the plugin.
 	 */
-	private class PluginWarningColumn
+	private static class PluginWarningColumn
 			extends AbstractDynamicTableColumn<PluginDescription, Icon, List<PluginDescription>> {
 
 		@Override
@@ -230,7 +230,7 @@ class PluginInstallerTableModel
 	/**
 	 * Column for displaying the extension name of the plugin.
 	 */
-	private class PluginNameColumn
+	private static class PluginNameColumn
 			extends AbstractDynamicTableColumn<PluginDescription, String, List<PluginDescription>> {
 		@Override
 		public String getColumnName() {
@@ -252,7 +252,7 @@ class PluginInstallerTableModel
 	/**
 	 * Column for displaying the plugin description.
 	 */
-	private class PluginDescriptionColumn
+	private static class PluginDescriptionColumn
 			extends AbstractDynamicTableColumn<PluginDescription, String, List<PluginDescription>> {
 
 		@Override
@@ -272,7 +272,7 @@ class PluginInstallerTableModel
 		}
 	}
 
-	private class PluginModuleColumn
+	private static class PluginModuleColumn
 			extends AbstractDynamicTableColumn<PluginDescription, String, List<PluginDescription>> {
 
 		@Override
@@ -292,7 +292,7 @@ class PluginInstallerTableModel
 		}
 	}
 
-	private class PluginLocationColumn
+	private static class PluginLocationColumn
 			extends AbstractDynamicTableColumn<PluginDescription, String, List<PluginDescription>> {
 
 		@Override
@@ -315,7 +315,7 @@ class PluginInstallerTableModel
 	/**
 	 * Column for displaying the plugin category.
 	 */
-	private class PluginCategoryColumn
+	private static class PluginCategoryColumn
 			extends AbstractDynamicTableColumn<PluginDescription, String, List<PluginDescription>> {
 
 		@Override

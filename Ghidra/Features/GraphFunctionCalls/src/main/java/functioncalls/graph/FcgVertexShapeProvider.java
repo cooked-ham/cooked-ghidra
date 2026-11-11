@@ -15,11 +15,6 @@
  */
 package functioncalls.graph;
 
-import java.awt.*;
-import java.util.Objects;
-
-import javax.swing.Icon;
-
 import functioncalls.plugin.FcgOptions;
 import functioncalls.plugin.FunctionCallGraphPlugin;
 import generic.theme.GColor;
@@ -28,330 +23,334 @@ import ghidra.base.graph.CircleWithLabelVertexShapeProvider;
 import ghidra.util.StringUtilities;
 import resources.Icons;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.Objects;
+
 /**
  * A vertex shape provider for the {@link FunctionCallGraphPlugin}.
  */
 public class FcgVertexShapeProvider extends CircleWithLabelVertexShapeProvider {
 
-	//@formatter:off
-	private static final Color TOO_BIG_VERTEX_SHAPE_COLOR = new GColor("color.bg.plugin.fcg.vertex.toobig");
+    public static final Icon NOT_ALLOWED_ICON = Icons.ERROR_ICON;
 	//@formatter:on
+    //@formatter:off
+	private static final Color TOO_BIG_VERTEX_SHAPE_COLOR = new GColor("color.bg.plugin.fcg.vertex.toobig");
+    private FcgVertex vertex;
 
-	public static final Icon NOT_ALLOWED_ICON = Icons.ERROR_ICON;
+    private Paint inPaint;
+    private Paint outPaint;
 
-	private FcgVertex vertex;
+    // these values are set after construction from external sources
+    private boolean hasIncomingReferences;
+    private boolean hasOutgoingReferences;
+    private boolean tooManyIncomingReferences;
+    private boolean tooManyOutgoingReferences;
 
-	private Paint inPaint;
-	private Paint outPaint;
+    public FcgVertexShapeProvider(FcgVertex vertex,
+                                  FcgVertexExpansionListener expansionListener) {
+        super(vertex.getName());
+        this.vertex = vertex;
 
-	// these values are set after construction from external sources
-	private boolean hasIncomingReferences;
-	private boolean hasOutgoingReferences;
-	private boolean tooManyIncomingReferences;
-	private boolean tooManyOutgoingReferences;
+        Objects.requireNonNull(expansionListener);
 
-	public FcgVertexShapeProvider(FcgVertex vertex,
-			FcgVertexExpansionListener expansionListener) {
-		super(vertex.getName());
-		this.vertex = vertex;
+        toggleInsButton.addActionListener(e -> {
+            if (tooManyIncomingReferences) {
+                return;
+            }
+            expansionListener.toggleIncomingVertices(vertex);
+        });
 
-		Objects.requireNonNull(expansionListener);
+        toggleOutsButton.addActionListener(e -> {
+            if (tooManyOutgoingReferences) {
+                return;
+            }
+            expansionListener.toggleOutgoingVertices(vertex);
+        });
 
-		toggleInsButton.addActionListener(e -> {
-			if (tooManyIncomingReferences) {
-				return;
-			}
-			expansionListener.toggleIncomingVertices(vertex);
-		});
+        buildUi();
+        setTogglesVisible(false);
+    }
 
-		toggleOutsButton.addActionListener(e -> {
-			if (tooManyOutgoingReferences) {
-				return;
-			}
-			expansionListener.toggleOutgoingVertices(vertex);
-		});
+    public FcgVertexShapeProvider cloneProvider(FcgVertex newVertex,
+                                                FcgVertexExpansionListener newListener) {
+        FcgVertexShapeProvider newProvider =
+                new FcgVertexShapeProvider(newVertex, newListener);
 
-		buildUi();
-		setTogglesVisible(false);
-	}
+        newProvider.hasIncomingReferences = hasIncomingReferences;
+        newProvider.hasOutgoingReferences = hasOutgoingReferences;
+        newProvider.tooManyIncomingReferences = tooManyIncomingReferences;
+        newProvider.tooManyOutgoingReferences = tooManyOutgoingReferences;
 
-	public FcgVertexShapeProvider cloneProvider(FcgVertex newVertex,
-			FcgVertexExpansionListener newListener) {
-		FcgVertexShapeProvider newProvider =
-			new FcgVertexShapeProvider(newVertex, newListener);
+        newProvider.toggleInsButton.setIcon(toggleInsButton.getIcon());
+        newProvider.toggleInsButton.setToolTipText(toggleInsButton.getToolTipText());
 
-		newProvider.hasIncomingReferences = hasIncomingReferences;
-		newProvider.hasOutgoingReferences = hasOutgoingReferences;
-		newProvider.tooManyIncomingReferences = tooManyIncomingReferences;
-		newProvider.tooManyOutgoingReferences = tooManyOutgoingReferences;
+        newProvider.toggleOutsButton.setIcon(toggleOutsButton.getIcon());
+        newProvider.toggleOutsButton.setToolTipText(toggleOutsButton.getToolTipText());
 
-		newProvider.toggleInsButton.setIcon(toggleInsButton.getIcon());
-		newProvider.toggleInsButton.setToolTipText(toggleInsButton.getToolTipText());
+        return newProvider;
+    }
 
-		newProvider.toggleOutsButton.setIcon(toggleOutsButton.getIcon());
-		newProvider.toggleOutsButton.setToolTipText(toggleOutsButton.getToolTipText());
+    private void createPaints() {
 
-		return newProvider;
-	}
+        Color vertexShapeColor = getDefaultVertexShapeColor();
 
-	private void createPaints() {
+        Color lightColor = vertexShapeColor;
+        Color darkColor = Gui.darker(vertexShapeColor);
+        Color darkestColor = Gui.darker(darkColor);
+        FcgLevel level = vertex.getLevel();
+        int offset = 5 * level.getDistance();
+        int half = VERTEX_SHAPE_SIZE / 2;
+        int start = 0;
+        int end = half + offset;
 
-		Color vertexShapeColor = getDefaultVertexShapeColor();
+        // paint top-down: dark to light for incoming; light to dark for outgoing
+        inPaint = new LinearGradientPaint(new Point(0, start), new Point(0, end),
+                new float[]{.0f, .2f, 1f}, new Color[]{darkestColor, darkColor, lightColor});
 
-		Color lightColor = vertexShapeColor;
-		Color darkColor = Gui.darker(vertexShapeColor);
-		Color darkestColor = Gui.darker(darkColor);
-		FcgLevel level = vertex.getLevel();
-		int offset = 5 * level.getDistance();
-		int half = VERTEX_SHAPE_SIZE / 2;
-		int start = 0;
-		int end = half + offset;
+        start = half - offset; // (offset + 10);
+        end = VERTEX_SHAPE_SIZE;
+        outPaint = new LinearGradientPaint(new Point(0, start), new Point(0, end),
+                new float[]{.0f, .8f, 1f}, new Color[]{lightColor, darkColor, darkestColor});
+    }
 
-		// paint top-down: dark to light for incoming; light to dark for outgoing
-		inPaint = new LinearGradientPaint(new Point(0, start), new Point(0, end),
-			new float[] { .0f, .2f, 1f }, new Color[] { darkestColor, darkColor, lightColor });
+    @Override
+    protected void buildUi() {
+        if (vertex == null) {
+            return; // still being constructed
+        }
+        createPaints();
+        super.buildUi();
+    }
 
-		start = half - offset; // (offset + 10);
-		end = VERTEX_SHAPE_SIZE;
-		outPaint = new LinearGradientPaint(new Point(0, start), new Point(0, end),
-			new float[] { .0f, .8f, 1f }, new Color[] { lightColor, darkColor, darkestColor });
-	}
+    @Override
+    protected String generateLabelText() {
+        FcgOptions options = vertex.getOptions();
+        boolean optionsUseTruncatedName = options.useTruncatedFunctionNames();
+        String name = getName();
+        if (optionsUseTruncatedName) {
+            name = StringUtilities.trimMiddle(getName(), MAX_NAME_LENGTH);
+        }
+        return name;
+    }
 
-	@Override
-	protected void buildUi() {
-		if (vertex == null) {
-			return; // still being constructed
-		}
-		createPaints();
-		super.buildUi();
-	}
+    @Override
+    protected Paint getVertexShapePaint() {
+        FcgLevel level = vertex.getLevel();
+        FcgDirection direction = level.getDirection();
+        if (direction.isSource()) {
+            return getDefaultVertexShapeColor();
+        } else if (direction.isIn()) {
+            return inPaint;
+        } else {
+            return outPaint;
+        }
+    }
 
-	@Override
-	protected String generateLabelText() {
-		FcgOptions options = vertex.getOptions();
-		boolean optionsUseTruncatedName = options.useTruncatedFunctionNames();
-		String name = getName();
-		if (optionsUseTruncatedName) {
-			name = StringUtilities.trimMiddle(getName(), MAX_NAME_LENGTH);
-		}
-		return name;
-	}
+    @Override
+    protected Color getDefaultVertexShapeColor() {
 
-	@Override
-	protected Paint getVertexShapePaint() {
-		FcgLevel level = vertex.getLevel();
-		FcgDirection direction = level.getDirection();
-		if (direction.isSource()) {
-			return getDefaultVertexShapeColor();
-		}
-		else if (direction.isIn()) {
-			return inPaint;
-		}
-		else {
-			return outPaint;
-		}
-	}
+        if (isInDirection() && tooManyIncomingReferences) {
+            return TOO_BIG_VERTEX_SHAPE_COLOR;
+        }
 
-	@Override
-	protected Color getDefaultVertexShapeColor() {
+        if (isOutDirection() && tooManyOutgoingReferences) {
+            return TOO_BIG_VERTEX_SHAPE_COLOR;
+        }
 
-		if (isInDirection() && tooManyIncomingReferences) {
-			return TOO_BIG_VERTEX_SHAPE_COLOR;
-		}
+        return DEFAULT_VERTEX_SHAPE_COLOR;
+    }
 
-		if (isOutDirection() && tooManyOutgoingReferences) {
-			return TOO_BIG_VERTEX_SHAPE_COLOR;
-		}
+    private boolean isInDirection() {
+        FcgLevel level = vertex.getLevel();
+        FcgDirection direction = level.getDirection();
+        boolean isIn = direction.isIn() || direction.isSource();
+        return isIn;
+    }
 
-		return DEFAULT_VERTEX_SHAPE_COLOR;
-	}
+    private boolean isOutDirection() {
+        FcgLevel level = vertex.getLevel();
+        FcgDirection direction = level.getDirection();
+        boolean isOut = direction.isOut() || direction.isSource();
+        return isOut;
+    }
 
-	private boolean isInDirection() {
-		FcgLevel level = vertex.getLevel();
-		FcgDirection direction = level.getDirection();
-		boolean isIn = direction.isIn() || direction.isSource();
-		return isIn;
-	}
+    /**
+     * Sets to true if this vertex is showing all edges in the incoming direction
+     *
+     * @param setExpanded true if this vertex is showing all edges in the incoming direction
+     */
+    @Override
+    public void setIncomingExpanded(boolean setExpanded) {
+        validateIncomingExpandedState(setExpanded);
+        super.setIncomingExpanded(setExpanded);
+    }
 
-	private boolean isOutDirection() {
-		FcgLevel level = vertex.getLevel();
-		FcgDirection direction = level.getDirection();
-		boolean isOut = direction.isOut() || direction.isSource();
-		return isOut;
-	}
+    private void validateOutgoingExpandedState(boolean isExpanding) {
+        if (isExpanding) {
+            if (!canExpandOutgoingReferences()) {
+                throw new IllegalStateException("Vertex cannot be expanded: " + this);
+            }
+            return;
+        }
 
-	/**
-	 * Sets to true if this vertex is showing all edges in the incoming direction
-	 * @param setExpanded true if this vertex is showing all edges in the incoming direction
-	 */
-	@Override
-	public void setIncomingExpanded(boolean setExpanded) {
-		validateIncomingExpandedState(setExpanded);
-		super.setIncomingExpanded(setExpanded);
-	}
+        // collapsing
+        if (!isOutgoingExpanded()) {
+            throw new IllegalStateException("Vertex cannot be collapsed: " + this);
+        }
+    }
 
-	private void validateOutgoingExpandedState(boolean isExpanding) {
-		if (isExpanding) {
-			if (!canExpandOutgoingReferences()) {
-				throw new IllegalStateException("Vertex cannot be expanded: " + this);
-			}
-			return;
-		}
+    private void validateIncomingExpandedState(boolean expanding) {
 
-		// collapsing
-		if (!isOutgoingExpanded()) {
-			throw new IllegalStateException("Vertex cannot be collapsed: " + this);
-		}
-	}
+        if (expanding) {
+            if (!canExpandIncomingReferences()) {
+                throw new IllegalStateException("Vertex cannot be expanded: " + this);
+            }
+            return;
+        }
 
-	private void validateIncomingExpandedState(boolean expanding) {
+        // collapsing
+        if (!isIncomingExpanded()) {
+            throw new IllegalStateException("Vertex cannot be collapsed: " + this);
+        }
+    }
 
-		if (expanding) {
-			if (!canExpandIncomingReferences()) {
-				throw new IllegalStateException("Vertex cannot be expanded: " + this);
-			}
-			return;
-		}
+    /**
+     * Sets to true if this vertex is showing all edges in the outgoing direction
+     *
+     * @param setExpanded true if this vertex is showing all edges in the outgoing direction
+     */
+    @Override
+    public void setOutgoingExpanded(boolean setExpanded) {
+        validateOutgoingExpandedState(setExpanded);
+        super.setOutgoingExpanded(setExpanded);
+    }
 
-		// collapsing
-		if (!isIncomingExpanded()) {
-			throw new IllegalStateException("Vertex cannot be collapsed: " + this);
-		}
-	}
+    /**
+     * Returns whether this vertex is fully expanded in its current direction
+     *
+     * @return whether this vertex is fully expanded in its current direction
+     */
+    @Override
+    public boolean isExpanded() {
+        FcgLevel level = vertex.getLevel();
+        FcgDirection direction = level.getDirection();
+        if (direction.isSource()) {
+            return isIncomingExpanded() && isOutgoingExpanded();
+        }
+        if (direction.isIn()) {
+            return isIncomingExpanded();
+        }
+        return isOutgoingExpanded();
+    }
 
-	/**
-	 * Sets to true if this vertex is showing all edges in the outgoing direction
-	 * @param setExpanded true if this vertex is showing all edges in the outgoing direction
-	 */
-	@Override
-	public void setOutgoingExpanded(boolean setExpanded) {
-		validateOutgoingExpandedState(setExpanded);
-		super.setOutgoingExpanded(setExpanded);
-	}
+    /**
+     * Sets whether this vertex has too many incoming references, where too many is subjectively
+     * defined by this class.  Too many nodes in the display would ruin rendering and general
+     * usability.
+     *
+     * @param tooMany if there are too many references
+     */
+    public void setTooManyIncomingReferences(boolean tooMany) {
+        this.tooManyIncomingReferences = tooMany;
+        toggleInsButton.setIcon(NOT_ALLOWED_ICON);
+        toggleInsButton.setToolTipText("Too many incoming references to show");
+        buildUi();
+    }
 
-	/**
-	 * Returns whether this vertex is fully expanded in its current direction
-	 * @return whether this vertex is fully expanded in its current direction
-	 */
-	@Override
-	public boolean isExpanded() {
-		FcgLevel level = vertex.getLevel();
-		FcgDirection direction = level.getDirection();
-		if (direction.isSource()) {
-			return isIncomingExpanded() && isOutgoingExpanded();
-		}
-		if (direction.isIn()) {
-			return isIncomingExpanded();
-		}
-		return isOutgoingExpanded();
-	}
+    /**
+     * Sets whether this vertex has too many outgoing references, where too many is subjectively
+     * defined by this class.  Too many nodes in the display would ruin rendering and general
+     * usability.
+     *
+     * @param tooMany if there are too many references
+     */
+    public void setTooManyOutgoingReferences(boolean tooMany) {
+        this.tooManyOutgoingReferences = tooMany;
+        toggleOutsButton.setIcon(NOT_ALLOWED_ICON);
+        toggleOutsButton.setToolTipText("Too many outgoing references to show");
+        buildUi();
+    }
 
-	/**
-	 * Sets whether this vertex has too many incoming references, where too many is subjectively
-	 * defined by this class.  Too many nodes in the display would ruin rendering and general
-	 * usability.
-	 *
-	 * @param tooMany if there are too many references
-	 */
-	public void setTooManyIncomingReferences(boolean tooMany) {
-		this.tooManyIncomingReferences = tooMany;
-		toggleInsButton.setIcon(NOT_ALLOWED_ICON);
-		toggleInsButton.setToolTipText("Too many incoming references to show");
-		buildUi();
-	}
+    /**
+     * Returns whether this vertex has too many incoming references, where too many is subjectively
+     * defined by this class.  Too many nodes in the display would ruin rendering and general
+     * usability.
+     *
+     * @return true if there are too many references
+     */
+    public boolean hasTooManyIncomingReferences() {
+        return tooManyIncomingReferences;
+    }
 
-	/**
-	 * Sets whether this vertex has too many outgoing references, where too many is subjectively
-	 * defined by this class.  Too many nodes in the display would ruin rendering and general
-	 * usability.
-	 *
-	 * @param tooMany if there are too many references
-	 */
-	public void setTooManyOutgoingReferences(boolean tooMany) {
-		this.tooManyOutgoingReferences = tooMany;
-		toggleOutsButton.setIcon(NOT_ALLOWED_ICON);
-		toggleOutsButton.setToolTipText("Too many outgoing references to show");
-		buildUi();
-	}
+    /**
+     * Returns whether this vertex has too many outgoing references, where too many is subjectively
+     * defined by this class.  Too many nodes in the display would ruin rendering and general
+     * usability.
+     *
+     * @return true if there are too many references
+     */
+    public boolean hasTooManyOutgoingReferences() {
+        return tooManyOutgoingReferences;
+    }
 
-	/**
-	 * Returns whether this vertex has too many incoming references, where too many is subjectively
-	 * defined by this class.  Too many nodes in the display would ruin rendering and general
-	 * usability.
-	 *
-	 * @return true if there are too many references
-	 */
-	public boolean hasTooManyIncomingReferences() {
-		return tooManyIncomingReferences;
-	}
+    /**
+     * Returns true if this vertex can expand itself in its current direction, or in either
+     * direction if this is a source vertex
+     *
+     * @return true if this vertex can be expanded
+     */
+    @Override
+    public boolean canExpand() {
+        FcgLevel level = vertex.getLevel();
+        FcgDirection direction = level.getDirection();
+        if (direction.isSource()) {
+            return canExpandIncomingReferences() || canExpandOutgoingReferences();
+        }
 
-	/**
-	 * Returns whether this vertex has too many outgoing references, where too many is subjectively
-	 * defined by this class.  Too many nodes in the display would ruin rendering and general
-	 * usability.
-	 *
-	 * @return true if there are too many references
-	 */
-	public boolean hasTooManyOutgoingReferences() {
-		return tooManyOutgoingReferences;
-	}
+        if (direction.isIn()) {
+            return canExpandIncomingReferences();
+        }
 
-	/**
-	 * Returns true if this vertex can expand itself in its current direction, or in either
-	 * direction if this is a source vertex
-	 *
-	 * @return true if this vertex can be expanded
-	 */
-	@Override
-	public boolean canExpand() {
-		FcgLevel level = vertex.getLevel();
-		FcgDirection direction = level.getDirection();
-		if (direction.isSource()) {
-			return canExpandIncomingReferences() || canExpandOutgoingReferences();
-		}
+        return canExpandOutgoingReferences();
+    }
 
-		if (direction.isIn()) {
-			return canExpandIncomingReferences();
-		}
+    public boolean canExpandIncomingReferences() {
+        return hasIncomingReferences && !tooManyIncomingReferences && !incomingExpanded;
+    }
 
-		return canExpandOutgoingReferences();
-	}
+    public boolean canExpandOutgoingReferences() {
+        return hasOutgoingReferences && !tooManyOutgoingReferences && !outgoingExpanded;
+    }
 
-	public boolean canExpandIncomingReferences() {
-		return hasIncomingReferences && !tooManyIncomingReferences && !incomingExpanded;
-	}
+    /**
+     * Sets whether this vertex has any incoming references
+     *
+     * @param hasIncoming true if this vertex has any incoming references
+     */
+    public void setHasIncomingReferences(boolean hasIncoming) {
+        this.hasIncomingReferences = hasIncoming;
+    }
 
-	public boolean canExpandOutgoingReferences() {
-		return hasOutgoingReferences && !tooManyOutgoingReferences && !outgoingExpanded;
-	}
+    /**
+     * Sets whether this vertex has any outgoing references
+     *
+     * @param hasOutgoing true if this vertex has any outgoing references
+     */
+    public void setHasOutgoingReferences(boolean hasOutgoing) {
+        this.hasOutgoingReferences = hasOutgoing;
+    }
 
-	/**
-	 * Sets whether this vertex has any incoming references
-	 *
-	 * @param hasIncoming true if this vertex has any incoming references
-	 */
-	public void setHasIncomingReferences(boolean hasIncoming) {
-		this.hasIncomingReferences = hasIncoming;
-	}
+    @Override
+    public void setTogglesVisible(boolean visible) {
 
-	/**
-	 * Sets whether this vertex has any outgoing references
-	 * @param hasOutgoing true if this vertex has any outgoing references
-	 */
-	public void setHasOutgoingReferences(boolean hasOutgoing) {
-		this.hasOutgoingReferences = hasOutgoing;
-	}
+        boolean isIn = isInDirection();
+        boolean turnOn = isIn && hasIncomingReferences && visible;
+        toggleInsButton.setVisible(turnOn);
 
-	@Override
-	public void setTogglesVisible(boolean visible) {
-
-		boolean isIn = isInDirection();
-		boolean turnOn = isIn && hasIncomingReferences && visible;
-		toggleInsButton.setVisible(turnOn);
-
-		boolean isOut = isOutDirection();
-		turnOn = isOut && hasOutgoingReferences && visible;
-		toggleOutsButton.setVisible(turnOn);
-	}
+        boolean isOut = isOutDirection();
+        turnOn = isOut && hasOutgoingReferences && visible;
+        toggleOutsButton.setVisible(turnOn);
+    }
 
 }

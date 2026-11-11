@@ -23,6 +23,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 import java.util.*;
 
 import javax.swing.*;
@@ -33,6 +34,7 @@ import ghidra.util.Msg;
 import ghidra.util.SystemUtilities;
 
 public class NewTestApp extends JPanel {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public NewTestApp() {

@@ -509,8 +509,8 @@ public class CallTreePluginTest extends AbstractGhidraHeadedIntegrationTest {
 
 		CallNode callNode = (CallNode) child1;
 		ProgramLocation newCodeBrowserLocation = codeBrowserPlugin.getCurrentLocation();
-		assertTrue("The Go To action did not navigate the code browser",
-			!originalLocation.equals(newCodeBrowserLocation));
+		assertFalse("The Go To action did not navigate the code browser",
+			originalLocation.equals(newCodeBrowserLocation));
 		assertEquals("The code browser did not navigate to the address of the selected node",
 			callNode.getLocation().getAddress(), newCodeBrowserLocation.getAddress());
 	}
@@ -525,8 +525,8 @@ public class CallTreePluginTest extends AbstractGhidraHeadedIntegrationTest {
 		DockingActionIf selectSourceAction = getAction("Select Call Source");
 		ActionContext context = new DefaultActionContext(provider, outgoingTree);
 
-		assertTrue("The selection action was enabled when no node was selected",
-			!selectSourceAction.isEnabledForContext(context));
+		assertFalse("The selection action was enabled when no node was selected",
+			selectSourceAction.isEnabledForContext(context));
 
 		ProgramSelection currentSelection = codeBrowserPlugin.getCurrentSelection();
 		assertTrue(currentSelection.isEmpty());
@@ -547,7 +547,7 @@ public class CallTreePluginTest extends AbstractGhidraHeadedIntegrationTest {
 
 		performAction(selectSourceAction, context, true);
 		currentSelection = codeBrowserPlugin.getCurrentSelection();
-		assertTrue(!currentSelection.isEmpty());
+		assertFalse(currentSelection.isEmpty());
 
 		Address callAddress = child0.getSourceAddress();
 		assertEquals("Expected address not selected after performing action", callAddress,

@@ -638,7 +638,7 @@ class RootNode extends WindowNode {
 //==================================================================================================
 
 	/** Interface to wrap JDialog and JFrame so that they can be used by one handle */
-	private abstract class SwingWindowWrapper {
+	private static abstract class SwingWindowWrapper {
 
 		/**
 		 * The last known non-maximized window bounds

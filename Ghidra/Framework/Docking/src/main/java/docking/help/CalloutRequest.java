@@ -286,7 +286,7 @@ class CalloutRequest {
 		}
 	}
 
-	private class StarShape extends Path2D.Float {
+	private static class StarShape extends Path2D.Float {
 
 		StarShape(Point location) {
 			this(5, location, 1, .3);// reasonable star qualities
@@ -350,7 +350,7 @@ class CalloutRequest {
 		}
 	}
 
-	private class LocationHintPainter implements AnimationPainter {
+	private static class LocationHintPainter implements AnimationPainter {
 
 		private Color color = new GColor("color.bg.help.hint");
 		private Shape paintShape;

@@ -158,7 +158,7 @@ public class DebuggerEmulationServicePlugin extends Plugin implements DebuggerEm
 		}
 	}
 
-	protected abstract class AbstractEmulateTask<T> extends Task {
+	protected static abstract class AbstractEmulateTask<T> extends Task {
 		protected final CompletableFuture<T> future = new CompletableFuture<>();
 
 		public AbstractEmulateTask(String title, boolean hasProgress) {
@@ -620,7 +620,7 @@ public class DebuggerEmulationServicePlugin extends Plugin implements DebuggerEm
 		}
 	}
 
-	class TraceMappingWaiter extends CompletableFuture<Void>
+	static class TraceMappingWaiter extends CompletableFuture<Void>
 			implements DebuggerStaticMappingChangeListener {
 		private final Trace trace;
 

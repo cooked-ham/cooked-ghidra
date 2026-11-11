@@ -80,10 +80,10 @@ public class StructureEditorUnlockedActions5Test extends AbstractStructureEditor
 		invoke(deleteAction);
 		DataType viewCopy = model.viewComposite.clone(null);
 
-		assertTrue(!simpleStructure.isEquivalent(model.viewComposite));
+		assertFalse(simpleStructure.isEquivalent(model.viewComposite));
 		assertTrue(viewCopy.isEquivalent(model.viewComposite));
 		assertEquals(0, model.getNumComponents());
-		assertEquals(model.getStatus(), "");
+		assertEquals("", model.getStatus());
 		invoke(applyAction);
 		assertTrue(simpleStructure.isEquivalent(model.viewComposite));
 		assertTrue(simpleStructure.isNotYetDefined());
@@ -214,7 +214,7 @@ public class StructureEditorUnlockedActions5Test extends AbstractStructureEditor
 		checkSelection(new int[] { 2 });
 		assertEquals(getDataType(1), dt1);
 		assertTrue(getDataType(2).isEquivalent(new CharDataType()));
-		assertEquals(getDataType(3), DataType.DEFAULT);
+		assertEquals(DataType.DEFAULT, getDataType(3));
 		assertEquals(getDataType(4), dt3);
 
 		invoke(action, false);
@@ -227,7 +227,7 @@ public class StructureEditorUnlockedActions5Test extends AbstractStructureEditor
 		checkSelection(new int[] { 2 });
 		assertEquals(getDataType(1), dt1);
 		assertTrue(getDataType(2).isEquivalent(new CharDataType()));
-		assertEquals(getDataType(3), DataType.DEFAULT);
+		assertEquals(DataType.DEFAULT, getDataType(3));
 		assertEquals(getDataType(4), dt3);
 	}
 
@@ -561,7 +561,7 @@ public class StructureEditorUnlockedActions5Test extends AbstractStructureEditor
 		assertEquals(getDataType(5), dt3);
 		assertEquals(getDataType(6), dt4);
 		assertEquals(getDataType(7), dt5);
-		assertTrue(!model.isMoveDownAllowed());
+		assertFalse(model.isMoveDownAllowed());
 	}
 
 	@Test
@@ -603,7 +603,7 @@ public class StructureEditorUnlockedActions5Test extends AbstractStructureEditor
 		assertEquals(getDataType(5), dt5);
 		assertEquals(getDataType(6), dt6);
 		assertEquals(getDataType(7), dt7);
-		assertTrue(!model.isMoveUpAllowed());
+		assertFalse(model.isMoveUpAllowed());
 	}
 
 	@Test
@@ -621,7 +621,7 @@ public class StructureEditorUnlockedActions5Test extends AbstractStructureEditor
 		invoke(showComponentPathAction);
 		assertEquals("simpleStructure is in category \"" + pgmBbCat.getCategoryPathName() + "\".",
 			model.getStatus());
-		assertTrue(!listener.getBeep());
+		assertFalse(listener.getBeep());
 	}
 
 	@Test
@@ -629,7 +629,7 @@ public class StructureEditorUnlockedActions5Test extends AbstractStructureEditor
 		init(complexStructure, pgmTestCat);
 		Component component = findComponentByName(provider.editorPanel, "Total Length");
 		assertNotNull(component);
-		assertEquals(true, component.isEnabled());
+		assertTrue(component.isEnabled());
 	}
 
 	@Test
@@ -746,7 +746,7 @@ public class StructureEditorUnlockedActions5Test extends AbstractStructureEditor
 
 		assertEquals(len, model.getLength());
 		assertEquals(num + 4, model.getNumComponents());
-		assertTrue(!getDataType(15).isEquivalent(simpleStructure));
+		assertFalse(getDataType(15).isEquivalent(simpleStructure));
 		for (int i = 0; i < 5; i++) {
 			DataTypeComponent dtc = model.getComponent(15 + i);
 			DataType sdt = dtc.getDataType();
@@ -804,7 +804,7 @@ public class StructureEditorUnlockedActions5Test extends AbstractStructureEditor
 
 		assertEquals(len, model.getLength());
 		assertEquals(num + numComps - 1, model.getNumComponents());
-		assertTrue(!getDataType(21).isEquivalent(simpleStructure));
+		assertFalse(getDataType(21).isEquivalent(simpleStructure));
 		for (int i = 0; i < numComps; i++) {
 			DataTypeComponent dtc = getComponent(21 + i);
 			DataType sdt = simpleStructure.getComponent(i).getDataType();

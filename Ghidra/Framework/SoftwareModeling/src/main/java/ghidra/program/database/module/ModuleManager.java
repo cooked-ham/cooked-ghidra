@@ -592,7 +592,7 @@ class ModuleManager {
 		return fragMap.getAddressSet(new LongField(fragID));
 	}
 
-	private class FragmentHolder {
+	private static class FragmentHolder {
 		FragmentDB frag;
 		AddressRange range;
 

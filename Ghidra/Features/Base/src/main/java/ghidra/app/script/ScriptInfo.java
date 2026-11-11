@@ -465,7 +465,7 @@ public class ScriptInfo {
 				list.add(name);
 			}
 			list.add(getNameNoExtension());
-			menupath = list.toArray(new String[list.size()]);
+			menupath = list.toArray(new String[0]);
 		}
 		return menupath;
 	}

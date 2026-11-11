@@ -605,7 +605,7 @@ public class FSBComponentProvider extends ComponentProviderAdapter
 
 					String suggestedPath =
 						FilenameUtils.getFullPathNoEndSeparator(fileNode.getFormattedTreePath())
-								.replaceAll(":/", "/");
+								.replace(":/", "/");
 
 					ImporterUtilities.showImportSingleFileDialog(fullFsrl, null, suggestedPath,
 						plugin.getTool(), openWithTarget.getPm(), monitor);

@@ -29,7 +29,7 @@ import ghidra.util.LockHold;
 
 public class DBTraceThread implements TraceThread, DBTraceObjectInterface {
 
-	protected class ThreadChangeTranslator extends Translator<TraceThread> {
+	protected static class ThreadChangeTranslator extends Translator<TraceThread> {
 		private static final Map<TraceObjectSchema, Set<String>> KEYS_BY_SCHEMA =
 			new WeakHashMap<>();
 

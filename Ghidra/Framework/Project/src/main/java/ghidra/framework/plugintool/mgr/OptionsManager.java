@@ -263,7 +263,7 @@ public class OptionsManager implements OptionsService, OptionsChangeListener {
 // Inner Classes
 //=================================================================================================	
 
-	private class OptionsComparator implements Comparator<ToolOptions> {
+	private static class OptionsComparator implements Comparator<ToolOptions> {
 		@Override
 		public int compare(ToolOptions o1, ToolOptions o2) {
 			return o1.getName().compareTo(o2.getName());
@@ -313,7 +313,7 @@ public class OptionsManager implements OptionsService, OptionsChangeListener {
 
 	// Small class to register actions by name before the various editors have been shown. We need
 	// this for the OptionsDialog actions to appear in the key binding options.
-	private class OptionsSharedActionPlaceholder implements SharedDockingActionPlaceholder {
+	private static class OptionsSharedActionPlaceholder implements SharedDockingActionPlaceholder {
 
 		private String name;
 

@@ -127,8 +127,8 @@ public class FunctionGraphPlugin1Test extends AbstractFunctionGraphTest {
 		assertTrue(newFocusedVertex.containsProgramLocation(newLocation));
 
 		// make sure the two vertices are not the same
-		assertTrue("Changing locations in the code browser did not move the cursor location to " +
-			"a new graph vertex", !focusedVertex.equals(newFocusedVertex));
+		assertFalse("Changing locations in the code browser did not move the cursor location to " +
+			"a new graph vertex", focusedVertex.equals(newFocusedVertex));
 	}
 
 	@Test
@@ -151,13 +151,13 @@ public class FunctionGraphPlugin1Test extends AbstractFunctionGraphTest {
 
 		// make a selection starting at the current location
 		ProgramSelection firstSelection = startVertex.getProgramSelection();
-		assertTrue("A selection too big for one vertex has fit into a start vertex",
-			!ps.equals(firstSelection));
+		assertFalse("A selection too big for one vertex has fit into a start vertex",
+			ps.equals(firstSelection));
 
 		Address address = getAddress("0x01004196");
 		FGVertex secondVertex = functionGraph.getVertexForAddress(address);
 		ProgramSelection secondSelection = secondVertex.getProgramSelection();
-		assertTrue(!secondSelection.isEmpty());
+		assertFalse(secondSelection.isEmpty());
 
 		assertTrue(ps.getMinAddress().equals(firstSelection.getMinAddress()));
 		assertTrue(ps.getMaxAddress().equals(secondSelection.getMaxAddress()));
@@ -179,7 +179,7 @@ public class FunctionGraphPlugin1Test extends AbstractFunctionGraphTest {
 		// should have empty data after closing the program
 		graphData = getFunctionGraphData();
 		assertNotNull(graphData);
-		assertTrue("Graph data should be empty after closing the program", !graphData.hasResults());
+		assertFalse("Graph data should be empty after closing the program", graphData.hasResults());
 
 		pm.openProgram(program.getDomainFile());
 		program.flushEvents();
@@ -294,7 +294,7 @@ public class FunctionGraphPlugin1Test extends AbstractFunctionGraphTest {
 		FGData newGraphData = getFunctionGraphData();
 		assertNotNull(newGraphData);
 		assertTrue("Unexpectedly received an empty FunctionGraphData", newGraphData.hasResults());
-		assertTrue(!newGraphData.equals(originalGraphData));
+		assertFalse(newGraphData.equals(originalGraphData));
 
 		// ...now go back and check the position
 		goToAddress(startAddressString);
@@ -313,8 +313,8 @@ public class FunctionGraphPlugin1Test extends AbstractFunctionGraphTest {
 		// are updated based upon other factors, like screen location and size.  We want to make
 		// sure that the value is not the default.
 		Point2D reloadedPoint = newRootVertex.getLocation();
-		assertTrue("Vertex location not restored after regraphing a function",
-			!originalPoint.equals(reloadedPoint));
+		assertFalse("Vertex location not restored after regraphing a function",
+			originalPoint.equals(reloadedPoint));
 	}
 
 	@Test
@@ -620,8 +620,8 @@ public class FunctionGraphPlugin1Test extends AbstractFunctionGraphTest {
 			colorizingService.getBackgroundColor(focusedVertex.getVertexAddress());
 
 		Color testColor = Palette.RED;
-		assertTrue("Unexpected start color--must change the test!",
-			!testColor.equals(appliedBackgroundColor));
+		assertFalse("Unexpected start color--must change the test!",
+			testColor.equals(appliedBackgroundColor));
 
 		chooseColor(focusedVertex, testColor);
 

@@ -160,7 +160,7 @@ public class ConstraintFilterPanel extends JPanel {
 		return null;
 	}
 
-	private class ConstraintComboBoxCellRenderer
+	private static class ConstraintComboBoxCellRenderer
 			extends GComboBoxCellRenderer<ColumnConstraint<?>> {
 		@Override
 		protected String getItemText(ColumnConstraint<?> value) {

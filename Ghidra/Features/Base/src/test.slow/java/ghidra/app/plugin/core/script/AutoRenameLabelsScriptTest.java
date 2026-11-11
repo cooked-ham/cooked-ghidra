@@ -97,11 +97,11 @@ public class AutoRenameLabelsScriptTest extends AbstractGhidraHeadedIntegrationT
 		SymbolTable symbolTable = program.getSymbolTable();
 		Symbol s1 = symbolTable.getPrimarySymbol(addr(0x01003a94));
 		assertNotNull(s1);
-		assertEquals(s1.getSource(), SourceType.DEFAULT);
+		assertEquals(SourceType.DEFAULT, s1.getSource());
 
 		Symbol s2 = symbolTable.getPrimarySymbol(addr(0x01003a97));
 		assertNotNull(s2);
-		assertEquals(s2.getSource(), SourceType.DEFAULT);
+		assertEquals(SourceType.DEFAULT, s2.getSource());
 
 		makeSelection(tool, program, addr(0x01003a94), addr(0x01003a9b));
 
@@ -123,7 +123,7 @@ public class AutoRenameLabelsScriptTest extends AbstractGhidraHeadedIntegrationT
 	public void testNoRenameOnUserDefined() throws Exception {
 		SymbolTable symbolTable = program.getSymbolTable();
 		Symbol s1 = symbolTable.getPrimarySymbol(addr(0x010046cc));
-		assertEquals(s1.getSource(), SourceType.DEFAULT);
+		assertEquals(SourceType.DEFAULT, s1.getSource());
 
 		// create a function at 10046d0 so we don't have a default label
 		CreateFunctionCmd cmd =
@@ -132,7 +132,7 @@ public class AutoRenameLabelsScriptTest extends AbstractGhidraHeadedIntegrationT
 
 		Symbol s2 = symbolTable.getPrimarySymbol(addr(0x010046d0));
 		assertNotNull(s2);
-		assertNotEquals(s2.getSource(), SourceType.DEFAULT);
+		assertNotEquals(SourceType.DEFAULT, s2.getSource());
 		String s2Name = s2.getName();
 
 		makeSelection(tool, program, addr(0x010046cc), addr(0x010046d0));

@@ -19,11 +19,13 @@ import java.io.*;
 
 import ghidra.util.exception.AssertException;
 import ghidra.util.exception.NoValueException;
+import java.io.Serial;
 
 /**
  * Handles general storage and retrieval of int values indexed by long keys.
  */
 public class IntValueMap extends ValueMap<Integer> {
+    @Serial
     private final static long serialVersionUID = 1;
     
 	/**

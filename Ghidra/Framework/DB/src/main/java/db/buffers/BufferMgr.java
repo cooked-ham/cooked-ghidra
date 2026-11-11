@@ -301,7 +301,7 @@ public class BufferMgr {
 			Runnable cleanupTask = () -> {
 				BufferMgr[] instanceList;
 				synchronized (BufferMgr.class) {
-					instanceList = openInstances.toArray(new BufferMgr[openInstances.size()]);
+					instanceList = openInstances.toArray(new BufferMgr[0]);
 				}
 				for (BufferMgr bufferMgr : instanceList) {
 					try {

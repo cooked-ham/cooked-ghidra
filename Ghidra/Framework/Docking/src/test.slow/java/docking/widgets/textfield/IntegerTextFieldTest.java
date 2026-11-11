@@ -78,7 +78,7 @@ public class IntegerTextFieldTest extends AbstractIntegerTextFieldTest<IntegerTe
 	public void testHexModeWithoutPrefix() {
 		setFormat(HEX);
 		typeText("a");
-		assertEquals(null, getBigIntegerValue());
+		assertNull(getBigIntegerValue());
 
 		setAutoSwitchMode(false);
 		typeText("abc");
@@ -108,12 +108,12 @@ public class IntegerTextFieldTest extends AbstractIntegerTextFieldTest<IntegerTe
 	public void testSetNegativeWithCurrentNegativeValue() {
 		setValue(-123);
 		setMinValue(BigInteger.ZERO);
-		assertEquals(null, field.getValue());
+		assertNull(field.getValue());
 	}
 
 	@Test
 	public void testMax() {
-		field.setMaxValue(BigInteger.valueOf(13l));
+		field.setMaxValue(BigInteger.valueOf(13L));
 		typeText("12");
 		assertEquals(12, getValue());
 
@@ -211,7 +211,7 @@ public class IntegerTextFieldTest extends AbstractIntegerTextFieldTest<IntegerTe
 		setText("");
 		assertEquals("", field.getText());
 		assertEquals(0, getValue());
-		assertEquals(null, getBigIntegerValue());
+		assertNull(getBigIntegerValue());
 	}
 
 	@Test

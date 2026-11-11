@@ -113,7 +113,7 @@ public class RunManagerTest extends AbstractGhidraHeadedIntegrationTest {
 
 		waitForRunnableToFinish(runManager, runnable);
 
-		assertTrue(!runnable.hasCompleted());
+		assertFalse(runnable.hasCompleted());
 	}
 
 	@Test
@@ -139,9 +139,9 @@ public class RunManagerTest extends AbstractGhidraHeadedIntegrationTest {
 
 		waitForRunManagerToFinish(runManager);
 
-		assertTrue(!secondRunnable.hasCompleted());
-		assertTrue(!thirdRunnable.hasCompleted());
-		assertTrue(!fourthRunnable.hasCompleted());
+		assertFalse(secondRunnable.hasCompleted());
+		assertFalse(thirdRunnable.hasCompleted());
+		assertFalse(fourthRunnable.hasCompleted());
 	}
 
 	@Test
@@ -294,7 +294,7 @@ public class RunManagerTest extends AbstractGhidraHeadedIntegrationTest {
 		JComponent component = runManager.getMonitorComponent();
 		CountDownLatch startLatch = new CountDownLatch(1);
 		LatchRunnable runnable = new LatchRunnable(startLatch);
-		assertTrue(!component.isShowing());
+		assertFalse(component.isShowing());
 
 		// long enough that our two threads will have time to start and sleep without the 
 		// thread schedule causing spurious failures
@@ -310,7 +310,7 @@ public class RunManagerTest extends AbstractGhidraHeadedIntegrationTest {
 			Assert.fail("Interrupted while sleeping for test");
 		}
 
-		assertTrue(!component.isShowing());
+		assertFalse(component.isShowing());
 
 		try {
 			Thread.sleep(delay);
@@ -348,7 +348,7 @@ public class RunManagerTest extends AbstractGhidraHeadedIntegrationTest {
 		RunUntilCancelledTestRunnable runnable = new RunUntilCancelledTestRunnable();
 
 		JComponent component = runManager.getMonitorComponent();
-		assertTrue(!component.isShowing());
+		assertFalse(component.isShowing());
 
 		// long enough that our two threads will have time to start and sleep without the 
 		// thread schedule causing spurious failures
@@ -364,7 +364,7 @@ public class RunManagerTest extends AbstractGhidraHeadedIntegrationTest {
 			Assert.fail("Interrupted while sleeping for test");
 		}
 
-		assertTrue(!component.isShowing());
+		assertFalse(component.isShowing());
 
 		try {
 			Thread.sleep(delay);
@@ -380,7 +380,7 @@ public class RunManagerTest extends AbstractGhidraHeadedIntegrationTest {
 		runManager.waitForNotBusy(DEFAULT_WINDOW_TIMEOUT);
 
 		waitForSwing();
-		assertTrue(!component.isShowing());
+		assertFalse(component.isShowing());
 		frame.setVisible(false);
 	}
 

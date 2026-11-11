@@ -63,7 +63,7 @@ public class PlaceholderVirtualFunctionTable extends VirtualFunctionTable {
 		for (ClassID id : parentage) {
 			builder.append(String.format("   %-10s\n", id.toString()));
 		}
-		builder.append("VftPtrOffset within Owner" + ptrOffsetInClass + "\n");
+		builder.append("VftPtrOffset within Owner").append(ptrOffsetInClass).append("\n");
 		PlaceholderVirtualFunctionTableEntry.emitHeader(builder);
 		for (int tableIndex : entriesByTableIndex.keySet()) {
 			entry(tableIndex).emit(builder, ptrOffsetInClass);

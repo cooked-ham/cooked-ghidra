@@ -454,7 +454,7 @@ public class DefaultTrustManagerFactory {
 					}
 				}
 			}
-			trustedIssuers = deduped.toArray(new X509Certificate[deduped.size()]);
+			trustedIssuers = deduped.toArray(new X509Certificate[0]);
 			return trustedIssuers;
 		}
 

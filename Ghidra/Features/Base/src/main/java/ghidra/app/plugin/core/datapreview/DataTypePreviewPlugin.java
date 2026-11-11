@@ -19,6 +19,7 @@ import java.awt.Component;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.*;
 import java.awt.event.*;
+import java.io.Serial;
 import java.util.*;
 
 import javax.swing.JComponent;
@@ -445,6 +446,7 @@ public class DataTypePreviewPlugin extends ProgramPlugin {
 	}
 
 	private class DTPPScrollPane extends JScrollPane {
+		@Serial
 		private static final long serialVersionUID = 1L;
 
 		DTPPScrollPane(Component view) {
@@ -454,6 +456,7 @@ public class DataTypePreviewPlugin extends ProgramPlugin {
 	}
 
 	private class DTPPTable extends GhidraTable {
+		@Serial
 		private static final long serialVersionUID = 1L;
 
 		DTPPTable(DTPPTableModel model) {

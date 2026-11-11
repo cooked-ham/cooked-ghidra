@@ -618,7 +618,7 @@ public class AutoTableDisassemblerTest extends AbstractGhidraHeadedIntegrationTe
 		ar = iter.next();
 		assertEquals(program.getMinAddress().getNewAddress(0x403870), ar.getMinAddress());
 		assertEquals(program.getMinAddress().getNewAddress(0x403887), ar.getMaxAddress());
-		assertTrue(!iter.hasNext());
+		assertFalse(iter.hasNext());
 	}
 
 	private void changeSelectionToNavigate(GTable gTable, int row) {
@@ -787,7 +787,7 @@ public class AutoTableDisassemblerTest extends AbstractGhidraHeadedIntegrationTe
 		runSwing(() -> table.setRowSelectionInterval(rowStart, rowEnd));
 	}
 
-	private class TestTaskListener implements TrackedTaskListener {
+	private static class TestTaskListener implements TrackedTaskListener {
 
 		private AtomicInteger started = new AtomicInteger();
 

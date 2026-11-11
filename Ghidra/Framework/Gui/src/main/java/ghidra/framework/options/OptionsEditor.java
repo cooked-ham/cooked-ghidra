@@ -15,11 +15,10 @@
  */
 package ghidra.framework.options;
 
-import java.beans.PropertyChangeListener;
-
-import javax.swing.JComponent;
-
 import ghidra.util.exception.InvalidInputException;
+
+import javax.swing.*;
+import java.beans.PropertyChangeListener;
 
 /**
  *
@@ -28,41 +27,43 @@ import ghidra.util.exception.InvalidInputException;
  */
 public interface OptionsEditor {
 
-	/**
-	 * Apply the changes.
-	 * @throws InvalidInputException if the input is invalid
-	 */
-	public void apply() throws InvalidInputException;
+    /**
+     * Apply the changes.
+     *
+     * @throws InvalidInputException if the input is invalid
+     */
+    public void apply() throws InvalidInputException;
 
-	/**
-	 * Cancel the changes.
-	 */
-	public void cancel();
+    /**
+     * Cancel the changes.
+     */
+    public void cancel();
 
-	/**
-	 * A signal to reload the GUI widgets in the component created by this editor.  This will 
-	 * happen when the options change out from under the editor, such as when the user restores
-	 * the default options values.
-	 */
-	public void reload();
+    /**
+     * A signal to reload the GUI widgets in the component created by this editor.  This will
+     * happen when the options change out from under the editor, such as when the user restores
+     * the default options values.
+     */
+    public void reload();
 
-	/**
-	 * Sets the options change listener
-	 * @param listener the listener
-	 */
-	public void setOptionsPropertyChangeListener(PropertyChangeListener listener);
+    /**
+     * Sets the options change listener
+     *
+     * @param listener the listener
+     */
+    public void setOptionsPropertyChangeListener(PropertyChangeListener listener);
 
-	/**
-	 * Get the editor component.
-	 * 
-	 * @param options The editable options that for which a GUI component will be created
-	 * @param editorStateFactory The factory that will provide state objects this options editor
-	 * @return the component
-	 */
-	public JComponent getEditorComponent(Options options, EditorStateFactory editorStateFactory);
+    /**
+     * Get the editor component.
+     *
+     * @param options            The editable options that for which a GUI component will be created
+     * @param editorStateFactory The factory that will provide state objects this options editor
+     * @return the component
+     */
+    public JComponent getEditorComponent(Options options, EditorStateFactory editorStateFactory);
 
-	/**
-	 * Dispose this editor
-	 */
-	public void dispose();
+    /**
+     * Dispose this editor
+     */
+    public void dispose();
 }

@@ -301,13 +301,13 @@ public class StringUtilities {
 			builder.append((char) c);
 		}
 		else if (charSize <= 1) {
-			builder.append("\\x" + pad(Integer.toHexString(c), '0', 2));
+			builder.append("\\x").append(pad(Integer.toHexString(c), '0', 2));
 		}
 		else if (charSize == 2) {
-			builder.append("\\u" + pad(Integer.toHexString(c), '0', 4));
+			builder.append("\\u").append(pad(Integer.toHexString(c), '0', 4));
 		}
 		else if (charSize <= 4) {
-			builder.append("\\U" + pad(Integer.toHexString(c), '0', 8));
+			builder.append("\\U").append(pad(Integer.toHexString(c), '0', 8));
 		}
 		else {
 			// TODO: unsupported

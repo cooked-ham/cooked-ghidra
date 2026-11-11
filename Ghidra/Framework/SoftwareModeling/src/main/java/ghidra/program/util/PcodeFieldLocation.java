@@ -71,7 +71,7 @@ public class PcodeFieldLocation extends ProgramLocation {
 	@Override
 	public void saveState(SaveState obj) {
 		super.saveState(obj);
-		obj.putStrings("_PCODE_STRINGS", pcodeStrings.toArray(new String[pcodeStrings.size()]));
+		obj.putStrings("_PCODE_STRINGS", pcodeStrings.toArray(new String[0]));
 	}
 
 	@Override

@@ -18,6 +18,7 @@ package ghidra.app.merge.listing;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.Serial;
 import java.util.List;
 
 import javax.swing.*;
@@ -39,6 +40,7 @@ import ghidra.util.SystemUtilities;
  */
 public class ScrollingListChoicesPanel extends ConflictPanel {
 
+	@Serial
 	private final static long serialVersionUID = 1;
 
 	private GridBagLayout gbl;

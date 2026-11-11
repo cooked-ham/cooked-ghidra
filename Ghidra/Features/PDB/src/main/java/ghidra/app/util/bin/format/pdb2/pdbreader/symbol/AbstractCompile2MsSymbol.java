@@ -262,11 +262,11 @@ public abstract class AbstractCompile2MsSymbol extends AbstractMsSymbol {
 			"\n   Compiled with LTCG: " + (compiledWithLinkTimeCodeGeneration ? "yes" : "no"));
 		builder.append(
 			"\n   Compiled with /bzalign: " + (compiledWithBzalignNoDataAlign ? "yes" : "no"));
-		builder.append("\n   Managed code present: " + (managedCodeDataPresent ? "yes" : "no"));
+		builder.append("\n   Managed code present: ").append((managedCodeDataPresent ? "yes" : "no"));
 		builder.append(
 			"\n   Compiled with /GS: " + (compiledWithGsBufferSecurityChecks ? "yes" : "no"));
-		builder.append("\n   Compiled with /hotpatch: " + (compiledWithHotPatch ? "yes" : "no"));
-		builder.append("\n   Converted by CVTCIL: " + (convertedWithCvtcil ? "yes" : "no"));
+		builder.append("\n   Compiled with /hotpatch: ").append((compiledWithHotPatch ? "yes" : "no"));
+		builder.append("\n   Converted by CVTCIL: ").append((convertedWithCvtcil ? "yes" : "no"));
 		builder.append("\n   Microsoft Intermediate Language Module: " +
 			(microsoftIntermediateLanguageNetModule ? "yes" : "no"));
 
@@ -274,7 +274,7 @@ public abstract class AbstractCompile2MsSymbol extends AbstractMsSymbol {
 			frontEndMajorVersionNumber, frontEndMinorVersionNumber, frontEndBuildVersionNumber));
 		builder.append(String.format("\n   Backend Version: Major = %d, Minor = %d, Build = %d",
 			backEndMajorVersionNumber, backEndMinorVersionNumber, backEndBuildVersionNumber));
-		builder.append("\n   Version String:" + compilerVersionString);
+		builder.append("\n   Version String:").append(compilerVersionString);
 		if ((stringList.size() & 0x0001) == 0x0001) {
 			return; // Some sort of problem that we are not dealing with.
 		}

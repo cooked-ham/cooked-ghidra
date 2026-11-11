@@ -17,6 +17,7 @@ package docking.widgets.filechooser;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serial;
 
 /**
  * An extension of File that does not translate to the
@@ -30,6 +31,7 @@ import java.io.IOException;
  * 
  */
 public class GhidraFile extends File {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private char nativeSeparator = separatorChar;

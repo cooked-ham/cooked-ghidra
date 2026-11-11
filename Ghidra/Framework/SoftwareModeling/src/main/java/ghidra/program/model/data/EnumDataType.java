@@ -550,13 +550,13 @@ public class EnumDataType extends GenericDataType implements Enum {
 	public String toString() {
 		StringBuilder buf = new StringBuilder();
 		buf.append(getPathName() + "\n");
-		buf.append("\tDescription: " + getDescription());
+		buf.append("\tDescription: ").append(getDescription());
 		buf.append("\nValues: \n");
 		for (String name : getNames()) {
-			buf.append("\t" + name + ": " + getValue(name));
+			buf.append("\t").append(name).append(": ").append(getValue(name));
 			String comment = getComment(name);
 			if (comment != null) {
-				buf.append(" " + comment);
+				buf.append(" ").append(comment);
 			}
 			buf.append("\n");
 		}

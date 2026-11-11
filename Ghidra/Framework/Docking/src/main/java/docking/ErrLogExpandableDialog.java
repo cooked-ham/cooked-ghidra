@@ -757,11 +757,11 @@ class HTMLElement {
 		}
 
 		// closing tag
-		sb.append("</" + name + ">");
+		sb.append("</").append(name).append(">");
 		return sb.toString();
 	}
 
-	private class HTMLContent {
+	private static class HTMLContent {
 		private String content;
 
 		HTMLContent(String content) {

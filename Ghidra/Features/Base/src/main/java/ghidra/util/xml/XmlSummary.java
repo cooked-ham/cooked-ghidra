@@ -26,42 +26,42 @@ class XmlSummary {
         buffer.append("\n");
         buffer.append("\n"+"XML Program Summary:");
         buffer.append("\n"+"--------------------------");
-        buffer.append("\n"+"Memory Sections:       " + counter.getCountAndRemove("MEMORY_SECTION"));
-        buffer.append("\n"+"Memory Contents:       " + counter.getCountAndRemove("MEMORY_CONTENTS"));
-        buffer.append("\n"+"Code Blocks:           " + counter.getCountAndRemove("CODE_BLOCK"));
-        buffer.append("\n"+"Defined Data:          " + counter.getCountAndRemove("DEFINED_DATA"));
-        buffer.append("\n"+"Structures:            " + counter.getCountAndRemove("STRUCTURE"));
-        buffer.append("\n"+"Unions:                " + counter.getCountAndRemove("UNION"));
-        buffer.append("\n"+"Typedefs:              " + counter.getCountAndRemove("TYPE_DEF"));
-        buffer.append("\n"+"Enums:                 " + counter.getCountAndRemove("ENUM"));
-        buffer.append("\n"+"Symbols:               " + counter.getCountAndRemove("SYMBOL"));
-        buffer.append("\n"+"Entry Points:          " + counter.getCountAndRemove("PROGRAM_ENTRY_POINT"));
-        buffer.append("\n"+"Equates:               " + counter.getCountAndRemove("EQUATE"));
-        buffer.append("\n"+"    References:        " + counter.getCountAndRemove("EQUATE_REFERENCE"));
-        buffer.append("\n"+"Comments:              " + counter.getCountAndRemove("COMMENT"));
-		buffer.append("\n"+"Bookmarks:             " + counter.getCountAndRemove("BOOKMARK"));
-        buffer.append("\n"+"Properties:            " + counter.getCountAndRemove("PROPERTY"));
-        buffer.append("\n"+"Program Trees:         " + counter.getCountAndRemove("TREE"));
-        buffer.append("\n"+"    Folders:           " + counter.getCountAndRemove("FOLDER"));
-        buffer.append("\n"+"    Fragments:         " + counter.getCountAndRemove("FRAGMENT"));
-		buffer.append("\n"+"Function Signatures:   " + counter.getCountAndRemove("FUNCTION_DEF"));
-		buffer.append("\n"+"    Parameters:        " + counter.getCountAndRemove("PARAMETER"));
-        buffer.append("\n"+"Functions:             " + counter.getCountAndRemove("FUNCTION"));
-        buffer.append("\n"+"    Stack Frames:      " + counter.getCountAndRemove("STACK_FRAME"));
-        buffer.append("\n"+"    Stack Vars:        " + counter.getCountAndRemove("STACK_VAR"));
-        buffer.append("\n"+"    Register Vars:     " + counter.getCountAndRemove("REGISTER_VAR"));
+        buffer.append("\n").append("Memory Sections:       ").append(counter.getCountAndRemove("MEMORY_SECTION"));
+        buffer.append("\n").append("Memory Contents:       ").append(counter.getCountAndRemove("MEMORY_CONTENTS"));
+        buffer.append("\n").append("Code Blocks:           ").append(counter.getCountAndRemove("CODE_BLOCK"));
+        buffer.append("\n").append("Defined Data:          ").append(counter.getCountAndRemove("DEFINED_DATA"));
+        buffer.append("\n").append("Structures:            ").append(counter.getCountAndRemove("STRUCTURE"));
+        buffer.append("\n").append("Unions:                ").append(counter.getCountAndRemove("UNION"));
+        buffer.append("\n").append("Typedefs:              ").append(counter.getCountAndRemove("TYPE_DEF"));
+        buffer.append("\n").append("Enums:                 ").append(counter.getCountAndRemove("ENUM"));
+        buffer.append("\n").append("Symbols:               ").append(counter.getCountAndRemove("SYMBOL"));
+        buffer.append("\n").append("Entry Points:          ").append(counter.getCountAndRemove("PROGRAM_ENTRY_POINT"));
+        buffer.append("\n").append("Equates:               ").append(counter.getCountAndRemove("EQUATE"));
+        buffer.append("\n").append("    References:        ").append(counter.getCountAndRemove("EQUATE_REFERENCE"));
+        buffer.append("\n").append("Comments:              ").append(counter.getCountAndRemove("COMMENT"));
+		buffer.append("\n").append("Bookmarks:             ").append(counter.getCountAndRemove("BOOKMARK"));
+        buffer.append("\n").append("Properties:            ").append(counter.getCountAndRemove("PROPERTY"));
+        buffer.append("\n").append("Program Trees:         ").append(counter.getCountAndRemove("TREE"));
+        buffer.append("\n").append("    Folders:           ").append(counter.getCountAndRemove("FOLDER"));
+        buffer.append("\n").append("    Fragments:         ").append(counter.getCountAndRemove("FRAGMENT"));
+		buffer.append("\n").append("Function Signatures:   ").append(counter.getCountAndRemove("FUNCTION_DEF"));
+		buffer.append("\n").append("    Parameters:        ").append(counter.getCountAndRemove("PARAMETER"));
+        buffer.append("\n").append("Functions:             ").append(counter.getCountAndRemove("FUNCTION"));
+        buffer.append("\n").append("    Stack Frames:      ").append(counter.getCountAndRemove("STACK_FRAME"));
+        buffer.append("\n").append("    Stack Vars:        ").append(counter.getCountAndRemove("STACK_VAR"));
+        buffer.append("\n").append("    Register Vars:     ").append(counter.getCountAndRemove("REGISTER_VAR"));
         buffer.append("\n"+"References:            " + counter.getCountAndRemove("MEMORY_REFERENCE")
                                                      + counter.getCountAndRemove("STACK_REFERENCE")
                                                      + counter.getCountAndRemove("EXT_LIBRARY_REFERENCE"));
-        buffer.append("\n"+"Relocations:           " + counter.getCountAndRemove("RELOCATION"));
+        buffer.append("\n").append("Relocations:           ").append(counter.getCountAndRemove("RELOCATION"));
 		buffer.append("\n");
 
 		counter.getCountAndRemove("MEMBER");//remove from overhead...
 
 		buffer.append("\n"+"--------------------------");
-		buffer.append("\n"+"Total XML Elements:    " + origTotal);
-		buffer.append("\n"+"    Processed:         " + (origTotal-counter.getTotalCount()));
-		buffer.append("\n"+"    Overhead:          " + counter.getTotalCount());
+		buffer.append("\n").append("Total XML Elements:    ").append(origTotal);
+		buffer.append("\n").append("    Processed:         ").append((origTotal-counter.getTotalCount()));
+		buffer.append("\n").append("    Overhead:          ").append(counter.getTotalCount());
         buffer.append("\n");
 
 		counter.clear();

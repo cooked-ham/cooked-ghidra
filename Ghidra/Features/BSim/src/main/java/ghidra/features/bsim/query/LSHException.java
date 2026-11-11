@@ -15,7 +15,10 @@
  */
 package ghidra.features.bsim.query;
 
+import java.io.Serial;
+
 public class LSHException extends Exception {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	public LSHException(String msg) {

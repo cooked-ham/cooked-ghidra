@@ -226,7 +226,7 @@ public class ExtensionInstaller {
 				.append(extension.getName())
 				.append("'\n");
 		for (ExtensionDetails otherExtension : matches) {
-			buffy.append("Duplicate: " + otherExtension.getInstallPath()).append('\n');
+			buffy.append("Duplicate: ").append(otherExtension.getInstallPath()).append('\n');
 		}
 		buffy.append("Please close Ghidra and manually remove from these extensions from the " +
 			"filesystem.");

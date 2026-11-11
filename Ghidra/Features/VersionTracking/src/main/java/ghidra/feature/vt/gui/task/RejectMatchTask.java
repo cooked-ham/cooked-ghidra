@@ -66,7 +66,7 @@ public class RejectMatchTask extends VtTask {
 // Inner Classes
 //==================================================================================================
 
-	private class ErrorStatus {
+	private static class ErrorStatus {
 		private List<Exception> exceptions = new ArrayList<>();
 
 		boolean hasErrors() {

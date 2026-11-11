@@ -167,14 +167,14 @@ public class PickToolDialog extends DialogComponentProvider {
 		}
 	}
 
-	private class ToolTemplateComparator implements Comparator<ToolTemplate> {
+	private static class ToolTemplateComparator implements Comparator<ToolTemplate> {
 		@Override
 		public int compare(ToolTemplate o1, ToolTemplate o2) {
 			return o1.getName().compareTo(o2.getName());
 		}
 	}
 
-	private class ToolTemplateRenderer extends GTableCellRenderer {
+	private static class ToolTemplateRenderer extends GTableCellRenderer {
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 

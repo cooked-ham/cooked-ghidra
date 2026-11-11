@@ -225,7 +225,7 @@ public abstract class AbstractGraphTransitionJob<V extends VisualVertex, E exten
 // Inner Classes
 //==================================================================================================
 
-	protected class TransitionPoints {
+	protected static class TransitionPoints {
 		public Point2D startPoint;
 		public Point2D destinationPoint;
 

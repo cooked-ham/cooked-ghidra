@@ -402,7 +402,7 @@ public class StructureMergeDialog extends DialogComponentProvider {
 
 	}
 
-	private class StructureMergeDialogContext extends DefaultActionContext {
+	private static class StructureMergeDialogContext extends DefaultActionContext {
 
 		private CoordinatedStructureDisplay display;
 

@@ -20,10 +20,11 @@ package mdemangler.naming;
  */
 public interface MDNameModifier {
 
-	/**
-	 * Returns the modifier string for the name
-	 * @return the modifier
-	 */
-	public String getModifier();
+    /**
+     * Returns the modifier string for the name
+     *
+     * @return the modifier
+     */
+    public String getModifier();
 
 }

@@ -16,12 +16,14 @@
 package ghidra.framework.store;
 
 import java.io.IOException;
+import java.io.Serial;
 
 /**
  * <code>Version</code> provides immutable information about a specific version of an item.
  */
 public class Version implements java.io.Serializable {
 
+	@Serial
 	public static final long serialVersionUID = 1L;
 	
 	private static final int VERSION = 1;

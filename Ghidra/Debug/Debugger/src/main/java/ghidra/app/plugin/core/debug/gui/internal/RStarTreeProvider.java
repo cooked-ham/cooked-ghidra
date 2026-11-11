@@ -112,7 +112,7 @@ public class RStarTreeProvider extends ComponentProviderAdapter {
 		}
 	}
 
-	class DataRStarNode extends GTreeNode implements HasShape {
+	static class DataRStarNode extends GTreeNode implements HasShape {
 		final DBTreeDataRecord<?, ?, ?> rec;
 
 		public DataRStarNode(DBTreeDataRecord<?, ?, ?> rec) {

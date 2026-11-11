@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,10 +15,10 @@
  */
 package ghidra.graph.visualization.mouse;
 
-import java.awt.event.MouseEvent;
-
 import ghidra.graph.visualization.DefaultGraphDisplay;
 import ghidra.service.graph.AttributedVertex;
+
+import java.awt.event.MouseEvent;
 
 /**
  * A mouse plugin to focus a vertex when clicked
@@ -28,37 +28,37 @@ import ghidra.service.graph.AttributedVertex;
  */
 public class JgtVertexFocusingPlugin<V, E> extends AbstractJgtGraphMousePlugin<V, E> {
 
-	private DefaultGraphDisplay graphDisplay;
-	protected int singleSelectionMask;
+    protected int singleSelectionMask;
+    private DefaultGraphDisplay graphDisplay;
 
-	public JgtVertexFocusingPlugin(int singleSelectionMask, DefaultGraphDisplay graphDisplay) {
-		this.singleSelectionMask = singleSelectionMask;
-		this.graphDisplay = graphDisplay;
-	}
+    public JgtVertexFocusingPlugin(int singleSelectionMask, DefaultGraphDisplay graphDisplay) {
+        this.singleSelectionMask = singleSelectionMask;
+        this.graphDisplay = graphDisplay;
+    }
 
-	@Override
-	public boolean checkModifiers(MouseEvent e) {
-		return e.getModifiersEx() == singleSelectionMask;
-	}
+    @Override
+    public boolean checkModifiers(MouseEvent e) {
+        return e.getModifiersEx() == singleSelectionMask;
+    }
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		if (!checkModifiers(e)) {
-			return;
-		}
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (!checkModifiers(e)) {
+            return;
+        }
 
-		selectedVertex = getVertex(e);
-	}
+        selectedVertex = getVertex(e);
+    }
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		if (selectedVertex == null) {
-			return;
-		}
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (selectedVertex == null) {
+            return;
+        }
 
-		graphDisplay.setFocusedVertex((AttributedVertex) selectedVertex);
+        graphDisplay.setFocusedVertex((AttributedVertex) selectedVertex);
 
-		// Note: do not consume the event.  We will just focus our vertex, regardless of further
-		//       mouse event processing.
-	}
+        // Note: do not consume the event.  We will just focus our vertex, regardless of further
+        //       mouse event processing.
+    }
 }

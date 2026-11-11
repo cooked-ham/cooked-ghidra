@@ -173,7 +173,7 @@ public class BSimSearchPluginTest extends AbstractBSimPluginTest {
 		return BSimSearchDialogTestHelper.getSelectedServer(searchDialog);
 	}
 
-	class TestBSimServerInfo extends BSimServerInfo {
+	static class TestBSimServerInfo extends BSimServerInfo {
 
 		private FunctionDatabase database;
 

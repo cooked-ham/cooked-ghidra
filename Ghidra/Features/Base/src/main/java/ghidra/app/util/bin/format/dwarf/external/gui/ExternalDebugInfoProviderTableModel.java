@@ -232,7 +232,7 @@ class ExternalDebugInfoProviderTableModel
 
 	}
 
-	private class LocationColumn
+	private static class LocationColumn
 			extends AbstractDynamicTableColumnStub<ExternalDebugInfoProviderTableRow, String> {
 
 		@Override

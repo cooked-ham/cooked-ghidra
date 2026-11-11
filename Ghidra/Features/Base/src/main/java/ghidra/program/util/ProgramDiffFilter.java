@@ -280,7 +280,7 @@ public class ProgramDiffFilter {
 		StringBuffer buf = new StringBuffer();
 		buf.append("ProgramDiffFilter:\n");
 		for (int i = 0; i < NUM_PRIMARY_TYPES; i++) {
-			buf.append("  " + typeToName(1 << i) + "=" + getFilter(1 << i) + "\n");
+			buf.append("  ").append(typeToName(1 << i)).append("=").append(getFilter(1 << i)).append("\n");
 		}
 		return buf.toString();
 	}

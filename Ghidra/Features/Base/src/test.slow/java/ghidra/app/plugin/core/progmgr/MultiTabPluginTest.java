@@ -249,7 +249,7 @@ public class MultiTabPluginTest extends AbstractGhidraHeadedIntegrationTest {
 		// remove notepad
 		runSwing(() -> panel.removeTab(programs[0]));
 
-		assertTrue(!window.isShowing());
+		assertFalse(window.isShowing());
 	}
 
 	@Test
@@ -320,14 +320,14 @@ public class MultiTabPluginTest extends AbstractGhidraHeadedIntegrationTest {
 		MultiTabPlugin plugin = env.getPlugin(MultiTabPlugin.class);
 		DockingAction action =
 			(DockingAction) TestUtils.getInstanceField("goToLastActiveProgramAction", plugin);
-		assertTrue(!action.isEnabled());// disabled before we've changed tabs
+		assertFalse(action.isEnabled());// disabled before we've changed tabs
 
 		// select second tab
 		JPanel tab = panel.getTab(programs[1]);
 		Point p = tab.getLocationOnScreen();
 		clickMouse(tab, MouseEvent.BUTTON1, p.x + 1, p.y + 1, 1, 0);
 		assertEquals(programs[1], getSelectedTabValue());
-		assertTrue(!startProgram.equals(getSelectedTabValue()));
+		assertFalse(startProgram.equals(getSelectedTabValue()));
 
 		assertTrue(action.isEnabled());
 

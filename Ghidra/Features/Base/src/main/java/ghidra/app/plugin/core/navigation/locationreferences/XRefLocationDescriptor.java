@@ -123,7 +123,7 @@ class XRefLocationDescriptor extends LocationDescriptor {
 				highlightColor);
 		}
 
-		return highlightList.toArray(new Highlight[highlightList.size()]);
+		return highlightList.toArray(new Highlight[0]);
 	}
 
 	private void getHighlightsForReference(Reference reference, String text,
@@ -159,6 +159,6 @@ class XRefLocationDescriptor extends LocationDescriptor {
 			}
 		}
 
-		return referenceList.toArray(new Reference[referenceList.size()]);
+		return referenceList.toArray(new Reference[0]);
 	}
 }

@@ -106,7 +106,7 @@ public class ParallelDecompileTask {
 // Inner Classes
 //==================================================================================================	
 
-	private class ParallelDecompilerCallback implements QCallback<Function, Function> {
+	private static class ParallelDecompilerCallback implements QCallback<Function, Function> {
 
 		private CachingPool<DecompileFunctionTask> pool;
 
@@ -130,7 +130,7 @@ public class ParallelDecompileTask {
 		}
 	}
 
-	private class DecompilerTaskFactory extends CountingBasicFactory<DecompileFunctionTask> {
+	private static class DecompilerTaskFactory extends CountingBasicFactory<DecompileFunctionTask> {
 		private DecompileFunctionTask taskFactory;
 
 		DecompilerTaskFactory(DecompileFunctionTask taskFactory) {

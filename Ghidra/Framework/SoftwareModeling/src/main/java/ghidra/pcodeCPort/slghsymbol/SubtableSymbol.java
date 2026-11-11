@@ -167,7 +167,7 @@ public class SubtableSymbol extends TripleSymbol {
 		pattern = new TokenPattern(Location.INTERNALLY_DEFINED);
 
 		if (construct.empty()) {
-			s.append("Error: There are no constructors in table: " + getName()).append("\n");
+			s.append("Error: There are no constructors in table: ").append(getName()).append("\n");
 			errors = true;
 			return pattern;
 		}

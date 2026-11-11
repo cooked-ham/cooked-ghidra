@@ -176,7 +176,7 @@ public class EventManager {
 	 * @return array of PluginEvent names
 	 */
 	public String[] getEventsProduced() {
-		return producerMap.keySet().toArray(new String[producerMap.size()]);
+		return producerMap.keySet().toArray(new String[0]);
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class EventManager {
 	 * @return array of PluginEvent names
 	 */
 	public String[] getEventsConsumed() {
-		return consumerMap.keySet().toArray(new String[consumerMap.size()]);
+		return consumerMap.keySet().toArray(new String[0]);
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class EventManager {
 	 * @return array of plugin events
 	 */
 	public PluginEvent[] getLastEvents() {
-		return lastEventsByType.values().toArray(new PluginEvent[lastEventsByType.size()]);
+		return lastEventsByType.values().toArray(new PluginEvent[0]);
 	}
 
 	private void sendEvents() {

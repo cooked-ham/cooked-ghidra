@@ -381,7 +381,7 @@ public class CoordinatedStructureModel {
 
 	}
 
-	private class DefinedComponentQueue {
+	private static class DefinedComponentQueue {
 		private DataTypeComponent[] definedComponents;
 		private int current = 0;
 

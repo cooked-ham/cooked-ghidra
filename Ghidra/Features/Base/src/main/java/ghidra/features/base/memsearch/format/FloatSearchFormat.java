@@ -190,7 +190,7 @@ class FloatSearchFormat extends SearchFormat {
 			byte[] bytes = matcher.getBytes();
 			if (bytes.length >= byteSize) {
 				String valueString = getValueString(bytes, settings);
-				return valueString.replaceAll(",", "");
+				return valueString.replace(",", "");
 			}
 		}
 		return isValidText(text, settings) ? text : "";

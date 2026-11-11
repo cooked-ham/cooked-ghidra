@@ -15,6 +15,7 @@
  */
 package ghidra.program.model.address;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Iterator;
@@ -28,6 +29,7 @@ import java.util.Iterator;
  */
 
 public class AddressRangeImpl implements AddressRange, Serializable {
+	@Serial
 	private static final long serialVersionUID = 1;
 
 	private final Address minAddress; // minimum address in this range.

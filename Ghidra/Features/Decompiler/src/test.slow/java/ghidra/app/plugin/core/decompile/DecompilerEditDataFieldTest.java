@@ -221,7 +221,7 @@ public class DecompilerEditDataFieldTest extends AbstractDecompilerTest {
 		assertToken("alloc", line, charPosition);
 		EditDataFieldDialog dialog = performEditField();
 
-		assertEquals(null, structure.getComponent(0).getComment());
+		assertNull(structure.getComponent(0).getComment());
 		assertEquals("", getCommentText(dialog));
 
 		setCommentText(dialog, "comment");

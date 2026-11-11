@@ -572,7 +572,7 @@ public class MemoryMergeManager implements MergeResolver {
 		return new String[][] { MEMORY_PHASE };
 	}
 
-	private class ConflictInfo {
+	private static class ConflictInfo {
 
 		int index;
 		boolean permissionConflict;

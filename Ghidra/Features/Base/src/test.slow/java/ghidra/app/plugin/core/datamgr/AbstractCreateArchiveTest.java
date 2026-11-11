@@ -282,7 +282,7 @@ public abstract class AbstractCreateArchiveTest extends AbstractGhidraHeadedInte
 		return file;
 	}
 
-	protected class TreeModelModCounter implements TreeModelListener {
+	protected static class TreeModelModCounter implements TreeModelListener {
 		protected int insertedCount;
 
 		@Override

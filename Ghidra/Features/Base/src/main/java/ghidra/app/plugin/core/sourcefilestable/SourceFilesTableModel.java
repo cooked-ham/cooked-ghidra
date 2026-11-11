@@ -94,7 +94,7 @@ public class SourceFilesTableModel extends ThreadedTableModelStub<SourceFileRowO
 		return program;
 	}
 
-	private class PathColumn
+	private static class PathColumn
 			extends AbstractDynamicTableColumn<SourceFileRowObject, String, Object> {
 
 		@Override
@@ -109,7 +109,7 @@ public class SourceFilesTableModel extends ThreadedTableModelStub<SourceFileRowO
 		}
 	}
 
-	private class IdTypeColumn
+	private static class IdTypeColumn
 			extends AbstractDynamicTableColumn<SourceFileRowObject, SourceFileIdType, Object> {
 
 		@Override
@@ -125,7 +125,7 @@ public class SourceFilesTableModel extends ThreadedTableModelStub<SourceFileRowO
 		}
 	}
 
-	private class FileNameColumn
+	private static class FileNameColumn
 			extends AbstractDynamicTableColumn<SourceFileRowObject, String, Object> {
 
 		@Override
@@ -163,7 +163,7 @@ public class SourceFilesTableModel extends ThreadedTableModelStub<SourceFileRowO
 
 	}
 
-	private class IdentifierColumn
+	private static class IdentifierColumn
 			extends AbstractDynamicTableColumn<SourceFileRowObject, String, Object> {
 
 		@Override
@@ -179,7 +179,7 @@ public class SourceFilesTableModel extends ThreadedTableModelStub<SourceFileRowO
 
 	}
 
-	private class NumMappedEntriesColumn
+	private static class NumMappedEntriesColumn
 			extends AbstractDynamicTableColumn<SourceFileRowObject, Integer, Object> {
 
 		@Override

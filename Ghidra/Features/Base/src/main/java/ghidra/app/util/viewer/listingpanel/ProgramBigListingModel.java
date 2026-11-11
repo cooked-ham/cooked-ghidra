@@ -213,7 +213,7 @@ public class ProgramBigListingModel implements ListingModel, FormatModelListener
 		}
 
 		if (list.size() > 0) {
-			return new MultiRowLayout(list.toArray(new RowLayout[list.size()]), indexSize);
+			return new MultiRowLayout(list.toArray(new RowLayout[0]), indexSize);
 		}
 		else if (cu != null) {
 			ListingField f = dummyFactory.getField(new CodeUnitProxy(this, program, cu), 0);
@@ -709,7 +709,7 @@ public class ProgramBigListingModel implements ListingModel, FormatModelListener
 		return addressSet;
 	}
 
-	private class LayoutCache {
+	private static class LayoutCache {
 
 		private LRUMap<Address, Layout> cache = new LRUMap<>(10);
 		private LRUMap<Address, Layout> gapCache = new LRUMap<>(10);

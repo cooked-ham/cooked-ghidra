@@ -168,7 +168,7 @@ public interface CompositeInternal extends Composite {
 		dumpComponents(composite, stringBuffer, "   ");
 		stringBuffer.append("}\n");
 		int length = composite.isZeroLength() ? 0 : composite.getLength();
-		stringBuffer.append("Length: " + length + " Alignment: " + composite.getAlignment() + "\n");
+		stringBuffer.append("Length: ").append(length).append(" Alignment: ").append(composite.getAlignment()).append("\n");
 		return stringBuffer.toString();
 	}
 

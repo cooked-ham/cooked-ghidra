@@ -18,6 +18,7 @@ package ghidra.framework.main;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.beans.PropertyChangeEvent;
+import java.io.Serial;
 import java.util.HashMap;
 
 import javax.swing.*;
@@ -34,6 +35,7 @@ import help.Help;
 import help.HelpService;
 
 class WorkspacePanel extends JPanel implements WorkspaceChangeListener {
+	@Serial
 	private final static long serialVersionUID = 1L;
 	private final static String RUNNING_TOOLS_TITLE = "Running Tools";
 	private final static Border ACTIVE_WORKSPACE_BORDER =

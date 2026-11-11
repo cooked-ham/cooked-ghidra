@@ -280,13 +280,13 @@ public class AbstractProtoModelTest extends AbstractGenericTest {
 				buffer.append(' ').append(model.getName()).append(' ');
 				if (i == 0) {
 					buffer.append("Output ")
-							.append("@" + toString(resPiece))
+							.append("@").append(toString(resPiece))
 							.append(" does not match for ");
 				}
 				else {
 					buffer.append("Parameter ")
 							.append(i - 1)
-							.append(" @" + toString(resPiece) + " ")
+							.append(" @").append(toString(resPiece)).append(" ")
 							.append(" does not match for: ");
 				}
 				buffer.append(signature);

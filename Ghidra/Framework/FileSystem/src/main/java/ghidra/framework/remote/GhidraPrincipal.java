@@ -15,6 +15,7 @@
  */
 package ghidra.framework.remote;
 
+import java.io.Serial;
 import java.security.Principal;
 import java.util.Set;
 
@@ -26,6 +27,7 @@ import javax.security.auth.Subject;
  */
 public class GhidraPrincipal implements Principal, java.io.Serializable {
 	
+	@Serial
 	public final static long serialVersionUID = 1L;
 
 	private String username;

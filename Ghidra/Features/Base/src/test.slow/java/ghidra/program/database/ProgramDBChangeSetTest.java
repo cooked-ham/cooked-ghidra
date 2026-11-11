@@ -16,6 +16,7 @@
 package ghidra.program.database;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -363,16 +364,16 @@ public class ProgramDBChangeSetTest extends AbstractGhidraHeadedIntegrationTest 
 		AddressSetCollection addrsSinceCheckout = pcs.getAddressSetCollectionSinceCheckout();
 		AddressSetCollection addrsSinceSave = pcs.getAddressSetCollectionSinceLastSave();
 		assertTrue(addrsSinceCheckout.isEmpty());
-		assertTrue(!addrsSinceSave.isEmpty());
-		assertTrue(!addrsSinceCheckout.contains(addr(0)));
+		assertFalse(addrsSinceSave.isEmpty());
+		assertFalse(addrsSinceCheckout.contains(addr(0)));
 		assertTrue(addrsSinceSave.contains(addr(0)));
 
 		pcs.endTransaction(true);
 
 		addrsSinceCheckout = pcs.getAddressSetCollectionSinceCheckout();
 		addrsSinceSave = pcs.getAddressSetCollectionSinceLastSave();
-		assertTrue(!addrsSinceCheckout.isEmpty());
-		assertTrue(!addrsSinceSave.isEmpty());
+		assertFalse(addrsSinceCheckout.isEmpty());
+		assertFalse(addrsSinceSave.isEmpty());
 		assertTrue(addrsSinceCheckout.contains(addr(0)));
 		assertTrue(addrsSinceSave.contains(addr(0)));
 
@@ -384,10 +385,10 @@ public class ProgramDBChangeSetTest extends AbstractGhidraHeadedIntegrationTest 
 
 		addrsSinceCheckout = pcs.getAddressSetCollectionSinceCheckout();
 		addrsSinceSave = pcs.getAddressSetCollectionSinceLastSave();
-		assertTrue(!addrsSinceCheckout.isEmpty());
+		assertFalse(addrsSinceCheckout.isEmpty());
 		assertTrue(addrsSinceSave.isEmpty());
 		assertTrue(addrsSinceCheckout.contains(addr(0)));
-		assertTrue(!addrsSinceSave.contains(addr(0)));
+		assertFalse(addrsSinceSave.contains(addr(0)));
 
 	}
 
@@ -401,10 +402,10 @@ public class ProgramDBChangeSetTest extends AbstractGhidraHeadedIntegrationTest 
 		assertTrue(addrsSinceSave.contains(addr(0)));
 		assertTrue(addrsSinceSave.contains(addr(5)));
 		assertTrue(addrsSinceSave.contains(addr(9)));
-		assertTrue(!addrsSinceSave.contains(addr(10)));
-		assertTrue(!addrsSinceSave.contains(addr(20)));
+		assertFalse(addrsSinceSave.contains(addr(10)));
+		assertFalse(addrsSinceSave.contains(addr(20)));
 		assertTrue(addrsSinceSave.intersects(addr(5), addr(15)));
-		assertTrue(!addrsSinceSave.intersects(addr(10), addr(15)));
+		assertFalse(addrsSinceSave.intersects(addr(10), addr(15)));
 
 		pcs.endTransaction(true);
 		addrsSinceSave = pcs.getAddressSetCollectionSinceLastSave();
@@ -412,10 +413,10 @@ public class ProgramDBChangeSetTest extends AbstractGhidraHeadedIntegrationTest 
 		assertTrue(addrsSinceSave.contains(addr(0)));
 		assertTrue(addrsSinceSave.contains(addr(5)));
 		assertTrue(addrsSinceSave.contains(addr(9)));
-		assertTrue(!addrsSinceSave.contains(addr(10)));
-		assertTrue(!addrsSinceSave.contains(addr(20)));
+		assertFalse(addrsSinceSave.contains(addr(10)));
+		assertFalse(addrsSinceSave.contains(addr(20)));
 		assertTrue(addrsSinceSave.intersects(addr(5), addr(15)));
-		assertTrue(!addrsSinceSave.intersects(addr(10), addr(15)));
+		assertFalse(addrsSinceSave.intersects(addr(10), addr(15)));
 
 		pcs.startTransaction();
 		pcs.addRange(addr(5), addr(14));
@@ -425,10 +426,10 @@ public class ProgramDBChangeSetTest extends AbstractGhidraHeadedIntegrationTest 
 		assertTrue(addrsSinceSave.contains(addr(5)));
 		assertTrue(addrsSinceSave.contains(addr(9)));
 		assertTrue(addrsSinceSave.contains(addr(10)));
-		assertTrue(!addrsSinceSave.contains(addr(20)));
+		assertFalse(addrsSinceSave.contains(addr(20)));
 		assertTrue(addrsSinceSave.intersects(addr(5), addr(15)));
 		assertTrue(addrsSinceSave.intersects(addr(10), addr(15)));
-		assertTrue(!addrsSinceSave.intersects(addr(15), addr(25)));
+		assertFalse(addrsSinceSave.intersects(addr(15), addr(25)));
 
 		pcs.endTransaction(true);
 
@@ -437,15 +438,15 @@ public class ProgramDBChangeSetTest extends AbstractGhidraHeadedIntegrationTest 
 		assertTrue(addrsSinceSave.contains(addr(5)));
 		assertTrue(addrsSinceSave.contains(addr(9)));
 		assertTrue(addrsSinceSave.contains(addr(10)));
-		assertTrue(!addrsSinceSave.contains(addr(20)));
+		assertFalse(addrsSinceSave.contains(addr(20)));
 		assertTrue(addrsSinceSave.intersects(addr(5), addr(15)));
 		assertTrue(addrsSinceSave.intersects(addr(10), addr(15)));
-		assertTrue(!addrsSinceSave.intersects(addr(15), addr(25)));
+		assertFalse(addrsSinceSave.intersects(addr(15), addr(25)));
 
 		pcs.undo();
 		addrsSinceSave = pcs.getAddressSetCollectionSinceLastSave();
-		assertTrue(!addrsSinceSave.contains(addr(10)));
-		assertTrue(!addrsSinceSave.intersects(addr(10), addr(15)));
+		assertFalse(addrsSinceSave.contains(addr(10)));
+		assertFalse(addrsSinceSave.intersects(addr(10), addr(15)));
 
 		pcs.redo();
 		addrsSinceSave = pcs.getAddressSetCollectionSinceLastSave();

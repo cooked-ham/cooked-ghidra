@@ -60,7 +60,7 @@ public class DWARFFunctionImporterTest extends DWARFTestBase {
 		assertEquals("int", returnType.getName());
 
 		Parameter[] fooParams = fooFunc.getParameters();
-		assertEquals(fooParams.length, 1);
+		assertEquals(1, fooParams.length);
 		assertEquals("param1", fooParams[0].getName());
 		assertEquals("int", fooParams[0].getDataType().getName());
 	}
@@ -103,7 +103,7 @@ public class DWARFFunctionImporterTest extends DWARFTestBase {
 		Structure nestedStructDT1 = (Structure) dataMgr
 				.getDataType(new CategoryPath(uncatCP, "mystruct::operator/()"), "nested_struct");
 		Structure nestedStructDT2 = VariableUtilities.findExistingClassStruct(fooFunc);
-		assertTrue(nestedStructDT1 == nestedStructDT2);
+		assertSame(nestedStructDT1, nestedStructDT2);
 	}
 
 	@Test
@@ -156,7 +156,7 @@ public class DWARFFunctionImporterTest extends DWARFTestBase {
 		assertEquals("int", returnType.getName());
 
 		Parameter[] fooParams = fooFunc.getParameters();
-		assertEquals(fooParams.length, 1);
+		assertEquals(1, fooParams.length);
 		assertEquals("param1", fooParams[0].getName());
 		assertEquals("int", fooParams[0].getDataType().getName());
 
@@ -189,7 +189,7 @@ public class DWARFFunctionImporterTest extends DWARFTestBase {
 		assertEquals("int", returnType.getName());
 
 		Parameter[] fooParams = fooFunc.getParameters();
-		assertEquals(fooParams.length, 1);
+		assertEquals(1, fooParams.length);
 		assertEquals("param1", fooParams[0].getName());
 		assertEquals("int", fooParams[0].getDataType().getName());
 		assertTrue(fooParams[0].isStackVariable());

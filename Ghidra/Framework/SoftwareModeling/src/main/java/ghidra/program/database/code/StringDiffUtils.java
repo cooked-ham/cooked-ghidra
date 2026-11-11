@@ -105,7 +105,7 @@ class StringDiffUtils {
 			results.add(trailingInserted);
 		}
 
-		return results.toArray(new StringDiff[results.size()]);
+		return results.toArray(new StringDiff[0]);
 	}
 
 	private static int charOffset(List<Line> list, int index) {

@@ -170,7 +170,7 @@ public class FunctionDB extends DbObject implements Function {
 			if (thunkAddrList == null) {
 				return null;
 			}
-			return thunkAddrList.toArray(new Address[thunkAddrList.size()]);
+			return thunkAddrList.toArray(new Address[0]);
 		}
 	}
 

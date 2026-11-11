@@ -16,6 +16,7 @@
 package ghidra.app.plugin.core.datamgr;
 
 import java.awt.*;
+import java.io.Serial;
 import java.util.List;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ import ghidra.util.table.GhidraTableFilterPanel;
  * be synchronized (committed or updated) between a program and an archive.
  */
 class DataTypeSyncPanel extends JPanel {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	private DataTypeSyncTableModel tableModel;

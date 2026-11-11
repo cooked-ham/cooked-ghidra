@@ -251,7 +251,7 @@ public class PcodeEmitContextTest extends AbstractGhidraHeadlessIntegrationTest 
 		PcodeOp[] overridden = indirectCall.getPcode(true);
 		assertFalse(equalPcodeOpArrays(unmodified, overridden));
 		assertEquals(unmodified.length, overridden.length);
-		assertEquals(unmodified.length, 2);
+		assertEquals(2, unmodified.length);
 		assertTrue(equalPcodeOps(unmodified[0], overridden[0]));
 		PcodeOp callind = unmodified[1];
 		PcodeOp call = overridden[1];
@@ -716,7 +716,7 @@ public class PcodeEmitContextTest extends AbstractGhidraHeadlessIntegrationTest 
 		assertEquals("call 0x" + func1Addr.toString(), callFunc1.toString());
 
 		PcodeOp[] unmodified = callFunc1.getPcode(false);
-		assertEquals(unmodified.length, 2);
+		assertEquals(2, unmodified.length);
 		assertTrue(unmodified[0].getOpcode() == PcodeOp.COPY); //save return address in lr
 		assertTrue(unmodified[1].getOpcode() == PcodeOp.CALL); //call op
 

@@ -182,7 +182,7 @@ public class ChooseColumnsDialog extends DialogComponentProvider {
 // Inner Classes
 //==================================================================================================	
 
-	private class Renderer extends GTableCellRenderer {
+	private static class Renderer extends GTableCellRenderer {
 		@Override
 		public Component getTableCellRendererComponent(GTableCellRenderingData data) {
 
@@ -211,7 +211,7 @@ public class ChooseColumnsDialog extends DialogComponentProvider {
 		}
 	}
 
-	private class TableColumnWrapper {
+	private static class TableColumnWrapper {
 		private final TableColumn column;
 
 		TableColumnWrapper(TableColumn column) {

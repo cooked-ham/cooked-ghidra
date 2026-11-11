@@ -289,7 +289,7 @@ public class LocalBSimQueryScript extends GhidraScript {
 		return gensig;
 	}
 
-	class LocalBSimMatch implements Comparable<LocalBSimMatch>, AddressableRowObject {
+	static class LocalBSimMatch implements Comparable<LocalBSimMatch>, AddressableRowObject {
 		private Function sourceFunc;
 		private Function targetFunc;
 		private double similarity;

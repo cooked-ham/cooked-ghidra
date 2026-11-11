@@ -203,9 +203,9 @@ public class NeLoader extends AbstractOrdinalSupportLoader {
 
 		StringBuffer buffer = new StringBuffer();
 
-		buffer.append("Title:  " + nrnt.getTitle() + "\n");
+		buffer.append("Title:  ").append(nrnt.getTitle()).append("\n");
 		buffer.append("Format: " + "New Executable (NE) Windows" + "\n");
-		buffer.append("CRC:    " + NumericUtilities.toPaddedHexString(ib.getChecksum()) + "\n");
+		buffer.append("CRC:    ").append(NumericUtilities.toPaddedHexString(ib.getChecksum())).append("\n");
 		buffer.append("\n");
 		buffer.append(
 			"Program Entry Point (CS:IP):   " + NumericUtilities.toPaddedHexString(ib.getEntryPointSegment()) + ":" +
@@ -222,16 +222,16 @@ public class NeLoader extends AbstractOrdinalSupportLoader {
 		buffer.append(
 			"Minimum Code Swap Size:        " + NumericUtilities.toPaddedHexString(ib.getMinCodeSwapSize()) + "\n");
 		buffer.append("\n");
-		buffer.append("Linker Version:  " + ib.getVersion() + "." + ib.getRevision() + "\n");
-		buffer.append("Target OS:       " + ib.getTargetOpSysAsString() + "\n");
+		buffer.append("Linker Version:  ").append(ib.getVersion()).append(".").append(ib.getRevision()).append("\n");
+		buffer.append("Target OS:       ").append(ib.getTargetOpSysAsString()).append("\n");
 		buffer.append("Windows Version: " + (ib.getExpectedWindowsVersion() >> 8) + "." +
 			(ib.getExpectedWindowsVersion() & 0xff) + "\n");
 		buffer.append("\n");
-		buffer.append("Program Flags:     " + NumericUtilities.toPaddedHexString(ib.getProgramFlags()) + "\n");
+		buffer.append("Program Flags:     ").append(NumericUtilities.toPaddedHexString(ib.getProgramFlags())).append("\n");
 		buffer.append(ib.getProgramFlagsAsString());
-		buffer.append("Application Flags: " + NumericUtilities.toPaddedHexString(ib.getApplicationFlags()) + "\n");
+		buffer.append("Application Flags: ").append(NumericUtilities.toPaddedHexString(ib.getApplicationFlags())).append("\n");
 		buffer.append(ib.getApplicationFlagsAsString());
-		buffer.append("Other Flags:       " + NumericUtilities.toPaddedHexString(ib.getOtherFlags()) + "\n");
+		buffer.append("Other Flags:       ").append(NumericUtilities.toPaddedHexString(ib.getOtherFlags())).append("\n");
 		buffer.append(ib.getOtherFlagsAsString());
 
 		firstCU.setComment(CommentType.PLATE, buffer.toString());
@@ -295,13 +295,13 @@ public class NeLoader extends AbstractOrdinalSupportLoader {
 				}
 
 				StringBuffer buff = new StringBuffer();
-				buff.append("Segment:    " + (i + 1) + "\n");
+				buff.append("Segment:    ").append((i + 1)).append("\n");
 				buff.append(
 					"Offset:     " + NumericUtilities.toPaddedHexString(segments[i].getOffsetShiftAligned()) + "\n");
-				buff.append("Length:     " + NumericUtilities.toPaddedHexString(segments[i].getLength()) + "\n");
+				buff.append("Length:     ").append(NumericUtilities.toPaddedHexString(segments[i].getLength())).append("\n");
 				buff.append(
 					"Min Alloc:  " + NumericUtilities.toPaddedHexString(segments[i].getMinAllocSize()) + "\n");
-				buff.append("Flags:      " + NumericUtilities.toPaddedHexString(segments[i].getFlagword()) + "\n");
+				buff.append("Flags:      ").append(NumericUtilities.toPaddedHexString(segments[i].getFlagword())).append("\n");
 				buff.append(TAB + (segments[i].isCode() ? "Code" : "Data") + "\n");
 				buff.append((segments[i].isDiscardable() ? TAB + "Discardable" + "\n" : ""));
 				buff.append((segments[i].isExecuteOnly() ? TAB + "Execute Only" + "\n" : ""));
@@ -377,7 +377,7 @@ public class NeLoader extends AbstractOrdinalSupportLoader {
 					"File Length:    " + NumericUtilities.toPaddedHexString(resource.getFileLengthShifted()) + "\n");
 				buf.append(
 					"File Offset:    " + NumericUtilities.toPaddedHexString(resource.getFileOffsetShifted()) + "\n");
-				buf.append("Attributes:     " + NumericUtilities.toPaddedHexString(resource.getFlagword()) + " (");
+				buf.append("Attributes:     ").append(NumericUtilities.toPaddedHexString(resource.getFlagword())).append(" (");
 				if (resource.isMoveable()) {
 					buf.append("Moveable");
 				}
@@ -388,9 +388,9 @@ public class NeLoader extends AbstractOrdinalSupportLoader {
 					buf.append(",Pure");
 				}
 				buf.append(")" + "\n");
-				buf.append("Resource ID:    " + resource + "\n");
-				buf.append("Handle:         " + NumericUtilities.toPaddedHexString(resource.getHandle()) + "\n");
-				buf.append("Usage:          " + NumericUtilities.toPaddedHexString(resource.getUsage()) + "\n");
+				buf.append("Resource ID:    ").append(resource).append("\n");
+				buf.append("Handle:         ").append(NumericUtilities.toPaddedHexString(resource.getHandle())).append("\n");
+				buf.append("Usage:          ").append(NumericUtilities.toPaddedHexString(resource.getUsage())).append("\n");
 				CodeUnit cu = listing.getCodeUnitAt(addr);
 				if (cu != null) {
 					cu.setComment(CommentType.PRE, buf.toString());
@@ -514,7 +514,7 @@ public class NeLoader extends AbstractOrdinalSupportLoader {
 		return callnames;
 	}
 
-	private class CallNameComparator implements Comparator<String> {
+	private static class CallNameComparator implements Comparator<String> {
 		private int prefixLength = SymbolUtilities.ORDINAL_PREFIX.length();
 
 		@Override

@@ -456,7 +456,7 @@ public class ProjectCopyPasteFromRepositoryTest extends AbstractGhidraHeadedInte
 		//
 		DomainFolderNode f1CopyNode = env.waitForFolderNode("/xyz/f1");
 		DomainFolder folder = f1CopyNode.getDomainFolder();
-		assertTrue(!folder.isEmpty());
+		assertFalse(folder.isEmpty());
 
 		DomainFile file = folder.getFile("bash");
 		assertNotNull(file);

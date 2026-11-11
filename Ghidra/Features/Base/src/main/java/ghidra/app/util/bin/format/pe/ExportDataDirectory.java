@@ -365,7 +365,7 @@ public class ExportDataDirectory extends DataDirectory implements StructConverte
 	@Override
 	public String toString() {
 		StringBuffer buff = new StringBuffer();
-		buff.append("\t\t" + "Export Directory: [" + super.toString() + "]" + "\n");
+		buff.append("\t\t").append("Export Directory: [").append(super.toString()).append("]").append("\n");
 		for (ExportInfo info : exports) {
 			buff.append("\t\t\t" + "0x" + Long.toHexString(info.getAddress()) + "  " +
 				info.getOrdinal() + "  " + info.getName() + "\n");

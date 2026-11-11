@@ -48,7 +48,7 @@ public class FoldedState implements PcodeExecutorState<MaskedBytes> {
 	private final FoldedSpace uniqSpace = new FoldedSpace();
 	private final FoldedSpace regSpace = new FoldedSpace();
 
-	private class FoldedSpace {
+	private static class FoldedSpace {
 		SemisparseByteArray values = new SemisparseByteArray();
 		SemisparseByteArray masks = new SemisparseByteArray();
 

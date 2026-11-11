@@ -75,7 +75,7 @@ public class EncodedAnnotation implements StructConverter {
 			DataType dataType = element.toDataType();
 			structure.add(dataType, "element" + index, null);
 			++index;
-			builder.append("" + dataType.getName());
+			builder.append("").append(dataType.getName());
 		}
 
 		structure.setCategoryPath(new CategoryPath("/dex/encoded_annotation"));

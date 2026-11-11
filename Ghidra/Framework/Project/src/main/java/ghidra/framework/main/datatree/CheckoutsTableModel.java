@@ -15,6 +15,7 @@
  */
 package ghidra.framework.main.datatree;
 
+import java.io.Serial;
 import java.util.*;
 
 import docking.widgets.table.AbstractSortedTableModel;
@@ -26,6 +27,7 @@ import ghidra.framework.store.ItemCheckoutStatus;
  *
  */
 class CheckoutsTableModel extends AbstractSortedTableModel<ItemCheckoutStatus> {
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	final static String DATE = "Checkout Date";

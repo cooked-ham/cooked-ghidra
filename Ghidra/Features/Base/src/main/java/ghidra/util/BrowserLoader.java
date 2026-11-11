@@ -159,7 +159,7 @@ public class BrowserLoader {
 
 		// The user already positioned the file via the ${FILENAME} token; don't append it again.
 		if (fileNameInArgs) {
-			return resultArgs.toArray(new String[resultArgs.size()]);
+			return resultArgs.toArray(new String[0]);
 		}
 
 		String urlString = option.getFileFormat();
@@ -182,7 +182,7 @@ public class BrowserLoader {
 			resultArgs.add(urlArg);
 		}
 
-		return resultArgs.toArray(new String[resultArgs.size()]);
+		return resultArgs.toArray(new String[0]);
 	}
 
 	private static List<String> fixupCmdExeCall(String[] rawArgs, String urlArg) {

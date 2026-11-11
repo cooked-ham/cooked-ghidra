@@ -260,7 +260,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 	@Test
 	public void testFinishAllJobs_WhenEmpty() {
 		jobRunner.finishAllJobs();
-		assertTrue(!jobRunner.isBusy());
+		assertFalse(jobRunner.isBusy());
 
 		BasicJob job = new BasicJob();
 		jobRunner.schedule(job);
@@ -268,7 +268,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 		waitForJobRunner();
 
 		assertTrue(job.isFinished());
-		assertTrue("Job was not processed after clearing the job runner", !jobRunner.isBusy());
+		assertFalse("Job was not processed after clearing the job runner", jobRunner.isBusy());
 	}
 
 	@Test
@@ -282,7 +282,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 		waitForSwing();
 
 		assertTrue(job.isFinished());
-		assertTrue("Job was not processed after clearing the job runner", !jobRunner.isBusy());
+		assertFalse("Job was not processed after clearing the job runner", jobRunner.isBusy());
 	}
 
 	@Test
@@ -296,7 +296,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 		waitForSwing();
 
 		assertTrue(job.isFinished());
-		assertTrue("Job was not processed after clearing the job runner", !jobRunner.isBusy());
+		assertFalse("Job was not processed after clearing the job runner", jobRunner.isBusy());
 	}
 
 	@Test
@@ -318,7 +318,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 		waitForSwing();
 
 		assertFinishedAndShortcut(latchJob, pending1, pending2);
-		assertTrue("Job was not processed after clearing the job runner", !jobRunner.isBusy());
+		assertFalse("Job was not processed after clearing the job runner", jobRunner.isBusy());
 	}
 
 	// No reliable way to get the runner into this state
@@ -327,12 +327,12 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 	@Test
 	public void testDispose_WhenEmpty() {
 		jobRunner.dispose();
-		assertTrue(!jobRunner.isBusy());
+		assertFalse(jobRunner.isBusy());
 
 		BasicJob job = new BasicJob();
 		jobRunner.schedule(job);
 
-		assertTrue("Job was processed after a dispose() call", !jobRunner.isBusy());
+		assertFalse("Job was processed after a dispose() call", jobRunner.isBusy());
 	}
 
 	@Test
@@ -346,7 +346,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 		waitForSwing();
 
 		assertDisposedOrDidNotRun(job);
-		assertTrue("Job was not processed after clearing the job runner", !jobRunner.isBusy());
+		assertFalse("Job was not processed after clearing the job runner", jobRunner.isBusy());
 	}
 
 	@Test
@@ -363,7 +363,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 		waitForSwing();
 
 		assertDisposedOrDidNotRun(job, finalJob);
-		assertTrue("Job was not processed after clearing the job runner", !jobRunner.isBusy());
+		assertFalse("Job was not processed after clearing the job runner", jobRunner.isBusy());
 	}
 
 	@Test
@@ -377,7 +377,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 		waitForSwing();
 
 		assertDisposedOrDidNotRun(job);
-		assertTrue("Job was not processed after clearing the job runner", !jobRunner.isBusy());
+		assertFalse("Job was not processed after clearing the job runner", jobRunner.isBusy());
 	}
 
 	@Test
@@ -400,7 +400,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 		waitForSwing();
 
 		assertDisposedOrDidNotRun(latchJob, pending1, pending2);
-		assertTrue("Job was not processed after clearing the job runner", !jobRunner.isBusy());
+		assertFalse("Job was not processed after clearing the job runner", jobRunner.isBusy());
 	}
 
 	// No reliable way to get the runner into this state
@@ -420,7 +420,7 @@ public class VisualGraphJobRunnerTest extends AbstractGuiTest {
 		waitForSwing();
 
 		assertFinishedAndShortcut(job, finalJob);
-		assertTrue(!jobRunner.isBusy());
+		assertFalse(jobRunner.isBusy());
 	}
 
 //==================================================================================================

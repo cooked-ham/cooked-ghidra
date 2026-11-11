@@ -132,7 +132,7 @@ public class RegisterBuilder {
 				it.remove();
 			}
 		}
-		return children.toArray(new Register[children.size()]);
+		return children.toArray(new Register[0]);
 
 	}
 

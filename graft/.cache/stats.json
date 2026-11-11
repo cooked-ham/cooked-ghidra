@@ -1,0 +1,19 @@
+{
+  "nodeCount": 254440,
+  "edgeCount": 816490,
+  "languages": [
+    "c",
+    "cpp",
+    "java",
+    "lua",
+    "python",
+    "rust"
+  ],
+  "totalCount": 254440,
+  "readyCount": 0,
+  "staleCount": 0,
+  "dirty": false,
+  "syncing": false,
+  "syncedAt": "2026-11-11T06:48:17.134Z",
+  "lastFile": "loop.sh"
+}

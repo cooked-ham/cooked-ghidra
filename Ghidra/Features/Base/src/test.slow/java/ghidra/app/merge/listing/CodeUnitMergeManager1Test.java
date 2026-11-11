@@ -510,8 +510,8 @@ public class CodeUnitMergeManager1Test extends AbstractListingMergeManagerTest {
 					program.getListing()
 							.clearCodeUnits(addr(program, "0x100231d"), addr(program, "0x1002328"),
 								false);
-					assertTrue(!(program.getListing()
-							.getCodeUnitAt(addr(program, "0x1002328")) instanceof Instruction));
+					assertFalse(program.getListing()
+							.getCodeUnitAt(addr(program, "0x1002328")) instanceof Instruction);
 
 					// Put a comment @ 1002390-1002394 to create a conflict with the code unit.
 					program.getListing()
@@ -622,8 +622,8 @@ public class CodeUnitMergeManager1Test extends AbstractListingMergeManagerTest {
 					program.getListing()
 							.clearCodeUnits(addr(program, "0x100231d"), addr(program, "0x1002328"),
 								false);
-					assertTrue(!(program.getListing()
-							.getCodeUnitAt(addr(program, "0x1002328")) instanceof Instruction));
+					assertFalse(program.getListing()
+							.getCodeUnitAt(addr(program, "0x1002328")) instanceof Instruction);
 
 					// Put a comment @ 1002390-1002394 to create a conflict with the code unit.
 					program.getListing()
@@ -729,8 +729,8 @@ public class CodeUnitMergeManager1Test extends AbstractListingMergeManagerTest {
 					program.getListing()
 							.clearCodeUnits(addr(program, "0x100231d"), addr(program, "0x1002328"),
 								false);
-					assertTrue(!(program.getListing()
-							.getCodeUnitAt(addr(program, "0x1002328")) instanceof Instruction));
+					assertFalse(program.getListing()
+							.getCodeUnitAt(addr(program, "0x1002328")) instanceof Instruction);
 
 					// Put a comment @ 1002390-1002394 to create a conflict with the code unit.
 					program.getListing()
@@ -859,8 +859,8 @@ public class CodeUnitMergeManager1Test extends AbstractListingMergeManagerTest {
 					program.getListing()
 							.clearCodeUnits(addr(program, "0x100231d"), addr(program, "0x1002328"),
 								false);
-					assertTrue(!(program.getListing()
-							.getCodeUnitAt(addr(program, "0x1002328")) instanceof Instruction));
+					assertFalse(program.getListing()
+							.getCodeUnitAt(addr(program, "0x1002328")) instanceof Instruction);
 
 					// Put a comment @ 1002390-1002394 to create a conflict with the code unit.
 					program.getListing()

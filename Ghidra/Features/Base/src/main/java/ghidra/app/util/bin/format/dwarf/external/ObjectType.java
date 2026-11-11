@@ -16,9 +16,9 @@
 package ghidra.app.util.bin.format.dwarf.external;
 
 public enum ObjectType {
-	DEBUGINFO, EXECUTABLE, SOURCE;
+    DEBUGINFO, EXECUTABLE, SOURCE;
 
-	public String getPathString() {
-		return name().toLowerCase();
-	}
+    public String getPathString() {
+        return name().toLowerCase();
+    }
 }

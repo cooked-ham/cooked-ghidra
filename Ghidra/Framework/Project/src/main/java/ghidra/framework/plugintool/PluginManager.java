@@ -153,7 +153,7 @@ class PluginManager {
 				badList.add(className);
 			}
 		}
-		Plugin[] pluginArray = list.toArray(new Plugin[list.size()]);
+		Plugin[] pluginArray = list.toArray(new Plugin[0]);
 		try {
 			addPlugins(pluginArray);
 		}
@@ -232,7 +232,7 @@ class PluginManager {
 			}
 			catch (Throwable t) {
 				Msg.error(this, "Unexpected Exception: " + t.getMessage(), t);
-				errMsg.append("Initializing " + p.getName() + " failed: " + t + "\n");
+				errMsg.append("Initializing ").append(p.getName()).append(" failed: ").append(t).append("\n");
 				report.addCause(t);
 
 				// NOTE: other plugins that depend on this failed plugin will still be
@@ -593,7 +593,7 @@ class PluginManager {
 			p.readConfigState(ss);
 		}
 		catch (Exception e) {
-			errMsg.append("Problem restoring plugin state for: " + p.getName()).append("\n\n");
+			errMsg.append("Problem restoring plugin state for: ").append(p.getName()).append("\n\n");
 			errMsg.append(e.getClass().getName()).append(": ").append(e.getMessage()).append('\n');
 			StackTraceElement[] st = e.getStackTrace();
 			int depth = Math.min(5, st.length); // only show the important stuff (magic guess)

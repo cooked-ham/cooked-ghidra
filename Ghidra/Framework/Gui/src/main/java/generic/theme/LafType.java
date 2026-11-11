@@ -15,153 +15,159 @@
  */
 package generic.theme;
 
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-
 import generic.theme.laf.*;
 import ghidra.framework.OperatingSystem;
 import ghidra.framework.Platform;
 import ghidra.util.exception.AssertException;
 
+import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
+
 /**
  * An enumeration that represents the set of supported {@link LookAndFeel}s
  */
 public enum LafType {
-	METAL("Metal"),
-	NIMBUS("Nimbus"),
-	GTK("GTK+"),
-	MOTIF("CDE/Motif"),
-	FLAT_LIGHT("Flat Light"),
-	FLAT_DARK("Flat Dark", true),
-	WINDOWS("Windows"),
-	WINDOWS_CLASSIC("Windows Classic"),
-	MAC("Mac OS X");
+    METAL("Metal"),
+    NIMBUS("Nimbus"),
+    GTK("GTK+"),
+    MOTIF("CDE/Motif"),
+    FLAT_LIGHT("Flat Light"),
+    FLAT_DARK("Flat Dark", true),
+    WINDOWS("Windows"),
+    WINDOWS_CLASSIC("Windows Classic"),
+    MAC("Mac OS X");
 
-	private String name;
-	private boolean usesDarkDefaults;
+    private String name;
+    private boolean usesDarkDefaults;
 
-	private LafType(String name) {
-		this(name, false);
-	}
+    private LafType(String name) {
+        this(name, false);
+    }
 
-	private LafType(String name, boolean usesDarkDefaults) {
-		this.name = name;
-		this.usesDarkDefaults = usesDarkDefaults;
-	}
+    private LafType(String name, boolean usesDarkDefaults) {
+        this.name = name;
+        this.usesDarkDefaults = usesDarkDefaults;
+    }
 
-	/**
-	 * Gets the preferred display string for this type.
-	 * @return the preferred display string.
-	 */
-	public String getDisplayString() {
-		if (this == MOTIF) {
-			// The name is "CDE/Motif"; Update to be consistent with other dialogs, like the theme
-			// switcher dialog
-			return "Motif";
-		}
-		return name;
-	}
+    /**
+     * Returns the LafType for the given name or null if the given name does not match any types
+     *
+     * @param name the name to search a LafType for.
+     * @return the LafType for the given name or null if the given name does not match any types
+     */
+    public static LafType fromName(String name) {
+        for (LafType type : values()) {
+            if (type.getName().equals(name)) {
+                return type;
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Returns the name of this LafType.
-	 * @return the name of this LafType.
-	 */
-	public String getName() {
-		return name;
-	}
+    private static LookAndFeelManager createManager(LafType type,
+                                                    ApplicationThemeManager themeManager) {
+        switch (type) {
+            case MAC:
+                return new MacLookAndFeelManager(themeManager);
+            case METAL:
+                return new MetalLookAndFeelManager(themeManager);
+            case WINDOWS:
+                return new WindowsLookAndFeelManager(themeManager);
+            case WINDOWS_CLASSIC:
+                return new WindowsClassicLookAndFeelManager(themeManager);
+            case GTK:
+                return new GtkLookAndFeelManager(themeManager);
+            case MOTIF:
+                return new MotifLookAndFeelManager(themeManager);
+            case NIMBUS:
+                return new NimbusLookAndFeelManager(themeManager);
+            case FLAT_DARK:
+            case FLAT_LIGHT:
+                return new FlatLookAndFeelManager(type, themeManager);
+            default:
+                throw new AssertException("No lookAndFeelManager defined for " + type);
+        }
+    }
 
-	/**
-	 * Returns true if the LookAndFeel represented by this LafType uses application dark 
-	 * default values.
-	 * @return  true if the LookAndFeel represented by this LafType uses application dark 
-	 * default values.
-	 */
-	public boolean usesDarkDefaults() {
-		return usesDarkDefaults;
-	}
+    /**
+     * Returns the default LafType for the current platform.
+     *
+     * @return the default LafType for the current platform.
+     */
+    public static LafType getDefaultLookAndFeel() {
+        OperatingSystem OS = Platform.CURRENT_PLATFORM.getOperatingSystem();
+        return switch (OS) {
+            case MAC_OS_X -> MAC;
+            case WINDOWS -> WINDOWS;
+            default -> FLAT_LIGHT;
+        };
+    }
 
-	/**
-	 * Returns the LafType for the given name or null if the given name does not match any types
-	 * @param name the name to search a LafType for.
-	 * @return the LafType for the given name or null if the given name does not match any types
-	 */
-	public static LafType fromName(String name) {
-		for (LafType type : values()) {
-			if (type.getName().equals(name)) {
-				return type;
-			}
-		}
-		return null;
-	}
+    /**
+     * Gets the preferred display string for this type.
+     *
+     * @return the preferred display string.
+     */
+    public String getDisplayString() {
+        if (this == MOTIF) {
+            // The name is "CDE/Motif"; Update to be consistent with other dialogs, like the theme
+            // switcher dialog
+            return "Motif";
+        }
+        return name;
+    }
 
-	/**
-	 * Returns true if the {@link LookAndFeel} represented by this LafType is supported on the
-	 * current platform.
-	 * @return true if the {@link LookAndFeel} represented by this LafType is supported on the
-	 * current platform
-	 */
-	public boolean isSupported() {
-		LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
-		for (LookAndFeelInfo info : installedLookAndFeels) {
-			if (name.equals(info.getName())) {
-				return true;
-			}
-		}
-		return false;
-	}
+    /**
+     * Returns the name of this LafType.
+     *
+     * @return the name of this LafType.
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Returns a LookAndFeelManager that can install and update the {@link LookAndFeel} associated
-	 * with this LafType.
-	 * @param themeManager The application ThemeManager
-	 * @return a LookAndFeelManager that can install and update the {@link LookAndFeel} associated
-	 * with this LafType.
-	 */
-	public LookAndFeelManager getLookAndFeelManager(ApplicationThemeManager themeManager) {
-		return createManager(this, themeManager);
-	}
+    /**
+     * Returns true if the LookAndFeel represented by this LafType uses application dark
+     * default values.
+     *
+     * @return true if the LookAndFeel represented by this LafType uses application dark
+     * default values.
+     */
+    public boolean usesDarkDefaults() {
+        return usesDarkDefaults;
+    }
 
-	private static LookAndFeelManager createManager(LafType type,
-			ApplicationThemeManager themeManager) {
-		switch (type) {
-			case MAC:
-				return new MacLookAndFeelManager(themeManager);
-			case METAL:
-				return new MetalLookAndFeelManager(themeManager);
-			case WINDOWS:
-				return new WindowsLookAndFeelManager(themeManager);
-			case WINDOWS_CLASSIC:
-				return new WindowsClassicLookAndFeelManager(themeManager);
-			case GTK:
-				return new GtkLookAndFeelManager(themeManager);
-			case MOTIF:
-				return new MotifLookAndFeelManager(themeManager);
-			case NIMBUS:
-				return new NimbusLookAndFeelManager(themeManager);
-			case FLAT_DARK:
-			case FLAT_LIGHT:
-				return new FlatLookAndFeelManager(type, themeManager);
-			default:
-				throw new AssertException("No lookAndFeelManager defined for " + type);
-		}
-	}
+    /**
+     * Returns true if the {@link LookAndFeel} represented by this LafType is supported on the
+     * current platform.
+     *
+     * @return true if the {@link LookAndFeel} represented by this LafType is supported on the
+     * current platform
+     */
+    public boolean isSupported() {
+        LookAndFeelInfo[] installedLookAndFeels = UIManager.getInstalledLookAndFeels();
+        for (LookAndFeelInfo info : installedLookAndFeels) {
+            if (name.equals(info.getName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * Returns the default LafType for the current platform.
-	 * @return the default LafType for the current platform.
-	 */
-	public static LafType getDefaultLookAndFeel() {
-		OperatingSystem OS = Platform.CURRENT_PLATFORM.getOperatingSystem();
-		return switch (OS) {
-			case MAC_OS_X -> MAC;
-			case WINDOWS -> WINDOWS;
-			default -> FLAT_LIGHT;
-		};
-	}
+    /**
+     * Returns a LookAndFeelManager that can install and update the {@link LookAndFeel} associated
+     * with this LafType.
+     *
+     * @param themeManager The application ThemeManager
+     * @return a LookAndFeelManager that can install and update the {@link LookAndFeel} associated
+     * with this LafType.
+     */
+    public LookAndFeelManager getLookAndFeelManager(ApplicationThemeManager themeManager) {
+        return createManager(this, themeManager);
+    }
 
-	@Override
-	public String toString() {
-		return getDisplayString();
-	}
+    @Override
+    public String toString() {
+        return getDisplayString();
+    }
 }

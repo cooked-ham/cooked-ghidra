@@ -131,7 +131,7 @@ public class DataTypeUtils {
 		list.add(new DataTypeIconWrapper(Structure.class, structureIcon,
 			ResourceManager.getDisabledIcon(structureIcon)));
 
-		dataTypeIconWrappers = list.toArray(new DataTypeIconWrapper[list.size()]);
+		dataTypeIconWrappers = list.toArray(new DataTypeIconWrapper[0]);
 	}
 
 	/**
@@ -332,7 +332,7 @@ public class DataTypeUtils {
 	 * @return the updated text
 	 */
 	public static String prepareSearchText(String searchText) {
-		return searchText.replaceAll(" ", "");
+		return searchText.replace(" ", "");
 	}
 
 	/*testing*/ static List<DataType> getMatchingSubList(String searchTextStart,
@@ -570,7 +570,7 @@ class CaseInsensitveDataTypeLookupComparator implements Comparator<Object> {
 		if (o1 instanceof DataType && o2 instanceof String) {
 			DataType dt1 = (DataType) o1;
 			String name1 = dt1.getName();
-			name1 = name1.replaceAll(" ", "");
+			name1 = name1.replace(" ", "");
 			return name1.compareToIgnoreCase(((String) o2));
 		}
 

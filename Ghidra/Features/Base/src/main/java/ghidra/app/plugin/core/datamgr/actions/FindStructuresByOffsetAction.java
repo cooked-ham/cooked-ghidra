@@ -70,7 +70,7 @@ public class FindStructuresByOffsetAction extends DockingAction {
 		newProvider.setVisible(true);
 	}
 
-	private class OffsetGTreeFilter implements GTreeFilter {
+	private static class OffsetGTreeFilter implements GTreeFilter {
 
 		private final SortedRangeList offsets;
 
@@ -112,7 +112,7 @@ public class FindStructuresByOffsetAction extends DockingAction {
 			return false;
 		}
 
-		private class OffsetIterator implements Iterator<Integer> {
+		private static class OffsetIterator implements Iterator<Integer> {
 
 			private DataTypeComponent[] components;
 			private int index = 0;

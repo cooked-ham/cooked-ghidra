@@ -88,7 +88,7 @@ public class FixupCompositeDataTypesScript extends GhidraScript {
 		dtm.fixupComposites(monitor);
 	}
 
-	private class DTMWrapper {
+	private static class DTMWrapper {
 		DataTypeManagerDB dtm;
 
 		DTMWrapper(DataTypeManagerDB dtm) {

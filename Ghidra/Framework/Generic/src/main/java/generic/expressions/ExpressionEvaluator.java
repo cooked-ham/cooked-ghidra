@@ -383,7 +383,7 @@ public class ExpressionEvaluator {
 	// A tokenizer that keeps track of one future token. This is so the parser can handle operator 
 	// chars that can ether be an operator by itself or part of a 2 char operator(i.e. "<", "=",
 	// "<=", "<<", "==")
-	private class LookAheadTokenizer {
+	private static class LookAheadTokenizer {
 		private StringTokenizer tokenizer;
 		private String currentToken;
 		private String nextToken;

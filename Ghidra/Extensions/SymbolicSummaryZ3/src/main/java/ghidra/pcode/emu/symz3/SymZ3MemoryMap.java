@@ -134,7 +134,7 @@ public class SymZ3MemoryMap {
 				SymValueZ3 vv = memvals.get(address);
 				BitVecExpr addressExpr = SymValueZ3.deserializeBitVecExpr(ctx, address);
 				if (vv == null) {
-					result.append("MEM " + z3p.infixWithBrackets(addressExpr) + " is null");
+					result.append("MEM ").append(z3p.infixWithBrackets(addressExpr)).append(" is null");
 					result.append(System.lineSeparator());
 				}
 				else {
@@ -166,7 +166,7 @@ public class SymZ3MemoryMap {
 					load(w.address(), w.bytesMoved(), false, PcodeStateCallbacks.NONE);
 				BitVecExpr vexpr = value.getBitVecExpr(ctx);
 				if (vexpr == null) {
-					result.append("MEM " + z3p.infixWithBrackets(addressExpr) + " is null (?)");
+					result.append("MEM ").append(z3p.infixWithBrackets(addressExpr)).append(" is null (?)");
 					result.append(System.lineSeparator());
 				}
 				else {

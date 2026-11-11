@@ -1355,7 +1355,7 @@ public abstract class GhidraScript extends FlatProgramAPI {
 					break;
 
 				case LONG_TYPE:
-					propertyValue = Long.valueOf(options.getLong(propertyName, -1l));
+					propertyValue = Long.valueOf(options.getLong(propertyName, -1L));
 					break;
 
 				case STRING_TYPE:
@@ -4084,7 +4084,7 @@ public abstract class GhidraScript extends FlatProgramAPI {
 		return result;
 	}
 
-	private class ScriptStatusListener implements StatusListener {
+	private static class ScriptStatusListener implements StatusListener {
 		StringBuilder errors = new StringBuilder();
 
 		@Override

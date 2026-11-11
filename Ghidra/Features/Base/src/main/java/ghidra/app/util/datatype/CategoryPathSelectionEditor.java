@@ -386,7 +386,7 @@ public class CategoryPathSelectionEditor extends AbstractCellEditor {
 	 * CategoryPathDropDownSelectionDataModel class handles the display and selection of a 
 	 * Category Path.
 	 */
-	private class CategoryPathDropDownSelectionDataModel
+	private static class CategoryPathDropDownSelectionDataModel
 			implements DropDownTextFieldDataModel<CategoryPath> {
 
 		private List<CategoryPath> data;
@@ -465,7 +465,7 @@ public class CategoryPathSelectionEditor extends AbstractCellEditor {
 			for (int i = 0; i < data.size(); i++) {
 				CategoryPath dataType = data.get(i);
 				String dataTypeName = dataType.getName();
-				dataTypeName = dataTypeName.replaceAll(" ", "");
+				dataTypeName = dataTypeName.replace(" ", "");
 				if (dataTypeName.equals(text)) {
 					// an exact match is the best possible match!
 					return i;
@@ -484,7 +484,7 @@ public class CategoryPathSelectionEditor extends AbstractCellEditor {
 			return -1; // we only get here when the list is empty
 		}
 
-		private class CategoryPathDropDownRenderer extends GListCellRenderer<CategoryPath> {
+		private static class CategoryPathDropDownRenderer extends GListCellRenderer<CategoryPath> {
 
 			@Override
 			protected String getItemText(CategoryPath path) {

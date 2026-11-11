@@ -53,7 +53,7 @@ public class DecoderUseropLibrary extends AnnotatedPcodeUseropLibrary<MaskedByte
 	/**
 	 * The wrapper around one of the emulator's userops
 	 */
-	protected class WrappedUseropDefinition implements PcodeUseropDefinition<MaskedBytes> {
+	protected static class WrappedUseropDefinition implements PcodeUseropDefinition<MaskedBytes> {
 		private final PcodeUseropDefinition<byte[]> rtOp;
 
 		/**

@@ -108,7 +108,7 @@ public final class AccessFlags {
 			Field[] fields = AccessFlags.class.getDeclaredFields();
 			for (Field field : fields) {
 				if ((field.getInt(null) & value) != 0) {
-					builder.append("\t" + field.getName() + "\n");
+					builder.append("\t").append(field.getName()).append("\n");
 				}
 			}
 		}

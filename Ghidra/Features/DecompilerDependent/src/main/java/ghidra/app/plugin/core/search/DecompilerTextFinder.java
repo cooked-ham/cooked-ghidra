@@ -312,7 +312,7 @@ public class DecompilerTextFinder {
 		 * a search.  A line may have a search match that is partial or the entire line may match
 		 * the search, such as in a multi-line match.
 		 */
-		private class TextLine {
+		private static class TextLine {
 			private ClangLine cLine;
 			private int offset; // the character offset into the entire body of text
 			private String text;

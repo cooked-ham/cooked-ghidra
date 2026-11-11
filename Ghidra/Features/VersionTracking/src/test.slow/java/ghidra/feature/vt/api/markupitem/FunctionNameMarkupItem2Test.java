@@ -1080,7 +1080,7 @@ public class FunctionNameMarkupItem2Test extends AbstractVTMarkupItemTest {
 //==================================================================================================
 
 	/** Simple object to allow the source and destination functions to be setup differently */
-	private class SetUp {
+	private static class SetUp {
 		private Callback callback;
 
 		SetUp(Callback c) {

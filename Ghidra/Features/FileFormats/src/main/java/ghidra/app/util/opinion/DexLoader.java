@@ -175,12 +175,12 @@ public class DexLoader extends AbstractProgramWrapperLoader {
 			monitor.incrementProgress(1);
 
 			StringBuilder builder = new StringBuilder();
-			builder.append("Method Index: 0x" + Integer.toHexString(methodIndex) + "\n");
+			builder.append("Method Index: 0x").append(Integer.toHexString(methodIndex)).append("\n");
 			builder.append(
 				"Class: " + DexUtil.convertTypeIndexToString(header, item.getClassIndex()) + "\n");
 			builder.append("Prototype: " +
 				DexUtil.convertPrototypeIndexToString(header, item.getProtoIndex()) + "\n");
-			builder.append("Name: " + DexUtil.convertToString(header, item.getNameIndex()) + "\n");
+			builder.append("Name: ").append(DexUtil.convertToString(header, item.getNameIndex())).append("\n");
 
 			Address methodIndexAddress = DexUtil.toLookupAddress(program, methodIndex);
 

@@ -54,7 +54,7 @@ public class AssociationStatusFilter extends CheckBoxBasedAncillaryFilter<VTMatc
 // Inner Classes
 //==================================================================================================
 
-	private class AssociationStatusCheckBoxInfo extends CheckBoxInfo<VTMatch> {
+	private static class AssociationStatusCheckBoxInfo extends CheckBoxInfo<VTMatch> {
 
 		private VTAssociationStatus associationStatus;
 

@@ -15,40 +15,40 @@
  */
 package ghidra.app.util.bin.format.dwarf.external;
 
+import ghidra.program.model.listing.Program;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import ghidra.program.model.listing.Program;
-
 /**
  * Metadata needed to find an ELF/DWARF external debug file, retrieved from an ELF binary's
- * ".gnu_debuglink" section and/or ".note.gnu.build-id" section.  
+ * ".gnu_debuglink" section and/or ".note.gnu.build-id" section.
  * <p>
  * The debuglink can provide a filename and crc of the external debug file, while the build-id
  * can provide a hash that is converted to a filename that identifies the external debug file.
  */
 public interface ExternalDebugInfo {
 
-	/**
-	 * Create a new {@link ExternalDebugInfo} from information found in the specified program.
-	 *  
-	 * @param program {@link Program} to query
-	 * @return List of {@link ExternalDebugInfo} instances that were found in the program.
-	 */
-	public static List<ExternalDebugInfo> fromProgram(Program program) {
-		List<ExternalDebugInfo> results = new ArrayList<>(2);
+    /**
+     * Create a new {@link ExternalDebugInfo} from information found in the specified program.
+     *
+     * @param program {@link Program} to query
+     * @return List of {@link ExternalDebugInfo} instances that were found in the program.
+     */
+    public static List<ExternalDebugInfo> fromProgram(Program program) {
+        List<ExternalDebugInfo> results = new ArrayList<>(2);
 
-		BuildIdDebugInfo buildId = BuildIdDebugInfo.fromProgram(program);
-		if (buildId != null) {
-			results.add(buildId);
-		}
+        BuildIdDebugInfo buildId = BuildIdDebugInfo.fromProgram(program);
+        if (buildId != null) {
+            results.add(buildId);
+        }
 
-		DebugLinkDebugInfo debugLink = DebugLinkDebugInfo.fromProgram(program);
-		if (debugLink != null) {
-			results.add(debugLink);
-		}
+        DebugLinkDebugInfo debugLink = DebugLinkDebugInfo.fromProgram(program);
+        if (debugLink != null) {
+            results.add(debugLink);
+        }
 
-		return results;
-	}
+        return results;
+    }
 
 }

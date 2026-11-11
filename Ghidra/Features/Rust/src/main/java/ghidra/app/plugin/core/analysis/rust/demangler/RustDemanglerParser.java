@@ -117,7 +117,7 @@ public class RustDemanglerParser {
 	 * <p>Generally, this class removes spaces within templates and parameter lists.   It will
 	 * remove some spaces, while converting some to underscores.
 	 */
-	private class CondensedString {
+	private static class CondensedString {
 
 		@SuppressWarnings("unused") // used by toString()
 		private String sourceText;
@@ -185,7 +185,7 @@ public class RustDemanglerParser {
 			return Json.toString(this);
 		}
 
-		private class Part {
+		private static class Part {
 			String original;
 			String condensed = "";
 

@@ -376,7 +376,7 @@ public class FindPotentialDecompilerProblems extends GhidraScript {
 		dialog.addCustomColumn(explanationColumn);
 	}
 
-	class ProblemLocation implements AddressableRowObject {
+	static class ProblemLocation implements AddressableRowObject {
 		private Program program;
 		private Address problemAddress;
 		private Address causeAddress;

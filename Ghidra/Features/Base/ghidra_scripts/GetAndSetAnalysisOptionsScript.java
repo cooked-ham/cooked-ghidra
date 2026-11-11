@@ -94,7 +94,7 @@ public class GetAndSetAnalysisOptionsScript extends GhidraScript {
 				printStr.append("[ Possible values = { ");
 
 				for (String choice : choicesForOption) {
-					printStr.append(" " + choice + " ");
+					printStr.append(" ").append(choice).append(" ");
 				}
 				printStr.append("} ]");
 			}
@@ -102,10 +102,10 @@ public class GetAndSetAnalysisOptionsScript extends GhidraScript {
 			defaultVal = optionDefaults.get(option);
 
 			if (defaultVal.length() > 0) {
-				printStr.append(" [ Default value = " + optionDefaults.get(option) + " ]");
+				printStr.append(" [ Default value = ").append(optionDefaults.get(option)).append(" ]");
 			}
 
-			printStr.append(" [ Current value = " + options.get(option) + " ]");
+			printStr.append(" [ Current value = ").append(options.get(option)).append(" ]");
 			println(printStr.toString());
 			println("");
 		}

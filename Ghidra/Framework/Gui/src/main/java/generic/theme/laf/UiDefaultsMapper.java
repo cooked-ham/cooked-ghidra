@@ -741,7 +741,7 @@ public class UiDefaultsMapper {
 	 *
 	 * @param <T> The theme value type (Color or Font)
 	 */
-	private abstract class ValueGrouper<T> {
+	private static abstract class ValueGrouper<T> {
 		private Map<T, String> idsByFont = new HashMap<>();
 		private List<String> groupIds;
 		private boolean initialized;

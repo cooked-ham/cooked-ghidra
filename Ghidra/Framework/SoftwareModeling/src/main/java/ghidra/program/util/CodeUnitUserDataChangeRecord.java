@@ -56,7 +56,7 @@ public class CodeUnitUserDataChangeRecord extends DomainObjectChangeRecord {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder(super.toString());
-		builder.append(", property = " + propertyName);
+		builder.append(", property = ").append(propertyName);
 		if (address != null) {
 			builder.append(", address = ");
 			builder.append(address);

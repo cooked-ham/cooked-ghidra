@@ -203,7 +203,7 @@ public class TaskViewer {
 
 	// this layout makes sure the main component and the layered pane are both sized together.  This
 	// ensures the "watermark" message is centered.
-	private class CustomLayoutManager implements LayoutManager {
+	private static class CustomLayoutManager implements LayoutManager {
 
 		@Override
 		public void addLayoutComponent(String name, Component comp) {

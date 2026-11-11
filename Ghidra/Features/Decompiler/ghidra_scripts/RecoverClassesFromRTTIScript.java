@@ -1269,7 +1269,7 @@ public class RecoverClassesFromRTTIScript extends GhidraScript {
 		stringBuffer.append("\r\n");
 		stringBuffer.append("\r\n");
 
-		stringBuffer.append("*** Recovered Class:  " + recoveredClass.getName() + "  ***\r\n");
+		stringBuffer.append("*** Recovered Class:  ").append(recoveredClass.getName()).append("  ***\r\n");
 		stringBuffer.append("\r\n");
 
 		// print parent classes
@@ -1278,7 +1278,7 @@ public class RecoverClassesFromRTTIScript extends GhidraScript {
 			Set<RecoveredClass> keySet = recoveredClass.getClassHierarchyMap().keySet();
 			for (RecoveredClass parent : keySet) {
 				monitor.checkCancelled();
-				stringBuffer.append("\t" + parent.getName() + "\r\n");
+				stringBuffer.append("\t").append(parent.getName()).append("\r\n");
 			}
 		}
 
@@ -1289,7 +1289,7 @@ public class RecoverClassesFromRTTIScript extends GhidraScript {
 			List<RecoveredClass> childClasses = recoveredClass.getChildClasses();
 			for (RecoveredClass element : childClasses) {
 				monitor.checkCancelled();
-				stringBuffer.append("\t" + element.getName() + "\r\n");
+				stringBuffer.append("\t").append(element.getName()).append("\r\n");
 			}
 
 		}
@@ -1312,7 +1312,7 @@ public class RecoverClassesFromRTTIScript extends GhidraScript {
 		stringBuffer.append("\r\n");
 		stringBuffer.append("\r\n");
 
-		stringBuffer.append("*** Recovered Class:  " + recoveredClass.getName() + "  ***\r\n");
+		stringBuffer.append("*** Recovered Class:  ").append(recoveredClass.getName()).append("  ***\r\n");
 		stringBuffer.append("\r\n");
 
 		// print parent classes
@@ -1334,10 +1334,10 @@ public class RecoverClassesFromRTTIScript extends GhidraScript {
 
 					Boolean isVirtualParent = parentToBaseTypeMap.get(ancestor);
 					if (isVirtualParent != null && isVirtualParent) {
-						stringBuffer.append("\t virtual " + ancestor.getName() + "\r\n");
+						stringBuffer.append("\t virtual ").append(ancestor.getName()).append("\r\n");
 					}
 					else {
-						stringBuffer.append("\t" + ancestor.getName() + "\r\n");
+						stringBuffer.append("\t").append(ancestor.getName()).append("\r\n");
 					}
 				}
 			}
@@ -1353,7 +1353,7 @@ public class RecoverClassesFromRTTIScript extends GhidraScript {
 			List<RecoveredClass> childClasses = recoveredClass.getChildClasses();
 			for (RecoveredClass element : childClasses) {
 				monitor.checkCancelled();
-				stringBuffer.append("\t" + element.getName() + "\r\n");
+				stringBuffer.append("\t").append(element.getName()).append("\r\n");
 			}
 
 		}

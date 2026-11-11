@@ -155,7 +155,7 @@ public class FunctionStartRFParamsDialog extends ReusableDialogComponentProvider
 	private RandomForestTableModel tableModel;
 	private Program trainingSource;
 	private FunctionStartRFParams params;
-	private List<Long> moduli = Arrays.asList(new Long[] { 4l, 8l, 16l, 32l });
+	private List<Long> moduli = Arrays.asList(new Long[] { 4L, 8L, 16L, 32L });
 	private GComboBox<Long> modBox;
 	private JButton trainButton;
 	private JCheckBox includeBeforeAndAfterBox;
@@ -477,14 +477,14 @@ public class FunctionStartRFParamsDialog extends ReusableDialogComponentProvider
 		int minSize = minimumSizeField.getIntValue();
 		//initialize map
 		Map<Long, Long> countMap =
-			LongStream.range(0, modulus).boxed().collect(Collectors.toMap(i -> i, i -> 0l));
+			LongStream.range(0, modulus).boxed().collect(Collectors.toMap(i -> i, i -> 0L));
 		FunctionIterator fIter = trainingSource.getFunctionManager().getFunctionsNoStubs(true);
 		//needs some thought to determine how to display number of functions compatible
 		//with context register restrictions
 		for (Function f : fIter) {
 			if ((f.getBody().getNumAddresses() >= minSize) &&
 				(params == null || params.isContextCompatible(f.getEntryPoint()))) {
-				countMap.merge(f.getEntryPoint().getOffset() % modulus, 1l, Long::sum);
+				countMap.merge(f.getEntryPoint().getOffset() % modulus, 1L, Long::sum);
 			}
 		}
 		List<FunctionStartAlignmentRowObject> rows = countMap.entrySet()

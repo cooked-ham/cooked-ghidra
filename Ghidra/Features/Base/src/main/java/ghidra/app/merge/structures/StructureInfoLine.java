@@ -66,7 +66,7 @@ public class StructureInfoLine extends CoordinatedStructureLine {
 	/**
 	 * Class for the individual {@link ComparisonItem}s for each of the structures.
 	 */
-	private class InfoItem extends ComparisonItem {
+	private static class InfoItem extends ComparisonItem {
 
 		private String info;
 

@@ -15,95 +15,98 @@
  */
 package ghidra.app.util.bin.format.dwarf.sectionprovider;
 
+import ghidra.app.util.bin.ByteProvider;
+import ghidra.app.util.bin.ByteProviderWrapper;
+import ghidra.app.util.bin.FileByteProvider;
+import ghidra.app.util.bin.format.macho.MachException;
+import ghidra.app.util.bin.format.macho.MachHeader;
+import ghidra.app.util.bin.format.macho.Section;
+import ghidra.app.util.opinion.MachoLoader;
+import ghidra.formats.gfilesystem.FSUtilities;
+import ghidra.program.model.listing.Program;
+import ghidra.util.task.TaskMonitor;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.AccessMode;
 import java.util.HashMap;
 import java.util.Map;
 
-import ghidra.app.util.bin.*;
-import ghidra.app.util.bin.format.macho.*;
-import ghidra.app.util.opinion.MachoLoader;
-import ghidra.formats.gfilesystem.FSUtilities;
-import ghidra.program.model.listing.Program;
-import ghidra.util.task.TaskMonitor;
-
 /**
  * Fetches DWARF section data for a MachO program with co-located .dSYM folder. (ie. Mac OSX
  * binaries)
  */
 public class DSymSectionProvider implements DWARFSectionProvider {
-	private MachHeader machHeader;
-	private Map<String, Section> machSectionsByName = new HashMap<>();
-	private FileByteProvider provider;
+    private MachHeader machHeader;
+    private Map<String, Section> machSectionsByName = new HashMap<>();
+    private FileByteProvider provider;
 
-	public static File getDSYMForProgram(Program program) {
+    public DSymSectionProvider(File dsymFile) throws IOException, MachException {
+        this.provider = new FileByteProvider(dsymFile, null, AccessMode.READ);
 
-		File exePath = new File(program.getExecutablePath());
-		File dSymFile = new File(exePath.getParentFile(),
-			exePath.getName() + ".dSYM/Contents/Resources/DWARF/" + exePath.getName());
+        machHeader = new MachHeader(provider);
+        machHeader.parse();
+        for (Section s : machHeader.getAllSections()) {
+            // strip leading "_"'s from section name to normalize
+            String fixedSectionName = s.getSectionName().replaceFirst("^_*", "");
+            machSectionsByName.put(fixedSectionName, s);
+        }
+    }
 
-		return dSymFile.isFile() ? dSymFile : null;
-	}
+    public static File getDSYMForProgram(Program program) {
 
-	public static DSymSectionProvider createSectionProviderFor(Program program,
-			TaskMonitor monitor) {
-		if (MachoLoader.MACH_O_NAME.equals(program.getExecutableFormat())) {
-			File dsymFile = getDSYMForProgram(program);
-			if (dsymFile != null) {
-				try {
-					return new DSymSectionProvider(dsymFile);
-				}
-				catch (IOException | MachException e) {
-					// ignore
-				}
-			}
-		}
-		return null;
-	}
+        File exePath = new File(program.getExecutablePath());
+        File dSymFile = new File(exePath.getParentFile(),
+                exePath.getName() + ".dSYM/Contents/Resources/DWARF/" + exePath.getName());
 
-	public DSymSectionProvider(File dsymFile) throws IOException, MachException {
-		this.provider = new FileByteProvider(dsymFile, null, AccessMode.READ);
+        return dSymFile.isFile() ? dSymFile : null;
+    }
 
-		machHeader = new MachHeader(provider);
-		machHeader.parse();
-		for (Section s : machHeader.getAllSections()) {
-			// strip leading "_"'s from section name to normalize
-			String fixedSectionName = s.getSectionName().replaceFirst("^_*", "");
-			machSectionsByName.put(fixedSectionName, s);
-		}
-	}
+    public static DSymSectionProvider createSectionProviderFor(Program program,
+                                                               TaskMonitor monitor) {
+        if (MachoLoader.MACH_O_NAME.equals(program.getExecutableFormat())) {
+            File dsymFile = getDSYMForProgram(program);
+            if (dsymFile != null) {
+                try {
+                    return new DSymSectionProvider(dsymFile);
+                } catch (IOException | MachException e) {
+                    // ignore
+                }
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public ByteProvider getSectionAsByteProvider(String sectionName, TaskMonitor monitor)
-			throws IOException {
+    @Override
+    public ByteProvider getSectionAsByteProvider(String sectionName, TaskMonitor monitor)
+            throws IOException {
 
-		Section s = findSectionByName(sectionName);
-		return (s != null) ? new ByteProviderWrapper(provider,
-			machHeader.getStartIndex() + s.getOffset(), s.getSize()) : null;
-	}
+        Section s = findSectionByName(sectionName);
+        return (s != null) ? new ByteProviderWrapper(provider,
+                machHeader.getStartIndex() + s.getOffset(), s.getSize()) : null;
+    }
 
-	private Section findSectionByName(String name) {
-		Section section = machSectionsByName.get(name);
-		if (section == null &&
-			name.length() > 14 /* max macho section name length - 2 for leading "__" */) {
-			section = machSectionsByName.get(name.substring(0, 14));
-		}
-		return section;
-	}
+    private Section findSectionByName(String name) {
+        Section section = machSectionsByName.get(name);
+        if (section == null &&
+                name.length() > 14 /* max macho section name length - 2 for leading "__" */) {
+            section = machSectionsByName.get(name.substring(0, 14));
+        }
+        return section;
+    }
 
-	@Override
-	public void close() {
-		FSUtilities.uncheckedClose(provider, null);
-	}
+    @Override
+    public void close() {
+        FSUtilities.uncheckedClose(provider, null);
+    }
 
-	@Override
-	public boolean hasSection(String... sectionNames) {
-		for (String sectionName : sectionNames) {
-			if (findSectionByName(sectionName) == null) {
-				return false;
-			}
-		}
-		return true;
-	}
+    @Override
+    public boolean hasSection(String... sectionNames) {
+        for (String sectionName : sectionNames) {
+            if (findSectionByName(sectionName) == null) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

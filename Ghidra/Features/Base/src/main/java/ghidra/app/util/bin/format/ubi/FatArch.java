@@ -78,15 +78,15 @@ public class FatArch {
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append("CPU Type: 0x" + Integer.toHexString(cputype));
+		buffer.append("CPU Type: 0x").append(Integer.toHexString(cputype));
 		buffer.append('\n');
-		buffer.append("CPU Sub Type: 0x" + Integer.toHexString(cpusubtype));
+		buffer.append("CPU Sub Type: 0x").append(Integer.toHexString(cpusubtype));
 		buffer.append('\n');
-		buffer.append("Offset: 0x" + Integer.toHexString(offset));
+		buffer.append("Offset: 0x").append(Integer.toHexString(offset));
 		buffer.append('\n');
-		buffer.append("Size: 0x" + Integer.toHexString(size));
+		buffer.append("Size: 0x").append(Integer.toHexString(size));
 		buffer.append('\n');
-		buffer.append("Align: 0x" + Integer.toHexString(align));
+		buffer.append("Align: 0x").append(Integer.toHexString(align));
 		buffer.append('\n');
 		return buffer.toString();
 	}

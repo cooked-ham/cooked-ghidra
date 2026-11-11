@@ -15,12 +15,11 @@
  */
 package generic.theme;
 
-import java.awt.Font;
-import java.text.ParseException;
-
+import ghidra.util.Msg;
 import org.apache.commons.lang3.Strings;
 
-import ghidra.util.Msg;
+import java.awt.*;
+import java.text.ParseException;
 
 /**
  * A class for storing {@link Font} values that have a String id (e.g. font.foo.bar) and either
@@ -30,233 +29,236 @@ import ghidra.util.Msg;
  */
 public class FontValue extends ThemeValue<Font> {
 
-	public static final String LAF_ID_PREFIX = "laf.font.";
-	public static final String EXTERNAL_LAF_ID_PREFIX = "[laf.font]";
+    public static final String LAF_ID_PREFIX = "laf.font.";
+    public static final String EXTERNAL_LAF_ID_PREFIX = "[laf.font]";
+    public static final Font LAST_RESORT_DEFAULT = new Font("monospaced", Font.PLAIN, 12);
+    static final String FONT_ID_PREFIX = "font.";
+    private static final String EXTERNAL_PREFIX = "[font]";
+    private FontModifier modifier;
 
-	static final String FONT_ID_PREFIX = "font.";
-	private static final String EXTERNAL_PREFIX = "[font]";
+    /**
+     * Constructor used when the FontValue will have a direct {@link Font} value. The refId
+     * will be null.
+     *
+     * @param id    the id for this FontValue
+     * @param value the {@link Font} to associate with the given id
+     */
+    public FontValue(String id, Font value) {
+        super(id, null, value);
+    }
 
-	public static final Font LAST_RESORT_DEFAULT = new Font("monospaced", Font.PLAIN, 12);
-	private FontModifier modifier;
+    /**
+     * Constructor used when the FontValue will inherit its {@link Font} from another FontValue. The
+     * font value field will be null.
+     *
+     * @param id    the id for this FontValue
+     * @param refId the id of another FontValue that this FontValue will inherit from
+     */
+    public FontValue(String id, String refId) {
+        super(id, refId, null);
+    }
 
-	/**
-	 * Constructor used when the FontValue will have a direct {@link Font} value. The refId
-	 * will be null.
-	 * @param id the id for this FontValue
-	 * @param value the {@link Font} to associate with the given id
-	 */
-	public FontValue(String id, Font value) {
-		super(id, null, value);
-	}
+    private FontValue(String id, String refId, FontModifier modifier) {
+        super(id, refId, null);
+        this.modifier = modifier;
+    }
 
-	/**
-	 * Constructor used when the FontValue will inherit its {@link Font} from another FontValue. The
-	 * font value field will be null.
-	 * @param id the id for this FontValue
-	 * @param refId the id of another FontValue that this FontValue will inherit from
-	 */
-	public FontValue(String id, String refId) {
-		super(id, refId, null);
-	}
+    /**
+     * Converts a file to a string.
+     *
+     * @param font the font to convert to a String
+     * @return a String that represents the font
+     */
+    public static String fontToString(Font font) {
+        return String.format("%s-%s-%s", font.getName(), getStyleString(font), font.getSize());
+    }
 
-	private FontValue(String id, String refId, FontModifier modifier) {
-		super(id, refId, null);
-		this.modifier = modifier;
-	}
+    /**
+     * Returns true if the given key string is a valid external key for a font value
+     *
+     * @param key the key string to test
+     * @return true if the given key string is a valid external key for a font value
+     */
+    public static boolean isFontKey(String key) {
+        return Strings.CS.startsWithAny(key, FONT_ID_PREFIX, EXTERNAL_PREFIX,
+                EXTERNAL_LAF_ID_PREFIX);
+    }
 
-	@Override
-	public String getSerializationString() {
-		String outputId = toExternalId(id);
-		return outputId + " = " + getValueOutput();
-	}
+    /**
+     * Parses the value string into a font or reference and creates a new FontValue using
+     * the given key and the parse results.
+     *
+     * @param key   the key to associate the parsed value with
+     * @param value the font value to parse
+     * @return a FontValue with the given key and the parsed value
+     * @throws ParseException if there is an exception parsing
+     */
+    public static FontValue parse(String key, String value) throws ParseException {
+        String id = fromExternalId(key);
 
-	@Override
-	public boolean isExternal() {
-		return !id.startsWith(FONT_ID_PREFIX);
-	}
+        value = clean(value);
 
-	@Override
-	public Font get(GThemeValueMap values) {
-		Font font = super.get(values);
-		if (modifier != null) {
-			return modifier.modify(font);
-		}
-		return font;
-	}
+        if (isFontKey(value)) {
+            return getRefFontValue(id, value);
+        }
+        Font font = parseFont(value);
+        return font == null ? null : new FontValue(id, font);
+    }
 
-	private String getValueOutput() {
-		if (referenceId != null) {
-			String refId = toExternalId(referenceId);
-			if (modifier != null) {
-				return refId + modifier.getSerializationString();
-			}
-			return refId;
-		}
-		return fontToString(value);
-	}
+    /**
+     * Returns the Font style int for the given style string
+     *
+     * @param styleString the string to convert to a Font style int
+     * @return the Font style int for the given style string
+     */
+    public static int getStyle(String styleString) {
+        if ("plain".equalsIgnoreCase(styleString)) {
+            return Font.PLAIN;
+        }
+        if ("bold".equalsIgnoreCase(styleString)) {
+            return Font.BOLD;
+        }
+        if ("italic".equalsIgnoreCase(styleString)) {
+            return Font.ITALIC;
+        }
+        if ("bolditalic".equalsIgnoreCase(styleString)) {
+            return Font.BOLD | Font.ITALIC;
+        }
+        return -1;
+    }
 
-	/**
-	 * Converts a file to a string.
-	 * @param font the font to convert to a String
-	 * @return a String that represents the font
-	 */
-	public static String fontToString(Font font) {
-		return String.format("%s-%s-%s", font.getName(), getStyleString(font), font.getSize());
-	}
+    private static String toExternalId(String internalId) {
+        if (internalId.startsWith(FONT_ID_PREFIX)) {
+            return internalId;
+        }
 
-	/**
-	 * Returns true if the given key string is a valid external key for a font value
-	 * @param key the key string to test
-	 * @return true if the given key string is a valid external key for a font value
-	 */
-	public static boolean isFontKey(String key) {
-		return Strings.CS.startsWithAny(key, FONT_ID_PREFIX, EXTERNAL_PREFIX,
-			EXTERNAL_LAF_ID_PREFIX);
-	}
+        if (internalId.startsWith(LAF_ID_PREFIX)) {
+            String baseId = internalId.substring(LAF_ID_PREFIX.length());
+            return EXTERNAL_LAF_ID_PREFIX + baseId;
+        }
 
-	/**
-	 * Parses the value string into a font or reference and creates a new FontValue using
-	 * the given key and the parse results.
-	 * @param key the key to associate the parsed value with
-	 * @param value the font value to parse
-	 * @return a FontValue with the given key and the parsed value
-	 * @throws ParseException if there is an exception parsing
-	 */
-	public static FontValue parse(String key, String value) throws ParseException {
-		String id = fromExternalId(key);
+        return EXTERNAL_PREFIX + internalId;
+    }
 
-		value = clean(value);
+    private static String fromExternalId(String externalId) {
+        if (externalId.startsWith(EXTERNAL_PREFIX)) {
+            return externalId.substring(EXTERNAL_PREFIX.length());
+        }
+        if (externalId.startsWith(EXTERNAL_LAF_ID_PREFIX)) {
+            return LAF_ID_PREFIX + externalId.substring(EXTERNAL_LAF_ID_PREFIX.length());
+        }
+        return externalId;
+    }
 
-		if (isFontKey(value)) {
-			return getRefFontValue(id, value);
-		}
-		Font font = parseFont(value);
-		return font == null ? null : new FontValue(id, font);
-	}
+    private static Font parseFont(String value) {
+        int sizeIndex = value.lastIndexOf("-");
+        int styleIndex = value.lastIndexOf("-", sizeIndex - 1);
+        if (sizeIndex <= 0 || styleIndex <= 0) {
+            return null;
+        }
+        String sizeString = value.substring(sizeIndex + 1);
+        String styleString = value.substring(styleIndex + 1, sizeIndex);
+        String familyName = value.substring(0, styleIndex);
 
-	/**
-	 * Returns the Font style int for the given style string
-	 * @param styleString the string to convert to a Font style int
-	 * @return the Font style int for the given style string
-	 */
-	public static int getStyle(String styleString) {
-		if ("plain".equalsIgnoreCase(styleString)) {
-			return Font.PLAIN;
-		}
-		if ("bold".equalsIgnoreCase(styleString)) {
-			return Font.BOLD;
-		}
-		if ("italic".equalsIgnoreCase(styleString)) {
-			return Font.ITALIC;
-		}
-		if ("bolditalic".equalsIgnoreCase(styleString)) {
-			return Font.BOLD | Font.ITALIC;
-		}
-		return -1;
-	}
+        try {
+            int size = Integer.parseInt(sizeString);
+            int style = getStyle(styleString);
+            if (style >= 0) {
+                return new Font(familyName, style, size);
+            }
+        } catch (NumberFormatException e) {
+            // parse failed, return null
+        }
+        return null;
+    }
 
-	@Override
-	protected FontValue getReferredValue(GThemeValueMap values, String refId) {
-		return values.getFont(refId);
-	}
+    private static FontValue getRefFontValue(String id, String value) throws ParseException {
+        value = fromExternalId(value);
+        int modIndex = value.indexOf("[");
+        if (modIndex < 0) {
+            return new FontValue(id, fromExternalId(value));
+        }
+        String refId = value.substring(0, modIndex).trim();
+        FontModifier modifier = FontModifier.parse(value.substring(modIndex));
+        return new FontValue(id, refId, modifier);
+    }
 
-	@Override
-	protected Font getUnresolvedReferenceValue(String primaryId, String unresolvedId) {
-		Msg.warn(this, "Could not resolve indirect font path for \"" + unresolvedId +
-			"\" for primary id \"" + primaryId + "\", using last resort default");
-		return LAST_RESORT_DEFAULT;
-	}
+    private static String clean(String value) {
+        value = value.trim();
+        if (value.startsWith("(")) {
+            value = value.substring(1);
+        }
+        if (value.endsWith(")")) {
+            value = value.substring(0, value.length() - 1);
+        }
+        return value;
+    }
 
-	public FontModifier getModifier() {
-		return modifier;
-	}
+    private static String getStyleString(Font font) {
+        boolean bold = font.isBold();
+        boolean italic = font.isItalic();
+        if (bold && italic) {
+            return "BOLDITALIC";
+        }
+        if (bold) {
+            return "BOLD";
+        }
+        if (italic) {
+            return "ITALIC";
+        }
+        return "PLAIN";
+    }
 
-	private static String toExternalId(String internalId) {
-		if (internalId.startsWith(FONT_ID_PREFIX)) {
-			return internalId;
-		}
+    @Override
+    public String getSerializationString() {
+        String outputId = toExternalId(id);
+        return outputId + " = " + getValueOutput();
+    }
 
-		if (internalId.startsWith(LAF_ID_PREFIX)) {
-			String baseId = internalId.substring(LAF_ID_PREFIX.length());
-			return EXTERNAL_LAF_ID_PREFIX + baseId;
-		}
+    @Override
+    public boolean isExternal() {
+        return !id.startsWith(FONT_ID_PREFIX);
+    }
 
-		return EXTERNAL_PREFIX + internalId;
-	}
+    @Override
+    public Font get(GThemeValueMap values) {
+        Font font = super.get(values);
+        if (modifier != null) {
+            return modifier.modify(font);
+        }
+        return font;
+    }
 
-	private static String fromExternalId(String externalId) {
-		if (externalId.startsWith(EXTERNAL_PREFIX)) {
-			return externalId.substring(EXTERNAL_PREFIX.length());
-		}
-		if (externalId.startsWith(EXTERNAL_LAF_ID_PREFIX)) {
-			return LAF_ID_PREFIX + externalId.substring(EXTERNAL_LAF_ID_PREFIX.length());
-		}
-		return externalId;
-	}
+    private String getValueOutput() {
+        if (referenceId != null) {
+            String refId = toExternalId(referenceId);
+            if (modifier != null) {
+                return refId + modifier.getSerializationString();
+            }
+            return refId;
+        }
+        return fontToString(value);
+    }
 
-	private static Font parseFont(String value) {
-		int sizeIndex = value.lastIndexOf("-");
-		int styleIndex = value.lastIndexOf("-", sizeIndex - 1);
-		if (sizeIndex <= 0 || styleIndex <= 0) {
-			return null;
-		}
-		String sizeString = value.substring(sizeIndex + 1);
-		String styleString = value.substring(styleIndex + 1, sizeIndex);
-		String familyName = value.substring(0, styleIndex);
+    @Override
+    protected FontValue getReferredValue(GThemeValueMap values, String refId) {
+        return values.getFont(refId);
+    }
 
-		try {
-			int size = Integer.parseInt(sizeString);
-			int style = getStyle(styleString);
-			if (style >= 0) {
-				return new Font(familyName, style, size);
-			}
-		}
-		catch (NumberFormatException e) {
-			// parse failed, return null
-		}
-		return null;
-	}
+    @Override
+    protected Font getUnresolvedReferenceValue(String primaryId, String unresolvedId) {
+        Msg.warn(this, "Could not resolve indirect font path for \"" + unresolvedId +
+                "\" for primary id \"" + primaryId + "\", using last resort default");
+        return LAST_RESORT_DEFAULT;
+    }
 
-	private static FontValue getRefFontValue(String id, String value) throws ParseException {
-		value = fromExternalId(value);
-		int modIndex = value.indexOf("[");
-		if (modIndex < 0) {
-			return new FontValue(id, fromExternalId(value));
-		}
-		String refId = value.substring(0, modIndex).trim();
-		FontModifier modifier = FontModifier.parse(value.substring(modIndex));
-		return new FontValue(id, refId, modifier);
-	}
+    public FontModifier getModifier() {
+        return modifier;
+    }
 
-	private static String clean(String value) {
-		value = value.trim();
-		if (value.startsWith("(")) {
-			value = value.substring(1);
-		}
-		if (value.endsWith(")")) {
-			value = value.substring(0, value.length() - 1);
-		}
-		return value;
-	}
-
-	private static String getStyleString(Font font) {
-		boolean bold = font.isBold();
-		boolean italic = font.isItalic();
-		if (bold && italic) {
-			return "BOLDITALIC";
-		}
-		if (bold) {
-			return "BOLD";
-		}
-		if (italic) {
-			return "ITALIC";
-		}
-		return "PLAIN";
-	}
-
-	@Override
-	public void installValue(ThemeManager themeManager) {
-		themeManager.setFont(this);
-	}
+    @Override
+    public void installValue(ThemeManager themeManager) {
+        themeManager.setFont(this);
+    }
 
 }

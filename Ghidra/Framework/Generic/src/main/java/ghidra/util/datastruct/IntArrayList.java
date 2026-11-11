@@ -15,6 +15,7 @@
  */
 package ghidra.util.datastruct;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import ghidra.util.ObjectStorage;
@@ -25,6 +26,7 @@ import ghidra.util.Saveable;
  * An ArrayList type object for ints.
  */
 public class IntArrayList implements Serializable, Saveable {
+    @Serial
     private final static long serialVersionUID = 1;
 	private final static int[] EMPTY_INT_ARRAY = new int[0];
 

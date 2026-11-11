@@ -123,7 +123,7 @@ public class GenericSaveable implements Saveable {
 		int numFields = fieldNames.length;
 		for (int i = 0; i < numFields; i++) {
 			Field field = record.getFieldValue(i);
-			buf.append("\n" + fieldNames[i] + "=" + field.toString() + " ");
+			buf.append("\n").append(fieldNames[i]).append("=").append(field.toString()).append(" ");
 		}
 		buf.append("\n");
 		return buf.toString();

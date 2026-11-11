@@ -1169,7 +1169,7 @@ public class DataTypeManagerPlugin extends ProgramPlugin
 				domainFileList.add(pa.getDomainFile());
 			}
 		}
-		return domainFileList.toArray(new DomainFile[domainFileList.size()]);
+		return domainFileList.toArray(new DomainFile[0]);
 	}
 
 	@Override
