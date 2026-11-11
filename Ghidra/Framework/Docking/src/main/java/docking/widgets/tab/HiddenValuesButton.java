@@ -15,7 +15,7 @@
  */
 package docking.widgets.tab;
 
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -24,6 +24,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 import docking.widgets.label.GDLabel;
+import docking.DockingChrome;
 import generic.theme.*;
 
 /**
@@ -31,6 +32,13 @@ import generic.theme.*;
  * list of all tabs.
  */
 public class HiddenValuesButton extends GDLabel {
+
+	@Override
+	protected void paintBorder(Graphics g) {
+		if (!DockingChrome.isModern()) {
+			super.paintBorder(g);
+		}
+	}
 	//@formatter:off
 	private static final String FONT_TABS_LIST_ID = "font.widget.tabs.list";
 	private static final Icon LIST_ICON = new GIcon("icon.widget.tabs.list");

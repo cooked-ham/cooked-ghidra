@@ -25,6 +25,7 @@ import javax.swing.border.Border;
 
 import docking.ActionContext;
 import docking.GenericHeader;
+import docking.DockingChrome;
 import docking.action.DockingAction;
 import docking.action.ToolBarData;
 import generic.theme.GColor;
@@ -142,7 +143,7 @@ public class GroupedFunctionGraphComponentPanel extends AbstractGraphComponentPa
 		Border beveledBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED,
 			new GColor("color.border.bevel.highlight"), new GColor("color.border.bevel.shadow"));
 
-		setBorder(beveledBorder);
+		setBorder(DockingChrome.surfaceBorder(beveledBorder));
 
 		createActions();
 		setUserText(userText);

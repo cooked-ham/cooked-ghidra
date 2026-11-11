@@ -74,7 +74,7 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 
 		projectTab = new JTabbedPane(SwingConstants.BOTTOM);
 		projectTab.setName("PROJECT_TABBED_PANE");
-		projectTab.setBorder(BorderFactory.createTitledBorder(BORDER_PREFIX));
+		projectTab.setBorder(DockingChrome.sectionBorder(BORDER_PREFIX));
 		projectTab.addChangeListener(e -> frontEndPlugin.getTool().contextChanged(null));
 
 		projectTab.addTab("Tree View", activePanel);
@@ -90,7 +90,7 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 		JPanel leftPanel = new JPanel(new BorderLayout());
 		leftPanel.add(projectTab);
 		this.add(leftPanel, JSplitPane.LEFT);
-		projectTab.setBorder(BorderFactory.createTitledBorder(BORDER_PREFIX));
+		projectTab.setBorder(DockingChrome.sectionBorder(BORDER_PREFIX));
 
 		// initialize the read-only project view tabbed pane
 		// create a container panel just to have a title border because of a bug in
@@ -100,7 +100,7 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 
 		readOnlyTab = new JTabbedPane(SwingConstants.BOTTOM);
 		bugFixPanel.add(readOnlyTab, BorderLayout.CENTER);
-		bugFixPanel.setBorder(BorderFactory.createTitledBorder(READ_ONLY_BORDER));
+		bugFixPanel.setBorder(DockingChrome.sectionBorder(READ_ONLY_BORDER));
 
 		setHelpOnReadOnlyTab();
 		this.add(bugFixPanel, JSplitPane.RIGHT);
@@ -388,7 +388,7 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 	}
 
 	void setBorder(String projectName) {
-		projectTab.setBorder(BorderFactory.createTitledBorder(BORDER_PREFIX + projectName));
+		projectTab.setBorder(DockingChrome.sectionBorder(BORDER_PREFIX + projectName));
 		treePanel.updateProjectName(projectName);
 	}
 

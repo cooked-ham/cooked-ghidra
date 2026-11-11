@@ -131,7 +131,11 @@ public class EmptyBorderButton extends JButton {
 	public Dimension getPreferredSize() {
 		Dimension size = super.getPreferredSize();
 		if (DockingChrome.isModern()) {
-			return new Dimension(Math.max(28, size.width + 6), Math.max(28, size.height + 6));
+			boolean compact = UIManager.getBoolean("Docking.compact");
+			int minimum = compact ? 24 : 28;
+			int padding = compact ? 2 : 6;
+			return new Dimension(Math.max(minimum, size.width + padding),
+				Math.max(minimum, size.height + padding));
 		}
 		return size;
 	}

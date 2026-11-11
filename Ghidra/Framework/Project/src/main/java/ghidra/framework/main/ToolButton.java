@@ -31,6 +31,7 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 import docking.DockingWindowManager;
+import docking.DockingChrome;
 import docking.dnd.*;
 import docking.tool.ToolConstants;
 import docking.util.image.ToolIconURL;
@@ -57,6 +58,21 @@ import utility.function.Dummy;
  * template, or to represent a running tool.
  */
 class ToolButton extends EmptyBorderButton implements Draggable, Droppable {
+
+	@Override
+	public String getText() {
+		if (!DockingChrome.isModern() || template == null) {
+			return super.getText();
+		}
+		return associatedRunningTool == null ? template.getName() : associatedRunningTool.getName();
+	}
+
+	@Override
+	public Dimension getPreferredSize() {
+		Dimension size = super.getPreferredSize();
+		return DockingChrome.isModern()
+				? new Dimension(Math.max(88, size.width + 12), Math.max(60, size.height)) : size;
+	}
 
 	private DropTarget dropTarget;
 	private DropTgtAdapter dropTargetAdapter;

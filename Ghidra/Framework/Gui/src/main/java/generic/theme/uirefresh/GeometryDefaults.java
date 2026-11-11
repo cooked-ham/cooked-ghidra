@@ -90,6 +90,20 @@ final class GeometryDefaults extends AbstractMap<String, String> {
 		}
 		Map<String, String> m = new LinkedHashMap<>(others);
 		m.putAll(GEOMETRY);
+		if (Boolean.TRUE.equals(activeTheme().getResolvedProperty("Docking.compact"))) {
+			m.put("Table.rowHeight", "18");
+			m.put("Tree.rowHeight", "18");
+			m.put("TableHeader.height", "22");
+			m.put("TabbedPane.tabInsets", "4,8,4,8");
+		}
+		// Saved theme copies no longer implement UiRefreshTheme; keep accessibility geometry.
+		if (Boolean.TRUE.equals(activeTheme().getResolvedProperty("Docking.highContrast"))) {
+			m.put("Component.focusWidth", "2");
+			m.put("Component.innerFocusWidth", "1");
+			m.put("Button.innerFocusWidth", "1");
+			m.put("ScrollBar.width", "14");
+			m.put("Table.showHorizontalLines", "true");
+		}
 		if (activeTheme() instanceof UiRefreshTheme t) {
 			m.putAll(t.geometryOverrides());
 		}
@@ -136,6 +150,11 @@ final class GeometryDefaults extends AbstractMap<String, String> {
 		d.put("Table.selectionArc", "8");
 		d.put("MenuItem.selectionArc", "8");
 		d.put("Menu.selectionArc", "8");
+		d.put("MenuItem.margin", "6,10,6,10");
+		d.put("CheckBoxMenuItem.margin", "6,10,6,10");
+		d.put("RadioButtonMenuItem.margin", "6,10,6,10");
+		d.put("MenuItem.textAcceleratorGap", "28");
+		d.put("TableHeader.cellMargins", "4,8,4,8");
 		d.put("PopupMenu.borderCornerRadius", "10");
 		d.put("Popup.borderCornerRadius", "10");
 		d.put("PopupMenu.roundedBorder", "true");

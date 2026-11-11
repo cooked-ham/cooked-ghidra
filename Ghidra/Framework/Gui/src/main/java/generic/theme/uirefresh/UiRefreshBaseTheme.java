@@ -56,6 +56,7 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 		applySurfaces(t);
 		applyFlatKeys(t);
 		applyListing(t, dark);
+		applyAnalystViews(t, dark);
 		applyTypography();
 		IconSet.apply(icons, this::setIcon);
 	}
@@ -244,6 +245,103 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 		setColor("laf.color." + key, c);
 	}
 
+	private void colors(Color color, String... ids) {
+		for (String id : ids) {
+			setColor(id, color);
+		}
+	}
+
+	/** Share semantic roles across custom-painted views, without changing their data models. */
+	private void applyAnalystViews(Tokens t, boolean dark) {
+		Color keyword = dark ? c(0xC9A7EB) : c(0x633D93);
+		Color number = dark ? c(0x91CBA6) : c(0x216442);
+		Color type = dark ? c(0x82B1FF) : c(0x285B9D);
+		Color parameter = dark ? c(0xE7BF79) : c(0x795215);
+		Color reference = dark ? c(0x79C7CF) : c(0x216974);
+		Color comment = dark ? c(0x8FB6A0) : c(0x2F7D5B);
+		colors(t.panel, "color.bg.decompiler", "color.bg.byteviewer",
+			"color.bg.plugin.functiongraph", "color.bg.visualgraph",
+			"color.bg.debugger.plugin.objects.default");
+		colors(t.textPrimary, "color.fg.decompiler", "color.fg.decompiler.variable",
+			"color.fg.plugin.functiongraph.label.picked",
+			"color.fg.plugin.functiongraph.label.non.picked",
+			"color.fg.visualgraph.dockingvertex", "color.fg.debugger.plugin.objects.default");
+		colors(keyword, "color.fg.decompiler.keyword", "color.fg.decompiler.external.function",
+			"color.fg.listing.mnemonic", "color.fg.listing.mnemonic.unimplemented",
+			"color.fg.listing.ext.entrypoint", "color.fg.listing.function.variable");
+		colors(number, "color.fg.decompiler.constant", "color.fg.listing.constant",
+			"color.fg.listing.label.local", "color.fg.listing.mask.value");
+		colors(type, "color.fg.decompiler.type", "color.fg.listing.function.return.type",
+			"color.fg.listing.xref.read");
+		colors(parameter, "color.fg.decompiler.parameter", "color.fg.listing.register",
+			"color.fg.listing.function.param", "color.fg.listing.xref.write");
+		colors(reference, "color.fg.decompiler.global", "color.fg.listing.ext.ref.resolved",
+			"color.fg.listing.xref", "color.fg.listing.function.param.dynamic");
+		colors(comment, "color.fg.decompiler.comment", "color.fg.listing.comment.repeatable",
+			"color.fg.listing.comment.ref.repeatable");
+		colors(t.error, "color.fg.decompiler.error", "color.fg.decompiler.special",
+			"color.fg.byteviewer.changed", "color.fg.debugger.value.changed",
+			"color.fg.debugger.value.changed.selected", "color.fg.debugger.plugin.objects.modified");
+		colors(t.textSecondary, "color.fg.byteviewer.boundary.crossing",
+			"color.fg.debugger.value.stale", "color.fg.debugger.value.stale.selected",
+			"color.fg.debugger.plugin.objects.invisible", "color.fg.debugger.plugin.objects.invalidated");
+		colors(t.focus, "color.cursor.focused", "color.cursor.focused.listing",
+			"color.cursor.byteviewer.focused.non.edit", "color.visualgraph.dockingvertex.cursor");
+		colors(t.textSecondary, "color.cursor.unfocused", "color.cursor.unfocused.listing",
+			"color.cursor.byteviewer.unfocused.non.edit", "color.fg.byteviewer.separator");
+		colors(t.error, "color.cursor.byteviewer.focused.edit");
+		colors(t.warning, "color.cursor.byteviewer.unfocused.edit");
+		colors(t.highlight, "color.bg.decompiler.current.variable",
+			"color.bg.decompiler.highlights.default", "color.bg.byteviewer.highlight");
+		colors(t.findHighlight, "color.bg.decompiler.highlights.find");
+		colors(t.selected, "color.bg.decompiler.highlights.find.active",
+			"color.bg.listing.header.active.field", "color.bg.plugin.functiongraph.vertex.picked",
+			"color.bg.visualgraph.dockingvertex");
+		colors(t.raised, "color.bg.decompiler.message", "color.bg.visualgraph.message");
+		colors(t.textPrimary, "color.fg.decompiler.message");
+		colors(t.accent, "color.bg.visualgraph.satellite.vertex",
+			"color.graphdisplay.vertex.default", "color.graphdisplay.edge.selected",
+			"color.visualgraph.view.primary.edge.selected",
+			"color.visualgraph.view.primary.edge.hovered",
+			"color.visualgraph.view.satellite.edge.selected",
+			"color.visualgraph.view.satellite.edge.hovered");
+		colors(reference, "color.graphdisplay.edge.default", "color.visualgraph.view.primary.edge.draw",
+			"color.visualgraph.view.primary.edge.focused", "color.visualgraph.view.satellite.edge.draw",
+			"color.visualgraph.view.satellite.edge.focused");
+		colors(t.selected, "color.graphdisplay.vertex.selected");
+		colors(t.positive, "color.bg.plugin.functiongraph.edge.fall.through");
+		colors(parameter, "color.bg.plugin.functiongraph.edge.jump.conditional");
+		colors(type, "color.bg.plugin.functiongraph.edge.jump.unconditional");
+		colors(t.focus, "color.bg.plugin.functiongraph.edge.fall.through.highlight",
+			"color.bg.plugin.functiongraph.edge.jump.conditional.highlight",
+			"color.bg.plugin.functiongraph.edge.jump.unconditional.highlight");
+		colors(tint(t.panel, t.positive), "color.bg.plugin.functiongraph.vertex.entry");
+		colors(tint(t.panel, t.error), "color.bg.plugin.functiongraph.vertex.exit");
+		colors(tint(t.panel, type), "color.bg.plugin.functiongraph.vertex.group");
+		colors(t.textSecondary, "color.fg.plugin.package.panel.description",
+			"color.fg.pluginpanel.details.loc", "color.fg.pluginpanel.details.novalue");
+		colors(t.accent, "color.fg.pluginpanel.details.title", "color.fg.extensionpanel.details.title",
+			"color.fg.extensionpanel.details.author", "color.fg.extensionpanel.details.date",
+			"color.fg.extensionpanel.details.version", "color.fg.extensionpanel.path");
+		colors(t.textPrimary, "color.fg.pluginpanel.details.description",
+			"color.fg.pluginpanel.details.class", "color.fg.extensionpanel.details.description");
+	}
+
+	private static Color tint(Color surface, Color accent) {
+		return new Color((surface.getRed() * 7 + accent.getRed()) / 8,
+			(surface.getGreen() * 7 + accent.getGreen()) / 8,
+			(surface.getBlue() * 7 + accent.getBlue()) / 8);
+	}
+
+	protected void useCompactDensity() {
+		addProperty(new BooleanPropertyValue("Docking.compact", true));
+		for (String id : new String[] { SystemThemeIds.FONT_CONTROL_ID,
+			SystemThemeIds.FONT_VIEW_ID, SystemThemeIds.FONT_MENU_ID }) {
+			Font font = getFont(id).get(this);
+			setFont(id, font.deriveFont(12f));
+		}
+	}
+
 	// ---- Listing semantics (only ids verified present in base.listing.theme.properties) -------
 	private void applyListing(Tokens t, boolean dark) {
 		Color comment = dark ? c(0x8FB6A0) : c(0x2F7D5B);
@@ -276,6 +374,11 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 			new Font(semi, semi.equals(ui) ? Font.BOLD : Font.PLAIN, 12));
 		setFont("font.listing.header", new Font(ui, Font.PLAIN, 12));
 		setFont("font.table.header.number", new Font(semi, Font.PLAIN, 12));
+		setFont("font.byteviewer.header", new Font(ui, Font.PLAIN, 13));
+		setFont("font.byteviewer.status", new Font(ui, Font.PLAIN, 12));
+		setFont("font.debugger.object.tree.renderer", new Font(ui, Font.PLAIN, 13));
+		setFont("font.decompiler.message", new Font(ui, Font.PLAIN, 14));
+		setFont("font.graphdisplay.default", new Font(ui, Font.PLAIN, 14));
 	}
 
 	private static String firstInstalled(Set<String> installed, String... families) {

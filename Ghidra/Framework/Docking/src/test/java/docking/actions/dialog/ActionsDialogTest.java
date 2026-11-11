@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import javax.swing.UIManager;
 
 import org.junit.Test;
 
@@ -35,6 +36,36 @@ public class ActionsDialogTest extends AbstractDockingTest {
 	private static final boolean ADD_TO_POPUP = true;
 
 	private List<String> triggeredActions = new ArrayList<>();
+
+	@Test
+	public void testModernSearchMatchesWordsAndOwnerWithoutEnablingDisabledActions() {
+		Object original = UIManager.get("Docking.modernChrome");
+		ActionChooserDialog dialog = null;
+		try {
+			UIManager.put("Docking.modernChrome", true);
+			addLocal(toolbar("Open Program", ENABLED, contextA));
+			addLocal(toolbar("Close Program", !ENABLED, contextA));
+			ActionsModel model = buildModel(contextA, ActionDisplayLevel.ALL);
+			dialog = getSwing(() -> new ActionChooserDialog(model));
+			setFilterText(dialog, "program open test");
+			assertEquals(List.of("Open Program"), getDisplayedActionNames(model));
+			setFilterText(dialog, "close test");
+			assertEquals(List.of("Close Program"), getDisplayedActionNames(model));
+			ActionChooserDialog current = dialog;
+			runSwing(current::okCallback);
+			assertTrue(triggeredActions.isEmpty());
+			UIManager.put("Docking.modernChrome", false);
+			setFilterText(dialog, "program open");
+			assertEquals(0, model.getSize());
+		}
+		finally {
+			if (dialog != null) {
+				ActionChooserDialog current = dialog;
+				runSwing(current::dispose);
+			}
+			UIManager.put("Docking.modernChrome", original);
+		}
+	}
 	private Set<DockingActionIf> localActions = new HashSet<>();
 	private Set<DockingActionIf> globalActions = new HashSet<>();
 	private TestContextA contextA = new TestContextA();

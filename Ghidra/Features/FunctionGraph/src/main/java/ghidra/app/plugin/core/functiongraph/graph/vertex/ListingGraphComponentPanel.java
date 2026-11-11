@@ -30,6 +30,7 @@ import javax.swing.event.ChangeListener;
 
 import docking.ActionContext;
 import docking.GenericHeader;
+import docking.DockingChrome;
 import docking.action.DockingAction;
 import docking.action.ToolBarData;
 import docking.widgets.fieldpanel.FieldPanel;
@@ -161,7 +162,7 @@ public class ListingGraphComponentPanel extends AbstractGraphComponentPanel {
 
 		Border beveledBorder = BorderFactory.createBevelBorder(BevelBorder.RAISED,
 			new GColor("color.border.bevel.highlight"), new GColor("color.border.bevel.shadow"));
-		setBorder(beveledBorder);
+		setBorder(DockingChrome.surfaceBorder(beveledBorder));
 
 		addKeyListener(new FieldPanelKeyListener());
 

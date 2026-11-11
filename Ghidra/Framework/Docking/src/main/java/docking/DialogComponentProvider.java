@@ -156,7 +156,7 @@ public class DialogComponentProvider
 			}
 		};
 		mainPanel = new JPanel(new BorderLayout());
-		mainPanel.setBorder(BorderFactory.createEtchedBorder());
+		mainPanel.setBorder(DockingChrome.dialogBorder());
 		rootPanel.add(mainPanel, BorderLayout.CENTER);
 
 		taskScheduler = new TaskScheduler(this);
@@ -178,7 +178,13 @@ public class DialogComponentProvider
 			mainPanel.add(statusPanel, BorderLayout.SOUTH);
 		}
 		if (includeButtons) {
-			JPanel panel = new JPanel(new FlowLayout());
+			JPanel panel = new JPanel(new FlowLayout() {
+				@Override
+				public void layoutContainer(Container target) {
+					setAlignment(DockingChrome.isModern() ? FlowLayout.TRAILING : FlowLayout.CENTER);
+					super.layoutContainer(target);
+				}
+			});
 			panel.add(buttonPanel);
 			rootPanel.add(panel, BorderLayout.SOUTH);
 		}

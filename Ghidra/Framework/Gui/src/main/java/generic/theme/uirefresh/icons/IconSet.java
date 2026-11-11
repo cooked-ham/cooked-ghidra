@@ -144,6 +144,20 @@ public final class IconSet {
 		file("letterL", "L.gif");
 		file("letterF", "F.gif");
 		file("letterV", "V.png");
+		// Dense views and project/dialog actions use the same optical grid as the shell.
+		file("graph", "redspheregraph.png", "network-wireless-16.png", "network-wireless.png",
+			"function_graph_flowchart.png", "function_graph_flowchart_left.png", "sleighGraph.png");
+		file("window", "fullscreen_view.png", "view-fullscreen.png", "graph_view.png");
+		file("configure", "preferences-system.png", "package_development.png");
+		file("link", "brick_link.png");
+		file("merge", "shape_handles.png", "shape_square_add.png");
+		file("split", "shape_ungroup.png");
+		file("edit", "id.png", "paintbrush.png", "palette.png");
+		file("search", "magnifier.png", "magnifier--arrow.png");
+		file("table", "table-e.png", "table-a.png", "table-s.png");
+		file("folderOpen", "project-open.png");
+		file("save", "project-save.png");
+		file("home", "house.png");
 
 		// stock values are composites (EMPTY_ICON{...}), so map the id itself
 		BY_ID.put("icon.undo", "undo");

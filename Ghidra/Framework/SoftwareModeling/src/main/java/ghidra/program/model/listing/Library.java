@@ -28,8 +28,6 @@ public interface Library {
 
 	/**
 	 * {@return the simple namespace name (without parent path)}
-	 * <p>
-	 * See {@link #getName(boolean)} for the namespace-qualified variant.
 	 */
 	public String getName();
 

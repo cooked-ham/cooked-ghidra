@@ -17,8 +17,10 @@ package ghidra.framework.main;
 
 import java.util.*;
 
-import javax.swing.BorderFactory;
 import javax.swing.JToolBar;
+import javax.swing.JLabel;
+
+import docking.DockingChrome;
 
 import ghidra.framework.model.*;
 
@@ -39,7 +41,7 @@ class ProjectToolBar extends JToolBar implements ToolChestChangeListener {
 		toolButtonMap = new HashMap<>(TYPICAL_NUM_TOOLS);
 
 		// remove the default etched border
-		setBorder(BorderFactory.createTitledBorder("Tool Chest"));
+		setBorder(DockingChrome.sectionBorder("Tool Chest"));
 
 		setActiveProject(plugin.getActiveProject());
 
@@ -85,6 +87,13 @@ class ProjectToolBar extends JToolBar implements ToolChestChangeListener {
 		clear();
 
 		if (project == null) {
+			JLabel hint = new JLabel("Create or open a project from the File menu to get started.") {
+				@Override
+				public boolean isVisible() {
+					return DockingChrome.isModern() && super.isVisible();
+				}
+			};
+			add(hint);
 			return;
 		}
 		populateToolBar();

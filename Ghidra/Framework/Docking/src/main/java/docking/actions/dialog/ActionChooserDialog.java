@@ -22,6 +22,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Locale;
 import java.util.function.BiPredicate;
 
 import javax.accessibility.AccessibleContext;
@@ -176,6 +177,7 @@ public class ActionChooserDialog extends DialogComponentProvider {
 		searchList.setSelectionCallback(this::itemSelected);
 		searchList.setInitialSelection();  // update selection after adding our listener
 		searchList.setItemRenderer(new ActionRenderer());
+		searchList.getTextField().putClientProperty("JTextField.placeholderText", "Search actions or shortcuts");
 		searchList.setDisplayNameFunction((t, c) -> {
 			String name = getActionDisplayName(t, c) + " " + getKeyBindingString(t);
 			ActionContext context = model.getContext();
@@ -186,6 +188,15 @@ public class ActionChooserDialog extends DialogComponentProvider {
 			
 		});
 		panel.add(searchList);
+		JLabel hint = new JLabel("Type to search  \u00b7  \u2191\u2193 to select  \u00b7  Enter to run  \u00b7  repeat shortcut for more actions") {
+			@Override
+			public boolean isVisible() {
+				return DockingChrome.isModern() && super.isVisible();
+			}
+		};
+		hint.setBorder(BorderFactory.createEmptyBorder(8, 4, 4, 4));
+		hint.setForeground(Colors.Messages.HINT);
+		panel.add(hint, BorderLayout.SOUTH);
 		return panel;
 	}
 
@@ -382,13 +393,26 @@ public class ActionChooserDialog extends DialogComponentProvider {
 		private String filterText;
 
 		ActionsFilter(String filterText) {
-			this.filterText = filterText.toLowerCase();
+			this.filterText = filterText.toLowerCase(Locale.ROOT).strip();
 		}
 
 		@Override
 		public boolean test(DockingActionIf t, String category) {
-			return getActionDisplayName(t, category).toLowerCase().contains(filterText) ||
-				getKeyBindingString(t).toLowerCase().contains(filterText);
+			String name = getActionDisplayName(t, category).toLowerCase(Locale.ROOT);
+			String key = getKeyBindingString(t).toLowerCase(Locale.ROOT);
+			if (name.contains(filterText) || key.contains(filterText)) {
+				return true;
+			}
+			if (!DockingChrome.isModern()) {
+				return false;
+			}
+			String searchable = name + " " + key + " " + t.getOwner().toLowerCase(Locale.ROOT);
+			for (String word : filterText.split("\\s+")) {
+				if (!searchable.contains(word)) {
+					return false;
+				}
+			}
+			return true;
 		}
 	}
 

@@ -40,6 +40,10 @@ public class UiRefreshLightTheme extends UiRefreshBaseTheme {
 		c(0xEAF1FB)); // current line
 
 	public UiRefreshLightTheme() {
-		super("UI Refresh Light", LafType.FLAT_LIGHT, false, T, Glyphs.LIGHT);
+		this("UI Refresh Light");
+	}
+
+	protected UiRefreshLightTheme(String name) {
+		super(name, LafType.FLAT_LIGHT, false, T, Glyphs.LIGHT);
 	}
 }

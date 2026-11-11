@@ -7,4 +7,6 @@ src/global/docs/ChangeHistory.md||GHIDRA||||END|
 src/global/docs/WhatsNew.md||GHIDRA||||END|
 src/main/resources/UserAgreement.html||GHIDRA||||END|
 src/main/resources/defaultTools/CodeBrowser.tool||GHIDRA||||END|
+src/main/resources/defaultTools/Classic Enhanced.tool||GHIDRA||||END|
+src/main/resources/defaultTools/Reverse Engineering.tool||GHIDRA||||END|
 src/main/resources/splash.txt||GHIDRA||||END|

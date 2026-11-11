@@ -15,7 +15,9 @@
  */
 package docking.menu;
 
+import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Insets;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -133,7 +135,26 @@ public class ToolBarManager {
 				}
 			}
 		};
-		newToolBar.setBorder(BorderFactory.createEmptyBorder(0, 5, 0, 0));
+		newToolBar.setBorder(new javax.swing.border.AbstractBorder() {
+			@Override
+			public Insets getBorderInsets(Component c, Insets insets) {
+				if (DockingChrome.isModern()) {
+					insets.set(3, 6, 3, 6);
+				}
+				else {
+					insets.set(0, 5, 0, 0);
+				}
+				return insets;
+			}
+
+			@Override
+			public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+				if (DockingChrome.isModern()) {
+					g.setColor(DockingChrome.frameColor());
+					g.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
+				}
+			}
+		});
 
 		boolean isFirstGroup = true;
 		Set<Entry<String, List<ToolBarItemManager>>> entrySet = groupToItemsMap.entrySet();

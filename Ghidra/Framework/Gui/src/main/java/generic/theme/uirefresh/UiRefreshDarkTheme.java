@@ -40,6 +40,10 @@ public class UiRefreshDarkTheme extends UiRefreshBaseTheme {
 		c(0x1D232C)); // current line
 
 	public UiRefreshDarkTheme() {
-		super("UI Refresh Dark", LafType.FLAT_DARK, true, T, Glyphs.DARK);
+		this("UI Refresh Dark");
+	}
+
+	protected UiRefreshDarkTheme(String name) {
+		super(name, LafType.FLAT_DARK, true, T, Glyphs.DARK);
 	}
 }

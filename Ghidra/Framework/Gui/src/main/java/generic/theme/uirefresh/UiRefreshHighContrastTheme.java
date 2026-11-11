@@ -49,6 +49,7 @@ public class UiRefreshHighContrastTheme extends UiRefreshBaseTheme {
 	public UiRefreshHighContrastTheme() {
 		super("UI Refresh High Contrast", LafType.FLAT_DARK, true, T, Glyphs.HIGH_CONTRAST);
 		addProperty(new BooleanPropertyValue("Docking.chromeDepth", false));
+		addProperty(new BooleanPropertyValue("Docking.highContrast", true));
 	}
 
 	@Override

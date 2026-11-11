@@ -23,6 +23,7 @@ import java.util.Objects;
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 import generic.theme.GColor;
 import generic.theme.GThemeDefaults.Colors.Palette;
@@ -140,9 +141,86 @@ public final class DockingChrome {
 		return new StatusBarBorder(gap);
 	}
 
+	/** Shared project-section treatment; the title remains available to accessibility clients. */
+	public static Border sectionBorder(String title) {
+		return new TitledBorder(title) {
+			@Override
+			public Insets getBorderInsets(Component c, Insets insets) {
+				if (!isModern()) {
+					return super.getBorderInsets(c, insets);
+				}
+				insets.set(c.getFontMetrics(c.getFont()).getHeight() + 14, 12, 12, 12);
+				return insets;
+			}
+
+			@Override
+			public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+				if (!isModern()) {
+					super.paintBorder(c, g, x, y, w, h);
+					return;
+				}
+				Graphics2D g2 = aa(g);
+				try {
+					g2.setColor(FRAME_COLOR);
+					g2.draw(new RoundRectangle2D.Float(x + .5f, y + .5f, w - 1f, h - 1f, 12, 12));
+					g2.setFont(c.getFont().deriveFont(Font.BOLD));
+					g2.setColor(c.getForeground());
+					g2.drawString(getTitle(), x + 12, y + 8 + g2.getFontMetrics().getAscent());
+				}
+				finally {
+					g2.dispose();
+				}
+			}
+		};
+	}
+
+	/** Content padding for shared dialogs, replacing the nested etched box in modern themes. */
+	public static Border dialogBorder() {
+		return new AbstractBorder() {
+			private final Border stock = BorderFactory.createEtchedBorder();
+
+			@Override
+			public Insets getBorderInsets(Component c, Insets insets) {
+				if (!isModern()) {
+					return stock.getBorderInsets(c);
+				}
+				insets.set(12, 12, 8, 12);
+				return insets;
+			}
+
+			@Override
+			public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+				if (!isModern()) {
+					stock.paintBorder(c, g, x, y, w, h);
+				}
+			}
+		};
+	}
+
 	/** Border for a single docked provider. Stock: raised bevel. */
 	public static Border frameBorder() {
 		return FRAME;
+	}
+
+	/** Apply the provider frame to graph cards while retaining their original stock border. */
+	public static Border surfaceBorder(Border stock) {
+		return new AbstractBorder() {
+			private Border active() {
+				return isModern() ? FRAME : stock;
+			}
+
+			@Override
+			public Insets getBorderInsets(Component c, Insets insets) {
+				Insets value = active().getBorderInsets(c);
+				insets.set(value.top, value.left, value.bottom, value.right);
+				return insets;
+			}
+
+			@Override
+			public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+				active().paintBorder(c, g, x, y, w, h);
+			}
+		};
 	}
 
 	/** Border for a tab stack. Stock: none (as before). */
