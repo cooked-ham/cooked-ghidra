@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import groovy.xml.DOMBuilder
+
 apply plugin: 'eclipse'
 eclipse.project {
   name = '_Decompiler'
@@ -22,24 +24,37 @@ eclipse.project {
   natures 'org.eclipse.cdt.core.ccnature'
   natures 'org.eclipse.cdt.managedbuilder.core.managedBuildNature'
   natures 'org.eclipse.cdt.managedbuilder.core.ScannerConfigNature'
-  
-  file {
-  	withXml {
-  		def projectNode = it.asNode()
-  		projectNode.iterator().each { subNode ->
-  			String subNodeText = '' + subNode
-  			if (subNodeText.startsWith('buildSpec')) {
-  				subNode.iterator().each { buildCmd ->
-  					String nameNode = buildCmd?.name
-  					if (nameNode.contains('genmakebuilder')) {
-  						buildCmd.appendNode('triggers', 'clean,full,incremental')
-  					}
-  					if (nameNode.contains('ScannerConfigBuilder')) {
-  						buildCmd.appendNode('triggers', 'full,incremental')
-  					}
-  				}
-  			}
-  		}
-  	}
+}
+
+// The withXml hook on Eclipse file generation tasks is deprecated. Add the CDT build triggers
+// after the .project file has been generated instead.
+tasks.named('eclipseProject') {
+  doLast {
+    File projectFile = file('.project')
+    def document = DOMBuilder.parse(new FileReader(projectFile), false, true, true)
+    def buildCommands = document.getElementsByTagName('buildCommand')
+    for (int i = 0; i < buildCommands.length; i++) {
+      def buildCommand = buildCommands.item(i)
+      String name = buildCommand.getElementsByTagName('name').item(0).textContent
+      def triggers = buildCommand.getElementsByTagName('triggers')
+      while (triggers.length > 0) {
+        buildCommand.removeChild(triggers.item(0))
+      }
+      String triggerValue = null
+      if (name.contains('genmakebuilder')) {
+        triggerValue = 'clean,full,incremental'
+      }
+      else if (name.contains('ScannerConfigBuilder')) {
+        triggerValue = 'full,incremental'
+      }
+      if (triggerValue != null) {
+        def triggersNode = document.createElement('triggers')
+        triggersNode.textContent = triggerValue
+        buildCommand.appendChild(triggersNode)
+      }
+    }
+    def transformer = javax.xml.transform.TransformerFactory.newInstance().newTransformer()
+    transformer.transform(new javax.xml.transform.dom.DOMSource(document),
+      new javax.xml.transform.stream.StreamResult(projectFile))
   }
 }

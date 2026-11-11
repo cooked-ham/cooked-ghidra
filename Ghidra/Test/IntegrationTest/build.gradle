@@ -42,7 +42,7 @@ dependencies {
 				projectPath.contains("/Debug/") ||
 				projectPath.contains("/Processors/"))) {
 
-				api p
+				api p.dependencies.project(p.path)
 			}
 		}	
 	}

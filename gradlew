@@ -114,32 +114,7 @@ case "$( uname )" in                #(
   NONSTOP* )        nonstop=true ;;
 esac
 
-#------------Ghidra Additions ----------------------------------------------------------------------
 
-# Set variables based on Production vs Dev environment
-if [ -f "${APP_HOME}/gradle-wrapper.jar" ]; then
-    # Production Environment
-    JAR_PATH="${APP_HOME}/gradle-wrapper.jar"
-    GHIDRA_HOME="${APP_HOME}/../.."
-else
-    # Development Environment (Eclipse classes or "gradle jar")
-    JAR_PATH="${APP_HOME}/Ghidra/RuntimeScripts/support/gradle/gradle-wrapper.jar"
-    GHIDRA_HOME="${APP_HOME}"
-fi
-
-# Read application properties
-while IFS='=' read -r key value
-do
-    key=$(echo $key | tr '.-' '_')
-    eval ${key}=\${value}
-done < "${GHIDRA_HOME}/Ghidra/application.properties"
-
-# Only proceed with wrapper if we are in single-repo PUBLIC/DEV mode
-if [ -d "${GHIDRA_HOME}/../ghidra.bin" ] || ([ ${application_release_name} != "PUBLIC" ] && [ ${application_release_name} != "DEV" ]) ; then
-     echo "Please install Gradle ${application_gradle_min} or later and put it on your PATH."
-     exit 1
-fi
-#---------------------------------------------------------------------------------------------------
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then
@@ -235,7 +210,7 @@ DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
 
 set -- \
         "-Dorg.gradle.appname=$APP_BASE_NAME" \
-        -jar "$JAR_PATH" \
+        -jar "$APP_HOME/gradle/wrapper/gradle-wrapper.jar" \
         "$@"
 
 # Stop when "xargs" is not available.

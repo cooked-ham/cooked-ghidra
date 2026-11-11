@@ -1,6 +1,3 @@
-:: ###
-:: IP: Apache License 2.0
-:: ##
 @rem
 @rem Copyright 2015 the original author or authors.
 @rem
@@ -102,44 +99,12 @@ goto exitWithErrorLevel
 :execute
 @rem Setup the command line
 
-@rem ------------Ghidra Additions ------------------------------------------------------------------
 
-@rem Set variables based on Production vs Dev environment
-if exist "%APP_HOME%\gradle-wrapper.jar" (
-    @rem Production Environment
-    set "JAR_PATH=%APP_HOME%gradle-wrapper.jar"
-    set "GHIDRA_HOME=%APP_HOME%..\..\"
-) else (
-    @rem Development Environment (Eclipse classes or "gradle jar")
-    set "JAR_PATH=%APP_HOME%Ghidra\RuntimeScripts\support\gradle\gradle-wrapper.jar"
-    set "GHIDRA_HOME=%APP_HOME%"
-)
-
-@rem Read application properties
-for /f "usebackq tokens=1,2 delims==" %%g in ("%GHIDRA_HOME%Ghidra\application.properties") DO (set %%g=%%h)
-
-@rem Only proceed with wrapper if we are in single-repo PUBLIC/DEV mode
-set PROCEED=1
-if exist "%GHIDRA_HOME%..\ghidra.bin" (
-    set PROCEED=0
-)
-if not "%application.release.name%" == "PUBLIC" (
-    if not "%application.release.name%" == "DEV" (
-        set PROCEED=0
-    )
-)
-
-if %PROCEED% == 0 (
-    echo Please install Gradle %application.gradle.min% or later and put it on your PATH.
-	"%COMSPEC%" /c exit 1
-	goto exitWithErrorLevel
-)
-@rem -----------------------------------------------------------------------------------------------
 
 @rem Execute gradlew
 @rem endlocal doesn't take effect until after the line is parsed and variables are expanded
 @rem which allows us to clear the local environment before executing the java command
-endlocal & "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -jar "%JAR_PATH%" %* & call :exitWithErrorLevel & goto exitWithErrorLevel
+endlocal & "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -jar "%APP_HOME%\gradle\wrapper\gradle-wrapper.jar" %* & call :exitWithErrorLevel & goto exitWithErrorLevel
 
 @rem This label must not be changed. We rely on old scripts being able to jump to this point.
 :exitWithErrorLevel

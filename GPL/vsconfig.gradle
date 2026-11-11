@@ -28,9 +28,12 @@ if (!hasProperty("VISUAL_STUDIO_INSTALL_DIR") && rootProject.isCurrentWindows())
 		println "  -> To manually specify the location of vswhere.exe, add \"-PvswherePath=<vswhere path>\" to the Gradle command line arguments"
 		return
 	}
-	def vswhereProcess = "\"${vswherePath}\" -products * -prerelease -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -format json -utf8".execute()
-	def vswhereOutput = vswhereProcess.text.trim()
-	def vswhereExit = vswhereProcess.exitValue()
+	def vswhereProcess = providers.exec {
+		commandLine vswherePath, "-products", "*", "-prerelease", "-requires",
+			"Microsoft.VisualStudio.Component.VC.Tools.x86.x64", "-format", "json", "-utf8"
+	}
+	def vswhereOutput = vswhereProcess.standardOutput.asText.get().trim()
+	def vswhereExit = vswhereProcess.result.get().exitValue
 	if (vswhereExit != 0) {
 		if (vswhereExit == 87) { // ERROR_INVALID_PARAMATER
 			println "  -> Visual Studio vswhere.exe was passed an unsupported argument!"
@@ -78,8 +81,11 @@ if (!hasProperty("VISUAL_STUDIO_INSTALL_DIR") && rootProject.isCurrentWindows())
 	// Use vcvarsall.bat to determine the latest Visual Studio's default SDK and tool versions
 	def vcvarsPath = "${vsInstallDir}\\VC\\Auxiliary\\Build\\vcvarsall.bat"
 	def vcvarsCmd = "\"${vcvarsPath}\" x86_amd64"
-	def vcvarsEnvCmd = "cmd /v:ON /c ${vcvarsCmd} > nul && cmd /c echo"
-	def (sdkDir, sdkVersion) = "${vcvarsEnvCmd} !WindowsSdkDir!,!WindowsSDKVersion!".execute().text.trim().split(",")
+	def vcvarsEnvCmd = "${vcvarsCmd} > nul && cmd /c echo !WindowsSdkDir!,!WindowsSDKVersion!"
+	def vcvarsOutput = providers.exec {
+		commandLine "cmd", "/v:ON", "/c", vcvarsEnvCmd
+	}.standardOutput.asText.get().trim()
+	def (sdkDir, sdkVersion) = vcvarsOutput.split(",")
 	sdkVersion = sdkVersion.replace('\\', '') // strip trailing backslash
 	println "  -> SDK Directory (default): ${sdkDir}"
 	println "  -> SDK Version (default): ${sdkVersion}"

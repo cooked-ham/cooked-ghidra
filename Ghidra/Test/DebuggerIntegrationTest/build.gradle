@@ -44,7 +44,7 @@ dependencies {
 			evaluationDependsOn(p.path)
 
 			p.plugins.withType(JavaPlugin) {
-				api p
+				api p.dependencies.project(p.path)
 			}
 		}
 	}
