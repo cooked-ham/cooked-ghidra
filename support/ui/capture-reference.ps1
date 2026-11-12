@@ -45,7 +45,7 @@ $null = New-Item -ItemType Directory -Path $projectDir
 $projectStem = [IO.Path]::GetFileNameWithoutExtension($FixtureProject)
 Copy-Item -LiteralPath $FixtureProject -Destination $projectDir
 Copy-Item -LiteralPath ([IO.Path]::ChangeExtension($FixtureProject, '.rep')) -Destination $projectDir -Recurse
-$modules = @('Framework\Gui', 'Framework\Docking', 'Framework\Graph', 'Features\Base', 'Features\Decompiler')
+$modules = @('Framework\Gui', 'Framework\Docking', 'Framework\Graph', 'Features\Base', 'Features\Decompiler', 'Features\FunctionGraph')
 $hashes = @()
 foreach ($module in $modules) {
     $name = Split-Path $module -Leaf

@@ -15,12 +15,11 @@
  */
 package docking.widgets.table;
 
-import java.awt.Component;
-import java.awt.Graphics;
-
 import generic.Span;
 import ghidra.docking.settings.Settings;
 import ghidra.util.table.column.AbstractGColumnRenderer;
+
+import java.awt.*;
 
 public class SpanTableCellRenderer<N extends Number>
 		extends AbstractGColumnRenderer<Span<N, ?>> implements SpannedRenderer<N> {
@@ -60,7 +59,7 @@ public class SpanTableCellRenderer<N extends Number>
 		}
 
 		Graphics g = parentG.create();
-		g.setColor(getForeground());
+        g.setColor(getSpanColor(getForeground()));
 		paintRange(g, dataRange);
 	}
 

@@ -15,21 +15,26 @@
  */
 package docking.widgets.searchlist;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.List;
-import java.util.function.*;
+import docking.DockingChrome;
+import docking.event.mouse.GMouseListenerAdapter;
+import docking.widgets.ViewStatusPanel;
+import docking.widgets.list.GListCellRenderer;
+import generic.theme.GThemeDefaults.Colors.Messages;
+import utility.function.Dummy;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.*;
-
-import docking.event.mouse.GMouseListenerAdapter;
-import docking.DockingChrome;
-import docking.widgets.ViewStatusPanel;
-import generic.theme.GThemeDefaults.Colors.Messages;
-import docking.widgets.list.GListCellRenderer;
-import utility.function.Dummy;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.util.List;
+import java.util.function.*;
 
 /**
  * Component for displaying and selecting from a filterable list of items that are grouped into
@@ -279,12 +284,24 @@ public class SearchList<T> extends JPanel {
 		String newFilterText = textField.getText().trim();
 		if (!newFilterText.equals(currentFilterText)) {
 			currentFilterText = newFilterText;
+			model.setRanking(currentFilterText.isEmpty() ? null : createRanking(currentFilterText));
 			model.setFilter(createFilter(currentFilterText));
 		}
 	}
 
 	protected BiPredicate<T, String> createFilter(String text) {
 		return new DefaultFilter(text);
+	}
+
+	/**
+	 * Creates an optional ranking for the given filter text; lower scores are listed first within
+	 * a category. The default is no ranking (original order).
+	 *
+	 * @param text the filter text
+	 * @return the ranking function, or null
+	 */
+	protected ToIntBiFunction<T, String> createRanking(String text) {
+		return null;
 	}
 
 	public JTextField getTextField() {

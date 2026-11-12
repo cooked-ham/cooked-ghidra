@@ -15,10 +15,7 @@
  */
 package ghidra.app.plugin.core.functiongraph.graph.jung.renderer;
 
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.util.Set;
-
+import docking.DockingChrome;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
@@ -26,6 +23,9 @@ import ghidra.app.plugin.core.functiongraph.graph.FGEdge;
 import ghidra.app.plugin.core.functiongraph.graph.vertex.FGVertex;
 import ghidra.app.plugin.core.functiongraph.graph.vertex.GroupedFunctionGraphVertex;
 import ghidra.graph.viewer.vertex.VisualVertexRenderer;
+
+import java.awt.*;
+import java.util.Set;
 
 public class FGVertexRenderer extends VisualVertexRenderer<FGVertex, FGEdge> {
 
@@ -82,7 +82,11 @@ public class FGVertexRenderer extends VisualVertexRenderer<FGVertex, FGEdge> {
 				paintBounds.x = originalBounds.x + currentOffset;
 				paintBounds.y = originalBounds.y + currentOffset;
 				currentOffset -= offset;
-				paintVertex(rc, g, vertex, paintBounds, layout);
+                if (DockingChrome.isModern()) {
+                    paintStackedLayer(g, vertex, paintBounds, i, size);
+                } else {
+                    paintVertex(rc, g, vertex, paintBounds, layout);
+                }
 			}
 		}
 
@@ -90,6 +94,27 @@ public class FGVertexRenderer extends VisualVertexRenderer<FGVertex, FGEdge> {
 		Rectangle bounds = fullShape.getBounds();
 		paintVertex(rc, g, vertex, bounds, layout);
 	}
+
+    /**
+     * Paints a hollow 'card behind the card' for a grouped vertex.  Each layer is tinted toward
+     * the front card's color and fades with depth, so the stack reads as depth instead of as a
+     * repeated copy of the vertex's contents.
+     */
+    private void paintStackedLayer(GraphicsDecorator g, FGVertex vertex, Rectangle bounds,
+                                   int layerIndex, int layerCount) {
+        Color base = vertex.getBackgroundColor();
+        float depth = (layerIndex + 1f) / (layerCount + 1f); // 0 = near the front card
+        int alpha = Math.round(235 - 120 * depth);
+        Color fill = new Color(base.getRed(), base.getGreen(), base.getBlue(), alpha);
+        Color edge = new Color(0, 0, 0, Math.round(90 - 40 * depth));
+        int arc = 10;
+        Color previous = g.getColor();
+        g.setColor(fill);
+        g.fillRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, arc, arc);
+        g.setColor(edge);
+        g.drawRoundRect(bounds.x, bounds.y, bounds.width, bounds.height, arc, arc);
+        g.setColor(previous);
+    }
 
 	@Override
 	protected void paintVertex(RenderContext<FGVertex, FGEdge> rc, GraphicsDecorator g,

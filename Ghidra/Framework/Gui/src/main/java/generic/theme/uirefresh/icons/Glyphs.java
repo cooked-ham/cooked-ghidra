@@ -15,15 +15,17 @@
  */
 package generic.theme.uirefresh.icons;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.*;
-
-import javax.imageio.ImageIO;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Original UI Refresh glyph set (UI-040). Every glyph is drawn with Java2D on a 16 x 16 grid, one
@@ -244,49 +246,6 @@ public final class Glyphs {
 		g.setStroke(new BasicStroke(2f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		line(g, 9.7, 9.7, 13.8, 13.8);
 		g.setStroke(new BasicStroke(W, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-	}
-
-	private static void statusBadge(Graphics2D g, Color c, String kind) {
-		g.setColor(alpha(c, 0.22));
-		if (kind.equals("warning")) {
-			Path2D t = new Path2D.Double();
-			t.moveTo(8, 1.8);
-			t.lineTo(14.8, 13.8);
-			t.lineTo(1.2, 13.8);
-			t.closePath();
-			g.fill(t);
-			g.setColor(c);
-			g.draw(t);
-			line(g, 8, 6, 8, 9.4);
-			dot(g, 8, 11.6, 0.9);
-			return;
-		}
-		dot(g, 8, 8, 6.5);
-		g.setColor(c);
-		circle(g, 8, 8, 6.5);
-		switch (kind) {
-			case "info" -> {
-				dot(g, 8, 4.9, 0.9);
-				line(g, 8, 7.2, 8, 11.5);
-			}
-			case "error" -> {
-				line(g, 8, 4.4, 8, 8.8);
-				dot(g, 8, 11.3, 0.9);
-			}
-			case "help" -> {
-				Path2D q = new Path2D.Double();
-				q.moveTo(6, 6.2);
-				q.curveTo(6, 3.8, 10.2, 3.8, 10.2, 6.2);
-				q.curveTo(10.2, 7.8, 8, 7.8, 8, 9.4);
-				g.draw(q);
-				dot(g, 8, 11.6, 0.9);
-			}
-			case "stop" -> {
-				line(g, 5.6, 5.6, 10.4, 10.4);
-				line(g, 10.4, 5.6, 5.6, 10.4);
-			}
-			case "not" -> line(g, 3.6, 12.4, 12.4, 3.6);
-		}
 	}
 
 	// ---- the set ----------------------------------------------------------------------------
@@ -518,14 +477,14 @@ public final class Glyphs {
 			fillRrect(g, 3, 7.5, 10, 7, 2);
 			g.setColor(p.ink);
 			rrect(g, 3, 7.5, 10, 7, 2);
-			dot(g, 8, 11, 1);
+			dot(g, 8, 11, 1.3);
 		});
 		GLYPHS.put("unlock", (g, p) -> {
 			g.setColor(p.ink);
 			g.draw(new Arc2D.Double(5, 1.5, 6, 8, 20, 160, Arc2D.OPEN));
 			line(g, 5, 5.5, 5, 7.5);
 			rrect(g, 3, 7.5, 10, 7, 2);
-			dot(g, 8, 11, 1);
+			dot(g, 8, 11, 1.3);
 		});
 		GLYPHS.put("check", (g, p) -> {
 			g.setColor(p.positive);
@@ -946,7 +905,7 @@ public final class Glyphs {
 			g.fill(t);
 			g.setColor(p.ink);
 			g.draw(t);
-			dot(g, 5.5, 6, 1);
+			dot(g, 5.5, 6, 1.3);
 		});
 		GLYPHS.put("tagRemove", (g, p) -> {
 			Path2D t = new Path2D.Double();
@@ -973,7 +932,7 @@ public final class Glyphs {
 			page(g, p, 2.5, 1.5, 11, 13);
 			g.setColor(p.accent);
 			poly(g, false, 4.5, 12, 7, 8.5, 9, 10.5, 10, 9.5, 11.5, 12);
-			dot(g, 10.2, 6.6, 1);
+			dot(g, 10.2, 6.6, 1.3);
 		});
 		GLYPHS.put("fileArchive", (g, p) -> {
 			page(g, p, 2.5, 1.5, 11, 13);
@@ -988,8 +947,8 @@ public final class Glyphs {
 			poly(g, false, 5.5, 2.5, 3, 2.5, 3, 13.5, 5.5, 13.5);
 			poly(g, false, 10.5, 2.5, 13, 2.5, 13, 13.5, 10.5, 13.5);
 			g.setColor(p.accent);
-			dot(g, 6.8, 8, 0.9);
-			dot(g, 9.2, 8, 0.9);
+			dot(g, 6.4, 8, 1.2);
+			dot(g, 9.6, 8, 1.2);
 		});
 		GLYPHS.put("union", (g, p) -> {
 			g.setColor(alpha(p.accent, 0.25));
@@ -1016,6 +975,49 @@ public final class Glyphs {
 		});
 		GLYPHS.put("book", (g, p) -> book(g, p, false));
 		GLYPHS.put("bookOpen", (g, p) -> book(g, p, true));
+	}
+
+	private static void statusBadge(Graphics2D g, Color c, String kind) {
+		g.setColor(alpha(c, 0.22));
+		if (kind.equals("warning")) {
+			Path2D t = new Path2D.Double();
+			t.moveTo(8, 1.8);
+			t.lineTo(14.8, 13.8);
+			t.lineTo(1.2, 13.8);
+			t.closePath();
+			g.fill(t);
+			g.setColor(c);
+			g.draw(t);
+			line(g, 8, 6, 8, 9.4);
+			dot(g, 8, 11.6, 1.2);
+			return;
+		}
+		dot(g, 8, 8, 6.5);
+		g.setColor(c);
+		circle(g, 8, 8, 6.5);
+		switch (kind) {
+			case "info" -> {
+				dot(g, 8, 4.9, 1.2);
+				line(g, 8, 7.2, 8, 11.5);
+			}
+			case "error" -> {
+				line(g, 8, 4.4, 8, 8.8);
+				dot(g, 8, 11.3, 1.2);
+			}
+			case "help" -> {
+				Path2D q = new Path2D.Double();
+				q.moveTo(6, 6.2);
+				q.curveTo(6, 3.8, 10.2, 3.8, 10.2, 6.2);
+				q.curveTo(10.2, 7.8, 8, 7.8, 8, 9.4);
+				g.draw(q);
+				dot(g, 8, 11.6, 1.2);
+			}
+			case "stop" -> {
+				line(g, 5.6, 5.6, 10.4, 10.4);
+				line(g, 10.4, 5.6, 5.6, 10.4);
+			}
+			case "not" -> line(g, 3.6, 12.4, 12.4, 3.6);
+		}
 	}
 
 	private static void book(Graphics2D g, Palette p, boolean open) {

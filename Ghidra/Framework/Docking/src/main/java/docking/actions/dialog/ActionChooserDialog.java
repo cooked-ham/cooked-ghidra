@@ -15,20 +15,11 @@
  */
 package docking.actions.dialog;
 
-import static ghidra.util.HTMLUtilities.*;
-
-import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Locale;
-import java.util.function.BiPredicate;
-
-import javax.swing.*;
-
 import docking.*;
-import docking.action.*;
+import docking.action.DockingActionIf;
+import docking.action.MenuData;
+import docking.action.ToggleDockingActionIf;
+import docking.action.ToolBarData;
 import docking.actions.KeyBindingUtils;
 import docking.widgets.list.GListCellRenderer;
 import docking.widgets.searchlist.SearchList;
@@ -39,6 +30,18 @@ import generic.theme.GThemeDefaults.Colors.Messages;
 import ghidra.util.HTMLUtilities;
 import ghidra.util.Swing;
 import resources.Icons;
+
+import javax.swing.*;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+import java.util.function.BiPredicate;
+import java.util.function.ToIntBiFunction;
+
+import static ghidra.util.HTMLUtilities.HTML_SPACE;
 
 /**
  * Dialog for displaying and invoking docking actions. The dialog will display a mix of local
@@ -169,6 +172,14 @@ public class ActionChooserDialog extends DialogComponentProvider {
 			@Override
 			protected BiPredicate<DockingActionIf, String> createFilter(String text) {
 				return new ActionsFilter(text);
+			}
+
+			@Override
+			protected ToIntBiFunction<DockingActionIf, String> createRanking(String text) {
+				if (!DockingChrome.isModern()) {
+					return null;
+				}
+				return new ActionsFilter(text)::score;
 			}
 		};
 
@@ -399,6 +410,27 @@ public class ActionChooserDialog extends DialogComponentProvider {
 	private record ActionsFilter(String filterText) implements BiPredicate<DockingActionIf, String> {
 		ActionsFilter(String filterText) {
 			this.filterText = filterText.toLowerCase(Locale.ROOT).strip();
+		}
+
+		/**
+		 * Match quality: lower is better. Exact name, name prefix, word prefix, name substring,
+		 * shortcut match, then everything else.
+		 */
+		int score(DockingActionIf t, String category) {
+			String name = getActionDisplayName(t, category).toLowerCase(Locale.ROOT);
+			if (name.equals(filterText)) {
+				return 0;
+			}
+			if (name.startsWith(filterText)) {
+				return 1;
+			}
+			if (name.contains(" " + filterText) || name.contains("." + filterText)) {
+				return 2;
+			}
+			if (name.contains(filterText)) {
+				return 3;
+			}
+			return getKeyBindingString(t).toLowerCase(Locale.ROOT).contains(filterText) ? 4 : 5;
 		}
 
 		@Override

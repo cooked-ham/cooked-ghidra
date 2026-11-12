@@ -15,13 +15,12 @@
  */
 package docking.widgets.searchlist;
 
+import utility.function.Dummy;
+
+import javax.swing.*;
 import java.util.*;
 import java.util.function.BiPredicate;
-
-import javax.swing.AbstractListModel;
-import javax.swing.ListModel;
-
-import utility.function.Dummy;
+import java.util.function.ToIntBiFunction;
 
 /**
  * Default implementation of the {@link SearchListModel}. Since this model's primary purpose is 
@@ -38,6 +37,7 @@ public class DefaultSearchListModel<T> extends AbstractListModel<SearchListEntry
 	private Map<String, List<T>> dataMap = new LinkedHashMap<>();
 	private List<SearchListEntry<T>> displayEntries;
 	private BiPredicate<T, String> currentFilter = Dummy.biPredicate();
+    private ToIntBiFunction<T, String> currentRanking;
 
 	@Override
 	public int getSize() {
@@ -85,6 +85,11 @@ public class DefaultSearchListModel<T> extends AbstractListModel<SearchListEntry
 		rebuildDisplayItems();
 		fireDataChanged();
 	}
+
+    @Override
+    public void setRanking(ToIntBiFunction<T, String> ranking) {
+        this.currentRanking = ranking;
+    }
 
 	private void buildEntriesIfNeeded() {
 		if (displayEntries == null) {
@@ -151,6 +156,10 @@ public class DefaultSearchListModel<T> extends AbstractListModel<SearchListEntry
 				filtered.add(value);
 			}
 		}
+        if (currentRanking != null && filter == currentFilter) {
+            ToIntBiFunction<T, String> ranking = currentRanking;
+            filtered.sort(Comparator.comparingInt(v -> ranking.applyAsInt(v, category)));
+        }
 		return filtered;
 
 	}

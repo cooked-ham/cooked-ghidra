@@ -1,6 +1,6 @@
 {
-  "nodeCount": 254835,
-  "edgeCount": 818686,
+  "nodeCount": 254845,
+  "edgeCount": 818715,
   "languages": [
     "c",
     "cpp",
@@ -9,11 +9,11 @@
     "python",
     "rust"
   ],
-  "totalCount": 254835,
+  "totalCount": 254845,
   "readyCount": 0,
   "staleCount": 0,
   "dirty": false,
   "syncing": false,
-  "syncedAt": "2026-11-12T06:09:42.949Z",
-  "lastFile": "fix4.py"
+  "syncedAt": "2026-11-12T06:37:02.756Z",
+  "lastFile": "capture-reference.ps1"
 }

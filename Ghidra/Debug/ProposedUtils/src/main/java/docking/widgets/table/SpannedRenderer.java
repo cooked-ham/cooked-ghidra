@@ -15,10 +15,9 @@
  */
 package docking.widgets.table;
 
-import java.awt.Component;
-import java.awt.Graphics;
-
 import generic.Span;
+
+import java.awt.*;
 
 public interface SpannedRenderer<N extends Number> {
 
@@ -46,7 +45,7 @@ public interface SpannedRenderer<N extends Number> {
 	 * @param fullSpan the span to validate
 	 * @return the converted span
 	 */
-	public static DoubleSpan validateViewRange(Span<? extends Number, ?> fullSpan) {
+	static DoubleSpan validateViewRange(Span<? extends Number, ?> fullSpan) {
 		return new DoubleSpan(fullSpan.min().doubleValue(), fullSpan.max().doubleValue());
 	}
 
@@ -142,4 +141,19 @@ public interface SpannedRenderer<N extends Number> {
 
 		g.fillRect(x1, y1, x2 - x1, y2 - y1);
 	}
+
+    /**
+     * The color for painting spans given the cell's foreground. Modern chrome softens the bars
+     * so full-width lifespans do not read as solid blocks against the table background.
+     *
+     * @param foreground the cell foreground
+     * @return the color to paint with
+     */
+    default java.awt.Color getSpanColor(java.awt.Color foreground) {
+        if (!docking.DockingChrome.isModern()) {
+            return foreground;
+        }
+        return new java.awt.Color(foreground.getRed(), foreground.getGreen(),
+                foreground.getBlue(), 120);
+    }
 }

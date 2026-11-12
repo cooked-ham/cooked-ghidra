@@ -15,18 +15,19 @@
  */
 package generic.theme.uirefresh.icons;
 
-import java.io.*;
+import generic.jar.ResourceFile;
+import ghidra.framework.Application;
+
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.swing.Icon;
-
-import generic.jar.ResourceFile;
-import ghidra.framework.Application;
 
 /**
  * Maps stock icon ids to {@link Glyphs} (UI-040).
@@ -180,6 +181,29 @@ public final class IconSet {
 		file("pointer", "fingerPointer.png");
 		file("book", "closedBookBlue.png");
 		file("bookOpen", "openBookBlue.png");
+
+		file("stepBack", "stepbackinto.png", "resumeback.png");
+		file("stepInto", "stepover.png", "stepout.png", "steplast.png", "skipover.png");
+		file("stop", "interrupt.png", "kill.png", "media-playback-stop.png");
+		file("notAllowed", "disconnect.png", "detach.png");
+		file("link", "connect.png", "connect-accept.png", "connect-outbound.png", "link.png");
+		file("run", "launch.png", "attach.png");
+		file("window", "process.png", "view_top_bottom.png");
+		file("list", "thread.png", "registers.png");
+		file("pending", "time.png");
+		file("nextBlock", "seek-present.png", "VCRFastForward.gif");
+		file("breakpoint", "breakpoints-enable-all.png");
+		file("breakpointMixed", "breakpoint-disable.png", "breakpoints-disable-all.png");
+		file("delete", "breakpoint-clear.png", "breakpoints-clear-all.png");
+		file("tree", "object-populated.png", "object-unpopulated.png");
+		file("bookmark", "imported_bookmark.gif");
+		file("help", "unknown.gif");
+		file("search", "zoom.png");
+		file("folder", "closedFolderGroup.png", "closedFolderLabels.png");
+		file("folderOpen", "openFolderGroup.png");
+		file("fileCode", "page_white_cup.png");
+		file("table", "table_relationship.png");
+		file("edit", "eclipse.png");
 
 		// stock values are composites (EMPTY_ICON{...}), so map the id itself
 		BY_ID.put("icon.undo", "undo");

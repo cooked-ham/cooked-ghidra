@@ -15,10 +15,10 @@
  */
 package docking.widgets.searchlist;
 
+import javax.swing.*;
 import java.util.List;
 import java.util.function.BiPredicate;
-
-import javax.swing.ListModel;
+import java.util.function.ToIntBiFunction;
 
 /**
  * Interface for the model for {@link SearchList}. It is an extension of a JList's model to add
@@ -32,18 +32,28 @@ public interface SearchListModel<T> extends ListModel<SearchListEntry<T>> {
 	 * Returns the list of categories in the order they were added to the model
 	 * @return the list of categories in the order they were added to the model
 	 */
-	public List<String> getCategories();
+    List<String> getCategories();
 
 	/**
 	 * Sets the filter for the model data to display.
 	 * @param filter the BiPredicate for the model data to display which will filter based on
 	 * the item and its category
 	 */
-	public void setFilter(BiPredicate<T, String> filter);
+    void setFilter(BiPredicate<T, String> filter);
+
+    /**
+     * Sets an optional ranking used to order items within each category; lower scores are shown
+     * first and equal scores keep their original order.
+     *
+     * @param ranking the scoring function (item, category), or null to keep the original order
+     */
+    default void setRanking(ToIntBiFunction<T, String> ranking) {
+        // optional
+    }
 
 	/**
 	 * Clean up any resources held by the model
 	 */
-	public void dispose();
+    void dispose();
 
 }
