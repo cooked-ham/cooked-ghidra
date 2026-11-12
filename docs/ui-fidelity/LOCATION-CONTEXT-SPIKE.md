@@ -84,16 +84,11 @@ It is diagnostic output, not a navigation latency, allocation, repaint, or relea
 baseline. Those measurements and the broader detached/external-reference/restart matrix
 remain open. The feature remains opt-in.
 
-## Work remaining before normal rollout
+## Acceptance follow-up
 
-- Measured latency, repaint/allocation baselines and navigation/cancellation stress tests.
-- History menus/tooltips reflecting actual shortcut bindings, responsive overflow and density review.
-- Provider-to-provider linkage identifying its actual source across detached/multiple tools.
-- Cross-program history, external references, overlays/address spaces, undefined functions,
-  program reopen, detached panes and independently navigated clones need additional
-  end-to-end acceptance. The targeted regressions do not cover every combination in that matrix.
-- Physical DPI, screen-reader names/descriptions, keyboard traversal and focus restoration,
-  saved-tool/process restart, profile preservation and actual user docking acceptance remain open.
-
-The spike supports the integration route and exposes the important history/refresh-lock semantics.
-It does not close milestone 1 or establish an effort estimate for exhaustive coverage.
+See [the current acceptance matrix](LOCATION-CONTEXT-ACCEPTANCE.md) for history menus,
+shortcut-aware tooltips, responsive overflow, performance measurements, disk reload,
+external references, detached layout restoration, independent views, multiple tools,
+keyboard bindings and accessibility metadata. The matrix distinguishes those software
+checks from process restart, physical input, assistive technology and hardware gates.
+The feature remains opt-in; milestone 1's release acceptance is not closed.

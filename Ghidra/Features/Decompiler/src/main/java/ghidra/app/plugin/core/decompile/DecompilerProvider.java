@@ -284,6 +284,18 @@ public class DecompilerProvider extends NavigatableComponentProviderAdapter
 			detail = follows ? "Listing and Decompiler show the same program and function; C cursor addresses are approximate." :
 				"The displayed Decompiler function differs from the current Listing location.";
 		}
+		if (isConnected()) {
+			GoToService goTo = tool.getService(GoToService.class);
+			Navigatable source = goTo == null ? null : goTo.getDefaultNavigatable();
+			ProgramLocation sourceLocation = source == null ? null : source.getLocation();
+			if (sourceLocation != null && sourceLocation.getProgram() != null) {
+				String instance = tool.getInstanceName();
+				detail += " Source: connected Listing in " + tool.getName() +
+					(instance.isEmpty() ? "" : " [" + instance + "]") + ", " +
+					sourceLocation.getProgram().getDomainFile().getPathname() + " at " +
+					sourceLocation.getAddress().toString(true) + ".";
+			}
+		}
 		if (lockDisplay) {
 			state += overlayPainter.isActive() ? " / stale / refresh locked" : " / refresh locked";
 			detail += " Automatic refresh after edits is locked; location navigation remains enabled.";

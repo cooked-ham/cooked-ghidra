@@ -16,24 +16,28 @@
 package ghidra.app.nav;
 
 import java.awt.*;
-import java.util.function.Supplier;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 
 import javax.swing.*;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 import docking.DockingContextListener;
-import ghidra.app.services.ProgramManager;
-import ghidra.framework.model.DomainObjectListener;
-import ghidra.program.model.symbol.Namespace;
-import ghidra.program.model.symbol.Symbol;
-import ghidra.program.model.symbol.SymbolIterator;
+import docking.action.DockingActionIf;
+import docking.actions.KeyBindingUtils;
 import ghidra.app.plugin.core.symboltree.SymbolTreeService;
 
 import ghidra.app.services.GoToService;
 import ghidra.app.services.NavigationHistoryService;
+import ghidra.app.services.ProgramManager;
+import ghidra.framework.model.DomainObjectListener;
 import ghidra.framework.plugintool.PluginTool;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.listing.Function;
 import ghidra.program.model.listing.Program;
+import ghidra.program.model.symbol.Namespace;
+import ghidra.program.model.symbol.Symbol;
+import ghidra.program.model.symbol.SymbolIterator;
 import ghidra.program.util.ProgramLocation;
 
 /**
@@ -56,7 +60,15 @@ public class LocationContextPanel extends JPanel {
 	private final JButton namespace = button("Global", "Browse namespace symbols");
 	private final JButton functionButton = button("No location", "Go to function entry");
 	private final JButton addressButton = button("—", "Go to displayed address");
-	private final JLabel state = new JLabel("Unavailable");
+	private final JLabel state = new JLabel("Unavailable") {
+		@Override public Dimension getPreferredSize() {
+			Dimension size = super.getPreferredSize();
+			return new Dimension(Math.min(140, size.width), size.height);
+		}
+	};
+	private final JButton overflow = button("…", "More location context");
+	private DockingActionIf previousAction;
+	private DockingActionIf nextAction;
 	private final DockingContextListener contextListener = _ -> requestRefresh();
 	private final DomainObjectListener programListener = _ -> requestRefresh();
 	private Program observedProgram;
@@ -92,23 +104,50 @@ public class LocationContextPanel extends JPanel {
 		history.add(next);
 		add(history, BorderLayout.WEST);
 
-		JPanel crumbs = new JPanel(new FlowLayout(FlowLayout.LEADING, 2, 0));
+		JPanel crumbs = new JPanel(null) {
+			@Override public Dimension getPreferredSize() {
+				return new Dimension(300, addressButton.getPreferredSize().height);
+			}
+			@Override public void doLayout() {
+				JButton[] segments = { programButton, namespace, functionButton, addressButton };
+				int needed = 0;
+				for (JButton segment : segments) needed += segment.getPreferredSize().width + 2;
+				boolean collapsed = needed > getWidth();
+				overflow.setVisible(collapsed);
+				int x = collapsed ? Math.min(getWidth(), overflow.getPreferredSize().width) : 0;
+				overflow.setBounds(0, 0, x, getHeight());
+				for (int i = 0; i < segments.length; i++) {
+					JButton segment = segments[i];
+					segment.setVisible(!collapsed || i == segments.length - 1);
+					if (!segment.isVisible()) continue;
+					int width = Math.max(0, Math.min(segment.getPreferredSize().width, getWidth() - x));
+					segment.setBounds(x, 0, width, getHeight());
+					x += width + 2;
+				}
+			}
+		};
+		crumbs.setMinimumSize(new Dimension(0, 0));
+		crumbs.add(overflow);
 		crumbs.add(programButton);
-		crumbs.add(new JLabel("/"));
 		crumbs.add(namespace);
-		crumbs.add(new JLabel("/"));
 		crumbs.add(functionButton);
-		crumbs.add(new JLabel("/"));
 		crumbs.add(addressButton);
-		namespace.putClientProperty("html.disable", true);
-		JScrollPane scroller = new JScrollPane(crumbs, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
-			ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroller.setBorder(BorderFactory.createEmptyBorder());
-		scroller.setMinimumSize(new Dimension(0, 0));
-		// Reserve scrollbar height so long names do not obscure the breadcrumb buttons.
-		scroller.setPreferredSize(new Dimension(300,
-			crumbs.getPreferredSize().height + scroller.getHorizontalScrollBar().getPreferredSize().height));
-		add(scroller, BorderLayout.CENTER);
+		add(crumbs, BorderLayout.CENTER);
+		overflow.addActionListener(_ -> {
+			JPopupMenu menu = new JPopupMenu();
+			for (JButton segment : new JButton[] { programButton, namespace, functionButton, addressButton }) {
+				JMenuItem item = new JMenuItem(segment.getText());
+				item.putClientProperty("html.disable", true);
+				item.setEnabled(segment.isEnabled());
+				item.setToolTipText(segment.getToolTipText());
+				item.addActionListener(_ -> segment.doClick());
+				menu.add(item);
+			}
+			menu.show(overflow, 0, overflow.getHeight());
+		});
+		installHistoryMenu(previous, false);
+		installHistoryMenu(next, true);
+
 		state.setName("Location linkage state");
 		add(state, BorderLayout.EAST);
 
@@ -220,16 +259,88 @@ public class LocationContextPanel extends JPanel {
 		addressButton.setText(addressText);
 		addressButton.setToolTipText("Displayed address: " + addressText);
 		state.setText(context.state());
+		state.getAccessibleContext().setAccessibleName(context.state());
 		state.setToolTipText(context.detail());
 		state.getAccessibleContext().setAccessibleDescription(context.detail());
 		GoToService goTo = tool.getService(GoToService.class);
 		programButton.setEnabled(tool.getService(ProgramManager.class) != null);
 		functionButton.setEnabled(goTo != null && functionEntry != null);
 		addressButton.setEnabled(goTo != null && targetAddress != null);
+		updateHistoryTooltips();
 		NavigationHistoryService history = tool.getService(NavigationHistoryService.class);
 		Navigatable historyTarget = historyTarget();
 		previous.setEnabled(history != null && historyTarget != null && history.hasPrevious(historyTarget));
 		next.setEnabled(history != null && historyTarget != null && history.hasNext(historyTarget));
+		for (JButton segment : new JButton[] { programButton, namespace, functionButton, addressButton }) {
+			segment.getAccessibleContext().setAccessibleDescription(segment.getToolTipText());
+		}
+	}
+
+	private void showMenu(JPopupMenu menu, JButton anchor) {
+		JButton visibleAnchor = anchor.isShowing() ? anchor : overflow;
+		menu.show(visibleAnchor, 0, visibleAnchor.getHeight());
+	}
+
+	private void installHistoryMenu(JButton button, boolean forward) {
+		JPopupMenu menu = new JPopupMenu();
+		button.setComponentPopupMenu(menu);
+		menu.addPopupMenuListener(new PopupMenuListener() {
+			@Override public void popupMenuWillBecomeVisible(PopupMenuEvent event) {
+				menu.removeAll();
+				NavigationHistoryService history = tool.getService(NavigationHistoryService.class);
+				Navigatable target = historyTarget();
+				if (history == null || target == null) return;
+				var locations = forward ? history.getNextLocations(target) : history.getPreviousLocations(target);
+				for (LocationMemento location : locations) {
+					Program program = location.getProgram();
+					if (program == null || program.isClosed() || !location.isValid()) continue;
+					JMenuItem item = new JMenuItem(program.getName() + " — " + location.getLocationDescription());
+					item.putClientProperty("html.disable", true);
+					item.setToolTipText(program.getDomainFile().getPathname());
+					item.addActionListener(_ -> {
+						if (program.isClosed() || target.isDisposed()) return;
+						if (forward) history.next(target, location);
+						else history.previous(target, location);
+						navigatable.requestFocus();
+						requestRefresh();
+					});
+					menu.add(item);
+				}
+				if (menu.getComponentCount() == 0) {
+					JMenuItem empty = new JMenuItem("No history");
+					empty.setEnabled(false);
+					menu.add(empty);
+				}
+			}
+			@Override public void popupMenuWillBecomeInvisible(PopupMenuEvent event) { }
+			@Override public void popupMenuCanceled(PopupMenuEvent event) { }
+		});
+		button.getInputMap().put(KeyStroke.getKeyStroke("alt DOWN"), "locationHistory");
+		button.getActionMap().put("locationHistory", new AbstractAction() {
+			@Override public void actionPerformed(java.awt.event.ActionEvent event) {
+				menu.show(button, 0, button.getHeight());
+			}
+		});
+	}
+
+	private void updateHistoryTooltips() {
+		if (previousAction == null || nextAction == null) {
+			for (DockingActionIf action : tool.getAllActions()) {
+				if (!action.getOwner().equals("NextPrevAddressPlugin")) continue;
+				if (action.getName().equals("Previous Location in History")) previousAction = action;
+				if (action.getName().equals("Next Location in History")) nextAction = action;
+			}
+		}
+		setHistoryTooltip(previous, previousAction);
+		setHistoryTooltip(next, nextAction);
+	}
+
+	private void setHistoryTooltip(JButton button, DockingActionIf action) {
+		String binding = action == null || action.getKeyBinding() == null ? "" :
+			" (" + KeyBindingUtils.parseKeyStroke(action.getKeyBinding()) + ")";
+		String description = button.getName() + binding + "; right-click or Alt+Down for history";
+		button.setToolTipText(description);
+		button.getAccessibleContext().setAccessibleDescription(description);
 	}
 
 	private void showPrograms() {
@@ -247,11 +358,12 @@ public class LocationContextPanel extends JPanel {
 			item.addActionListener(_ -> {
 				if (program.isClosed()) return;
 				if (navigatable.isConnected()) manager.setCurrentProgram(program);
+				navigatable.requestFocus();
 				requestRefresh();
 			});
 			menu.add(item);
 		}
-		menu.show(programButton, 0, programButton.getHeight());
+		showMenu(menu, programButton);
 	}
 
 	private void showNamespace() {
@@ -298,6 +410,7 @@ public class LocationContextPanel extends JPanel {
 				GoToService service = tool.getService(GoToService.class);
 				if (service != null && !program.isClosed()) {
 					service.goTo(navigatable, new ProgramLocation(program, address), program);
+					navigatable.requestFocus();
 				}
 			});
 			menu.add(item);
@@ -314,7 +427,7 @@ public class LocationContextPanel extends JPanel {
 			menu.add(nextPage);
 		}
 		if (count == 0) menu.add(new JLabel("No addressable symbols"));
-		menu.show(namespace, 0, namespace.getHeight());
+		showMenu(menu, namespace);
 	}
 
 	private void navigateHistory(boolean forward) {

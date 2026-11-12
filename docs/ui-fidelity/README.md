@@ -90,7 +90,8 @@ describe the exact exercised states; passing a subset of checks does not remove 
    Windows debugging and specialist failure cases remain fixture gaps; available data is not a
    claim that every specialist dialog has been reviewed.
 3. Review the remaining location-context cases and performance baselines in the spike report.
-   Polling has been replaced by lifecycle-managed events, with 16 integration regressions;
+   Polling has been replaced by lifecycle-managed events, with 36 integration regressions
+   and an explicit-save exit/relaunch check; see [acceptance evidence](LOCATION-CONTEXT-ACCEPTANCE.md);
    production rollout remains opt-in pending the remaining acceptance work.
 4. Review physical DPI, keyboard traversal, screen-reader output, performance, process restart,
    detached windows and preservation of existing profiles. Fresh-profile default migration is later work.
