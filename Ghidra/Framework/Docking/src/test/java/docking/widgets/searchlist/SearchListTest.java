@@ -101,6 +101,27 @@ public class SearchListTest extends AbstractDockingTest {
 		assertEquals("fruits", lastChoiceCategory);
 	}
 
+	@Test
+	public void testEnterInListChoosesOnceWhenCallbackDisposesModel() {
+		java.util.concurrent.atomic.AtomicInteger choices = new java.util.concurrent.atomic.AtomicInteger();
+		runSwing(() -> {
+			SearchList<String> disposing = new SearchList<>(model, (_, _) -> {
+				choices.incrementAndGet();
+				model.dispose();
+			});
+			JList<?> list = findComponent(disposing, JList.class);
+			assertNotNull(list);
+			disposing.setSelectedItem("apple");
+			KeyEvent enter = new KeyEvent(list, KeyEvent.KEY_TYPED, System.currentTimeMillis(),
+				0, KeyEvent.VK_UNDEFINED, '\n');
+			for (java.awt.event.KeyListener listener : list.getKeyListeners()) {
+				listener.keyTyped(enter);
+			}
+			assertTrue(enter.isConsumed());
+		});
+		assertEquals(1, choices.get());
+	}
+
 	private DefaultSearchListModel<String> createModel() {
 		DefaultSearchListModel<String> listModel = new DefaultSearchListModel<>();
 		List<String> fruits = List.of("apple", "banana", "cherry", "date");

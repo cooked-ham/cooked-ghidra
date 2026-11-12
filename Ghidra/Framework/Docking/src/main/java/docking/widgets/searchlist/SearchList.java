@@ -431,12 +431,9 @@ public class SearchList<T> extends JPanel {
 		@Override
 		public void keyTyped(KeyEvent e) {
 			if (e.getKeyChar() == '\n') {
+				e.consume();
 				chooseItem();
-
-			}
-			int keyCode = e.getKeyChar();
-			if (keyCode == KeyEvent.VK_ENTER) {
-				chooseItem();
+				return;
 			}
 
 			KeyboardFocusManager.getCurrentKeyboardFocusManager().redispatchEvent(textField, e);
