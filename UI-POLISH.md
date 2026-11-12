@@ -7,6 +7,40 @@ are the foundation; they do not complete the polish work.
 The original roadmap and evidence live in `E:\ghidra-ui-refresh\docs`.
 The owner's future-work decisions and milestone plan are in [UI-FIDELITY-PLAN.md](UI-FIDELITY-PLAN.md).
 
+## Specialist surfaces and help callout fix — 2026-11-11
+
+Fixed the help callout NPE that occurred when a theme change reloaded the help page while a
+navigation callout was still pending. `DockingHelpBroker.reload()` now disposes the old callout,
+and `CalloutRequest` tolerates a missing scroll pane, a missing anchor and a page that is still
+reloading instead of dereferencing a null reference area. The rebuilt Docking jar is
+SHA-256 `9D630328FA40077C7B450BB3AE25E542E8696A34695DBA58A58A79F0F6613CC2`.
+
+The specialist review now runs one surface per Ghidra process and records real populated providers
+from the prepared fixture:
+
+- Code Browser: source program, program diff, two-function comparison and a BSim query with
+  11 cross-program hits.
+- Version Tracking: four manual matches (one accepted, one rejected, two available), markup
+  provider and first-match comparison.
+- Debugger: saved synthetic trace with 21 snapshots, two threads and a populated stack/register
+  view.
+
+The review report has six evidence rows, nine screenshots and seven runtime registration captures.
+Evidence is in [specialists/populated](docs/ui-fidelity/references/specialists/populated/); the raw
+run is `build/verification/graphite-specialist-ui-final8`. None of the three surface application
+logs contains a `NullPointerException`, `CalloutRequest` or `ERROR` entry after the fix.
+
+The runner is now a single-run tool: it takes a process lock, reclaims a stale lock only after
+checking the recorded PID is dead, limits each surface to four minutes, and kills that surface's
+own JVM before starting the next one. The earlier repeated-run behavior came from a second agent
+session and from a foreground shell cutoff that left Ghidra running; both have been removed. Each
+invocation now produces one tagged run directory and does not overlap another invocation.
+
+These are data/visibility checks with in-process Swing painting and off-screen tool frames, not
+visual, interaction, physical-DPI or accessibility acceptance. Live Windows debugger agents,
+BSim authentication/network failures, VT failure paths and the deliberately unresolved repository
+conflict remain open.
+
 ## Runtime reconciliation and specialist fixtures — 2026-11-11
 
 [Runtime discovery](docs/ui-fidelity/RUNTIME-RECONCILIATION.md) now combines 2,765 registrations
@@ -35,8 +69,8 @@ compilation and the executing headless/capture harness provide their validation 
 
 Source fixture routing now recognizes graph, merge/repository and version-control surfaces, and
 VersionTrackingBSim uses the VT fixture. Inventory acceptance statuses are unchanged. Optional
-installations, source-only candidates, populated specialist UI, live Windows debugger agents,
-failure paths and Windows acceptance remain open. Milestones 0 and 1 are still incomplete; the
+installations, source-only candidates, visual/interaction acceptance of the populated specialist
+surfaces, live Windows debugger agents, failure paths and Windows acceptance remain open. Milestones 0 and 1 are still incomplete; the
 location-context spike and production rollout flag have not changed in this slice.
 
 ## IDE diagnostics cleanup — 2026-11-11

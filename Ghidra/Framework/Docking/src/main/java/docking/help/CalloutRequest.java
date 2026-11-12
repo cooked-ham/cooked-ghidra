@@ -115,6 +115,11 @@ class CalloutRequest {
 
 	private void start() {
 		JScrollPane scrollPane = getScrollPane();
+		if (scrollPane == null) {
+			dispose();
+			return;
+		}
+
 		JViewport viewport = scrollPane.getViewport();
 		viewport.addChangeListener(changeListener);
 
@@ -134,16 +139,34 @@ class CalloutRequest {
 
 		// stop listening for document changes now that we are going to do our work
 		JScrollPane scrollPane = getScrollPane();
+		if (scrollPane == null) {
+			// The help window is being torn down or rebuilt; this request is no longer valid.
+			dispose();
+			return;
+		}
+
 		JViewport viewport = scrollPane.getViewport();
 		viewport.removeChangeListener(changeListener);
 
 		// Always place the area at the top of the screen.
 		String ref = requestUrl.getRef();
 		Rectangle currentRefArea = getReferenceArea(ref);
+		if (currentRefArea == null) {
+			// The page may be reloading (for example, after a theme change), in which case the
+			// anchor is not available yet.  There is nothing to scroll to or call out.
+			dispose();
+			return;
+		}
+
 		currentRefArea.y += (viewport.getHeight() - currentRefArea.getHeight());
 		editorPane.scrollRectToVisible(currentRefArea);
 
 		Rectangle updatedRefArea = getReferenceArea(ref);
+		if (updatedRefArea == null) {
+			dispose();
+			return;
+		}
+
 		doCalloutReference(updatedRefArea);
 	}
 
@@ -171,6 +194,10 @@ class CalloutRequest {
 		}
 		catch (BadLocationException ble) {
 			Msg.trace(this, "Unexpected exception searching for help reference", ble);
+			return null;
+		}
+
+		if (startArea == null) {
 			return null;
 		}
 

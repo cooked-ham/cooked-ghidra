@@ -1,0 +1,59 @@
+{
+  "rendering": "In-process Swing painting; off-screen tool frames; not visual acceptance",
+  "distribution": "E:\\cooked-ghidra\\build\\verification\\runtime-specialist-ui",
+  "fixture": "E:\\cooked-ghidra\\build\\verification\\graphite-specialists-acceptance-inputs",
+  "probeJarSha256": "5A73842329BBA1322ED6ECC45D9CC5025A73D1C16616A107081658C284CCB492",
+  "revision": "ea6266560628a80e2573964f60f4c49fe6dcf7a3",
+  "logicalScale": 1.0,
+  "surfaces": [
+    "codebrowser",
+    "vt",
+    "debugger"
+  ],
+  "sequence": "one surface per process",
+  "scripts": [
+    {
+      "sha256": "70B837C9FD3E6985BAD5B560F941AE07A23D3485830DDAFED1FA7C05B3674DF7",
+      "script": "adapt_specialist_probe.py"
+    },
+    {
+      "sha256": "6059D2C04EB638EA570A80930623EC8BF8C903AFF2DA91EBFABE34A705CE8E73",
+      "script": "SpecialistReview.java"
+    },
+    {
+      "sha256": "0B7D825111ABB8EE64D48343ED4F9A2CE659164D997127BEF3F218E3337F32DA",
+      "script": "RuntimeInventory.java"
+    },
+    {
+      "sha256": "85BBCAAD5E09369FDBEA0BAF0DCA59F0AFDB5A1FA961D5BDB1852AD258764480",
+      "script": "review-specialists.ps1"
+    }
+  ],
+  "timestamp": "2026-11-12T02:01:35.7581504Z",
+  "runDirectory": "build/verification/graphite-specialist-ui-final8",
+  "dockingJar": "Ghidra/Framework/Docking/lib/Docking.jar",
+  "dockingJarSha256": "9D630328FA40077C7B450BB3AE25E542E8696A34695DBA58A58A79F0F6613CC2",
+  "reviewRows": 6,
+  "screenshots": [
+    "codebrowser-source.png",
+    "program-diff-dialog.png",
+    "program-diff.png",
+    "code-compare.png",
+    "bsim-search-dialog.png",
+    "bsim-search-results.png",
+    "version-tracking.png",
+    "version-tracking-compare.png",
+    "debugger-trace.png"
+  ],
+  "runtimeCaptures": [
+    "capture.csv.specialist.codebrowser.bsim.runtime.csv",
+    "capture.csv.specialist.codebrowser.compare.runtime.csv",
+    "capture.csv.specialist.codebrowser.diff.runtime.csv",
+    "capture.csv.specialist.codebrowser.source.runtime.csv",
+    "capture.csv.specialist.debugger.trace.runtime.csv",
+    "capture.csv.specialist.versiontracking.compare.runtime.csv",
+    "capture.csv.specialist.versiontracking.matches.runtime.csv"
+  ],
+  "logCheck": "No NullPointerException, CalloutRequest or ERROR entries in the codebrowser, vt or debugger application logs.",
+  "note": "Data and visibility checks only; in-process Swing painting and off-screen tool frames, not layout, styling or interaction acceptance."
+}

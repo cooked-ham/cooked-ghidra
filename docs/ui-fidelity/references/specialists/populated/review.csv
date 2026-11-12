@@ -1,0 +1,7 @@
+surface,fixture,implementation,entry_path,populated_evidence,screenshots
+"source program","FX-COMPARE","CodeBrowser","source.bin opened","five functions; source compare immediate 42","codebrowser-source.png"
+"program diff","FX-COMPARE","ProgramDiffPlugin","Tools > View Program Differences","diff active; changed immediate/name/type/unmatched","program-diff.png"
+"code compare","FX-COMPARE","FunctionComparisonProvider","Version Tracking / Compare Functions","two populated function panels","code-compare.png"
+"BSim search","FX-BSIM","BSimSearchDialog / BSimSearchResultsProvider","BSim > Search Functions...","two-executable fixture queried; 11 cross-program hits","bsim-search-dialog.png;bsim-search-results.png"
+"version tracking","FX-VT","VTPlugin / VTMatchTableProvider","Version Tracking tool / saved session","four manual matches (1 accepted, 1 rejected, 2 available); markup provider visible","version-tracking.png;version-tracking-compare.png"
+"debugger trace","FX-DEBUG","Debugger / DebuggerTraceManagerService","Debugger tool / saved trace","21 snapshots, two threads, best stack=1 frames at snap 0; saved synthetic trace","debugger-trace.png"

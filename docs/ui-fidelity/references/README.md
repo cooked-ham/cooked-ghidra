@@ -42,8 +42,11 @@ names for raw synthetic inputs. See [fixture preparation](../FIXTURES.md).
   [Reconciliation findings](../RUNTIME-RECONCILIATION.md) distinguish implementation classes,
   registering owners and per-module gaps. Registration is not visual or interaction review.
 - [Specialist preparation evidence](specialists/) records comparison/VT/BSim/saved-trace and real
-  two-user repository/merge inputs. Populated specialist UI and live Windows debugger acceptance
-  remain open; the prepared conflict has deliberately not been resolved.
+  two-user repository/merge inputs. [Populated specialist capture](specialists/populated/) now
+  records the real Code Browser comparison/diff/BSim, Version Tracking and Debugger providers with
+  their populated data, nine screenshots and runtime registrations. Visual layout/interaction
+  acceptance and live Windows debugger agents remain open; the prepared conflict has deliberately
+  not been resolved.
 
 Source-driven discovery has 10,243 candidates across 132 module/build roots. That count includes
 infrastructure, entry hooks and assets; it is not 10,243 distinct UI windows. Full first-party runtime

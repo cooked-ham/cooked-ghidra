@@ -147,15 +147,27 @@ public class DockingHelpBroker extends GHelpBroker {
 // Navigation Aid Section
 //=================================================================================================
 
+	@Override
+	public void reload() {
+		// A theme change reloads the help set and rebuilds the page.  Any pending callout
+		// belongs to the old document, so don't let it run against the new one.
+		disposeCallout();
+		super.reload();
+	}
+
 	private void prepareToCallout(URL url) {
-		if (callout != null) {
-			// prevent animations from lingering when moving to new pages
-			callout.dispose();
-			callout = null;
-		}
+		// prevent animations from lingering when moving to new pages
+		disposeCallout();
 
 		callout = new CalloutRequest(this, htmlEditorPane, url);
 		callout.runLater();
+	}
+
+	private void disposeCallout() {
+		if (callout != null) {
+			callout.dispose();
+			callout = null;
+		}
 	}
 
 	private class HelpIDChangedListener implements HelpModelListener {

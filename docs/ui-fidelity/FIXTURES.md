@@ -105,6 +105,8 @@ try {
 
 Connect as `ui_bob` with the fixture password. Reviewing merge resolution consumes this scenario;
 generate a fresh fixture directory to repeat it. Saved traces, H2 and shared projects are prepared
-data, not specialist UI acceptance. Live dbgeng/x64dbg agents and full failed/cancelled/disconnected
+data; the [populated provider capture](references/specialists/populated/) records what the real
+Code Browser, Version Tracking and Debugger providers display, but visual and interaction
+acceptance remains open. Live dbgeng/x64dbg agents and full failed/cancelled/disconnected
 state coverage remain open. Headless success is checked with explicit assertion reports/markers,
 because script-loading errors can otherwise leave a zero process exit code.
