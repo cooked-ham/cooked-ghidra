@@ -34,6 +34,7 @@ import edu.uci.ics.jung.visualization.renderers.BasicEdgeRenderer;
 import edu.uci.ics.jung.visualization.transform.LensTransformer;
 import edu.uci.ics.jung.visualization.transform.MutableTransformer;
 import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
+import docking.DockingChrome;
 import edu.uci.ics.jung.visualization.util.VertexShapeFactory;
 import generic.theme.GThemeDefaults.Colors.Palette;
 import ghidra.graph.VisualGraph;
@@ -289,6 +290,15 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 		BasicStroke selectedAccentStroke = getSelectedAccentStroke(e, scale);
 		BasicStroke empahsisStroke = getEmphasisStroke(e, scale);
 
+		boolean modern = DockingChrome.isModern();
+		if (modern) {
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL,
+				RenderingHints.VALUE_STROKE_PURE);
+			float baseWidth = 1.6f / (float) Math.pow(scale, .80);
+			g.setStroke(new BasicStroke(baseWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		}
+
 		// basic shape
 		g.setPaint(drawColor);
 		g.draw(edgeShape);
@@ -320,7 +330,7 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 		if (isSelected) {
 			Stroke saveStroke = g.getStroke();
 
-			g.setPaint(selectedAccentColor);
+			g.setPaint(modern ? withAlpha(selectedAccentColor, 110) : selectedAccentColor);
 			g.setStroke(selectedAccentStroke);
 			g.draw(edgeShape);
 
@@ -451,19 +461,30 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 			new float[] { width * 1, width * 2 }, width * 3 * dashingPatternOffset);
 	}
 
+	private static Color withAlpha(Color c, int alpha) {
+		return new Color(c.getRed(), c.getGreen(), c.getBlue(), alpha);
+	}
+
+	private static BasicStroke solidStroke(float width) {
+		if (DockingChrome.isModern()) {
+			return new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+		}
+		return new BasicStroke(width);
+	}
+
 	private BasicStroke getFocusedPathStroke(E e, float scale) {
 		float width = FOCUSED_PATH_STROKE_WIDTH / (float) Math.pow(scale, .80);
-		return new BasicStroke(width);
+		return solidStroke(width);
 	}
 
 	private BasicStroke getSelectedStroke(E e, float scale) {
 		float width = SELECTED_STROKE_WIDTH / (float) Math.pow(scale, .80);
-		return new BasicStroke(width);
+		return solidStroke(width);
 	}
 
 	private BasicStroke getSelectedAccentStroke(E e, float scale) {
 		float width = (SELECTED_STROKE_WIDTH + 2) / (float) Math.pow(scale, .80);
-		return new BasicStroke(width);
+		return solidStroke(width);
 	}
 
 	private BasicStroke getEmphasisStroke(E e, float scale) {

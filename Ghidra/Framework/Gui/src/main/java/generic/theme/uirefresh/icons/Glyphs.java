@@ -881,6 +881,159 @@ public final class Glyphs {
 		GLYPHS.put("letterF", (g, p) -> letter(g, p, "F"));
 		GLYPHS.put("letterV", (g, p) -> letter(g, p, "V"));
 		GLYPHS.put("letterB", (g, p) -> letter(g, p, "B"));
+		GLYPHS.put("letterC", (g, p) -> letter(g, p, "C"));
+		// debugger and trace artwork
+		GLYPHS.put("stepInto", (g, p) -> {
+			g.setColor(p.ink);
+			arrow(g, 8, 2.5, 8, 10);
+			g.setColor(p.accent);
+			dot(g, 8, 13, 1.6);
+		});
+		GLYPHS.put("stepBack", (g, p) -> {
+			g.setColor(p.ink);
+			arrow(g, 13, 8, 5, 8);
+			line(g, 2.8, 3.5, 2.8, 12.5);
+		});
+		GLYPHS.put("record", (g, p) -> {
+			g.setColor(p.error);
+			circle(g, 8, 8, 6);
+			dot(g, 8, 8, 3);
+		});
+		GLYPHS.put("breakpoint", (g, p) -> {
+			g.setColor(alpha(p.error, 0.35));
+			g.fill(new Ellipse2D.Double(2.5, 2.5, 11, 11));
+			g.setColor(p.error);
+			circle(g, 8, 8, 5.5);
+		});
+		GLYPHS.put("breakpointMixed", (g, p) -> {
+			g.setColor(alpha(p.error, 0.35));
+			g.fill(new Arc2D.Double(2.5, 2.5, 11, 11, 90, 180, Arc2D.CHORD));
+			g.setColor(p.error);
+			circle(g, 8, 8, 5.5);
+			line(g, 8, 2.5, 8, 13.5);
+		});
+		GLYPHS.put("stack", (g, p) -> {
+			g.setColor(p.ink);
+			rrect(g, 2.5, 2.5, 11, 3, 1.5);
+			rrect(g, 2.5, 6.5, 11, 3, 1.5);
+			g.setColor(p.accent);
+			rrect(g, 2.5, 10.5, 11, 3, 1.5);
+		});
+		GLYPHS.put("modules", (g, p) -> {
+			g.setColor(p.ink);
+			rrect(g, 2.5, 2.5, 5, 5, 1.5);
+			rrect(g, 8.5, 2.5, 5, 5, 1.5);
+			rrect(g, 2.5, 8.5, 5, 5, 1.5);
+			g.setColor(p.accent);
+			rrect(g, 8.5, 8.5, 5, 5, 1.5);
+		});
+		GLYPHS.put("sync", (g, p) -> {
+			g.setColor(p.ink);
+			arrow(g, 5, 13, 5, 3);
+			g.setColor(p.accent);
+			arrow(g, 11, 3, 11, 13);
+		});
+		// tags
+		GLYPHS.put("tag", (g, p) -> {
+			Path2D t = new Path2D.Double();
+			t.moveTo(2.5, 3.5);
+			t.lineTo(8.5, 3.5);
+			t.lineTo(13.5, 8.5);
+			t.lineTo(8.5, 13.5);
+			t.lineTo(2.5, 7.5);
+			t.closePath();
+			g.setColor(alpha(p.accent, 0.25));
+			g.fill(t);
+			g.setColor(p.ink);
+			g.draw(t);
+			dot(g, 5.5, 6, 1);
+		});
+		GLYPHS.put("tagRemove", (g, p) -> {
+			Path2D t = new Path2D.Double();
+			t.moveTo(2.5, 3.5);
+			t.lineTo(8.5, 3.5);
+			t.lineTo(13.5, 8.5);
+			t.lineTo(8.5, 13.5);
+			t.lineTo(2.5, 7.5);
+			t.closePath();
+			g.setColor(p.ink);
+			g.draw(t);
+			g.setColor(p.error);
+			line(g, 9.5, 2.5, 14, 7);
+			line(g, 14, 2.5, 9.5, 7);
+		});
+		// file kinds (file system browser)
+		GLYPHS.put("fileCode", (g, p) -> {
+			page(g, p, 2.5, 1.5, 11, 13);
+			g.setColor(p.accent);
+			poly(g, false, 6.6, 7.2, 5, 9, 6.6, 10.8);
+			poly(g, false, 9.4, 7.2, 11, 9, 9.4, 10.8);
+		});
+		GLYPHS.put("fileImage", (g, p) -> {
+			page(g, p, 2.5, 1.5, 11, 13);
+			g.setColor(p.accent);
+			poly(g, false, 4.5, 12, 7, 8.5, 9, 10.5, 10, 9.5, 11.5, 12);
+			dot(g, 10.2, 6.6, 1);
+		});
+		GLYPHS.put("fileArchive", (g, p) -> {
+			page(g, p, 2.5, 1.5, 11, 13);
+			g.setColor(p.accent);
+			line(g, 8, 4.5, 8, 6);
+			line(g, 8, 7, 8, 8.5);
+			rrect(g, 6.7, 9.6, 2.6, 3, 1);
+		});
+		// data-type and symbol-tree kinds
+		GLYPHS.put("array", (g, p) -> {
+			g.setColor(p.ink);
+			poly(g, false, 5.5, 2.5, 3, 2.5, 3, 13.5, 5.5, 13.5);
+			poly(g, false, 10.5, 2.5, 13, 2.5, 13, 13.5, 10.5, 13.5);
+			g.setColor(p.accent);
+			dot(g, 6.8, 8, 0.9);
+			dot(g, 9.2, 8, 0.9);
+		});
+		GLYPHS.put("union", (g, p) -> {
+			g.setColor(alpha(p.accent, 0.25));
+			g.fill(new Ellipse2D.Double(1.8, 4, 8, 8));
+			g.fill(new Ellipse2D.Double(6.2, 4, 8, 8));
+			g.setColor(p.ink);
+			circle(g, 5.8, 8, 4);
+			circle(g, 10.2, 8, 4);
+		});
+		GLYPHS.put("pointer", (g, p) -> {
+			Path2D t = new Path2D.Double();
+			t.moveTo(4, 2.5);
+			t.lineTo(4, 12.5);
+			t.lineTo(6.6, 10);
+			t.lineTo(8.6, 14);
+			t.lineTo(10.2, 13.2);
+			t.lineTo(8.3, 9.4);
+			t.lineTo(11.8, 9.2);
+			t.closePath();
+			g.setColor(alpha(p.accent, 0.3));
+			g.fill(t);
+			g.setColor(p.ink);
+			g.draw(t);
+		});
+		GLYPHS.put("book", (g, p) -> book(g, p, false));
+		GLYPHS.put("bookOpen", (g, p) -> book(g, p, true));
+	}
+
+	private static void book(Graphics2D g, Palette p, boolean open) {
+		g.setColor(p.ink);
+		if (open) {
+			poly(g, true, 8, 4, 8, 13, 1.8, 11.8, 1.8, 2.8);
+			poly(g, true, 8, 4, 8, 13, 14.2, 11.8, 14.2, 2.8);
+			g.setColor(p.accent);
+			line(g, 3.6, 5.5, 6.2, 6);
+			line(g, 12.4, 5.5, 9.8, 6);
+		}
+		else {
+			rrect(g, 3.5, 2.5, 9, 11, 1.5);
+			g.setColor(p.accent);
+			line(g, 5.8, 2.8, 5.8, 13.2);
+			g.setColor(p.ink);
+			line(g, 8, 6, 10.5, 6);
+		}
 	}
 
 	/**

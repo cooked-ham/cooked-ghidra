@@ -46,6 +46,15 @@ class GTabBorder extends EmptyBorder {
 		}
 	}
 
+	@Override
+	public Insets getBorderInsets(Component c, Insets insets) {
+		if (DockingChrome.isModern()) {
+			insets.set(7, 12, 7, 8);
+			return insets;
+		}
+		return super.getBorderInsets(c, insets);
+	}
+
 	/**
 	 * Paints the border, and also a bottom shadow border that isn't part of the insets, so that
 	 * the area that doesn't have tabs, still paints a bottom border
@@ -93,8 +102,8 @@ class GTabBorder extends EmptyBorder {
 
 	/**
 	 * Modern chrome: flat tabs. The selected tab carries an underline (accent while its tab panel
-	 * is active, border color otherwise); the others get a thin trailing separator. Insets are
-	 * the same as the stock border, so tab sizes do not change on a theme switch.
+	 * is active, border color otherwise); the others get a thin trailing separator. Modern insets
+	 * provide additional space around the label and close control.
 	 */
 	private void paintModern(Component c, Graphics g, int x, int y, int w, int h) {
 		Color oldColor = g.getColor();

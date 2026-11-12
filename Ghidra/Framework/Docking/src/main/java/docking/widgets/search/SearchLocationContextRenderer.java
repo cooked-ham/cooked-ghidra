@@ -21,7 +21,6 @@ import javax.swing.*;
 import javax.swing.text.View;
 
 import docking.widgets.table.GTableCellRenderingData;
-import generic.theme.GThemeDefaults.Colors;
 import ghidra.docking.settings.Settings;
 import ghidra.util.layout.AbstractLayoutManager;
 import ghidra.util.table.column.AbstractGColumnRenderer;
@@ -33,8 +32,8 @@ import ghidra.util.table.column.AbstractGColumnRenderer;
 public abstract class SearchLocationContextRenderer
 		extends AbstractGColumnRenderer<SearchLocationContext> {
 
-	private JPanel htmlContainer = new JPanel(new HtmlTruncatingLayout());
-	private JLabel ellipsisLabel = new JLabel("...");
+	private final JPanel htmlContainer = new JPanel(new HtmlTruncatingLayout());
+	private final JLabel ellipsisLabel = new JLabel("...");
 
 	public SearchLocationContextRenderer() {
 		setHTMLRenderingEnabled(true);
@@ -59,7 +58,7 @@ public abstract class SearchLocationContextRenderer
 
 		// Note: we do not include the line number prefix on the text, based on the assumption that
 		// clients of this renderer will have a separate line number column.
-		String text = context.getPlainText(false);
+		String text = SearchLocationContext.get(context).getPlainText(false);
 		setText(text);
 		return this;
 	}
@@ -77,14 +76,24 @@ public abstract class SearchLocationContextRenderer
 
 		// Note: we do not include the line number prefix on the text, based on the assumption that
 		// clients of this renderer will have a separate line number column.
+		context = SearchLocationContext.get(context);
 		String html = context.getBoldMatchingText(showLineNumbers);
 		setText(html);
+		// Keep focus and padding around the whole cell, including the truncation marker.
+		htmlContainer.setBorder(getBorder());
+		setBorder(BorderFactory.createEmptyBorder());
 
 		ellipsisLabel.setOpaque(true);
-		ellipsisLabel.setForeground(Colors.FOREGROUND);
+		ellipsisLabel.setFont(getFont());
+		ellipsisLabel.setForeground(getForeground());
 		ellipsisLabel.setBackground(getBackground());
 
 		htmlContainer.setBackground(getBackground());
+		htmlContainer.setToolTipText(context.getPlainText(showLineNumbers));
+		htmlContainer.getAccessibleContext().setAccessibleName(
+			getAccessibleContext().getAccessibleName());
+		htmlContainer.getAccessibleContext().setAccessibleDescription(
+			context.getPlainText(showLineNumbers));
 		htmlContainer.removeAll();
 		htmlContainer.add(this);
 		htmlContainer.add(ellipsisLabel);
@@ -131,29 +140,31 @@ public abstract class SearchLocationContextRenderer
 			JComponent c1 = (JComponent) parent.getComponent(0);
 			Dimension d = parent.getSize();
 			Insets insets = parent.getInsets();
-			int width = d.width - insets.left - insets.right;
+			int width = Math.max(0, d.width - insets.left - insets.right);
+			int height = Math.max(0, d.height - insets.top - insets.bottom);
 
 			View v = (View) c1.getClientProperty("html");
 			Insets i = c1.getInsets();
-			int availableWidth = width - (i.left + i.right);
-			int htmlw = (int) v.getPreferredSpan(View.X_AXIS);
+			int availableWidth = Math.max(0, width - (i.left + i.right));
+			int htmlw = v == null ? c1.getPreferredSize().width :
+				(int) Math.ceil(v.getPreferredSpan(View.X_AXIS));
 
 			JLabel c2 = (JLabel) parent.getComponent(1);
 			Dimension c2d = c2.getPreferredSize();
-			boolean isClipped = htmlw > availableWidth && width != 0;
+			boolean isClipped = htmlw > availableWidth && width > 0;
 			if (isClipped) {
-				availableWidth -= c2d.width; // save room for ellipsis
-				int c2x = availableWidth;
+				int markerWidth = Math.min(width, c2d.width);
+				availableWidth = Math.max(0, width - markerWidth);
+				int c2x = insets.left + availableWidth;
 				int c2y = insets.top;
-				c2.setBounds(c2x, c2y, c2d.width, c2d.height);
+				c2.setBounds(c2x, c2y, markerWidth, height);
 			}
 
 			c2.setVisible(isClipped);
 
 			int c1x = insets.left;
 			int c1y = insets.top;
-			int cyh = d.height - (i.top + i.bottom);
-			c1.setBounds(c1x, c1y, availableWidth, cyh);
+			c1.setBounds(c1x, c1y, availableWidth, height);
 		}
 	}
 }

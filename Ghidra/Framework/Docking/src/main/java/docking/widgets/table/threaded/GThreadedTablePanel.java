@@ -20,6 +20,7 @@ import java.awt.FlowLayout;
 
 import javax.swing.*;
 
+import docking.widgets.ViewStatusPanel;
 import docking.widgets.EmptyBorderButton;
 import docking.widgets.label.GLabel;
 import docking.widgets.table.GTable;
@@ -45,6 +46,9 @@ public class GThreadedTablePanel<T> extends JPanel {
 	private GTable table;
 	private ThreadedTableModel<T, ?> threadedModel;
 	private ThreadedTableModelListener tableListener;
+	private ViewStatusPanel statusPanel;
+	private boolean statusGuidanceEnabled = true;
+	private boolean loadCancelled;
 
 	private MessagePassingTaskMonitor defaultMonitor;
 	private IncrementalLoadingTaskMonitor incrementalMonitor;
@@ -103,7 +107,46 @@ public class GThreadedTablePanel<T> extends JPanel {
 
 		table = createTable(model);
 		initializeModel(model);
-		add(new JScrollPane(table), BorderLayout.CENTER);
+		statusPanel = new ViewStatusPanel(new JScrollPane(table));
+		add(statusPanel, BorderLayout.CENTER);
+		model.addTableModelListener(e -> updateStatus());
+	}
+
+	/**
+	 * Enables or disables the built-in loading/empty guidance. Clients that provide their own
+	 * guidance (for example, one that knows about search state) should disable it.
+	 *
+	 * @param enabled true to show built-in guidance (the default)
+	 */
+	public void setStatusGuidanceEnabled(boolean enabled) {
+		statusGuidanceEnabled = enabled;
+		updateStatus();
+	}
+
+	private void updateStatus() {
+		if (!statusGuidanceEnabled || statusPanel == null) {
+			if (statusPanel != null) {
+				statusPanel.setStatus(null, null);
+			}
+			return;
+		}
+		if (threadedModel.getRowCount() > 0) {
+			statusPanel.setStatus(null, null);
+		}
+		else if (threadedModel.isBusy()) {
+			statusPanel.setStatus("Loading…", "Results will appear when loading finishes.");
+		}
+		else if (loadCancelled) {
+			statusPanel.setStatus("Loading cancelled",
+				"Refresh the table to load its contents again.");
+		}
+		else if (threadedModel.getUnfilteredRowCount() > 0) {
+			statusPanel.setStatus("No rows pass this filter",
+				"Change or clear the filter to see the hidden rows.");
+		}
+		else {
+			statusPanel.setStatus("Nothing to show", "This table has no rows right now.");
+		}
 	}
 
 	protected GTable createTable(ThreadedTableModel<T, ?> model) {
@@ -339,16 +382,21 @@ public class GThreadedTablePanel<T> extends JPanel {
 		@Override
 		public void loadPending() {
 			handleUpdatePending();
+			updateStatus();
 		}
 
 		@Override
 		public void loadingStarted() {
+			loadCancelled = false;
 			handleUpdating();
+			updateStatus();
 		}
 
 		@Override
 		public void loadingFinished(boolean wasCancelled) {
+			loadCancelled = wasCancelled;
 			handleUpdateComplete();
+			updateStatus();
 		}
 	}
 

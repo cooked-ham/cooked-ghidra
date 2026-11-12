@@ -40,12 +40,13 @@ public class GenericHeader extends JPanel {
 	private static final Color FOCUS_START_COLOR = new GColor("color.bg.header.active");
 	private static final int MINIMUM_TITLE_SIZE = 80;
 
-	private Color nonFocusColor = NON_FOCUS_START_COLOR;
-	private Color focusColor = FOCUS_START_COLOR;
-	private Color activeForeground = new GColor("color.fg.header.active");
-	private Color inactiveForeground = new GColor("color.fg.header.inactive");
+	private final Color nonFocusColor;
+	private Color focusColor;
+	private final Color activeForeground = new GColor("color.fg.header.active");
+	private final Color inactiveForeground = new GColor("color.fg.header.inactive");
 
 	protected Component component;
+	@SuppressWarnings("ClassEscapesDefinedScope") // Existing protected extension field.
 	protected DockableToolBarManager toolBarMgr;
 	private VariableHeightPanel toolbar;
 	private JComponent menuCloseToolbar;
@@ -54,7 +55,7 @@ public class GenericHeader extends JPanel {
 	protected TitlePanel titlePanel;
 	private boolean useSingleLineLayoutOverride;
 
-	private MouseListener mouseListener = new MouseAdapter() {
+	private final MouseListener mouseListener = new MouseAdapter() {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			setSelected(true);
@@ -135,9 +136,8 @@ public class GenericHeader extends JPanel {
 	}
 
 	private void installMouseListener(Component comp) {
-		if (comp instanceof Container) {
-			Container c = (Container) comp;
-			Component comps[] = c.getComponents();
+		if (comp instanceof Container c) {
+			Component[] comps = c.getComponents();
 			for (Component element : comps) {
 				installMouseListener(element);
 			}
@@ -179,7 +179,7 @@ public class GenericHeader extends JPanel {
 		Dimension mySize = getSize();
 		Dimension toolBarSize = toolbar.getPreferredLayoutSize();
 		Dimension d = menuCloseToolbar.getPreferredSize();
-		if (mySize.width == 0 || toolBarSize.width + d.width + MINIMUM_TITLE_SIZE < mySize.width ||
+		if (mySize.width == 0 || toolBarSize.width + d.width + (DockingChrome.isModern() ? 160 : MINIMUM_TITLE_SIZE) < mySize.width ||
 			useSingleLineLayoutOverride) {
 			if (numLines != 1) {
 				constructOneLinePanel();
@@ -203,7 +203,7 @@ public class GenericHeader extends JPanel {
 					return !DockingChrome.isModern() && super.isOpaque();
 				}
 			};
-			toolbar.setBorder(BorderFactory.createEmptyBorder());
+			toolbar.setBorder(DockingChrome.padding(2, 4, 2, 4, BorderFactory.createEmptyBorder()));
 			panel.add(toolbar);
 			panel.add(menuCloseToolbar);
 			add(panel, BorderLayout.EAST);
@@ -216,7 +216,7 @@ public class GenericHeader extends JPanel {
 	}
 
 	protected void validateInvalidate() {
-		toolbar.invalidate();
+		if (toolbar != null) toolbar.invalidate();
 		invalidate();
 		Component parent = getParent();
 		if (parent != null) {
@@ -229,18 +229,15 @@ public class GenericHeader extends JPanel {
 
 	private void constructMultiLinePanel() {
 		removeAll();
-		toolbar.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Colors.BORDER));
+		toolbar.setBorder(BorderFactory.createCompoundBorder(
+			BorderFactory.createMatteBorder(1, 0, 0, 0, Colors.BORDER),
+			DockingChrome.padding(4, 8, 4, 8, BorderFactory.createEmptyBorder())));
 		add(toolbar, BorderLayout.SOUTH);
 		add(titlePanel, BorderLayout.CENTER);
 		add(menuCloseToolbar, BorderLayout.EAST);
 
 		numLines = 2;
-		if (useSingleLineLayoutOverride) {
-			toolbar.setUseSingleLineLayout(true);
-		}
-		else {
-			toolbar.setUseSingleLineLayout(false);
-		}
+		toolbar.setUseSingleLineLayout(useSingleLineLayoutOverride);
 
 		validateInvalidate();
 	}
@@ -364,7 +361,7 @@ public class GenericHeader extends JPanel {
 		}
 
 		private PopupMouseListener popupMouseListener;
-		private JLabel titleLabel;
+		private final JLabel titleLabel;
 		private boolean isSelected = false;
 
 		/**
@@ -378,6 +375,7 @@ public class GenericHeader extends JPanel {
 			titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 6, 0, 0));
 			titleLabel.setForeground(inactiveForeground);
 			titleLabel.setFocusable(false);
+			titleLabel.setIconTextGap(7);
 			add(titleLabel, BorderLayout.CENTER);
 		}
 
@@ -426,6 +424,7 @@ public class GenericHeader extends JPanel {
 		 */
 		void setTitle(String s) {
 			titleLabel.setText(s);
+			titleLabel.getAccessibleContext().setAccessibleName(s);
 			titleLabel.setToolTipText(s);
 		}
 
@@ -468,7 +467,7 @@ public class GenericHeader extends JPanel {
 
 		private static class PopupMouseListener extends MouseAdapter {
 
-			private MouseListener popupListenerDelegate;
+			private final MouseListener popupListenerDelegate;
 
 			PopupMouseListener(MouseListener popupListenerDelegage) {
 				this.popupListenerDelegate = popupListenerDelegage;

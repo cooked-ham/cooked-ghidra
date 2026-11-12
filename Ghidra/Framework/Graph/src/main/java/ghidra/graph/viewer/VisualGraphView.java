@@ -19,11 +19,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 
+import docking.DockingChrome;
+import docking.widgets.ViewStatusPanel;
 import docking.widgets.label.GDLabel;
 import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -75,6 +77,9 @@ public class VisualGraphView<V extends VisualVertex,
 
 	private JPanel viewPanel;
 	private JPanel viewContentPanel;
+	private GraphNavigationBar navigationBar;
+	private JPanel footerPanel;
+	private final ChangeListener zoomListener = _ -> refreshGraphControls();
 
 	/*
 	 * This panel is what we give to clients when they wish to show an undocked satellite.
@@ -90,23 +95,22 @@ public class VisualGraphView<V extends VisualVertex,
 	private G graph;
 	protected GraphComponent<V, E, G> graphComponent;
 
-	private Optional<VertexFocusListener<V>> clientFocusListener = Optional.empty();
-	private VertexFocusListener<V> internalFocusListener = v -> {
-		clientFocusListener.ifPresent(l -> l.vertexFocused(v));
+	private VertexFocusListener<V> clientFocusListener;
+	private final VertexFocusListener<V> internalFocusListener = v -> {
+		if (clientFocusListener != null) {
+			clientFocusListener.vertexFocused(v);
+		}
 	};
 
-	private Optional<VertexClickListener<V, E>> clientVertexClickListener = Optional.empty();
-	private VertexClickListener<V, E> internalVertexClickListener = (v, info) -> {
-		AtomicBoolean result = new AtomicBoolean();
-		clientVertexClickListener.ifPresent(l -> result.set(l.vertexDoubleClicked(v, info)));
-		return result.get();
-	};
+	private VertexClickListener<V, E> clientVertexClickListener;
+	private final VertexClickListener<V, E> internalVertexClickListener = (v, info) ->
+		clientVertexClickListener != null && clientVertexClickListener.vertexDoubleClicked(v, info);
 
-	private List<GraphSatelliteListener> satelliteListeners = new ArrayList<>();
+	private final List<GraphSatelliteListener> satelliteListeners = new ArrayList<>();
 
 	// this internal listener is the way we manage keeping our state in sync with the
 	// graph component, as well as how we notify the client listener
-	private GraphSatelliteListener internalSatelliteListener = (docked, visible) -> {
+	private final GraphSatelliteListener internalSatelliteListener = (docked, visible) -> {
 
 		// keep our internal state in-sync
 		showSatellite = visible;
@@ -147,6 +151,11 @@ public class VisualGraphView<V extends VisualVertex,
 
 		viewContentPanel = new JPanel(new BorderLayout());
 		viewPanel.add(viewContentPanel);
+		navigationBar = new GraphNavigationBar(this::zoomOutGraph, this::resetGraphZoom,
+			this::zoomInGraph, this::zoomToWindow);
+		footerPanel = new JPanel(new BorderLayout());
+		footerPanel.add(navigationBar, BorderLayout.SOUTH);
+		viewPanel.add(footerPanel, BorderLayout.SOUTH);
 
 		undockedSatelliteContentPanel = new JPanel(new BorderLayout());
 	}
@@ -156,7 +165,12 @@ public class VisualGraphView<V extends VisualVertex,
 	}
 
 	protected void setSouthComponent(JComponent component) {
-		viewPanel.add(component, BorderLayout.SOUTH);
+		footerPanel.removeAll();
+		footerPanel.add(navigationBar, BorderLayout.SOUTH);
+		if (component != null) {
+			footerPanel.add(component, BorderLayout.CENTER);
+		}
+		footerPanel.revalidate();
 	}
 
 	protected void removeSatellite() {
@@ -194,7 +208,7 @@ public class VisualGraphView<V extends VisualVertex,
 	}
 
 	public void setVertexFocusListener(VertexFocusListener<V> l) {
-		clientFocusListener = Optional.ofNullable(l);
+		clientFocusListener = l;
 	}
 
 	/**
@@ -205,7 +219,7 @@ public class VisualGraphView<V extends VisualVertex,
 	 * @param l the listener
 	 */
 	public void setVertexClickListener(VertexClickListener<V, E> l) {
-		clientVertexClickListener = Optional.ofNullable(l);
+		clientVertexClickListener = l;
 	}
 
 	private void stopAllAnimation() {
@@ -240,6 +254,10 @@ public class VisualGraphView<V extends VisualVertex,
 		graphComponent.setVertexFocusPathHighlightMode(vertexFocusHighlightMode);
 
 		GraphViewer<V, E> viewer = graphComponent.getPrimaryViewer();
+		viewer.getRenderContext().getMultiLayerTransformer().addChangeListener(zoomListener);
+		SatelliteGraphViewer<V, E> satellite = graphComponent.getSatelliteViewer();
+		satellite.setBorder(DockingChrome.surfaceBorder(BorderFactory.createEmptyBorder()));
+		satellite.getAccessibleContext().setAccessibleName("Graph overview");
 		if (tooltipProvider != null) {
 			viewer.setVertexTooltipProvider(tooltipProvider);
 		}
@@ -269,6 +287,21 @@ public class VisualGraphView<V extends VisualVertex,
 			undockedSatelliteContentPanel.validate();
 		}
 		graphComponent.setSatellitePosition(satellitePosition);
+		refreshGraphControls();
+	}
+
+	private void refreshGraphControls() {
+		if (navigationBar != null) {
+			navigationBar.setGraphState(graphComponent != null && graph != null &&
+				graph.getVertexCount() > 0, getZoom());
+		}
+	}
+
+	private void resetGraphZoom() {
+		VisualizationViewer<V, E> viewer = getPrimaryGraphViewer();
+		if (viewer != null) {
+			scaler.scale(viewer, (float) (1d / getZoom()), viewer.getCenter());
+		}
 	}
 
 	/*
@@ -286,8 +319,7 @@ public class VisualGraphView<V extends VisualVertex,
 		try {
 			viewPanel.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-			T t = s.get();
-			return t;
+			return s.get();
 		}
 		finally {
 			viewPanel.setCursor(originalCursor);
@@ -362,7 +394,11 @@ public class VisualGraphView<V extends VisualVertex,
 		Gui.registerFont(messageLabel, MESSAGE_FONT_ID);
 		messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		messageLabel.setFocusable(true); // we have to have something focusable in our provider
-		viewContentPanel.add(messageLabel, BorderLayout.NORTH);
+		JPanel stockMessage = new JPanel(new BorderLayout());
+		stockMessage.add(messageLabel, BorderLayout.NORTH);
+		ViewStatusPanel status = new ViewStatusPanel(stockMessage, true);
+		status.setStatus("Graph unavailable", errorMessage);
+		viewContentPanel.add(status, BorderLayout.CENTER);
 		viewContentPanel.validate();
 		disposeViewer();
 	}
@@ -461,6 +497,7 @@ public class VisualGraphView<V extends VisualVertex,
 		return showPopups;
 	}
 
+	@SuppressWarnings("unused") // Retained extension/test API.
 	public boolean arePopupsEnabled() {
 		return arePopupsVisible();
 	}
@@ -531,10 +568,10 @@ public class VisualGraphView<V extends VisualVertex,
 			return null;
 		}
 		GraphViewer<V, E> viewer = getPrimaryGraphViewer();
-		VisualGraphViewUpdater<V, E> updater = viewer.getViewUpdater();
-		return updater;
+		return viewer.getViewUpdater();
 	}
 
+	@SuppressWarnings("unused") // Retained extension/test API.
 	public Point getVertexPointInViewSpace(V v) {
 		return GraphViewerUtils.getPointInViewSpaceForVertex(getPrimaryGraphViewer(), v);
 	}
@@ -614,11 +651,14 @@ public class VisualGraphView<V extends VisualVertex,
 	protected void disposeViewer() {
 
 		if (graphComponent != null) {
+			graphComponent.getPrimaryViewer().getRenderContext().getMultiLayerTransformer()
+				.removeChangeListener(zoomListener);
 			graphComponent.dispose();
 			graphComponent = null;
 		}
 
 		removeSatellite();
+		refreshGraphControls();
 	}
 
 }

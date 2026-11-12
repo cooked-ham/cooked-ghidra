@@ -17,7 +17,10 @@ package ghidra.graph.viewer.renderer;
 
 import java.awt.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+
+import docking.DockingChrome;
 
 import edu.uci.ics.jung.visualization.renderers.DefaultEdgeLabelRenderer;
 
@@ -44,6 +47,13 @@ public class VisualGraphEdgeLabelRenderer extends DefaultEdgeLabelRenderer {
 			setForeground(nonPickedForegroundColor);
 		}
 
+		if (DockingChrome.isModern()) {
+			setOpaque(true);
+			setBackground(new generic.theme.GColor("color.bg"));
+			setBorder(BorderFactory.createCompoundBorder(
+				BorderFactory.createLineBorder(DockingChrome.frameColor()),
+				BorderFactory.createEmptyBorder(1, 5, 1, 5)));
+		}
 		return this;
 	}
 

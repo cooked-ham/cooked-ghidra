@@ -1,0 +1,31 @@
+{
+  "jars": [
+    {
+      "name": "Gui",
+      "sha256": "0046DD2A6FCB36554194148C3D904D2E67DF434F0081E825DF34EF53E469410B"
+    },
+    {
+      "name": "Docking",
+      "sha256": "237A9FDFCB53A2D1689BB25D761A13BEFD0603B7D5150859AFE47E23DD3FD32E"
+    },
+    {
+      "name": "Base",
+      "sha256": "0A1CDF3AD7852CD2AC1B0B8A9115E46637D37ED5B8E1693F43590AAEEFEFC365"
+    },
+    {
+      "name": "Decompiler",
+      "sha256": "78DDB6F7434222C22F76AF647CEEAFBD32299F9B385541BC7199EEC4588FA823"
+    }
+  ],
+  "rendering": "Live Swing persistence checks and in-process frame painting; not mouse or physical DPI acceptance",
+  "sources": [
+    {
+      "name": "LocationContextRestartReview.java",
+      "sha256": "631012BBC527E5E084576A1DB8BAFE69BE62BB403F46AC257DBBA6EF350C60CA"
+    },
+    {
+      "name": "review-location-restart.ps1",
+      "sha256": "179C039740B536A848FA68F0247CF9B7C7229E7B591466B756330D558420B1FC"
+    }
+  ]
+}

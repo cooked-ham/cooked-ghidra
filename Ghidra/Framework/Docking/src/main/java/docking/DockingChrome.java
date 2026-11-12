@@ -266,6 +266,27 @@ public final class DockingChrome {
 		return TITLE_PADDING;
 	}
 
+	/** Theme-aware spacing that also follows live theme changes. */
+	public static Border padding(int top, int left, int bottom, int right, Border stock) {
+		return new AbstractBorder() {
+			@Override
+			public Insets getBorderInsets(Component c, Insets insets) {
+				if (isModern()) {
+					insets.set(top, left, bottom, right);
+					return insets;
+				}
+				Insets value = stock.getBorderInsets(c);
+				insets.set(value.top, value.left, value.bottom, value.right);
+				return insets;
+			}
+
+			@Override
+			public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+				if (!isModern()) stock.paintBorder(c, g, x, y, w, h);
+			}
+		};
+	}
+
 	private static Graphics2D aa(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -395,7 +416,7 @@ public final class DockingChrome {
 		@Override
 		public Insets getBorderInsets(Component c, Insets insets) {
 			if (isModern()) {
-				insets.set(3, ACCENT_WIDTH + 3, 3, 2);
+				insets.set(5, ACCENT_WIDTH + 5, 5, 8);
 			}
 			else {
 				insets.set(0, 0, 0, 0);

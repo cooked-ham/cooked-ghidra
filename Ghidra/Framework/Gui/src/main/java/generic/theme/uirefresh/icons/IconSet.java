@@ -159,6 +159,28 @@ public final class IconSet {
 		file("save", "project-save.png");
 		file("home", "house.png");
 
+		file("letterC", "class.png");
+		file("stepInto", "stepinto.png");
+		file("stepBack", "stepback.png");
+		file("record", "record.png");
+		file("breakpoint", "breakpoint-enable.png");
+		file("breakpointMixed", "breakpoint-mixed.png");
+		file("stack", "stack.png", "StackFrame_Red.png");
+		file("modules", "modules.png");
+		file("sync", "sync_enabled.png");
+		file("tag", "tag_blue.png");
+		file("tagRemove", "tag_blue_delete.png");
+		file("undo", "undo-apply.png");
+		file("fileCode", "text-xml.png", "text-x-csrc.png", "python.png",
+			"application-x-shellscript.png", "application-x-desktop.png");
+		file("fileImage", "image-x-generic.png");
+		file("fileArchive", "application-x-ar.png", "application-x-bzip.png", "package.png");
+		file("array", "Array.png");
+		file("union", "cUnion.png");
+		file("pointer", "fingerPointer.png");
+		file("book", "closedBookBlue.png");
+		file("bookOpen", "openBookBlue.png");
+
 		// stock values are composites (EMPTY_ICON{...}), so map the id itself
 		BY_ID.put("icon.undo", "undo");
 		BY_ID.put("icon.redo", "redo");

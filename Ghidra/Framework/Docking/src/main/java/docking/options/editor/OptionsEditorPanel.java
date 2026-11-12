@@ -76,7 +76,7 @@ public class OptionsEditorPanel extends JPanel {
 	 * Create labels and areas for popping up editors.
 	 */
 	private void create() {
-		setLayout(new VerticalLayout(4));
+		setLayout(new VerticalLayout(8));
 
 		editorInfoList = new ArrayList<>(optionNames.size());
 		List<GenericOptionsComponent> compList = new ArrayList<>();
@@ -106,7 +106,8 @@ public class OptionsEditorPanel extends JPanel {
 	}
 
 	private void createBorder() {
-		Border emptyBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20);
+		Border emptyBorder = docking.DockingChrome.padding(8, 4, 4, 4,
+			BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		Border titleBorder = docking.DockingChrome.sectionBorder(title);
 
 		Border border = BorderFactory.createCompoundBorder(titleBorder, emptyBorder);

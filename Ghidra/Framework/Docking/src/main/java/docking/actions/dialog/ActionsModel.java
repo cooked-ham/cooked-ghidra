@@ -50,6 +50,9 @@ public class ActionsModel extends DefaultSearchListModel<DockingActionIf> {
 	private Comparator<DockingActionIf> menuPathComparator = new ActionMenuPathComparator();
 	private Comparator<DockingActionIf> popupPathComparator = new ActionPopupPathComparator();
 
+	private static final int MAX_RECENT = 5;
+	private static final LinkedList<String> recentActionKeys = new LinkedList<>();
+
 	ActionsModel(Set<DockingActionIf> localActions, Set<DockingActionIf> globalActions,
 			ActionContext context) {
 		this.context = context;
@@ -88,8 +91,61 @@ public class ActionsModel extends DefaultSearchListModel<DockingActionIf> {
 		return context == null;
 	}
 
+	private static String actionKey(DockingActionIf a) {
+		return a.getOwner() + "::" + a.getName();
+	}
+
+	/**
+	 * Remembers that the given action was chosen so that it can be offered first the next time
+	 * the chooser is shown (modern chrome only).
+	 * @param action the action that was chosen
+	 */
+	public static void recordRecentAction(DockingActionIf action) {
+		synchronized (recentActionKeys) {
+			String key = actionKey(action);
+			recentActionKeys.remove(key);
+			recentActionKeys.addFirst(key);
+			while (recentActionKeys.size() > MAX_RECENT) {
+				recentActionKeys.removeLast();
+			}
+		}
+	}
+
+	/** Clears the remembered recent actions. */
+	public static void clearRecentActions() {
+		synchronized (recentActionKeys) {
+			recentActionKeys.clear();
+		}
+	}
+
+	private void addRecentActions() {
+		if (!DockingChrome.isModern()) {
+			return;
+		}
+		List<String> keys;
+		synchronized (recentActionKeys) {
+			keys = new ArrayList<>(recentActionKeys);
+		}
+		List<DockingActionIf> candidates = new ArrayList<>(localActions);
+		candidates.addAll(globalActions);
+		List<DockingActionIf> recent = new ArrayList<>();
+		for (String key : keys) {
+			for (DockingActionIf a : candidates) {
+				if (actionKey(a).equals(key) && a.isValidContext(context) &&
+					a.isEnabledForContext(context)) {
+					recent.add(a);
+					break;
+				}
+			}
+		}
+		if (!recent.isEmpty()) {
+			add(RECENT.getDisplayName(), recent);
+		}
+	}
+
 	private void populateActions() {
 		clearData();
+		addRecentActions();
 		switch (displayLevel) {
 			case LOCAL:
 				addLocalActions(LOCAL_TOOLBAR, a -> isValidToolbar(a));

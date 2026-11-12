@@ -15,6 +15,7 @@
  */
 package ghidra.app.merge.tree;
 
+import docking.DockingChrome;
 import java.awt.*;
 
 import javax.swing.*;
@@ -50,7 +51,7 @@ class TreeChangePanel extends JPanel {
 
 	TreeChangePanel(String title) {
 		super(new BorderLayout());
-		setBorder(BorderFactory.createTitledBorder(title));
+		setBorder(DockingChrome.sectionBorder(title));
 		create();
 	}
 

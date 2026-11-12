@@ -22,6 +22,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableModelEvent;
+import docking.widgets.ViewStatusPanel;
 
 import ghidra.app.nav.Navigatable;
 import ghidra.features.base.memsearch.bytesource.AddressableByteSource;
@@ -33,7 +34,6 @@ import ghidra.features.base.memsearch.searcher.MemorySearcher;
 import ghidra.program.model.address.Address;
 import ghidra.util.Msg;
 import ghidra.util.Swing;
-import ghidra.util.exception.CancelledException;
 import ghidra.util.table.*;
 import ghidra.util.task.*;
 
@@ -43,15 +43,19 @@ import ghidra.util.task.*;
  * table for showing the results.
  */
 public class MemorySearchResultsPanel extends JPanel {
-	private GhidraThreadedTablePanel<MemoryMatch<SearchData>> threadedTablePanel;
+	private final GhidraThreadedTablePanel<MemoryMatch<SearchData>> threadedTablePanel;
 	private GhidraTableFilterPanel<MemoryMatch<SearchData>> tableFilterPanel;
-	private GhidraTable table;
-	private MemoryMatchTableModel tableModel;
-	private MemorySearchProvider provider;
-	private SearchMarkers markers;
+	private final GhidraTable table;
+	private final MemoryMatchTableModel tableModel;
+	private final MemorySearchProvider provider;
+	private final SearchMarkers markers;
 
 	private boolean hasDeleted;
 	private boolean hasCombined;
+	private final ViewStatusPanel resultStatus;
+	private boolean searching;
+	private boolean searched;
+	private boolean cancelled;
 
 	MemorySearchResultsPanel(MemorySearchProvider provider, SearchMarkers markers) {
 		super(new BorderLayout());
@@ -67,14 +71,42 @@ public class MemorySearchResultsPanel extends JPanel {
 		table.installNavigation(provider.getTool(), navigatable);
 		tableModel.addTableModelListener(this::tableChanged);
 
-		add(threadedTablePanel, BorderLayout.CENTER);
+		threadedTablePanel.setStatusGuidanceEnabled(false);
+		resultStatus = new ViewStatusPanel(threadedTablePanel);
+		add(resultStatus, BorderLayout.CENTER);
 		add(createFilterFieldPanel(), BorderLayout.SOUTH);
 		ListSelectionModel selectionModel = threadedTablePanel.getTable().getSelectionModel();
 		selectionModel.addListSelectionListener(this::selectionChanged);
+		updateResultStatus();
 	}
 
 	private void tableChanged(TableModelEvent event) {
 		markers.loadMarkers(provider.getTitle(), tableModel.getModelData());
+		Swing.runLater(this::updateResultStatus);
+	}
+
+	private void updateResultStatus() {
+		if (tableModel.getRowCount() > 0) {
+			resultStatus.setStatus(null, null);
+		}
+		else if (searching) {
+			resultStatus.setStatus("Searching memory…", "Matches will appear as they are found.");
+		}
+		else if (tableModel.getUnfilteredRowCount() > 0) {
+			resultStatus.setStatus("No matches pass this filter",
+				"Change or clear the result filter to see your matches.");
+		}
+		else if (cancelled) {
+			resultStatus.setStatus("Search cancelled", "Run the search again when you are ready.");
+		}
+		else if (searched) {
+			resultStatus.setStatus("No memory matches",
+				"Try another byte pattern or expand the search regions.");
+		}
+		else {
+			resultStatus.setStatus("Ready to search memory",
+				"Enter a byte pattern and choose Search to collect matches.");
+		}
 	}
 
 	void itemDeleted() {
@@ -104,9 +136,16 @@ public class MemorySearchResultsPanel extends JPanel {
 
 	public void search(MemorySearcher<SearchData> searcher, Combiner combiner) {
 		MemoryMatchTableLoader loader = createLoader(searcher, combiner);
-		tableModel.addInitialLoadListener(
-			cancelled -> provider.searchAllCompleted(loader.hasResults(), cancelled,
-				loader.didTerminateEarly()));
+		searching = true;
+		searched = true;
+		cancelled = false;
+		updateResultStatus();
+		tableModel.addInitialLoadListener(wasCancelled -> {
+			searching = false;
+			cancelled = wasCancelled;
+			updateResultStatus();
+			provider.searchAllCompleted(loader.hasResults(), wasCancelled, loader.didTerminateEarly());
+		});
 		tableModel.setLoader(loader);
 	}
 
@@ -158,8 +197,12 @@ public class MemorySearchResultsPanel extends JPanel {
 		return tableModel.getRowCount() > 0;
 	}
 
+	@SuppressWarnings("unused") // Retained extension/test API.
 	public void clearResults() {
-		tableModel.addInitialLoadListener(b -> provider.searchAllCompleted(true, false, false));
+		searching = false;
+		searched = false;
+		cancelled = false;
+		tableModel.addInitialLoadListener(ignoredB -> provider.searchAllCompleted(true, false, false));
 		tableModel.setLoader(new EmptyMemoryMatchTableLoader());
 	}
 
@@ -167,6 +210,7 @@ public class MemorySearchResultsPanel extends JPanel {
 		return tableModel.getRowCount();
 	}
 
+	@SuppressWarnings("unused") // Retained extension/test API.
 	void select(MemoryMatch<SearchData> match) {
 		int rowIndex = tableModel.getRowIndex(match);
 		if (rowIndex >= 0) {
@@ -194,9 +238,9 @@ public class MemorySearchResultsPanel extends JPanel {
 
 	private class SearchOnceTask extends Task {
 
-		private boolean forward;
-		private MemorySearcher<SearchData> searcher;
-		private Address start;
+		private final boolean forward;
+		private final MemorySearcher<SearchData> searcher;
+		private final Address start;
 
 		public SearchOnceTask(boolean forward, MemorySearcher<SearchData> searcher, Address start) {
 			super(forward ? "Search Next" : "Search Previous", true, true, true);
@@ -215,7 +259,7 @@ public class MemorySearchResultsPanel extends JPanel {
 		}
 
 		@Override
-		public void run(TaskMonitor monitor) throws CancelledException {
+		public void run(TaskMonitor monitor) {
 			try {
 				MemoryMatch<SearchData> match = searcher.findOnce(start, forward, monitor);
 				if (match != null) {
@@ -236,9 +280,9 @@ public class MemorySearchResultsPanel extends JPanel {
 
 	private class RefreshAndScanTask extends Task {
 
-		private AddressableByteSource byteSource;
-		private Scanner scanner;
-		private List<MemoryMatch<SearchData>> matchList;
+		private final AddressableByteSource byteSource;
+		private final Scanner scanner;
+		private final List<MemoryMatch<SearchData>> matchList;
 
 		public RefreshAndScanTask(AddressableByteSource byteSource, Scanner scanner) {
 			this(byteSource, scanner, tableModel.getModelData());
@@ -265,7 +309,7 @@ public class MemorySearchResultsPanel extends JPanel {
 		}
 
 		@Override
-		public void run(TaskMonitor monitor) throws CancelledException {
+		public void run(TaskMonitor monitor) {
 			if (refreshByteValues(monitor, matchList) && scanner != null) {
 				performScanFiltering(monitor, matchList);
 			}
@@ -313,7 +357,7 @@ public class MemorySearchResultsPanel extends JPanel {
 			}
 
 			MemoryMatch<SearchData> firstIfReduced = getFirstMatchIfReduced(matches, scanResults);
-			tableModel.addInitialLoadListener(b -> tableLoadComplete(firstIfReduced));
+			tableModel.addInitialLoadListener(ignoredB -> tableLoadComplete(firstIfReduced));
 			tableModel.setLoader(new RefreshResultsTableLoader(scanResults));
 		}
 
@@ -322,7 +366,7 @@ public class MemorySearchResultsPanel extends JPanel {
 				List<MemoryMatch<SearchData>> scanResults) {
 			MemoryMatch<SearchData> firstIfReduced = null;
 			if (!scanResults.isEmpty() && scanResults.size() != matches.size()) {
-				firstIfReduced = scanResults.isEmpty() ? null : scanResults.getFirst();
+				firstIfReduced = scanResults.getFirst();
 			}
 			return firstIfReduced;
 		}

@@ -15,6 +15,7 @@
  */
 package ghidra.feature.vt.gui.filters;
 
+import docking.DockingChrome;
 import static ghidra.feature.vt.gui.filters.Filter.FilterEditingStatus.*;
 
 import java.awt.BorderLayout;
@@ -67,7 +68,7 @@ public class TagFilter extends AncillaryFilter<VTMatch> {
 
 	private JComponent createComponent() {
 		JPanel panel = new JPanel(new BorderLayout());
-		panel.setBorder(BorderFactory.createTitledBorder("Tags"));
+		panel.setBorder(DockingChrome.sectionBorder("Tags"));
 
 		editButton = new JButton("Edit");
 		editButton.addActionListener(e -> chooseExcludedTags());

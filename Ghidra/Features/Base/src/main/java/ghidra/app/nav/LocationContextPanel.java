@@ -23,6 +23,9 @@ import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 import docking.DockingContextListener;
+import docking.DockingChrome;
+import generic.theme.GColor;
+import generic.theme.Gui;
 import docking.action.DockingActionIf;
 import docking.actions.KeyBindingUtils;
 import ghidra.app.plugin.core.symboltree.SymbolTreeService;
@@ -63,7 +66,7 @@ public class LocationContextPanel extends JPanel {
 	private final JLabel state = new JLabel("Unavailable") {
 		@Override public Dimension getPreferredSize() {
 			Dimension size = super.getPreferredSize();
-			return new Dimension(Math.min(140, size.width), size.height);
+			return new Dimension(Math.clamp(LocationContextPanel.this.getWidth() / 5, Math.min(48, size.width), size.width), size.height);
 		}
 	};
 	private final JButton overflow = button("…", "More location context");
@@ -98,40 +101,16 @@ public class LocationContextPanel extends JPanel {
 		this.navigatable = navigatable;
 		this.contextSupplier = contextSupplier;
 		setName("Location context");
-		setBorder(BorderFactory.createEmptyBorder(3, 4, 3, 6));
+		setBorder(BorderFactory.createCompoundBorder(
+			BorderFactory.createMatteBorder(0, 0, 1, 0, DockingChrome.frameColor()),
+			BorderFactory.createEmptyBorder(5, 6, 5, 8)));
 		JPanel history = new JPanel(new FlowLayout(FlowLayout.LEADING, 0, 0));
+		history.setOpaque(false);
 		history.add(previous);
 		history.add(next);
 		add(history, BorderLayout.WEST);
 
-		JPanel crumbs = new JPanel(null) {
-			@Override public Dimension getPreferredSize() {
-				return new Dimension(300, addressButton.getPreferredSize().height);
-			}
-			@Override public void doLayout() {
-				JButton[] segments = { programButton, namespace, functionButton, addressButton };
-				int needed = 0;
-				for (JButton segment : segments) needed += segment.getPreferredSize().width + 2;
-				boolean collapsed = needed > getWidth();
-				overflow.setVisible(collapsed);
-				int x = collapsed ? Math.min(getWidth(), overflow.getPreferredSize().width) : 0;
-				overflow.setBounds(0, 0, x, getHeight());
-				for (int i = 0; i < segments.length; i++) {
-					JButton segment = segments[i];
-					segment.setVisible(!collapsed || i == segments.length - 1);
-					if (!segment.isVisible()) continue;
-					int width = Math.max(0, Math.min(segment.getPreferredSize().width, getWidth() - x));
-					segment.setBounds(x, 0, width, getHeight());
-					x += width + 2;
-				}
-			}
-		};
-		crumbs.setMinimumSize(new Dimension(0, 0));
-		crumbs.add(overflow);
-		crumbs.add(programButton);
-		crumbs.add(namespace);
-		crumbs.add(functionButton);
-		crumbs.add(addressButton);
+		JPanel crumbs = createBreadcrumbs();
 		add(crumbs, BorderLayout.CENTER);
 		overflow.addActionListener(_ -> {
 			JPopupMenu menu = new JPopupMenu();
@@ -148,6 +127,13 @@ public class LocationContextPanel extends JPanel {
 		installHistoryMenu(previous, false);
 		installHistoryMenu(next, true);
 
+		Gui.registerFont(addressButton, "font.monospaced");
+		addressButton.setForeground(new GColor("color.fg.widget.tabs.selected.active"));
+		functionButton.setForeground(new GColor("color.fg.widget.tabs.selected.active"));
+		state.setForeground(new GColor("color.fg.widget.tabs.unselected"));
+		state.setBorder(BorderFactory.createCompoundBorder(
+			BorderFactory.createMatteBorder(0, 1, 0, 0, DockingChrome.frameColor()),
+			BorderFactory.createEmptyBorder(0, 10, 0, 2)));
 		state.setName("Location linkage state");
 		add(state, BorderLayout.EAST);
 
@@ -158,6 +144,52 @@ public class LocationContextPanel extends JPanel {
 		functionButton.addActionListener(_ -> goTo(functionEntry));
 		addressButton.addActionListener(_ -> goTo(targetAddress));
 		addHierarchyListener(_ -> updateSubscriptions());
+	}
+
+	private JPanel createBreadcrumbs() {
+		JPanel crumbs = new JPanel(null) {
+			@Override protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				g.setColor(new GColor("color.fg.widget.tabs.unselected"));
+				for (JButton segment : new JButton[] { programButton, namespace, functionButton }) {
+					if (!segment.isVisible()) continue;
+					int x = segment.getX() + segment.getWidth() + 4;
+					int y = getHeight() / 2;
+					g.drawLine(x, y - 3, x + 3, y);
+					g.drawLine(x + 3, y, x, y + 3);
+				}
+			}
+			@Override public Dimension getPreferredSize() {
+				return new Dimension(300, addressButton.getPreferredSize().height);
+			}
+			@Override public void doLayout() {
+				JButton[] segments = { programButton, namespace, functionButton, addressButton };
+				int needed = 0;
+				for (JButton segment : segments) needed += segment.getPreferredSize().width + 12;
+				boolean collapsed = needed > getWidth();
+				overflow.setVisible(collapsed);
+				boolean showFunction = collapsed && overflow.getPreferredSize().width +
+					functionButton.getPreferredSize().width + addressButton.getPreferredSize().width + 24 <= getWidth();
+				int x = collapsed ? Math.min(getWidth(), overflow.getPreferredSize().width) : 0;
+				overflow.setBounds(0, 0, x, getHeight());
+				for (int i = 0; i < segments.length; i++) {
+					JButton segment = segments[i];
+					segment.setVisible(!collapsed || i == segments.length - 1 || (showFunction && i == 2));
+					if (!segment.isVisible()) continue;
+					int width = Math.clamp(getWidth() - x, 0, segment.getPreferredSize().width);
+					segment.setBounds(x, 0, width, getHeight());
+					x += width + 12;
+				}
+			}
+		};
+		crumbs.setOpaque(false);
+		crumbs.setMinimumSize(new Dimension(0, 0));
+		crumbs.add(overflow);
+		crumbs.add(programButton);
+		crumbs.add(namespace);
+		crumbs.add(functionButton);
+		crumbs.add(addressButton);
+		return crumbs;
 	}
 
 	private void updateSubscriptions() {
@@ -466,6 +498,9 @@ public class LocationContextPanel extends JPanel {
 	private static JButton button(String text, String description) {
 		JButton button = new JButton(text);
 		button.setName(description);
+		button.setFont(button.getFont().deriveFont(Font.PLAIN));
+		button.setForeground(new GColor("color.fg.widget.tabs.unselected"));
+		button.setMargin(new Insets(3, 6, 3, 6));
 		button.putClientProperty("html.disable", true);
 		button.putClientProperty("JButton.buttonType", "toolBarButton");
 		button.setToolTipText(description);

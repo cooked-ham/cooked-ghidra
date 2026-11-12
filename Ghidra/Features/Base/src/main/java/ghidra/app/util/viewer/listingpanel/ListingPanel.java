@@ -62,43 +62,33 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 	private FormatManager formatManager;
 	private ListingModelAdapter layoutModel;
 
-	private FieldPanel fieldPanel;
-	private IndexedScrollPane scroller;
+	private final FieldPanel fieldPanel;
+	private final IndexedScrollPane scroller;
 	private JSplitPane splitPane;
 	private int splitPaneDividerLocation = DEFAULT_DIVIDER_LOCATION;
 
-	private FocusingMouseListener focusingMouseListener = new FocusingMouseListener();
+	private final FocusingMouseListener focusingMouseListener = new FocusingMouseListener();
 	private ProgramLocationListener programLocationListener;
 	private ProgramSelectionListener programSelectionListener;
 	private ProgramSelectionListener liveProgramSelectionListener;
 	private StringSelectionListener stringSelectionListener;
-	private FieldSelectionListener fieldPanelLiveSelectionListener = (selection, trigger) -> {
 
-		if (liveProgramSelectionListener == null) {
-			return;
-		}
-
-		ProgramSelection ps = layoutModel.getProgramSelection(selection);
-		if (ps != null) {
-			liveProgramSelectionListener.programSelectionChanged(ps, trigger);
-		}
-	};
 
 	private ListingModel listingModel;
 	private FieldHeader headerPanel;
-	private List<ButtonPressedListener> buttonListeners = new ArrayList<>();
-	private List<ChangeListener> indexMapChangeListeners = new ArrayList<>();
+	private final List<ButtonPressedListener> buttonListeners = new ArrayList<>();
+	private final List<ChangeListener> indexMapChangeListeners = new ArrayList<>();
 
 	private ListingHoverProvider listingHoverHandler;
 
-	private List<ListingMarginProvider> marginProviders = new ArrayList<>();
-	private List<ListingOverviewProvider> overviewProviders = new ArrayList<>();
+	private final List<ListingMarginProvider> marginProviders = new ArrayList<>();
+	private final List<ListingOverviewProvider> overviewProviders = new ArrayList<>();
 
 	private String currentTextSelection;
 	private boolean useMarkerNameSuffix;
-	private UniversalID marginOwnerId = UniversalIdGenerator.nextID();
+	private final UniversalID marginOwnerId = UniversalIdGenerator.nextID();
 
-	private ChangeListener markerChangeListener;
+	private final ChangeListener markerChangeListener;
 	private MarkerService markerService;
 	private Color cursorLineHighlightColor;
 	private boolean isHighlightCursorLineEnabled;
@@ -107,9 +97,9 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 	private MarkerSet cursorMarkers;
 
 	private VerticalPixelAddressMapImpl pixmap;
-	private PropertyBasedBackgroundColorModel propertyBasedColorModel;
+	private final PropertyBasedBackgroundColorModel propertyBasedColorModel;
 	private LayeredColorModel layeredColorModel;
-	private LayoutModelListener layoutModelListener = new LayoutModelListener() {
+	private final LayoutModelListener layoutModelListener = new LayoutModelListener() {
 
 		@Override
 		public void modelSizeChanged(IndexMapper mapper) {
@@ -121,7 +111,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 			// don't care
 		}
 	};
-	private List<AddressSetDisplayListener> displayListeners = new ArrayList<>();
+	private final List<AddressSetDisplayListener> displayListeners = new ArrayList<>();
 
 	/**
 	 * Constructs a new ListingPanel using the given FormatManager
@@ -130,12 +120,25 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 	 */
 	public ListingPanel(FormatManager manager) {
 		super(new BorderLayout());
+		setBorder(docking.DockingChrome.padding(4, 0, 4, 0,
+			BorderFactory.createEmptyBorder()));
 		this.formatManager = manager;
 		layoutModel = createLayoutModel(null);
 		fieldPanel = createFieldPanel(layoutModel);
 		fieldPanel.addFieldMouseListener(this);
 		fieldPanel.addFieldLocationListener(this);
 		fieldPanel.addFieldSelectionListener(this);
+		FieldSelectionListener fieldPanelLiveSelectionListener = (selection, trigger) -> {
+
+		if (liveProgramSelectionListener == null) {
+			return;
+		}
+
+		ProgramSelection ps = layoutModel.getProgramSelection(selection);
+		if (ps != null) {
+			liveProgramSelectionListener.programSelectionChanged(ps, trigger);
+		}
+	};
 		fieldPanel.addLiveFieldSelectionListener(fieldPanelLiveSelectionListener);
 		fieldPanel.addLayoutListener(this);
 		propertyBasedColorModel = new PropertyBasedBackgroundColorModel();
@@ -270,7 +273,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 		listingModel = newModel;
 		layoutModel = createLayoutModel(newModel);
 		fieldPanel.setLayoutModel(layoutModel);
-		Swing.runLater(() -> updateProviders());
+		Swing.runLater(this::updateProviders);
 	}
 
 	/**
@@ -356,7 +359,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 		}
 	}
 
-	public void addMarginService(ListingMarginProviderService service, boolean isConnected) {
+	public void addMarginService(ListingMarginProviderService service, boolean ignoredIsConnected) {
 		if (containsMarginProviver(service)) {
 			return;
 		}
@@ -386,7 +389,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 	}
 
 	public void addOverviewService(ListingOverviewProviderService service, Navigatable navigatable,
-			boolean connected) {
+			boolean ignoredConnected) {
 		if (containsOverviewProvider(service)) {
 			return;
 		}
@@ -433,7 +436,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 		component.addMouseListener(focusingMouseListener);
 
 		if (provider.isResizeable()) {
-			marginProviders.add(0, provider);
+			marginProviders.addFirst(provider);
 		}
 		else {
 			marginProviders.add(provider);
@@ -484,7 +487,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 		if (marginProviders.isEmpty()) {
 			return marginProviders;
 		}
-		ListingMarginProvider firstMarginProvider = marginProviders.get(0);
+		ListingMarginProvider firstMarginProvider = marginProviders.getFirst();
 		if (firstMarginProvider.isResizeable()) {
 			return marginProviders.subList(1, marginProviders.size());
 		}
@@ -520,7 +523,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 		if (marginProviders.isEmpty()) {
 			return null;
 		}
-		ListingMarginProvider marginProvider = marginProviders.get(0);
+		ListingMarginProvider marginProvider = marginProviders.getFirst();
 		return marginProvider.isResizeable() ? marginProvider : null;
 	}
 
@@ -538,6 +541,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 	 *
 	 * @param listener the listener to be removed.
 	 */
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	public void removeIndexMapChangeListener(ChangeListener listener) {
 		indexMapChangeListeners.remove(listener);
 	}
@@ -674,19 +678,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 	}
 
 	public void setListingHoverHandler(ListingHoverProvider handler) {
-		if (handler == null) {
-			throw new IllegalArgumentException("Cannot set the hover handler to null!");
-		}
-
-		if (listingHoverHandler != null) {
-			if (listingHoverHandler.isShowing()) {
-				listingHoverHandler.closeHover();
-			}
-			listingHoverHandler.initializeListingHoverHandler(handler);
-			listingHoverHandler.dispose();
-		}
-
-		listingHoverHandler = handler;
+		listingHoverHandler = ghidra.app.plugin.core.hover.HoverProviderUtils.replace(listingHoverHandler, handler);
 		fieldPanel.setHoverProvider(listingHoverHandler);
 	}
 
@@ -799,9 +791,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 		AddressSpace programAddressSpace =
 			program.getAddressFactory().getAddressSpace(locAddressSpace.getSpaceID());
 		if (programAddressSpace != locAddressSpace) {
-			FieldLocation compatibleLocation =
-				getFieldLocationForDifferingAddressSpaces(loc, program);
-			return compatibleLocation;
+			return getFieldLocationForDifferingAddressSpaces(loc, program);
 		}
 
 		return layoutModel.getFieldLocation(new ProgramLocation(program, address));
@@ -815,8 +805,7 @@ public class ListingPanel extends JPanel implements FieldMouseListener, FieldLoc
 		}
 
 		CodeUnit cu = program.getListing().getCodeUnitContaining(address);
-		if (cu instanceof Data) {
-			Data data = (Data) cu;
+		if (cu instanceof Data data) {
 			if (!cu.getMinAddress().equals(address)) {
 				return getFieldLocationForDataAndOpenAsNeeded(data, address);
 			}

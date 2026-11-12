@@ -160,7 +160,8 @@ public class DialogComponentProvider
 
 		taskScheduler = new TaskScheduler(this);
 
-		buttonPanel = DockingChrome.surfacePanel(new GridLayout(1, 0, 6, 0));
+		buttonPanel = new JPanel(new DialogButtonRowLayout());
+		buttonPanel.setOpaque(false);
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 0, 0));
 		JPanel statusPanel = buildStatusPanel();
 
@@ -177,13 +178,8 @@ public class DialogComponentProvider
 			mainPanel.add(statusPanel, BorderLayout.SOUTH);
 		}
 		if (includeButtons) {
-			JPanel panel = DockingChrome.surfacePanel(new FlowLayout() {
-				@Override
-				public void layoutContainer(Container target) {
-					setAlignment(DockingChrome.isModern() ? FlowLayout.TRAILING : FlowLayout.CENTER);
-					super.layoutContainer(target);
-				}
-			});
+			JPanel panel = DockingChrome.surfacePanel(new BorderLayout());
+			panel.setBorder(DockingChrome.padding(8, 12, 8, 12, BorderFactory.createEmptyBorder()));
 			panel.add(buttonPanel);
 			rootPanel.add(panel, BorderLayout.SOUTH);
 		}

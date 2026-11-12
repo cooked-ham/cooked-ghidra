@@ -85,32 +85,34 @@ final class GeometryDefaults extends AbstractMap<String, String> {
 	}
 
 	private Map<String, String> current() {
-		if (!isGeometryActive()) {
+		GTheme theme = activeTheme();
+		if (theme == null || !isGeometryActive()) {
 			return others;
 		}
 		Map<String, String> m = new LinkedHashMap<>(others);
 		m.putAll(GEOMETRY);
-		if (Boolean.TRUE.equals(activeTheme().getResolvedProperty("Docking.compact"))) {
+		if (Boolean.TRUE.equals(theme.getResolvedProperty("Docking.compact"))) {
 			m.put("Table.rowHeight", "18");
 			m.put("Tree.rowHeight", "18");
 			m.put("TableHeader.height", "22");
 			m.put("TabbedPane.tabInsets", "4,8,4,8");
 		}
 		// Saved theme copies no longer implement UiRefreshTheme; keep accessibility geometry.
-		if (Boolean.TRUE.equals(activeTheme().getResolvedProperty("Docking.highContrast"))) {
+		if (Boolean.TRUE.equals(theme.getResolvedProperty("Docking.highContrast"))) {
 			m.put("Component.focusWidth", "2");
 			m.put("Component.innerFocusWidth", "1");
 			m.put("Button.innerFocusWidth", "1");
 			m.put("ScrollBar.width", "14");
 			m.put("Table.showHorizontalLines", "true");
 		}
-		if (activeTheme() instanceof UiRefreshTheme t) {
+		if (theme instanceof UiRefreshTheme t) {
 			m.putAll(t.geometryOverrides());
 		}
 		return m;
 	}
 
 	@Override
+	@SuppressWarnings("NullableProblems") // JDK external nullability; no annotation dependency.
 	public Set<Entry<String, String>> entrySet() {
 		return Collections.unmodifiableMap(current()).entrySet();
 	}
@@ -176,6 +178,9 @@ final class GeometryDefaults extends AbstractMap<String, String> {
 		d.put("Table.intercellSpacing", "0,0");
 		d.put("Table.rowHeight", "22");
 		d.put("Tree.rowHeight", "22");
+		d.put("Tree.leftChildIndent", "10");
+		d.put("Tree.rightChildIndent", "10");
+		d.put("Tree.wideSelection", "true");
 		d.put("TableHeader.height", "26");
 		return Collections.unmodifiableMap(d);
 	}

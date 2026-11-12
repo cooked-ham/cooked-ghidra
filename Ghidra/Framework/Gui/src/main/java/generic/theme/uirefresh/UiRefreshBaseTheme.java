@@ -88,6 +88,7 @@ abstract class UiRefreshBaseTheme extends DiscoverableGTheme implements UiRefres
 		setColor(SystemThemeIds.FG_DISABLED_ID, t.textDisabled);
 		setColor("color.bg", t.panel);
 		setColor("color.fg", t.textPrimary);
+		setColor("color.fg.messages.hint", t.textSecondary);
 		setColor("color.bg.selection", t.selected);
 		setColor("color.bg.highlight", t.highlight);
 		setColor("color.bg.currentline", t.currentLine);

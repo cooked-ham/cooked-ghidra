@@ -119,8 +119,10 @@ public class DockingUtils {
 				? "Command"
 				: "Control";
 
+	@SuppressWarnings("MagicConstant") // Toolkit supplies valid platform modifier bits.
 	private static final KeyStroke UNDO_KEYSTROKE =
 		KeyStroke.getKeyStroke(KeyEvent.VK_Z, CONTROL_KEY_MODIFIER_MASK);
+	@SuppressWarnings("MagicConstant") // Toolkit supplies valid platform modifier bits.
 	private static final KeyStroke REDO_KEYSTROKE =
 		KeyStroke.getKeyStroke(KeyEvent.VK_Y, CONTROL_KEY_MODIFIER_MASK);
 
@@ -130,7 +132,17 @@ public class DockingUtils {
 
 	public static JSeparator createToolbarSeparator() {
 		Dimension sepDim = new Dimension(2, ICON_SIZE + 2);
-		JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+		JSeparator separator = new JSeparator(SwingConstants.VERTICAL) {
+			@Override
+			protected void paintComponent(Graphics g) {
+				if (!DockingChrome.isModern()) {
+					super.paintComponent(g);
+					return;
+				}
+				g.setColor(DockingChrome.frameColor());
+				g.drawLine(getWidth() / 2, 3, getWidth() / 2, getHeight() - 4);
+			}
+		};
 		if (LookAndFeelUtils.isUsingAquaUI(separator.getUI())) {
 			separator.setUI(new BasicSeparatorUI());
 		}
@@ -220,7 +232,7 @@ public class DockingUtils {
 	 * @param <T> the type of component on which to operate
 	 * @see DockingUtils#forAllDescendants(Container, Class, TreeTraversalOrder, ComponentCallback)
 	 */
-	public static interface ComponentCallback<T extends Component> {
+	public interface ComponentCallback<T extends Component> {
 		TreeTraversalResult call(T component);
 	}
 
@@ -229,7 +241,7 @@ public class DockingUtils {
 	 * @see DockingUtils#forAllDescendants(Container, Class, TreeTraversalOrder, ComponentCallback)
 	 */
 	public enum TreeTraversalOrder {
-		CHILDREN_FIRST, PARENT_FIRST;
+		CHILDREN_FIRST, PARENT_FIRST
 	}
 
 	/**
@@ -237,12 +249,12 @@ public class DockingUtils {
 	 * @see DockingUtils#forAllDescendants(Container, Class, TreeTraversalOrder, ComponentCallback)
 	 */
 	public enum TreeTraversalResult {
-		CONTINUE, FINISH, TERMINATE;
+		CONTINUE, FINISH, TERMINATE
 	}
 
 	/**
 	 * Perform some operation on a component and all of its descendants, recursively
-	 *
+	 * <p>
 	 * This traverses the swing/awt component tree starting at the given container and descends
 	 * recursively through all containers. Any time a component of type (or subclass of type) is
 	 * found, the given callback is executed on it. If order is
@@ -250,7 +262,7 @@ public class DockingUtils {
 	 * the children of a container before executing the callback on the container itself; if
 	 * {@link TreeTraversalOrder#PARENT_FIRST}, then the traversal will execute the callback on the
 	 * container before descending.
-	 *
+	 * <p>
 	 * The callback must return one of three result values. In normal circumstances, it should
 	 * return {@link TreeTraversalResult#CONTINUE}, allowing traversal to continue to the next
 	 * element. If the callback wishes to terminate traversal "successfully," e.g., because it
@@ -258,7 +270,7 @@ public class DockingUtils {
 	 * {@link TreeTraversalResult#FINISH}. If an error occurs during traversal, then it should
 	 * either return {@link TreeTraversalResult#TERMINATE} or throw an appropriate exception to
 	 * terminate traversal "unsuccessfully."
-	 *
+	 * <p>
 	 * This method will also return a value of {@link TreeTraversalResult} indicating how traversal
 	 * terminated. If {@link TreeTraversalResult#CONTINUE}, then every element in the subtree was
 	 * visited, and traversal was successful. If {@link TreeTraversalResult#FINISH}, then some
@@ -304,7 +316,7 @@ public class DockingUtils {
 
 	/**
 	 * Perform some operation on a component and all of its descendants, recursively.
-	 *
+	 * <p>
 	 * This applies the operation to all components in the tree, children first.
 	 *
 	 * @param start the "root" container of the subtree on which to operate
@@ -312,6 +324,7 @@ public class DockingUtils {
 	 * @return a result indicating whether or not traversal completed successfully
 	 * @see DockingUtils#forAllDescendants(Container, Class, TreeTraversalOrder, ComponentCallback)
 	 */
+	@SuppressWarnings("UnusedReturnValue") // Callers may stop traversal and inspect the result.
 	public static TreeTraversalResult forAllDescendants(Container start,
 			ComponentCallback<Component> cb) {
 		return forAllDescendants(start, Component.class, TreeTraversalOrder.CHILDREN_FIRST, cb);
@@ -380,12 +393,12 @@ public class DockingUtils {
 
 	/** 
 	 * Note: calling this method has no effect
-	 * @param enabled true if enabled; false prevents all Java tooltips
+	 * @param ignoredEnabled true if enabled; false prevents all Java tooltips
 	 * @deprecated this method is not longer supported; controlling application tooltips should be
 	 * done through tool options in the UI
 	 */
 	@Deprecated(forRemoval = true, since = "12")
-	public static void setTipWindowEnabled(boolean enabled) {
+	public static void setTipWindowEnabled(boolean ignoredEnabled) {
 		// no-op
 	}
 

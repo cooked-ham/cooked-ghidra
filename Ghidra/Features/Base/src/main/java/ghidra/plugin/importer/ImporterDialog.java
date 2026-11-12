@@ -23,7 +23,6 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -72,11 +71,11 @@ public class ImporterDialog extends DialogComponentProvider {
 	private ProgramManager programManager;
 	protected FSRL fsrl;
 	protected List<Option> options;
-	private LoaderMap loaderMap;
+	private final LoaderMap loaderMap;
 	protected LanguageCompilerSpecPair selectedLanguage;
 	private DomainFolder destinationFolder;
 	private boolean languageNeeded;
-	private String suggestedDestinationPath;
+	private final String suggestedDestinationPath;
 	private String previousName;
 
 	protected ByteProvider byteProvider;
@@ -154,8 +153,9 @@ public class ImporterDialog extends DialogComponentProvider {
 	}
 
 	private JComponent buildWorkPanel() {
-		JPanel panel = new JPanel(new VerticalLayout(5));
-		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		JPanel panel = new JPanel(new VerticalLayout(12));
+		panel.setBorder(docking.DockingChrome.padding(4, 0, 4, 0,
+			BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		panel.add(buildMainPanel());
 		panel.add(buildOptionsPanel());
 		panel.getAccessibleContext().setAccessibleName("Importer");
@@ -163,8 +163,9 @@ public class ImporterDialog extends DialogComponentProvider {
 	}
 
 	private Component buildMainPanel() {
-		JPanel panel = new JPanel(new ThreeColumnLayout(5, 5, 0));
-		panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		JPanel panel = new JPanel(new ThreeColumnLayout(10, 10, 0));
+		panel.setBorder(docking.DockingChrome.padding(4, 0, 4, 0,
+			BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
 		panel.add(new GLabel("Format: ", SwingConstants.RIGHT));
 		panel.add(buildLoaderChooser());
@@ -189,7 +190,7 @@ public class ImporterDialog extends DialogComponentProvider {
 	private Component buildNameTextField() {
 		String initalSuggestedName =
 			FSUtilities.appendPath(suggestedDestinationPath, getSuggestedName());
-		int columns = (initalSuggestedName.length() > 50) ? 50 : 0;
+		int columns = 30;
 		nameTextField = new JTextField(initalSuggestedName, columns);
 
 		// Use a key listener to track users edits.   We can't use the document listener, as
@@ -231,7 +232,7 @@ public class ImporterDialog extends DialogComponentProvider {
 
 	private Component buildFolderNameField() {
 		folderNameTextField = new ElidingFilePathTextField();
-		folderNameTextField.setColumns(20);
+		folderNameTextField.setColumns(30);
 		folderNameTextField.setEditable(false);
 		folderNameTextField.setFocusable(false);
 		folderNameTextField.getAccessibleContext().setAccessibleName("Folder Name");
@@ -240,7 +241,7 @@ public class ImporterDialog extends DialogComponentProvider {
 
 	private Component buildFolderNameBrowseButton() {
 		folderButton = new BrowseButton();
-		folderButton.addActionListener(e -> chooseProjectFolder());
+		folderButton.addActionListener(ignoredE -> chooseProjectFolder());
 		folderButton.getAccessibleContext().setAccessibleName("Folder Name Browse");
 		Gui.registerFont(folderButton, Font.BOLD);
 
@@ -248,7 +249,7 @@ public class ImporterDialog extends DialogComponentProvider {
 	}
 
 	private JComponent buildLanguageField() {
-		languageTextField = new JTextField();
+		languageTextField = new JTextField(30);
 		languageTextField.setEditable(false);
 		languageTextField.setFocusable(false);
 		languageTextField.getAccessibleContext().setAccessibleName("Language");
@@ -259,10 +260,9 @@ public class ImporterDialog extends DialogComponentProvider {
 	private Component buildLanguageButton() {
 		languageButton = new BrowseButton();
 		languageButton.getAccessibleContext().setAccessibleName("Language Browse");
-		languageButton.addActionListener(e -> {
-			Object selectedItem = loaderComboBox.getSelectedItem();
-			if (selectedItem instanceof Loader) {
-				Loader loader = (Loader) selectedItem;
+		languageButton.addActionListener(ignoredE -> {
+			Loader loader = loaderComboBox.getSelectedItem();
+			if (loader != null) {
 				ImporterLanguageDialog dialog =
 					new ImporterLanguageDialog(loaderMap.get(loader), tool, selectedLanguage);
 				dialog.show(getComponent());
@@ -281,10 +281,10 @@ public class ImporterDialog extends DialogComponentProvider {
 	private Component buildLoaderChooser() {
 		Set<Loader> orderedLoaders = new LinkedHashSet<>(loaderMap.keySet()); // maintain order
 		loaderComboBox = new GhidraComboBox<>(orderedLoaders);
-		loaderComboBox.addItemListener(e -> selectedLoaderChanged());
+		loaderComboBox.addItemListener(ignoredE -> selectedLoaderChanged());
 		loaderComboBox.getAccessibleContext().setAccessibleName("Loader Choices");
 		loaderComboBox.setRenderer(
-			GComboBoxCellRenderer.createDefaultTextRenderer(loader -> loader.getName()));
+			GComboBoxCellRenderer.createDefaultTextRenderer(Loader::getName));
 
 		if (!orderedLoaders.isEmpty()) {
 			loaderComboBox.setSelectedIndex(0);
@@ -298,7 +298,7 @@ public class ImporterDialog extends DialogComponentProvider {
 		EmptyBorderButton helpButton = new EmptyBorderButton(new GIcon("icon.information"));
 		helpButton.setToolTipText("Show list of supported format/loaders");
 		helpButton.getAccessibleContext().setAccessibleName("Loader Info");
-		helpButton.addActionListener(e -> showSupportedImportFormats());
+		helpButton.addActionListener(ignoredE -> showSupportedImportFormats());
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
@@ -310,7 +310,7 @@ public class ImporterDialog extends DialogComponentProvider {
 	}
 
 	private void showSupportedImportFormats() {
-		String s = LoaderService.getAllLoaderNames().stream().collect(Collectors.joining("\n"));
+		String s = String.join("\n", LoaderService.getAllLoaderNames());
 		MultiLineMessageDialog.showModalMessageDialog(null, "Supported Formats", null, s,
 			MultiLineMessageDialog.PLAIN_MESSAGE);
 	}
@@ -334,7 +334,7 @@ public class ImporterDialog extends DialogComponentProvider {
 	}
 
 	private boolean isLanguageNeeded(Loader loader) {
-		return loaderMap.get(loader).stream().anyMatch(spec -> spec.requiresLanguageCompilerSpec());
+		return loaderMap.get(loader).stream().anyMatch(LoadSpec::requiresLanguageCompilerSpec);
 	}
 
 	private Component buildOptionsPanel() {
@@ -349,14 +349,14 @@ public class ImporterDialog extends DialogComponentProvider {
 
 	private Component buildMirrorFsCheckbox() {
 		mirrorFsCheckBox = new JCheckBox("Mirror Filesystem", false);
-		mirrorFsCheckBox.addActionListener(e -> mirrorFs());
+		mirrorFsCheckBox.addActionListener(ignoredE -> mirrorFs());
 		mirrorFsCheckBox.getAccessibleContext().setAccessibleName("Mirror");
 		return mirrorFsCheckBox;
 	}
 
 	private Component buildOptionsButton() {
 		optionsButton = new JButton("Options...");
-		optionsButton.addActionListener(e -> showOptions());
+		optionsButton.addActionListener(ignoredE -> showOptions());
 		optionsButton.getAccessibleContext().setAccessibleName("Options");
 		return optionsButton;
 	}
@@ -372,11 +372,9 @@ public class ImporterDialog extends DialogComponentProvider {
 		options = getOptions(loadSpec, false);  // make sure you get the options now, before the ByteProvider is closed.
 
 		//@formatter:off
-		new TaskBuilder("Import File", monitor -> {
-			ImporterUtilities.importSingleFile(tool, programManager, fsrl, 
+		new TaskBuilder("Import File", monitor -> ImporterUtilities.importSingleFile(tool, programManager, fsrl,
 				destinationFolder.getPathname(), mirrorFsCheckBox.isSelected(), loadSpec, 
-				removeTrailingSlashes(getName()), options, monitor);
-		})
+				removeTrailingSlashes(getName()), options, monitor))
 		.setLaunchDelay(0)
 		.launchNonModal();
 		//@formatter:on
@@ -554,13 +552,9 @@ public class ImporterDialog extends DialogComponentProvider {
 		DomainFolder localDestFolder =
 			(parentPath != null) ? ProjectDataUtils.getDomainFolder(destinationFolder, parentPath)
 					: destinationFolder;
-		if (localDestFolder != null) {
-			if (isFolder && localDestFolder.getFolder(fileOrFolderName) != null ||
-				!isFolder && localDestFolder.getFile(fileOrFolderName) != null) {
-				return true;
-			}
-		}
-		return false;
+		return localDestFolder != null && (isFolder ?
+			localDestFolder.getFolder(fileOrFolderName) != null :
+			localDestFolder.getFile(fileOrFolderName) != null);
 	}
 
 	private boolean isNameTooLong() {
@@ -638,18 +632,22 @@ public class ImporterDialog extends DialogComponentProvider {
 		}
 	}
 
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	public DomainFolder getDestinationFolder() {
 		return destinationFolder;
 	}
 
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	JComboBox<Loader> getFormatComboBox() {
 		return loaderComboBox;
 	}
 
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	JTextField getLanguageTextField() {
 		return languageTextField;
 	}
 
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	JTextField getNameTextField() {
 		return nameTextField;
 	}

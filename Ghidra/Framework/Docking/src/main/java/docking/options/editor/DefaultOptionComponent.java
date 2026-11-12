@@ -28,23 +28,22 @@ import ghidra.util.HTMLUtilities;
 import ghidra.util.layout.PairLayout;
 
 public class DefaultOptionComponent extends GenericOptionsComponent {
-	private JLabel label;
-	private Component component;
+	private final JLabel label;
+	private final Component component;
 
 	public DefaultOptionComponent(EditorState editorState) {
-		setLayout(new PairLayout(0, 6, 40));
+		setLayout(new PairLayout(0, 12, 40));
 		this.component = editorState.getEditorComponent();
 
 		label = new GDLabel(editorState.getTitle(), SwingConstants.RIGHT);
 
-		if (component instanceof AbstractButton) {
+		if (component instanceof AbstractButton button) {
 			label.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent evt) {
 					if (!component.isEnabled()) {
 						return;
 					}
-					AbstractButton button = (AbstractButton) component;
 					button.setSelected(!button.isSelected());
 				}
 			});
@@ -59,6 +58,7 @@ public class DefaultOptionComponent extends GenericOptionsComponent {
 				((JComponent) component).setToolTipText(htmlDescription);
 			}
 		}
+		label.setLabelFor(component);
 		add(label);
 		add(component);
 		component.getAccessibleContext().setAccessibleName(label.getText());

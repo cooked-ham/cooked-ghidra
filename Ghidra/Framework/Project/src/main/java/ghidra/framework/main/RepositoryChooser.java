@@ -15,6 +15,7 @@
  */
 package ghidra.framework.main;
 
+import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ItemListener;
@@ -187,7 +188,7 @@ class RepositoryChooser extends ReusableDialogComponentProvider {
 
 		JPanel radioButtonPanel = new JPanel(new PairLayout(5, 5));
 		radioButtonPanel.getAccessibleContext().setAccessibleName("Radio Buttons");
-		radioButtonPanel.setBorder(BorderFactory.createTitledBorder("Repository Specification"));
+		radioButtonPanel.setBorder(DockingChrome.sectionBorder("Repository Specification"));
 
 		ItemListener choiceListener = e -> {
 			JRadioButton choiceButton = (JRadioButton) e.getSource();

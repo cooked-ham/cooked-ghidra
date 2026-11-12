@@ -15,6 +15,7 @@
  */
 package ghidra.app.merge.listing;
 
+import docking.DockingChrome;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.Serial;
@@ -77,7 +78,7 @@ public class VariousChoicesPanel extends ConflictPanel {
 	}
 
 	private void init() {
-		setBorder(BorderFactory.createTitledBorder("Resolve Conflict"));
+		setBorder(DockingChrome.sectionBorder("Resolve Conflict"));
 		rows = new ArrayList<>();
 		layout = new MaximizeSpecificColumnGridLayout(5, 5, columnCount);
 		rowPanel = new JPanel(layout);

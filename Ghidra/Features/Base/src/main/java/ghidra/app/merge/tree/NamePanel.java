@@ -15,6 +15,7 @@
  */
 package ghidra.app.merge.tree;
 
+import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -41,7 +42,7 @@ class NamePanel extends JPanel {
 
 	NamePanel(ChangeListener listener) {
 		super(new BorderLayout());
-		setBorder(BorderFactory.createTitledBorder("Resolve Tree Name Conflict"));
+		setBorder(DockingChrome.sectionBorder("Resolve Tree Name Conflict"));
 		this.listener = listener;
 		create();
 	}

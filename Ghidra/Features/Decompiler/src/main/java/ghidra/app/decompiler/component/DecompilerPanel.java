@@ -22,6 +22,7 @@ import java.util.*;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
@@ -79,25 +80,24 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 	private final List<DecompilerMarginProvider> marginProviders = new ArrayList<>();
 	private final VerticalLayoutPixelIndexMap pixmap = new VerticalLayoutPixelIndexMap();
 
-	private FieldHighlightFactory hlFactory;
 	private ClangHighlightController highlightController =
 		ClangHighlightController.dummyIfNull(null);
-	private Map<String, DecompilerHighlighter> highlightersById = new HashMap<>();
+	private final Map<String, DecompilerHighlighter> highlightersById = new HashMap<>();
 	private PendingHighlightUpdate pendingHighlightUpdate;
-	private SwingUpdateManager highlighCursorUpdater = new SwingUpdateManager(() -> {
+	private final SwingUpdateManager highlighCursorUpdater = new SwingUpdateManager(() -> {
 		if (pendingHighlightUpdate != null) {
 			pendingHighlightUpdate.doUpdate();
 			pendingHighlightUpdate = null;
 		}
 	});
 
-	private Set<String> ignoredMiddleMouseTokens = Set.of("{", "}", ";");
+	private final Set<String> ignoredMiddleMouseTokens = Set.of("{", "}", ";");
 	private ActiveMiddleMouse activeMiddleMouse;
 	private int middleMouseHighlightButton;
 	private Color middleMouseHighlightColor;
 	private Color currentVariableHighlightColor;
 
-	private Color activeSearchHighlightColor;
+	private final Color activeSearchHighlightColor;
 	private Color searchHighlightColor;
 
 	private DecompilerSearchResults currentSearchResults;
@@ -121,7 +121,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 		if (clipboard != null) {
 			clipboard.setFontMetrics(metrics);
 		}
-		hlFactory = new SearchHighlightFactory();
+		FieldHighlightFactory hlFactory = new SearchHighlightFactory();
 
 		layoutController = new ClangLayoutController(options, this, metrics, hlFactory);
 		fieldPanel = new DecompilerFieldPanel(layoutController);
@@ -348,7 +348,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 		highlightController.clearPrimaryHighlights();
 	}
 
-	public void addHighlights(Set<Varnode> varnodes, ColorProvider colorProvider) {
+	public void addHighlights(Set<Varnode> ignoredVarnodes, ColorProvider colorProvider) {
 		ClangTokenGroup root = layoutController.getRoot();
 		highlightController.addPrimaryHighlights(root, colorProvider);
 	}
@@ -405,9 +405,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 		highlightController.removeSecondaryHighlights(token);
 
 		// Add the new highlighter when we have rebuilt the token
-		controller.doWhenNotBusy(() -> {
-			addSecondaryHighlight(newName, t -> hlColor);
-		});
+		controller.doWhenNotBusy(() -> addSecondaryHighlight(newName, ignoredT -> hlColor));
 	}
 
 	private void repairMiddleMouseSelectionForRename(ClangToken token, String newName) {
@@ -588,8 +586,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 				viewerPosition.getYOffset());
 		}
 
-		if (location instanceof DecompilerLocation) {
-			DecompilerLocation decompilerLocation = (DecompilerLocation) location;
+		if (location instanceof DecompilerLocation decompilerLocation) {
 			fieldPanel.goTo(BigInteger.valueOf(decompilerLocation.getLineNumber()), 0, 0,
 				decompilerLocation.getCharPos(), false);
 			return;
@@ -720,7 +717,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 	}
 
 	void setSelection(ProgramSelection selection) {
-		FieldSelection fieldSelection = null;
+		FieldSelection fieldSelection;
 		if (selection == null || selection.isEmpty()) {
 			fieldSelection = new FieldSelection();
 		}
@@ -732,19 +729,9 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 		fieldPanel.setSelection(fieldSelection);
 	}
 
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	public void setDecompilerHoverProvider(DecompilerHoverProvider provider) {
-		if (provider == null) {
-			throw new IllegalArgumentException("Cannot set the hover handler to null!");
-		}
-
-		if (decompilerHoverProvider != null) {
-			if (decompilerHoverProvider.isShowing()) {
-				decompilerHoverProvider.closeHover();
-			}
-			decompilerHoverProvider.initializeListingHoverHandler(provider);
-			decompilerHoverProvider.dispose();
-		}
-		decompilerHoverProvider = provider;
+		decompilerHoverProvider = ghidra.app.plugin.core.hover.HoverProviderUtils.replace(decompilerHoverProvider, provider);
 	}
 
 	public void dispose() {
@@ -831,8 +818,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 
 		// comments may use annotations; tell the annotation it was clicked
 		FieldElement clickedElement = textField.getClickedObject(location);
-		if (clickedElement instanceof AnnotatedTextFieldElement) {
-			AnnotatedTextFieldElement annotation = (AnnotatedTextFieldElement) clickedElement;
+		if (clickedElement instanceof AnnotatedTextFieldElement annotation) {
 			controller.annotationClicked(annotation, event, newWindow);
 			return;
 		}
@@ -846,7 +832,6 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 		Function function = DecompilerUtils.getFunction(controller.getProgram(), functionToken);
 		if (function != null) {
 			controller.goToFunction(function, newWindow);
-			return;
 		}
 	}
 
@@ -908,7 +893,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 			if (storage.isMemoryStorage()) {
 				controller.goToAddress(storage.getMinAddress(), newWindow);
 			}
-			return;		// Don't goto if symbol is on the stack or in a register
+			// Stack and register symbols do not have a navigable memory address.
 		}
 		else if (vn.isConstant()) {
 			controller.goToScalar(vn.getOffset(), newWindow);
@@ -945,7 +930,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 			controller.goToScalar(value, newWindow);
 		}
 		catch (NumberFormatException e) {
-			return; // give up
+			// Not a scalar.
 		}
 	}
 
@@ -1075,7 +1060,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 	}
 
 	private ProgramLocation createVariableDeclarationLocation(ClangVariableToken cvt,
-			Address address, DecompilerLocationInfo info) {
+			Address ignoredAddress, DecompilerLocationInfo info) {
 
 		Function function = decompileData.getFunction();
 		Address entryPoint = function.getEntryPoint();
@@ -1151,8 +1136,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 		if (currentSearchResults == null) {
 			return null;
 		}
-		DecompilerSearchLocation location = currentSearchResults.getActiveLocation();
-		return location;
+		return currentSearchResults.getActiveLocation();
 	}
 
 	public Color getCurrentVariableHighlightColor() {
@@ -1184,6 +1168,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 		return token.getText();
 	}
 
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	public String getTextUnderCursor() {
 
 		FieldLocation location = fieldPanel.getCursorLocation();
@@ -1198,8 +1183,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 		}
 
 		FieldElement clickedElement = textField.getClickedObject(location);
-		if (clickedElement instanceof AnnotatedTextFieldElement) {
-			AnnotatedTextFieldElement annotation = (AnnotatedTextFieldElement) clickedElement;
+		if (clickedElement instanceof AnnotatedTextFieldElement annotation) {
 			return annotation.getDisplayString();
 		}
 
@@ -1242,7 +1226,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 
 		long count = tokens.stream().filter(t -> !t.getText().trim().isEmpty()).count();
 		if (count == 1) {
-			return tokens.get(0);
+			return tokens.getFirst();
 		}
 		return null;
 	}
@@ -1291,6 +1275,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 		}
 	}
 
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	public boolean isHoverShowing() {
 		return decompilerHoverProvider.isShowing();
 	}
@@ -1308,8 +1293,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 			if (child instanceof ClangTokenGroup) {
 				doFindTokensByName(tokens, (ClangTokenGroup) child, name);
 			}
-			else if (child instanceof ClangToken) {
-				ClangToken token = (ClangToken) child;
+			else if (child instanceof ClangToken token) {
 				if (name.equals(token.getText())) {
 					tokens.add(token);
 				}
@@ -1365,7 +1349,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 	}
 
 	public void addMarginProvider(DecompilerMarginProvider provider) {
-		marginProviders.add(0, provider);
+		marginProviders.addFirst(provider);
 		provider.setOptions(options);
 		provider.setProgram(getProgram(), layoutController, pixmap);
 		buildPanels();
@@ -1420,6 +1404,8 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 	}
 
 	private void buildPanels() {
+		setBorder(docking.DockingChrome.padding(4, 0, 4, 0,
+			BorderFactory.createEmptyBorder()));
 		removeAll();
 		add(buildLeftComponent(), BorderLayout.WEST);
 		add(scroller, BorderLayout.CENTER);
@@ -1474,10 +1460,10 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 	 */
 	private class ScrollingCallback implements SwingAnimationCallback {
 
-		private int startLine;
-		private int endLine;
-		private int endColumn;
-		private int duration;
+		private final int startLine;
+		private final int endLine;
+		private final int endColumn;
+		private final int duration;
 
 		ScrollingCallback(FieldLocation start, int endLineNumber, int endColumn, int distance) {
 			this.startLine = start.getIndex().intValue();
@@ -1500,7 +1486,7 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 
 			int length = Math.abs(endLine - startLine);
 			long offset = Math.round(length * percentComplete);
-			int current = 0;
+			int current;
 			if (startLine > endLine) {
 				// backwards
 				current = (int) (startLine - offset);
@@ -1554,10 +1540,10 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 	 */
 	private class PendingHighlightUpdate {
 
-		private FieldLocation location;
-		private Field field;
-		private EventTrigger trigger;
-		private long updateId;
+		private final FieldLocation location;
+		private final Field field;
+		private final EventTrigger trigger;
+		private final long updateId;
 
 		PendingHighlightUpdate(FieldLocation location, Field field, EventTrigger trigger) {
 			this.location = location;
@@ -1596,8 +1582,8 @@ public class DecompilerPanel extends JPanel implements FieldMouseListener, Field
 	 */
 	private class ActiveMiddleMouse {
 
-		private String tokenText;
-		private DecompilerHighlighter highlighter;
+		private final String tokenText;
+		private final DecompilerHighlighter highlighter;
 
 		ActiveMiddleMouse(String tokenText) {
 			this.tokenText = tokenText;

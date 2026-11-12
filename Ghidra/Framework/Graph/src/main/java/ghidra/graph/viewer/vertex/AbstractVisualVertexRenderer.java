@@ -29,6 +29,7 @@ import edu.uci.ics.jung.visualization.renderers.BasicVertexRenderer;
 import edu.uci.ics.jung.visualization.transform.MutableTransformer;
 import edu.uci.ics.jung.visualization.transform.MutableTransformerDecorator;
 import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
+import docking.DockingChrome;
 import generic.theme.GColor;
 import ghidra.graph.viewer.VisualEdge;
 import ghidra.graph.viewer.VisualVertex;
@@ -129,8 +130,16 @@ public class AbstractVisualVertexRenderer<V extends VisualVertex, E extends Visu
 		// scale the offset with the scale of the view, but not as fast, so that as we scale down, 
 		// the size of the paint area starts to get larger than the vertex
 		offset = (int) adjustValueForCurrentScale(rc, offset, .9);
-		g.fillOval(bounds.x - offset, bounds.y - offset, bounds.width + (offset * 2),
-			bounds.height + (offset * 2));
+		if (DockingChrome.isModern()) {
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			int arc = offset * 2;
+			g.fillRoundRect(bounds.x - offset, bounds.y - offset, bounds.width + (offset * 2),
+				bounds.height + (offset * 2), arc, arc);
+		}
+		else {
+			g.fillOval(bounds.x - offset, bounds.y - offset, bounds.width + (offset * 2),
+				bounds.height + (offset * 2));
+		}
 
 // DEBUG		
 //		g.setPaint(Palette.BLUE);

@@ -5,6 +5,7 @@ param(
     [string]$ProbeSource = 'E:\ghidra-ui-refresh\extension\GhidraUiRefresh\src\main\java\uirefresh\UiRefreshHarnessPlugin.java',
     [string]$Python = 'C:\Python315\python.exe',
     [string]$Tag = ('graphite-reference-' + (Get-Date -Format 'yyyyMMdd-HHmmss')),
+    [string]$Sequence = 'Graphite Preview,(openprogram),(openprogram:whoami_x64.exe),(polish),(startup),(savecopy),Flat Dark Theme,(startup),Graphite Preview,(startup)',
     [switch]$Specialists
 )
 # Uses the existing UI Refresh probe extension in the seed profile. It is a test harness,
@@ -14,7 +15,7 @@ $workspace = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $verification = [IO.Path]::GetFullPath((Join-Path $workspace 'build\verification'))
 $runtime = [IO.Path]::GetFullPath($Distribution)
 if (!$runtime.StartsWith($verification + '\', [StringComparison]::OrdinalIgnoreCase)) {
-    throw 'Use a disposable distribution under this checkout build\verification; this script replaces its three UI jars.'
+    throw 'Use a disposable distribution under this checkout build\verification; this script replaces its UI jars.'
 }
 if ($Tag -notmatch '^[a-zA-Z0-9_-]+$') { throw 'Tag must contain letters, numbers, underscores or hyphens.' }
 $run = Join-Path $verification $Tag
@@ -44,7 +45,7 @@ $null = New-Item -ItemType Directory -Path $projectDir
 $projectStem = [IO.Path]::GetFileNameWithoutExtension($FixtureProject)
 Copy-Item -LiteralPath $FixtureProject -Destination $projectDir
 Copy-Item -LiteralPath ([IO.Path]::ChangeExtension($FixtureProject, '.rep')) -Destination $projectDir -Recurse
-$modules = @('Framework\Gui', 'Features\Base', 'Features\Decompiler')
+$modules = @('Framework\Gui', 'Framework\Docking', 'Framework\Graph', 'Features\Base', 'Features\Decompiler')
 $hashes = @()
 foreach ($module in $modules) {
     $name = Split-Path $module -Leaf
@@ -54,7 +55,7 @@ foreach ($module in $modules) {
     Copy-Item -LiteralPath $sourceJar -Destination $targetJar
     $hashes += @{ module = $module; sha256 = (Get-FileHash -LiteralPath $targetJar -Algorithm SHA256).Hash }
 }
-$sequence = 'Graphite Preview,(openprogram),(openprogram:whoami_x64.exe),(polish),(startup),(savecopy),Flat Dark Theme,(startup),Graphite Preview,(startup)'
+$sequence = $Sequence
 $sequencePath = Join-Path $run 'capture.seq'
 [IO.File]::WriteAllText($sequencePath, $sequence)
 $probe = Join-Path $run 'capture.csv'

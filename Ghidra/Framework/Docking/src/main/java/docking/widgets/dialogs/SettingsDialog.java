@@ -82,12 +82,13 @@ public class SettingsDialog extends DialogComponentProvider {
 
 	private JPanel buildWorkPanel() {
 		JPanel workPanel = new JPanel(new BorderLayout());
-		workPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		workPanel.setBorder(docking.DockingChrome.padding(4, 0, 4, 0, new EmptyBorder(10, 10, 10, 10)));
 
 		settingsTableModel = new SettingsTableModel();
 		settingsTable = new GTable(settingsTableModel);
 		settingsTable.getAccessibleContext().setAccessibleName("Settings");
 		settingsTable.setAutoscrolls(true);
+		settingsTable.setIntercellSpacing(new Dimension(12, 4));
 		settingsTable.setRowSelectionAllowed(false);
 		settingsTable.setColumnSelectionAllowed(false);
 
@@ -123,7 +124,7 @@ public class SettingsDialog extends DialogComponentProvider {
 
 	private class SettingsRowObject {
 
-		private SettingsDefinition definition;
+		private final SettingsDefinition definition;
 
 		SettingsRowObject(SettingsDefinition definition) {
 			this.definition = definition;
@@ -134,29 +135,25 @@ public class SettingsDialog extends DialogComponentProvider {
 		}
 
 		Object getSettingsChoices() {
-			if (definition instanceof EnumSettingsDefinition) {
-				EnumSettingsDefinition def = (EnumSettingsDefinition) definition;
+			if (definition instanceof EnumSettingsDefinition def) {
 				StringChoices choices = new StringChoices(def.getDisplayChoices(settings));
 				choices.setSelectedValue(def.getChoice(settings));
 				return choices;
 			}
-			else if (definition instanceof BooleanSettingsDefinition) {
-				BooleanSettingsDefinition def = (BooleanSettingsDefinition) definition;
-				return Boolean.valueOf(def.getValue(settings));
+			else if (definition instanceof BooleanSettingsDefinition def) {
+				return def.getValue(settings);
 			}
 			return "<Unsupported>";
 		}
 
 		boolean setSettingsChoice(Object value) {
-			if (definition instanceof EnumSettingsDefinition) {
-				EnumSettingsDefinition def = (EnumSettingsDefinition) definition;
+			if (definition instanceof EnumSettingsDefinition def) {
 				StringChoices choices = (StringChoices) value;
 				def.setChoice(settings, choices.getSelectedValueIndex());
 				return true;
 			}
-			else if (definition instanceof BooleanSettingsDefinition) {
-				BooleanSettingsDefinition def = (BooleanSettingsDefinition) definition;
-				def.setValue(settings, ((Boolean) value).booleanValue());
+			else if (definition instanceof BooleanSettingsDefinition def) {
+				def.setValue(settings, (Boolean) value);
 				return true;
 			}
 
@@ -170,7 +167,7 @@ public class SettingsDialog extends DialogComponentProvider {
 
 	private class SettingsTableModel extends AbstractSortedTableModel<SettingsRowObject> {
 
-		private List<SettingsRowObject> rows = new ArrayList<>();
+		private final List<SettingsRowObject> rows = new ArrayList<>();
 
 		void setSettingsDefinitions(SettingsDefinition[] settingsDefs) {
 			for (SettingsDefinition sd : settingsDefs) {
@@ -207,35 +204,29 @@ public class SettingsDialog extends DialogComponentProvider {
 
 		@Override
 		public String getColumnName(int col) {
-			switch (col) {
-				case 0:
-					return "Name";
-				case 1:
-					return "Settings";
-			}
-			return null;
+			return switch (col) {
+				case 0 -> "Name";
+				case 1 -> "Settings";
+				default -> null;
+			};
 		}
 
 		@Override
 		public Class<?> getColumnClass(int col) {
-			switch (col) {
-				case 0:
-					return String.class;
-				case 1:
-					return Settings.class;
-			}
-			return null;
+			return switch (col) {
+				case 0 -> String.class;
+				case 1 -> Settings.class;
+				default -> null;
+			};
 		}
 
 		@Override
 		public Object getColumnValueForRow(SettingsRowObject t, int columnIndex) {
-			switch (columnIndex) {
-				case 0:
-					return t.getName();
-				case 1:
-					return t.getSettingsChoices();
-			}
-			return null;
+			return switch (columnIndex) {
+				case 0 -> t.getName();
+				case 1 -> t.getSettingsChoices();
+				default -> null;
+			};
 		}
 
 		@Override
@@ -248,7 +239,7 @@ public class SettingsDialog extends DialogComponentProvider {
 					}
 					break;
 				case 2:
-					if (((Boolean) value).booleanValue()) {
+					if ((Boolean) value) {
 						rowObject.clear(settings);
 						fireTableDataChanged();
 					}
@@ -264,10 +255,10 @@ public class SettingsDialog extends DialogComponentProvider {
 		final static int BOOLEAN = 1;
 
 		private int mode;
-		private GComboBox<String> comboBox = new GComboBox<>();
-		private GCheckBox checkBox = new GCheckBox();
+		private final GComboBox<String> comboBox = new GComboBox<>();
+		private final GCheckBox checkBox = new GCheckBox();
 
-		private final Runnable editStopped = () -> fireEditingStopped();
+		private final Runnable editStopped = this::fireEditingStopped;
 
 		SettingsEditor() {
 			super();
@@ -276,20 +267,16 @@ public class SettingsDialog extends DialogComponentProvider {
 
 		@Override
 		public Object getCellEditorValue() {
-			switch (mode) {
-				case ENUM:
-					return getComboBoxEnum();
-				case BOOLEAN:
-					return checkBox.isSelected();
-			}
-			throw new AssertException();
+			return switch (mode) {
+				case ENUM -> getComboBoxEnum();
+				case BOOLEAN -> checkBox.isSelected();
+				default -> throw new AssertException();
+			};
 		}
 
 		private StringChoices getComboBoxEnum() {
-			String[] items = new String[comboBox.getItemCount()];
-			for (int i = 0; i < items.length; i++) {
-				items[i] = comboBox.getItemAt(i);
-			}
+			String[] items = java.util.stream.IntStream.range(0, comboBox.getItemCount())
+				.mapToObj(comboBox::getItemAt).toArray(String[]::new);
 			StringChoices choices = new StringChoices(items);
 			choices.setSelectedValue(comboBox.getSelectedIndex());
 			return choices;
@@ -312,7 +299,7 @@ public class SettingsDialog extends DialogComponentProvider {
 
 		private void initCheckBox(Boolean b) {
 			mode = BOOLEAN;
-			checkBox.setSelected(b.booleanValue());
+			checkBox.setSelected(b);
 		}
 
 		private void initComboBox(StringChoices choices) {

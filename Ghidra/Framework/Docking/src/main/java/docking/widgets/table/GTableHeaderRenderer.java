@@ -23,6 +23,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.table.*;
 
+import docking.DockingChrome;
 import generic.theme.GIcon;
 import generic.theme.GThemeDefaults.Colors;
 import generic.theme.Gui;
@@ -90,6 +91,9 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 
 		primaryIcon = getIcon(model, modelIndex);
 		helpIcon = getHelpIcon(table, column);
+		if (DockingChrome.isModern() && rendererComponent instanceof JLabel label) {
+			label.setHorizontalAlignment(SwingConstants.LEADING);
+		}
 
 		// The prevents accessibility from reading the table header text when the header is clipped
 		// in between the row and column numbers, which looks confusing and is inconsistent.
@@ -160,7 +164,7 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 
 		String text = label.getText();
 		String clippedText = checkForClipping(label, text);
-		if (!text.equals(clippedText)) {
+		if (text != null && !text.equals(clippedText)) {
 			label.setText(clippedText);
 
 			// set the tooltips on us, the wrapper renderer, since Java will ask us for the tooltip
@@ -169,6 +173,19 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 	}
 
 	private String checkForClipping(JLabel label, String text) {
+		if (text == null) {
+			return null;
+		}
+		if (DockingChrome.isModern()) {
+			Insets insets = label.getInsets();
+			int iconStart = getHelpIconLocation().x - primaryIcon.getIconWidth() - 6;
+			int width = Math.max(0, iconStart - insets.left - insets.right);
+			return SwingUtilities.layoutCompoundLabel(label, label.getFontMetrics(label.getFont()),
+				text, label.getIcon(), label.getVerticalAlignment(), label.getHorizontalAlignment(),
+				label.getVerticalTextPosition(), label.getHorizontalTextPosition(),
+				new Rectangle(0, 0, width, getHeight()), new Rectangle(), new Rectangle(),
+				label.getIconTextGap());
+		}
 
 		Point helpPoint = getHelpIconLocation();
 		int padding = 5;
@@ -230,7 +247,7 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 
 		// The help icon paints at the end of the cell; place the main icon to the left of that
 		Point helpPoint = getHelpIconLocation();
-		int offset = 4;
+		int offset = DockingChrome.isModern() ? 6 : 4;
 		int x = helpPoint.x - primaryIcon.getIconWidth() - offset;
 		int y = getIconStartY(primaryIcon.getIconHeight());
 
@@ -365,7 +382,7 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 
 		// we want the icon on the right-hand size of the header, at the top
 		int x = right - helpIconExtent - offset;
-		return new Point(x, offset);
+		return new Point(x, DockingChrome.isModern() ? getIconStartY(helpIconExtent) : offset);
 	}
 
 	@Override
@@ -373,7 +390,11 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 	public Dimension getPreferredSize() {
 		Dimension preferredSize = super.getPreferredSize();
 		if (rendererComponent != null) {
-			return rendererComponent.getPreferredSize();
+			Dimension size = rendererComponent.getPreferredSize();
+			if (DockingChrome.isModern()) {
+				size.width += primaryIcon.getIconWidth() + GTableHeader.HELP_ICON_HEIGHT + 8;
+			}
+			return size;
 		}
 
 		Border currentBorder = getBorder();

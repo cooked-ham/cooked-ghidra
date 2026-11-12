@@ -20,6 +20,7 @@ package docking.actions.dialog;
  * will be organized into these groups.
  */
 public enum ActionGroup {
+	RECENT("Recent Actions"),
 	LOCAL_TOOLBAR("Local Toolbar"),
 	LOCAL_MENU("Local Menu"),
 	POPUP("Popup Menu"),

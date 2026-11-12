@@ -42,6 +42,8 @@ public class UiRefreshContrastTest {
 			new UiRefreshHighContrastTheme(), new UiRefreshCompactDarkTheme(),
 			new UiRefreshCompactLightTheme(), new GraphiteTheme() }) {
 			Color background = theme.getColor("color.bg.decompiler").get(theme);
+			assertContrast(theme, "secondary guidance",
+				theme.getColor("color.fg.messages.hint").get(theme), background);
 			for (String role : new String[] { "keyword", "comment", "error", "variable", "constant",
 				"type", "parameter", "global", "special", "external.function" }) {
 				Color foreground = theme.getColor("color.fg.decompiler." + role).get(theme);

@@ -42,10 +42,11 @@ public class GraphiteTheme extends UiRefreshBaseTheme {
 
 	public GraphiteTheme() {
 		super("Graphite Preview", LafType.FLAT_DARK, true, TOKENS, Glyphs.GRAPHITE);
+		setColor("color.border.docking.frame", c(0x50463C));
 		setColor("color.graphite.copper", c(0xCB9474));
-		setColor("color.graphite.chrome.top", c(0x44372D));
+		setColor("color.graphite.chrome.top", c(0x38302A));
 		setColor("color.graphite.chrome.bottom", c(0x2B2723));
-		setColor("color.graphite.chrome.highlight", c(0x77604B));
+		setColor("color.graphite.chrome.highlight", c(0x54483D));
 		setColor("color.graphite.chrome.shadow", c(0x100F0E));
 		addProperty(new generic.theme.BooleanPropertyValue("Docking.graphiteDepth", true));
 	}

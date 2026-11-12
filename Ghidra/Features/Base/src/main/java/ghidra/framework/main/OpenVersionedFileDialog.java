@@ -15,6 +15,7 @@
  */
 package ghidra.framework.main;
 
+import docking.DockingChrome;
 import static ghidra.framework.main.DataTreeDialogType.*;
 
 import java.awt.*;
@@ -376,7 +377,7 @@ public class OpenVersionedFileDialog<T extends DomainObject> extends AbstractDat
 			return false;
 		}
 
-		historyPanel.setBorder(BorderFactory.createTitledBorder("Version History"));
+		historyPanel.setBorder(DockingChrome.sectionBorder("Version History"));
 		splitPane.setRightComponent(historyPanel);
 		historyPanel.addListSelectionListener(e -> {
 			if (e.getValueIsAdjusting()) {

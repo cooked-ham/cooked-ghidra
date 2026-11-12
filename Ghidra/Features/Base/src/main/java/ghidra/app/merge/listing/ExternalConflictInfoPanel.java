@@ -15,6 +15,7 @@
  */
 package ghidra.app.merge.listing;
 
+import docking.DockingChrome;
 import java.awt.BorderLayout;
 
 import java.io.Serial;
@@ -55,7 +56,7 @@ public class ExternalConflictInfoPanel extends JPanel {
 	private void create() {
 
 		setLayout(new BorderLayout());
-		setBorder(BorderFactory.createTitledBorder("Resolve External Location Conflict"));
+		setBorder(DockingChrome.sectionBorder("Resolve External Location Conflict"));
 
 		westLabel = new GDHtmlLabel("<html></html>");
 		eastLabel = new GDHtmlLabel("<html></html>");

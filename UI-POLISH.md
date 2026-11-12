@@ -13,6 +13,85 @@ superseded; existing Windows captures and PowerShell harnesses describe the veri
 environment, not a Windows-only product requirement. Portable changes do not require duplicate
 Windows/macOS testing; targeted platform checks apply when OS-specific behavior is involved.
 
+## Inspection cleanup, search presentation and graph navigation — 2026-11-11
+
+Resolved the fresh IDE scan's 200 warnings/weak warnings, then continued the search/graph pass.
+All 37 changed Java source/test files now inspect with zero errors or warnings. Fixed null
+handling in Restore Defaults and theme setup; retained public extension APIs and existing
+JDK contracts with narrow, documented annotations. The integration test caught and now covers
+a table cache callback during superclass construction.
+
+Modern search lists display category headings above results. Action Chooser adds readable owner
+labels, literal query-word emphasis and an explicit disabled label. Empty filtered lists explain
+how to recover. Memory Search distinguishes ready, loading, cancelled, no-match and filtered-empty
+states while retaining results, headers and the filter. Hint text uses each Refresh theme's
+secondary text token, checked for readable contrast.
+
+Shared graph views now include zoom out/in, live percentage/reset and fit controls, plus a framed
+overview and centered unavailable-state guidance. The footer preserves Function Graph's task
+monitor. Zoom listeners are removed when a viewer is disposed; the controls disable without a
+graph and hide in stock themes.
+
+Gui/Docking/Base/Decompiler/Graph/FunctionGraph jars compile. Across the recorded runs, 22 distinct
+focused tests pass, including actual Memory Search lifecycle/filtering and graph zoom/reset/fit,
+narrow controls, progress-footer coexistence and theme restoration. Reviewed live captures,
+JUnit reports, inspection results and reproducibility details are in
+[search and graph evidence](docs/ui-fidelity/references/search-graph/).
+Other providers' custom loading/error states, graph card/edge refinements, specialist graph
+viewers and physical-DPI/accessibility/performance acceptance remain open.
+
+## Dense table/tree and search renderer pass — 2026-11-11
+
+Shared cell renderers now use wider, theme-aware padding and the theme focus color.
+Focused and unfocused modern cells retain matching insets. GTable's font-based row
+measurement respects the theme row-height minimum and compact padding. Tree renderers
+gain edge padding and a minimum icon/text gap; Refresh trees use consistent child indents
+and wide selections. Table headers align labels to the leading edge, reserve sort/filter
+and help space during clipping and preferred-width measurement, and center the help cue
+with a matching hover area.
+
+Search context cells place padding/focus around the entire cell. Their ellipsis follows
+the selected foreground and font, remains within narrow cells, and no longer subtracts
+the renderer's vertical insets twice. Empty contexts are supported; full context is
+available through tooltips and accessible descriptions. Existing bold match markup remains.
+
+Gui and Docking jars build. The focused SearchLocationContextRendererTest passes with
+zero failures/errors across selected context, empty context, widths from 600 to 0, and
+modern/stock spacing changes. Logs: `build/verification/dense-views-build.log` and
+`build/verification/dense-views-tests.log`. Live Graphite captures of the populated
+Symbol Table and workspace trees, plus stock/Graphite theme switching, are under
+`build/verification/dense-views-final-20261111`. These are in-process Swing captures;
+physical DPI, screen readers, compact row-height acceptance and exhaustive custom-renderer
+coverage remain open. Search grouping/secondary text and provider-specific empty/loading
+states still need individual passes before dense-view coverage is complete.
+
+## Workspace details and dialog/form spacing — 2026-11-11
+
+Dock titles have more padding and icon separation, retain full accessible names/tooltips,
+and reserve more room before actions wrap below the title. Toolbar group separators use
+quiet single hairlines. Listing and Decompiler share vertical content padding; narrow
+location bars retain the function when it fits and limit the linkage label's width.
+
+Dialog actions now use equal-width, trailing-aligned rows that wrap with the available
+width. Stock themes retain centered actions. Import fields have consistent starting
+widths and larger row gaps; settings cells and option-editor label/input gaps have more
+space. Removed doubled modern option-section padding and gave restore-default actions
+a separate inset row. Shared padding follows live theme changes.
+
+All implementation was completed before the requested single focused test run.
+
+## Main workspace visual pass — 2026-11-11
+
+Softened Graphite's dock outlines and warm header gradient so the code surfaces carry
+more visual weight. Open-program tabs now have roomier vertical and horizontal padding.
+Listing and Decompiler location bars use regular-weight path labels, drawn chevron
+separators, a monospaced address, and a separated, quieter linkage label.
+
+Gui, Docking and Base jars build successfully. Visual captures live under
+`build/verification/workspace-visual-final-20261111`. The capture helper now includes
+the Docking jar and accepts a shorter sequence for focused visual reviews.
+Location bars retain their existing opt-in setting.
+
 ## IDE warning cleanup after location/depth work — 2026-11-11
 
 Inspected all 18 changed Java source/test files: 58 warning/weak-warning diagnostics are now

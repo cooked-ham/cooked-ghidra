@@ -15,6 +15,7 @@
  */
 package ghidra.app.merge.memory;
 
+import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 
@@ -80,7 +81,7 @@ class MemoryMergePanel extends JPanel {
 	void setConflictInfo(int conflictIndex, String panelID, String title, String latestStr,
 			String myStr, String origStr) {
 		countPanel.updateCount(conflictIndex, totalConflicts);
-		cardPanel.setBorder(BorderFactory.createTitledBorder(title));
+		cardPanel.setBorder(DockingChrome.sectionBorder(title));
 		if (panelID == COMMENT_PANEL_ID) {
 			cardLayout.show(cardPanel, COMMENT_PANEL_ID);
 			currentPanel = commentPanel;
@@ -109,7 +110,7 @@ class MemoryMergePanel extends JPanel {
 
 		cardLayout = new CardLayout();
 		cardPanel = new JPanel(cardLayout);
-		cardPanel.setBorder(BorderFactory.createTitledBorder("Resolve Block Conflict"));
+		cardPanel.setBorder(DockingChrome.sectionBorder("Resolve Block Conflict"));
 		ChangeListener listener = new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent e) {

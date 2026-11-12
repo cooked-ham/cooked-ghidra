@@ -78,12 +78,16 @@ import resources.Icons;
 public class GTable extends JTable {
 
 	private static final GIcon ICON_SPREADSHEET = new GIcon("icon.spreadsheet");
+	@SuppressWarnings("MagicConstant") // Toolkit supplies valid platform modifier bits.
 	private static final KeyStroke COPY_KEY_STROKE =
 		KeyStroke.getKeyStroke(KeyEvent.VK_C, CONTROL_KEY_MODIFIER_MASK);
+	@SuppressWarnings("MagicConstant") // Toolkit supplies valid platform modifier bits.
 	private static final KeyStroke COPY_COLUMN_KEY_STROKE =
 		KeyStroke.getKeyStroke(KeyEvent.VK_C, CONTROL_KEY_MODIFIER_MASK | SHIFT_DOWN_MASK);
+	@SuppressWarnings("MagicConstant") // Toolkit supplies valid platform modifier bits.
 	private static final KeyStroke SELECT_ALL_KEY_STROKE =
 		KeyStroke.getKeyStroke(KeyEvent.VK_A, CONTROL_KEY_MODIFIER_MASK);
+	@SuppressWarnings("MagicConstant") // Toolkit supplies valid platform modifier bits.
 	private static final KeyStroke ACTIVATE_FILTER_KEY_STROKE =
 		KeyStroke.getKeyStroke(KeyEvent.VK_F, CONTROL_KEY_MODIFIER_MASK);
 
@@ -94,12 +98,12 @@ public class GTable extends JTable {
 	private boolean enableActionKeyBindings;
 	private KeyListener autoLookupListener;
 
-	private AutoLookup autoLookup = createAutoLookup();
+	private final AutoLookup autoLookup = createAutoLookup();
 
 	private boolean htmlRenderingEnabled;
 	private String preferenceKey;
 
-	private MouseListener selectRowListener = new MouseAdapter() {
+	private final MouseListener selectRowListener = new MouseAdapter() {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			if (e.isPopupTrigger()) {
@@ -126,7 +130,6 @@ public class GTable extends JTable {
 	private int userDefinedRowPadding;
 	private TableModelListener rowHeightListener;
 
-	private TableColumnModelListener tableColumnModelListener = null;
 	private final Map<Integer, GTableCellRenderingData> columnRenderingDataMap = new HashMap<>();
 
 	private GTableFilterPanel<?> tableFilterPanel;
@@ -163,7 +166,7 @@ public class GTable extends JTable {
 	public Dimension getPreferredScrollableViewportSize() {
 		Dimension size = super.getPreferredScrollableViewportSize();
 		if (visibleRowCount != null) {
-			int height = getRowHeight() * visibleRowCount.intValue();
+			int height = getRowHeight() * visibleRowCount;
 			size.height = Math.max(size.height, height);
 		}
 		return size;
@@ -226,6 +229,7 @@ public class GTable extends JTable {
 	}
 
 	@Override
+	@SuppressWarnings("NullableProblems") // JDK external nullability; no annotation dependency.
 	public void setColumnModel(TableColumnModel columnModel) {
 		super.setColumnModel(columnModel);
 		setTableHeader(new GTableHeader(this));
@@ -239,6 +243,7 @@ public class GTable extends JTable {
 	 * @implNote overridden to cleanup our SelectionManager
 	 */
 	@Override
+	@SuppressWarnings("NullableProblems") // JDK external nullability; no annotation dependency.
 	public void setSelectionModel(ListSelectionModel newModel) {
 		if (selectionManager != null) {
 			selectionManager.dispose();
@@ -254,6 +259,7 @@ public class GTable extends JTable {
 	 * @implNote overridden to install our SelectionManager
 	 */
 	@Override
+	@SuppressWarnings("NullableProblems") // JDK external nullability; no annotation dependency.
 	public void setModel(TableModel dataModel) {
 		// we are going to create a new selection model, save off the old selectionMode and
 		// restore it at the end.
@@ -280,7 +286,7 @@ public class GTable extends JTable {
 	}
 
 	private RowObjectTableModel<?> getRowObjectTableModel() {
-		if (getModel() instanceof RowObjectTableModel model) {
+		if (getModel() instanceof RowObjectTableModel<?> model) {
 			return model;
 		}
 
@@ -525,7 +531,7 @@ public class GTable extends JTable {
 		header.addMouseListener(headerMouseListener);
 		header.addMouseMotionListener(headerMouseListener);
 
-		tableColumnModelListener = new MyTableColumnModelListener();
+		TableColumnModelListener tableColumnModelListener = new MyTableColumnModelListener();
 		header.getColumnModel().addColumnModelListener(tableColumnModelListener);
 	}
 
@@ -534,7 +540,7 @@ public class GTable extends JTable {
 		// initialize this field at declaration time or in our constructor, as this call will have
 		// happened at that point.
 		if (rowHeightListener == null) {
-			rowHeightListener = e -> adjustRowHeight();
+			rowHeightListener = ignoredE -> adjustRowHeight();
 		}
 
 		ConfigurableColumnTableModel configurableModel = getConfigurableColumnTableModel();
@@ -567,6 +573,9 @@ public class GTable extends JTable {
 
 	private int calculatePreferredRowHeight() {
 		int padding = 3; // default padding to look nicer
+		if (DockingChrome.isModern() && UIManager.getBoolean("Docking.compact")) {
+			padding = 0;
+		}
 		if (userDefinedRowPadding != 0) {
 			padding = userDefinedRowPadding;
 		}
@@ -580,7 +589,9 @@ public class GTable extends JTable {
 			Component component =
 				defaultRenderer.getTableCellRendererComponent(this, "Ghidra", false, false, 0, 0);
 			Dimension preferredSize = component.getPreferredSize();
-			return preferredSize.height + padding;
+			int height = preferredSize.height + padding;
+			return DockingChrome.isModern() ? Math.max(height, UIManager.getInt("Table.rowHeight"))
+					: height;
 		}
 		catch (Throwable t) {
 			// some renderers can't handle being asked to render with dummy data; use default value
@@ -798,10 +809,9 @@ public class GTable extends JTable {
 	private void initialTableColumnSize(TableColumn column, TableModel tableModel,
 			int columnIndex) {
 		TableModel wrappedModel = RowObjectTableModel.unwrap(tableModel);
-		if (!(wrappedModel instanceof AbstractGTableModel<?>)) {
+		if (!(wrappedModel instanceof AbstractGTableModel<?> gTableModel)) {
 			return;
 		}
-		AbstractGTableModel<?> gTableModel = (AbstractGTableModel<?>) wrappedModel;
 		int preferredWidth = gTableModel.getPreferredColumnWidth(columnIndex);
 		if (preferredWidth != AbstractGTableModel.WIDTH_UNDEFINED) {
 			column.setPreferredWidth(preferredWidth);
@@ -817,6 +827,7 @@ public class GTable extends JTable {
 	}
 
 	@Override
+	@SuppressWarnings("NullableProblems") // JDK external nullability; no annotation dependency.
 	public String getToolTipText(MouseEvent e) {
 		String str = super.getToolTipText(e);
 		if (str != null) {
@@ -851,8 +862,7 @@ public class GTable extends JTable {
 				}
 
 				// render contents literally, wrapped in HTML
-				String html = HTMLUtilities.toLiteralHTMLForTooltip(string);
-				return html;
+				return HTMLUtilities.toLiteralHTMLForTooltip(string);
 			}
 		}
 		return null;
@@ -945,6 +955,7 @@ public class GTable extends JTable {
 	 * programmatically, which is not guaranteed to get saved; for example, setting the sort state
 	 * of a sorted table model programmatically will not get saved.
 	 */
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	public void savePreferences() {
 		if (!(columnModel instanceof GTableColumnModel)) {
 			throw new AssertException(
@@ -1053,10 +1064,7 @@ public class GTable extends JTable {
 		ConfigurableColumnTableModel configurableModel = getConfigurableColumnTableModel();
 		if (configurableModel != null) {
 			int modelIndex = convertColumnIndexToModel(col);
-			TableCellRenderer renderer = configurableModel.getHeaderRenderer(modelIndex);
-			if (renderer != null) {
-				return renderer;
-			}
+			return configurableModel.getHeaderRenderer(modelIndex);
 		}
 		return null;
 	}
@@ -1190,7 +1198,7 @@ public class GTable extends JTable {
 	private JMenuItem createAddRemoveColumnsMenuItem(HelpLocation helpLocation) {
 		JMenuItem item = new JMenuItem("Add/Remove Columns...");
 		final TableModel model = getModel();
-		item.addActionListener(e -> {
+		item.addActionListener(ignoredE -> {
 			SelectColumnsDialog dialog =
 				new SelectColumnsDialog((GTableColumnModel) columnModel, model);
 			DockingWindowManager.showDialog(GTable.this, dialog);
@@ -1201,7 +1209,7 @@ public class GTable extends JTable {
 
 	private JMenuItem createColumnSettingsMenuItem(HelpLocation helpLocation) {
 		JMenuItem item = new JMenuItem("Column Settings...");
-		item.addActionListener(e -> {
+		item.addActionListener(ignoredE -> {
 			ConfigurableColumnTableModel configurableModel = getConfigurableColumnTableModel();
 			if (configurableModel == null) {
 				return;
@@ -1447,7 +1455,7 @@ public class GTable extends JTable {
 			new String[] { "Copy", "Copy" },
 			Icons.COPY_ICON,
 			actionMenuGroup, NO_MNEMONIC,
-			Integer.toString(subGroupIndex++)));
+			Integer.toString(subGroupIndex)));
 		copyAction.setKeyBindingData(new KeyBindingData(COPY_KEY_STROKE));
 		copyAction.setHelpLocation(new HelpLocation("Tables", "Copy"));
 
@@ -1465,7 +1473,7 @@ public class GTable extends JTable {
 			Icons.COPY_ICON,
 			actionMenuGroup,
 			NO_MNEMONIC,
-			Integer.toString(subGroupIndex++)));
+			Integer.toString(subGroupIndex)));
 		copyCurrentColumnAction.setKeyBindingData(new KeyBindingData(COPY_COLUMN_KEY_STROKE));
 		copyCurrentColumnAction.setHelpLocation(new HelpLocation("Tables", "Copy_Current_Column"));
 
@@ -1481,7 +1489,7 @@ public class GTable extends JTable {
 			Icons.COPY_ICON,
 			actionMenuGroup,
 			NO_MNEMONIC,
-			Integer.toString(subGroupIndex++)));
+			Integer.toString(subGroupIndex)));
 		copyColumnsAction.setHelpLocation(new HelpLocation("Tables", "Copy_Columns"));
 
 		GTableAction exportAction = new GTableAction("Table Data CSV Export", owner) {
@@ -1496,7 +1504,7 @@ public class GTable extends JTable {
 			ICON_SPREADSHEET,
 			actionMenuGroup,
 			NO_MNEMONIC,
-			Integer.toString(subGroupIndex++)));
+			Integer.toString(subGroupIndex)));
 		exportAction.setHelpLocation(new HelpLocation("Tables", "ExportCSV"));
 
 		GTableAction exportColumnsAction =
@@ -1512,7 +1520,7 @@ public class GTable extends JTable {
 			ICON_SPREADSHEET,
 			actionMenuGroup,
 			NO_MNEMONIC,
-			Integer.toString(subGroupIndex++)));
+			Integer.toString(subGroupIndex)));
 		exportColumnsAction.setHelpLocation(new HelpLocation("Tables", "ExportCSV_Columns"));
 
 		GTableAction selectAllAction = new GTableAction("Table Select All", owner) {
@@ -1537,7 +1545,7 @@ public class GTable extends JTable {
 			null /*icon*/,
 			actionMenuGroup,
 			NO_MNEMONIC,
-			Integer.toString(subGroupIndex++)));
+			Integer.toString(subGroupIndex)));
 		selectAllAction.setKeyBindingData(new KeyBindingData(SELECT_ALL_KEY_STROKE));
 		selectAllAction.setHelpLocation(new HelpLocation("Tables", "SelectAll"));
 
@@ -1566,7 +1574,7 @@ public class GTable extends JTable {
 			null /*icon*/,
 			actionMenuGroup,
 			NO_MNEMONIC,
-			Integer.toString(subGroupIndex++)));
+			Integer.toString(subGroupIndex)));
 		activateFilterAction.setKeyBindingData(new KeyBindingData(ACTIVATE_FILTER_KEY_STROKE));
 		activateFilterAction.setHelpLocation(new HelpLocation("Trees", "Activate_Filter"));
 
@@ -1616,7 +1624,7 @@ public class GTable extends JTable {
 			null /*icon*/,
 			actionMenuGroup,
 			NO_MNEMONIC,
-			Integer.toString(subGroupIndex++)));
+			Integer.toString(subGroupIndex)));
 		hideFilterAction.setHelpLocation(new HelpLocation("Trees", "Hide_Filter"));
 
 		toolActions.addGlobalAction(copyAction);
@@ -1637,24 +1645,19 @@ public class GTable extends JTable {
 	 * A class that captures attribute of the table's column model so that we can change and then
 	 * restore those values.
 	 */
-	private static class ColumnSelectionState {
-		private GTable table;
-		private boolean selectionAllowed;
-		private int[] selectedColumns;
-		private int selectionMode;
-
-		ColumnSelectionState(GTable table, boolean selectionAllowed, int selectionMode,
-				int[] selectedColumns) {
-			this.table = table;
-			this.selectionAllowed = selectionAllowed;
-			this.selectedColumns = selectedColumns;
-			this.selectionMode = selectionMode;
-		}
+	private record ColumnSelectionState(GTable table, boolean selectionAllowed,
+			int selectionMode, int[] selectedColumns) {
 
 		void apply() {
-			table.getColumnModel().getSelectionModel().setSelectionMode(selectionMode);
+			// Captured from ListSelectionModel; retains its validated selection mode.
+			applySelectionMode();
 			table.setColumnSelectionAllowed(selectionAllowed);
 			table.setSelectedColumns(selectedColumns);
+		}
+
+		@SuppressWarnings("MagicConstant") // Value captured from ListSelectionModel.getSelectionMode().
+		private void applySelectionMode() {
+			table.getColumnModel().getSelectionModel().setSelectionMode(selectionMode);
 		}
 
 		static ColumnSelectionState withColumns(GTable table, int[] columns) {
@@ -1677,7 +1680,8 @@ public class GTable extends JTable {
 
 		@Override
 		public void columnRemoved(TableColumnModelEvent e) {
-			if (columnRenderingDataMap != null) {
+			// JTable's constructor can remove columns before this subclass initializes its cache.
+			if (isInitialized) {
 				columnRenderingDataMap.clear();
 			}
 		}

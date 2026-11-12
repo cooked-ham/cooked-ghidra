@@ -25,7 +25,6 @@ import java.util.Set;
 import java.util.Locale;
 import java.util.function.BiPredicate;
 
-import javax.accessibility.AccessibleContext;
 import javax.swing.*;
 
 import docking.*;
@@ -34,6 +33,7 @@ import docking.actions.KeyBindingUtils;
 import docking.widgets.list.GListCellRenderer;
 import docking.widgets.searchlist.SearchList;
 import docking.widgets.searchlist.SearchListEntry;
+import docking.widgets.searchlist.SearchTextHighlighter;
 import generic.theme.GThemeDefaults.Colors;
 import generic.theme.GThemeDefaults.Colors.Messages;
 import ghidra.util.HTMLUtilities;
@@ -45,7 +45,7 @@ import resources.Icons;
  * and global actions that varies depending on its current {@link ActionDisplayLevel}.
  */
 public class ActionChooserDialog extends DialogComponentProvider {
-	private ActionsModel model;
+	private final ActionsModel model;
 	private SearchList<DockingActionIf> searchList;
 	private ActionRunner actionRunner;
 
@@ -68,9 +68,7 @@ public class ActionChooserDialog extends DialogComponentProvider {
 	protected void dialogShown() {
 		// showing the dialog causes the docking windows system to clear the mouse over action,
 		// so we need to re-establish the mouse over action after the dialog is shown
-		Swing.runLater(() -> {
-			DockingWindowManager.setMouseOverAction(searchList.getSelectedItem());
-		});
+		Swing.runLater(() -> DockingWindowManager.setMouseOverAction(searchList.getSelectedItem()));
 	}
 
 	/**
@@ -85,11 +83,11 @@ public class ActionChooserDialog extends DialogComponentProvider {
 
 	/**
 	 * Constructor for when a {@link DialogComponentProvider} has focus
-	 * @param tool the active tool
+	 * @param ignoredTool the active tool, retained for constructor compatibility
 	 * @param dialog the DialogComponentProvider that has focus
 	 * @param context the ActionContext that is active and will be used to invoke the chosen action
 	 */
-	public ActionChooserDialog(Tool tool, DialogComponentProvider dialog, ActionContext context) {
+	public ActionChooserDialog(Tool ignoredTool, DialogComponentProvider dialog, ActionContext context) {
 		this(dialog.getActions(), new HashSet<>(), context);
 	}
 
@@ -167,7 +165,7 @@ public class ActionChooserDialog extends DialogComponentProvider {
 	private JComponent buildMainPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 2, 0, 2));
-		searchList = new SearchList<DockingActionIf>(model, (a, c) -> actionChosen(a)) {
+		searchList = new SearchList<>(model, (a, ignoredC) -> actionChosen(a)) {
 			@Override
 			protected BiPredicate<DockingActionIf, String> createFilter(String text) {
 				return new ActionsFilter(text);
@@ -188,7 +186,7 @@ public class ActionChooserDialog extends DialogComponentProvider {
 			
 		});
 		panel.add(searchList);
-		JLabel hint = new JLabel("Type to search  \u00b7  \u2191\u2193 to select  \u00b7  Enter to run  \u00b7  repeat shortcut for more actions") {
+		JLabel hint = new JLabel("Type to search  ·  ↑↓ to select  ·  Enter to run  ·  repeat shortcut for more actions") {
 			@Override
 			public boolean isVisible() {
 				return DockingChrome.isModern() && super.isVisible();
@@ -205,6 +203,7 @@ public class ActionChooserDialog extends DialogComponentProvider {
 			return;
 		}
 		ActionContext context = model.getContext();
+		ActionsModel.recordRecentAction(action);
 		close();
 		scheduleActionAfterFocusRestored(action, context);
 	}
@@ -246,10 +245,6 @@ public class ActionChooserDialog extends DialogComponentProvider {
 		setOkEnabled(canPerformAction(action));
 	}
 
-	private static String getActionsDisplayMenuName(DockingActionIf action, MenuData menuData) {
-		return menuData.getMenuPathDisplayString();
-	}
-
 	private static String colorKeyBindingString(Color color, DockingActionIf action) {
 		String keyStroke = getKeyBindingString(action);
 		String keyBindingString = HTMLUtilities.escapeHTML(keyStroke);
@@ -267,17 +262,23 @@ public class ActionChooserDialog extends DialogComponentProvider {
 		return "(" + KeyBindingUtils.parseKeyStroke(keyBinding) + ")";
 	}
 
+	private static String getActionOwnerLabel(DockingActionIf action) {
+		String owner = action.getOwnerDescription();
+		if (owner.equals(action.getOwner()) && owner.endsWith("Plugin")) {
+			owner = owner.substring(0, owner.length() - "Plugin".length())
+				.replaceAll("(?<=[a-z0-9])(?=[A-Z])", " ");
+		}
+		return owner;
+	}
+
 	private static String getActionDisplayName(DockingActionIf action, String category) {
 		ActionGroup group = ActionGroup.getActionByDisplayName(category);
-		switch (group) {
-			case LOCAL_MENU:
-			case GLOBAL_MENU:
-				return getActionsDisplayMenuName(action, action.getMenuBarData());
-			case POPUP:
-				return getActionsDisplayMenuName(action, action.getPopupMenuData());
-			default:
-				return action.getName();
-		}
+		return switch (group) {
+			case LOCAL_MENU, GLOBAL_MENU -> action.getMenuBarData().getMenuPathDisplayString();
+			case POPUP -> action.getPopupMenuData().getMenuPathDisplayString();
+			case RECENT -> action.getName();
+			case null, default -> action.getName();
+		};
 	}
 
 	// used for testing
@@ -294,8 +295,8 @@ public class ActionChooserDialog extends DialogComponentProvider {
 	// class not private to allow test access
 	static class ActionRunner implements PropertyChangeListener {
 
-		private DockingActionIf action;
-		private ActionContext context;
+		private final DockingActionIf action;
+		private final ActionContext context;
 
 		ActionRunner(DockingActionIf action, ActionContext context) {
 			this.action = action;
@@ -309,7 +310,7 @@ public class ActionChooserDialog extends DialogComponentProvider {
 
 			// we need make sure the focus notification is complete before we perform the action
 			// in case the action causes a change in focus.
-			Swing.runLater(() -> activateAction());
+			Swing.runLater(this::activateAction);
 		}
 
 		private void activateAction() {
@@ -323,6 +324,7 @@ public class ActionChooserDialog extends DialogComponentProvider {
 	}
 
 	private class ActionRenderer extends GListCellRenderer<SearchListEntry<DockingActionIf>> {
+		private final SearchTextHighlighter highlighter = new SearchTextHighlighter();
 		{
 			setHTMLRenderingEnabled(true);
 		}
@@ -347,7 +349,9 @@ public class ActionChooserDialog extends DialogComponentProvider {
 
 		private String getHtmlText(DockingActionIf action, String category, boolean isSelected) {
 			String actionDisplayName = getActionDisplayName(action, category);
-			String escapedActionName = HTMLUtilities.escapeHTML(actionDisplayName);
+			String escapedActionName = DockingChrome.isModern() ?
+				highlighter.highlight(actionDisplayName, searchList.getFilterText()) :
+				HTMLUtilities.escapeHTML(actionDisplayName);
 			String disabledText = "";
 
 			StringBuilder builder = new StringBuilder("<html>");
@@ -359,39 +363,41 @@ public class ActionChooserDialog extends DialogComponentProvider {
 			if (!(action.isValidContext(context) && action.isEnabledForContext(context))) {
 				fgName = isSelected ? getForeground() : Colors.FOREGROUND_DISABLED;
 				fgKeyBinding = isSelected ? getForeground() : Colors.FOREGROUND_DISABLED;
-				disabledText = isSelected ? " <I>disabled</I>" : "";
+				disabledText = isSelected || DockingChrome.isModern() ? " <I>disabled</I>" : "";
 			}
 
 			builder.append(HTMLUtilities.colorString(fgName, escapedActionName));
 			builder.append(colorKeyBindingString(fgKeyBinding, action));
 			builder.append(disabledText);
+			if (DockingChrome.isModern()) {
+				builder.append("<br>").append(HTMLUtilities.colorString(fgKeyBinding,
+					highlighter.highlight(getActionOwnerLabel(action), searchList.getFilterText())));
+			}
 
 			return builder.toString();
 		}
 
 		private Icon getIcon(DockingActionIf action, String category) {
 			ActionGroup group = ActionGroup.getActionByDisplayName(category);
-			switch (group) {
-				case LOCAL_TOOLBAR:
-				case GLOBAL_TOOLBAR:
+			return switch (group) {
+				case LOCAL_TOOLBAR, GLOBAL_TOOLBAR -> {
 					ToolBarData toolBarData = action.getToolBarData();
-					return toolBarData != null ? toolBarData.getIcon() : null;
-				case LOCAL_MENU:
-				case GLOBAL_MENU:
+					yield toolBarData != null ? toolBarData.getIcon() : null;
+				}
+				case LOCAL_MENU, GLOBAL_MENU -> {
 					MenuData menuBarData = action.getMenuBarData();
-					return menuBarData != null ? menuBarData.getMenuIcon() : null;
-				case POPUP:
-					menuBarData = action.getPopupMenuData();
-					return menuBarData != null ? menuBarData.getMenuIcon() : null;
-				default:
-					return null;
-			}
+					yield menuBarData != null ? menuBarData.getMenuIcon() : null;
+				}
+				case POPUP -> {
+					MenuData menuBarData = action.getPopupMenuData();
+					yield menuBarData != null ? menuBarData.getMenuIcon() : null;
+				}
+				case null, default -> null;
+			};
 		}
 	}
 
-	private static class ActionsFilter implements BiPredicate<DockingActionIf, String> {
-		private String filterText;
-
+	private record ActionsFilter(String filterText) implements BiPredicate<DockingActionIf, String> {
 		ActionsFilter(String filterText) {
 			this.filterText = filterText.toLowerCase(Locale.ROOT).strip();
 		}
@@ -406,7 +412,8 @@ public class ActionChooserDialog extends DialogComponentProvider {
 			if (!DockingChrome.isModern()) {
 				return false;
 			}
-			String searchable = name + " " + key + " " + t.getOwner().toLowerCase(Locale.ROOT);
+			String searchable = name + " " + key + " " + t.getOwner().toLowerCase(Locale.ROOT) +
+				" " + getActionOwnerLabel(t).toLowerCase(Locale.ROOT);
 			for (String word : filterText.split("\\s+")) {
 				if (!searchable.contains(word)) {
 					return false;

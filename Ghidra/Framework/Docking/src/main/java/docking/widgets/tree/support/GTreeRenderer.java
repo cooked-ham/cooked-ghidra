@@ -17,11 +17,13 @@ package docking.widgets.tree.support;
 
 import java.awt.*;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JTree;
 import javax.swing.plaf.UIResource;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
+import docking.DockingChrome;
 import docking.widgets.GComponent;
 import docking.widgets.tree.GTree;
 import docking.widgets.tree.GTreeNode;
@@ -44,6 +46,8 @@ public class GTreeRenderer extends DefaultTreeCellRenderer implements GComponent
 	private int minIconWidth = DEFAULT_MIN_ICON_WIDTH;
 
 	public GTreeRenderer() {
+		setBorder(DockingChrome.padding(1, 3, 1, 5,
+			BorderFactory.createEmptyBorder()));
 		setHTMLRenderingEnabled(false);
 		setBackgroundNonSelectionColor(BACKGROUND_UNSELECTED);
 		setBackgroundSelectionColor(BACKGROUND_SELECTED);
@@ -62,12 +66,11 @@ public class GTreeRenderer extends DefaultTreeCellRenderer implements GComponent
 
 		setBackground(selected1 ? getBackgroundSelectionColor() : getBackgroundNonSelectionColor());
 
-		if (!(value instanceof GTreeNode)) {
+		if (!(value instanceof GTreeNode node)) {
 			// not a GTree
 			return this;
 		}
 
-		GTreeNode node = (GTreeNode) value;
 		String text = node.getDisplayText();
 		setText(text);
 
@@ -147,7 +150,7 @@ public class GTreeRenderer extends DefaultTreeCellRenderer implements GComponent
 		if (icon != null) {
 			iconWidth = icon.getIconWidth();
 		}
-		setIconTextGap(Math.max(minWidth - iconWidth, 2));
+		setIconTextGap(Math.max(minWidth - iconWidth, DockingChrome.isModern() ? 6 : 2));
 	}
 
 	@Override // overridden to recalculate icon text gaps
@@ -156,6 +159,7 @@ public class GTreeRenderer extends DefaultTreeCellRenderer implements GComponent
 		updateIconTextGap(icon, minIconWidth);
 	}
 
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	public int getMinIconWidth() {
 		return minIconWidth;
 	}

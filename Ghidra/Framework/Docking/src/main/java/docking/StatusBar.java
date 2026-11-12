@@ -288,6 +288,9 @@ public class StatusBar extends JPanel {
 	 */
 	@Override
 	public String getToolTipText() {
+		if (!messageQueue.isEmpty() && DockingChrome.isModern()) {
+			return createModernHistory();
+		}
 		if (!messageQueue.isEmpty()) {
 			StringBuilder buffer = new StringBuilder("<html>");
 
@@ -306,6 +309,29 @@ public class StatusBar extends JPanel {
 		}
 
 		return super.getToolTipText();
+	}
+
+	private String createModernHistory() {
+		String muted = HTMLUtilities.toHexString(Colors.Messages.HINT);
+		StringBuilder buffer = new StringBuilder("<html><b>Recent messages</b>");
+		int i = 0;
+		for (String message : messageQueue) {
+			String time = "";
+			int split = message.lastIndexOf(" [");
+			if (split > 0 && message.endsWith("]")) {
+				time = message.substring(split + 2, message.length() - 1);
+				message = message.substring(0, split);
+			}
+			String text = HTMLUtilities.escapeHTML(message);
+			buffer.append(HTMLUtilities.BR);
+			buffer.append(i == 0 ? "<b>" + text + "</b>" : text);
+			if (!time.isEmpty()) {
+				buffer.append(" <font color=\"").append(muted).append("\">")
+						.append(HTMLUtilities.escapeHTML(time)).append("</font>");
+			}
+			i++;
+		}
+		return buffer.toString();
 	}
 
 	// used to fade the foreground color of the status text so that a message

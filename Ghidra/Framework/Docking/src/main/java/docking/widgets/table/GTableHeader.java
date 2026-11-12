@@ -21,6 +21,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import docking.DockingChrome;
 import docking.DockingWindowManager;
 import docking.widgets.table.columnfilter.ColumnBasedTableFilter;
 import generic.theme.GIcon;
@@ -40,11 +41,12 @@ public class GTableHeader extends JTableHeader {
 	private static final Cursor RESIZE_CURSOR = Cursor.getPredefinedCursor(Cursor.E_RESIZE_CURSOR);
 
 	public static final int HELP_ICON_HEIGHT = 8;
+	private static final int HELP_ICON_SIZE = HELP_ICON_HEIGHT;
 	private static final Icon HELP_ICON = ResourceManager.getScaledIcon(
-		new GIcon("icon.widget.table.header.help"), HELP_ICON_HEIGHT, HELP_ICON_HEIGHT);
+		new GIcon("icon.widget.table.header.help"), HELP_ICON_SIZE, HELP_ICON_SIZE);
 	private static final Icon HELP_HOVERED_ICON =
 		ResourceManager.getScaledIcon(new GIcon("icon.widget.table.header.help.hovered"),
-			HELP_ICON_HEIGHT, HELP_ICON_HEIGHT);
+			HELP_ICON_SIZE, HELP_ICON_SIZE);
 
 	private final GTable gTable;
 
@@ -64,7 +66,7 @@ public class GTableHeader extends JTableHeader {
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				if (!isHelpEnabled()) {
+				if (isHelpDisabled()) {
 					return;
 				}
 
@@ -82,7 +84,7 @@ public class GTableHeader extends JTableHeader {
 
 			@Override
 			public void mouseMoved(MouseEvent e) {
-				if (!isHelpEnabled()) {
+				if (isHelpDisabled()) {
 					return;
 				}
 
@@ -106,12 +108,12 @@ public class GTableHeader extends JTableHeader {
 		DockingWindowManager.getHelpService().registerHelp(this, helpLocation);
 	}
 
-	private boolean isHelpEnabled() {
-		return gTable.isColumnHeaderPopupEnabled();
+	private boolean isHelpDisabled() {
+		return !gTable.isColumnHeaderPopupEnabled();
 	}
 
 	private void installCursor() {
-		if (!isHelpEnabled()) {
+		if (isHelpDisabled()) {
 			return;
 		}
 
@@ -122,7 +124,7 @@ public class GTableHeader extends JTableHeader {
 	}
 
 	private void restoreCursor() {
-		if (!isHelpEnabled()) {
+		if (isHelpDisabled()) {
 			return;
 		}
 
@@ -133,7 +135,7 @@ public class GTableHeader extends JTableHeader {
 	}
 
 	private boolean isMouseOverHelpIcon(Point point, int columnIndex) {
-		if (!canFindHelp()) {
+		if (isHelpUnavailable()) {
 			return false;
 		}
 
@@ -141,12 +143,12 @@ public class GTableHeader extends JTableHeader {
 		int padding = 2; // add some padding, since we are dealing with really small sizes
 		int borderWidthTop = 2;
 		int borderWidthRight = 4;
-		int paddedHeight = HELP_ICON_HEIGHT + padding;
-		int paddedWidth = paddedHeight;
+		int paddedHeight = HELP_ICON_SIZE + padding;
 		int headerEndX = headerRect.x + headerRect.width;
-		int helpIconStartX = headerEndX - (paddedWidth + borderWidthRight);
+		int helpIconStartX = headerEndX - (HELP_ICON_SIZE + padding + borderWidthRight);
 		int hoverWidth = headerEndX - helpIconStartX;
-		int hoverHeight = paddedHeight + borderWidthTop;
+		int hoverHeight = DockingChrome.isModern() ? headerRect.height :
+			paddedHeight + borderWidthTop;
 		Rectangle helpIconRect = new Rectangle(helpIconStartX, 0, hoverWidth, hoverHeight);
 		return helpIconRect.contains(point);
 	}
@@ -160,11 +162,11 @@ public class GTableHeader extends JTableHeader {
 	}
 
 	Icon getHelpIcon() {
-		if (!canFindHelp()) {
+		if (isHelpUnavailable()) {
 			return null;
 		}
 
-		if (!isHelpEnabled()) {
+		if (isHelpDisabled()) {
 			return null;
 		}
 
@@ -174,9 +176,9 @@ public class GTableHeader extends JTableHeader {
 		return HELP_ICON;
 	}
 
-	private boolean canFindHelp() {
+	private boolean isHelpUnavailable() {
 		HelpService helpService = DockingWindowManager.getHelpService();
-		return helpService.helpExists();
+		return !helpService.helpExists();
 	}
 
 	@Override
@@ -212,7 +214,7 @@ public class GTableHeader extends JTableHeader {
 
 		}
 
-		if (ttBuilder.length() != 0) {
+		if (!ttBuilder.isEmpty()) {
 			return HTMLUtilities.wrapAsHTML(ttBuilder.toString());
 		}
 
@@ -229,8 +231,7 @@ public class GTableHeader extends JTableHeader {
 		}
 
 		// handle the case where the user has specifically added a tooltip string
-		if (component instanceof JComponent) {
-			JComponent jComponent = (JComponent) component;
+		if (component instanceof JComponent jComponent) {
 			return jComponent.getToolTipText();
 		}
 
@@ -246,10 +247,9 @@ public class GTableHeader extends JTableHeader {
 	}
 
 	private ColumnBasedTableFilter<?> getColumnTableFilter(TableModel model) {
-		if (!(model instanceof RowObjectFilterModel<?>)) {
+		if (!(model instanceof RowObjectFilterModel<?> filterModel)) {
 			return null;
 		}
-		RowObjectFilterModel<?> filterModel = (RowObjectFilterModel<?>) model;
 		TableFilter<?> tableFilter = filterModel.getTableFilter();
 		if (tableFilter == null) {
 			return null;
@@ -257,10 +257,9 @@ public class GTableHeader extends JTableHeader {
 		if (tableFilter instanceof ColumnBasedTableFilter<?>) {
 			return (ColumnBasedTableFilter<?>) tableFilter;
 		}
-		if (!(tableFilter instanceof CombinedTableFilter<?>)) {
+		if (!(tableFilter instanceof CombinedTableFilter<?> combinedFilter)) {
 			return null;
 		}
-		CombinedTableFilter<?> combinedFilter = (CombinedTableFilter<?>) tableFilter;
 		for (int i = 0; i < combinedFilter.getFilterCount(); i++) {
 			TableFilter<?> filter = combinedFilter.getFilter(i);
 			if (filter instanceof ColumnBasedTableFilter<?>) {

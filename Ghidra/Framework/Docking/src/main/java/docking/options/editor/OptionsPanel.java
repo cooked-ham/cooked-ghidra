@@ -45,21 +45,18 @@ import help.HelpService;
 import resources.Icons;
 
 public class OptionsPanel extends JPanel {
-	private PropertyChangeListener changeListener;
+	private final PropertyChangeListener changeListener;
 
 	private GTree gTree;
-	private OptionsRootTreeNode rootNode;
 
-	private OptionsEditor currentOptionsEditor;
-	private Map<OptionsTreeNode, OptionsEditor> editorMap = new HashMap<>();
-	private JPanel viewPanel;
-	private JPanel defaultPanel;
-	private JPanel optionsEditorContainer;
-	private JPanel restoreDefaultPanel;
-	private SwingUpdateManager updateManager;
-	private EditorStateFactory editorStateFactory = new EditorStateFactory();
+	private final Map<OptionsTreeNode, OptionsEditor> editorMap = new HashMap<>();
+	private final JPanel viewPanel;
+	private final JPanel defaultPanel;
+	private final JPanel optionsEditorContainer;
+	private final JPanel restoreDefaultPanel;
+	private final SwingUpdateManager updateManager;
+	private final EditorStateFactory editorStateFactory = new EditorStateFactory();
 
-	private JSplitPane splitPane;
 
 	public OptionsPanel(String rootName, Options[] options,
 			boolean showRestoreDefaultsButton, PropertyChangeListener changeListener) {
@@ -82,6 +79,7 @@ public class OptionsPanel extends JPanel {
 
 		setLayout(new BorderLayout());
 
+		OptionsRootTreeNode rootNode;
 		// assume that one options implies it's a root
 		if (options.length == 1) {
 			rootNode = new OptionsRootTreeNode(options[0]);
@@ -93,14 +91,14 @@ public class OptionsPanel extends JPanel {
 
 		gTree = new GTree(rootNode);
 
-		gTree.addGTreeSelectionListener(e -> updateManager.updateLater());
+		gTree.addGTreeSelectionListener(ignoredE -> updateManager.updateLater());
 
 		gTree.setDataTransformer(new OptionsDataTransformer());
 
 		viewPanel = new JPanel(new BorderLayout());
 		viewPanel.setName("View");
 
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gTree, viewPanel);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, gTree, viewPanel);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setDividerLocation(250);
 
@@ -123,6 +121,7 @@ public class OptionsPanel extends JPanel {
 		// put the component on the lower-right of the overall options pane
 		restoreDefaultPanel = new JPanel();
 		restoreDefaultPanel.setLayout(new BorderLayout());
+		restoreDefaultPanel.setBorder(docking.DockingChrome.padding(10, 12, 2, 0, BorderFactory.createEmptyBorder()));
 
 		if (showRestoreDefaultsButton) {
 			restoreDefaultPanel.add(createRestoreDefaultsButton(), BorderLayout.EAST);
@@ -141,7 +140,7 @@ public class OptionsPanel extends JPanel {
 						Component source = c.getSourceComponent();
 						return SwingUtilities.isDescendingFrom(source, OptionsPanel.this);
 					})
-					.onAction(c -> {
+					.onAction(ignoredC -> {
 						if (isTreeActive()) {
 							activateOptionsEditor();
 						}
@@ -188,8 +187,11 @@ public class OptionsPanel extends JPanel {
 	private Component createRestoreDefaultsButton() {
 
 		JButton button = new JButton("Restore Defaults");
-		button.addActionListener(e -> {
+		button.addActionListener(ignoredE -> {
 			Options currentOptions = getSelectedOptions();
+			if (currentOptions == null) {
+				return;
+			}
 
 			int userChoice = OptionDialog.showOptionDialog(viewPanel, "Restore Defaults?",
 				"<html>Restore <b>" + HTMLUtilities.escapeHTML(currentOptions.getName()) +
@@ -316,20 +318,20 @@ public class OptionsPanel extends JPanel {
 	private void processSelection(OptionsTreeNode selectedNode) {
 
 		if (selectedNode == null) {
-			setViewPanel(defaultPanel, selectedNode);
+			setViewPanel(defaultPanel, null);
 			return;
 		}
 
-		currentOptionsEditor = getOptionsEditor(selectedNode);
+		OptionsEditor currentOptionsEditor = getOptionsEditor(selectedNode);
 		if (currentOptionsEditor == null) {
-			setViewPanel(defaultPanel, selectedNode);
+			setViewPanel(defaultPanel, null);
 			return;
 		}
 
 		JComponent editorComponent =
 			currentOptionsEditor.getEditorComponent(selectedNode.getOptions(), editorStateFactory);
 		if (editorComponent == null) {
-			setViewPanel(defaultPanel, selectedNode);
+			setViewPanel(defaultPanel, null);
 			return;
 		}
 
@@ -360,12 +362,15 @@ public class OptionsPanel extends JPanel {
 	private void setViewPanel(JComponent component, OptionsTreeNode selectedNode) {
 		viewPanel.removeAll();
 		viewPanel.add(component, BorderLayout.CENTER);
-		setHelpLocation(component, selectedNode);
+		setHelpLocation(selectedNode);
 		viewPanel.validate();
 		viewPanel.repaint();
 	}
 
-	private void setHelpLocation(JComponent component, OptionsTreeNode node) {
+	private void setHelpLocation(OptionsTreeNode node) {
+		if (node == null) {
+			return;
+		}
 
 		Options options = node.getOptions();
 		if (options == null) {
@@ -398,7 +403,7 @@ public class OptionsPanel extends JPanel {
 		if (editor == null) {
 			List<String> optionList = node.getOptionNames();
 			Collections.sort(optionList);
-			if (optionList.size() > 0) {
+			if (!optionList.isEmpty()) {
 				editor = new ScrollableOptionsEditor(options.getName(), optionList);
 			}
 		}
@@ -459,15 +464,11 @@ public class OptionsPanel extends JPanel {
 
 		private void addOptionDetails(CustomOptionsEditor editor, List<String> results) {
 			String[] optionNames = editor.getOptionNames();
-			for (String string : optionNames) {
-				results.add(string);
-			}
+			Collections.addAll(results, optionNames);
 
 			String[] descriptions = editor.getOptionDescriptions();
 			if (descriptions != null) {
-				for (String string : descriptions) {
-					results.add(string);
-				}
+				Collections.addAll(results, descriptions);
 			}
 		}
 	}

@@ -15,6 +15,7 @@
  */
 package ghidra.app.merge.listing;
 
+import docking.DockingChrome;
 import java.awt.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -69,7 +70,7 @@ public class ScrollingListChoicesPanel extends ConflictPanel {
 	}
 
 	private void init() {
-		setBorder(BorderFactory.createTitledBorder("Resolve Conflict"));
+		setBorder(DockingChrome.sectionBorder("Resolve Conflict"));
 		gbl = new GridBagLayout();
 		rowPanel = new JPanel(gbl);
 		setLayout(new BorderLayout());

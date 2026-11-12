@@ -20,12 +20,15 @@ import java.util.Objects;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.UIManager;
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.Border;
 import javax.swing.plaf.LabelUI;
 import javax.swing.plaf.UIResource;
 import javax.swing.plaf.basic.BasicHTML;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import docking.DockingChrome;
 import docking.widgets.label.GDHtmlLabel;
 import generic.theme.*;
 import generic.theme.GThemeDefaults.Colors.Palette;
@@ -46,7 +49,7 @@ import utilities.util.reflection.ReflectionUtilities;
  * If you would like this renderer to use a monospaced font, then, as an alternative to creating a
  * font ID, you can instead override {@link #getDefaultFont()} to return this
  * class's {@link #fixedWidthFont}.  
- * 
+ * <p>
  * Also, the fixed width font of this class is based on the
  * default font set when calling {@link #setBaseFontId(String)}, so it stays up-to-date with theme
  * changes.
@@ -87,10 +90,34 @@ public abstract class AbstractGCellRenderer extends GDHtmlLabel implements FontC
 		setBaseFontId(DEFAULT_BASE_FONT_ID);
 		setFixedWidthFontId(MONOSPACED_FONT_ID);
 
-		noFocusBorder = BorderFactory.createEmptyBorder(0, 5, 0, 5);
+		noFocusBorder = DockingChrome.padding(1, 8, 1, 8,
+			BorderFactory.createEmptyBorder(0, 5, 0, 5));
 		Border innerBorder = BorderFactory.createEmptyBorder(0, 4, 0, 4);
 		Border outerBorder = BorderFactory.createLineBorder(Palette.YELLOW, 1);
-		focusBorder = BorderFactory.createCompoundBorder(outerBorder, innerBorder);
+		Border stockFocusBorder = BorderFactory.createCompoundBorder(outerBorder, innerBorder);
+		focusBorder = new AbstractBorder() {
+			@Override
+			public Insets getBorderInsets(Component c, Insets insets) {
+				if (!DockingChrome.isModern()) {
+					insets.set(1, 5, 1, 5);
+				}
+				else {
+					insets.set(1, 8, 1, 8);
+				}
+				return insets;
+			}
+
+			@Override
+			public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+				if (!DockingChrome.isModern()) {
+					stockFocusBorder.paintBorder(c, g, x, y, w, h);
+					return;
+				}
+				Color focus = UIManager.getColor("Component.focusColor");
+				g.setColor(focus != null ? focus : Palette.YELLOW);
+				g.drawRect(x, y, w - 1, h - 1);
+			}
+		};
 		setBorder(noFocusBorder);
 
 		// disable HTML rendering
@@ -127,11 +154,11 @@ public abstract class AbstractGCellRenderer extends GDHtmlLabel implements FontC
 	 * Returns the background color appropriate for the given component.  This may vary depending
 	 * upon the current OS.
 	 *
-	 * @param parent The parent being rendered -- likely a list or table.
+	 * @param ignoredParent The parent being rendered -- likely a list or table.
 	 * @param row The row being rendered.
 	 * @return the color
 	 */
-	protected Color getAlternatingBackgroundColor(JComponent parent, int row) {
+	protected Color getAlternatingBackgroundColor(JComponent ignoredParent, int row) {
 
 		if (!shouldAlternateRowBackgroundColor()) {
 			return getDefaultBackgroundColor();
@@ -151,8 +178,7 @@ public abstract class AbstractGCellRenderer extends GDHtmlLabel implements FontC
 			Gui.unRegisterFont(this, baseFontId);
 		}
 
-		Font f = Gui.getFont(fontId);
-		updateDefaultFont(f);
+		updateDefaultFont(Gui.getFont(fontId));
 
 		baseFontId = fontId;
 		Gui.registerFont(this, baseFontId);
@@ -168,8 +194,7 @@ public abstract class AbstractGCellRenderer extends GDHtmlLabel implements FontC
 			Gui.unRegisterFont(this, fixedWidthFontId);
 		}
 
-		Font f = Gui.getFont(fontId);
-		fixedWidthFont = f;
+		fixedWidthFont = Gui.getFont(fontId);
 
 		fixedWidthFontId = fontId;
 		Gui.registerFont(this, fixedWidthFontId);
@@ -287,6 +312,7 @@ public abstract class AbstractGCellRenderer extends GDHtmlLabel implements FontC
 	 * Sets the row where DnD would perform drop operation.
 	 * @param dropRow the drop row
 	 */
+	@SuppressWarnings("unused") // Extension API; callers may live outside this module.
 	public void setDropRow(int dropRow) {
 		this.dropRow = dropRow;
 	}

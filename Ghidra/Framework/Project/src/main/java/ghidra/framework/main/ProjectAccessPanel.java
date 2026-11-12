@@ -15,6 +15,7 @@
  */
 package ghidra.framework.main;
 
+import docking.DockingChrome;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -340,7 +341,7 @@ public class ProjectAccessPanel extends JPanel {
 			table.setBorder(BorderFactory.createEmptyBorder());
 
 			JScrollPane sp = new JScrollPane(table);
-			sp.setBorder(BorderFactory.createTitledBorder("Project Users"));
+			sp.setBorder(DockingChrome.sectionBorder("Project Users"));
 			sp.setBackground(getBackground());
 			add(sp, BorderLayout.CENTER);
 
@@ -498,7 +499,7 @@ public class ProjectAccessPanel extends JPanel {
 			userList.setCellRenderer(new UserListCellRenderer());
 
 			JScrollPane sp = new JScrollPane(userList);
-			sp.setBorder(BorderFactory.createTitledBorder("Known Users"));
+			sp.setBorder(DockingChrome.sectionBorder("Known Users"));
 			sp.setOpaque(false);
 
 			// Set the minimum dimensions of the scroll pane so we can't collapse it.
