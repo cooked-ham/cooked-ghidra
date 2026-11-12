@@ -13,6 +13,31 @@ superseded; existing Windows captures and PowerShell harnesses describe the veri
 environment, not a Windows-only product requirement. Portable changes do not require duplicate
 Windows/macOS testing; targeted platform checks apply when OS-specific behavior is involved.
 
+## Navigation, baseline and source-only follow-up — 2026-11-12
+
+The existing work was already committed at the start of this pass; its history was preserved.
+New commits `f1dffe5ecc` and `f9f9dc7d9e` fix duplicate Enter activation in SearchList and add a
+dedicated modern program switcher through the existing Go To Program command/shortcut. It filters
+names, projects and paths, ranks name matches, identifies current/modified programs, follows live
+program changes, excludes background programs and revalidates targets before switching.
+
+Existing clickable breadcrumbs were revalidated. Their program menu links to the switcher, and
+program/history menus now distinguish identical names by project path. Independent clones retain
+their binding. Breadcrumb rollout remains opt-in; stock-theme command identities/bindings survive.
+
+Nine switcher, three existing stock navigation and all 36 breadcrumb integration tests pass.
+The final Docking/Gui/Graph run executed 837 tests with the same nine failures and zero errors.
+A separate unmodified pre-UI worktree reproduces every failed method and assertion message.
+Modern navigation/dialog captures pass at 100/125/150/200% logical scale. Actual label, query and
+range validation/empty/error/cancel states were reviewed. All fifty candidates in the three
+UI-bearing source-only roots are classified; built Skeleton, bootstrap chooser and source-built
+Eclipse GhidraDev forms have actual evidence. Eclipse review retains 31 captures.
+
+The latest runtime registration gate passes with 17,478 entries and all 9,338 action handlers
+traced. Exhaustive per-source/per-state release acceptance remains separate and open.
+See [the follow-up report](docs/ui-fidelity/references/navigation-followup/README.md), including the
+bootstrap probe's initial saved-JDK incident and corrected isolation. Nothing was pushed.
+
 ## Remaining UI checks — 2026-11-12
 
 Reviewed the actual Merge/Repository workflow: users, history, cancellation with unchanged private

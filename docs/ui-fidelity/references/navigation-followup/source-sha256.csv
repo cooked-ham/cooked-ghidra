@@ -1,0 +1,7 @@
+"file","sha256"
+"Ghidra/Features/Base/src/main/java/ghidra/app/nav/ProgramSwitcherDialog.java","E9776140346A7CFABC60184ABEA00328264BEC33CB58D4342E26C1D746E77A53"
+"Ghidra/Features/Base/src/main/java/ghidra/app/nav/LocationContextPanel.java","6D6450ABA4DF9E2864360018BD51AE4A1BA0FA0E0401F701AEF74DBFCB4F3952"
+"Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/progmgr/MultiTabPlugin.java","A0ED6F88369FEF38218248F2075EE09A9635F5C0DF7635CF0B6A91C916A5AD61"
+"Ghidra/Features/Base/src/test.slow/java/ghidra/app/nav/ProgramSwitcherDialogTest.java","BC6D500A52F4562E75806F27AC8BD046221F9ABCAA17E4CD6A4F056DD21D3EF5"
+"Ghidra/Framework/Docking/src/main/java/docking/widgets/searchlist/SearchList.java","DAEC8B3F1A47DD20D251C1318117F3EC247B16C1EC3F74D23EC3EA4BDDA247FD"
+"Ghidra/Framework/Docking/src/test/java/docking/widgets/searchlist/SearchListTest.java","660DFB5010259EE90C2CB39E25055C509BECD5E72E0BBB20E2A24683D5D5B4D3"

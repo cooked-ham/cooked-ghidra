@@ -1,0 +1,79 @@
+{
+  "fixture": "E:\\cooked-ghidra\\build\\verification\\ui-acceptance-fixtures-20261112",
+  "surfaces": [
+    "navigation"
+  ],
+  "timestamp": "2026-11-12T09:02:36.1249671Z",
+  "probeJarSha256": "59BD3D7B655F1582C0405744FE2A7ACB6D99B6CBDEB45B1BE29C2976F78433A7",
+  "scripts": [
+    {
+      "script": "adapt_specialist_probe.py",
+      "sha256": "70B837C9FD3E6985BAD5B560F941AE07A23D3485830DDAFED1FA7C05B3674DF7"
+    },
+    {
+      "script": "SpecialistReview.java",
+      "sha256": "7CED9D374DCA4B394734A514D27EA4BD03F33B814BAD2E7F766E179E24FBFC13"
+    },
+    {
+      "script": "RuntimeInventory.java",
+      "sha256": "C19D183435D452DB82DF853EA8BCBFB349CF88889AEA81C63BD95496E47787CB"
+    },
+    {
+      "script": "AcceptanceReview.java",
+      "sha256": "CC7F161C9CEA017AFCF82BEA275B9F7FAED5664F948039C7218038070B5645E3"
+    },
+    {
+      "script": "RepositoryReview.java",
+      "sha256": "7D54F0F160C730EC69FCE62B83D6EA9382F169F3D31FD8ECD2B1FF76F0BF5D7A"
+    },
+    {
+      "script": "NavigationReview.java",
+      "sha256": "73B77F66FEDE8F1188500EE20794D71AF0A344FFF11EA39E392EA733828A1062"
+    },
+    {
+      "script": "review-specialists.ps1",
+      "sha256": "63279644D701DCC3302547872AD52E9953E4355BB9645C7C1B36013B3B1D9C00"
+    }
+  ],
+  "jars": [
+    {
+      "sha256": "2D04314E562F27428F0B2B3616BAC2E34E773ABFA9D24CE1B0A4F6BC4D65B375",
+      "module": "Framework\\Gui"
+    },
+    {
+      "sha256": "1A38468874368D12DFB7F476FFCD7C890676F0F8205AF4F946135CCA2D268A97",
+      "module": "Framework\\Docking"
+    },
+    {
+      "sha256": "6669E8A91055E9FB4159301707B0E464463D2F1578CE4572591B153F1A3A6378",
+      "module": "Framework\\Graph"
+    },
+    {
+      "sha256": "A1A0061257EAAA05A82AB3E1C2B37DB9813DBAB54BC0C7597DB6DF9F24062385",
+      "module": "Features\\Base"
+    },
+    {
+      "sha256": "66A80953DB065EF7E87D5847162382CDC2399523046F7995368289E6101B93CC",
+      "module": "Features\\Decompiler"
+    },
+    {
+      "sha256": "214FF82289DFD0274B8E9B09182A7199F8DE8711FA935143A4E97207645F36E1",
+      "module": "Features\\FunctionGraph"
+    },
+    {
+      "sha256": "90F2E67229D4C5CECA7DD52629F2760440EFA09C38E58B0E84672B54A7923985",
+      "module": "Features\\FunctionGraphDecompilerExtension"
+    },
+    {
+      "sha256": "126CD11AA406C34F5E0A9DA49BB0121D30C20668E33E43F56F2CB996C25022D0",
+      "module": "Debug\\ProposedUtils"
+    }
+  ],
+  "rendering": "In-process Swing painting; off-screen tool frames; not physical-DPI acceptance",
+  "distribution": "E:\\cooked-ghidra\\build\\verification\\coherent-ui-20261112\\ghidra_12.2_DEV",
+  "runtimeApplicationVersion": "12.2",
+  "sequence": "one surface per process",
+  "sourceApplicationVersion": "12.2",
+  "logicalScale": 1.25,
+  "revision": "f1dffe5ecc1ec8da40641b529e81077b6dbccdc8"
+}

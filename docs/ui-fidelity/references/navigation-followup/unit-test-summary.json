@@ -1,0 +1,8 @@
+{
+  "tests": 837.0,
+  "failures": 9.0,
+  "errors": 0.0,
+  "skipped": 0.0,
+  "failedMethodsAndMessagesMatchCleanBaseline": true,
+  "baseline": "9363fdb808cb6eb7d500feee67dcf3322bd3217f"
+}

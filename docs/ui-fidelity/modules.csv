@@ -27,7 +27,7 @@ Ghidra/Extensions/bundle_examples,0,FX-OPTIONAL,Confirm release configuration an
 Ghidra/Extensions/sample,43,FX-OPTIONAL,Confirm release configuration and optional installation,Runtime plugin/menu/provider reconciliation outstanding
 Ghidra/Features/BSim,166,FX-BSIM,Confirm release configuration and optional installation,Runtime plugin/menu/provider reconciliation outstanding
 Ghidra/Features/BSimFeatureVisualizer,22,FX-BSIM,Confirm release configuration and optional installation,Runtime plugin/menu/provider reconciliation outstanding
-Ghidra/Features/Base,4061,FX-CORE,Confirm release configuration and optional installation,Runtime plugin/menu/provider reconciliation outstanding
+Ghidra/Features/Base,4065,FX-CORE,Confirm release configuration and optional installation,Runtime plugin/menu/provider reconciliation outstanding
 Ghidra/Features/BytePatterns,85,FX-CORE,Confirm release configuration and optional installation,Runtime plugin/menu/provider reconciliation outstanding
 Ghidra/Features/ByteViewer,58,FX-CORE,Confirm release configuration and optional installation,Runtime plugin/menu/provider reconciliation outstanding
 Ghidra/Features/CodeCompare,103,FX-COMPARE,Confirm release configuration and optional installation,Runtime plugin/menu/provider reconciliation outstanding

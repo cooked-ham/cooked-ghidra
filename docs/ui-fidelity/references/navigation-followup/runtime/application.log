@@ -1,0 +1,250 @@
+2026-11-11 17:14:27 INFO  (LoggingInitialization) Using log config file: jar:file:/E:/cooked-ghidra/build/verification/release/ghidra_12.3_DEV/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-11-11 17:14:27 INFO  (LoggingInitialization) Using log file: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\application.log  
+2026-11-11 17:14:27 INFO  (Preferences) Loading user preferences: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\preferences  
+2026-11-11 17:14:27 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-11-11 17:14:27 INFO  (ClassSearcher) Searching for classes...  
+2026-11-11 17:14:28 INFO  (ClassSearcher) Class search complete (558 ms)  
+2026-11-11 17:14:28 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-11-11 17:14:28 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-11-11 17:14:28 INFO  (SecureRandomFactory) Random Number Generator initialization complete: SHA1PRNG  
+2026-11-11 17:14:28 INFO  (DefaultTrustManagerFactory) Loaded 43 trusted CA certificates from the OS trust store.  
+2026-11-11 17:14:28 INFO  (DefaultTrustManagerFactory) Loaded 118 trusted CA certificates from the Java default trust store.  
+2026-11-11 17:14:28 INFO  (GhidraRun) User Sean started Ghidra.  
+2026-11-11 17:14:28 INFO  (GhidraRun) User settings directory: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV  
+2026-11-11 17:14:28 INFO  (GhidraRun) User temp directory: C:\Users\Sean\AppData\Local\Temp\ghidra  
+2026-11-11 17:14:28 INFO  (GhidraRun) User cache directory: C:\Users\Sean\AppData\Local\ghidra  
+2026-11-11 17:14:28 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:14:28 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:14:28 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:14:29 DEBUG (RecoverySnapshotMgrPlugin) Recovery snapshot timer set to 5 minute(s)  
+2026-11-11 17:14:29 INFO  (DefaultProject) Opening project: E:\ghidra-ui-refresh\baseline\project\BaselineProj  
+2026-11-11 17:14:29 INFO  (GhidraRun) Ghidra startup complete (2013 ms)  
+2026-11-11 17:14:31 WARN  (PluginPackage) Can't find plugin package for UiRefreshHarness! Creating stub...  
+2026-11-11 17:14:32 INFO  (PackedDatabaseCache) Packed database cache: C:\Users\Sean\AppData\Local\ghidra\packed-db-cache  
+2026-11-11 17:14:32 DEBUG (PackedDatabaseCache) Caching packed database: E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-11-11 17:14:32 DEBUG (PackedDatabase) Unpacking database E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt -> C:\Users\Sean\AppData\Local\ghidra\packed-db-cache\pdbBF11DF19\db.1.gbf  
+2026-11-11 17:14:32 DEBUG (PackedDatabaseCache) Cache update completed: E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-11-11 17:14:45 WARN  (SleighCompile) 390 NOP constructors found  
+2026-11-11 17:14:45 WARN  (SleighCompile) Use -n switch to list each individually  
+2026-11-11 17:14:45 WARN  (SleighCompile) ia.sinc:1029: Table 'pcRelSimm32_32' exports size 0  
+2026-11-11 17:14:45 WARN  (SleighCompile) ia.sinc:1028: Table 'pcRelSimm32' exports size 0  
+2026-11-11 17:14:45 WARN  (SleighCompile) 745 unnecessary extensions/truncations were converted to copies  
+2026-11-11 17:14:45 WARN  (SleighCompile) Use -u switch to list each individually  
+2026-11-11 17:14:45 WARN  (SleighCompile) 18 operations wrote to temporaries that were not read  
+2026-11-11 17:14:45 WARN  (SleighCompile) Use -t switch to list each individually  
+2026-11-11 17:14:45 WARN  (SleighCompile) ia.sinc:933: Unreferenced table: 'imm32_64'  
+2026-11-11 17:14:46 DEBUG (SleighLanguage) Took 1991ms (1877ms inside lock) to initialize language E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Processors\x86\data\languages\x86-64.slaspec -> E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Processors\x86\data\languages\x86-64.sla  
+2026-11-11 17:16:00 INFO  (LoggingInitialization) Using log config file: jar:file:/E:/cooked-ghidra/build/verification/release/ghidra_12.3_DEV/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-11-11 17:16:00 INFO  (LoggingInitialization) Using log file: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\application.log  
+2026-11-11 17:16:00 INFO  (Preferences) Loading user preferences: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\preferences  
+2026-11-11 17:16:00 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-11-11 17:16:00 INFO  (ClassSearcher) Searching for classes...  
+2026-11-11 17:16:01 INFO  (ClassSearcher) Class search complete (557 ms)  
+2026-11-11 17:16:01 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-11-11 17:16:01 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-11-11 17:16:01 INFO  (SecureRandomFactory) Random Number Generator initialization complete: SHA1PRNG  
+2026-11-11 17:16:01 INFO  (DefaultTrustManagerFactory) Loaded 43 trusted CA certificates from the OS trust store.  
+2026-11-11 17:16:01 INFO  (DefaultTrustManagerFactory) Loaded 118 trusted CA certificates from the Java default trust store.  
+2026-11-11 17:16:01 INFO  (GhidraRun) User Sean started Ghidra.  
+2026-11-11 17:16:01 INFO  (GhidraRun) User settings directory: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV  
+2026-11-11 17:16:01 INFO  (GhidraRun) User temp directory: C:\Users\Sean\AppData\Local\Temp\ghidra  
+2026-11-11 17:16:01 INFO  (GhidraRun) User cache directory: C:\Users\Sean\AppData\Local\ghidra  
+2026-11-11 17:16:01 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:16:01 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:16:01 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:16:01 DEBUG (RecoverySnapshotMgrPlugin) Recovery snapshot timer set to 5 minute(s)  
+2026-11-11 17:16:01 INFO  (DefaultProject) Opening project: E:\ghidra-ui-refresh\baseline\project\BaselineProj  
+2026-11-11 17:16:01 INFO  (GhidraRun) Ghidra startup complete (1997 ms)  
+2026-11-11 17:16:04 WARN  (PluginPackage) Can't find plugin package for UiRefreshHarness! Creating stub...  
+2026-11-11 17:16:05 INFO  (PackedDatabaseCache) Packed database cache: C:\Users\Sean\AppData\Local\ghidra\packed-db-cache  
+2026-11-11 17:16:05 DEBUG (PackedDatabaseCache) Using cached packed database: E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-11-11 17:16:17 DEBUG (SleighLanguage) Took 185ms (64ms inside lock) to initialize language E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Processors\x86\data\languages\x86-64.slaspec -> E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Processors\x86\data\languages\x86-64.sla  
+2026-11-11 17:16:38 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:16:41 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:19:54 INFO  (LoggingInitialization) Using log config file: jar:file:/E:/cooked-ghidra/build/verification/release/ghidra_12.3_DEV/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-11-11 17:19:54 INFO  (LoggingInitialization) Using log file: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\application.log  
+2026-11-11 17:19:54 INFO  (Preferences) Loading user preferences: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\preferences  
+2026-11-11 17:19:55 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-11-11 17:19:55 INFO  (ClassSearcher) Searching for classes...  
+2026-11-11 17:19:55 INFO  (ClassSearcher) Class search complete (555 ms)  
+2026-11-11 17:19:55 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-11-11 17:19:55 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-11-11 17:19:55 INFO  (SecureRandomFactory) Random Number Generator initialization complete: SHA1PRNG  
+2026-11-11 17:19:55 INFO  (DefaultTrustManagerFactory) Loaded 43 trusted CA certificates from the OS trust store.  
+2026-11-11 17:19:55 INFO  (DefaultTrustManagerFactory) Loaded 118 trusted CA certificates from the Java default trust store.  
+2026-11-11 17:19:55 INFO  (GhidraRun) User Sean started Ghidra.  
+2026-11-11 17:19:55 INFO  (GhidraRun) User settings directory: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV  
+2026-11-11 17:19:55 INFO  (GhidraRun) User temp directory: C:\Users\Sean\AppData\Local\Temp\ghidra  
+2026-11-11 17:19:55 INFO  (GhidraRun) User cache directory: C:\Users\Sean\AppData\Local\ghidra  
+2026-11-11 17:19:55 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:19:55 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:19:55 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:19:56 DEBUG (RecoverySnapshotMgrPlugin) Recovery snapshot timer set to 5 minute(s)  
+2026-11-11 17:19:56 INFO  (DefaultProject) Opening project: E:\ghidra-ui-refresh\baseline\project\BaselineProj  
+2026-11-11 17:19:56 INFO  (LocalBufferFile) Removed old presave file: E:\ghidra-ui-refresh\baseline\project\BaselineProj.rep\user\00\~00000000.db\tmp7142911387374969772.ps  
+2026-11-11 17:19:56 INFO  (LocalBufferFile) Removed old presave file: E:\ghidra-ui-refresh\baseline\project\BaselineProj.rep\idata\00\~00000000.db\tmp2906175091495799546.ps  
+2026-11-11 17:19:56 INFO  (GhidraRun) Ghidra startup complete (2040 ms)  
+2026-11-11 17:19:58 WARN  (PluginPackage) Can't find plugin package for UiRefreshHarness! Creating stub...  
+2026-11-11 17:19:59 INFO  (PackedDatabaseCache) Packed database cache: C:\Users\Sean\AppData\Local\ghidra\packed-db-cache  
+2026-11-11 17:19:59 DEBUG (PackedDatabaseCache) Using cached packed database: E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-11-11 17:19:59 DEBUG (PackedDatabase) Unpacking database E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt -> C:\Users\Sean\AppData\Local\ghidra\packed-db-cache\pdbBF11DF19\db.2.gbf  
+2026-11-11 17:19:59 DEBUG (PackedDatabaseCache) Cache update completed: E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-11-11 17:20:55 INFO  (LoggingInitialization) Using log config file: jar:file:/E:/cooked-ghidra/build/verification/release/ghidra_12.3_DEV/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-11-11 17:20:55 INFO  (LoggingInitialization) Using log file: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\application.log  
+2026-11-11 17:20:55 INFO  (Preferences) Loading user preferences: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\preferences  
+2026-11-11 17:20:55 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-11-11 17:20:55 INFO  (ClassSearcher) Searching for classes...  
+2026-11-11 17:20:56 INFO  (ClassSearcher) Class search complete (548 ms)  
+2026-11-11 17:20:56 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-11-11 17:20:56 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-11-11 17:20:56 INFO  (SecureRandomFactory) Random Number Generator initialization complete: SHA1PRNG  
+2026-11-11 17:20:56 INFO  (DefaultTrustManagerFactory) Loaded 43 trusted CA certificates from the OS trust store.  
+2026-11-11 17:20:56 INFO  (DefaultTrustManagerFactory) Loaded 118 trusted CA certificates from the Java default trust store.  
+2026-11-11 17:20:56 INFO  (GhidraRun) User Sean started Ghidra.  
+2026-11-11 17:20:56 INFO  (GhidraRun) User settings directory: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV  
+2026-11-11 17:20:56 INFO  (GhidraRun) User temp directory: C:\Users\Sean\AppData\Local\Temp\ghidra  
+2026-11-11 17:20:56 INFO  (GhidraRun) User cache directory: C:\Users\Sean\AppData\Local\ghidra  
+2026-11-11 17:20:56 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:20:56 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:20:56 DEBUG (RecoverySnapshotMgrPlugin) Recovery snapshot timer set to 5 minute(s)  
+2026-11-11 17:20:57 INFO  (DefaultProject) Opening project: E:\ghidra-ui-refresh\baseline\project\BaselineProj  
+2026-11-11 17:20:57 INFO  (GhidraRun) Ghidra startup complete (2027 ms)  
+2026-11-11 17:20:59 WARN  (PluginPackage) Can't find plugin package for UiRefreshHarness! Creating stub...  
+2026-11-11 17:21:00 INFO  (PackedDatabaseCache) Packed database cache: C:\Users\Sean\AppData\Local\ghidra\packed-db-cache  
+2026-11-11 17:21:00 DEBUG (PackedDatabaseCache) Using cached packed database: E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-11-11 17:21:13 WARN  (SleighCompile) 390 NOP constructors found  
+2026-11-11 17:21:13 WARN  (SleighCompile) Use -n switch to list each individually  
+2026-11-11 17:21:13 WARN  (SleighCompile) ia.sinc:1029: Table 'pcRelSimm32_32' exports size 0  
+2026-11-11 17:21:13 WARN  (SleighCompile) ia.sinc:1028: Table 'pcRelSimm32' exports size 0  
+2026-11-11 17:21:13 WARN  (SleighCompile) 745 unnecessary extensions/truncations were converted to copies  
+2026-11-11 17:21:13 WARN  (SleighCompile) Use -u switch to list each individually  
+2026-11-11 17:21:13 WARN  (SleighCompile) 18 operations wrote to temporaries that were not read  
+2026-11-11 17:21:13 WARN  (SleighCompile) Use -t switch to list each individually  
+2026-11-11 17:21:13 WARN  (SleighCompile) ia.sinc:933: Unreferenced table: 'imm32_64'  
+2026-11-11 17:21:14 DEBUG (SleighLanguage) Took 1997ms (1892ms inside lock) to initialize language E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Processors\x86\data\languages\x86-64.slaspec -> E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Processors\x86\data\languages\x86-64.sla  
+2026-11-11 17:22:53 INFO  (LoggingInitialization) Using log config file: jar:file:/E:/cooked-ghidra/build/verification/release/ghidra_12.3_DEV/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-11-11 17:22:53 INFO  (LoggingInitialization) Using log file: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\application.log  
+2026-11-11 17:22:53 INFO  (Preferences) Loading user preferences: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV\preferences  
+2026-11-11 17:22:53 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-11-11 17:22:53 INFO  (ClassSearcher) Searching for classes...  
+2026-11-11 17:22:54 INFO  (ClassSearcher) Class search complete (565 ms)  
+2026-11-11 17:22:54 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-11-11 17:22:54 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-11-11 17:22:54 INFO  (SecureRandomFactory) Random Number Generator initialization complete: SHA1PRNG  
+2026-11-11 17:22:54 INFO  (DefaultTrustManagerFactory) Loaded 43 trusted CA certificates from the OS trust store.  
+2026-11-11 17:22:54 INFO  (DefaultTrustManagerFactory) Loaded 118 trusted CA certificates from the Java default trust store.  
+2026-11-11 17:22:54 INFO  (GhidraRun) User Sean started Ghidra.  
+2026-11-11 17:22:54 INFO  (GhidraRun) User settings directory: E:\cooked-ghidra\build\verification\profile\Sean-ghidra\ghidra_12.3_DEV  
+2026-11-11 17:22:54 INFO  (GhidraRun) User temp directory: C:\Users\Sean\AppData\Local\Temp\ghidra  
+2026-11-11 17:22:54 INFO  (GhidraRun) User cache directory: C:\Users\Sean\AppData\Local\ghidra  
+2026-11-11 17:22:54 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:22:54 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-11 17:22:54 DEBUG (RecoverySnapshotMgrPlugin) Recovery snapshot timer set to 5 minute(s)  
+2026-11-11 17:22:55 INFO  (DefaultProject) Opening project: E:\ghidra-ui-refresh\baseline\project\BaselineProj  
+2026-11-11 17:22:55 INFO  (LocalBufferFile) Removed old presave file: E:\ghidra-ui-refresh\baseline\project\BaselineProj.rep\idata\00\~00000000.db\tmp11037341049704100521.ps  
+2026-11-11 17:22:55 INFO  (LocalBufferFile) Removed old presave file: E:\ghidra-ui-refresh\baseline\project\BaselineProj.rep\user\00\~00000000.db\tmp15956207152073194841.ps  
+2026-11-11 17:22:55 INFO  (GhidraRun) Ghidra startup complete (2057 ms)  
+2026-11-11 17:22:57 WARN  (PluginPackage) Can't find plugin package for UiRefreshHarness! Creating stub...  
+2026-11-11 17:22:58 INFO  (PackedDatabaseCache) Packed database cache: C:\Users\Sean\AppData\Local\ghidra\packed-db-cache  
+2026-11-11 17:22:58 DEBUG (PackedDatabaseCache) Using cached packed database: E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-11-11 17:23:10 DEBUG (SleighLanguage) Took 174ms (61ms inside lock) to initialize language E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Processors\x86\data\languages\x86-64.slaspec -> E:\cooked-ghidra\build\verification\release\ghidra_12.3_DEV\Ghidra\Processors\x86\data\languages\x86-64.sla  
+2026-11-12 03:12:19 INFO  (LoggingInitialization) Using log config file: jar:file:/E:/cooked-ghidra/build/verification/coherent-ui-20261112/ghidra_12.2_DEV/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-11-12 03:12:19 INFO  (LoggingInitialization) Using log file: E:\cooked-ghidra\build\verification\runtime-navigation-verified-20261112\profile\Sean-ghidra\ghidra_12.2_DEV\application.log  
+2026-11-12 03:12:19 INFO  (Preferences) Loading user preferences: E:\cooked-ghidra\build\verification\runtime-navigation-verified-20261112\profile\Sean-ghidra\ghidra_12.2_DEV\preferences  
+2026-11-12 03:12:19 INFO  (Preferences) Loading previous preferences: E:\cooked-ghidra\build\verification\runtime-navigation-verified-20261112\profile\Sean-ghidra\ghidra_12.3_DEV\preferences  
+2026-11-12 03:12:19 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-11-12 03:12:19 INFO  (ClassSearcher) Searching for classes...  
+2026-11-12 03:12:20 INFO  (ClassSearcher) Class search complete (580 ms)  
+2026-11-12 03:12:20 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-11-12 03:12:20 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-11-12 03:12:20 INFO  (SecureRandomFactory) Random Number Generator initialization complete: SHA1PRNG  
+2026-11-12 03:12:20 INFO  (DefaultTrustManagerFactory) Loaded 43 trusted CA certificates from the OS trust store.  
+2026-11-12 03:12:20 INFO  (DefaultTrustManagerFactory) Loaded 118 trusted CA certificates from the Java default trust store.  
+2026-11-12 03:12:20 INFO  (GhidraRun) User Sean started Ghidra.  
+2026-11-12 03:12:20 INFO  (GhidraRun) User settings directory: E:\cooked-ghidra\build\verification\runtime-navigation-verified-20261112\profile\Sean-ghidra\ghidra_12.2_DEV  
+2026-11-12 03:12:20 INFO  (GhidraRun) User temp directory: C:\Users\Sean\AppData\Local\Temp\ghidra  
+2026-11-12 03:12:20 INFO  (GhidraRun) User cache directory: C:\Users\Sean\AppData\Local\ghidra  
+2026-11-12 03:12:20 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-12 03:12:20 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-12 03:12:21 DEBUG (RecoverySnapshotMgrPlugin) Recovery snapshot timer set to 5 minute(s)  
+2026-11-12 03:12:21 INFO  (DefaultProject) Opening project: E:\cooked-ghidra\build\verification\runtime-navigation-verified-20261112\project\GraphiteReference  
+2026-11-12 03:12:21 INFO  (GhidraRun) Ghidra startup complete (2248 ms)  
+2026-11-12 03:12:23 WARN  (PluginPackage) Can't find plugin package for UiRefreshHarness! Creating stub...  
+2026-11-12 03:12:24 INFO  (PackedDatabaseCache) Packed database cache: C:\Users\Sean\AppData\Local\ghidra\packed-db-cache  
+2026-11-12 03:12:24 DEBUG (PackedDatabaseCache) Using cached packed database: E:\cooked-ghidra\build\verification\coherent-ui-20261112\ghidra_12.2_DEV\Ghidra\Features\Base\data\typeinfo\win32\windows_vs12_64.gdt  
+2026-11-12 03:12:36 WARN  (ToolActions) Shared Key Binding Actions have different default values.  These must be the same.
+	Action name: 'Hello World'
+	Action 1: 
+		Action Trigger: null
+	Action 2: 
+		Action Trigger: ctrl pressed W
+Using the first value set - null java.lang.Throwable
+	at docking.actions.ToolActions.logDifferentKeyBindingsWarnigMessage(ToolActions.java:180)
+	at docking.actions.ToolActions.assertSameDefaultActionTrigger(ToolActions.java:154)
+	at docking.actions.ToolActions.addActionToMap(ToolActions.java:133)
+	at docking.actions.ToolActions.addLocalAction(ToolActions.java:200)
+	at docking.AbstractDockingTool.addLocalAction(AbstractDockingTool.java:117)
+	at docking.ComponentProvider.addLocalAction(ComponentProvider.java:331)
+	at ghidra.examples.HelloWorldComponentProvider.createActions(HelloWorldComponentProvider.java:79)
+	at ghidra.examples.HelloWorldComponentProvider.<init>(HelloWorldComponentProvider.java:49)
+	at ghidra.examples.HelloWorldComponentPlugin.<init>(HelloWorldComponentPlugin.java:45)
+	at ghidra.framework.plugintool.util.PluginUtils.instantiatePlugin(PluginUtils.java:46)
+	at ghidra.framework.plugintool.PluginManager.addPlugins(PluginManager.java:147)
+	at ghidra.framework.plugintool.PluginTool.lambda$addPlugins$0(PluginTool.java:905)
+	at ghidra.framework.plugintool.PluginTool.lambda$checkedRunSwingNow$0(PluginTool.java:1638)
+	at ghidra.util.Swing.doRun(Swing.java:292)
+	at ghidra.util.Swing.runNow(Swing.java:208)
+	at ghidra.util.Swing.runNow(Swing.java:163)
+	at ghidra.framework.plugintool.PluginTool.checkedRunSwingNow(PluginTool.java:1636)
+	at ghidra.framework.plugintool.PluginTool.addPlugins(PluginTool.java:903)
+	at ghidra.framework.plugintool.PluginTool.addPlugin(PluginTool.java:892)
+	at uirefresh.RuntimeInventory.optionalPlugins(RuntimeInventory.java:246)
+	at uirefresh.RuntimeInventory.specialists(RuntimeInventory.java:202)
+	at uirefresh.UiRefreshHarnessPlugin.lambda$runThemeProbe$0(UiRefreshHarnessPlugin.java:120)
+	at uirefresh.UiRefreshHarnessPlugin.lambda$onEdt$0(UiRefreshHarnessPlugin.java:695)
+	at docking.DockingDialog.setVisible(DockingDialog.java:385)
+	at docking.DockingWindowManager.lambda$doShowDialog$0(DockingWindowManager.java:1884)
+	at ghidra.util.Swing.doRun(Swing.java:292)
+	at ghidra.util.Swing.runNow(Swing.java:208)
+	at ghidra.util.Swing.runNow(Swing.java:163)
+	at docking.DockingWindowManager.doShowDialog(DockingWindowManager.java:1888)
+	at docking.DockingWindowManager.showDialog(DockingWindowManager.java:1836)
+	at docking.widgets.OptionDialog.show(OptionDialog.java:412)
+	at docking.widgets.OptionDialog.lambda$showOptionNoCancelDialog$0(OptionDialog.java:719)
+	at ghidra.util.Swing.lambda$runNow$0(Swing.java:148)
+	at ghidra.util.Swing.doRun(Swing.java:292)
+	at ghidra.util.Swing.runNow(Swing.java:208)
+	at ghidra.util.Swing.runNow(Swing.java:163)
+	at ghidra.util.Swing.runNow(Swing.java:148)
+	at docking.widgets.OptionDialog.showOptionNoCancelDialog(OptionDialog.java:716)
+	at docking.widgets.OptionDialog.showYesNoDialog(OptionDialog.java:827)
+	at ghidra.framework.project.tool.ToolExtensionsEnabledState.propmtToConfigureNewPlugins(ToolExtensionsEnabledState.java:101)
+	at ghidra.framework.project.tool.ToolExtensionsStatusManager.lambda$checkForNewExtensions$0(ToolExtensionsStatusManager.java:57)
+	at docking.DockingDialog.setVisible(DockingDialog.java:385)
+	at docking.DockingWindowManager.lambda$doShowDialog$0(DockingWindowManager.java:1884)
+	at ghidra.util.Swing.doRun(Swing.java:292)
+	at ghidra.util.Swing.runNow(Swing.java:208)
+	at ghidra.util.Swing.runNow(Swing.java:163)
+	at docking.DockingWindowManager.doShowDialog(DockingWindowManager.java:1888)
+	at docking.DockingWindowManager.showDialog(DockingWindowManager.java:1836)
+	at ghidra.util.task.TaskDialog.lambda$doShow$0(TaskDialog.java:376)
+	at ghidra.util.Swing.runIfSwingOrRunLater(Swing.java:124)
+	at ghidra.util.task.TaskDialog.doShow(TaskDialog.java:373)
+	at ghidra.util.task.TaskDialog.doShowModal(TaskDialog.java:353)
+	at ghidra.util.task.TaskDialog.show(TaskDialog.java:327)
+	at ghidra.util.task.TaskRunner.lambda$showTaskDialog$0(TaskRunner.java:123)
+	at ghidra.util.Swing.runIfSwingOrRunLater(Swing.java:124)
+	at ghidra.util.task.TaskRunner.showTaskDialog(TaskRunner.java:120)
+	at ghidra.util.task.TaskRunner.run(TaskRunner.java:54)
+	at ghidra.util.task.TaskLauncher.<init>(TaskLauncher.java:219)
+	at ghidra.util.task.TaskLauncher.<init>(TaskLauncher.java:201)
+	at ghidra.framework.project.tool.WorkspaceImpl.launchSwing(WorkspaceImpl.java:117)
+	at ghidra.framework.project.tool.WorkspaceImpl.runTool(WorkspaceImpl.java:92)
+	at uirefresh.UiRefreshLauncherPlugin.lambda$init$1(UiRefreshLauncherPlugin.java:53)
+ 
+2026-11-12 03:12:37 WARN  (GhidraToolTemplate) Tool supported content class not found: ghidra.program.model.listing.DataTypeArchive  
+2026-11-12 03:12:37 WARN  (DebuggerModulesPlugin) Plugin DebuggerModulesPlugin did not register a service handler for: interface ghidra.app.services.DebuggerAutoMappingService  
+2026-11-12 03:12:42 DEBUG (SleighLanguage) Took 205ms (75ms inside lock) to initialize language E:\cooked-ghidra\build\verification\coherent-ui-20261112\ghidra_12.2_DEV\Ghidra\Processors\x86\data\languages\x86-64.slaspec -> E:\cooked-ghidra\build\verification\coherent-ui-20261112\ghidra_12.2_DEV\Ghidra\Processors\x86\data\languages\x86-64.sla  
+2026-11-12 03:12:42 INFO  (TaintPlugin) Changed from function: NULL to function 00401000  
+2026-11-12 03:12:42 INFO  (LisaPlugin) Changed from function: NULL to function 00401000  
+2026-11-12 03:12:42 INFO  (SampleTablePlugin) selectionChanged(): null  

@@ -1,5 +1,12 @@
 # Location-context acceptance — 2026-11-11
 
+Follow-up on 2026-11-12: all 36 integration cases pass again. Program/history menus now disambiguate
+duplicate names, and the program menu opens the new searchable switcher. Its nine integration cases
+and three existing stock navigation checks pass. Actual menu/dialog captures at four logical scales
+are in the [navigation follow-up](references/navigation-followup/README.md). Extra physical-DPI,
+macOS and screen-reader hardware acceptance is excluded by the owner for this pass; those older
+hardware entries below are not outstanding requests. Production breadcrumb rollout remains opt-in.
+
 Status: software checks completed in this Windows/JDK 25 checkout; production rollout
 remains opt-in. An isolated application exit/relaunch also passes;
 physical acceptance is not established by these tests. This report supersedes the older seven/16/19-case coverage notes.

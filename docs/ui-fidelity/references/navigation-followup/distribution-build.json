@@ -1,0 +1,10 @@
+{
+  "task": ":Base:buildModuleHelp assembleAll --offline --console=plain",
+  "result": "BUILD SUCCESSFUL",
+  "tasks": 835,
+  "sourceVersion": "12.2",
+  "distribution": "build/dist/ghidra_12.2_DEV",
+  "applicationPropertiesSha256": "FD7222621598D700ACBA5B775BC2EF6070556BEEA221D5322FF907C0353EEFB0",
+  "revision": "81487b01acbae578502bc3fdb31f6e4d9ca8a729",
+  "rawLog": "build/verification/navigation-final-distribution.log"
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="docking.widgets.fieldpanel.FlowLayoutTextFieldTest" tests="3" skipped="0" failures="1" errors="0" timestamp="2026-11-12T08:35:37.171Z" hostname="ROTBART" time="0.621">
+  <properties/>
+  <testcase name="testScreenToDataLocation" classname="docking.widgets.fieldpanel.FlowLayoutTextFieldTest" time="0.385"/>
+  <testcase name="testTextOffsetToScreenLocation" classname="docking.widgets.fieldpanel.FlowLayoutTextFieldTest" time="0.117"/>
+  <testcase name="testDataToScreenLocation" classname="docking.widgets.fieldpanel.FlowLayoutTextFieldTest" time="0.116">
+    <failure message="java.lang.AssertionError: expected:&lt;1,15, hidden&gt; but was:&lt;1,15&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;1,15, hidden&gt; but was:&lt;1,15&gt;
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at docking.widgets.fieldpanel.FlowLayoutTextFieldTest.testDataToScreenLocation(FlowLayoutTextFieldTest.java:117)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at generic.test.TestThread.run(TestThread.java:106)
+</failure>
+  </testcase>
+  <system-out><![CDATA[Created test directory: E:\cooked-ghidra\build\verification\pre-ui-baseline-20261112\Ghidra\Framework\Docking\build\Sean-ghidra\test_2c5695ed-39f8-4b53-bcfb-6e8f02817985\temp.data
+02:35:37 INFO  Using log config file: file:/E:/cooked-ghidra/build/verification/pre-ui-baseline-20261112/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+02:35:37 INFO  Using log file: E:\cooked-ghidra\build\verification\pre-ui-baseline-20261112\Ghidra\Framework\Docking\build\Sean-ghidra\test_2c5695ed-39f8-4b53-bcfb-6e8f02817985\temp.data\application.log   (LoggingInitialization.java:56) 
+02:35:37 DEBUG Thu Nov 12 02:35:37 CST 2026
+***** STARTING Test: FlowLayoutTextFieldTest - testScreenToDataLocation *****   (AbstractGenericTest.java:121) 
+02:35:37 DEBUG 	✓ PASSED Test: FlowLayoutTextFieldTest - testScreenToDataLocation ✓	   (AbstractGenericTest.java:121) 
+02:35:37 DEBUG Thu Nov 12 02:35:37 CST 2026
+***** STARTING Test: FlowLayoutTextFieldTest - testTextOffsetToScreenLocation *****   (AbstractGenericTest.java:121) 
+02:35:37 DEBUG 	✓ PASSED Test: FlowLayoutTextFieldTest - testTextOffsetToScreenLocation ✓	   (AbstractGenericTest.java:121) 
+02:35:37 DEBUG Thu Nov 12 02:35:37 CST 2026
+***** STARTING Test: FlowLayoutTextFieldTest - testDataToScreenLocation *****   (AbstractGenericTest.java:121) 
+02:35:37 DEBUG 	✖ FAILED Test: FlowLayoutTextFieldTest - testDataToScreenLocation ✖	   (AbstractGenericTest.java:121) 
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

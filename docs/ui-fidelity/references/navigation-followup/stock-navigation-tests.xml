@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ghidra.app.plugin.core.progmgr.MultiTabPluginTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-12T09:04:15.085Z" hostname="ROTBART" time="6.26">
+  <properties/>
+  <testcase name="testGoToLastProgramAction" classname="ghidra.app.plugin.core.progmgr.MultiTabPluginTest" time="3.804"/>
+  <testcase name="testSelectFromList" classname="ghidra.app.plugin.core.progmgr.MultiTabPluginTest" time="1.426"/>
+  <testcase name="testStateOnSwitch" classname="ghidra.app.plugin.core.progmgr.MultiTabPluginTest" time="1.027"/>
+  <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_a88d325e-ee3b-4f6b-8a90-79dfe7081a92\temp.data
+03:04:15 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+03:04:15 INFO  Using log file: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_a88d325e-ee3b-4f6b-8a90-79dfe7081a92\temp.data\application.log   (LoggingInitialization.java:56) 
+03:04:15 INFO  Loading user preferences: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_a88d325e-ee3b-4f6b-8a90-79dfe7081a92\temp.data\preferences   (Preferences.java:122) 
+03:04:15 DEBUG Including serial input filter: FileSystem/data/client.rmi.serial.filter   (GhidraObjectInputFilter.java:391) 
+03:04:15 INFO  Searching for classes...   (ClassSearcher.java:447) 
+03:04:15 INFO  Class search complete (335 ms)   (ClassSearcher.java:135) 
+03:04:16 DEBUG Thu Nov 12 03:04:16 CST 2026
+***** STARTING Test: MultiTabPluginTest - testGoToLastProgramAction *****   (AbstractGenericTest.java:121) 
+03:04:17 DEBUG Took 52ms (16ms inside lock) to initialize language E:\cooked-ghidra\Ghidra\Processors\Toy\data\languages\toy_be.slaspec -> E:\cooked-ghidra\Ghidra\Processors\Toy\data\languages\toy_be.sla   (SleighLanguage.java:204) 
+03:04:18 DEBUG 	✓ PASSED Test: MultiTabPluginTest - testGoToLastProgramAction ✓	   (AbstractGenericTest.java:121) 
+03:04:18 DEBUG Thu Nov 12 03:04:18 CST 2026
+***** STARTING Test: MultiTabPluginTest - testSelectFromList *****   (AbstractGenericTest.java:121) 
+03:04:20 DEBUG 	✓ PASSED Test: MultiTabPluginTest - testSelectFromList ✓	   (AbstractGenericTest.java:121) 
+03:04:20 DEBUG Thu Nov 12 03:04:20 CST 2026
+***** STARTING Test: MultiTabPluginTest - testStateOnSwitch *****   (AbstractGenericTest.java:121) 
+03:04:21 DEBUG 	✓ PASSED Test: MultiTabPluginTest - testStateOnSwitch ✓	   (AbstractGenericTest.java:121) 
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

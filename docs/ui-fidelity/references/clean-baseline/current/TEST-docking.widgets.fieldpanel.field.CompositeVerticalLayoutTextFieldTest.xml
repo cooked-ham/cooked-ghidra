@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" tests="20" skipped="0" failures="6" errors="0" timestamp="2026-11-12T08:38:47.799Z" hostname="ROTBART" time="2.744">
+  <properties/>
+  <testcase name="testScreenToDataLocation" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.495"/>
+  <testcase name="testLayoutWithWrapping_OneWrappedRow" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.125"/>
+  <testcase name="testGetX_And_GetCol" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.117">
+    <failure message="java.lang.AssertionError: expected:&lt;12&gt; but was:&lt;16&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;12&gt; but was:&lt;16&gt;
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest.testGetX_And_GetCol(CompositeVerticalLayoutTextFieldTest.java:476)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at generic.test.TestThread.run(TestThread.java:106)
+</failure>
+  </testcase>
+  <testcase name="testGetY_And_GetRow" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.113"/>
+  <testcase name="testTextOffsetToScreenLocation" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.12"/>
+  <testcase name="testIsClipped_VerticalClipping" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.124"/>
+  <testcase name="testIsClipped_HorizontalClipping" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.12"/>
+  <testcase name="testDataToScreenLocation" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.116">
+    <failure message="java.lang.AssertionError: Text should have been clipped" type="java.lang.AssertionError">java.lang.AssertionError: Text should have been clipped
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest.assertRowColClipped(CompositeVerticalLayoutTextFieldTest.java:593)
+	at docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest.testDataToScreenLocation(CompositeVerticalLayoutTextFieldTest.java:166)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at generic.test.TestThread.run(TestThread.java:106)
+</failure>
+  </testcase>
+  <testcase name="testIsClipped_HorizontalAndVerticalClipping" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.123"/>
+  <testcase name="testGetText" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.116"/>
+  <testcase name="testGetNumColumns" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.112">
+    <failure message="java.lang.AssertionError: expected:&lt;13&gt; but was:&lt;17&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;13&gt; but was:&lt;17&gt;
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest.testGetNumColumns(CompositeVerticalLayoutTextFieldTest.java:300)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at generic.test.TestThread.run(TestThread.java:106)
+</failure>
+  </testcase>
+  <testcase name="testLayoutWrapping_TwoWrappedRow" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.117">
+    <failure message="java.lang.AssertionError: expected:&lt;4&gt; but was:&lt;2&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;4&gt; but was:&lt;2&gt;
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest.testLayoutWrapping_TwoWrappedRow(CompositeVerticalLayoutTextFieldTest.java:513)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at generic.test.TestThread.run(TestThread.java:106)
+</failure>
+  </testcase>
+  <testcase name="getGetAllRows" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.117"/>
+  <testcase name="testGetFieldElement" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.113"/>
+  <testcase name="testLayoutWrapping_MixedRows_TrailingWrappingRow" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.117">
+    <failure message="org.junit.ComparisonFailure: expected:&lt;3: wrapped []&gt; but was:&lt;3: wrapped [row: ]&gt;" type="org.junit.ComparisonFailure">org.junit.ComparisonFailure: expected:&lt;3: wrapped []&gt; but was:&lt;3: wrapped [row: ]&gt;
+	at org.junit.Assert.assertEquals(Assert.java:117)
+	at org.junit.Assert.assertEquals(Assert.java:146)
+	at docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest.testLayoutWrapping_MixedRows_TrailingWrappingRow(CompositeVerticalLayoutTextFieldTest.java:569)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at generic.test.TestThread.run(TestThread.java:106)
+</failure>
+  </testcase>
+  <testcase name="testLayoutWrapping_MixedRows" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.118">
+    <failure message="java.lang.AssertionError: expected:&lt;5&gt; but was:&lt;3&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;5&gt; but was:&lt;3&gt;
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest.testLayoutWrapping_MixedRows(CompositeVerticalLayoutTextFieldTest.java:537)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at generic.test.TestThread.run(TestThread.java:106)
+</failure>
+  </testcase>
+  <testcase name="testGetTextWithLineSeparators" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.115"/>
+  <testcase name="testScreenLocationToTextOffset" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.117"/>
+  <testcase name="testClippingWithTooManyRows" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.118"/>
+  <testcase name="testIsClipped_NoClipping" classname="docking.widgets.fieldpanel.field.CompositeVerticalLayoutTextFieldTest" time="0.125"/>
+  <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Framework\Docking\build\Sean-ghidra\test_92468766-bbbf-4d06-9835-b6a80029f31c\temp.data
+02:38:48 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+02:38:48 INFO  Using log file: E:\cooked-ghidra\Ghidra\Framework\Docking\build\Sean-ghidra\test_92468766-bbbf-4d06-9835-b6a80029f31c\temp.data\application.log   (LoggingInitialization.java:56) 
+02:38:48 DEBUG Thu Nov 12 02:38:48 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testScreenToDataLocation *****   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testScreenToDataLocation ✓	   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG Thu Nov 12 02:38:48 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testLayoutWithWrapping_OneWrappedRow *****   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testLayoutWithWrapping_OneWrappedRow ✓	   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG Thu Nov 12 02:38:48 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testGetX_And_GetCol *****   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG 	✖ FAILED Test: CompositeVerticalLayoutTextFieldTest - testGetX_And_GetCol ✖	   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG Thu Nov 12 02:38:48 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testGetY_And_GetRow *****   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testGetY_And_GetRow ✓	   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG Thu Nov 12 02:38:48 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testTextOffsetToScreenLocation *****   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testTextOffsetToScreenLocation ✓	   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG Thu Nov 12 02:38:48 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testIsClipped_VerticalClipping *****   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testIsClipped_VerticalClipping ✓	   (AbstractGenericTest.java:121) 
+02:38:48 DEBUG Thu Nov 12 02:38:48 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testIsClipped_HorizontalClipping *****   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testIsClipped_HorizontalClipping ✓	   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG Thu Nov 12 02:38:49 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testDataToScreenLocation *****   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG 	✖ FAILED Test: CompositeVerticalLayoutTextFieldTest - testDataToScreenLocation ✖	   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG Thu Nov 12 02:38:49 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testIsClipped_HorizontalAndVerticalClipping *****   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testIsClipped_HorizontalAndVerticalClipping ✓	   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG Thu Nov 12 02:38:49 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testGetText *****   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testGetText ✓	   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG Thu Nov 12 02:38:49 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testGetNumColumns *****   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG 	✖ FAILED Test: CompositeVerticalLayoutTextFieldTest - testGetNumColumns ✖	   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG Thu Nov 12 02:38:49 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testLayoutWrapping_TwoWrappedRow *****   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG 	✖ FAILED Test: CompositeVerticalLayoutTextFieldTest - testLayoutWrapping_TwoWrappedRow ✖	   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG Thu Nov 12 02:38:49 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - getGetAllRows *****   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - getGetAllRows ✓	   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG Thu Nov 12 02:38:49 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testGetFieldElement *****   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testGetFieldElement ✓	   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG Thu Nov 12 02:38:49 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testLayoutWrapping_MixedRows_TrailingWrappingRow *****   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG 	✖ FAILED Test: CompositeVerticalLayoutTextFieldTest - testLayoutWrapping_MixedRows_TrailingWrappingRow ✖	   (AbstractGenericTest.java:121) 
+02:38:49 DEBUG Thu Nov 12 02:38:49 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testLayoutWrapping_MixedRows *****   (AbstractGenericTest.java:121) 
+02:38:50 DEBUG 	✖ FAILED Test: CompositeVerticalLayoutTextFieldTest - testLayoutWrapping_MixedRows ✖	   (AbstractGenericTest.java:121) 
+02:38:50 DEBUG Thu Nov 12 02:38:50 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testGetTextWithLineSeparators *****   (AbstractGenericTest.java:121) 
+02:38:50 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testGetTextWithLineSeparators ✓	   (AbstractGenericTest.java:121) 
+02:38:50 DEBUG Thu Nov 12 02:38:50 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testScreenLocationToTextOffset *****   (AbstractGenericTest.java:121) 
+02:38:50 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testScreenLocationToTextOffset ✓	   (AbstractGenericTest.java:121) 
+02:38:50 DEBUG Thu Nov 12 02:38:50 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testClippingWithTooManyRows *****   (AbstractGenericTest.java:121) 
+02:38:50 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testClippingWithTooManyRows ✓	   (AbstractGenericTest.java:121) 
+02:38:50 DEBUG Thu Nov 12 02:38:50 CST 2026
+***** STARTING Test: CompositeVerticalLayoutTextFieldTest - testIsClipped_NoClipping *****   (AbstractGenericTest.java:121) 
+02:38:50 DEBUG 	✓ PASSED Test: CompositeVerticalLayoutTextFieldTest - testIsClipped_NoClipping ✓	   (AbstractGenericTest.java:121) 
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -2,17 +2,17 @@
 
 The captured registration gate passes with **zero unresolved first-party registrations or action
 handlers**. The [ledger](runtime-reconciliation.csv), [summary](runtime-summary.json),
-[module coverage](runtime-module-coverage.csv) and [raw evidence](references/remaining-gates/runtime/)
+[module coverage](runtime-module-coverage.csv) and [raw evidence](references/navigation-followup/runtime/)
 use the current source inventory and a matching 12.2 DEV installation.
 
 | Evidence                                    | Result                                                                                       |
 |---------------------------------------------|----------------------------------------------------------------------------------------------|
-| Runtime entries across twelve contexts      | 15,649; repeated registrations are retained                                                  |
-| Actions                                     | 8,361; 6,908 traced by class bytecode/source line, 1,453 by actual lambda target/source line |
-| Other entries                               | 1,145 plugins, 316 providers, two dialogs, 5,011 components, 814 installed renderers         |
-| Class links                                 | 9,216 exact declarations; 3,560 enclosing files with traced handlers                         |
-| Scope classifications                       | 2,851 platform/third-party implementations; 22 explicit external harness entries             |
-| Active module roots                         | 113; registration evidence in 30 source roots                                                |
+| Runtime entries across seventeen contexts   | 17,478; repeated registrations are retained |
+| Actions                                     | 9,338; 7,725 traced by class bytecode/source line, 1,613 by actual lambda target/source line |
+| Other entries                               | 1,274 plugins, 351 providers, six dialogs, 5,604 components, 905 installed renderers |
+| Class links                                 | 10,284 exact declarations; 3,978 enclosing files with traced handlers |
+| Scope classifications                       | 3,191 platform/third-party implementations; 25 explicit external harness entries |
+| Active module roots                         | 113 in primary runtime; registration evidence in 31 source roots across captures |
 | Optional extensions                         | Seven built/installed; all fourteen discovered plugins activated successfully                |
 | Runtime application errors in final capture | Zero                                                                                         |
 
@@ -20,13 +20,15 @@ The former 953 weak anonymous/local implementation links now have actual handler
 reads the loaded class debug information. For builder callbacks, the harness follows the callback
 object and inspects the JDK's dumped lambda proxy to recover the exact host method and source line.
 It does not invoke actions. Registration owner and implementation remain separate fields; generic
-service labels do not become fictitious plugin owners. The 344 external loaded-owner links belong
+service labels do not become fictitious plugin owners. The 401 external loaded-owner links belong
 to the explicitly scoped probe/launcher plugins. Nine reconciliation regression tests pass.
 
 The contexts include Front End, Code Browser, shipped Debugger and Version Tracking templates,
 actual chooser/options dialogs, and cumulative optional-extension activation. Components and
 installed table/tree/list renderers are recorded separately. Menu routes and shortcuts are metadata;
-context-sensitive menus and lazy dialogs are not exercised by collecting registrations.
+context-sensitive menus and lazy dialogs are not exercised by collecting registrations. The latest
+pass adds actual label/range/query/switcher dialog states and a separately installed, source-built
+Skeleton extension. Both capture runners can enable actual lambda-target tracing.
 
 The previous frozen runtime was version 12.3 while this checkout is version 12.2. It has been replaced
 for current verification by a full `assembleAll` distribution plus matching extension packages.
@@ -37,13 +39,17 @@ Older captures remain historical evidence and are not used for this registration
 The broader exhaustive visual acceptance flag remains **false**. Registration reconciliation does
 not certify every source candidate's dialogs, populated/error states or interactions. Of 132 source
 module/build roots, 22 are absent from this runtime; the UI-bearing absent roots are the separate
-Eclipse GhidraDev plugin, LaunchSupport and the extension Skeleton. The other absent roots have no
-discovered UI candidates. Installed shared libraries and scripts also need source classification
-beyond plugin activation. No source review was automatically promoted to accepted.
+Eclipse GhidraDev plugin, LaunchSupport and the extension Skeleton. All fifty candidates in those
+roots now have [source classifications and review evidence](references/source-scope/README.md):
+source-built Eclipse forms, the actual bootstrap chooser and a built/activated template. These are
+separate hosting/configuration contexts, not unexplained missing application plugins. The primary
+module snapshot is preserved separately from the template test profile. Other absent roots have no
+discovered UI candidates. No source review was automatically promoted to accepted.
 
 Physical mixed-DPI, macOS and screen-reader hardware checks are excluded at the owner's request.
 Windows logical scaling, Swing accessibility checks, Merge/Repository and measured performance are
-recorded in the [current acceptance report](references/remaining-gates/README.md).
+recorded in the [earlier acceptance report](references/remaining-gates/README.md); the
+[navigation follow-up](references/navigation-followup/README.md) records the latest checks and commits.
 
 ## Repeat
 
@@ -58,11 +64,12 @@ recorded in the [current acceptance report](references/remaining-gates/README.md
 .\support\ui\capture-reference.ps1 -Tag runtime-next -Specialists -TraceHandlers -OptionalPlugins `
     -Distribution E:\cooked-ghidra\build\verification\coherent-review-next\ghidra_12.2_DEV `
     -ProfileSeed E:\cooked-ghidra\build\verification\coherent-review-next\profile
-$captures = Get-ChildItem docs/ui-fidelity/references/remaining-gates/runtime -Filter '*.runtime.csv' |
+$evidence = 'docs/ui-fidelity/references/navigation-followup'
+$captures = Get-ChildItem "$evidence/runtime","$evidence/navigation","$evidence/template" -Filter '*.runtime.csv' |
     Select-Object -ExpandProperty FullName
 & 'C:\Python315\python.exe' support/ui/inventory.py --check
 & 'C:\Python315\python.exe' support/ui/reconcile_runtime.py @captures `
-    --installed-modules docs/ui-fidelity/references/remaining-gates/runtime/capture.csv.modules.csv `
+    --installed-modules "$evidence/runtime/capture.csv.modules.csv" `
     --require-registration-reconciled
 & 'C:\Python315\python.exe' support/ui/test_reconcile_runtime.py
 ```

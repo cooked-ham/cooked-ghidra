@@ -1,0 +1,2 @@
+kind,class,name,entry_path,owner,source_file,source_line,enclosing_method,callback_host,callback_method,callback_line
+"dialog","docking.widgets.dialogs.NumberRangeInputDialog","Review Number Range","Number range / invalid input","Docking","NumberRangeInputDialog.java","46","","","",""

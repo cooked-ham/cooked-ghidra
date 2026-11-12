@@ -1,0 +1,2 @@
+surface,fixture,implementation,entry_path,populated_evidence,screenshots
+"navigation and dialog states","FX-CORE","ProgramSwitcherDialog / LocationContextPanel / validation dialogs","Go To Program / breadcrumb menus / label and range validation / Go To query","see navigation-checks.txt","*.png"

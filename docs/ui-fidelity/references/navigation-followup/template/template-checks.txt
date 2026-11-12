@@ -1,0 +1,2 @@
+Built actual shipped Skeleton source as SkeletonReview extension.
+Activated SkeletonPlugin; empty provider and My Action / Custom Action / Hello dialog captured and dismissed.

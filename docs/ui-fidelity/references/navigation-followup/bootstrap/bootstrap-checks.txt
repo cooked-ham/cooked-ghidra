@@ -1,0 +1,8 @@
+Actual LaunchSupport.askJavaHome directory chooser shown and cancelled.
+CLI recovered with a valid JDK; only disposable settings were saved.
+******************************************************************
+JDK 25+ (64-bit) could not be found and must be manually chosen!
+******************************************************************
+Enter path to JDK home directory (ENTER for dialog): Opening selection dialog...
+Not a valid JDK home directory. Directory not specified!
+Enter path to JDK home directory (ENTER for dialog): Saved changes to E:\cooked-ghidra\build\verification\bootstrap-review-20261112\profile\ghidra\ghidra_12.2_DEV\java_home.save

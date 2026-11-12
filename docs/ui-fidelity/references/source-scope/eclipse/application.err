@@ -1,0 +1,24 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+Nov 12, 2026 3:24:56 AM org.apache.aries.spifly.BaseActivator log
+INFO: Registered provider ch.qos.logback.classic.spi.LogbackServiceProvider of service org.slf4j.spi.SLF4JServiceProvider in bundle ch.qos.logback.classic
+Nov 12, 2026 3:24:59 AM org.apache.aries.spifly.BaseActivator log
+INFO: Registered provider com.sun.tools.rngdatatype.helpers.ProxyDatatypeLibraryFactory of service com.sun.tools.rngdatatype.DatatypeLibraryFactory in bundle com.sun.xml.bind.jaxb-osgi
+Nov 12, 2026 3:24:59 AM org.apache.aries.spifly.BaseActivator log
+INFO: Registered provider com.sun.tools.xjc.addon.code_injector.PluginImpl of service com.sun.tools.xjc.Plugin in bundle com.sun.xml.bind.jaxb-osgi
+Nov 12, 2026 3:24:59 AM org.apache.aries.spifly.BaseActivator log
+INFO: Registered provider com.sun.tools.xjc.addon.locator.SourceLocationAddOn of service com.sun.tools.xjc.Plugin in bundle com.sun.xml.bind.jaxb-osgi
+Nov 12, 2026 3:24:59 AM org.apache.aries.spifly.BaseActivator log
+INFO: Registered provider com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn of service com.sun.tools.xjc.Plugin in bundle com.sun.xml.bind.jaxb-osgi
+Nov 12, 2026 3:24:59 AM org.apache.aries.spifly.BaseActivator log
+INFO: Registered provider com.sun.tools.xjc.addon.at_generated.PluginImpl of service com.sun.tools.xjc.Plugin in bundle com.sun.xml.bind.jaxb-osgi
+Nov 12, 2026 3:24:59 AM org.apache.aries.spifly.BaseActivator log
+INFO: Registered provider com.sun.tools.xjc.addon.episode.PluginImpl of service com.sun.tools.xjc.Plugin in bundle com.sun.xml.bind.jaxb-osgi
+Nov 12, 2026 3:24:59 AM org.apache.aries.spifly.BaseActivator log
+INFO: Registered provider com.sun.tools.xjc.addon.accessors.PluginImpl of service com.sun.tools.xjc.Plugin in bundle com.sun.xml.bind.jaxb-osgi
+Nov 12, 2026 3:24:59 AM org.apache.aries.spifly.BaseActivator log
+INFO: Registered provider org.glassfish.jaxb.runtime.v2.JAXBContextFactory of service jakarta.xml.bind.JAXBContextFactory in bundle com.sun.xml.bind.jaxb-osgi
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/E:/cooked-ghidra/build/verification/eclipse-source-final-20261112/runtime/eclipse/plugins/org.eclipse.m2e.maven.runtime_3.9.1601.20260722-2149/jars/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+[1112/032538.862:ERROR:ui\gfx\win\window_impl.cc:172] Failed to unregister class Chrome_WidgetWin_0. Error = 1411

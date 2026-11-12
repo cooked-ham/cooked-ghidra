@@ -1,0 +1,285 @@
+{
+  "rendering": "SWT client-area capture; host Eclipse theme; no Swing theme substitution",
+  "scope": "Wizard pages, source-folder chooser, Ghidra launch tabs, preferences, invalid ports and cancellation; no launch/build execution or optional PyDev/CDT activation",
+  "harnessSha256": "876C6BD05B9C36DE88AAD44370868C548598A65B6645442ACAB860644AB80A75",
+  "revision": "f9f9dc7d9e7154eb4c1e1d80177aab8e22943d9c",
+  "launchJarSha256": "0BB3592611A9B05990827F40FA0E0B3D0D5783FF9CA6BF4007D22FE032879968",
+  "sources": [
+    {
+      "sha256": "36E226467541D56310DEF3C76BE857E8CF85CDAB2D0EE30D94665CF8CF2031CF",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/Activator.java"
+    },
+    {
+      "sha256": "73CBEA494D1DEF601E1B67138A09A3A975B473FCBC3E9C0CD56800DC7FB4E460",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/EclipseMessageUtils.java"
+    },
+    {
+      "sha256": "D136F2D5E87BC94297D48B6D38E371B6BF188E551CB31BBBD9099BF3A1E9C11D",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/GhidraDevStartup.java"
+    },
+    {
+      "sha256": "5AC5BE24E9364EA330096AC02ED884F7A737134E4992137A509976A91B2050B0",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/GhidraRootPreferenceInitializer.java"
+    },
+    {
+      "sha256": "D23A21B008B0CBA34347A8623F22108DD866B035767A47627DF29A30D0A6A22F",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/GhidraRootPreferencePage.java"
+    },
+    {
+      "sha256": "FA15EE7A2A249AB94C015251B6C878513333BC938C1FFD07C879E4161C326D07",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/GhidraRootPreferences.java"
+    },
+    {
+      "sha256": "ED809EDEA390E5E30F83C03AF76EB8F4428CE3E0FF437626A30D3BB6D12F3C09",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/commands/AboutCommand.java"
+    },
+    {
+      "sha256": "5672138BCD3C8233BD507BBACFBB2801344EC657B5F6994588B180D920A1325F",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/commands/LinkGhidraCommand.java"
+    },
+    {
+      "sha256": "FE2EA4C096345442AB1D75BFCEAB91EE879EA7AA479CD597A4F54C2124B389E3",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/AbstractGhidraLaunchShortcut.java"
+    },
+    {
+      "sha256": "1B2BB0F3B1A60185003EF2B214FE537230669EB28CC3236B4357104A95BFE1DA",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/AbstractPyGhidraLaunchShortcut.java"
+    },
+    {
+      "sha256": "14668E3C5C3FB20608612C055CF1EE1376769E39531789BA0D6D8E17FD21E8BB",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/GhidraGuiLaunchShortcut.java"
+    },
+    {
+      "sha256": "13740EDAFA06733313FA99F218FDEE1A95B2CF3727D18F5315FE973C9D04C921",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/GhidraHeadlessLaunchShortcut.java"
+    },
+    {
+      "sha256": "25DDE8D43F551B921689197A021683810806A518117A11FB57E61633834DD145",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/GhidraLaunchDelegate.java"
+    },
+    {
+      "sha256": "51775FC23BFD7B768EF0AFDD43BCFD3B87C312B4D5DCB049BEE9131CC5D994D7",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/GhidraLaunchTabGroup.java"
+    },
+    {
+      "sha256": "081EC1CDFE5BF3A0D088A6A1F351D1ACFCE9B2D81F6CF046A23AF642BB39D00A",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/PyGhidraGuiLaunchShortcut.java"
+    },
+    {
+      "sha256": "300734A8135FB2554D389E8222E513539CA0B6D7B5BFD16287DC2BD36C773F5B",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/PyGhidraHeadlessLaunchShortcut.java"
+    },
+    {
+      "sha256": "6255EEF6B113F02B804D0D43DDE8988BE9B0AB1A45F2E2E5E4F002A66461CA7E",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/PyGhidraLaunchDelegate.java"
+    },
+    {
+      "sha256": "F101FB5B2251314571E053B7647193A29DF1EA839DE35A74BE34C2DC5FFDA615",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/launchers/PyGhidraLaunchTabGroup.java"
+    },
+    {
+      "sha256": "FAF9213D57E3BF9E29714184114BC1AC9810C54779CF5C6BFD89C4B4CE01F82C",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/preferences/GhidraProjectCreatorPreferenceInitializer.java"
+    },
+    {
+      "sha256": "D33CEC78637D78B52AAF7F06D975E296BFE4E1FD9C624EF71870D843B57A1A73",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/preferences/GhidraProjectCreatorPreferencePage.java"
+    },
+    {
+      "sha256": "2D80540DC195E5C093C6E976A3084FDFF9CD945CB064A6A7DD05D5AC3D4E9745",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/preferences/GhidraProjectCreatorPreferences.java"
+    },
+    {
+      "sha256": "E5C5C09D0D501FF5DAEBFBA0AFBACE056A4A9542DC3D4740E6FC9FB8EA21C470",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/testers/GhidraModuleProjectPropertyTester.java"
+    },
+    {
+      "sha256": "0D0A93B6635DFF883A843222FCA97174482231A829E54A0D90BF3045635A3F8D",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/testers/GhidraProjectPropertyTester.java"
+    },
+    {
+      "sha256": "953330421C9263A14C469FE8F86AE694C7F8733EF7C7CE4ACE39285A67977A0A",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/testers/JavaProjectPropertyTester.java"
+    },
+    {
+      "sha256": "B10BC0F9EE57F74F226D0B0DEE4C87AD17FBB9F2398FBB4C300660A17A414152",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/testers/PackageFragmentRootPropertyTester.java"
+    },
+    {
+      "sha256": "D1BCC080F9C125AEB627E8EA3DABB037A65D2F26813FB21F130D2AB0D352C0B8",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/testers/PyGhidraProjectPropertyTester.java"
+    },
+    {
+      "sha256": "1FE13D2C862E34609592C42AE34497FFF6617136EFCD7CD5117F15EE67723403",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/utils/GhidraLaunchUtils.java"
+    },
+    {
+      "sha256": "B2F75C2FC3034B1A0D8FB4C8BEC9E0B4CEC59B46F90AB5D02DE5EB0D58BFD2B1",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/utils/GhidraModuleUtils.java"
+    },
+    {
+      "sha256": "F7C04EE18B0AC93BB8DC8431670E5AF2DDE885415BF14F40ADDA9D81B411D01A",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/utils/GhidraProjectUtils.java"
+    },
+    {
+      "sha256": "D2F841CCD7703D6D57F6DE3228C9264484EFBFF083A7DEFFB38E53B784F53F2A",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/utils/GhidraScriptUtils.java"
+    },
+    {
+      "sha256": "77D0361BC0F1D9386DB25DD22158E919F02D99251F68F868BFE8B40327051E63",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/utils/PackageFragmentRootSelectionDialog.java"
+    },
+    {
+      "sha256": "6B13E8550EA711EAF511EA709B7D4FB1EEE82B05E037CA21987A000E99A40FFD",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/utils/PyDevUtils.java"
+    },
+    {
+      "sha256": "2F6848321B1B07BC4ABA17AADEE7221E3A430E4247E7FEE7012131EB5D783702",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/utils/PyDevUtilsInternal.java"
+    },
+    {
+      "sha256": "928934FEA84FCF0434BA78D6809F344B7D7FF6904B8106DBA8AADF4DB2AA67D6",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/CreateGhidraModuleProjectWizard.java"
+    },
+    {
+      "sha256": "004C1BEBDA55D13731007DDA003C5C31F203F14A66CE6A29705B73082AF1887E",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/CreateGhidraScriptProjectWizard.java"
+    },
+    {
+      "sha256": "CF9C81451A2AB765A1CE209D5D718C82DC94A9722928B8B15B25E8FBDA3EF334",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/CreateGhidraScriptWizard.java"
+    },
+    {
+      "sha256": "87AE4FEF00651388F47AA3D0A10F8FECB4B3342138402E43EC8AF600BC0346C1",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/ExportGhidraModuleWizard.java"
+    },
+    {
+      "sha256": "CACAC68E6ED75693A7DD7EF67F437214DDFEAFA24B9D8A460ADA3CB8DCD66BF4",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/ImportGhidraModuleSourceWizard.java"
+    },
+    {
+      "sha256": "E87707771DADEF062BA75B96797CDFD96DA7B4A4849EF55A5B84BD08175A16EB",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/LinkGhidraWizard.java"
+    },
+    {
+      "sha256": "8B4C4B1D829E7670D16B4169020FFD897F33907CC98E1C73BD8143323B06E2E4",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/ChooseGhidraInstallationWizardPage.java"
+    },
+    {
+      "sha256": "397AEE7DD887259C1D0DE863A35B928E121A7ED382D6864012A2C975535AF06C",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/ChooseGhidraModuleProjectWizardPage.java"
+    },
+    {
+      "sha256": "65A9AAD00E204681C565312F91586F7A780190C7CAC6EC12495631104076F007",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/ChooseGhidraModuleSourceWizardPage.java"
+    },
+    {
+      "sha256": "50529881D8E7CA3E16AECC12F6DEE5D3C40BDCC52F488773CD525B4BBEB79777",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/ChooseJavaProjectWizardPage.java"
+    },
+    {
+      "sha256": "6C0492E267B487C6D5A2B0994B50641862356CB9311E089A3F4264B281288F73",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/ConfigureGhidraModuleProjectWizardPage.java"
+    },
+    {
+      "sha256": "F8034B5EB68016BFF3D301BB0F6D681BFCA06B24DB4C7DC1B897DFBE5E1762C4",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/ConfigureGhidraScriptProjectWizardPage.java"
+    },
+    {
+      "sha256": "E5FF584C20349BBA6275B3747AB70EB1C721BB134516D251C49DA5B486B4B491",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/ConfigureGradleWizardPage.java"
+    },
+    {
+      "sha256": "C7BD851C4CA3D6E5789095153FBA234C9B90A5AEFF9075F551EB541F5989B073",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/CreateGhidraProjectWizardPage.java"
+    },
+    {
+      "sha256": "3953BF017C452191F52B704ABBFE622A19F9CD6CB274B490D74F560BB34D9BB4",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/CreateGhidraScriptWizardPage.java"
+    },
+    {
+      "sha256": "87BCEE797485DB261D7213D892CB0AACDA525044F892B3A9899764B5C1E39E47",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidraprojectcreator/wizards/pages/EnablePythonWizardPage.java"
+    },
+    {
+      "sha256": "370E71D9CE16A46972218DBA09F5F11D307AEE5BA869F62409739AF71606E350",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrascripteditor/OpenFileRunnable.java"
+    },
+    {
+      "sha256": "010CF56C2581DDF9987EE922CB651CA2C8DE14FF25AEEE257732486578772C91",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrascripteditor/ScriptEditorInitializer.java"
+    },
+    {
+      "sha256": "F11EA30096A207BB8DC5D421D62F5DFF909B4197CD2C31B9E776CBA1A05CC0F8",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrascripteditor/SocketSetupRunnable.java"
+    },
+    {
+      "sha256": "EA4264F2251223A1749AE809739472628E624D60F1A0701AC77D3D65D453804D",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrascripteditor/preferences/GhidraScriptEditorPreferenceInitializer.java"
+    },
+    {
+      "sha256": "C852BE0ABC86DF7050A453A64901D8A70156DDE8847862BF4830CCF31EBF2879",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrascripteditor/preferences/GhidraScriptEditorPreferencePage.java"
+    },
+    {
+      "sha256": "AF94A421FBFA0760DECCA1EDF7738607F0D15D34239F775AC65B90B31656EBE9",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrascripteditor/preferences/GhidraScriptEditorPreferences.java"
+    },
+    {
+      "sha256": "6A552A2947DE0B1E144BAA0990CB13A9A154DA12FD77A21A7B77F0A0F9D8D27D",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrasymbollookup/OpenDeclarations.java"
+    },
+    {
+      "sha256": "460C8750FB5E3A631AF6B23B156600317D0E83902934C03DB5511C8D1094ED92",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrasymbollookup/SocketSetupRunnable.java"
+    },
+    {
+      "sha256": "9526DC718FEA13F6DB348B627492E0550EAD60E7F3C210D2090A7D6DE7E42746",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrasymbollookup/SymbolLookupInitializer.java"
+    },
+    {
+      "sha256": "823B187B458299C43E5372FBDF5970D5A68B5DACC45145AF1499BA961D1528E1",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrasymbollookup/preferences/CdtProjectFieldEditor.java"
+    },
+    {
+      "sha256": "62942B9B8D1876B0B2C9957B5FB351E256AE2AE2E628EA229CF800480BA692EE",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrasymbollookup/preferences/GhidraSymbolLookupPreferenceInitializer.java"
+    },
+    {
+      "sha256": "508E7F9CFB65CFFBCAE845C5F192675176A7F8B60544706E5C333FBD2D6C271A",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrasymbollookup/preferences/GhidraSymbolLookupPreferencePage.java"
+    },
+    {
+      "sha256": "4BE51D7F32C37FC59F7711FFA0DEFD9086A82E22F9E828AC2733D7F0AF8D250B",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrasymbollookup/preferences/GhidraSymbolLookupPreferences.java"
+    },
+    {
+      "sha256": "C2671A73C00C6EE2903BA5BC8314A3B366863DBC831C4BF554DBCAD908639992",
+      "file": "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin/src/main/java/ghidradev/ghidrasymbollookup/utils/CdtUtils.java"
+    }
+  ],
+  "dependencies": [
+    {
+      "hash": "24af50884d1341ba5d30070f0f877bb1a405a613dd50fdf759e380011aa7289e0b891d79c95ffd2f5a7e77aa279023acad72f72f0fdc4438043f20417ae46eaa",
+      "name": "eclipse-rcp.zip",
+      "algorithm": "SHA512",
+      "url": "https://download.eclipse.org/technology/epp/downloads/release/2026-09/R/eclipse-rcp-2026-09-R-win32-x86_64.zip",
+      "destination": "runtime"
+    },
+    {
+      "hash": "45398edf2adb56078a80bc88a919941578f0c0b363efbdd011bfd158a99b112e",
+      "name": "PyDev-9.3.0.zip",
+      "algorithm": "SHA256",
+      "url": "https://sourceforge.net/projects/pydev/files/pydev/PyDev%209.3.0/PyDev%209.3.0.zip/download",
+      "destination": "pydev"
+    },
+    {
+      "hash": "81b7d19d57c4a3009f4761699a72e8d642b5e1d9251d2bb98df438b1e28f8ba9",
+      "name": "cdt-8.6.0.zip",
+      "algorithm": "SHA256",
+      "url": "https://archive.eclipse.org/tools/cdt/releases/8.6/cdt-8.6.0.zip",
+      "destination": "cdt"
+    }
+  ],
+  "utilityJarSha256": "A55FDF0F8996CEA46414D455D01D6ECEA1E5686153534453680A3A2EACF7E0D4"
+}

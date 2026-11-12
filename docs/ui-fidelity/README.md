@@ -12,6 +12,8 @@ are development tooling and must not become runtime requirements for the shared 
 
 ## Review the reference pack
 
+- [Navigation follow-up](references/navigation-followup/README.md): dedicated program switcher,
+  breadcrumb menus, source-only/Eclipse reviews, clean failure baseline and committed changes.
 - [Current remaining-checks report](references/remaining-gates/README.md): Merge/Repository,
   large graphs, icon dispositions, Windows logical scaling/accessibility, performance and runtime handlers.
 - [Token and state sheet](references/tokens.svg): generated from `GraphiteTheme.java`.
@@ -45,13 +47,14 @@ Module discovery includes `Module.manifest` and `build.gradle` roots. The longes
 module owns a source. Generated outputs, tests, downloaded dependencies and the local graft
 cache are excluded. Optional modules remain in scope even when absent from a particular tool.
 
-[Runtime reconciliation progress](RUNTIME-RECONCILIATION.md) records 2,765 registrations across
-Code Browser, Front End, Debugger, Version Tracking and two actual dialogs. The
+[Runtime reconciliation progress](RUNTIME-RECONCILIATION.md) records 17,478 entries across
+Code Browser, Front End, Debugger, Version Tracking, optional extensions and actual dialogs. The
 [registration ledger](runtime-reconciliation.csv) keeps source implementation and loaded-plugin
-owner links separate. [Module coverage](runtime-module-coverage.csv) also distinguishes the 108
+owner links separate. [Module coverage](runtime-module-coverage.csv) also distinguishes the 113
 active module roots from per-tool registration evidence and absent optional/build configurations.
-These snapshots are separate from visual/functional acceptance; anonymous handlers, dynamic menus
-and service-owned surfaces still need tracing.
+All 9,338 captured action handlers resolve, including anonymous/lambda targets. These snapshots
+remain separate from visual/functional acceptance. Dynamic menus and individual dialog states need
+their own interaction evidence; the latest reviewed states are linked above.
 
 This is an over-inclusive source ledger, **not a count of distinct windows or a claim of complete
 runtime coverage**. Simple-name inheritance can create false positives. Anonymous widgets,
@@ -68,10 +71,11 @@ To regenerate or check:
 & 'C:\Python315\python.exe' support\ui\reference_sheet.py
 & 'C:\Python315\python.exe' support\ui\test_inventory.py
 & 'C:\Python315\python.exe' support\ui\test_reconcile_runtime.py
-$captures = Get-ChildItem docs/ui-fidelity/references/runtime -Filter '*.runtime.csv' |
+$evidence = 'docs/ui-fidelity/references/navigation-followup'
+$captures = Get-ChildItem "$evidence/runtime","$evidence/navigation","$evidence/template" -Filter '*.runtime.csv' |
     Select-Object -ExpandProperty FullName
 & 'C:\Python315\python.exe' support/ui/reconcile_runtime.py @captures `
-    --installed-modules docs/ui-fidelity/references/runtime/capture.csv.modules.csv
+    --installed-modules "$evidence/runtime/capture.csv.modules.csv" --require-registration-reconciled
 ```
 
 Keep review changes in [reviews.csv](reviews.csv), keyed by `id` and `source_hash`, rather than
@@ -88,15 +92,16 @@ describe the exact exercised states; passing a subset of checks does not remove 
 2. Exercise the prepared specialist datasets and repository-backed conflict; assign actual entry
    paths and reviewers to each surface. The main Code Browser comparison/diff/BSim, Version
    Tracking and Debugger providers now have [populated capture](references/specialists/populated/),
-   but every specialist dialog/state and the repository-backed conflict still need review. Live
+   with the repository-backed merge now verified and additional dialog states reviewed. Live
    Windows debugging and specialist failure cases remain fixture gaps; available data is not a
    claim that every specialist dialog has been reviewed.
 3. Review the remaining location-context cases and performance baselines in the spike report.
    Polling has been replaced by lifecycle-managed events, with 36 integration regressions
    and an explicit-save exit/relaunch check; see [acceptance evidence](LOCATION-CONTEXT-ACCEPTANCE.md);
    production rollout remains opt-in pending the remaining acceptance work.
-4. Review physical DPI, keyboard traversal, screen-reader output, performance, process restart,
-   detached windows and preservation of existing profiles. Fresh-profile default migration is later work.
+4. Complete remaining per-surface software interactions and profile/layout cases. Physical DPI,
+   macOS and screen-reader hardware checks are excluded at the owner's request; logical scale and
+   software keyboard/performance evidence are recorded separately. Fresh-profile default migration is later work.
 
 Milestone 0's exhaustive inventory gate and milestone 1's full navigation acceptance remain open.
 Candidate volume is useful for batching discovery, but it does not justify a release-date estimate.

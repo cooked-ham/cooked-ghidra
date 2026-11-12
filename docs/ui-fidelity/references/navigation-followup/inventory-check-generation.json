@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "java_sources_scanned": 13589,
+  "modules": 132,
+  "candidates": 10330,
+  "kinds": {
+    "action": 728,
+    "artwork": 1007,
+    "component": 486,
+    "dialog": 303,
+    "editor": 54,
+    "entry-hook": 4208,
+    "help-workflow": 253,
+    "icon": 75,
+    "plugin": 216,
+    "provider": 135,
+    "renderer": 171,
+    "script-workflow": 348,
+    "theme": 19,
+    "theme-mappings": 34,
+    "tool-or-launcher": 64,
+    "ui-helper": 2223,
+    "window": 6
+  },
+  "statuses": {
+    "functionally verified": 2,
+    "implemented": 1,
+    "inventoried": 10327
+  },
+  "orphan_reviews": [],
+  "unmapped_candidates": 0,
+  "runtime_reconciled": false,
+  "release_blocker": "Source candidates require runtime reconciliation; inventory is not exhaustive acceptance."
+}

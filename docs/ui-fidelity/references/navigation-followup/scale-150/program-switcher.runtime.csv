@@ -1,0 +1,2 @@
+kind,class,name,entry_path,owner,source_file,source_line,enclosing_method,callback_host,callback_method,callback_line
+"dialog","ghidra.app.nav.ProgramSwitcherDialog","Switch Program","Navigation > Go To Program / modern theme","Docking","ProgramSwitcherDialog.java","47","","","",""

@@ -1,0 +1,8 @@
+Existing Go To Program / MultiTabPlugin action opens switcher; binding=ctrl pressed F7
+Three same-name programs distinguished by path; multiword filtering, no-match and Cancel verified.
+Filtering then choosing activates the exact duplicate Program object through ProgramManager.
+Actual program, nested namespace/symbol and history menus reviewed; nested symbol navigates to 00401020.
+Actual AddEditDialog empty/blank validation and cancellation reviewed; no label created.
+Actual asynchronous Go To no-results state and Cancel reviewed; current address preserved.
+Shared NumberRangeInputDialog invalid-input feedback and Cancel reviewed.
+Empty-tool switcher renders an explicit empty state with Switch disabled.

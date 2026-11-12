@@ -1,0 +1,12 @@
+{
+  "candidates_classified": 50,
+  "by_module": {
+    "GhidraBuild/EclipsePlugins/GhidraDev/GhidraDevPlugin": 44,
+    "GhidraBuild/LaunchSupport": 1,
+    "GhidraBuild/Skeleton": 5
+  },
+  "source_classification_complete": true,
+  "visual_acceptance_inferred": false,
+  "source_ledger_sha256": "428ed44c29947ed21778821c6c52f4428686c988f6c49e4902cdf176f94c6e7b",
+  "eclipse_registration_sha256": "ec1902711d3e349feaf7610bc6b91634c3ad7cdd564efab36255fc890191eb02"
+}

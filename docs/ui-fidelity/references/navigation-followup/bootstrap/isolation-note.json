@@ -1,0 +1,6 @@
+{
+  "initialProbeIncident": "Current JDK saved to active java_home.save; previous contents unavailable; disclosed in report",
+  "currentSavedJdk": "C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.5.8-hotspot",
+  "postIncidentSha256": "DFAB29C958E6AB12A5EC5493810583F221F1DC72D361E20E2D07720250FBB825",
+  "correctedProbe": "Private installation properties and resolved save-path containment assertion; subsequent active-file hash unchanged"
+}

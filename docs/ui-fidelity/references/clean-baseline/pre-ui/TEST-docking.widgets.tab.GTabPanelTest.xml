@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="docking.widgets.tab.GTabPanelTest" tests="19" skipped="0" failures="1" errors="0" timestamp="2026-11-12T08:35:42.610Z" hostname="ROTBART" time="2.822">
+  <properties/>
+  <testcase name="testSelectedConsumer" classname="docking.widgets.tab.GTabPanelTest" time="0.792"/>
+  <testcase name="testSwitchSelected" classname="docking.widgets.tab.GTabPanelTest" time="0.116"/>
+  <testcase name="testGetAccessibleNameNoTabs" classname="docking.widgets.tab.GTabPanelTest" time="0.114"/>
+  <testcase name="testSelectedTabIsVisible" classname="docking.widgets.tab.GTabPanelTest" time="0.113"/>
+  <testcase name="testGetAccessiblNameTabSelected" classname="docking.widgets.tab.GTabPanelTest" time="0.112"/>
+  <testcase name="testRemovedConsumer" classname="docking.widgets.tab.GTabPanelTest" time="0.113"/>
+  <testcase name="testHighlightNext" classname="docking.widgets.tab.GTabPanelTest" time="0.111"/>
+  <testcase name="testAddValue" classname="docking.widgets.tab.GTabPanelTest" time="0.115"/>
+  <testcase name="testSwitchToInvalidValue" classname="docking.widgets.tab.GTabPanelTest" time="0.111"/>
+  <testcase name="testSettingNoTabSelected" classname="docking.widgets.tab.GTabPanelTest" time="0.113"/>
+  <testcase name="testSetRemoveTabConsumer" classname="docking.widgets.tab.GTabPanelTest" time="0.111"/>
+  <testcase name="testCloseSelected" classname="docking.widgets.tab.GTabPanelTest" time="0.112"/>
+  <testcase name="testNoTabIsSelectedByDefault" classname="docking.widgets.tab.GTabPanelTest" time="0.111"/>
+  <testcase name="testHighlightTab" classname="docking.widgets.tab.GTabPanelTest" time="0.112"/>
+  <testcase name="testMoveTab" classname="docking.widgets.tab.GTabPanelTest" time="0.112"/>
+  <testcase name="testGetAccessibleNameNoTabSelected" classname="docking.widgets.tab.GTabPanelTest" time="0.112"/>
+  <testcase name="testGetAccessiblNameNoTabSelectedAndTabHighighted" classname="docking.widgets.tab.GTabPanelTest" time="0.113"/>
+  <testcase name="testGetHiddenTabs" classname="docking.widgets.tab.GTabPanelTest" time="0.113">
+    <failure message="java.lang.AssertionError: expected:&lt;2&gt; but was:&lt;1&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;2&gt; but was:&lt;1&gt;
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:647)
+	at org.junit.Assert.assertEquals(Assert.java:633)
+	at docking.widgets.tab.GTabPanelTest.testGetHiddenTabs(GTabPanelTest.java:143)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at generic.test.TestThread.run(TestThread.java:106)
+</failure>
+  </testcase>
+  <testcase name="testGetAccessiblNameTabSelectedAndTabHighighted" classname="docking.widgets.tab.GTabPanelTest" time="0.112"/>
+  <system-out><![CDATA[Created test directory: E:\cooked-ghidra\build\verification\pre-ui-baseline-20261112\Ghidra\Framework\Docking\build\Sean-ghidra\test_63b26b51-e784-4a2a-a1e0-3a290f85efd6\temp.data
+02:35:42 INFO  Using log config file: file:/E:/cooked-ghidra/build/verification/pre-ui-baseline-20261112/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+02:35:42 INFO  Using log file: E:\cooked-ghidra\build\verification\pre-ui-baseline-20261112\Ghidra\Framework\Docking\build\Sean-ghidra\test_63b26b51-e784-4a2a-a1e0-3a290f85efd6\temp.data\application.log   (LoggingInitialization.java:56) 
+02:35:42 INFO  Loading user preferences: E:\cooked-ghidra\build\verification\pre-ui-baseline-20261112\Ghidra\Framework\Docking\build\Sean-ghidra\test_63b26b51-e784-4a2a-a1e0-3a290f85efd6\temp.data\preferences   (Preferences.java:122) 
+02:35:43 DEBUG Thu Nov 12 02:35:43 CST 2026
+***** STARTING Test: GTabPanelTest - testSelectedConsumer *****   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG 	✓ PASSED Test: GTabPanelTest - testSelectedConsumer ✓	   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG Thu Nov 12 02:35:43 CST 2026
+***** STARTING Test: GTabPanelTest - testSwitchSelected *****   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG 	✓ PASSED Test: GTabPanelTest - testSwitchSelected ✓	   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG Thu Nov 12 02:35:43 CST 2026
+***** STARTING Test: GTabPanelTest - testGetAccessibleNameNoTabs *****   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG 	✓ PASSED Test: GTabPanelTest - testGetAccessibleNameNoTabs ✓	   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG Thu Nov 12 02:35:43 CST 2026
+***** STARTING Test: GTabPanelTest - testSelectedTabIsVisible *****   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG 	✓ PASSED Test: GTabPanelTest - testSelectedTabIsVisible ✓	   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG Thu Nov 12 02:35:43 CST 2026
+***** STARTING Test: GTabPanelTest - testGetAccessiblNameTabSelected *****   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG 	✓ PASSED Test: GTabPanelTest - testGetAccessiblNameTabSelected ✓	   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG Thu Nov 12 02:35:43 CST 2026
+***** STARTING Test: GTabPanelTest - testRemovedConsumer *****   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG 	✓ PASSED Test: GTabPanelTest - testRemovedConsumer ✓	   (AbstractGenericTest.java:121) 
+02:35:43 DEBUG Thu Nov 12 02:35:43 CST 2026
+***** STARTING Test: GTabPanelTest - testHighlightNext *****   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG 	✓ PASSED Test: GTabPanelTest - testHighlightNext ✓	   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG Thu Nov 12 02:35:44 CST 2026
+***** STARTING Test: GTabPanelTest - testAddValue *****   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG 	✓ PASSED Test: GTabPanelTest - testAddValue ✓	   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG Thu Nov 12 02:35:44 CST 2026
+***** STARTING Test: GTabPanelTest - testSwitchToInvalidValue *****   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG 	✓ PASSED Test: GTabPanelTest - testSwitchToInvalidValue ✓	   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG Thu Nov 12 02:35:44 CST 2026
+***** STARTING Test: GTabPanelTest - testSettingNoTabSelected *****   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG 	✓ PASSED Test: GTabPanelTest - testSettingNoTabSelected ✓	   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG Thu Nov 12 02:35:44 CST 2026
+***** STARTING Test: GTabPanelTest - testSetRemoveTabConsumer *****   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG 	✓ PASSED Test: GTabPanelTest - testSetRemoveTabConsumer ✓	   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG Thu Nov 12 02:35:44 CST 2026
+***** STARTING Test: GTabPanelTest - testCloseSelected *****   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG 	✓ PASSED Test: GTabPanelTest - testCloseSelected ✓	   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG Thu Nov 12 02:35:44 CST 2026
+***** STARTING Test: GTabPanelTest - testNoTabIsSelectedByDefault *****   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG 	✓ PASSED Test: GTabPanelTest - testNoTabIsSelectedByDefault ✓	   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG Thu Nov 12 02:35:44 CST 2026
+***** STARTING Test: GTabPanelTest - testHighlightTab *****   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG 	✓ PASSED Test: GTabPanelTest - testHighlightTab ✓	   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG Thu Nov 12 02:35:44 CST 2026
+***** STARTING Test: GTabPanelTest - testMoveTab *****   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG 	✓ PASSED Test: GTabPanelTest - testMoveTab ✓	   (AbstractGenericTest.java:121) 
+02:35:44 DEBUG Thu Nov 12 02:35:44 CST 2026
+***** STARTING Test: GTabPanelTest - testGetAccessibleNameNoTabSelected *****   (AbstractGenericTest.java:121) 
+02:35:45 DEBUG 	✓ PASSED Test: GTabPanelTest - testGetAccessibleNameNoTabSelected ✓	   (AbstractGenericTest.java:121) 
+02:35:45 DEBUG Thu Nov 12 02:35:45 CST 2026
+***** STARTING Test: GTabPanelTest - testGetAccessiblNameNoTabSelectedAndTabHighighted *****   (AbstractGenericTest.java:121) 
+02:35:45 DEBUG 	✓ PASSED Test: GTabPanelTest - testGetAccessiblNameNoTabSelectedAndTabHighighted ✓	   (AbstractGenericTest.java:121) 
+02:35:45 DEBUG Thu Nov 12 02:35:45 CST 2026
+***** STARTING Test: GTabPanelTest - testGetHiddenTabs *****   (AbstractGenericTest.java:121) 
+02:35:45 DEBUG 	✖ FAILED Test: GTabPanelTest - testGetHiddenTabs ✖	   (AbstractGenericTest.java:121) 
+02:35:45 DEBUG Thu Nov 12 02:35:45 CST 2026
+***** STARTING Test: GTabPanelTest - testGetAccessiblNameTabSelectedAndTabHighighted *****   (AbstractGenericTest.java:121) 
+02:35:45 DEBUG 	✓ PASSED Test: GTabPanelTest - testGetAccessiblNameTabSelectedAndTabHighighted ✓	   (AbstractGenericTest.java:121) 
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

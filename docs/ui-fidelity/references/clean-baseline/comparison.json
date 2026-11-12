@@ -1,0 +1,13 @@
+{
+  "baselineRevision": "9363fdb808cb6eb7d500feee67dcf3322bd3217f",
+  "currentRevision": "f41fd315e2958fef7c334a9d0a672c80ad515d3d",
+  "baselineTrackedChanges": null,
+  "jdk": "C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.5.8-hotspot\\",
+  "baselineTests": 46,
+  "baselineFailures": 9,
+  "currentTests": 46,
+  "currentFailures": 9,
+  "identicalFailedMethodsAndMessages": true,
+  "dependencies": "Shared read-only dependency artifacts through junction; separate source/classes/reports",
+  "gradle": "Current wrapper 9.9.0 -p clean pre-UI checkout"
+}

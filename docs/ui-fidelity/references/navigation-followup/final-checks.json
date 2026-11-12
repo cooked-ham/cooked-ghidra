@@ -1,0 +1,18 @@
+{
+  "helperCommit": "81487b01acbae578502bc3fdb31f6e4d9ca8a729",
+  "productCommits": [
+    "f1dffe5ecc",
+    "f9f9dc7d9e"
+  ],
+  "liveReviewProcesses": 0,
+  "registrationReconciled": true,
+  "unresolvedHandlers": 0,
+  "exhaustiveApplicationVisualGate": false,
+  "physicalHardwareChecks": "excluded by owner",
+  "sourceOnlyCandidatesClassified": 50,
+  "eclipseCaptures": 31,
+  "sourceScopeTests": 3,
+  "runtimeRegressionTests": 9,
+  "inventoryRegressionTests": 4,
+  "iconRegressionTests": 5
+}

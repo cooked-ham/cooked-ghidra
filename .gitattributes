@@ -79,3 +79,16 @@
 *.tgz binary
 *.war binary
 *.zip binary
+
+# Preserve captured evidence bytes so recorded SHA-256 values survive checkout.
+docs/ui-fidelity/references/clean-baseline/** -text whitespace=cr-at-eol
+docs/ui-fidelity/references/navigation-followup/** -text whitespace=cr-at-eol
+docs/ui-fidelity/references/source-scope/** -text whitespace=cr-at-eol
+
+# JUnit output and application diagnostics retain the producer's whitespace.
+docs/ui-fidelity/references/clean-baseline/**/*.xml -whitespace
+docs/ui-fidelity/references/navigation-followup/**/*.xml -whitespace
+docs/ui-fidelity/references/navigation-followup/**/*.log -whitespace
+docs/ui-fidelity/references/navigation-followup/**/*.err -whitespace
+docs/ui-fidelity/references/source-scope/**/*.log -whitespace
+docs/ui-fidelity/references/source-scope/**/*.err -whitespace

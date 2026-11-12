@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ghidra.app.nav.ProgramSwitcherDialogTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-12T09:04:09.523Z" hostname="ROTBART" time="4.943">
+  <properties/>
+  <testcase name="testEnterFromFocusedResultListSwitchesOnce" classname="ghidra.app.nav.ProgramSwitcherDialogTest" time="3.009"/>
+  <testcase name="testExactNameRanksBeforePrefixAndSubstring" classname="ghidra.app.nav.ProgramSwitcherDialogTest" time="0.218"/>
+  <testcase name="testOpenAndRenameUpdateWhileShowing" classname="ghidra.app.nav.ProgramSwitcherDialogTest" time="0.317"/>
+  <testcase name="testEmptySwitcherAndNoMatchDisableSwitch" classname="ghidra.app.nav.ProgramSwitcherDialogTest" time="0.215"/>
+  <testcase name="testDuplicateNamesUsePathAndEnterSwitchesCorrectProgram" classname="ghidra.app.nav.ProgramSwitcherDialogTest" time="0.217"/>
+  <testcase name="testCancellationLeavesCurrentProgramUnchanged" classname="ghidra.app.nav.ProgramSwitcherDialogTest" time="0.217"/>
+  <testcase name="testHiddenProgramsAreNotRevealed" classname="ghidra.app.nav.ProgramSwitcherDialogTest" time="0.215"/>
+  <testcase name="testClosingSelectionRemovesItWithoutSwitchingToClosedProgram" classname="ghidra.app.nav.ProgramSwitcherDialogTest" time="0.215"/>
+  <testcase name="testDisposalWithQueuedProgramEvent" classname="ghidra.app.nav.ProgramSwitcherDialogTest" time="0.318"/>
+  <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_8bbe7345-e1ac-467c-8a58-ee9c8f68a782\temp.data
+03:04:09 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+03:04:09 INFO  Using log file: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_8bbe7345-e1ac-467c-8a58-ee9c8f68a782\temp.data\application.log   (LoggingInitialization.java:56) 
+03:04:09 INFO  Loading user preferences: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_8bbe7345-e1ac-467c-8a58-ee9c8f68a782\temp.data\preferences   (Preferences.java:122) 
+03:04:10 DEBUG Including serial input filter: FileSystem/data/client.rmi.serial.filter   (GhidraObjectInputFilter.java:391) 
+03:04:10 INFO  Searching for classes...   (ClassSearcher.java:447) 
+03:04:10 INFO  Class search complete (339 ms)   (ClassSearcher.java:135) 
+03:04:10 DEBUG Thu Nov 12 03:04:10 CST 2026
+***** STARTING Test: ProgramSwitcherDialogTest - testEnterFromFocusedResultListSwitchesOnce *****   (AbstractGenericTest.java:121) 
+03:04:11 DEBUG Took 53ms (16ms inside lock) to initialize language E:\cooked-ghidra\Ghidra\Processors\Toy\data\languages\toy_be.slaspec -> E:\cooked-ghidra\Ghidra\Processors\Toy\data\languages\toy_be.sla   (SleighLanguage.java:204) 
+03:04:12 INFO  /one/first.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:12 INFO  /two/second.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:12 DEBUG 	✓ PASSED Test: ProgramSwitcherDialogTest - testEnterFromFocusedResultListSwitchesOnce ✓	   (AbstractGenericTest.java:121) 
+03:04:12 DEBUG Thu Nov 12 03:04:12 CST 2026
+***** STARTING Test: ProgramSwitcherDialogTest - testExactNameRanksBeforePrefixAndSubstring *****   (AbstractGenericTest.java:121) 
+03:04:12 INFO  /one/old-program.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:12 INFO  /two/program.bin.backup: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:12 INFO  /three/program.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:12 DEBUG 	✓ PASSED Test: ProgramSwitcherDialogTest - testExactNameRanksBeforePrefixAndSubstring ✓	   (AbstractGenericTest.java:121) 
+03:04:12 DEBUG Thu Nov 12 03:04:12 CST 2026
+***** STARTING Test: ProgramSwitcherDialogTest - testOpenAndRenameUpdateWhileShowing *****   (AbstractGenericTest.java:121) 
+03:04:12 INFO  /one/first.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:12 INFO  /two/second.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:13 DEBUG 	✓ PASSED Test: ProgramSwitcherDialogTest - testOpenAndRenameUpdateWhileShowing ✓	   (AbstractGenericTest.java:121) 
+03:04:13 DEBUG Thu Nov 12 03:04:13 CST 2026
+***** STARTING Test: ProgramSwitcherDialogTest - testEmptySwitcherAndNoMatchDisableSwitch *****   (AbstractGenericTest.java:121) 
+03:04:13 DEBUG 	✓ PASSED Test: ProgramSwitcherDialogTest - testEmptySwitcherAndNoMatchDisableSwitch ✓	   (AbstractGenericTest.java:121) 
+03:04:13 DEBUG Thu Nov 12 03:04:13 CST 2026
+***** STARTING Test: ProgramSwitcherDialogTest - testDuplicateNamesUsePathAndEnterSwitchesCorrectProgram *****   (AbstractGenericTest.java:121) 
+03:04:13 INFO  /one/same.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:13 INFO  /two/same.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:13 DEBUG 	✓ PASSED Test: ProgramSwitcherDialogTest - testDuplicateNamesUsePathAndEnterSwitchesCorrectProgram ✓	   (AbstractGenericTest.java:121) 
+03:04:13 DEBUG Thu Nov 12 03:04:13 CST 2026
+***** STARTING Test: ProgramSwitcherDialogTest - testCancellationLeavesCurrentProgramUnchanged *****   (AbstractGenericTest.java:121) 
+03:04:13 INFO  /one/first.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:13 INFO  /two/second.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:13 DEBUG 	✓ PASSED Test: ProgramSwitcherDialogTest - testCancellationLeavesCurrentProgramUnchanged ✓	   (AbstractGenericTest.java:121) 
+03:04:13 DEBUG Thu Nov 12 03:04:13 CST 2026
+***** STARTING Test: ProgramSwitcherDialogTest - testHiddenProgramsAreNotRevealed *****   (AbstractGenericTest.java:121) 
+03:04:13 INFO  /one/visible.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:13 INFO  /two/hidden.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:13 DEBUG 	✓ PASSED Test: ProgramSwitcherDialogTest - testHiddenProgramsAreNotRevealed ✓	   (AbstractGenericTest.java:121) 
+03:04:13 DEBUG Thu Nov 12 03:04:13 CST 2026
+***** STARTING Test: ProgramSwitcherDialogTest - testClosingSelectionRemovesItWithoutSwitchingToClosedProgram *****   (AbstractGenericTest.java:121) 
+03:04:14 INFO  /one/first.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:14 INFO  /two/second.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:14 DEBUG 	✓ PASSED Test: ProgramSwitcherDialogTest - testClosingSelectionRemovesItWithoutSwitchingToClosedProgram ✓	   (AbstractGenericTest.java:121) 
+03:04:14 DEBUG Thu Nov 12 03:04:14 CST 2026
+***** STARTING Test: ProgramSwitcherDialogTest - testDisposalWithQueuedProgramEvent *****   (AbstractGenericTest.java:121) 
+03:04:14 INFO  /one/first.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:14 INFO  /two/second.bin: file created (Sean)   (LocalDatabaseItem.java:269) 
+03:04:14 DEBUG 	✓ PASSED Test: ProgramSwitcherDialogTest - testDisposalWithQueuedProgramEvent ✓	   (AbstractGenericTest.java:121) 
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
