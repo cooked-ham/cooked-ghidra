@@ -1,0 +1,86 @@
+[
+  {
+    "file": "bsim-compare-graph.png",
+    "sha256": "79A002E94C8DA186F0C8D4D5E0F5BE2A68CD7F1947F45B2C02184214FBAF3120"
+  },
+  {
+    "file": "call-trees.png",
+    "sha256": "41FAD54194CBB85218C742DF719E07E45EBE6024C1DC1801A195DCFD9966392F"
+  },
+  {
+    "file": "code-compare-graph.png",
+    "sha256": "4E1DBA03EB0CDC087E438327131718597B7D7DCFFB82925D2E4511234F06EAAB"
+  },
+  {
+    "file": "debugger-capture-manifest.json",
+    "sha256": "7EEAFD04D4F9B33A8C9F076E4119A6002F47B9A33D9A3A3B5256B37C9CCB5983"
+  },
+  {
+    "file": "debugger-trace.png",
+    "sha256": "BE07DC0D434E782472841A20405A017B5387C46C868557DABA440E437BCAA496"
+  },
+  {
+    "file": "graph-capture-manifest.json",
+    "sha256": "64DA2D1CD44B86E8BD7FFE730AFE72D8B40E9823A00894D3E3E58B893C6B6DE8"
+  },
+  {
+    "file": "graph-capture.csv",
+    "sha256": "7EF8EBBCC1FEA083FA44B3E1B023E6F0485D54E94E4DE272A4E2CE15721E4E01"
+  },
+  {
+    "file": "graph-grouped-overview.png",
+    "sha256": "40322E7F9FDE74B300C95E03FC11437EDFF250FAD33585C7E1312319723823C0"
+  },
+  {
+    "file": "graph-grouped-selected.png",
+    "sha256": "922934274AA658DBF6C5DBDC6446E719A30B61C1FB9EAE54BF6B0FB31DA0E3AC"
+  },
+  {
+    "file": "graph-grouped-stock.png",
+    "sha256": "118F9630D19D1D563253AA00E0CEB0B9BBA08BDCD7810CACFAF810108A82467D"
+  },
+  {
+    "file": "graph-grouped.png",
+    "sha256": "9E2D4DA0E188A97628B1FCA1D3CE74FF0BE014C91FD214E827272BE5ACAC64A6"
+  },
+  {
+    "file": "graph-labels.png",
+    "sha256": "A68E697D72950C743FEFDAC1E611ADDEA74922968526121E7F17A33FBD533048"
+  },
+  {
+    "file": "graph-ungrouped.png",
+    "sha256": "274C1E639E9F99F49407AB150F6B5FD8AD1AC2D754EE96A591C7032E7BEE4597"
+  },
+  {
+    "file": "inspection.json",
+    "sha256": "A0F16E1C454ADDEF01ED651D66CA6618173A22E50E88543D22C352E2DA004B0B"
+  },
+  {
+    "file": "README.md",
+    "sha256": "11D049059037F35B7BCB34E45116B7D010D56870B5C44308B7D3C94CD72037CA"
+  },
+  {
+    "file": "source-hashes.json",
+    "sha256": "6A7FA62FA392C4E5B78EA06D3B703CD8636F83454FB1DDAD10083CF4F8C980E3"
+  },
+  {
+    "file": "specialist-capture-manifest.json",
+    "sha256": "0253D5A0FC437A88DC65EBE21038C5D839778E156E29F85367B01E8DB4DC201D"
+  },
+  {
+    "file": "specialist-ui-review.csv",
+    "sha256": "1DC63144893D1D5CCD2653F3513DF62B7DF911D7A48EFFC0429F37A08B9BAD4D"
+  },
+  {
+    "file": "TEST-ghidra.app.plugin.core.functiongraph.graph.layout.DNLEdgeLabelRendererTest.xml",
+    "sha256": "C875F1F2063A8EF52225D597B31B0D056B87833925A2ED6C60834B395D951E7E"
+  },
+  {
+    "file": "TEST-ghidra.graph.viewer.renderer.VisualGraphRendererTest.xml",
+    "sha256": "E3A254FA06A6A754E0925305DB95291AB1936D575D55A026E5422BC632FE4AD3"
+  },
+  {
+    "file": "version-tracking-graph.png",
+    "sha256": "1277C46822E9168B9F0BF447AB421DED5A868814CD6633A4DEAB64F822767A2C"
+  }
+]

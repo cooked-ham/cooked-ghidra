@@ -1,0 +1,14 @@
+{
+  "sourceVersion": "12.2",
+  "runtimeVersion": "12.2",
+  "finalRuntimeLogErrors": 0,
+  "mismatchedVersionsRejected": [
+    "capture-reference.ps1",
+    "review-specialists.ps1"
+  ],
+  "powerShellParseChecks": "passed",
+  "physicalHardwareChecks": "excluded at owner request",
+  "nativeInputPassClaimed": false,
+  "registrationReconciled": true,
+  "exhaustiveVisualAcceptance": false
+}

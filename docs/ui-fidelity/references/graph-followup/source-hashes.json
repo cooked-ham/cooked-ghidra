@@ -1,0 +1,22 @@
+[
+  {
+    "source": "Ghidra/Features/FunctionGraphDecompilerExtension/src/main/java/ghidra/app/plugin/core/functiongraph/graph/layout/DNLEdgeLabelRenderer.java",
+    "sha256": "095DEF571FE324E83B9DD9DF839161A16B15BF7978C426E6DFF9C46B60BE31FE"
+  },
+  {
+    "source": "Ghidra/Features/FunctionGraphDecompilerExtension/src/test/java/ghidra/app/plugin/core/functiongraph/graph/layout/DNLEdgeLabelRendererTest.java",
+    "sha256": "413E8768EA0DC0EC68B627685F150E2120799BB570C1A471F7A473A3DEE8B237"
+  },
+  {
+    "source": "Ghidra/Framework/Graph/src/main/java/ghidra/graph/viewer/renderer/EdgeLabelLayout.java",
+    "sha256": "FCBFDC60C8F2F6D9A20FF7C97FB74D2E012954FDE535FD317BC1DA70AA244EA0"
+  },
+  {
+    "source": "Ghidra/Framework/Graph/src/main/java/ghidra/graph/viewer/renderer/VisualGraphRenderer.java",
+    "sha256": "F60A1A550F02E195799019185A95D870F13EA470C424E072EB7CCE850649D4B9"
+  },
+  {
+    "source": "Ghidra/Framework/Graph/src/test/java/ghidra/graph/viewer/renderer/VisualGraphRendererTest.java",
+    "sha256": "7D65E131C80BDDDA295962F649B31287B7811C7422ACF9A183F62B4469082F04"
+  }
+]

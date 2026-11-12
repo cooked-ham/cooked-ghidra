@@ -1,0 +1,1 @@
+Inventory matches source; no runtime acceptance inferred.

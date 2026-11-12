@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ghidra.app.plugin.core.functiongraph.graph.layout.DNLEdgeLabelRendererTest" tests="6" skipped="0"
+           failures="0" errors="0" timestamp="2026-11-12T07:08:03.015Z" hostname="ROTBART" time="0.013">
+    <properties/>
+    <testcase name="testMovedLabelClearsPreviouslyPlacedLabel"
+              classname="ghidra.app.plugin.core.functiongraph.graph.layout.DNLEdgeLabelRendererTest" time="0.008"/>
+    <testcase name="testLongLabelInDenseCardsHasClearPlacement"
+              classname="ghidra.app.plugin.core.functiongraph.graph.layout.DNLEdgeLabelRendererTest" time="0.0"/>
+    <testcase name="testPannedFractionalCoordinatesAndEmptyGraph"
+              classname="ghidra.app.plugin.core.functiongraph.graph.layout.DNLEdgeLabelRendererTest" time="0.0"/>
+    <testcase name="testPartlyHiddenLabelMovesJustAboveCard"
+              classname="ghidra.app.plugin.core.functiongraph.graph.layout.DNLEdgeLabelRendererTest" time="0.0"/>
+    <testcase name="testClearAnchorStaysInPlace"
+              classname="ghidra.app.plugin.core.functiongraph.graph.layout.DNLEdgeLabelRendererTest" time="0.0"/>
+    <testcase name="testClearsNeighborAsWellAsDestination"
+              classname="ghidra.app.plugin.core.functiongraph.graph.layout.DNLEdgeLabelRendererTest" time="0.001"/>
+    <system-out><![CDATA[]]></system-out>
+    <system-err><![CDATA[]]></system-err>
+</testsuite>

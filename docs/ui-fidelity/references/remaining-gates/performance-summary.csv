@@ -1,0 +1,33 @@
+logical_scale,theme,workload,samples,median_ms,p95_ms,median_allocated_bytes,source_run
+1.0,Flat Dark Theme,large-graph-detail,64,9.091,17.175,4161380,build/verification/coherent-scale-100-20261112
+1.0,Flat Dark Theme,large-graph-overview,64,8.821,11.755,5280236,build/verification/coherent-scale-100-20261112
+1.0,Flat Dark Theme,table-10000-scroll,64,0.91,1.644,99720,build/verification/coherent-scale-100-20261112
+1.0,Flat Dark Theme,table-filter-roundtrip,32,0.834,1.28,not measured,build/verification/coherent-scale-100-20261112
+1.0,Graphite Preview,large-graph-detail,64,12.344,16.722,5349460,build/verification/coherent-scale-100-20261112
+1.0,Graphite Preview,large-graph-overview,64,12.138,15.851,6529392,build/verification/coherent-scale-100-20261112
+1.0,Graphite Preview,table-10000-scroll,64,0.678,1.137,102792,build/verification/coherent-scale-100-20261112
+1.0,Graphite Preview,table-filter-roundtrip,32,0.607,0.927,not measured,build/verification/coherent-scale-100-20261112
+1.25,Flat Dark Theme,large-graph-detail,64,8.733,14.038,4159648,build/verification/coherent-scale-125-20261112
+1.25,Flat Dark Theme,large-graph-overview,64,8.312,10.909,5280272,build/verification/coherent-scale-125-20261112
+1.25,Flat Dark Theme,table-10000-scroll,64,0.767,1.727,99720,build/verification/coherent-scale-125-20261112
+1.25,Flat Dark Theme,table-filter-roundtrip,32,0.578,1.315,not measured,build/verification/coherent-scale-125-20261112
+1.25,Graphite Preview,large-graph-detail,64,11.16,14.599,5374496,build/verification/coherent-scale-125-20261112
+1.25,Graphite Preview,large-graph-overview,64,11.683,18.833,6552016,build/verification/coherent-scale-125-20261112
+1.25,Graphite Preview,table-10000-scroll,64,0.82,1.305,102792,build/verification/coherent-scale-125-20261112
+1.25,Graphite Preview,table-filter-roundtrip,32,0.661,0.866,not measured,build/verification/coherent-scale-125-20261112
+1.5,Flat Dark Theme,large-graph-detail,64,10.15,18.343,4145648,build/verification/coherent-scale-150-20261112
+1.5,Flat Dark Theme,large-graph-overview,64,10.959,18.06,5263832,build/verification/coherent-scale-150-20261112
+1.5,Flat Dark Theme,table-10000-scroll,64,0.965,1.735,99720,build/verification/coherent-scale-150-20261112
+1.5,Flat Dark Theme,table-filter-roundtrip,32,0.835,1.445,not measured,build/verification/coherent-scale-150-20261112
+1.5,Graphite Preview,large-graph-detail,64,10.777,12.054,5365184,build/verification/coherent-scale-150-20261112
+1.5,Graphite Preview,large-graph-overview,64,11.366,13.193,6450448,build/verification/coherent-scale-150-20261112
+1.5,Graphite Preview,table-10000-scroll,64,0.615,1.198,102792,build/verification/coherent-scale-150-20261112
+1.5,Graphite Preview,table-filter-roundtrip,32,0.541,0.895,not measured,build/verification/coherent-scale-150-20261112
+2.0,Flat Dark Theme,large-graph-detail,64,8.17,15.01,4107056,build/verification/coherent-scale-200-20261112
+2.0,Flat Dark Theme,large-graph-overview,64,7.828,8.989,4941592,build/verification/coherent-scale-200-20261112
+2.0,Flat Dark Theme,table-10000-scroll,64,0.716,1.637,99720,build/verification/coherent-scale-200-20261112
+2.0,Flat Dark Theme,table-filter-roundtrip,32,0.807,1.272,not measured,build/verification/coherent-scale-200-20261112
+2.0,Graphite Preview,large-graph-detail,64,10.317,13.371,5327576,build/verification/coherent-scale-200-20261112
+2.0,Graphite Preview,large-graph-overview,64,10.647,11.952,6096880,build/verification/coherent-scale-200-20261112
+2.0,Graphite Preview,table-10000-scroll,64,0.679,1.176,102792,build/verification/coherent-scale-200-20261112
+2.0,Graphite Preview,table-filter-roundtrip,32,0.745,0.86,not measured,build/verification/coherent-scale-200-20261112

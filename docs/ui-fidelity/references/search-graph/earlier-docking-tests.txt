@@ -1,0 +1,8 @@
+    22:24:05 DEBUG 	✓ PASSED Test: SearchLocationContextRendererTest - testNarrowSelectedContextAndThemeSwitch ✓	   (AbstractGenericTest.java:121) 
+    22:24:07 DEBUG 	✓ PASSED Test: SearchListTest - testCategoryNotConsideredInFilter ✓	   (AbstractGenericTest.java:121) 
+    22:24:07 DEBUG 	✓ PASSED Test: SearchListTest - testFilterReducesNumberOfElements ✓	   (AbstractGenericTest.java:121) 
+    22:24:07 DEBUG 	✓ PASSED Test: SearchListTest - testClearFilterRestores ✓	   (AbstractGenericTest.java:121) 
+    22:24:07 DEBUG 	✓ PASSED Test: SearchListTest - testSelect ✓	   (AbstractGenericTest.java:121) 
+    22:24:08 DEBUG 	✓ PASSED Test: SearchPresentationTest - testHighlightEscapesMarkupAndMatchesLiteralWords ✓	   (AbstractGenericTest.java:121) 
+    22:24:08 DEBUG 	✓ PASSED Test: SearchPresentationTest - testGroupsPreserveSelectionAndStatusSurvivesThemeSwitch ✓	   (AbstractGenericTest.java:121) 
+    22:24:09 DEBUG 	✓ PASSED Test: SearchPresentationTest - testReplacementStatusRestoresStockContent ✓	   (AbstractGenericTest.java:121) 

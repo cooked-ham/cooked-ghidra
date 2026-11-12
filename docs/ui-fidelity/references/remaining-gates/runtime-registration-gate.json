@@ -1,0 +1,103 @@
+{
+  "schema": 2,
+  "captures": [
+    {
+      "capture": "capture.csv.chooser.runtime.csv",
+      "sha256": "e61b01d91ac12926d5d182f8fccdb6e3eb535ed1c625dbb937e5273cd59adcbb",
+      "registrations": 1
+    },
+    {
+      "capture": "capture.csv.codebrowser.runtime.csv",
+      "sha256": "2bc48f1dafac38d116904332a17965ce2e14876bc4f3e97405efa9fd0cc35216",
+      "registrations": 1764
+    },
+    {
+      "capture": "capture.csv.Debugger.runtime.csv",
+      "sha256": "4435fb01cefc13fb8a6068fbdfa5ebddd3e24d80f665b91f7b113da8ced19426",
+      "registrations": 2238
+    },
+    {
+      "capture": "capture.csv.frontend.runtime.csv",
+      "sha256": "fd7bb695a4c9b82e82e671550e639680dbab9976e20b60228f31b2e3ac8c3877",
+      "registrations": 213
+    },
+    {
+      "capture": "capture.csv.optional.Jython.runtime.csv",
+      "sha256": "8f8f470bf0543d71a3fe3d6ace90dedca643429fc74d4aad13636d3ad8e68982",
+      "registrations": 1839
+    },
+    {
+      "capture": "capture.csv.optional.Lisa.runtime.csv",
+      "sha256": "b950a5e11bf5d50351ee3ddac251707ce28a7ce89a67a131ae591ac8b9d43127",
+      "registrations": 1850
+    },
+    {
+      "capture": "capture.csv.optional.MachineLearning.runtime.csv",
+      "sha256": "b950a5e11bf5d50351ee3ddac251707ce28a7ce89a67a131ae591ac8b9d43127",
+      "registrations": 1850
+    },
+    {
+      "capture": "capture.csv.optional.sample.runtime.csv",
+      "sha256": "211a46f61602b301a6d7d8dbac53a86ac4a3d936d79718e20483ad714727ed31",
+      "registrations": 1837
+    },
+    {
+      "capture": "capture.csv.optional.SampleTablePlugin.runtime.csv",
+      "sha256": "8f8f470bf0543d71a3fe3d6ace90dedca643429fc74d4aad13636d3ad8e68982",
+      "registrations": 1839
+    },
+    {
+      "capture": "capture.csv.optional.SymbolicSummaryZ3.runtime.csv",
+      "sha256": "94a08ca9d9c8aa430038c203bdc2a6e4bd1b5784c56b3d05eb3fd3151ba4f6d1",
+      "registrations": 1892
+    },
+    {
+      "capture": "capture.csv.options.runtime.csv",
+      "sha256": "c0c8f18a760b08846fcbf0abc80d162ceea1a299e59d8e7a19b2735056924c14",
+      "registrations": 1
+    },
+    {
+      "capture": "capture.csv.VersionTracking.runtime.csv",
+      "sha256": "7f1c06ec786aad4b8e9f7440bcb6c6caa0a0bc0669380225c4b759da184d383e",
+      "registrations": 325
+    }
+  ],
+  "installation": {
+    "capture": "capture.csv.modules.csv",
+    "sha256": "46961badf9d09d89b74e954791b9a3e08cf47877481d4f864ff34ce2dd6b7576",
+    "active_module_roots": 113
+  },
+  "source_ledger_sha256": "d0985f295cceb125295dd4cbbc9c518cf183d9e05275420abb84adde2ac7b249",
+  "module_ledger_sha256": "7759d8427691cba476dfd3dc92cd92d425761c5e6df76eb4221235ad616c3ec4",
+  "kinds": {
+    "action": 8361,
+    "component": 5011,
+    "dialog": 2,
+    "plugin": 1145,
+    "provider": 316,
+    "renderer": 814
+  },
+  "class_matches": {
+    "enclosing source file; runtime handler traced": 3560,
+    "exact declaration": 9216,
+    "external capture harness; excluded from first-party scope": 22,
+    "platform/third-party implementation; not first-party source": 2851
+  },
+  "owner_matches": {
+    "external/unindexed loaded plugin": 344,
+    "loaded plugin linked": 13314,
+    "non-plugin owner label; runtime handler traced": 1880,
+    "owner not a loaded plugin; trace service/infrastructure": 111
+  },
+  "handler_matches": {
+    "runtime class bytecode source line": 6908,
+    "runtime lambda target and source line": 1453
+  },
+  "unresolved_registrations_or_handlers": 0,
+  "registration_reconciled": true,
+  "modules_with_registration_evidence": 30,
+  "modules_without_runtime_evidence": 102,
+  "source_modules_absent_from_runtime": 22,
+  "runtime_reconciled": false,
+  "release_blocker": "Registration links do not prove exhaustive menus, dialogs, providers, optional installations or visual/functional acceptance."
+}

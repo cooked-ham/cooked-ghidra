@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ghidra.graph.viewer.GraphNavigationBarTest" tests="1" skipped="0" failures="0" errors="0"
+           timestamp="2026-11-12T04:30:41.895Z" hostname="ROTBART" time="1.031">
+    <properties/>
+    <testcase name="testGraphZoomResetFitAndUnavailableState" classname="ghidra.graph.viewer.GraphNavigationBarTest"
+              time="1.028"/>
+    <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Framework\Graph\build\Sean-ghidra\test_506323fa-f841-4336-b99b-85cd839b22a9\temp.data
+22:30:42 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+22:30:42 INFO  Using log file: E:\cooked-ghidra\Ghidra\Framework\Graph\build\Sean-ghidra\test_506323fa-f841-4336-b99b-85cd839b22a9\temp.data\application.log   (LoggingInitialization.java:56) 
+22:30:42 DEBUG Wed Nov 11 22:30:42 CST 2026
+***** STARTING Test: GraphNavigationBarTest - testGraphZoomResetFitAndUnavailableState *****   (AbstractGenericTest.java:121) 
+22:30:42 DEBUG 	✓ PASSED Test: GraphNavigationBarTest - testGraphZoomResetFitAndUnavailableState ✓	   (AbstractGenericTest.java:121) 
+]]></system-out>
+    <system-err><![CDATA[]]></system-err>
+</testsuite>

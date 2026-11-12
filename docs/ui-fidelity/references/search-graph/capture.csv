@@ -1,0 +1,13 @@
+step,requested,active,laf,Component.arc,Button.arc,TabbedPane.tabType,ScrollBar.width,TitledBorder.border,Popup.dropShadowPainted,ScrollPane.arc,Component.focusWidth,Docking.modernChrome
+0,Graphite Preview,Graphite Preview,FlatLaf Dark,10,10,card,12,com.formdev.flatlaf.ui.FlatLineBorder@2c29406e,true,0,1,true
+openprogram,hostname_x64.exe,requested (explicit in-memory upgrade for test sample)
+density,Graphite-Preview,table=22 tree=22 focus=1 depth=true compact=null
+view,Bytes,visible=true
+view,Symbol Table,visible=true
+view,Function Graph,visible=true
+memory,matches=1
+memory,ready/loading/empty/results/filtered captured
+4,Flat Dark Theme,Flat Dark Theme,FlatLaf Dark,5,6,underlined,10,com.formdev.flatlaf.ui.FlatLineBorder@48372eab,true,0,0,null
+5,(startup),Flat Dark Theme,FlatLaf Dark,5,6,underlined,10,com.formdev.flatlaf.ui.FlatLineBorder@48372eab,true,0,0,null
+6,Graphite Preview,Graphite Preview,FlatLaf Dark,10,10,card,12,com.formdev.flatlaf.ui.FlatLineBorder@26ca9ca3,true,0,1,true
+7,(startup),Graphite Preview,FlatLaf Dark,10,10,card,12,com.formdev.flatlaf.ui.FlatLineBorder@26ca9ca3,true,0,1,true

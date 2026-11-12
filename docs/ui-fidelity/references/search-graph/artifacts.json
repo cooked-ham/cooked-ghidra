@@ -1,0 +1,62 @@
+[
+  {
+    "name": "capture-manifest.json",
+    "sha256": "B216967F3463C59482E55198F70AB8E13D621CA07A3D13AC2E88660A1103B1AD"
+  },
+  {
+    "name": "capture.csv",
+    "sha256": "1113F912B2B988D9A810EE4A97544140B84E97F0C6716EB40BE7DB2E80B84D06"
+  },
+  {
+    "name": "capture.csv.Graphite-Preview.chooser.png",
+    "sha256": "684F09BE48FDE8C78E003F41A9816B37CCB153E8427C2C026999D279D13413AD"
+  },
+  {
+    "name": "capture.csv.Graphite-Preview.Function-Graph.png",
+    "sha256": "8A95E90ECC5FCBDDFAC826B340A3035B564F2F57825997D4D0ED5037A75C889D"
+  },
+  {
+    "name": "capture.csv.memory-empty.png",
+    "sha256": "7A38CB22EF6231489C12E350A2487FAEAEDC3CB79435212D5FA4632F9636F8DC"
+  },
+  {
+    "name": "capture.csv.memory-filtered.png",
+    "sha256": "BFB39984459E4231F96F170883D6F463B9FB2C24B61CFB2463C732A3E3FE7A26"
+  },
+  {
+    "name": "capture.csv.memory-loading.png",
+    "sha256": "36C32CD85BF1D87A47DB44AF74CB9E2CD63E0A6DCF087297BC16A8AC5C939850"
+  },
+  {
+    "name": "capture.csv.memory-ready.png",
+    "sha256": "9824B4A9EFB350C208F176A8E01FF72D5A89804E9E5B7316CD644DA3F91803C2"
+  },
+  {
+    "name": "capture.csv.memory-results.png",
+    "sha256": "79BB18373F3D6C69CCBAA4F49D391D41F5D3FDB718E499D09ABFC83A36E75470"
+  },
+  {
+    "name": "earlier-docking-tests.txt",
+    "sha256": "1B8E8606C67EEA2E3B72B2FD9E7D3937F0CBF5087D61A139BD58B6B636B0FDC5"
+  },
+  {
+    "name": "inspection.json",
+    "sha256": "6A819370E65F83A2B261F5A282348D775EA1A5534396A4E726BEFEC3C88B3F24"
+  },
+  {
+    "name": "TEST-docking.actions.dialog.ActionsDialogTest.xml",
+    "sha256": "834B1FBF5C1A62416A3B45F51E7C77350BF369E50B8E9A19DA1D13F930C5C19D"
+  },
+  {
+    "name": "TEST-generic.theme.uirefresh.UiRefreshContrastTest.xml",
+    "sha256": "A66B7DE5EDA14016439A8CF2E8E65EF4E10A78F6D52AD7D75E3F817AD0735513"
+  },
+  {
+    "name": "TEST-ghidra.features.base.memsearch.MemorySearchPresentationTest.xml",
+    "sha256": "D1D5F597CE70A2C43277617A41BBA0FB0169096B0B005A648A3DD8071C37D9D1"
+  },
+  {
+    "name": "TEST-ghidra.graph.viewer.GraphNavigationBarTest.xml",
+    "sha256": "46A0137501A31FE139E8E64306FE44815082D6D0F9A9CD6DD35BE8CF11A99BBB"
+  }
+]

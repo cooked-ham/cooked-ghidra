@@ -1,0 +1,32 @@
+{
+  "jars": [
+    {
+      "sha256": "C23209F8C267734C0286D8F78DFD01989A75DFD6224FF34E53F47DF23A65A25C",
+      "module": "Framework\\Gui"
+    },
+    {
+      "sha256": "0E4B58F5CCCE24BFEADD8DA68C1F19C2235E7C6DCF17B85AFEACCBD687316FAC",
+      "module": "Framework\\Docking"
+    },
+    {
+      "sha256": "F3720AE29AAAC20FA65A877CD2E7DF46C8FE07E1FD191DDAF21FAD3578A2484B",
+      "module": "Framework\\Graph"
+    },
+    {
+      "sha256": "CCDA2B101AB9FEA9DF4550ED70F8AAB8A9E8D7C87C98789A66FC17B9062FFBF0",
+      "module": "Features\\Base"
+    },
+    {
+      "sha256": "66A80953DB065EF7E87D5847162382CDC2399523046F7995368289E6101B93CC",
+      "module": "Features\\Decompiler"
+    }
+  ],
+  "sequence": "Graphite Preview,(openprogram),(polish),(memory),Flat Dark Theme,(startup),Graphite Preview,(startup)",
+  "logicalScale": 1.0,
+  "rendering": "In-process Swing painting; not physical DPI or screen-reader acceptance",
+  "timestamp": "2026-11-12T04:32:25.1610556Z",
+  "fixture": "E:\\cooked-ghidra\\build\\verification\\graphite-fixtures\\GraphiteReference.gpr",
+  "revision": "b8521f01851a5732cb1509a2cfed198b4e303bd1",
+  "dirtyTree": true,
+  "probeSha256": "19773FCD76A7A7C95B6A24DEACBAC98C57BC3D8E81817D9425475C2651EAD656"
+}

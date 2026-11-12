@@ -1,0 +1,4 @@
+step,requested,active,laf,Component.arc,Button.arc,TabbedPane.tabType,ScrollBar.width,TitledBorder.border,Popup.dropShadowPainted,ScrollPane.arc,Component.focusWidth,Docking.modernChrome
+0,Graphite Preview,Graphite Preview,FlatLaf Dark,10,10,card,12,com.formdev.flatlaf.ui.FlatLineBorder@192b05e9,true,0,1,true
+openprogram,hostname_x64.exe,requested (explicit in-memory upgrade for test sample)
+graph,4 vertices / 2 grouped branches / 3 vertices / ungrouped to 4; modern-stock-modern

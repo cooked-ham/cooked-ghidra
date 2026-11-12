@@ -1,0 +1,2 @@
+kind,class,name,entry_path,owner
+"dialog","ghidra.framework.main.datatree.VersionHistoryDialog","Version History for merge.bin","Bob / merge.bin / Version History","Docking"

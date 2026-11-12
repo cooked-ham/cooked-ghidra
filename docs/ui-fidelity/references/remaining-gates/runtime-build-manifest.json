@@ -1,0 +1,17 @@
+{
+  "runtime": "E:\\cooked-ghidra\\build\\verification\\coherent-ui-20261112\\ghidra_12.2_DEV",
+  "version": "12.2",
+  "note": "Probe extension is recompiled by capture-reference; seed settings are copied, not migrated in place.",
+  "revision": "0b6f3cc58206bab2d784bc4f569f6f5c829a6d19",
+  "extensions": [
+    "Jython",
+    "Lisa",
+    "MachineLearning",
+    "SampleTablePlugin",
+    "sample",
+    "SleighDevTools",
+    "SymbolicSummaryZ3"
+  ],
+  "dirtyTree": true,
+  "profile": "E:\\cooked-ghidra\\build\\verification\\coherent-ui-20261112\\profile"
+}

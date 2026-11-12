@@ -1,0 +1,18 @@
+{
+  "stock_image_values": 543,
+  "theme_referenced_stock_images": 531,
+  "direct_literal_image_values": 13,
+  "dispositions": {
+    "glyph": 234,
+    "retain-specialist": 156,
+    "retain-spacing": 7,
+    "retain-identity": 18,
+    "retain-cursor": 5,
+    "retain-file-kind": 31,
+    "retain-semantic-state": 62,
+    "retain-animation": 18,
+    "retain-direct-load": 12
+  },
+  "unresolved_resources": [],
+  "note": "Glyph file mappings apply only to unmodified stock values or size(16,16); composite modifiers remain stock. Retention is deliberate, not a promise of equivalent new artwork."
+}

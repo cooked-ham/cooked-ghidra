@@ -1,0 +1,4 @@
+Large Function Graph: 257 vertices, 384 edges; 128 conditional diamonds.
+Four graph navigation controls have names, button roles, focusability and enabled state; focused Space action-map activation zooms.
+Windows=10.0; Java=25.0.5; requested logical scale=2; transform=AffineTransform[[2.0, 0.0, 0.0], [0.0, 2.0, 0.0]]
+Physical keyboard/DPI/screen-reader and macOS hardware acceptance excluded at owner request; no physical-input pass claimed.

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ghidra.app.plugin.core.script.BundleStatusManagerTest" tests="2" skipped="0" failures="0" errors="0"
+           timestamp="2026-11-12T08:22:07.884Z" hostname="ROTBART" time="11.329">
+    <properties/>
+    <testcase name="testDisableEnableScriptDirectory" classname="ghidra.app.plugin.core.script.BundleStatusManagerTest"
+              time="10.11"/>
+    <testcase name="testQueuedTableNotificationAfterDisposeIsIgnored"
+              classname="ghidra.app.plugin.core.script.BundleStatusManagerTest" time="1.214"/>
+    <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_4fcac72c-cf81-44af-aa6a-7ce846fe5cae\temp.data
+02:22:08 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+02:22:08 INFO  Using log file: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_4fcac72c-cf81-44af-aa6a-7ce846fe5cae\temp.data\application.log   (LoggingInitialization.java:56) 
+02:22:08 INFO  Loading user preferences: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_4fcac72c-cf81-44af-aa6a-7ce846fe5cae\temp.data\preferences   (Preferences.java:122) 
+02:22:08 DEBUG Including serial input filter: FileSystem/data/client.rmi.serial.filter   (GhidraObjectInputFilter.java:391) 
+02:22:08 INFO  Searching for classes...   (ClassSearcher.java:447) 
+02:22:08 INFO  Class search complete (360 ms)   (ClassSearcher.java:135) 
+02:22:09 DEBUG Thu Nov 12 02:22:09 CST 2026
+***** STARTING Test: BundleStatusManagerTest - testDisableEnableScriptDirectory *****   (AbstractGenericTest.java:121) 
+02:22:09 DEBUG Took 62ms (19ms inside lock) to initialize language E:\cooked-ghidra\Ghidra\Processors\Toy\data\languages\toy_builder_le.slaspec -> E:\cooked-ghidra\Ghidra\Processors\Toy\data\languages\toy_builder_le.sla   (SleighLanguage.java:204) 
+02:22:17 DEBUG 	✓ PASSED Test: BundleStatusManagerTest - testDisableEnableScriptDirectory ✓	   (AbstractGenericTest.java:121) 
+02:22:18 DEBUG Thu Nov 12 02:22:18 CST 2026
+***** STARTING Test: BundleStatusManagerTest - testQueuedTableNotificationAfterDisposeIsIgnored *****   (AbstractGenericTest.java:121) 
+02:22:19 DEBUG 	✓ PASSED Test: BundleStatusManagerTest - testQueuedTableNotificationAfterDisposeIsIgnored ✓	   (AbstractGenericTest.java:121) 
+]]></system-out>
+    <system-err><![CDATA[]]></system-err>
+</testsuite>

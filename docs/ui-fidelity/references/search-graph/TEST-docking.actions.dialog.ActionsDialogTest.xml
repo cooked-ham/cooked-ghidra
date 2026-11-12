@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="docking.actions.dialog.ActionsDialogTest" tests="10" skipped="0" failures="0" errors="0"
+           timestamp="2026-11-12T04:30:38.956Z" hostname="ROTBART" time="1.863">
+    <properties/>
+    <testcase name="testFilteringOnKeybinding" classname="docking.actions.dialog.ActionsDialogTest" time="0.827"/>
+    <testcase name="testModernSearchMatchesWordsAndOwnerWithoutEnablingDisabledActions"
+              classname="docking.actions.dialog.ActionsDialogTest" time="0.118"/>
+    <testcase name="testToolBarActionsForEachDisplayLevel" classname="docking.actions.dialog.ActionsDialogTest"
+              time="0.115"/>
+    <testcase name="testFiltering" classname="docking.actions.dialog.ActionsDialogTest" time="0.115"/>
+    <testcase name="testActivatingAction" classname="docking.actions.dialog.ActionsDialogTest" time="0.113"/>
+    <testcase name="testMenuActionsForEachDisplayLevel" classname="docking.actions.dialog.ActionsDialogTest"
+              time="0.114"/>
+    <testcase name="testActionsOrganization" classname="docking.actions.dialog.ActionsDialogTest" time="0.115"/>
+    <testcase name="testApplyFilterChangeDisplayLevel" classname="docking.actions.dialog.ActionsDialogTest"
+              time="0.113"/>
+    <testcase name="testPopupActionsDisplayLOCAL" classname="docking.actions.dialog.ActionsDialogTest" time="0.113"/>
+    <testcase name="testKeyActionsForAllDisplayLevels" classname="docking.actions.dialog.ActionsDialogTest"
+              time="0.115"/>
+    <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Framework\Docking\build\Sean-ghidra\test_b3ea8253-f73d-42c6-852b-9dc925502d68\temp.data
+22:30:39 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+22:30:39 INFO  Using log file: E:\cooked-ghidra\Ghidra\Framework\Docking\build\Sean-ghidra\test_b3ea8253-f73d-42c6-852b-9dc925502d68\temp.data\application.log   (LoggingInitialization.java:56) 
+22:30:39 INFO  Loading user preferences: E:\cooked-ghidra\Ghidra\Framework\Docking\build\Sean-ghidra\test_b3ea8253-f73d-42c6-852b-9dc925502d68\temp.data\preferences   (Preferences.java:122) 
+22:30:39 DEBUG Wed Nov 11 22:30:39 CST 2026
+***** STARTING Test: ActionsDialogTest - testFilteringOnKeybinding *****   (AbstractGenericTest.java:121) 
+22:30:39 DEBUG 	✓ PASSED Test: ActionsDialogTest - testFilteringOnKeybinding ✓	   (AbstractGenericTest.java:121) 
+22:30:39 DEBUG Wed Nov 11 22:30:39 CST 2026
+***** STARTING Test: ActionsDialogTest - testModernSearchMatchesWordsAndOwnerWithoutEnablingDisabledActions *****   (AbstractGenericTest.java:121) 
+22:30:39 DEBUG 	✓ PASSED Test: ActionsDialogTest - testModernSearchMatchesWordsAndOwnerWithoutEnablingDisabledActions ✓	   (AbstractGenericTest.java:121) 
+22:30:39 DEBUG Wed Nov 11 22:30:39 CST 2026
+***** STARTING Test: ActionsDialogTest - testToolBarActionsForEachDisplayLevel *****   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG 	✓ PASSED Test: ActionsDialogTest - testToolBarActionsForEachDisplayLevel ✓	   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG Wed Nov 11 22:30:40 CST 2026
+***** STARTING Test: ActionsDialogTest - testFiltering *****   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG 	✓ PASSED Test: ActionsDialogTest - testFiltering ✓	   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG Wed Nov 11 22:30:40 CST 2026
+***** STARTING Test: ActionsDialogTest - testActivatingAction *****   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG 	✓ PASSED Test: ActionsDialogTest - testActivatingAction ✓	   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG Wed Nov 11 22:30:40 CST 2026
+***** STARTING Test: ActionsDialogTest - testMenuActionsForEachDisplayLevel *****   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG 	✓ PASSED Test: ActionsDialogTest - testMenuActionsForEachDisplayLevel ✓	   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG Wed Nov 11 22:30:40 CST 2026
+***** STARTING Test: ActionsDialogTest - testActionsOrganization *****   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG 	✓ PASSED Test: ActionsDialogTest - testActionsOrganization ✓	   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG Wed Nov 11 22:30:40 CST 2026
+***** STARTING Test: ActionsDialogTest - testApplyFilterChangeDisplayLevel *****   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG 	✓ PASSED Test: ActionsDialogTest - testApplyFilterChangeDisplayLevel ✓	   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG Wed Nov 11 22:30:40 CST 2026
+***** STARTING Test: ActionsDialogTest - testPopupActionsDisplayLOCAL *****   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG 	✓ PASSED Test: ActionsDialogTest - testPopupActionsDisplayLOCAL ✓	   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG Wed Nov 11 22:30:40 CST 2026
+***** STARTING Test: ActionsDialogTest - testKeyActionsForAllDisplayLevels *****   (AbstractGenericTest.java:121) 
+22:30:40 DEBUG 	✓ PASSED Test: ActionsDialogTest - testKeyActionsForAllDisplayLevels ✓	   (AbstractGenericTest.java:121) 
+]]></system-out>
+    <system-err><![CDATA[]]></system-err>
+</testsuite>

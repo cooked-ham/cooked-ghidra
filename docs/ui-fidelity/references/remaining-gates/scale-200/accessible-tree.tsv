@@ -1,0 +1,15 @@
+class	role	name	focusable
+ghidra.app.nav.DecoratorPanel	panel	null	true
+ghidra.graph.viewer.VisualGraphView$1	panel	null	true
+javax.swing.JPanel	panel	null	true
+javax.swing.JPanel	panel	null	true
+ghidra.graph.viewer.GraphComponent$1	layered pane	null	true
+ghidra.graph.viewer.satellite.CachingSatelliteGraphViewer	panel	Graph overview	true
+ghidra.graph.viewer.VisualGraphLayeredPaneButton	push button		true
+ghidra.app.plugin.core.functiongraph.graph.FGPrimaryViewer	panel	null	true
+javax.swing.JPanel	panel	null	true
+ghidra.graph.viewer.GraphNavigationBar	panel	null	true
+javax.swing.JButton	push button	Zoom out	true
+javax.swing.JButton	push button	Reset graph zoom to 100%	true
+javax.swing.JButton	push button	Zoom in	true
+javax.swing.JButton	push button	Fit the entire graph in this view	true

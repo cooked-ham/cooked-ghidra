@@ -1,0 +1,12 @@
+{
+  "files": [
+    "Ghidra/Features/FunctionGraphDecompilerExtension/src/main/java/ghidra/app/plugin/core/functiongraph/graph/layout/DNLEdgeLabelRenderer.java",
+    "Ghidra/Features/FunctionGraphDecompilerExtension/src/test/java/ghidra/app/plugin/core/functiongraph/graph/layout/DNLEdgeLabelRendererTest.java",
+    "Ghidra/Framework/Graph/src/main/java/ghidra/graph/viewer/renderer/EdgeLabelLayout.java",
+    "Ghidra/Framework/Graph/src/main/java/ghidra/graph/viewer/renderer/VisualGraphRenderer.java",
+    "Ghidra/Framework/Graph/src/test/java/ghidra/graph/viewer/renderer/VisualGraphRendererTest.java"
+  ],
+  "result": {
+    "items": []
+  }
+}

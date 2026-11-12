@@ -1,0 +1,449 @@
+theme,workload,sample,milliseconds,allocated_bytes
+Flat Dark Theme,large-graph-detail,0,9.7434,4253624
+Flat Dark Theme,large-graph-detail,1,17.8016,4253624
+Flat Dark Theme,large-graph-detail,2,25.2071,4257040
+Flat Dark Theme,large-graph-detail,3,19.0085,4242864
+Flat Dark Theme,large-graph-detail,4,17.9116,4242352
+Flat Dark Theme,large-graph-detail,5,17.9929,4242352
+Flat Dark Theme,large-graph-detail,6,17.9469,4242352
+Flat Dark Theme,large-graph-detail,7,16.9968,4242352
+Flat Dark Theme,large-graph-detail,8,16.3605,4242352
+Flat Dark Theme,large-graph-detail,9,14.3828,4242352
+Flat Dark Theme,large-graph-detail,10,15.6577,4242352
+Flat Dark Theme,large-graph-detail,11,15.6961,4242352
+Flat Dark Theme,large-graph-detail,12,16.6678,4242352
+Flat Dark Theme,large-graph-detail,13,17.6075,4242352
+Flat Dark Theme,large-graph-detail,14,18.2659,4167280
+Flat Dark Theme,large-graph-detail,15,18.3564,4167280
+Flat Dark Theme,large-graph-detail,16,16.8668,4167280
+Flat Dark Theme,large-graph-detail,17,15.9972,4167280
+Flat Dark Theme,large-graph-detail,18,15.2835,4167280
+Flat Dark Theme,large-graph-detail,19,17.4939,4167280
+Flat Dark Theme,large-graph-detail,20,17.3697,4167280
+Flat Dark Theme,large-graph-detail,21,17.5555,4167280
+Flat Dark Theme,large-graph-detail,22,18.4056,4148848
+Flat Dark Theme,large-graph-detail,23,16.9549,4148848
+Flat Dark Theme,large-graph-detail,24,16.1842,4148848
+Flat Dark Theme,large-graph-detail,25,16.1739,4148848
+Flat Dark Theme,large-graph-detail,26,16.3777,4148848
+Flat Dark Theme,large-graph-detail,27,12.5103,4148848
+Flat Dark Theme,large-graph-detail,28,15.7288,4148848
+Flat Dark Theme,large-graph-detail,29,15.8362,4148848
+Flat Dark Theme,large-graph-detail,30,13.5112,4148848
+Flat Dark Theme,large-graph-detail,31,10.7663,4148848
+Flat Dark Theme,large-graph-overview,0,17.4865,5292072
+Flat Dark Theme,large-graph-overview,1,16.0492,5292072
+Flat Dark Theme,large-graph-overview,2,17.4926,5292072
+Flat Dark Theme,large-graph-overview,3,16.9703,5292072
+Flat Dark Theme,large-graph-overview,4,16.3383,5292128
+Flat Dark Theme,large-graph-overview,5,15.072,5288448
+Flat Dark Theme,large-graph-overview,6,18.1269,5285984
+Flat Dark Theme,large-graph-overview,7,13.0104,5272744
+Flat Dark Theme,large-graph-overview,8,17.2702,5272976
+Flat Dark Theme,large-graph-overview,9,17.4585,5266704
+Flat Dark Theme,large-graph-overview,10,17.6799,5266016
+Flat Dark Theme,large-graph-overview,11,11.3109,5264288
+Flat Dark Theme,large-graph-overview,12,12.154,5264288
+Flat Dark Theme,large-graph-overview,13,11.9717,5264288
+Flat Dark Theme,large-graph-overview,14,10.9011,5264288
+Flat Dark Theme,large-graph-overview,15,10.7365,5264288
+Flat Dark Theme,large-graph-overview,16,11.0175,5264288
+Flat Dark Theme,large-graph-overview,17,13.5045,5264288
+Flat Dark Theme,large-graph-overview,18,15.0112,5264288
+Flat Dark Theme,large-graph-overview,19,16.2661,5264288
+Flat Dark Theme,large-graph-overview,20,15.498,5264104
+Flat Dark Theme,large-graph-overview,21,18.1728,5264288
+Flat Dark Theme,large-graph-overview,22,17.5187,5264288
+Flat Dark Theme,large-graph-overview,23,16.4717,5264288
+Flat Dark Theme,large-graph-overview,24,13.0178,5264288
+Flat Dark Theme,large-graph-overview,25,16.0614,5264288
+Flat Dark Theme,large-graph-overview,26,16.3137,5264288
+Flat Dark Theme,large-graph-overview,27,14.6647,5264288
+Flat Dark Theme,large-graph-overview,28,17.3351,5264288
+Flat Dark Theme,large-graph-overview,29,21.0748,5264288
+Flat Dark Theme,large-graph-overview,30,16.9234,5264288
+Flat Dark Theme,large-graph-overview,31,16.9084,5264288
+Flat Dark Theme,table-10000-scroll,0,1.7287,99720
+Flat Dark Theme,table-10000-scroll,1,1.5982,99720
+Flat Dark Theme,table-10000-scroll,2,1.6425,99720
+Flat Dark Theme,table-10000-scroll,3,1.5888,99720
+Flat Dark Theme,table-10000-scroll,4,1.644,99720
+Flat Dark Theme,table-10000-scroll,5,1.6187,99720
+Flat Dark Theme,table-10000-scroll,6,1.5423,99720
+Flat Dark Theme,table-10000-scroll,7,1.6357,99720
+Flat Dark Theme,table-10000-scroll,8,1.4363,99792
+Flat Dark Theme,table-10000-scroll,9,1.7358,99720
+Flat Dark Theme,table-10000-scroll,10,1.7736,99720
+Flat Dark Theme,table-10000-scroll,11,1.7507,99720
+Flat Dark Theme,table-10000-scroll,12,1.6411,99720
+Flat Dark Theme,table-10000-scroll,13,1.6268,99768
+Flat Dark Theme,table-10000-scroll,14,1.5443,99720
+Flat Dark Theme,table-10000-scroll,15,1.1951,99720
+Flat Dark Theme,table-10000-scroll,16,1.5196,99720
+Flat Dark Theme,table-10000-scroll,17,2.0247,99720
+Flat Dark Theme,table-10000-scroll,18,1.3946,99720
+Flat Dark Theme,table-10000-scroll,19,1.1187,99720
+Flat Dark Theme,table-10000-scroll,20,1.3158,99720
+Flat Dark Theme,table-10000-scroll,21,0.8083,99720
+Flat Dark Theme,table-10000-scroll,22,0.9155,99720
+Flat Dark Theme,table-10000-scroll,23,1.0856,99720
+Flat Dark Theme,table-10000-scroll,24,0.9852,99720
+Flat Dark Theme,table-10000-scroll,25,1.6487,99720
+Flat Dark Theme,table-10000-scroll,26,1.6796,99720
+Flat Dark Theme,table-10000-scroll,27,1.041,99720
+Flat Dark Theme,table-10000-scroll,28,0.834,99720
+Flat Dark Theme,table-10000-scroll,29,1.6711,99720
+Flat Dark Theme,table-10000-scroll,30,1.6804,99720
+Flat Dark Theme,table-10000-scroll,31,1.5929,99720
+Flat Dark Theme,table-filter-roundtrip,0,3.1624,-1
+Flat Dark Theme,table-filter-roundtrip,1,1.4093,-1
+Flat Dark Theme,table-filter-roundtrip,2,1.3726,-1
+Flat Dark Theme,table-filter-roundtrip,3,1.3265,-1
+Flat Dark Theme,table-filter-roundtrip,4,1.1063,-1
+Flat Dark Theme,table-filter-roundtrip,5,1.1126,-1
+Flat Dark Theme,table-filter-roundtrip,6,1.1238,-1
+Flat Dark Theme,table-filter-roundtrip,7,1.056,-1
+Flat Dark Theme,table-filter-roundtrip,8,1.049,-1
+Flat Dark Theme,table-filter-roundtrip,9,1.488,-1
+Flat Dark Theme,table-filter-roundtrip,10,1.0499,-1
+Flat Dark Theme,table-filter-roundtrip,11,1.1566,-1
+Flat Dark Theme,table-filter-roundtrip,12,1.0724,-1
+Flat Dark Theme,table-filter-roundtrip,13,1.0355,-1
+Flat Dark Theme,table-filter-roundtrip,14,1.0381,-1
+Flat Dark Theme,table-filter-roundtrip,15,1.0177,-1
+Graphite Preview,large-graph-detail,0,11.8248,5387752
+Graphite Preview,large-graph-detail,1,11.3908,5387752
+Graphite Preview,large-graph-detail,2,11.5564,5387752
+Graphite Preview,large-graph-detail,3,12.7445,5387752
+Graphite Preview,large-graph-detail,4,11.98,5381568
+Graphite Preview,large-graph-detail,5,11.0537,5365184
+Graphite Preview,large-graph-detail,6,11.3976,5365184
+Graphite Preview,large-graph-detail,7,11.0309,5365184
+Graphite Preview,large-graph-detail,8,10.7735,5365184
+Graphite Preview,large-graph-detail,9,12.0935,5365184
+Graphite Preview,large-graph-detail,10,10.6367,5365184
+Graphite Preview,large-graph-detail,11,11.3398,5365184
+Graphite Preview,large-graph-detail,12,10.6261,5365184
+Graphite Preview,large-graph-detail,13,11.6716,5365184
+Graphite Preview,large-graph-detail,14,10.2431,5365184
+Graphite Preview,large-graph-detail,15,10.9372,5365184
+Graphite Preview,large-graph-detail,16,12.0665,5365184
+Graphite Preview,large-graph-detail,17,10.616,5365184
+Graphite Preview,large-graph-detail,18,11.0798,5365184
+Graphite Preview,large-graph-detail,19,11.1583,5365272
+Graphite Preview,large-graph-detail,20,11.3555,5365184
+Graphite Preview,large-graph-detail,21,11.0921,5365184
+Graphite Preview,large-graph-detail,22,10.9611,5365184
+Graphite Preview,large-graph-detail,23,10.931,5365184
+Graphite Preview,large-graph-detail,24,10.2462,5365184
+Graphite Preview,large-graph-detail,25,11.1287,5365184
+Graphite Preview,large-graph-detail,26,11.4467,5365184
+Graphite Preview,large-graph-detail,27,10.4852,5365184
+Graphite Preview,large-graph-detail,28,10.7797,5365304
+Graphite Preview,large-graph-detail,29,10.553,5365184
+Graphite Preview,large-graph-detail,30,11.5891,5365184
+Graphite Preview,large-graph-detail,31,11.1505,5365184
+Graphite Preview,large-graph-overview,0,11.9881,6450512
+Graphite Preview,large-graph-overview,1,11.1898,6450512
+Graphite Preview,large-graph-overview,2,12.1716,6450512
+Graphite Preview,large-graph-overview,3,12.8332,6450512
+Graphite Preview,large-graph-overview,4,11.4062,6450512
+Graphite Preview,large-graph-overview,5,10.6558,6450512
+Graphite Preview,large-graph-overview,6,12.2825,6450512
+Graphite Preview,large-graph-overview,7,12.0766,6450512
+Graphite Preview,large-graph-overview,8,25.064,6450512
+Graphite Preview,large-graph-overview,9,11.4114,6450512
+Graphite Preview,large-graph-overview,10,19.601,6450512
+Graphite Preview,large-graph-overview,11,13.2515,6450512
+Graphite Preview,large-graph-overview,12,11.9142,6450512
+Graphite Preview,large-graph-overview,13,11.404,6450512
+Graphite Preview,large-graph-overview,14,11.6953,6450512
+Graphite Preview,large-graph-overview,15,11.4221,6450512
+Graphite Preview,large-graph-overview,16,12.8614,6450512
+Graphite Preview,large-graph-overview,17,11.9257,6450512
+Graphite Preview,large-graph-overview,18,12.112,6450512
+Graphite Preview,large-graph-overview,19,11.0694,6450512
+Graphite Preview,large-graph-overview,20,10.6952,6450512
+Graphite Preview,large-graph-overview,21,12.2645,6450512
+Graphite Preview,large-graph-overview,22,13.407,6450512
+Graphite Preview,large-graph-overview,23,12.8603,6450512
+Graphite Preview,large-graph-overview,24,12.4183,6450512
+Graphite Preview,large-graph-overview,25,12.4555,6450448
+Graphite Preview,large-graph-overview,26,11.0588,6450448
+Graphite Preview,large-graph-overview,27,10.674,6450448
+Graphite Preview,large-graph-overview,28,11.2747,6450448
+Graphite Preview,large-graph-overview,29,11.0353,6450448
+Graphite Preview,large-graph-overview,30,12.5454,6450448
+Graphite Preview,large-graph-overview,31,12.7069,6450448
+Graphite Preview,table-10000-scroll,0,1.201,102792
+Graphite Preview,table-10000-scroll,1,0.9505,102792
+Graphite Preview,table-10000-scroll,2,0.8939,102792
+Graphite Preview,table-10000-scroll,3,0.911,102792
+Graphite Preview,table-10000-scroll,4,0.6566,102792
+Graphite Preview,table-10000-scroll,5,1.0516,102792
+Graphite Preview,table-10000-scroll,6,1.0182,102792
+Graphite Preview,table-10000-scroll,7,0.9235,102792
+Graphite Preview,table-10000-scroll,8,1.2186,102792
+Graphite Preview,table-10000-scroll,9,0.5974,102792
+Graphite Preview,table-10000-scroll,10,0.851,102792
+Graphite Preview,table-10000-scroll,11,1.356,102792
+Graphite Preview,table-10000-scroll,12,0.858,102792
+Graphite Preview,table-10000-scroll,13,0.9639,102792
+Graphite Preview,table-10000-scroll,14,0.8903,102792
+Graphite Preview,table-10000-scroll,15,0.7267,102792
+Graphite Preview,table-10000-scroll,16,0.5507,102792
+Graphite Preview,table-10000-scroll,17,0.5936,102792
+Graphite Preview,table-10000-scroll,18,0.6177,102792
+Graphite Preview,table-10000-scroll,19,1.1646,102792
+Graphite Preview,table-10000-scroll,20,0.813,102792
+Graphite Preview,table-10000-scroll,21,1.2975,102792
+Graphite Preview,table-10000-scroll,22,0.6089,102792
+Graphite Preview,table-10000-scroll,23,1.0535,102792
+Graphite Preview,table-10000-scroll,24,1.1477,102792
+Graphite Preview,table-10000-scroll,25,0.9267,102792
+Graphite Preview,table-10000-scroll,26,0.6802,102792
+Graphite Preview,table-10000-scroll,27,0.5769,102792
+Graphite Preview,table-10000-scroll,28,0.5484,102792
+Graphite Preview,table-10000-scroll,29,1.0349,106048
+Graphite Preview,table-10000-scroll,30,1.0945,102792
+Graphite Preview,table-10000-scroll,31,1.1792,102792
+Graphite Preview,table-filter-roundtrip,0,0.8364,-1
+Graphite Preview,table-filter-roundtrip,1,0.8858,-1
+Graphite Preview,table-filter-roundtrip,2,0.8148,-1
+Graphite Preview,table-filter-roundtrip,3,0.6746,-1
+Graphite Preview,table-filter-roundtrip,4,0.5351,-1
+Graphite Preview,table-filter-roundtrip,5,0.7639,-1
+Graphite Preview,table-filter-roundtrip,6,0.8078,-1
+Graphite Preview,table-filter-roundtrip,7,0.9983,-1
+Graphite Preview,table-filter-roundtrip,8,0.7942,-1
+Graphite Preview,table-filter-roundtrip,9,0.9069,-1
+Graphite Preview,table-filter-roundtrip,10,0.8065,-1
+Graphite Preview,table-filter-roundtrip,11,0.8114,-1
+Graphite Preview,table-filter-roundtrip,12,0.5109,-1
+Graphite Preview,table-filter-roundtrip,13,0.4987,-1
+Graphite Preview,table-filter-roundtrip,14,0.7663,-1
+Graphite Preview,table-filter-roundtrip,15,0.5838,-1
+Graphite Preview,large-graph-detail,0,11.1045,5365120
+Graphite Preview,large-graph-detail,1,10.7635,5365120
+Graphite Preview,large-graph-detail,2,10.3572,5365120
+Graphite Preview,large-graph-detail,3,11.389,5365160
+Graphite Preview,large-graph-detail,4,11.3273,5365120
+Graphite Preview,large-graph-detail,5,10.8874,5364328
+Graphite Preview,large-graph-detail,6,9.9369,5364328
+Graphite Preview,large-graph-detail,7,11.6111,5364328
+Graphite Preview,large-graph-detail,8,10.0957,5364328
+Graphite Preview,large-graph-detail,9,9.9751,5364328
+Graphite Preview,large-graph-detail,10,9.8607,5364328
+Graphite Preview,large-graph-detail,11,10.3472,5364328
+Graphite Preview,large-graph-detail,12,9.6962,5364328
+Graphite Preview,large-graph-detail,13,10.5576,5364328
+Graphite Preview,large-graph-detail,14,9.8966,5364328
+Graphite Preview,large-graph-detail,15,10.5528,5364328
+Graphite Preview,large-graph-detail,16,9.7761,5364328
+Graphite Preview,large-graph-detail,17,10.1179,5364328
+Graphite Preview,large-graph-detail,18,10.4994,5364328
+Graphite Preview,large-graph-detail,19,18.3588,5369152
+Graphite Preview,large-graph-detail,20,9.7182,5364328
+Graphite Preview,large-graph-detail,21,10.4274,5364328
+Graphite Preview,large-graph-detail,22,10.2705,5364328
+Graphite Preview,large-graph-detail,23,10.9376,5364328
+Graphite Preview,large-graph-detail,24,10.2478,5364384
+Graphite Preview,large-graph-detail,25,10.2522,5364328
+Graphite Preview,large-graph-detail,26,10.1401,5364328
+Graphite Preview,large-graph-detail,27,9.9726,5364328
+Graphite Preview,large-graph-detail,28,9.9393,5364328
+Graphite Preview,large-graph-detail,29,11.3029,5364328
+Graphite Preview,large-graph-detail,30,10.3328,5364328
+Graphite Preview,large-graph-detail,31,10.4492,5364328
+Graphite Preview,large-graph-overview,0,10.9994,6450448
+Graphite Preview,large-graph-overview,1,10.7273,6450448
+Graphite Preview,large-graph-overview,2,10.5825,6450448
+Graphite Preview,large-graph-overview,3,10.3546,6450448
+Graphite Preview,large-graph-overview,4,10.468,6450448
+Graphite Preview,large-graph-overview,5,10.4693,6450448
+Graphite Preview,large-graph-overview,6,10.3604,6450448
+Graphite Preview,large-graph-overview,7,10.3724,6450448
+Graphite Preview,large-graph-overview,8,10.7973,6450448
+Graphite Preview,large-graph-overview,9,10.0758,6450448
+Graphite Preview,large-graph-overview,10,11.4548,6450448
+Graphite Preview,large-graph-overview,11,10.5578,6450448
+Graphite Preview,large-graph-overview,12,10.6939,6450448
+Graphite Preview,large-graph-overview,13,11.2304,6450448
+Graphite Preview,large-graph-overview,14,10.7403,6450448
+Graphite Preview,large-graph-overview,15,10.502,6450448
+Graphite Preview,large-graph-overview,16,10.4971,6450448
+Graphite Preview,large-graph-overview,17,11.037,6450448
+Graphite Preview,large-graph-overview,18,10.7052,6450448
+Graphite Preview,large-graph-overview,19,10.7658,6450448
+Graphite Preview,large-graph-overview,20,10.9519,6450448
+Graphite Preview,large-graph-overview,21,11.8625,6450448
+Graphite Preview,large-graph-overview,22,11.9867,6450448
+Graphite Preview,large-graph-overview,23,10.839,6450448
+Graphite Preview,large-graph-overview,24,11.3282,6450448
+Graphite Preview,large-graph-overview,25,10.6679,6450448
+Graphite Preview,large-graph-overview,26,11.1403,6450448
+Graphite Preview,large-graph-overview,27,11.4775,6450448
+Graphite Preview,large-graph-overview,28,12.3753,6450448
+Graphite Preview,large-graph-overview,29,11.9536,6450448
+Graphite Preview,large-graph-overview,30,12.4988,6450448
+Graphite Preview,large-graph-overview,31,11.8438,6450448
+Graphite Preview,table-10000-scroll,0,0.5048,102792
+Graphite Preview,table-10000-scroll,1,0.5457,102792
+Graphite Preview,table-10000-scroll,2,0.5878,102792
+Graphite Preview,table-10000-scroll,3,0.5533,102792
+Graphite Preview,table-10000-scroll,4,0.4834,102792
+Graphite Preview,table-10000-scroll,5,0.5844,102792
+Graphite Preview,table-10000-scroll,6,0.6466,102792
+Graphite Preview,table-10000-scroll,7,0.5059,102792
+Graphite Preview,table-10000-scroll,8,0.8857,102792
+Graphite Preview,table-10000-scroll,9,0.6223,102792
+Graphite Preview,table-10000-scroll,10,0.5383,102792
+Graphite Preview,table-10000-scroll,11,0.6133,102792
+Graphite Preview,table-10000-scroll,12,0.5281,102792
+Graphite Preview,table-10000-scroll,13,0.6239,102792
+Graphite Preview,table-10000-scroll,14,0.5353,102792
+Graphite Preview,table-10000-scroll,15,0.5139,102792
+Graphite Preview,table-10000-scroll,16,0.6507,102792
+Graphite Preview,table-10000-scroll,17,0.6937,102792
+Graphite Preview,table-10000-scroll,18,0.5682,102792
+Graphite Preview,table-10000-scroll,19,0.5875,102792
+Graphite Preview,table-10000-scroll,20,0.5181,102792
+Graphite Preview,table-10000-scroll,21,0.5069,102792
+Graphite Preview,table-10000-scroll,22,0.4892,102792
+Graphite Preview,table-10000-scroll,23,0.4995,102792
+Graphite Preview,table-10000-scroll,24,0.5085,102792
+Graphite Preview,table-10000-scroll,25,0.5719,102792
+Graphite Preview,table-10000-scroll,26,0.596,102792
+Graphite Preview,table-10000-scroll,27,0.494,102792
+Graphite Preview,table-10000-scroll,28,0.5472,102792
+Graphite Preview,table-10000-scroll,29,0.5729,102792
+Graphite Preview,table-10000-scroll,30,0.5965,102792
+Graphite Preview,table-10000-scroll,31,0.5002,102792
+Graphite Preview,table-filter-roundtrip,0,0.8086,-1
+Graphite Preview,table-filter-roundtrip,1,0.5187,-1
+Graphite Preview,table-filter-roundtrip,2,0.503,-1
+Graphite Preview,table-filter-roundtrip,3,0.5474,-1
+Graphite Preview,table-filter-roundtrip,4,0.4784,-1
+Graphite Preview,table-filter-roundtrip,5,0.4879,-1
+Graphite Preview,table-filter-roundtrip,6,0.5116,-1
+Graphite Preview,table-filter-roundtrip,7,0.4736,-1
+Graphite Preview,table-filter-roundtrip,8,0.4693,-1
+Graphite Preview,table-filter-roundtrip,9,0.4784,-1
+Graphite Preview,table-filter-roundtrip,10,0.4924,-1
+Graphite Preview,table-filter-roundtrip,11,0.5939,-1
+Graphite Preview,table-filter-roundtrip,12,0.4754,-1
+Graphite Preview,table-filter-roundtrip,13,0.4741,-1
+Graphite Preview,table-filter-roundtrip,14,0.4806,-1
+Graphite Preview,table-filter-roundtrip,15,0.503,-1
+Flat Dark Theme,large-graph-detail,0,7.8274,4142448
+Flat Dark Theme,large-graph-detail,1,7.7588,4142448
+Flat Dark Theme,large-graph-detail,2,8.5516,4142448
+Flat Dark Theme,large-graph-detail,3,8.179,4142448
+Flat Dark Theme,large-graph-detail,4,7.7346,4142448
+Flat Dark Theme,large-graph-detail,5,7.6924,4142448
+Flat Dark Theme,large-graph-detail,6,8.3956,4142448
+Flat Dark Theme,large-graph-detail,7,8.4907,4142448
+Flat Dark Theme,large-graph-detail,8,8.2022,4142448
+Flat Dark Theme,large-graph-detail,9,8.8608,4142448
+Flat Dark Theme,large-graph-detail,10,7.9113,4142448
+Flat Dark Theme,large-graph-detail,11,8.333,4142448
+Flat Dark Theme,large-graph-detail,12,8.1156,4142448
+Flat Dark Theme,large-graph-detail,13,8.4794,4142448
+Flat Dark Theme,large-graph-detail,14,8.9643,4142448
+Flat Dark Theme,large-graph-detail,15,8.6707,4142448
+Flat Dark Theme,large-graph-detail,16,8.7828,4142448
+Flat Dark Theme,large-graph-detail,17,8.3217,4142448
+Flat Dark Theme,large-graph-detail,18,10.5188,4142448
+Flat Dark Theme,large-graph-detail,19,8.3876,4142448
+Flat Dark Theme,large-graph-detail,20,8.6295,4142448
+Flat Dark Theme,large-graph-detail,21,7.9526,4142448
+Flat Dark Theme,large-graph-detail,22,9.7803,4142448
+Flat Dark Theme,large-graph-detail,23,8.4882,4142448
+Flat Dark Theme,large-graph-detail,24,8.7922,4141856
+Flat Dark Theme,large-graph-detail,25,7.6483,4141856
+Flat Dark Theme,large-graph-detail,26,7.584,4141856
+Flat Dark Theme,large-graph-detail,27,8.4006,4141856
+Flat Dark Theme,large-graph-detail,28,8.9277,4141856
+Flat Dark Theme,large-graph-detail,29,7.847,4141856
+Flat Dark Theme,large-graph-detail,30,9.1422,4141856
+Flat Dark Theme,large-graph-detail,31,7.8087,4141856
+Flat Dark Theme,large-graph-overview,0,9.1416,5263560
+Flat Dark Theme,large-graph-overview,1,8.422,5263560
+Flat Dark Theme,large-graph-overview,2,8.0331,5263560
+Flat Dark Theme,large-graph-overview,3,8.0567,5263560
+Flat Dark Theme,large-graph-overview,4,8.7178,5263560
+Flat Dark Theme,large-graph-overview,5,8.7183,5263560
+Flat Dark Theme,large-graph-overview,6,9.1682,5263560
+Flat Dark Theme,large-graph-overview,7,8.3152,5263560
+Flat Dark Theme,large-graph-overview,8,9.0242,5263560
+Flat Dark Theme,large-graph-overview,9,8.0669,5263560
+Flat Dark Theme,large-graph-overview,10,8.2173,5263560
+Flat Dark Theme,large-graph-overview,11,8.6925,5263560
+Flat Dark Theme,large-graph-overview,12,7.841,5263560
+Flat Dark Theme,large-graph-overview,13,8.4484,5263560
+Flat Dark Theme,large-graph-overview,14,8.4453,5263560
+Flat Dark Theme,large-graph-overview,15,8.6297,5263560
+Flat Dark Theme,large-graph-overview,16,8.9193,5263560
+Flat Dark Theme,large-graph-overview,17,8.867,5263560
+Flat Dark Theme,large-graph-overview,18,8.1071,5263560
+Flat Dark Theme,large-graph-overview,19,8.7507,5263560
+Flat Dark Theme,large-graph-overview,20,8.4361,5263560
+Flat Dark Theme,large-graph-overview,21,8.491,5263560
+Flat Dark Theme,large-graph-overview,22,8.576,5263560
+Flat Dark Theme,large-graph-overview,23,7.9961,5263560
+Flat Dark Theme,large-graph-overview,24,8.4119,5263560
+Flat Dark Theme,large-graph-overview,25,20.0099,5263560
+Flat Dark Theme,large-graph-overview,26,12.0592,5263560
+Flat Dark Theme,large-graph-overview,27,9.6163,5263560
+Flat Dark Theme,large-graph-overview,28,8.5044,5263560
+Flat Dark Theme,large-graph-overview,29,9.4343,5263560
+Flat Dark Theme,large-graph-overview,30,8.475,5263560
+Flat Dark Theme,large-graph-overview,31,8.9322,5263560
+Flat Dark Theme,table-10000-scroll,0,0.6736,99720
+Flat Dark Theme,table-10000-scroll,1,0.8513,99720
+Flat Dark Theme,table-10000-scroll,2,0.6579,99720
+Flat Dark Theme,table-10000-scroll,3,0.8071,99720
+Flat Dark Theme,table-10000-scroll,4,0.6788,99720
+Flat Dark Theme,table-10000-scroll,5,0.6244,99720
+Flat Dark Theme,table-10000-scroll,6,0.8035,99720
+Flat Dark Theme,table-10000-scroll,7,0.7522,99720
+Flat Dark Theme,table-10000-scroll,8,1.2179,99720
+Flat Dark Theme,table-10000-scroll,9,0.6942,99720
+Flat Dark Theme,table-10000-scroll,10,0.6558,99720
+Flat Dark Theme,table-10000-scroll,11,0.6683,99720
+Flat Dark Theme,table-10000-scroll,12,0.6842,99720
+Flat Dark Theme,table-10000-scroll,13,0.6579,99720
+Flat Dark Theme,table-10000-scroll,14,0.6754,99720
+Flat Dark Theme,table-10000-scroll,15,0.811,99720
+Flat Dark Theme,table-10000-scroll,16,0.6632,99720
+Flat Dark Theme,table-10000-scroll,17,0.7593,99720
+Flat Dark Theme,table-10000-scroll,18,0.9445,99720
+Flat Dark Theme,table-10000-scroll,19,0.8164,99720
+Flat Dark Theme,table-10000-scroll,20,0.9111,99720
+Flat Dark Theme,table-10000-scroll,21,0.6498,99720
+Flat Dark Theme,table-10000-scroll,22,0.6419,99720
+Flat Dark Theme,table-10000-scroll,23,0.6775,99720
+Flat Dark Theme,table-10000-scroll,24,0.6989,99720
+Flat Dark Theme,table-10000-scroll,25,0.7018,99720
+Flat Dark Theme,table-10000-scroll,26,1.1564,99720
+Flat Dark Theme,table-10000-scroll,27,0.7216,99720
+Flat Dark Theme,table-10000-scroll,28,0.656,99720
+Flat Dark Theme,table-10000-scroll,29,0.6319,99720
+Flat Dark Theme,table-10000-scroll,30,1.0496,99720
+Flat Dark Theme,table-10000-scroll,31,0.6655,99720
+Flat Dark Theme,table-filter-roundtrip,0,0.5357,-1
+Flat Dark Theme,table-filter-roundtrip,1,0.6375,-1
+Flat Dark Theme,table-filter-roundtrip,2,0.4976,-1
+Flat Dark Theme,table-filter-roundtrip,3,0.6142,-1
+Flat Dark Theme,table-filter-roundtrip,4,0.5469,-1
+Flat Dark Theme,table-filter-roundtrip,5,0.4723,-1
+Flat Dark Theme,table-filter-roundtrip,6,0.5052,-1
+Flat Dark Theme,table-filter-roundtrip,7,0.6294,-1
+Flat Dark Theme,table-filter-roundtrip,8,0.4726,-1
+Flat Dark Theme,table-filter-roundtrip,9,0.5956,-1
+Flat Dark Theme,table-filter-roundtrip,10,0.6474,-1
+Flat Dark Theme,table-filter-roundtrip,11,0.4926,-1
+Flat Dark Theme,table-filter-roundtrip,12,0.5613,-1
+Flat Dark Theme,table-filter-roundtrip,13,0.6522,-1
+Flat Dark Theme,table-filter-roundtrip,14,0.5549,-1
+Flat Dark Theme,table-filter-roundtrip,15,0.5141,-1

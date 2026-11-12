@@ -1,0 +1,8 @@
+Connected as ui_bob; two users; version 1 checkout against latest version 2; two history rows.
+Cancelled merge preserves private bytes, name, comment and checkout version 1.
+Resolved conflict controls: [null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, UseForAllPropertyConflictCheckBox:Use the selected option for resolving all remaining 'Byte / Code Unit' conflicts., ChoiceComponentRow0Col1:'Latest' version, ChoiceComponentRow0Col2:'Checked Out' version, ChoiceComponentRow0Col3:'Original' version, null:Apply, null:Cancel, null:, null:]
+Resolved conflict controls: [null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, UseForAllPropertyConflictCheckBox:Use the selected option for resolving all remaining 'Function Detail' conflicts., ChoiceComponentRow1Col1:latest_classify, ChoiceComponentRow1Col2:private_classify, null:Apply, null:Cancel, null:, null:]
+Resolved conflict controls: [null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, null:, LatestVersionCheckBox:Keep 'Latest' End of Line Comment, CheckedOutVersionCheckBox:Keep 'Checked Out' End of Line Comment, UseForAllPropertyConflictCheckBox:Use the selected option for resolving all remaining 'End of Line Comment' conflicts., null:Apply, null:Cancel, null:, null:]
+Resolved actual byte/name/comment conflicts using Latest; checkout advanced to version 2; all three values verified.
+Explicit client disconnect verified.
+Reconnected to fixture server as ui_bob.

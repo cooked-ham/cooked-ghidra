@@ -1,0 +1,41 @@
+{
+  "revision": "0b6f3cc58206bab2d784bc4f569f6f5c829a6d19",
+  "timestamp": "2026-11-12T08:07:54.1352826Z",
+  "probeSha256": "B46D6FFA1F59BAD43B506D27093EBD2D23697C70185C8590C4A70CD4955BFFFA",
+  "jars": [
+    {
+      "sha256": "2D04314E562F27428F0B2B3616BAC2E34E773ABFA9D24CE1B0A4F6BC4D65B375",
+      "module": "Framework\\Gui"
+    },
+    {
+      "sha256": "B563C970239AB358E4FA2B9F1B79BE826966B6172CDDF62A368B534746C361DF",
+      "module": "Framework\\Docking"
+    },
+    {
+      "sha256": "C2B9DCDCC8C2BF1FADE2151601E6A902EFB5A52DC45C9A1F0C4E869E7EB612E6",
+      "module": "Framework\\Graph"
+    },
+    {
+      "sha256": "5CC49DF25247063DBC8F7E4855582803D4E60353E9EE9E6AF1EA890F816B0B1E",
+      "module": "Features\\Base"
+    },
+    {
+      "sha256": "66A80953DB065EF7E87D5847162382CDC2399523046F7995368289E6101B93CC",
+      "module": "Features\\Decompiler"
+    },
+    {
+      "sha256": "214FF82289DFD0274B8E9B09182A7199F8DE8711FA935143A4E97207645F36E1",
+      "module": "Features\\FunctionGraph"
+    },
+    {
+      "sha256": "90F2E67229D4C5CECA7DD52629F2760440EFA09C38E58B0E84672B54A7923985",
+      "module": "Features\\FunctionGraphDecompilerExtension"
+    }
+  ],
+  "dirtyTree": true,
+  "traceHandlers": true,
+  "logicalScale": 1.0,
+  "sequence": "Graphite Preview,(openprogram),(polish)",
+  "fixture": "E:\\cooked-ghidra\\build\\verification\\graphite-fixtures\\GraphiteReference.gpr",
+  "rendering": "In-process Swing painting; not physical DPI or screen-reader acceptance"
+}

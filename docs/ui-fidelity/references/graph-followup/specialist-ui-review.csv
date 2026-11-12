@@ -1,0 +1,10 @@
+surface,fixture,implementation,entry_path,populated_evidence,screenshots
+"source program","FX-COMPARE","CodeBrowser","source.bin opened","five functions; source compare immediate 42","codebrowser-source.png"
+"program diff","FX-COMPARE","ProgramDiffPlugin","Tools > View Program Differences","diff active; changed immediate/name/type/unmatched","program-diff.png"
+"code compare","FX-COMPARE","FunctionComparisonProvider","Version Tracking / Compare Functions","two populated function panels","code-compare.png"
+"code compare graph","FX-GRAPH","FunctionGraphCodeComparisonView","Compare Functions > Function Graph View","left=4 vertices; right=1 vertices","code-compare-graph.png"
+"BSim search","FX-BSIM","BSimSearchDialog / BSimSearchResultsProvider","BSim > Search Functions...","two-executable fixture queried; 11 cross-program hits","bsim-search-dialog.png;bsim-search-results.png"
+"BSim compare graph","FX-GRAPH","FunctionGraphCodeComparisonView","Compare Functions > Function Graph View","left=4 vertices; right=4 vertices","bsim-compare-graph.png"
+"call trees","FX-GRAPH","CallTreeProvider","Window > Function Call Trees","two expanded trees; 3 direct call nodes; two disposable caller functions","call-trees.png"
+"version tracking graph","FX-GRAPH","FunctionGraphCodeComparisonView","Compare Functions > Function Graph View","left=4 vertices; right=4 vertices","version-tracking-graph.png"
+"version tracking","FX-VT","VTPlugin / VTMatchTableProvider","Version Tracking tool / saved session","four manual matches (1 accepted, 1 rejected, 2 available); markup provider visible","version-tracking.png;version-tracking-compare.png"

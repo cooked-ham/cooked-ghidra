@@ -1,0 +1,1887 @@
+{
+  "scope": "Changed Java source and test files; support capture scripts are outside IDE module content roots.",
+  "before": {
+    "diagnostics": 200,
+    "files": [
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\DialogButtonRowLayout.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "MathClampMigration",
+            "description": "Can be replaced with 'Math.clamp()'",
+            "lineText": "\t\t\tcolumns = Math.max(1, Math.min(columns, (available + GAP) / (size.width + GAP)));",
+            "line": 58,
+            "column": 14
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Features\\Base\\src\\main\\java\\ghidra\\app\\nav\\LocationContextPanel.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "MathClampMigration",
+            "description": "Can be replaced with 'Math.clamp()'",
+            "lineText": "\t\t\treturn new Dimension(Math.min(Math.max(48, LocationContextPanel.this.getWidth() / 5), size.width), size.height);",
+            "line": 69,
+            "column": 25
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "MathClampMigration",
+            "description": "Replace with 'Math.clamp()' (may change semantics)",
+            "lineText": "\t\t\t\t\tint width = Math.max(0, Math.min(segment.getPreferredSize().width, getWidth() - x));",
+            "line": 142,
+            "column": 18
+          },
+          {
+            "severity": "WEAK WARNING",
+            "inspectionId": "ExtractMethodRecommender",
+            "description": "It's possible to extract method returning 'crumbs' from a long surrounding method",
+            "lineText": "\t\tJPanel crumbs = new JPanel(null) {",
+            "line": 113,
+            "column": 3
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Features\\Base\\src\\main\\java\\ghidra\\app\\util\\viewer\\listingpanel\\ListingPanel.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryLocalVariable",
+            "description": "Local variable 'compatibleLocation' is redundant",
+            "lineText": "\t\t\tFieldLocation compatibleLocation =",
+            "line": 804,
+            "column": 18
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "Convert2MethodRef",
+            "description": "Lambda can be replaced with method reference",
+            "lineText": "\t\tSwing.runLater(() -> updateProviders());",
+            "line": 275,
+            "column": 24
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'data' can be replaced with pattern variable",
+            "lineText": "\t\t\tData data = (Data) cu;",
+            "line": 821,
+            "column": 9
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SequencedCollectionMethodCanBeUsed",
+            "description": "Can be replaced with 'addFirst()' call",
+            "lineText": "\t\t\tmarginProviders.add(0, provider);",
+            "line": 438,
+            "column": 20
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SequencedCollectionMethodCanBeUsed",
+            "description": "Can be replaced with 'getFirst()' call",
+            "lineText": "\t\tListingMarginProvider firstMarginProvider = marginProviders.get(0);",
+            "line": 489,
+            "column": 63
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SequencedCollectionMethodCanBeUsed",
+            "description": "Can be replaced with 'getFirst()' call",
+            "lineText": "\t\tListingMarginProvider marginProvider = marginProviders.get(0);",
+            "line": 525,
+            "column": 58
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldCanBeLocal",
+            "description": "Field can be converted to a local variable",
+            "lineText": "\tprivate FieldSelectionListener fieldPanelLiveSelectionListener = (selection, trigger) -> {",
+            "line": 75,
+            "column": 33
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'fieldPanel' may be 'final'",
+            "lineText": "\tprivate FieldPanel fieldPanel;",
+            "line": 65,
+            "column": 21
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'scroller' may be 'final'",
+            "lineText": "\tprivate IndexedScrollPane scroller;",
+            "line": 66,
+            "column": 28
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'isConnected' is never used",
+            "lineText": "\tpublic void addMarginService(ListingMarginProviderService service, boolean isConnected) {",
+            "line": 361,
+            "column": 77
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'focusingMouseListener' may be 'final'",
+            "lineText": "\tprivate FocusingMouseListener focusingMouseListener = new FocusingMouseListener();",
+            "line": 70,
+            "column": 32
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'fieldPanelLiveSelectionListener' may be 'final'",
+            "lineText": "\tprivate FieldSelectionListener fieldPanelLiveSelectionListener = (selection, trigger) -> {",
+            "line": 75,
+            "column": 33
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'connected' is never used",
+            "lineText": "\t\t\tboolean connected) {",
+            "line": 391,
+            "column": 12
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'buttonListeners' may be 'final'",
+            "lineText": "\tprivate List<ButtonPressedListener> buttonListeners = new ArrayList<>();",
+            "line": 89,
+            "column": 38
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'indexMapChangeListeners' may be 'final'",
+            "lineText": "\tprivate List<ChangeListener> indexMapChangeListeners = new ArrayList<>();",
+            "line": 90,
+            "column": 31
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'marginProviders' may be 'final'",
+            "lineText": "\tprivate List<ListingMarginProvider> marginProviders = new ArrayList<>();",
+            "line": 94,
+            "column": 38
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'overviewProviders' may be 'final'",
+            "lineText": "\tprivate List<ListingOverviewProvider> overviewProviders = new ArrayList<>();",
+            "line": 95,
+            "column": 40
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'removeIndexMapChangeListener(javax.swing.event.ChangeListener)' is never used",
+            "lineText": "\tpublic void removeIndexMapChangeListener(ChangeListener listener) {",
+            "line": 543,
+            "column": 14
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'marginOwnerId' may be 'final'",
+            "lineText": "\tprivate UniversalID marginOwnerId = UniversalIdGenerator.nextID();",
+            "line": 99,
+            "column": 22
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'markerChangeListener' may be 'final'",
+            "lineText": "\tprivate ChangeListener markerChangeListener;",
+            "line": 101,
+            "column": 25
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'propertyBasedColorModel' may be 'final'",
+            "lineText": "\tprivate PropertyBasedBackgroundColorModel propertyBasedColorModel;",
+            "line": 110,
+            "column": 44
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'layoutModelListener' may be 'final'",
+            "lineText": "\tprivate LayoutModelListener layoutModelListener = new LayoutModelListener() {",
+            "line": 112,
+            "column": 30
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'displayListeners' may be 'final'",
+            "lineText": "\tprivate List<AddressSetDisplayListener> displayListeners = new ArrayList<>();",
+            "line": 124,
+            "column": 42
+          },
+          {
+            "severity": "WEAK WARNING",
+            "inspectionId": "DuplicatedCode",
+            "description": "Duplicated code fragment (13 lines long)",
+            "lineText": "\t\tif (handler == null) {",
+            "line": 679,
+            "column": 3
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Features\\Base\\src\\main\\java\\ghidra\\plugin\\importer\\ImporterDialog.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "TrivialIf",
+            "description": "'if' statement can be simplified",
+            "lineText": "\t\t\tif (isFolder && localDestFolder.getFolder(fileOrFolderName) != null ||",
+            "line": 560,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "CodeBlock2Expr",
+            "description": "Statement lambda can be replaced with expression lambda",
+            "lineText": "\t\tnew TaskBuilder(\"Import File\", monitor -> {",
+            "line": 377,
+            "column": 45
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'loader' can be replaced with pattern variable",
+            "lineText": "\t\t\t\tLoader loader = (Loader) selectedItem;",
+            "line": 267,
+            "column": 12
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "CastCanBeRemovedNarrowingVariableType",
+            "description": "Cast may be removed by changing the type of 'selectedItem' to 'Loader'",
+            "lineText": "\t\t\t\tLoader loader = (Loader) selectedItem;",
+            "line": 267,
+            "column": 22
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SimplifyStreamApiCallChains",
+            "description": "Can be replaced with 'String.join'",
+            "lineText": "\t\tString s = LoaderService.getAllLoaderNames().stream().collect(Collectors.joining(\"\\n\"));",
+            "line": 315,
+            "column": 57
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'loaderMap' may be 'final'",
+            "lineText": "\tprivate LoaderMap loaderMap;",
+            "line": 75,
+            "column": 20
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'suggestedDestinationPath' may be 'final'",
+            "lineText": "\tprivate String suggestedDestinationPath;",
+            "line": 79,
+            "column": 17
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "Convert2MethodRef",
+            "description": "Lambda can be replaced with method reference",
+            "lineText": "\t\t\tGComboBoxCellRenderer.createDefaultTextRenderer(loader -> loader.getName()));",
+            "line": 289,
+            "column": 62
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\tfolderButton.addActionListener(e -> chooseProjectFolder());",
+            "line": 245,
+            "column": 34
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\tlanguageButton.addActionListener(e -> {",
+            "line": 264,
+            "column": 36
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\tloaderComboBox.addItemListener(e -> selectedLoaderChanged());",
+            "line": 286,
+            "column": 34
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\thelpButton.addActionListener(e -> showSupportedImportFormats());",
+            "line": 303,
+            "column": 32
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\tmirrorFsCheckBox.addActionListener(e -> mirrorFs());",
+            "line": 354,
+            "column": 38
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\toptionsButton.addActionListener(e -> showOptions());",
+            "line": 361,
+            "column": 35
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "Convert2MethodRef",
+            "description": "Lambda can be replaced with method reference",
+            "lineText": "\t\treturn loaderMap.get(loader).stream().anyMatch(spec -> spec.requiresLanguageCompilerSpec());",
+            "line": 339,
+            "column": 58
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'getDestinationFolder()' is never used",
+            "lineText": "\tpublic DomainFolder getDestinationFolder() {",
+            "line": 643,
+            "column": 22
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "DataFlowIssue",
+            "description": "Condition 'selectedItem instanceof Loader' is redundant and can be replaced with a null check",
+            "lineText": "\t\t\tif (selectedItem instanceof Loader) {",
+            "line": 266,
+            "column": 8
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'getFormatComboBox()' is never used",
+            "lineText": "\tJComboBox<Loader> getFormatComboBox() {",
+            "line": 647,
+            "column": 20
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'getLanguageTextField()' is never used",
+            "lineText": "\tJTextField getLanguageTextField() {",
+            "line": 651,
+            "column": 13
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'getNameTextField()' is never used",
+            "lineText": "\tJTextField getNameTextField() {",
+            "line": 655,
+            "column": 13
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Features\\Decompiler\\src\\main\\java\\ghidra\\app\\decompiler\\component\\DecompilerPanel.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryReturn",
+            "description": "'return' is unnecessary as the last statement in a 'void' method",
+            "lineText": "\t\t\treturn;",
+            "line": 850,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryReturn",
+            "description": "'return' is unnecessary as the last statement in a 'void' method",
+            "lineText": "\t\t\treturn;\t\t// Don't goto if symbol is on the stack or in a register",
+            "line": 912,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryReturn",
+            "description": "'return' is unnecessary as the last statement in a 'void' method",
+            "lineText": "\t\t\treturn; // give up",
+            "line": 949,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryLocalVariable",
+            "description": "Local variable 'location' is redundant",
+            "lineText": "\t\tDecompilerSearchLocation location = currentSearchResults.getActiveLocation();",
+            "line": 1155,
+            "column": 28
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "CodeBlock2Expr",
+            "description": "Statement lambda can be replaced with expression lambda",
+            "lineText": "\t\tcontroller.doWhenNotBusy(() -> {",
+            "line": 409,
+            "column": 34
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'decompilerLocation' can be replaced with pattern variable",
+            "lineText": "\t\t\tDecompilerLocation decompilerLocation = (DecompilerLocation) location;",
+            "line": 593,
+            "column": 23
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'annotation' can be replaced with pattern variable",
+            "lineText": "\t\t\tAnnotatedTextFieldElement annotation = (AnnotatedTextFieldElement) clickedElement;",
+            "line": 836,
+            "column": 30
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'annotation' can be replaced with pattern variable",
+            "lineText": "\t\t\tAnnotatedTextFieldElement annotation = (AnnotatedTextFieldElement) clickedElement;",
+            "line": 1203,
+            "column": 30
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'token' can be replaced with pattern variable",
+            "lineText": "\t\t\t\tClangToken token = (ClangToken) child;",
+            "line": 1313,
+            "column": 16
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SequencedCollectionMethodCanBeUsed",
+            "description": "Can be replaced with 'getFirst()' call",
+            "lineText": "\t\t\treturn tokens.get(0);",
+            "line": 1246,
+            "column": 18
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SequencedCollectionMethodCanBeUsed",
+            "description": "Can be replaced with 'addFirst()' call",
+            "lineText": "\t\tmarginProviders.add(0, provider);",
+            "line": 1369,
+            "column": 19
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldCanBeLocal",
+            "description": "Field can be converted to a local variable",
+            "lineText": "\tprivate FieldHighlightFactory hlFactory;",
+            "line": 83,
+            "column": 32
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'hlFactory' may be 'final'",
+            "lineText": "\tprivate FieldHighlightFactory hlFactory;",
+            "line": 83,
+            "column": 32
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'highlightersById' may be 'final'",
+            "lineText": "\tprivate Map<String, DecompilerHighlighter> highlightersById = new HashMap<>();",
+            "line": 86,
+            "column": 45
+          },
+          {
+            "severity": "WEAK WARNING",
+            "inspectionId": "DuplicatedCode",
+            "description": "Duplicated code fragment (12 lines long)",
+            "lineText": "\t\tif (provider == null) {",
+            "line": 737,
+            "column": 3
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'highlighCursorUpdater' may be 'final'",
+            "lineText": "\tprivate SwingUpdateManager highlighCursorUpdater = new SwingUpdateManager(() -> {",
+            "line": 88,
+            "column": 29
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'ignoredMiddleMouseTokens' may be 'final'",
+            "lineText": "\tprivate Set<String> ignoredMiddleMouseTokens = Set.of(\"{\", \"}\", \";\");",
+            "line": 95,
+            "column": 22
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'activeSearchHighlightColor' may be 'final'",
+            "lineText": "\tprivate Color activeSearchHighlightColor;",
+            "line": 101,
+            "column": 16
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnusedAssignment",
+            "description": "Variable 'fieldSelection' initializer 'null' is redundant",
+            "lineText": "\t\tFieldSelection fieldSelection = null;",
+            "line": 724,
+            "column": 35
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'startLine' may be 'final'",
+            "lineText": "\t\tprivate int startLine;",
+            "line": 1480,
+            "column": 15
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'endLine' may be 'final'",
+            "lineText": "\t\tprivate int endLine;",
+            "line": 1481,
+            "column": 15
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'endColumn' may be 'final'",
+            "lineText": "\t\tprivate int endColumn;",
+            "line": 1482,
+            "column": 15
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'duration' may be 'final'",
+            "lineText": "\t\tprivate int duration;",
+            "line": 1483,
+            "column": 15
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'location' may be 'final'",
+            "lineText": "\t\tprivate FieldLocation location;",
+            "line": 1560,
+            "column": 25
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'field' may be 'final'",
+            "lineText": "\t\tprivate Field field;",
+            "line": 1561,
+            "column": 17
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnusedAssignment",
+            "description": "Variable 'current' initializer '0' is redundant",
+            "lineText": "\t\t\tint current = 0;",
+            "line": 1506,
+            "column": 18
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'trigger' may be 'final'",
+            "lineText": "\t\tprivate EventTrigger trigger;",
+            "line": 1562,
+            "column": 24
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'updateId' may be 'final'",
+            "lineText": "\t\tprivate long updateId;",
+            "line": 1563,
+            "column": 16
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'tokenText' may be 'final'",
+            "lineText": "\t\tprivate String tokenText;",
+            "line": 1602,
+            "column": 18
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'highlighter' may be 'final'",
+            "lineText": "\t\tprivate DecompilerHighlighter highlighter;",
+            "line": 1603,
+            "column": 33
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'varnodes' is never used",
+            "lineText": "\tpublic void addHighlights(Set<Varnode> varnodes, ColorProvider colorProvider) {",
+            "line": 352,
+            "column": 41
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 't' is never used",
+            "lineText": "\t\t\taddSecondaryHighlight(newName, t -> hlColor);",
+            "line": 410,
+            "column": 35
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'setDecompilerHoverProvider(ghidra.app.decompiler.component.DecompilerHoverProvider)' is never used",
+            "lineText": "\tpublic void setDecompilerHoverProvider(DecompilerHoverProvider provider) {",
+            "line": 736,
+            "column": 14
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'address' is never used",
+            "lineText": "\t\t\tAddress address, DecompilerLocationInfo info) {",
+            "line": 1079,
+            "column": 12
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'getTextUnderCursor()' is never used",
+            "lineText": "\tpublic String getTextUnderCursor() {",
+            "line": 1188,
+            "column": 16
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'isHoverShowing()' is never used",
+            "lineText": "\tpublic boolean isHoverShowing() {",
+            "line": 1295,
+            "column": 17
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\DockingUtils.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessarySemicolon",
+            "description": "Unnecessary semicolon ';'",
+            "lineText": "\t\tCHILDREN_FIRST, PARENT_FIRST;",
+            "line": 242,
+            "column": 31
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessarySemicolon",
+            "description": "Unnecessary semicolon ';'",
+            "lineText": "\t\tCONTINUE, FINISH, TERMINATE;",
+            "line": 250,
+            "column": 30
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "JavadocBlankLines",
+            "description": "Blank line will be ignored",
+            "lineText": "\t *",
+            "line": 255,
+            "column": 3
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "JavadocBlankLines",
+            "description": "Blank line will be ignored",
+            "lineText": "\t *",
+            "line": 263,
+            "column": 3
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "JavadocBlankLines",
+            "description": "Blank line will be ignored",
+            "lineText": "\t *",
+            "line": 271,
+            "column": 3
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "JavadocBlankLines",
+            "description": "Blank line will be ignored",
+            "lineText": "\t *",
+            "line": 317,
+            "column": 3
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryModifier",
+            "description": "Modifier 'static' is redundant for inner interfaces",
+            "lineText": "\tpublic static interface ComponentCallback<T extends Component> {",
+            "line": 233,
+            "column": 9
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "MagicConstant",
+            "description": "Should be one of: InputEvent.SHIFT_MASK, InputEvent.CTRL_MASK, InputEvent.META_MASK, InputEvent.ALT_MASK, ... or their combination",
+            "lineText": "\t\tKeyStroke.getKeyStroke(KeyEvent.VK_Z, CONTROL_KEY_MODIFIER_MASK);",
+            "line": 123,
+            "column": 41
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnusedReturnValue",
+            "description": "Return value of the method is never used",
+            "lineText": "\tpublic static TreeTraversalResult forAllDescendants(Container start,",
+            "line": 325,
+            "column": 36
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "MagicConstant",
+            "description": "Should be one of: InputEvent.SHIFT_MASK, InputEvent.CTRL_MASK, InputEvent.META_MASK, InputEvent.ALT_MASK, ... or their combination",
+            "lineText": "\t\tKeyStroke.getKeyStroke(KeyEvent.VK_Y, CONTROL_KEY_MODIFIER_MASK);",
+            "line": 125,
+            "column": 41
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'enabled' is never used",
+            "lineText": "\tpublic static void setTipWindowEnabled(boolean enabled) {",
+            "line": 398,
+            "column": 49
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\GenericHeader.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "ClassEscapesItsScope",
+            "description": "Class 'DockableToolBarManager' is exposed outside its defined visibility scope",
+            "lineText": "\tprotected DockableToolBarManager toolBarMgr;",
+            "line": 49,
+            "column": 12
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "CStyleArrayDeclaration",
+            "description": "Local variable 'comps' has C-style array type declaration",
+            "lineText": "\t\t\tComponent comps[] = c.getComponents();",
+            "line": 140,
+            "column": 19
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "TrivialIf",
+            "description": "'if' statement can be simplified",
+            "lineText": "\t\tif (useSingleLineLayoutOverride) {",
+            "line": 240,
+            "column": 3
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'c' can be replaced with pattern variable",
+            "lineText": "\t\t\tContainer c = (Container) comp;",
+            "line": 139,
+            "column": 14
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnusedAssignment",
+            "description": "Variable 'nonFocusColor' initializer 'NON_FOCUS_START_COLOR' is redundant",
+            "lineText": "\tprivate Color nonFocusColor = NON_FOCUS_START_COLOR;",
+            "line": 43,
+            "column": 32
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnusedAssignment",
+            "description": "Variable 'focusColor' initializer 'FOCUS_START_COLOR' is redundant",
+            "lineText": "\tprivate Color focusColor = FOCUS_START_COLOR;",
+            "line": 44,
+            "column": 29
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'activeForeground' may be 'final'",
+            "lineText": "\tprivate Color activeForeground = new GColor(\"color.fg.header.active\");",
+            "line": 45,
+            "column": 16
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'inactiveForeground' may be 'final'",
+            "lineText": "\tprivate Color inactiveForeground = new GColor(\"color.fg.header.inactive\");",
+            "line": 46,
+            "column": 16
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'mouseListener' may be 'final'",
+            "lineText": "\tprivate MouseListener mouseListener = new MouseAdapter() {",
+            "line": 57,
+            "column": 24
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'titleLabel' may be 'final'",
+            "lineText": "\t\tprivate JLabel titleLabel;",
+            "line": 369,
+            "column": 18
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'popupListenerDelegate' may be 'final'",
+            "lineText": "\t\t\tprivate MouseListener popupListenerDelegate;",
+            "line": 475,
+            "column": 26
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\options\\editor\\DefaultOptionComponent.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'button' can be replaced with pattern variable",
+            "lineText": "\t\t\t\t\tAbstractButton button = (AbstractButton) component;",
+            "line": 47,
+            "column": 21
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'label' may be 'final'",
+            "lineText": "\tprivate JLabel label;",
+            "line": 31,
+            "column": 17
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'component' may be 'final'",
+            "lineText": "\tprivate Component component;",
+            "line": 32,
+            "column": 20
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\options\\editor\\OptionsPanel.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "ManualArrayToCollectionCopy",
+            "description": "Manual array to collection copy",
+            "lineText": "\t\t\tfor (String string : optionNames) {",
+            "line": 463,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "ManualArrayToCollectionCopy",
+            "description": "Manual array to collection copy",
+            "lineText": "\t\t\t\tfor (String string : descriptions) {",
+            "line": 469,
+            "column": 5
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'changeListener' may be 'final'",
+            "lineText": "\tprivate PropertyChangeListener changeListener;",
+            "line": 48,
+            "column": 33
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'rootNode' may be 'final'",
+            "lineText": "\tprivate OptionsRootTreeNode rootNode;",
+            "line": 51,
+            "column": 30
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'editorMap' may be 'final'",
+            "lineText": "\tprivate Map<OptionsTreeNode, OptionsEditor> editorMap = new HashMap<>();",
+            "line": 54,
+            "column": 46
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'viewPanel' may be 'final'",
+            "lineText": "\tprivate JPanel viewPanel;",
+            "line": 55,
+            "column": 17
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'defaultPanel' may be 'final'",
+            "lineText": "\tprivate JPanel defaultPanel;",
+            "line": 56,
+            "column": 17
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'optionsEditorContainer' may be 'final'",
+            "lineText": "\tprivate JPanel optionsEditorContainer;",
+            "line": 57,
+            "column": 17
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'restoreDefaultPanel' may be 'final'",
+            "lineText": "\tprivate JPanel restoreDefaultPanel;",
+            "line": 58,
+            "column": 17
+          },
+          {
+            "severity": "WEAK WARNING",
+            "inspectionId": "ConstantValue",
+            "description": "Value 'selectedNode' is always 'null'",
+            "lineText": "\t\t\tsetViewPanel(defaultPanel, selectedNode);",
+            "line": 320,
+            "column": 31
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SizeReplaceableByIsEmpty",
+            "description": "'optionList.size() > 0' can be replaced with '!optionList.isEmpty()'",
+            "lineText": "\t\t\tif (optionList.size() > 0) {",
+            "line": 402,
+            "column": 8
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'updateManager' may be 'final'",
+            "lineText": "\tprivate SwingUpdateManager updateManager;",
+            "line": 59,
+            "column": 29
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UseBulkOperation",
+            "description": "Iteration can be replaced with bulk 'Collection.addAll()' call",
+            "lineText": "\t\t\t\tresults.add(string);",
+            "line": 464,
+            "column": 5
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\tgTree.addGTreeSelectionListener(e -> updateManager.updateLater());",
+            "line": 96,
+            "column": 35
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UseBulkOperation",
+            "description": "Iteration can be replaced with bulk 'Collection.addAll()' call",
+            "lineText": "\t\t\t\t\tresults.add(string);",
+            "line": 470,
+            "column": 6
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'c' is never used",
+            "lineText": "\t\t\t\t\t.onAction(c -> {",
+            "line": 145,
+            "column": 16
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\tbutton.addActionListener(e -> {",
+            "line": 192,
+            "column": 28
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'component' is never used",
+            "lineText": "\tprivate void setHelpLocation(JComponent component, OptionsTreeNode node) {",
+            "line": 369,
+            "column": 42
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "DataFlowIssue",
+            "description": "Method invocation 'getName' may produce 'NullPointerException'",
+            "lineText": "\t\t\t\t\"<html>Restore <b>\" + HTMLUtilities.escapeHTML(currentOptions.getName()) +",
+            "line": 196,
+            "column": 67
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'editorStateFactory' may be 'final'",
+            "lineText": "\tprivate EditorStateFactory editorStateFactory = new EditorStateFactory();",
+            "line": 60,
+            "column": 29
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'splitPane' may be 'final'",
+            "lineText": "\tprivate JSplitPane splitPane;",
+            "line": 62,
+            "column": 21
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldCanBeLocal",
+            "description": "Field can be converted to a local variable",
+            "lineText": "\tprivate JSplitPane splitPane;",
+            "line": 62,
+            "column": 21
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldCanBeLocal",
+            "description": "Field can be converted to a local variable",
+            "lineText": "\tprivate OptionsRootTreeNode rootNode;",
+            "line": 51,
+            "column": 30
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldCanBeLocal",
+            "description": "Field can be converted to a local variable",
+            "lineText": "\tprivate OptionsEditor currentOptionsEditor;",
+            "line": 53,
+            "column": 24
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\widgets\\AbstractGCellRenderer.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryLocalVariable",
+            "description": "Local variable 'f' is redundant",
+            "lineText": "\t\tFont f = Gui.getFont(fontId);",
+            "line": 198,
+            "column": 8
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "JavadocBlankLines",
+            "description": "Blank line will be ignored",
+            "lineText": " * ",
+            "line": 52,
+            "column": 2
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'parent' is never used",
+            "lineText": "\tprotected Color getAlternatingBackgroundColor(JComponent parent, int row) {",
+            "line": 161,
+            "column": 59
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'setDropRow(int)' is never used",
+            "lineText": "\tpublic void setDropRow(int dropRow) {",
+            "line": 317,
+            "column": 14
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\widgets\\dialogs\\SettingsDialog.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryBoxing",
+            "description": "Unnecessary boxing",
+            "lineText": "\t\t\t\treturn Boolean.valueOf(def.getValue(settings));",
+            "line": 146,
+            "column": 20
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "EnhancedSwitchMigration",
+            "description": "Switch statement can be replaced with enhanced 'switch'",
+            "lineText": "\t\t\tswitch (col) {",
+            "line": 211,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "Convert2MethodRef",
+            "description": "Lambda can be replaced with method reference",
+            "lineText": "\t\tprivate final Runnable editStopped = () -> fireEditingStopped();",
+            "line": 271,
+            "column": 46
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "EnhancedSwitchMigration",
+            "description": "Switch statement can be replaced with enhanced 'switch'",
+            "lineText": "\t\t\tswitch (col) {",
+            "line": 222,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "EnhancedSwitchMigration",
+            "description": "Switch statement can be replaced with enhanced 'switch'",
+            "lineText": "\t\t\tswitch (columnIndex) {",
+            "line": 233,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "EnhancedSwitchMigration",
+            "description": "Switch statement can be replaced with enhanced 'switch'",
+            "lineText": "\t\t\tswitch (mode) {",
+            "line": 280,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'def' can be replaced with pattern variable",
+            "lineText": "\t\t\t\tEnumSettingsDefinition def = (EnumSettingsDefinition) definition;",
+            "line": 139,
+            "column": 28
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'def' can be replaced with pattern variable",
+            "lineText": "\t\t\t\tBooleanSettingsDefinition def = (BooleanSettingsDefinition) definition;",
+            "line": 145,
+            "column": 31
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'def' can be replaced with pattern variable",
+            "lineText": "\t\t\t\tEnumSettingsDefinition def = (EnumSettingsDefinition) definition;",
+            "line": 153,
+            "column": 28
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'definition' may be 'final'",
+            "lineText": "\t\tprivate SettingsDefinition definition;",
+            "line": 127,
+            "column": 30
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'rows' may be 'final'",
+            "lineText": "\t\tprivate List<SettingsRowObject> rows = new ArrayList<>();",
+            "line": 174,
+            "column": 35
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'comboBox' may be 'final'",
+            "lineText": "\t\tprivate GComboBox<String> comboBox = new GComboBox<>();",
+            "line": 268,
+            "column": 29
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'def' can be replaced with pattern variable",
+            "lineText": "\t\t\t\tBooleanSettingsDefinition def = (BooleanSettingsDefinition) definition;",
+            "line": 159,
+            "column": 31
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryUnboxing",
+            "description": "Unnecessary unboxing",
+            "lineText": "\t\t\t\tdef.setValue(settings, ((Boolean) value).booleanValue());",
+            "line": 160,
+            "column": 46
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryUnboxing",
+            "description": "Unnecessary unboxing",
+            "lineText": "\t\t\t\t\tif (((Boolean) value).booleanValue()) {",
+            "line": 252,
+            "column": 28
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'checkBox' may be 'final'",
+            "lineText": "\t\tprivate GCheckBox checkBox = new GCheckBox();",
+            "line": 269,
+            "column": 21
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryUnboxing",
+            "description": "Unnecessary unboxing",
+            "lineText": "\t\t\tcheckBox.setSelected(b.booleanValue());",
+            "line": 316,
+            "column": 27
+          },
+          {
+            "severity": "WEAK WARNING",
+            "inspectionId": "DuplicatedCode",
+            "description": "Duplicated code fragment (7 lines long)",
+            "lineText": "\t\t\tString[] items = new String[comboBox.getItemCount()];",
+            "line": 290,
+            "column": 4
+          },
+          {
+            "severity": "WEAK WARNING",
+            "inspectionId": "DuplicatedCode",
+            "description": "Duplicated code fragment (14 lines long)",
+            "lineText": "\t\t\tSettingsRowObject rowObject = rows.get(row);",
+            "line": 244,
+            "column": 4
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\widgets\\search\\SearchLocationContextRenderer.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'htmlContainer' may be 'final'",
+            "lineText": "\tprivate JPanel htmlContainer = new JPanel(new HtmlTruncatingLayout());",
+            "line": 35,
+            "column": 17
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'ellipsisLabel' may be 'final'",
+            "lineText": "\tprivate JLabel ellipsisLabel = new JLabel(\"...\");",
+            "line": 36,
+            "column": 17
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\widgets\\table\\GTable.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryLocalVariable",
+            "description": "Local variable 'html' is redundant",
+            "lineText": "\t\t\t\tString html = HTMLUtilities.toLiteralHTMLForTooltip(string);",
+            "line": 859,
+            "column": 12
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "RawUseOfParameterizedType",
+            "description": "Raw use of parameterized class 'RowObjectTableModel'",
+            "lineText": "\t\tif (getModel() instanceof RowObjectTableModel model) {",
+            "line": 283,
+            "column": 29
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "TrivialIf",
+            "description": "'if' statement can be simplified",
+            "lineText": "\t\t\tif (renderer != null) {",
+            "line": 1062,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'gTableModel' can be replaced with pattern variable",
+            "lineText": "\t\tAbstractGTableModel<?> gTableModel = (AbstractGTableModel<?>) wrappedModel;",
+            "line": 809,
+            "column": 26
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "NullableProblems",
+            "description": "Not annotated parameter overrides @NotNull parameter",
+            "lineText": "\tpublic void setColumnModel(TableColumnModel columnModel) {",
+            "line": 229,
+            "column": 46
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "NullableProblems",
+            "description": "Not annotated parameter overrides @NotNull parameter",
+            "lineText": "\tpublic void setSelectionModel(ListSelectionModel newModel) {",
+            "line": 242,
+            "column": 51
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "NullableProblems",
+            "description": "Not annotated parameter overrides @NotNull parameter",
+            "lineText": "\tpublic void setModel(TableModel dataModel) {",
+            "line": 257,
+            "column": 34
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "NullableProblems",
+            "description": "Not annotated parameter overrides @NotNull parameter",
+            "lineText": "\tpublic String getToolTipText(MouseEvent e) {",
+            "line": 825,
+            "column": 42
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryUnboxing",
+            "description": "Unnecessary unboxing",
+            "lineText": "\t\t\tint height = getRowHeight() * visibleRowCount.intValue();",
+            "line": 166,
+            "column": 50
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "MagicConstant",
+            "description": "Should be one of: InputEvent.SHIFT_MASK, InputEvent.CTRL_MASK, InputEvent.META_MASK, InputEvent.ALT_MASK, ... or their combination",
+            "lineText": "\t\tKeyStroke.getKeyStroke(KeyEvent.VK_C, CONTROL_KEY_MODIFIER_MASK);",
+            "line": 82,
+            "column": 41
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\t\trowHeightListener = e -> adjustRowHeight();",
+            "line": 537,
+            "column": 24
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "ConstantValue",
+            "description": "Condition 'columnRenderingDataMap != null' is always 'true'",
+            "lineText": "\t\t\tif (columnRenderingDataMap != null) {",
+            "line": 1685,
+            "column": 8
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "MagicConstant",
+            "description": "Should be one of: InputEvent.SHIFT_MASK, InputEvent.CTRL_MASK, InputEvent.META_MASK, InputEvent.ALT_MASK, ... or their combination",
+            "lineText": "\t\tKeyStroke.getKeyStroke(KeyEvent.VK_C, CONTROL_KEY_MODIFIER_MASK | SHIFT_DOWN_MASK);",
+            "line": 84,
+            "column": 41
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'autoLookup' may be 'final'",
+            "lineText": "\tprivate AutoLookup autoLookup = createAutoLookup();",
+            "line": 97,
+            "column": 21
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldCanBeLocal",
+            "description": "Field can be converted to a local variable",
+            "lineText": "\tprivate TableColumnModelListener tableColumnModelListener = null;",
+            "line": 129,
+            "column": 35
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'selectRowListener' may be 'final'",
+            "lineText": "\tprivate MouseListener selectRowListener = new MouseAdapter() {",
+            "line": 102,
+            "column": 24
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "MagicConstant",
+            "description": "Should be one of: InputEvent.SHIFT_MASK, InputEvent.CTRL_MASK, InputEvent.META_MASK, InputEvent.ALT_MASK, ... or their combination",
+            "lineText": "\t\tKeyStroke.getKeyStroke(KeyEvent.VK_A, CONTROL_KEY_MODIFIER_MASK);",
+            "line": 86,
+            "column": 41
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "MagicConstant",
+            "description": "Should be one of: InputEvent.SHIFT_MASK, InputEvent.CTRL_MASK, InputEvent.META_MASK, InputEvent.ALT_MASK, ... or their combination",
+            "lineText": "\t\tKeyStroke.getKeyStroke(KeyEvent.VK_F, CONTROL_KEY_MODIFIER_MASK);",
+            "line": 88,
+            "column": 41
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnusedAssignment",
+            "description": "The value changed at 'subGroupIndex++' is never used",
+            "lineText": "\t\t\tInteger.toString(subGroupIndex++)));",
+            "line": 1624,
+            "column": 21
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'table' may be 'final'",
+            "lineText": "\t\tprivate GTable table;",
+            "line": 1646,
+            "column": 18
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'selectionAllowed' may be 'final'",
+            "lineText": "\t\tprivate boolean selectionAllowed;",
+            "line": 1647,
+            "column": 19
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'selectedColumns' may be 'final'",
+            "lineText": "\t\tprivate int[] selectedColumns;",
+            "line": 1648,
+            "column": 17
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "FieldMayBeFinal",
+            "description": "Field 'selectionMode' may be 'final'",
+            "lineText": "\t\tprivate int selectionMode;",
+            "line": 1649,
+            "column": 15
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'savePreferences()' is never used",
+            "lineText": "\tpublic void savePreferences() {",
+            "line": 953,
+            "column": 14
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "MagicConstant",
+            "description": "Should be one of: ListSelectionModel.SINGLE_SELECTION, ListSelectionModel.SINGLE_INTERVAL_SELECTION, ...",
+            "lineText": "\t\t\ttable.getColumnModel().getSelectionModel().setSelectionMode(selectionMode);",
+            "line": 1660,
+            "column": 64
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\titem.addActionListener(e -> {",
+            "line": 1198,
+            "column": 26
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Parameter 'e' is never used",
+            "lineText": "\t\titem.addActionListener(e -> {",
+            "line": 1209,
+            "column": 26
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\widgets\\table\\GTableHeader.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "UnnecessaryLocalVariable",
+            "description": "Local variable 'paddedWidth' is redundant",
+            "lineText": "\t\tint paddedWidth = paddedHeight;",
+            "line": 146,
+            "column": 7
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "BooleanMethodIsAlwaysInverted",
+            "description": "Calls to boolean method 'isHelpEnabled()' are always inverted",
+            "lineText": "\tprivate boolean isHelpEnabled() {",
+            "line": 110,
+            "column": 18
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'jComponent' can be replaced with pattern variable",
+            "lineText": "\t\t\tJComponent jComponent = (JComponent) component;",
+            "line": 235,
+            "column": 15
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'filterModel' can be replaced with pattern variable",
+            "lineText": "\t\tRowObjectFilterModel<?> filterModel = (RowObjectFilterModel<?>) model;",
+            "line": 254,
+            "column": 27
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "BooleanMethodIsAlwaysInverted",
+            "description": "Calls to boolean method 'canFindHelp()' are always inverted",
+            "lineText": "\tprivate boolean canFindHelp() {",
+            "line": 179,
+            "column": 18
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SuspiciousNameCombination",
+            "description": "'HELP_ICON_HEIGHT' should probably not be passed as parameter 'width'",
+            "lineText": "\t\tnew GIcon(\"icon.widget.table.header.help\"), HELP_ICON_HEIGHT, HELP_ICON_HEIGHT);",
+            "line": 45,
+            "column": 47
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'combinedFilter' can be replaced with pattern variable",
+            "lineText": "\t\tCombinedTableFilter<?> combinedFilter = (CombinedTableFilter<?>) tableFilter;",
+            "line": 265,
+            "column": 26
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SuspiciousNameCombination",
+            "description": "'HELP_ICON_HEIGHT' should probably not be passed as parameter 'width'",
+            "lineText": "\t\t\tHELP_ICON_HEIGHT, HELP_ICON_HEIGHT);",
+            "line": 48,
+            "column": 4
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SuspiciousNameCombination",
+            "description": "'paddedHeight' should probably not be assigned to 'paddedWidth'",
+            "lineText": "\t\tint paddedWidth = paddedHeight;",
+            "line": 146,
+            "column": 7
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "SizeReplaceableByIsEmpty",
+            "description": "'ttBuilder.length() != 0' can be replaced with '!ttBuilder.isEmpty()'",
+            "lineText": "\t\tif (ttBuilder.length() != 0) {",
+            "line": 217,
+            "column": 7
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Docking\\src\\main\\java\\docking\\widgets\\tree\\support\\GTreeRenderer.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "PatternVariableCanBeUsed",
+            "description": "Variable 'node' can be replaced with pattern variable",
+            "lineText": "\t\tGTreeNode node = (GTreeNode) value;",
+            "line": 74,
+            "column": 13
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "unused",
+            "description": "Method 'getMinIconWidth()' is never used",
+            "lineText": "\tpublic int getMinIconWidth() {",
+            "line": 163,
+            "column": 13
+          }
+        ]
+      },
+      {
+        "filePath": "Ghidra\\Framework\\Gui\\src\\main\\java\\generic\\theme\\uirefresh\\GeometryDefaults.java",
+        "problems": [
+          {
+            "severity": "WARNING",
+            "inspectionId": "NullableProblems",
+            "description": "Not annotated method overrides method annotated with @NotNull",
+            "lineText": "\tpublic Set<Entry<String, String>> entrySet() {",
+            "line": 114,
+            "column": 36
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "DataFlowIssue",
+            "description": "Method invocation 'getResolvedProperty' may produce 'NullPointerException'",
+            "lineText": "\t\tif (Boolean.TRUE.equals(activeTheme().getResolvedProperty(\"Docking.compact\"))) {",
+            "line": 93,
+            "column": 41
+          },
+          {
+            "severity": "WARNING",
+            "inspectionId": "DataFlowIssue",
+            "description": "Method invocation 'getResolvedProperty' may produce 'NullPointerException'",
+            "lineText": "\t\tif (Boolean.TRUE.equals(activeTheme().getResolvedProperty(\"Docking.highContrast\"))) {",
+            "line": 100,
+            "column": 41
+          }
+        ]
+      }
+    ]
+  },
+  "after": {
+    "requestedFiles": [
+      "Ghidra/Framework/Docking/src/main/java/docking/DialogButtonRowLayout.java",
+      "Ghidra/Framework/Docking/src/test/java/docking/DialogButtonRowLayoutTest.java",
+      "Ghidra/Framework/Docking/src/test/java/docking/widgets/search/SearchLocationContextRendererTest.java",
+      "Ghidra/Features/Base/src/main/java/ghidra/app/nav/LocationContextPanel.java",
+      "Ghidra/Features/Base/src/main/java/ghidra/app/util/viewer/listingpanel/ListingPanel.java",
+      "Ghidra/Features/Base/src/main/java/ghidra/plugin/importer/ImporterDialog.java",
+      "Ghidra/Features/Decompiler/src/main/java/ghidra/app/decompiler/component/DecompilerPanel.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/DialogComponentProvider.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/DockingChrome.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/DockingUtils.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/GenericHeader.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/options/editor/DefaultOptionComponent.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/options/editor/OptionsEditorPanel.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/options/editor/OptionsPanel.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/AbstractGCellRenderer.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/dialogs/SettingsDialog.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/search/SearchLocationContextRenderer.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/tab/GTabBorder.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/table/GTable.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/table/GTableHeader.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/table/GTableHeaderRenderer.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/tree/support/GTreeRenderer.java",
+      "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/GeometryDefaults.java",
+      "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/GraphiteTheme.java",
+      "Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/hover/HoverProviderUtils.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/searchlist/SearchList.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/actions/dialog/ActionChooserDialog.java",
+      "Ghidra/Features/Base/src/main/java/ghidra/features/base/memsearch/gui/MemorySearchResultsPanel.java",
+      "Ghidra/Framework/Graph/src/main/java/ghidra/graph/viewer/VisualGraphView.java",
+      "Ghidra/Framework/Graph/src/main/java/ghidra/graph/viewer/GraphNavigationBar.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/ViewStatusPanel.java",
+      "Ghidra/Framework/Docking/src/main/java/docking/widgets/searchlist/SearchTextHighlighter.java",
+      "Ghidra/Framework/Docking/src/test/java/docking/widgets/searchlist/SearchPresentationTest.java",
+      "Ghidra/Framework/Graph/src/test/java/ghidra/graph/viewer/GraphNavigationBarTest.java",
+      "Ghidra/Features/Base/src/test.slow/java/ghidra/features/base/memsearch/MemorySearchPresentationTest.java",
+      "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/UiRefreshBaseTheme.java",
+      "Ghidra/Framework/Gui/src/test/java/generic/theme/uirefresh/UiRefreshContrastTest.java"
+    ],
+    "result": {
+      "items": []
+    }
+  },
+  "notes": [
+    "No inspection profile was disabled. Targeted annotations retain extension/test APIs, the existing protected toolbar field, JDK external nullability contracts without adding an annotation dependency, and Toolkit/ListSelectionModel values which the IDE cannot infer.",
+    "The integration regression caught a superclass-constructor callback before GTable initialized its cache. The callback now checks initialization state.",
+    "The graph regression also covers the protected south-component extension used by Function Graph's progress monitor."
+  ],
+  "sourceFingerprints": [
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/DialogButtonRowLayout.java",
+      "sha256": "1DC9B23DDCF84C567396E0AD48DC550EA1EC8ACF9DD561299308D88DB2224BEB"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/test/java/docking/DialogButtonRowLayoutTest.java",
+      "sha256": "3CE4366B3E47505B87B48717CF6AAEF1BD072FC27958E2BCD2F7F60145D1215A"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/test/java/docking/widgets/search/SearchLocationContextRendererTest.java",
+      "sha256": "F0D6D629E1BB6B92829930C397A62B5DB7A04D1D62268283432816F4C1653C1A"
+    },
+    {
+      "path": "Ghidra/Features/Base/src/main/java/ghidra/app/nav/LocationContextPanel.java",
+      "sha256": "5CCC53088DA9C340B53C0D3325E08DE39B22F2A8ACE732D7B7CA5851B4DA9A1C"
+    },
+    {
+      "path": "Ghidra/Features/Base/src/main/java/ghidra/app/util/viewer/listingpanel/ListingPanel.java",
+      "sha256": "417220AD3352799EF1B0D23E45B45A0A7B9F8BE1B7C4E4328783615D9012ADC3"
+    },
+    {
+      "path": "Ghidra/Features/Base/src/main/java/ghidra/plugin/importer/ImporterDialog.java",
+      "sha256": "7F004104FD58461ECAF5296A2F403D0C26499E33BF9334FAAA696C6654655707"
+    },
+    {
+      "path": "Ghidra/Features/Decompiler/src/main/java/ghidra/app/decompiler/component/DecompilerPanel.java",
+      "sha256": "C20F5302D8E002622E4E037211AF49C99A75A8A36BB009D7747B43A8A3B31509"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/DialogComponentProvider.java",
+      "sha256": "A2B7E53B62009BE3E79C141836D8E24AF2773D6FC291348768104835C0DC2EA6"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/DockingChrome.java",
+      "sha256": "66AE5F2716D1507FA4AA3B3BAAC9722A5C5CA7B7DD45B2F94DF0B2F360FED8F0"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/DockingUtils.java",
+      "sha256": "EB218AD0ABD7E034AC97D005553B975EAD470D2CDE05A5E649BF8DE80BB8A60C"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/GenericHeader.java",
+      "sha256": "51120CC1C0BC0986117404379C1B7B27773A9608A432D51C099031A2181B9EE8"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/options/editor/DefaultOptionComponent.java",
+      "sha256": "99DF76469467361C3D52934867434542E473890609990B9C09459A6FAD88A9F7"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/options/editor/OptionsEditorPanel.java",
+      "sha256": "D5FE20694A570FF05C036721DB9240BD712B29A4CF8482DB7E0C449C94FA80C2"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/options/editor/OptionsPanel.java",
+      "sha256": "7F789476C2D23F868B14EDCF082DB10E4EAA69D327856F0A006EB23714CE6A15"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/AbstractGCellRenderer.java",
+      "sha256": "1C3E8330B16F5B4506B97FAA67DA32802F0D50316103769CF7A62535A0B49F36"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/dialogs/SettingsDialog.java",
+      "sha256": "E1F230F8F8F8797229A83BDF5809B1ADE3D2A40F48A003D4DC3496BE8FD05A8E"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/search/SearchLocationContextRenderer.java",
+      "sha256": "1E3093162E948BD4F47DDDADF95C9E40FCB92D6B459CC7FA5FB1F62B80FCEF35"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/tab/GTabBorder.java",
+      "sha256": "2CE6FB982D1EA78D86794E93DDF975AEBBED9E0770B235C6429CFAA5535E1E9B"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/table/GTable.java",
+      "sha256": "037E7CF1E9924ED8E732E15B83788C0D90BE8F0EF5503767AC5CD20100A81551"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/table/GTableHeader.java",
+      "sha256": "BBC7DF747E66FB369F027BFE15055087F01B1045739810F9BF52F9FEE9A5E4DA"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/table/GTableHeaderRenderer.java",
+      "sha256": "3576E9C00EFC832E20450E55E7A0523CBEA8E508CD88B0B583544C0D536EBA7C"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/tree/support/GTreeRenderer.java",
+      "sha256": "822DDD6F8455607DA836044FBA3A4067F899446BD1437316B3FA57527F720F45"
+    },
+    {
+      "path": "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/GeometryDefaults.java",
+      "sha256": "5EE33001CEF36CD20CA7020DBD1BCFC5895197CEC081A28E765CC5D951E98897"
+    },
+    {
+      "path": "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/GraphiteTheme.java",
+      "sha256": "671727E0E2E706EF1F21AE462C28734FA8B5224A18B600426A1A06BD0DD20877"
+    },
+    {
+      "path": "Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/hover/HoverProviderUtils.java",
+      "sha256": "A4D7970870855E9706792EE1087B12AE52986723EE60847991FD3907C32E2CDD"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/searchlist/SearchList.java",
+      "sha256": "A1E78F19717718623C3989A15AD6CDD839949F6E19F41F9A1238161EF02A4EB9"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/actions/dialog/ActionChooserDialog.java",
+      "sha256": "336B49FA67B734DCDEAB96C4A695E8DAE061D04DA4274E59263D35F3F32470F1"
+    },
+    {
+      "path": "Ghidra/Features/Base/src/main/java/ghidra/features/base/memsearch/gui/MemorySearchResultsPanel.java",
+      "sha256": "0016F4AE37F2DA570884834D96BC887B86108C92246D7ED2FE9A26D94A26E4EC"
+    },
+    {
+      "path": "Ghidra/Framework/Graph/src/main/java/ghidra/graph/viewer/VisualGraphView.java",
+      "sha256": "183302DB9E816B791912B3B81FCE108B7839D350F7686918F86ED3CC2727A397"
+    },
+    {
+      "path": "Ghidra/Framework/Graph/src/main/java/ghidra/graph/viewer/GraphNavigationBar.java",
+      "sha256": "6B0AFEC910C884D8CF30BD73AF0AA0298AEB6A45201315CC0199B2DA2A779735"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/ViewStatusPanel.java",
+      "sha256": "6F5242D3419237EC979D15C40B74E68745903E17CA44E3CC04472C10FF9DA8F5"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/main/java/docking/widgets/searchlist/SearchTextHighlighter.java",
+      "sha256": "73CAB21429BDF6C6B1D55FEDA91A30AE10EB8D78F0CF6661F26160DE536EB49B"
+    },
+    {
+      "path": "Ghidra/Framework/Docking/src/test/java/docking/widgets/searchlist/SearchPresentationTest.java",
+      "sha256": "ECB39080495411773E708FB3BE6157FCCEDEF567ED472F6BA8305797D46F00B1"
+    },
+    {
+      "path": "Ghidra/Framework/Graph/src/test/java/ghidra/graph/viewer/GraphNavigationBarTest.java",
+      "sha256": "4909EF310309AFF65B241C37D53E3D20FE5825B6BE8BDD98B422DC9E9C9E0C6D"
+    },
+    {
+      "path": "Ghidra/Features/Base/src/test.slow/java/ghidra/features/base/memsearch/MemorySearchPresentationTest.java",
+      "sha256": "91B2D97C0E532CC406D4CB8DA956DFC7230CAA975CCF06EA9A3339211B218F07"
+    },
+    {
+      "path": "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/UiRefreshBaseTheme.java",
+      "sha256": "541A0419BB04E0E7D26EC898B23679F0C60D414BC7FCBE19DCC8F36E36665D74"
+    },
+    {
+      "path": "Ghidra/Framework/Gui/src/test/java/generic/theme/uirefresh/UiRefreshContrastTest.java",
+      "sha256": "F5D542E6F786CC52846AFE26CF7D7A0B4303C65EDA4C16AE2C8F8102E412D5F5"
+    }
+  ]
+}
