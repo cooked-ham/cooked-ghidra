@@ -15,16 +15,12 @@
  */
 package ghidra.graph.viewer.satellite;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-
+import docking.DockingChrome;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.visualization.*;
+import edu.uci.ics.jung.visualization.Layer;
+import edu.uci.ics.jung.visualization.MultiLayerTransformer;
+import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.layout.ObservableCachingLayout;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
 import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
@@ -34,16 +30,23 @@ import ghidra.graph.viewer.*;
 import ghidra.graph.viewer.renderer.VisualVertexSatelliteRenderer;
 import ghidra.util.task.SwingUpdateManager;
 
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 public class CachingSatelliteGraphViewer<V extends VisualVertex, E extends VisualEdge<V>>
 		extends SatelliteGraphViewer<V, E> {
 
 	private BufferedImage bufferedBackgroundImage = null;
 	private BufferedImage bufferedOverlayImage = null;
 
-	private VisualVertexSatelliteRenderer<V, E> highlightRenderer =
+    private final VisualVertexSatelliteRenderer<V, E> highlightRenderer =
 		new VisualVertexSatelliteRenderer<>();
 
-	private SwingUpdateManager satelliteUpdateManager = new SwingUpdateManager(750, () -> {
+    private final SwingUpdateManager satelliteUpdateManager = new SwingUpdateManager(750, () -> {
 		clearCache();
 		VisualGraphViewUpdater<V, E> updater = graphViewer.getViewUpdater();
 		updater.fitGraphToViewerLater(CachingSatelliteGraphViewer.this);
@@ -56,9 +59,8 @@ public class CachingSatelliteGraphViewer<V extends VisualVertex, E extends Visua
 		preRenderers.clear(); // remove default lens painter
 
 		Layout<V, E> layout = masterViewer.getGraphLayout();
-		if (layout instanceof ObservableCachingLayout<?, ?>) {
-			ObservableCachingLayout<?, ?> cachingLayout = (ObservableCachingLayout<?, ?>) layout;
-			cachingLayout.addChangeListener(e -> satelliteUpdateManager.updateNow());
+        if (layout instanceof ObservableCachingLayout<?, ?> cachingLayout) {
+            cachingLayout.addChangeListener(_ -> satelliteUpdateManager.updateNow());
 		}
 	}
 
@@ -87,8 +89,15 @@ public class CachingSatelliteGraphViewer<V extends VisualVertex, E extends Visua
 		bufferedOverlayImage = null;
 	}
 
-	private void refreshBufferedImageAsNeeded(Graphics g) {
-		if (bufferedBackgroundImage != null && bufferedOverlayImage != null) {
+    @Override
+    public void optionsChanged() {
+        clearCache();
+        super.optionsChanged();
+    }
+
+    private void refreshBufferedImageAsNeeded() {
+        if (bufferedBackgroundImage != null &&
+                (DockingChrome.isModern() || bufferedOverlayImage != null)) {
 			return;
 		}
 
@@ -98,6 +107,9 @@ public class CachingSatelliteGraphViewer<V extends VisualVertex, E extends Visua
 		setBackground(options.getGraphBackgroundColor());
 		renderGraph(graphics);
 		graphics.dispose();
+        if (DockingChrome.isModern()) {
+            return;
+        }
 
 		bufferedOverlayImage =
 			new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -111,23 +123,10 @@ public class CachingSatelliteGraphViewer<V extends VisualVertex, E extends Visua
 	// overridden to use our buffered image in order to speed up painting
 	@Override
 	protected void paintComponent(Graphics g) {
-//		super.paintComponent(g);
-
-//      Original Code - We don't have a need to support double buffering, I think...so don't do it
-//
-//		Graphics2D g2d = (Graphics2D)g;
-//		if(doubleBuffered) {
-//		    checkOffscreenImage(getSize());
-//			renderGraph(offscreenG2d);
-//		    g2d.drawImage(offscreen, null, 0, 0);
-//		} else {
-//		    renderGraph(g2d);
-//		}
-
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHints(renderingHints);
 
-		refreshBufferedImageAsNeeded(g);
+        refreshBufferedImageAsNeeded();
 
 		g.drawImage(bufferedBackgroundImage, 0, 0, null);
 
@@ -144,17 +143,35 @@ public class CachingSatelliteGraphViewer<V extends VisualVertex, E extends Visua
 		lens = masterLayoutTransformer.inverseTransform(lens);
 		lens = vvLayoutTransformer.transform(lens);
 
-		Shape lensClip = master.getBounds();
-		lensClip = myMultiLayerTransformer.getTransformer(Layer.VIEW).transform(lens);
+        Shape lensClip = myMultiLayerTransformer.getTransformer(Layer.VIEW).transform(lens);
 
-		Shape originalClip = g2d.getClip();
-		Rectangle clip = lensClip.getBounds();
-		g2d.setClip(clip);
-		g2d.drawImage(bufferedOverlayImage, 0, 0, null);
-		g2d.setClip(originalClip);
+        if (DockingChrome.isModern()) {
+            paintModernViewport(g2d, lensClip);
+        } else {
+            Shape originalClip = g2d.getClip();
+            Rectangle clip = lensClip.getBounds();
+            g2d.clip(clip);
+            g2d.drawImage(bufferedOverlayImage, 0, 0, null);
+            g2d.setClip(originalClip);
+        }
 
 		paintSelectedVertices(g2d);
 	}
+
+    private void paintModernViewport(Graphics2D graphics, Shape viewport) {
+        Graphics2D copy = (Graphics2D) graphics.create();
+        try {
+            copy.clipRect(0, 0, getWidth(), getHeight());
+            Color accent = DockingChrome.accentColor();
+            copy.setColor(new Color(accent.getRed(), accent.getGreen(), accent.getBlue(), 35));
+            copy.fill(viewport);
+            copy.setColor(accent);
+            copy.setStroke(new BasicStroke(1.5f));
+            copy.draw(viewport);
+        } finally {
+            copy.dispose();
+        }
+    }
 
 	private void paintSelectedVertices(Graphics2D g2d) {
 		GraphicsDecorator graphicsContext = renderContext.getGraphicsContext();

@@ -13,6 +13,61 @@ superseded; existing Windows captures and PowerShell harnesses describe the veri
 environment, not a Windows-only product requirement. Portable changes do not require duplicate
 Windows/macOS testing; targeted platform checks apply when OS-specific behavior is involved.
 
+## Remaining UI checks — 2026-11-12
+
+Reviewed the actual Merge/Repository workflow: users, history, cancellation with unchanged private
+data, byte/name/comment resolution to version 2, disconnect and reconnect. A real 257-vertex,
+384-edge Function Graph passed fit/detail/selection checks at 100%, 125%, 150% and 200% logical scale.
+Fixed its opaque white minimap viewport and a queued Script Directories table update after disposal;
+the new disposal regression and existing directory enable/disable integration test both pass.
+
+The icon audit accounts for 543 distinct theme/literal-loader image references: 234 glyph mappings
+and 309 deliberate stock retentions, with no unresolved resources. Added nine safe mappings and
+restored stock artwork where generic substitutions lost meaning. Performance was measured against
+stock in ABBA order: modern graph median paint costs about 1–4 ms more; table scrolling/filtering is
+comparable or faster apart from small 125% differences. Swing names/roles/focusability and focused
+Space bindings pass at all four scales. Additional physical-DPI, macOS and screen-reader hardware
+acceptance is excluded at the owner's request.
+
+Rebuilt a matching 12.2 distribution and seven optional extensions, replacing the earlier mixed
+12.3-runtime/12.2-source verification setup. Both runners reject mismatched versions. All fourteen
+discovered optional plugins activate. Runtime registration reconciliation passes with 15,649 entries,
+all 8,361 action handlers traced and zero unresolved registrations/handlers. Exhaustive per-source
+dialog/state visual acceptance remains open; registration coverage cannot certify those interactions.
+
+[Current evidence, screenshots, measurements and reproduction commands](docs/ui-fidelity/references/remaining-gates/README.md).
+Nothing is committed or pushed. Earlier packaged 12.3 claims below are historical, not the current
+checkout version or the runtime used for these checks.
+
+## Graph labels, grouping and specialist reviews — 2026-11-12
+
+Modern Decompiler Nested Layout labels now avoid vertex cards and labels already placed during
+the current paint pass. Clear anchors stay in place; overlapping labels move the shortest clear
+distance along one axis. Vertex bounds are cached once per pass, and placements reset each repaint.
+Stock label placement and graph layout are unchanged.
+
+The disposable graph harness now groups two branch vertices, captures normal/selected stacks,
+switches stock/modern themes, captures simplified cards below the 10% painting threshold and
+ungroups back to the original four vertices. Reviewed the translucent grouped-card layers live.
+Re-captured Debugger Threads with the rebuilt ProposedUtils jar: lifespan bars are translucent grey.
+Both capture runners stage the relevant rebuilt graph extension; specialist captures now stage
+the rebuilt UI jars and record their hashes instead of silently using a frozen runtime's jars.
+
+Reviewed populated static call trees (one incoming, two outgoing calls), Code Compare's graph view,
+Version Tracking's graph comparison and BSim's cross-program graph comparison. The last two have
+four vertices on each side. The call-tree harness adds two real caller functions only to its
+disposable project. Found and corrected the BSim fixture generator's missing `/binaries` path;
+the review relocates its selected in-memory result to the disposable project without changing
+the seed database. The generator change compiles; full fixture regeneration was not repeated.
+
+Seven focused tests pass with zero failures/errors. The IDE build passes and all five changed
+product/test Java files have zero warnings/weak warnings. Screenshots, JUnit XML, source hashes,
+inspection results and reproducibility notes are in
+[the follow-up evidence](docs/ui-fidelity/references/graph-followup/).
+The previous nine broad-suite failures were not re-run on a clean checkout. The remaining-checks
+section above supersedes this pass's open Merge/Repository, graph, icon and measurement items.
+This work remains uncommitted.
+
 ## Inspection cleanup, search presentation and graph navigation — 2026-11-11
 
 Resolved the fresh IDE scan's 200 warnings/weak warnings, then continued the search/graph pass.
@@ -320,12 +375,12 @@ neither is a claim that the entire original roadmap has shipped.
 
 ## Follow-up and acceptance
 
-| Scope | Remaining |
-| --- | --- |
-| Workflow extensions (UI-018–022) | Ranked/recent-action search, clickable breadcrumbs, a dedicated program switcher and redesigned notifications |
-| Component-specific refinements | Deep redesign of individual import/settings/structure forms, new graph zoom UI, custom progress/job UI and additional debugger timeline treatments |
-| Icon coverage | Branded tool artwork, plugin-owned raster icons and specialized glyphs remain; icons are not blindly replaced with generic symbols |
-| Acceptance (UI-028–035) | Real mouse docking, full process restart with stacked layouts, physical mixed-DPI/multi-monitor tests, additional third-party extensions, Linux/macOS checks, performance benchmarking and screen-reader testing |
+| Scope                            | Remaining                                                                                                                                                                                           |
+|----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Workflow extensions (UI-018–022) | Clickable breadcrumbs, a dedicated program switcher and redesigned notifications; action search ranking/recent actions have subsequent implementation evidence                                      |
+| Component-specific refinements   | Deep redesign of individual import/settings/structure forms, custom progress/job UI and additional debugger timeline treatments; graph navigation has subsequent implementation evidence            |
+| Icon coverage                    | Current reference audit complete; brands, file kinds and specialist/state artwork deliberately retained                                                                                             |
+| Acceptance (UI-028–035)          | Exhaustive per-surface/state interactions and additional third-party extensions remain; current measurements and Windows logical checks are recorded above, extra hardware checks excluded by owner |
 
 Live verification captures the Front End, chooser, options dialog, Listing/Decompiler,
 Bytes and Function Graph under standard, compact, high-contrast and stock themes.
@@ -339,8 +394,9 @@ and stock filtering. Existing toolbar interaction tests continue to pass.
 
 ## Packaged verification
 
-Build: `build/dist/ghidra_12.3_DEV_20261111.zip` (the current repository version is
-12.3 DEV). Extract and run `ghidraRun.bat`; select a Refresh theme through
+Historical build: `build/dist/ghidra_12.3_DEV_20261111.zip`. The current checkout is 12.2 DEV;
+current verification uses the matching runtime described above. Extract and run `ghidraRun.bat`; select a Refresh theme
+through
 **Edit > Theme > Switch...**. A SHA-256 sidecar accompanies the ZIP.
 
 - Full `buildGhidra` passes (`build/verification/ui-release-final.log`).

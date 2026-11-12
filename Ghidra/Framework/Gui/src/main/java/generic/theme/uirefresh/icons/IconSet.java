@@ -117,8 +117,7 @@ public final class IconSet {
 		file("clone", "camera-photo.png", "application_double.png");
 		file("graph", "function_graph.png", "function_graph_code_flow.png");
 		file("bytes", "binaryData.gif", "hexData.png");
-		file("table", "dataW.gif", "table_go.png", "registerGroup.png", "field.header.png",
-			"field.header.down.png");
+		file("table", "dataW.gif", "table_go.png", "registerGroup.png", "field.header.png");
 		file("nextBlock", "NextSelectionBlock16.gif", "NextHighlightBlock16.gif");
 		file("prevBlock", "PreviousSelectionBlock16.gif", "PreviousHighlightBlock16.gif");
 		file("edit", "editbytes.gif", "page_edit.png", "accessories-text-editor.png");
@@ -166,7 +165,7 @@ public final class IconSet {
 		file("record", "record.png");
 		file("breakpoint", "breakpoint-enable.png");
 		file("breakpointMixed", "breakpoint-mixed.png");
-		file("stack", "stack.png", "StackFrame_Red.png");
+		file("stack", "stack.png");
 		file("modules", "modules.png");
 		file("sync", "sync_enabled.png");
 		file("tag", "tag_blue.png");
@@ -182,8 +181,8 @@ public final class IconSet {
 		file("book", "closedBookBlue.png");
 		file("bookOpen", "openBookBlue.png");
 
-		file("stepBack", "stepbackinto.png", "resumeback.png");
-		file("stepInto", "stepover.png", "stepout.png", "steplast.png", "skipover.png");
+		// Keep distinct execution directions and state overlays recognizable. A step-into
+		// glyph cannot stand in for step-over/out or reverse-resume, nor for a marked frame.
 		file("stop", "interrupt.png", "kill.png", "media-playback-stop.png");
 		file("notAllowed", "disconnect.png", "detach.png");
 		file("link", "connect.png", "connect-accept.png", "connect-outbound.png", "link.png");
@@ -193,7 +192,6 @@ public final class IconSet {
 		file("pending", "time.png");
 		file("nextBlock", "seek-present.png", "VCRFastForward.gif");
 		file("breakpoint", "breakpoints-enable-all.png");
-		file("breakpointMixed", "breakpoint-disable.png", "breakpoints-disable-all.png");
 		file("delete", "breakpoint-clear.png", "breakpoints-clear-all.png");
 		file("tree", "object-populated.png", "object-unpopulated.png");
 		file("bookmark", "imported_bookmark.gif");
@@ -201,9 +199,16 @@ public final class IconSet {
 		file("search", "zoom.png");
 		file("folder", "closedFolderGroup.png", "closedFolderLabels.png");
 		file("folderOpen", "openFolderGroup.png");
-		file("fileCode", "page_white_cup.png");
 		file("table", "table_relationship.png");
-		file("edit", "eclipse.png");
+
+		// Audited against the actual consuming action IDs, not filenames alone.
+		file("redo", "edit-redo.png");
+		file("edit", "edit-rename.png");
+		file("down", "go-down.png", "go-down.tango.16.png", "downArrow.png");
+		file("up", "go-up.tango.16.png");
+		file("right", "go-next.png");
+		file("scriptAdd", "page_add.png");
+		file("delete", "page_delete.png");
 
 		// stock values are composites (EMPTY_ICON{...}), so map the id itself
 		BY_ID.put("icon.undo", "undo");

@@ -12,6 +12,8 @@ are development tooling and must not become runtime requirements for the shared 
 
 ## Review the reference pack
 
+- [Current remaining-checks report](references/remaining-gates/README.md): Merge/Repository,
+  large graphs, icon dispositions, Windows logical scaling/accessibility, performance and runtime handlers.
 - [Token and state sheet](references/tokens.svg): generated from `GraphiteTheme.java`.
 - [Contrast report](references/contrast.md): primary/secondary text, primary action,
   semantic feedback, focus and control outlines.

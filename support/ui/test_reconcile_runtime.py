@@ -1,6 +1,9 @@
 """Guard against treating infrastructure/owner links as actual surface acceptance."""
 
 import unittest
+import tempfile
+from pathlib import Path
+from unittest.mock import patch
 
 from reconcile_runtime import module_coverage, reconcile
 
@@ -15,6 +18,55 @@ def runtime(kind, cls, name, owner="ExamplePlugin", path="Menu / Open"):
 
 
 class ReconcileTest(unittest.TestCase):
+    def testAnonymousBytecodeLineIsRetained(self):
+        item = runtime("action", "p.ExamplePlugin$1", "Open")
+        item.update(source_file="ExamplePlugin.java", source_line="73", callback_host="")
+        result = reconcile([("new", [item])], [source("plugin", "ExamplePlugin")])[0]
+        self.assertEqual(result["handler_line"], "73")
+        self.assertEqual(result["handler_match"], "runtime class bytecode source line")
+
+    def testCallbackHostTracesBuilderToActualSource(self):
+        sources = [source("plugin", "ExamplePlugin"), source("builder", "ActionBuilder", "component")]
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / sources[0]["source"]
+            path.parent.mkdir(parents=True)
+            path.write_text('class ExamplePlugin {\n new ActionBuilder("Open", owner);\n}')
+            item = runtime("action", "p.ActionBuilder$1", "Open", "ServiceOwner")
+            item["callback_host"] = "p.ExamplePlugin"
+            with patch("reconcile_runtime.ROOT", Path(temporary)):
+                result = reconcile([("new", [item])], sources)[0]
+        self.assertEqual(result["source_candidates"], "builder")
+        self.assertEqual(result["owner_candidates"], "")
+        self.assertEqual(result["handler_source"], sources[0]["source"])
+        self.assertEqual(result["handler_line"], "2")
+
+    def testAmbiguousCallbackAnchorStaysExplicit(self):
+        sources = [source("plugin", "ExamplePlugin")]
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / sources[0]["source"]
+            path.parent.mkdir(parents=True)
+            path.write_text('new ActionBuilder("Open", owner); new ActionBuilder("Open", owner);')
+            item = runtime("action", "p.ActionBuilder$1", "Open")
+            item["callback_host"] = "p.ExamplePlugin"
+            with patch("reconcile_runtime.ROOT", Path(temporary)):
+                result = reconcile([("new", [item])], sources)[0]
+        self.assertEqual(result["handler_line"], "")
+        self.assertIn("ambiguous", result["handler_match"])
+
+    def testMismatchedDebugSourceDoesNotClaimHandler(self):
+        item = runtime("action", "p.ExamplePlugin$1", "Open")
+        item.update(source_file="Different.java", source_line="73")
+        result = reconcile([("new", [item])], [source("plugin", "ExamplePlugin")])[0]
+        self.assertEqual(result["handler_source"], "")
+        self.assertIn("required", result["handler_match"])
+
+    def testNonPublicTopLevelActionUsesDebugSourceFile(self):
+        item = runtime("action", "p.HelperAction", "Open")
+        item.update(source_file="ExamplePlugin.java", source_line="82")
+        result = reconcile([("new", [item])], [source("plugin", "ExamplePlugin")])[0]
+        self.assertEqual(result["handler_line"], "82")
+        self.assertEqual(result["handler_match"], "runtime class bytecode source line")
+
     def testBuilderActionKeepsOwnerAndImplementationSeparate(self):
         sources = [source("plugin", "ExamplePlugin"), source("infra", "ActionBuilder", "component",
                     "Ghidra/Framework/Docking")]

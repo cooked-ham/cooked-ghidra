@@ -1,10 +1,12 @@
 param(
-    [string]$Distribution = 'E:\cooked-ghidra\build\verification\runtime-specialist-ui',
-    [string]$ProfileSeed = 'E:\cooked-ghidra\build\verification\profile',
-    [string]$Fixture = 'E:\cooked-ghidra\build\verification\graphite-specialists-acceptance-inputs',
+    [string]$Distribution = 'E:\cooked-ghidra\build\verification\coherent-ui-20261112\ghidra_12.2_DEV',
+    [string]$ProfileSeed = 'E:\cooked-ghidra\build\verification\coherent-ui-20261112\profile',
+    [string]$Fixture = 'E:\cooked-ghidra\build\verification\ui-acceptance-fixtures-20261112',
     [string]$ProbeSourceDir = 'E:\ghidra-ui-refresh\extension\GhidraUiRefresh\src\main\java\uirefresh',
     [string]$Python = 'C:\Python315\python.exe',
     [string[]]$Surfaces = @('codebrowser', 'vt', 'debugger'),
+    [int]$RepositoryPort = 14250,
+    [double]$UiScale = 1.0,
     [string]$Tag = ('graphite-specialist-ui-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
 )
 # Runs one specialist surface per Ghidra process so only one tool window is ever created.
@@ -17,9 +19,12 @@ $scriptLog = Join-Path $verification 'review-specialists.log'
 "$(Get-Date -Format o) start PID=$PID" | Set-Content -LiteralPath $scriptLog
 trap {
     "$(Get-Date -Format o) TRAP: $_" | Add-Content -LiteralPath $scriptLog
-    throw
+    throw $_
 }
 $runtime = [IO.Path]::GetFullPath($Distribution)
+$sourceVersion = ((Get-Content -LiteralPath (Join-Path $workspace 'Ghidra\application.properties') | Where-Object { $_ -match '^application.version=' }) -split '=',2)[1]
+$runtimeVersion = ((Get-Content -LiteralPath (Join-Path $runtime 'Ghidra\application.properties') | Where-Object { $_ -match '^application.version=' }) -split '=',2)[1]
+if ($sourceVersion -ne $runtimeVersion) { throw "Runtime $runtimeVersion does not match checkout $sourceVersion; prepare a coherent runtime first." }
 $fixturePath = [IO.Path]::GetFullPath($Fixture)
 if (!$runtime.StartsWith($verification + '\', [StringComparison]::OrdinalIgnoreCase)) {
     throw 'Use a disposable distribution under this checkout build\verification.'
@@ -50,6 +55,20 @@ if (Test-Path -LiteralPath $lock) {
 Set-Content -LiteralPath $lock -Value $PID
 $null = New-Item -ItemType Directory -Path $run
 
+# Stage the checkout's rebuilt presentation modules so captures cannot silently use stale jars.
+$modules = @('Framework\Gui', 'Framework\Docking', 'Framework\Graph', 'Features\Base',
+    'Features\Decompiler', 'Features\FunctionGraph', 'Features\FunctionGraphDecompilerExtension',
+    'Debug\ProposedUtils')
+$hashes = @()
+foreach ($module in $modules) {
+    $name = Split-Path $module -Leaf
+    $sourceJar = Join-Path $workspace "Ghidra\$module\build\libs\$name.jar"
+    $targetJar = Join-Path $runtime "Ghidra\$module\lib\$name.jar"
+    Copy-Item -LiteralPath $targetJar -Destination (Join-Path $run "$name.original.jar")
+    Copy-Item -LiteralPath $sourceJar -Destination $targetJar
+    $hashes += @{ module = $module; sha256 = (Get-FileHash -LiteralPath $targetJar -Algorithm SHA256).Hash }
+}
+
 # Prepare one clean profile, then clone it for each surface so tool state and project locks
 # cannot leak from one run to the next.
 $profileTemplate = Join-Path $run 'profile-template'
@@ -68,6 +87,8 @@ $null = New-Item -ItemType Directory -Path $classes
 $sources = @(
     (Join-Path $adapted 'uirefresh\UiRefreshHarnessPlugin.java'),
     (Join-Path $PSScriptRoot 'RuntimeInventory.java'),
+    (Join-Path $PSScriptRoot 'RepositoryReview.java'),
+    (Join-Path $PSScriptRoot 'AcceptanceReview.java'),
     (Join-Path $PSScriptRoot 'SpecialistReview.java')
 )
 $classpath = (Get-ChildItem -LiteralPath (Join-Path $runtime 'Ghidra') -Recurse -Filter '*.jar' -File |
@@ -99,7 +120,7 @@ try {
         Copy-Item -LiteralPath (Join-Path $fixturePath 'UiSpecialists.rep') -Destination $projectDir -Recurse
         $surfaceReview = Join-Path $review $surface
         $null = New-Item -ItemType Directory -Path $surfaceReview
-        $env:GHIDRA_JAVA_OPTIONS = "-Dapplication.settingsdir=$profile -Dghidra.ui.locationContext=true -Duirefresh.autolaunch=true -Duirefresh.specialists.out=$surfaceReview -Duirefresh.specialists.surface=$surface -Duirefresh.specialists.fixture=$fixturePath -Duirefresh.themeprobe.shots=true -Dsun.java2d.uiScale=1.0"
+        $env:GHIDRA_JAVA_OPTIONS = "-Dapplication.settingsdir=$profile -Dghidra.ui.locationContext=true -Duirefresh.autolaunch=true -Duirefresh.specialists.out=$surfaceReview -Duirefresh.specialists.surface=$surface -Duirefresh.specialists.fixture=$fixturePath -Duirefresh.repository.port=$RepositoryPort -Dghidra.cacerts=$fixturePath\repository-fixture.pem -Duirefresh.themeprobe.shots=true -Dsun.java2d.uiScale=$UiScale"
         "$(Get-Date -Format o) launching $surface" | Add-Content -LiteralPath $scriptLog
         $active = Start-Process -FilePath (Join-Path $runtime 'ghidraRun.bat') `
             -ArgumentList (Join-Path $projectDir 'UiSpecialists.gpr') `
@@ -149,12 +170,12 @@ try {
     $reviewRows = Import-Csv -LiteralPath (Join-Path $review 'specialist-ui-review.csv')
     if ($reviewRows.Count -lt 1) { throw 'Specialist review report is incomplete.' }
     @{ timestamp = (Get-Date).ToUniversalTime().ToString('o');
-       fixture = $fixturePath; distribution = $runtime; sequence = 'one surface per process';
-       logicalScale = 1.0; rendering = 'In-process Swing painting; off-screen tool frames; not visual acceptance';
+       fixture = $fixturePath; distribution = $runtime; jars = $hashes; sequence = 'one surface per process';
+       logicalScale = $UiScale; rendering = 'In-process Swing painting; off-screen tool frames; not physical-DPI acceptance';
        revision = (git -C $workspace rev-parse HEAD);
        probeJarSha256 = (Get-FileHash -LiteralPath $probeJar.FullName -Algorithm SHA256).Hash;
-       surfaces = $Surfaces;
-       scripts = @('adapt_specialist_probe.py', 'SpecialistReview.java', 'RuntimeInventory.java',
+       surfaces = $Surfaces; sourceApplicationVersion = $sourceVersion; runtimeApplicationVersion = $runtimeVersion;
+       scripts = @('adapt_specialist_probe.py', 'SpecialistReview.java', 'RuntimeInventory.java', 'AcceptanceReview.java', 'RepositoryReview.java',
            'review-specialists.ps1') | ForEach-Object {
                @{ script = $_; sha256 = (Get-FileHash -LiteralPath (Join-Path $PSScriptRoot $_) -Algorithm SHA256).Hash }
            } } |

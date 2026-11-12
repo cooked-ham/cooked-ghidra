@@ -15,25 +15,30 @@
  */
 package ghidra.app.plugin.core.functiongraph.graph.layout;
 
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Point2D;
-import java.util.List;
-
 import com.google.common.base.Predicate;
-
+import docking.DockingChrome;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.util.Context;
 import edu.uci.ics.jung.graph.util.Pair;
-import edu.uci.ics.jung.visualization.*;
+import edu.uci.ics.jung.visualization.Layer;
+import edu.uci.ics.jung.visualization.MultiLayerTransformer;
+import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.renderers.EdgeLabelRenderer;
-import edu.uci.ics.jung.visualization.renderers.Renderer;
 import edu.uci.ics.jung.visualization.transform.shape.GraphicsDecorator;
 import ghidra.app.plugin.core.functiongraph.graph.FGEdge;
 import ghidra.app.plugin.core.functiongraph.graph.vertex.FGVertex;
+import ghidra.graph.viewer.renderer.EdgeLabelLayout;
+import ghidra.graph.viewer.vertex.VertexShapes;
 import ghidra.graph.viewer.vertex.VisualGraphVertexShapeTransformer;
 import ghidra.program.model.symbol.FlowType;
+
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An edge label renderer used with the {@link DecompilerNestedLayout}
@@ -42,18 +47,64 @@ import ghidra.program.model.symbol.FlowType;
  * @param <E> the edge type
  */
 class DNLEdgeLabelRenderer<V extends FGVertex, E extends FGEdge>
-		implements Renderer.EdgeLabel<V, E> {
+        implements EdgeLabelLayout<V, E> {
 
 	private static final int DEFAULT_EDGE_OFFSET = 20;
 
-	private VisualGraphVertexShapeTransformer<V> vertexShapeTransformer =
+    private final VisualGraphVertexShapeTransformer<V> vertexShapeTransformer =
 		new VisualGraphVertexShapeTransformer<>();
 
-	private double edgeOffset;
+    private final double edgeOffset;
+    private final List<Rectangle2D> occupiedBounds = new ArrayList<>();
+    private boolean vertexBoundsCached;
 
 	DNLEdgeLabelRenderer(double condenseFactor) {
 		this.edgeOffset = DEFAULT_EDGE_OFFSET * (1 - condenseFactor);
 	}
+
+    /**
+     * Keeps the layout's label anchor when it is clear. Otherwise, move the label the shortest
+     * distance along one axis to clear every card and prior label. Coordinates share the vertex
+     * renderer's layout transform; the graphics context applies the remaining view zoom to both.
+     */
+    static Point2D avoidVertexOverlap(Point2D preferred, Dimension size,
+                                      List<Rectangle2D> vertices) {
+        Rectangle2D label = new Rectangle2D.Double(preferred.getX(), preferred.getY(),
+                size.width, size.height);
+        if (vertices.stream().noneMatch(bounds -> bounds.intersects(label))) {
+            return preferred;
+        }
+
+        Point2D best = null;
+        double bestDistance = Double.POSITIVE_INFINITY;
+        for (Rectangle2D vertex : vertices) {
+            Point2D[] candidates = {
+                    new Point2D.Double(vertex.getMinX() - size.width, preferred.getY()),
+                    new Point2D.Double(vertex.getMaxX(), preferred.getY()),
+                    new Point2D.Double(preferred.getX(), vertex.getMinY() - size.height),
+                    new Point2D.Double(preferred.getX(), vertex.getMaxY())
+            };
+            for (Point2D candidate : candidates) {
+                double distance = preferred.distanceSq(candidate);
+                if (distance >= bestDistance) {
+                    continue;
+                }
+                label.setRect(candidate.getX(), candidate.getY(), size.width, size.height);
+                if (vertices.stream().noneMatch(bounds -> bounds.intersects(label))) {
+                    best = candidate;
+                    bestDistance = distance;
+                }
+            }
+        }
+        // At least one extreme boundary is clear for finite card bounds.
+        return best == null ? preferred : best;
+	}
+
+    @Override
+    public void reset() {
+        occupiedBounds.clear();
+        vertexBoundsCached = false;
+    }
 
 	@Override
 	public void labelEdge(RenderContext<V, E> rc, Layout<V, E> layout, E e, String text) {
@@ -97,7 +148,7 @@ class DNLEdgeLabelRenderer<V extends FGVertex, E extends FGEdge>
 		List<Point2D> articulationPoints = e.getArticulationPoints();
 		if (articulationPoints.isEmpty()) {
 			double vertexBottom = start.getY() + (vertexBounds.height >> 1); // location is centered
-			double textY = (int) (vertexBottom + edgeOffset); // below the vertex; above the bend 
+			double textY = (int) (vertexBottom + edgeOffset); // below the vertex; above the bend
 			double textX = (int) (start.getX() + xDisplacement); // right of the edge
 			labelPointOffset.setLocation(textX, textY);
 		}
@@ -107,10 +158,8 @@ class DNLEdgeLabelRenderer<V extends FGVertex, E extends FGEdge>
 		}
 		else {
 
-			Point2D bend1 = articulationPoints.get(0);
+            Point2D bend1 = articulationPoints.getFirst();
 			bend1 = multiLayerTransformer.transform(Layer.LAYOUT, bend1);
-			Point2D bend2 = articulationPoints.get(1);
-			bend2 = multiLayerTransformer.transform(Layer.LAYOUT, bend2);
 
 			double vertexSide = cx + (vertexBounds.width >> 1);
 			double vertexBottom = cy + (vertexBounds.height >> 1);
@@ -122,13 +171,13 @@ class DNLEdgeLabelRenderer<V extends FGVertex, E extends FGEdge>
 
 			if (articulationPoints.size() == 2) {
 
-				double textX = (int) (vertexSide + edgeOffset); // right of the vertex 
-				double textY = (int) (cy + edgeOffset); // above the edge 
+				double textX = (int) (vertexSide + edgeOffset); // right of the vertex
+				double textY = (int) (cy + edgeOffset); // above the edge
 				labelPointOffset.setLocation(textX, textY);
 			}
 			else { // 3 or 4 articulations
 
-				double textY = (int) (vertexBottom + edgeOffset); // below the vertex; above the bend 
+				double textY = (int) (vertexBottom + edgeOffset); // below the vertex; above the bend
 				double textX = (int) (bx1 + xDisplacement); // right of the edge
 				if (!isRight) {
 					textX = bx1 - xDisplacement - labelWidth;
@@ -139,6 +188,12 @@ class DNLEdgeLabelRenderer<V extends FGVertex, E extends FGEdge>
 		}
 
 		Dimension d = component.getPreferredSize();
+        if (DockingChrome.isModern()) {
+            cacheVertexBounds(rc, layout);
+            labelPointOffset = avoidVertexOverlap(labelPointOffset, d, occupiedBounds);
+            occupiedBounds.add(new Rectangle2D.Double(labelPointOffset.getX() - 2,
+                    labelPointOffset.getY() - 2, d.width + 4, d.height + 4));
+        }
 
 		GraphicsDecorator g = rc.getGraphicsContext();
 		AffineTransform old = g.getTransform();
@@ -146,16 +201,39 @@ class DNLEdgeLabelRenderer<V extends FGVertex, E extends FGEdge>
 		xform.translate(labelPointOffset.getX(), labelPointOffset.getY());
 
 		g.setTransform(xform);
-		g.draw(component, rc.getRendererPane(), 0, 0, d.width, d.height, true);
-		g.setTransform(old);
+        try {
+            g.draw(component, rc.getRendererPane(), 0, 0, d.width, d.height, true);
+        } finally {
+            g.setTransform(old);
+        }
 
 		// debug
-		//labelArticulations(component, g, rc, e);
-	}
+        //labelArticulations(g, rc, e);
+    }
+
+    private void cacheVertexBounds(RenderContext<V, E> rc, Layout<V, E> layout) {
+        if (!vertexBoundsCached) {
+            Graph<V, E> jungGraph = layout.getGraph();
+            MultiLayerTransformer multiLayerTransformer = rc.getMultiLayerTransformer();
+            for (V vertex : jungGraph.getVertices()) {
+                if (!rc.getVertexIncludePredicate().apply(Context.getInstance(jungGraph, vertex))) {
+                    continue;
+                }
+                Shape shape = VertexShapes.getVertexShape(rc.getVertexShapeTransformer(), vertex, true);
+                Point2D location = multiLayerTransformer.transform(Layer.LAYOUT, layout.apply(vertex));
+                Rectangle2D bounds = AffineTransform
+                        .getTranslateInstance((float) location.getX(), (float) location.getY())
+                        .createTransformedShape(shape).getBounds2D();
+                // Leave a little space around card borders and selection outlines.
+                occupiedBounds.add(new Rectangle2D.Double(bounds.getX() - 4,
+                        bounds.getY() - 4, bounds.getWidth() + 8, bounds.getHeight() + 8));
+            }
+            vertexBoundsCached = true;
+        }
+    }
 
 	@SuppressWarnings("unused") // used during debug
-	private void labelArticulations(Component component, GraphicsDecorator g,
-			RenderContext<V, E> rc, E e) {
+    private void labelArticulations(GraphicsDecorator g, RenderContext<V, E> rc, E e) {
 
 		int offset = 5;
 		int counter = 1;
@@ -168,7 +246,7 @@ class DNLEdgeLabelRenderer<V extends FGVertex, E extends FGEdge>
 			EdgeLabelRenderer labelRenderer = rc.getEdgeLabelRenderer();
 			Font font = rc.getEdgeFontTransformer().apply(e);
 			boolean isSelected = rc.getPickedEdgeState().isPicked(e);
-			component = labelRenderer.getEdgeLabelRendererComponent(rc.getScreenDevice(),
+            Component component = labelRenderer.getEdgeLabelRendererComponent(rc.getScreenDevice(),
 				"p" + counter++, font, isSelected, e);
 
 			Dimension d = component.getPreferredSize();

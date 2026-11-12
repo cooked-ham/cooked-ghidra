@@ -15,25 +15,28 @@
  */
 package ghidra.app.plugin.core.script;
 
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
-
-import org.junit.*;
-
 import docking.ComponentProvider;
 import docking.action.DockingActionIf;
 import docking.widgets.filechooser.GhidraFileChooser;
 import docking.widgets.table.GTable;
 import generic.jar.ResourceFile;
 import ghidra.app.plugin.core.osgi.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.*;
 
 public class BundleStatusManagerTest extends AbstractGhidraScriptMgrPluginTest {
 	protected static String BUNDLE_PATH = "$GHIDRA_HOME/Features/Base/ghidra_scripts";
@@ -64,6 +67,20 @@ public class BundleStatusManagerTest extends AbstractGhidraScriptMgrPluginTest {
 	public void cleanupBundleStatusTests() {
 		provider.getBundleHost().removeListener(testBundleHostListener);
 	}
+
+    @Test
+    public void testQueuedTableNotificationAfterDisposeIsIgnored() {
+        assertTrue(bundleStatusTableModel.getRowCount() > 0);
+        AtomicInteger notifications = new AtomicInteger();
+        bundleStatusTableModel.addTableModelListener(_ -> notifications.incrementAndGet());
+        runSwing(() -> {
+            javax.swing.SwingUtilities.invokeLater(() -> bundleStatusTableModel.fireTableRowsInserted(0, 0));
+            bundleStatusTableModel.dispose();
+        });
+        waitForSwing();
+        assertEquals(0, bundleStatusTableModel.getColumnCount());
+        assertEquals(0, notifications.get());
+    }
 
 	@Test
 	public void testDisableEnableScriptDirectory() throws Exception {

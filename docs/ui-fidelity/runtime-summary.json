@@ -3,61 +3,101 @@
   "captures": [
     {
       "capture": "capture.csv.chooser.runtime.csv",
-      "sha256": "7348c52d82d64c8324e58960ea62a524c02edb74acef6ab1ab6a887ef1cf1238",
+      "sha256": "e61b01d91ac12926d5d182f8fccdb6e3eb535ed1c625dbb937e5273cd59adcbb",
       "registrations": 1
     },
     {
       "capture": "capture.csv.codebrowser.runtime.csv",
-      "sha256": "97edbf21a8bf4377cc59e41f5f3189b310ee256227d89749b59d166c2b5a0b82",
-      "registrations": 1117
+      "sha256": "2bc48f1dafac38d116904332a17965ce2e14876bc4f3e97405efa9fd0cc35216",
+      "registrations": 1764
     },
     {
       "capture": "capture.csv.Debugger.runtime.csv",
-      "sha256": "5ee33a85cd362fce1efbfbaba0e64ffdb91b3f0b336fe4a67e65754b3a03d31d",
-      "registrations": 1303
+      "sha256": "4435fb01cefc13fb8a6068fbdfa5ebddd3e24d80f665b91f7b113da8ced19426",
+      "registrations": 2238
     },
     {
       "capture": "capture.csv.frontend.runtime.csv",
-      "sha256": "759e6df4df9e696020536752f117e299164968f62febc6fab6a9f00b5337c524",
-      "registrations": 166
+      "sha256": "fd7bb695a4c9b82e82e671550e639680dbab9976e20b60228f31b2e3ac8c3877",
+      "registrations": 213
+    },
+    {
+      "capture": "capture.csv.optional.Jython.runtime.csv",
+      "sha256": "8f8f470bf0543d71a3fe3d6ace90dedca643429fc74d4aad13636d3ad8e68982",
+      "registrations": 1839
+    },
+    {
+      "capture": "capture.csv.optional.Lisa.runtime.csv",
+      "sha256": "b950a5e11bf5d50351ee3ddac251707ce28a7ce89a67a131ae591ac8b9d43127",
+      "registrations": 1850
+    },
+    {
+      "capture": "capture.csv.optional.MachineLearning.runtime.csv",
+      "sha256": "b950a5e11bf5d50351ee3ddac251707ce28a7ce89a67a131ae591ac8b9d43127",
+      "registrations": 1850
+    },
+    {
+      "capture": "capture.csv.optional.sample.runtime.csv",
+      "sha256": "211a46f61602b301a6d7d8dbac53a86ac4a3d936d79718e20483ad714727ed31",
+      "registrations": 1837
+    },
+    {
+      "capture": "capture.csv.optional.SampleTablePlugin.runtime.csv",
+      "sha256": "8f8f470bf0543d71a3fe3d6ace90dedca643429fc74d4aad13636d3ad8e68982",
+      "registrations": 1839
+    },
+    {
+      "capture": "capture.csv.optional.SymbolicSummaryZ3.runtime.csv",
+      "sha256": "94a08ca9d9c8aa430038c203bdc2a6e4bd1b5784c56b3d05eb3fd3151ba4f6d1",
+      "registrations": 1892
     },
     {
       "capture": "capture.csv.options.runtime.csv",
-      "sha256": "5baa7e9638894a48589e42d5d8e831fa45526b24b9e8c2bca11abe9f8776dc82",
+      "sha256": "c0c8f18a760b08846fcbf0abc80d162ceea1a299e59d8e7a19b2735056924c14",
       "registrations": 1
     },
     {
       "capture": "capture.csv.VersionTracking.runtime.csv",
-      "sha256": "ecfc54bddf631eff7a39559b56ce3cad4f58b5870a82d17900f050e5ce027a6b",
-      "registrations": 177
+      "sha256": "7f1c06ec786aad4b8e9f7440bcb6c6caa0a0bc0669380225c4b759da184d383e",
+      "registrations": 325
     }
   ],
   "installation": {
     "capture": "capture.csv.modules.csv",
-    "sha256": "778ae9697431f5797d2e69bd702f19cac2cafbaf825a769c6328a242ffe7c7e2",
-    "active_module_roots": 108
+    "sha256": "46961badf9d09d89b74e954791b9a3e08cf47877481d4f864ff34ce2dd6b7576",
+    "active_module_roots": 113
   },
-  "source_ledger_sha256": "0efc3bf6f32e32cebdc93e4b62c052704712ed7d41ff79b05c1293c980a75426",
-  "module_ledger_sha256": "7c4ed1dbfc7c52fd195b7f3f17cbaf6aa8d3c50ed97330bb9fad4b0f70e3b702",
+  "source_ledger_sha256": "d0985f295cceb125295dd4cbbc9c518cf183d9e05275420abb84adde2ac7b249",
+  "module_ledger_sha256": "7759d8427691cba476dfd3dc92cd92d425761c5e6df76eb4221235ad616c3ec4",
   "kinds": {
-    "action": 2376,
+    "action": 8361,
+    "component": 5011,
     "dialog": 2,
-    "plugin": 302,
-    "provider": 85
+    "plugin": 1145,
+    "provider": 316,
+    "renderer": 814
   },
   "class_matches": {
-    "enclosing source file; handler tracing required": 953,
-    "exact declaration": 1808,
-    "unresolved/external": 4
+    "enclosing source file; runtime handler traced": 3560,
+    "exact declaration": 9216,
+    "external capture harness; excluded from first-party scope": 22,
+    "platform/third-party implementation; not first-party source": 2851
   },
   "owner_matches": {
-    "external/unindexed loaded plugin": 6,
-    "loaded plugin linked": 2235,
-    "owner not a loaded plugin; trace service/infrastructure": 524
+    "external/unindexed loaded plugin": 344,
+    "loaded plugin linked": 13314,
+    "non-plugin owner label; runtime handler traced": 1880,
+    "owner not a loaded plugin; trace service/infrastructure": 111
   },
-  "modules_with_registration_evidence": 23,
-  "modules_without_runtime_evidence": 109,
-  "source_modules_absent_from_runtime": 29,
+  "handler_matches": {
+    "runtime class bytecode source line": 6908,
+    "runtime lambda target and source line": 1453
+  },
+  "unresolved_registrations_or_handlers": 0,
+  "registration_reconciled": true,
+  "modules_with_registration_evidence": 30,
+  "modules_without_runtime_evidence": 102,
+  "source_modules_absent_from_runtime": 22,
   "runtime_reconciled": false,
   "release_blocker": "Registration links do not prove exhaustive menus, dialogs, providers, optional installations or visual/functional acceptance."
 }

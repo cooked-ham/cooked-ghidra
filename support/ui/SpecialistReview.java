@@ -33,6 +33,10 @@ import ghidra.features.bsim.gui.BSimSearchPlugin;
 import ghidra.features.bsim.gui.BSimServerManager;
 import ghidra.features.bsim.gui.search.dialog.BSimServerCache;
 import ghidra.features.bsim.query.BSimServerInfo;
+import ghidra.features.codecompare.plugin.FunctionComparisonProvider;
+import ghidra.features.codecompare.functiongraph.FunctionGraphCodeComparisonView;
+import ghidra.app.services.GoToService;
+import docking.widgets.tree.GTree;
 import ghidra.framework.ToolUtils;
 import ghidra.framework.model.DomainFile;
 import ghidra.framework.model.DomainFolder;
@@ -110,6 +114,20 @@ public final class SpecialistReview {
     }
 
     private static void runSurface(PluginTool browser) throws Exception {
+        if ("repository".equals(surface)) {
+            onEdt(() -> { selectGraphite(browser); hideFrontEnd(); });
+            RepositoryReview.run(browser, fixture, out);
+            add("repository and merge", "FX-REPO", "RepositoryPanel / VersionHistoryDialog / Merge Tool",
+                "shared Bob project / version history / merge", "see repository-checks.txt", "repository-*.png;merge-*.png");
+            return;
+        }
+        if ("acceptance".equals(surface)) {
+            onEdt(() -> { selectGraphite(browser); hideFrontEnd(); });
+            AcceptanceReview.run(browser, out);
+            add("large graph and automated accessibility", "FX-GRAPH", "Function Graph / Swing accessibility",
+                "deterministic 128-diamond function", "see acceptance-checks.txt and performance.csv", "large-*.png");
+            return;
+        }
         Project project = browser.getProject();
         DomainFolder root = project.getProjectData().getRootFolder();
         DomainFolder binaries = root.getFolder("binaries");
@@ -171,6 +189,7 @@ public final class SpecialistReview {
         step("program diff", () -> reviewDiff(browser, binaries.getFile("destination.bin")));
         step("code compare", () -> reviewCodeCompare(browser, source));
         step("BSim search", () -> reviewBSim(browser, source));
+        step("call trees", () -> reviewCallTrees(browser, source));
     }
 
     private static void reviewDiff(PluginTool browser, DomainFile destination) throws Exception {
@@ -217,6 +236,7 @@ public final class SpecialistReview {
             add("code compare", "FX-COMPARE", "FunctionComparisonProvider",
                 "Version Tracking / Compare Functions", "two populated function panels",
                 "code-compare.png");
+            reviewComparisonGraph(browser, "code-compare-graph.png", "code compare graph");
         }
         catch (Exception e) {
             add("code compare", "FX-COMPARE", "FunctionComparisonProvider", "not captured",
@@ -290,6 +310,52 @@ public final class SpecialistReview {
         add("BSim search", "FX-BSIM", "BSimSearchDialog / BSimSearchResultsProvider",
             "BSim > Search Functions...", "two-executable fixture queried; 11 cross-program hits",
             "bsim-search-dialog.png;bsim-search-results.png");
+        onEdt(() -> {
+            ComponentProvider provider = browser.getComponentProvider("BSim Search Results");
+            try {
+                Field tableField = provider.getClass().getDeclaredField("matchesTable");
+                tableField.setAccessible(true);
+                var filterTable = (ghidra.util.table.GhidraFilterTable<?>) tableField.get(provider);
+                JTable table = filterTable.getTable();
+                if (table.getRowCount() == 0) throw new AssertionError("No BSim matches to compare");
+                // Older prepared databases recorded '/' instead of '/binaries', and their project
+                // URL points at the seed. Relocate only the selected in-memory result to this copy.
+                // New fixtures record the actual parent path in CreateSpecialistSessions.
+                int selectedRow = -1;
+                for (int rowIndex = 0; rowIndex < table.getRowCount(); rowIndex++) {
+                    table.setRowSelectionInterval(rowIndex, rowIndex);
+                    var candidate = (ghidra.features.bsim.gui.search.results.BSimMatchResult)
+                        filterTable.getSelectedRowObject();
+                    if (!candidate.getExecutableName().equals(source.getName())) {
+                        selectedRow = rowIndex;
+                        break;
+                    }
+                }
+                if (selectedRow < 0) throw new AssertionError("No cross-program BSim match");
+                var result = (ghidra.features.bsim.gui.search.results.BSimMatchResult)
+                    filterTable.getSelectedRowObject();
+                if (source.getDomainFile().getParent().getFile(result.getExecutableName()) == null)
+                    throw new AssertionError("BSim match not found in disposable project");
+                var executable = result.getMatchFunctionDescription().getExecutableRecord();
+                var relocate = executable.getClass().getDeclaredMethod("setRepository", String.class, String.class);
+                relocate.setAccessible(true);
+                relocate.invoke(executable, ghidra.framework.protocol.ghidra.GhidraURL.getProjectURL(
+                    source.getDomainFile().getLocalProjectURL(null)).toString(),
+                    source.getDomainFile().getParent().getPathname());
+                var context = provider.getActionContext(new java.awt.event.MouseEvent(table,
+                    java.awt.event.MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, 1, false));
+                var action = browser.getAllActions().stream()
+                    .filter(a -> a.getName().equals("Compare Functions") &&
+                        a.getOwner().equals(provider.getOwner()) && a.isEnabledForContext(context))
+                    .findFirst().orElseThrow();
+                action.actionPerformed(context);
+            }
+            catch (ReflectiveOperationException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Thread.sleep(4000);
+        reviewComparisonGraph(browser, "bsim-compare-graph.png", "BSim compare graph");
     }
 
     private static void reviewVersionTracking(PluginTool vt, DomainFile sessionFile)
@@ -331,12 +397,112 @@ public final class SpecialistReview {
                 Thread.sleep(5000);
                 captureTool(vt, "versiontracking.compare");
                 shotTool(vt, "version-tracking-compare.png");
+                reviewComparisonGraph(vt, "version-tracking-graph.png", "version tracking graph");
             }
         }
         add("version tracking", "FX-VT", "VTPlugin / VTMatchTableProvider",
             "Version Tracking tool / saved session",
             "four manual matches (1 accepted, 1 rejected, 2 available); markup provider visible",
             "version-tracking.png;version-tracking-compare.png");
+    }
+
+    private static void reviewComparisonGraph(PluginTool tool, String image, String surfaceName)
+            throws Exception {
+        FunctionComparisonProvider[] selected = new FunctionComparisonProvider[1];
+        onEdt(() -> {
+            var providers = tool.getWindowManager().getComponentProviders(FunctionComparisonProvider.class);
+            for (FunctionComparisonProvider provider : providers) {
+                if (provider.isVisible()) selected[0] = provider;
+            }
+            if (selected[0] == null) throw new AssertionError("No visible comparison provider");
+            selected[0].setActiveView(FunctionGraphCodeComparisonView.NAME);
+            if (!FunctionGraphCodeComparisonView.NAME.equals(selected[0].getComponent().getActiveViewName()))
+                throw new AssertionError("Function graph comparison view unavailable");
+            tool.toFront(selected[0]);
+        });
+        int[] counts = new int[2];
+        boolean ready = false;
+        for (int attempt = 0; attempt < 150; attempt++) {
+            boolean[] settled = new boolean[1];
+            onEdt(() -> {
+                var graphView = (FunctionGraphCodeComparisonView) selected[0]
+                    .getView(FunctionGraphCodeComparisonView.NAME);
+                var left = graphView.getDisplays().get(ghidra.util.datastruct.Duo.Side.LEFT).getController();
+                var right = graphView.getDisplays().get(ghidra.util.datastruct.Duo.Side.RIGHT).getController();
+                if (!left.isBusy() && !right.isBusy() && left.getFunctionGraphData().hasResults() &&
+                        right.getFunctionGraphData().hasResults()) {
+                    counts[0] = left.getFunctionGraphData().getFunctionGraph().getVertexCount();
+                    counts[1] = right.getFunctionGraphData().getFunctionGraph().getVertexCount();
+                    settled[0] = counts[0] > 0 && counts[1] > 0;
+                }
+            });
+            if (settled[0]) { ready = true; break; }
+            Thread.sleep(100);
+        }
+        if (!ready) throw new AssertionError("Comparison graphs did not populate");
+        shotWindow(SwingUtilities.getWindowAncestor(selected[0].getComponent()), image);
+        add(surfaceName, "FX-GRAPH", "FunctionGraphCodeComparisonView", "Compare Functions > Function Graph View",
+            "left=" + counts[0] + " vertices; right=" + counts[1] + " vertices", image);
+        onEdt(() -> selected[0].closeComponent());
+    }
+
+    private static void reviewCallTrees(PluginTool tool, Program program) throws Exception {
+        // The existing five-function compare fixture has no CALL instructions. Add two real
+        // callers only to this disposable project, after its diff/BSim captures are complete.
+        int transaction = program.startTransaction("Populate call-tree review fixture");
+        boolean success = false;
+        try {
+            var api = new ghidra.program.flatapi.FlatProgramAPI(program);
+            api.setBytes(address(program, 0x401300), java.util.HexFormat.of().parseHex(
+                "55e8fafcffffe835fdffff5dc3"));
+            api.setBytes(address(program, 0x401340), java.util.HexFormat.of().parseHex("e8bbffffffc3"));
+            if (!api.disassemble(address(program, 0x401300)) ||
+                    !api.disassemble(address(program, 0x401340)))
+                throw new AssertionError("Call-tree fixture did not disassemble");
+            if (api.createFunction(address(program, 0x401300), "call_tree_fixture_driver") == null ||
+                    api.createFunction(address(program, 0x401340), "call_tree_fixture_caller") == null)
+                throw new AssertionError("Call-tree fixture functions missing");
+            success = true;
+        }
+        finally {
+            program.endTransaction(transaction, success);
+        }
+        onEdt(() -> {
+            if (tool.getComponentProvider("Function Call Trees") == null) {
+                try {
+                    tool.addPlugin("ghidra.app.plugin.core.calltree.CallTreePlugin");
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            ComponentProvider provider = tool.getComponentProvider("Function Call Trees");
+            tool.showComponentProvider(provider, true);
+            tool.getService(GoToService.class).goTo(address(program, 0x401300), program);
+        });
+        Thread.sleep(3000);
+        List<GTree> trees = new ArrayList<>();
+        onEdt(() -> collectTrees(tool.getComponentProvider("Function Call Trees").getComponent(), trees));
+        if (trees.size() != 2) throw new AssertionError("Expected incoming/outgoing call trees");
+        onEdt(() -> trees.forEach(GTree::expandAll));
+        Thread.sleep(2000);
+        int[] children = new int[1];
+        onEdt(() -> {
+            for (GTree tree : trees) children[0] += tree.getViewRoot().getChildCount();
+        });
+        if (children[0] == 0) throw new AssertionError("Call-tree fixture has no calls");
+        shotProvider(tool, "Function Call Trees", "call-trees.png");
+        add("call trees", "FX-GRAPH", "CallTreeProvider", "Window > Function Call Trees",
+            "two expanded trees; " + children[0] + " direct call nodes; two disposable caller functions", "call-trees.png");
+    }
+
+    private static void collectTrees(Component component, List<GTree> trees) {
+        if (component instanceof GTree tree) {
+            trees.add(tree);
+        }
+        else if (component instanceof Container container) {
+            for (Component child : container.getComponents()) collectTrees(child, trees);
+        }
     }
 
     private static void reviewDebugger(PluginTool debugger, DomainFile traceFile)

@@ -15,18 +15,6 @@
  */
 package ghidra.app.plugin.core.osgi;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
-
-import javax.swing.JLabel;
-import javax.swing.event.TableModelEvent;
-
-import org.osgi.framework.Bundle;
-
 import docking.widgets.table.*;
 import generic.jar.ResourceFile;
 import generic.theme.GColor;
@@ -38,6 +26,16 @@ import ghidra.util.Swing;
 import ghidra.util.SystemUtilities;
 import ghidra.util.table.column.AbstractGColumnRenderer;
 import ghidra.util.table.column.GColumnRenderer;
+import org.osgi.framework.Bundle;
+
+import javax.swing.*;
+import javax.swing.event.TableModelEvent;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 /**
  * Model for {@link BundleStatus} objects.
@@ -53,14 +51,15 @@ public class BundleStatusTableModel
 	private static final Color COLOR_BUNDLE_ACTIVE = new GColor("color.fg.table.bundle.active");
 	//@formatter:on
 
-	private BundleHost bundleHost;
-	private BundleStatusComponentProvider provider;
-	private Map<String, BundleStatus> bundleLocToStatusMap = new HashMap<>();
-	private BundleHostListener bundleHostListener;
+	private final BundleHost bundleHost;
+	private final BundleStatusComponentProvider provider;
+	private final Map<String, BundleStatus> bundleLocToStatusMap = new HashMap<>();
+	private final BundleHostListener bundleHostListener;
 
-	private List<BundleStatusChangeRequestListener> bundleStatusListeners =
+	private final List<BundleStatusChangeRequestListener> bundleStatusListeners =
 		new CopyOnWriteArrayList<>();
 	private List<BundleStatus> statuses;
+	private volatile boolean disposed;
 
 	BundleStatusTableModel(BundleStatusComponentProvider provider, BundleHost bundleHost) {
 		super(provider.getTool());
@@ -89,13 +88,23 @@ public class BundleStatusTableModel
 
 	@Override
 	public void dispose() {
-		super.dispose();
+		if (disposed) {
+			return;
+		}
+		disposed = true;
 		bundleHost.removeListener(bundleHostListener);
+		super.dispose();
 	}
 
 	@Override
 	public void fireTableChanged(TableModelEvent e) {
-		Swing.runIfSwingOrRunLater(() -> BundleStatusTableModel.super.fireTableChanged(e));
+		Swing.runIfSwingOrRunLater(() -> {
+			// Bundle events already queued on the EDT can outlive their provider. Sorting a
+			// disposed dynamic model would access columns that dispose() has removed.
+			if (!disposed) {
+				BundleStatusTableModel.super.fireTableChanged(e);
+			}
+		});
 	}
 
 	// must be called on the swing thread
@@ -116,6 +125,9 @@ public class BundleStatusTableModel
 	 */
 	private void addNewStatus(GhidraBundle bundle) {
 		Swing.runLater(() -> {
+			if (disposed) {
+				return;
+			}
 			int index = statuses.size();
 			addNewStatusNoFire(bundle);
 			fireTableRowsInserted(index, index);
@@ -260,7 +272,7 @@ public class BundleStatusTableModel
 
 		AtomicBoolean changed = new AtomicBoolean(false);
 		Comparator<BundleStatus> wrapper = new Comparator<>() {
-			Comparator<BundleStatus> comparator = sortingContext.getComparator();
+			final Comparator<BundleStatus> comparator = sortingContext.getComparator();
 
 			@Override
 			public int compare(BundleStatus o1, BundleStatus o2) {
@@ -315,12 +327,7 @@ public class BundleStatusTableModel
 				BundleStatus status = getStatus(bundle);
 				int rowIndex = getRowIndex(status);
 				status.setBusy(false);
-				if (newActivation) {
-					status.setActive(true);
-				}
-				else {
-					status.setActive(false);
-				}
+                status.setActive(newActivation);
 				fireTableRowsUpdated(rowIndex, rowIndex);
 			});
 		}

@@ -105,7 +105,8 @@ public class CreateSpecialistSessions extends GhidraScript {
                     signatures.setVectorFactory(db.getLSHVectorFactory());
                     var url = program.getDomainFile().getLocalProjectURL(null);
                     signatures.openProgram(program, null, null, null,
-                        ghidra.framework.protocol.ghidra.GhidraURL.getProjectURL(url).toString(), "/");
+                        ghidra.framework.protocol.ghidra.GhidraURL.getProjectURL(url).toString(),
+                        program.getDomainFile().getParent().getPathname());
                     var functions = program.getFunctionManager();
                     signatures.scanFunctions(functions.getFunctions(true), functions.getFunctionCount(), monitor);
                     var descriptions = signatures.getDescriptionManager();

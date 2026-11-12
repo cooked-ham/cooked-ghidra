@@ -29,6 +29,12 @@ def main():
         'dialog[0] = new docking.options.editor.OptionsDialog("Tool Options", "Options", tool.getOptions(), null);\n'
         '            ((docking.options.editor.OptionsDialog) dialog[0]).displayCategory("Navigation", null);',
         'new String[] { "Bytes", "Function Graph" }': 'new String[] { "Bytes", "Symbol Table", "Function Graph" }',
+        'if (want.equals("(polish)")) {': '''if (want.equals("(graph)")) {
+                    GraphReview.run(tool, out, lines);
+                    i++;
+                    continue;
+                }
+                if (want.equals("(polish)")) {''',
         'saveComponent(SwingUtilities.getWindowAncestor(dialog[0].getComponent()), out + "." + theme + ".options.png");':
         'RuntimeInventory.dialog(dialog[0], out + ".options.runtime.csv", "CodeBrowser / Edit / Tool Options / Navigation");\n'
         '\t\t\tsaveComponent(SwingUtilities.getWindowAncestor(dialog[0].getComponent()), out + "." + theme + ".options.png");',
@@ -47,7 +53,8 @@ def main():
         "adapted_sha256": hashlib.sha256(source.encode()).hexdigest(),
         "changes": ["hide synthetic harness panes", "select Navigation options form",
                     "capture actual Symbol Table", "record plugins/providers/all action routes",
-                    "capture real options/chooser dialog classes", "optional default specialist tool registrations"]
+                    "capture real options/chooser dialog classes", "optional default specialist tool registrations",
+                    "optional populated graph grouping/ungrouping and theme-switch review"]
     }, indent=2) + "\n", encoding="utf-8")
 
 

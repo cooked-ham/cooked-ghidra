@@ -15,15 +15,17 @@
  */
 package ghidra.graph.viewer.renderer;
 
-import java.util.*;
-
 import com.google.common.base.Function;
-
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.visualization.RenderContext;
 import edu.uci.ics.jung.visualization.renderers.Renderer;
-import ghidra.graph.viewer.*;
-import ghidra.graph.viewer.edge.BasicEdgeLabelRenderer;
+import ghidra.graph.viewer.GraphViewerUtils;
+import ghidra.graph.viewer.VisualEdge;
+import ghidra.graph.viewer.VisualVertex;
+
+import java.util.Collection;
+import java.util.ConcurrentModificationException;
+import java.util.List;
 
 /**
  * This was created to add the ability to paint selected vertices above other vertices.  We need
@@ -38,16 +40,17 @@ public class VisualGraphRenderer<V extends VisualVertex, E extends VisualEdge<V>
 
 	private static GridPainter gridPainter;
 
+    private final Renderer.EdgeLabel<V, E> edgeLabelRenderer;
+
 	/**
 	 * Sets a painter to show an underlying grid. (To see a layout's associated grid, search
 	 * for calls to this method and un-comment them)
 	 * @param gridPainter A painter that paints the grid that a layout was based on.
 	 */
+    @SuppressWarnings("unused") // public layout-debugging hook
 	public static void setGridPainter(GridPainter gridPainter) {
 		VisualGraphRenderer.gridPainter = gridPainter;
 	}
-
-	private Renderer.EdgeLabel<V, E> edgeLabelRenderer = new BasicEdgeLabelRenderer<>();
 
 	public VisualGraphRenderer(Renderer.EdgeLabel<V, E> edgeLabelRenderer) {
 		this.edgeLabelRenderer = edgeLabelRenderer;
@@ -72,6 +75,10 @@ public class VisualGraphRenderer<V extends VisualVertex, E extends VisualEdge<V>
 	private void mimickSuperPaintingWithoutPaintingSelectedVertices(
 			RenderContext<V, E> renderContext, Layout<V, E> layout) {
 
+        if (edgeLabelRenderer instanceof EdgeLabelLayout<?, ?> labelLayout) {
+            labelLayout.reset();
+        }
+
 		if (gridPainter != null) {
 			gridPainter.paintLayoutGridCells(renderContext, layout);
 		}
@@ -88,13 +95,6 @@ public class VisualGraphRenderer<V extends VisualVertex, E extends VisualEdge<V>
 			renderVertex(renderContext, layout, v);
 			renderVertexLabel(renderContext, layout, v);
 		}
-
-		// paint all the edges
-		// DEBUG code to show the edges *over* the vertices
-//		for (E e : layout.getGraph().getEdges()) {
-//			renderEdge(renderContext, layout, e);
-//			renderEdgeLabel(renderContext, layout, e);
-//		}
 
 	}
 
@@ -122,7 +122,7 @@ public class VisualGraphRenderer<V extends VisualVertex, E extends VisualEdge<V>
 			return;
 		}
 
-		edgeLabelRenderer.labelEdge(rc, layout, e, xform.apply(e));
+        edgeLabelRenderer.labelEdge(rc, layout, e, label);
 	}
 
 }
