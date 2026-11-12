@@ -7,6 +7,7 @@ param(
     [string[]]$Surfaces = @('codebrowser', 'vt', 'debugger'),
     [int]$RepositoryPort = 14250,
     [double]$UiScale = 1.0,
+    [switch]$TraceHandlers,
     [string]$Tag = ('graphite-specialist-ui-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
 )
 # Runs one specialist surface per Ghidra process so only one tool window is ever created.
@@ -89,6 +90,7 @@ $sources = @(
     (Join-Path $PSScriptRoot 'RuntimeInventory.java'),
     (Join-Path $PSScriptRoot 'RepositoryReview.java'),
     (Join-Path $PSScriptRoot 'AcceptanceReview.java'),
+    (Join-Path $PSScriptRoot 'NavigationReview.java'),
     (Join-Path $PSScriptRoot 'SpecialistReview.java')
 )
 $classpath = (Get-ChildItem -LiteralPath (Join-Path $runtime 'Ghidra') -Recurse -Filter '*.jar' -File |
@@ -121,6 +123,9 @@ try {
         $surfaceReview = Join-Path $review $surface
         $null = New-Item -ItemType Directory -Path $surfaceReview
         $env:GHIDRA_JAVA_OPTIONS = "-Dapplication.settingsdir=$profile -Dghidra.ui.locationContext=true -Duirefresh.autolaunch=true -Duirefresh.specialists.out=$surfaceReview -Duirefresh.specialists.surface=$surface -Duirefresh.specialists.fixture=$fixturePath -Duirefresh.repository.port=$RepositoryPort -Dghidra.cacerts=$fixturePath\repository-fixture.pem -Duirefresh.themeprobe.shots=true -Dsun.java2d.uiScale=$UiScale"
+        if ($TraceHandlers) {
+            $env:GHIDRA_JAVA_OPTIONS += " -Djdk.invoke.LambdaMetafactory.dumpProxyClassFiles=true -Duser.dir=$surfaceRun -Duirefresh.inventory.components=true"
+        }
         "$(Get-Date -Format o) launching $surface" | Add-Content -LiteralPath $scriptLog
         $active = Start-Process -FilePath (Join-Path $runtime 'ghidraRun.bat') `
             -ArgumentList (Join-Path $projectDir 'UiSpecialists.gpr') `
@@ -171,11 +176,11 @@ try {
     if ($reviewRows.Count -lt 1) { throw 'Specialist review report is incomplete.' }
     @{ timestamp = (Get-Date).ToUniversalTime().ToString('o');
        fixture = $fixturePath; distribution = $runtime; jars = $hashes; sequence = 'one surface per process';
-       logicalScale = $UiScale; rendering = 'In-process Swing painting; off-screen tool frames; not physical-DPI acceptance';
+       logicalScale = $UiScale; traceHandlers = [bool]$TraceHandlers; rendering = 'In-process Swing painting; off-screen tool frames; not physical-DPI acceptance';
        revision = (git -C $workspace rev-parse HEAD);
        probeJarSha256 = (Get-FileHash -LiteralPath $probeJar.FullName -Algorithm SHA256).Hash;
        surfaces = $Surfaces; sourceApplicationVersion = $sourceVersion; runtimeApplicationVersion = $runtimeVersion;
-       scripts = @('adapt_specialist_probe.py', 'SpecialistReview.java', 'RuntimeInventory.java', 'AcceptanceReview.java', 'RepositoryReview.java',
+       scripts = @('adapt_specialist_probe.py', 'SpecialistReview.java', 'RuntimeInventory.java', 'AcceptanceReview.java', 'RepositoryReview.java', 'NavigationReview.java',
            'review-specialists.ps1') | ForEach-Object {
                @{ script = $_; sha256 = (Get-FileHash -LiteralPath (Join-Path $PSScriptRoot $_) -Algorithm SHA256).Hash }
            } } |

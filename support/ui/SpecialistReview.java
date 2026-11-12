@@ -114,6 +114,20 @@ public final class SpecialistReview {
     }
 
     private static void runSurface(PluginTool browser) throws Exception {
+        if ("template".equals(surface)) {
+            onEdt(() -> { selectGraphite(browser); hideFrontEnd(); });
+            NavigationReview.runTemplate(browser, out);
+            add("built extension template", "FX-OPTIONAL", "SkeletonPlugin / MyProvider / Custom Action",
+                "configure generated SkeletonReview extension / My Action", "see template-checks.txt", "skeleton-*.png");
+            return;
+        }
+        if ("navigation".equals(surface)) {
+            onEdt(() -> { selectGraphite(browser); hideFrontEnd(); });
+            NavigationReview.run(browser, out);
+            add("navigation and dialog states", "FX-CORE", "ProgramSwitcherDialog / LocationContextPanel / validation dialogs",
+                "Go To Program / breadcrumb menus / label and range validation / Go To query", "see navigation-checks.txt", "*.png");
+            return;
+        }
         if ("repository".equals(surface)) {
             onEdt(() -> { selectGraphite(browser); hideFrontEnd(); });
             RepositoryReview.run(browser, fixture, out);
