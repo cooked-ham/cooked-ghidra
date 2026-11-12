@@ -326,7 +326,11 @@ public class LocationContextPanel extends JPanel {
 				for (LocationMemento location : locations) {
 					Program program = location.getProgram();
 					if (program == null || program.isClosed() || !location.isValid()) continue;
-					JMenuItem item = new JMenuItem(program.getName() + " — " + location.getLocationDescription());
+					boolean duplicateName = locations.stream().map(LocationMemento::getProgram)
+						.filter(p -> p != null && !p.isClosed()).distinct()
+						.filter(p -> p.getName().equals(program.getName())).limit(2).count() > 1;
+					JMenuItem item = new JMenuItem(programLabel(program, duplicateName) + " — " +
+						location.getLocationDescription());
 					item.putClientProperty("html.disable", true);
 					item.setToolTipText(program.getDomainFile().getPathname());
 					item.addActionListener(_ -> {
@@ -379,8 +383,13 @@ public class LocationContextPanel extends JPanel {
 		ProgramManager manager = tool.getService(ProgramManager.class);
 		if (manager == null) return;
 		JPopupMenu menu = new JPopupMenu();
-		for (Program program : manager.getAllOpenPrograms()) {
-			JMenuItem item = new JMenuItem(program.getName());
+		Program[] programs = manager.getAllOpenPrograms();
+		for (Program program : programs) {
+			if (program.isClosed() || !manager.isVisible(program)) continue;
+			boolean duplicateName = java.util.Arrays.stream(programs)
+				.filter(p -> !p.isClosed() && manager.isVisible(p))
+				.filter(p -> p.getName().equals(program.getName())).limit(2).count() > 1;
+			JMenuItem item = new JMenuItem(programLabel(program, duplicateName));
 			item.putClientProperty("html.disable", true);
 			item.setToolTipText(program.getDomainFile().getPathname());
 			if (!navigatable.isConnected()) {
@@ -395,7 +404,19 @@ public class LocationContextPanel extends JPanel {
 			});
 			menu.add(item);
 		}
+		menu.addSeparator();
+		JMenuItem search = new JMenuItem("Search open programs…");
+		search.setEnabled(navigatable.isConnected());
+		search.addActionListener(_ -> ProgramSwitcherDialog.show(tool));
+		menu.add(search);
 		showMenu(menu, programButton);
+	}
+
+	private String programLabel(Program program, boolean includePath) {
+		if (!includePath) return program.getName();
+		var project = program.getDomainFile().getProjectLocator();
+		return program.getName() + " — " + (project == null ? "" : project.getName() + ": ") +
+			program.getDomainFile().getPathname();
 	}
 
 	private void showNamespace() {

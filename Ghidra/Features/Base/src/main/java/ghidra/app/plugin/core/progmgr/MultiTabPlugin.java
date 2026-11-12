@@ -29,6 +29,7 @@ import ghidra.app.CorePluginPackage;
 import ghidra.app.context.ListingActionContext;
 import ghidra.app.context.ProgramActionContext;
 import ghidra.app.events.*;
+import ghidra.app.nav.ProgramSwitcherDialog;
 import ghidra.app.plugin.PluginCategoryNames;
 import ghidra.app.services.CodeViewerService;
 import ghidra.app.services.ProgramManager;
@@ -219,6 +220,10 @@ public class MultiTabPlugin extends Plugin
 	}
 
 	private void showProgramList() {
+		if (DockingChrome.isModern()) {
+			ProgramSwitcherDialog.show(tool);
+			return;
+		}
 		tabPanel.showTabList(!tabPanel.isShowingTabList());
 	}
 
