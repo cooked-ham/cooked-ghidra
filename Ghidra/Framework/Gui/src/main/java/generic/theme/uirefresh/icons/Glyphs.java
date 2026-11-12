@@ -1051,6 +1051,6 @@ public final class Glyphs {
 				ImageIO.write(render(n, p, 1), "png", new File(dir, n + ".png"));
 			}
 		}
-		System.out.println("glyphs=" + GLYPHS.size());
+		System.out.printf("glyphs=%d%n", GLYPHS.size());
 	}
 }

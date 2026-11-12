@@ -15,7 +15,6 @@
  */
 package ghidra.feature.vt.gui.editors;
 
-import docking.DockingChrome;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
 import java.util.EventObject;
@@ -53,7 +52,7 @@ public class AddressInputDialog extends AbstractCellEditor implements TableCellE
 		address = editableAddress.getAddress();
 
 		JLabel label = new GDLabel();
-		label.setBorder(DockingChrome.surfaceBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED)));
+		label.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		label.setText(editableAddress.getDisplayString());
 
 		VTMarkupItem markupItem = editableAddress.getMarkupItem();

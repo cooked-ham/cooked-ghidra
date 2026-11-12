@@ -15,7 +15,6 @@
  */
 package ghidra.app.merge.listing;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 
 import java.io.Serial;
@@ -56,7 +55,7 @@ public class ExternalConflictInfoPanel extends JPanel {
 	private void create() {
 
 		setLayout(new BorderLayout());
-		setBorder(DockingChrome.sectionBorder("Resolve External Location Conflict"));
+		setBorder(BorderFactory.createTitledBorder("Resolve External Location Conflict"));
 
 		westLabel = new GDHtmlLabel("<html></html>");
 		eastLabel = new GDHtmlLabel("<html></html>");
@@ -67,6 +66,7 @@ public class ExternalConflictInfoPanel extends JPanel {
 	/**
 	 * Returns a string indicating the current phase of the External merge.
 	 */
+	@SuppressWarnings("unused") // retained package API
 	String getConflictType() {
 		return conflictType;
 	}
@@ -83,6 +83,7 @@ public class ExternalConflictInfoPanel extends JPanel {
 	 * @param conflictType the type of conflict being resolved by this phase
 	 * (for example, Symbols).
 	 */
+	@SuppressWarnings("unused") // retained package API
 	void setConflictType(String conflictType) {
 		this.conflictType = conflictType;
 		TitledBorder tBorder = (TitledBorder) getBorder();
@@ -97,8 +98,8 @@ public class ExternalConflictInfoPanel extends JPanel {
 
 	/**
 	 * Updates the externals name info.
-	 * @param externalNum number for the current externals being resolved
-	 * @param totalExternals total number of externals to resolve
+	 * @param versionTitle the title of the program version being shown
+	 * @param labelPathName the external location's label path name
 	 */
 	void setExternalName(String versionTitle, String labelPathName) {
 		this.versionTitle = versionTitle;

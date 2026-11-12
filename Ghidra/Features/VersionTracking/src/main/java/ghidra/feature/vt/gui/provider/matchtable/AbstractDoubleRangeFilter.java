@@ -15,7 +15,6 @@
  */
 package ghidra.feature.vt.gui.provider.matchtable;
 
-import docking.DockingChrome;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 
@@ -85,7 +84,7 @@ public abstract class AbstractDoubleRangeFilter<T> extends Filter<T>
 
 		final JPanel panel = new JPanel(new HorizontalLayout(4));
 		Border paddingBorder = BorderFactory.createEmptyBorder(1, 5, 1, 5);
-		Border outsideBorder = DockingChrome.surfaceBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
+		Border outsideBorder = BorderFactory.createBevelBorder(BevelBorder.LOWERED);
 		panel.setBorder(BorderFactory.createCompoundBorder(outsideBorder, paddingBorder));
 
 		JLabel filterLabel = new GDLabel(filterName + " Filter: ");

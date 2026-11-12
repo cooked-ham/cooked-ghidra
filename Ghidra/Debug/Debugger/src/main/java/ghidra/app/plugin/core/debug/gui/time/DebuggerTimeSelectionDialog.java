@@ -15,7 +15,6 @@
  */
 package ghidra.app.plugin.core.debug.gui.time;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.event.*;
 import java.util.function.Function;
@@ -70,7 +69,7 @@ public class DebuggerTimeSelectionDialog extends DialogComponentProvider {
 
 		{
 			Box hbox = Box.createHorizontalBox();
-			hbox.setBorder(DockingChrome.sectionBorder("Schedule"));
+			hbox.setBorder(BorderFactory.createTitledBorder("Schedule"));
 			hbox.add(new JLabel("Expression: "));
 			scheduleText = new JTextField();
 			scheduleText.getAccessibleContext().setAccessibleName("Schedule");

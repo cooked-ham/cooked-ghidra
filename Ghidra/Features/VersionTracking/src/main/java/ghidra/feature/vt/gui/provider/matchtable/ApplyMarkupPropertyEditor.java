@@ -15,7 +15,6 @@
  */
 package ghidra.feature.vt.gui.provider.matchtable;
 
-import docking.DockingChrome;
 import docking.DockingWindowManager;
 import docking.widgets.button.GRadioButton;
 import docking.widgets.checkbox.GCheckBox;
@@ -213,7 +212,7 @@ public class ApplyMarkupPropertyEditor implements OptionsEditor {
         panel.add(createSeparator());
         panel.add(createIgnoreCheckBoxPanel());
 
-        panel.setBorder(DockingChrome.sectionBorder("Apply Markup Options"));
+        panel.setBorder(BorderFactory.createTitledBorder("Apply Markup Options"));
         JScrollPane scrollPane = new JScrollPane(panel);
 
         return scrollPane;

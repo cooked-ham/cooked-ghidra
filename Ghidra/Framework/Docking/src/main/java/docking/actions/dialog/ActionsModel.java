@@ -42,13 +42,13 @@ import docking.widgets.searchlist.DefaultSearchListModel;
  * 
  */
 public class ActionsModel extends DefaultSearchListModel<DockingActionIf> {
-	private Set<DockingActionIf> localActions;
-	private Set<DockingActionIf> globalActions;
+	private final Set<DockingActionIf> localActions;
+	private final Set<DockingActionIf> globalActions;
 	private ActionDisplayLevel displayLevel = ActionDisplayLevel.LOCAL;
 	private ActionContext context;
-	private Comparator<DockingActionIf> nameComparator = new ActionNameComparator();
-	private Comparator<DockingActionIf> menuPathComparator = new ActionMenuPathComparator();
-	private Comparator<DockingActionIf> popupPathComparator = new ActionPopupPathComparator();
+	private final Comparator<DockingActionIf> nameComparator = new ActionNameComparator();
+	private final Comparator<DockingActionIf> menuPathComparator = new ActionMenuPathComparator();
+	private final Comparator<DockingActionIf> popupPathComparator = new ActionPopupPathComparator();
 
 	private static final int MAX_RECENT = 5;
 	private static final LinkedList<String> recentActionKeys = new LinkedList<>();
@@ -148,34 +148,34 @@ public class ActionsModel extends DefaultSearchListModel<DockingActionIf> {
 		addRecentActions();
 		switch (displayLevel) {
 			case LOCAL:
-				addLocalActions(LOCAL_TOOLBAR, a -> isValidToolbar(a));
-				addLocalActions(LOCAL_MENU, a -> isValidMenu(a));
-				addLocalActions(POPUP, a -> isValidPopup(a));
-				addGlobalActions(POPUP, a -> isValidPopup(a));
-				addLocalActions(KEYBINDING_ONLY, a -> isValidKeybindingOnly(a));
-				addGlobalActions(KEYBINDING_ONLY, a -> isValidKeybindingOnly(a));
+				addLocalActions(LOCAL_TOOLBAR, this::isValidToolbar);
+				addLocalActions(LOCAL_MENU, this::isValidMenu);
+				addLocalActions(POPUP, this::isValidPopup);
+				addGlobalActions(POPUP, this::isValidPopup);
+				addLocalActions(KEYBINDING_ONLY, this::isValidKeybindingOnly);
+				addGlobalActions(KEYBINDING_ONLY, this::isValidKeybindingOnly);
 				break;
 
 			case GLOBAL:
-				addLocalActions(LOCAL_TOOLBAR, a -> isValidToolbar(a));
-				addGlobalActions(GLOBAL_TOOLBAR, a -> isValidToolbar(a));
-				addLocalActions(LOCAL_MENU, a -> isValidMenu(a));
-				addGlobalActions(GLOBAL_MENU, a -> isValidMenu(a));
-				addLocalActions(POPUP, a -> isValidPopup(a));
-				addGlobalActions(POPUP, a -> isValidPopup(a));
-				addLocalActions(KEYBINDING_ONLY, a -> isValidKeybindingOnly(a));
-				addGlobalActions(KEYBINDING_ONLY, a -> isValidKeybindingOnly(a));
+				addLocalActions(LOCAL_TOOLBAR, this::isValidToolbar);
+				addGlobalActions(GLOBAL_TOOLBAR, this::isValidToolbar);
+				addLocalActions(LOCAL_MENU, this::isValidMenu);
+				addGlobalActions(GLOBAL_MENU, this::isValidMenu);
+				addLocalActions(POPUP, this::isValidPopup);
+				addGlobalActions(POPUP, this::isValidPopup);
+				addLocalActions(KEYBINDING_ONLY, this::isValidKeybindingOnly);
+				addGlobalActions(KEYBINDING_ONLY, this::isValidKeybindingOnly);
 				break;
 
 			case ALL:
-				addLocalActions(LOCAL_TOOLBAR, a -> isToolbar(a));
-				addGlobalActions(GLOBAL_TOOLBAR, a -> isToolbar(a));
-				addLocalActions(LOCAL_MENU, a -> isMenu(a));
-				addGlobalActions(GLOBAL_MENU, a -> isMenu(a));
-				addLocalActions(POPUP, a -> isPopup(a));
-				addGlobalActions(POPUP, a -> isPopup(a));
-				addLocalActions(KEYBINDING_ONLY, a -> isKeybindingOnly(a));
-				addGlobalActions(KEYBINDING_ONLY, a -> isKeybindingOnly(a));
+				addLocalActions(LOCAL_TOOLBAR, this::isToolbar);
+				addGlobalActions(GLOBAL_TOOLBAR, this::isToolbar);
+				addLocalActions(LOCAL_MENU, this::isMenu);
+				addGlobalActions(GLOBAL_MENU, this::isMenu);
+				addLocalActions(POPUP, this::isPopup);
+				addGlobalActions(POPUP, this::isPopup);
+				addLocalActions(KEYBINDING_ONLY, this::isKeybindingOnly);
+				addGlobalActions(KEYBINDING_ONLY, this::isKeybindingOnly);
 				break;
 		}
 	}
@@ -218,18 +218,18 @@ public class ActionsModel extends DefaultSearchListModel<DockingActionIf> {
 	}
 
 	private void addLocalActions(ActionGroup actionGroup, Predicate<DockingActionIf> filter) {
-		List<DockingActionIf> actions =
-			localActions.stream().filter(filter).collect(Collectors.toCollection(ArrayList::new));
-
-		actions.sort(getSorter(actionGroup));
+		List<DockingActionIf> actions = localActions.stream()
+				.filter(filter)
+				.sorted(getSorter(actionGroup))
+				.collect(Collectors.toCollection(ArrayList::new));
 		add(actionGroup.getDisplayName(), actions);
 	}
 
 	private void addGlobalActions(ActionGroup actionGroup, Predicate<DockingActionIf> filter) {
-		List<DockingActionIf> actions =
-			globalActions.stream().filter(filter).collect(Collectors.toCollection(ArrayList::new));
-
-		actions.sort(getSorter(actionGroup));
+		List<DockingActionIf> actions = globalActions.stream()
+				.filter(filter)
+				.sorted(getSorter(actionGroup))
+				.collect(Collectors.toCollection(ArrayList::new));
 		add(actionGroup.getDisplayName(), actions);
 	}
 
@@ -241,18 +241,11 @@ public class ActionsModel extends DefaultSearchListModel<DockingActionIf> {
 	 * @return the comparator to use for sorting actions within their category
 	 */
 	private Comparator<? super DockingActionIf> getSorter(ActionGroup actionGroup) {
-		switch (actionGroup) {
-			case GLOBAL_MENU:
-			case LOCAL_MENU:
-				return menuPathComparator;
-			case POPUP:
-				return popupPathComparator;
-			case GLOBAL_TOOLBAR:
-			case LOCAL_TOOLBAR:
-			case KEYBINDING_ONLY:
-			default:
-				return nameComparator;
-		}
+		return switch (actionGroup) {
+			case GLOBAL_MENU, LOCAL_MENU -> menuPathComparator;
+			case POPUP -> popupPathComparator;
+			default -> nameComparator;
+		};
 	}
 
 	private static class ActionNameComparator implements Comparator<DockingActionIf> {

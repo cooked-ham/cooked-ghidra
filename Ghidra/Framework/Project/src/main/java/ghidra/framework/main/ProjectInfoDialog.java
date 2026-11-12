@@ -15,7 +15,6 @@
  */
 package ghidra.framework.main;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.io.File;
@@ -128,7 +127,7 @@ public class ProjectInfoDialog extends DialogComponentProvider {
 		File dir = project.getProjectLocator().getProjectDir();
 
 		JPanel outerPanel = new JPanel(new BorderLayout());
-		outerPanel.setBorder(DockingChrome.sectionBorder("Project Location"));
+		outerPanel.setBorder(BorderFactory.createTitledBorder("Project Location"));
 
 		JPanel infoPanel = new JPanel(new PairLayout(5, 10));
 		infoPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -239,7 +238,7 @@ public class ProjectInfoDialog extends DialogComponentProvider {
 		}
 
 		JPanel outerPanel = new JPanel(new BorderLayout());
-		outerPanel.setBorder(DockingChrome.sectionBorder("Repository Info"));
+		outerPanel.setBorder(BorderFactory.createTitledBorder("Repository Info"));
 
 		JPanel panel = new JPanel(new PairLayout(5, 10));
 		panel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));

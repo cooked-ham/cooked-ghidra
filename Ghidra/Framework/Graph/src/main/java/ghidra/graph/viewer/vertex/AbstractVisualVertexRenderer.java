@@ -141,13 +141,6 @@ public class AbstractVisualVertexRenderer<V extends VisualVertex, E extends Visu
 				bounds.height + (offset * 2));
 		}
 
-// DEBUG		
-//		g.setPaint(Palette.BLUE);
-//		g.drawRect(bounds.x - offset, bounds.y - offset, bounds.width + (offset * 2),
-//			bounds.height + (offset * 2));
-//		g.setPaint(Palette.BLACK);
-//		g.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
-
 		g.setPaint(oldPaint);
 	}
 
@@ -200,19 +193,7 @@ public class AbstractVisualVertexRenderer<V extends VisualVertex, E extends Visu
 	 */
 	protected Shape getCompactShape(RenderContext<V, E> rc, Layout<V, E> layout, V vertex) {
 
-		Function<? super V, Shape> vertexShaper = rc.getVertexShapeTransformer();
-		Shape shape = null;
-		if (vertexShaper instanceof VisualGraphVertexShapeTransformer) {
-			@SuppressWarnings("unchecked")
-			VisualGraphVertexShapeTransformer<V> vgShaper =
-				(VisualGraphVertexShapeTransformer<V>) vertexShaper;
-
-			// use the viewable shape here, as it is visually pleasing
-			shape = vgShaper.transformToCompactShape(vertex);
-		}
-		else {
-			shape = vertexShaper.apply(vertex);
-		}
+		Shape shape = VertexShapes.getVertexShape(rc.getVertexShapeTransformer(), vertex, false);
 
 		return transformFromLayoutToView(rc, layout, vertex, shape);
 	}
@@ -227,19 +208,7 @@ public class AbstractVisualVertexRenderer<V extends VisualVertex, E extends Visu
 	 * @see VertexShapeProvider#getFullShape()
 	 */
 	public Shape getFullShape(RenderContext<V, E> rc, Layout<V, E> layout, V vertex) {
-		Function<? super V, Shape> vertexShaper = rc.getVertexShapeTransformer();
-		Shape shape = null;
-		if (vertexShaper instanceof VisualGraphVertexShapeTransformer) {
-			@SuppressWarnings("unchecked")
-			VisualGraphVertexShapeTransformer<V> vgShaper =
-				(VisualGraphVertexShapeTransformer<V>) vertexShaper;
-
-			// use the viewable shape here, as it is visually pleasing
-			shape = vgShaper.transformToFullShape(vertex);
-		}
-		else {
-			shape = vertexShaper.apply(vertex);
-		}
+		Shape shape = VertexShapes.getVertexShape(rc.getVertexShapeTransformer(), vertex, true);
 
 		return transformFromLayoutToView(rc, layout, vertex, shape);
 	}
@@ -255,17 +224,7 @@ public class AbstractVisualVertexRenderer<V extends VisualVertex, E extends Visu
 	 */
 	protected Shape transformFromLayoutToView(RenderContext<V, E> rc, Layout<V, E> layout, V vertex,
 			Shape shape) {
-
-		Point2D p = layout.apply(vertex);
-		MultiLayerTransformer multiLayerTransformer = rc.getMultiLayerTransformer();
-		p = multiLayerTransformer.transform(Layer.LAYOUT, p);
-		float x = (float) p.getX();
-		float y = (float) p.getY();
-
-		// create a transform that translates to the location of
-		// the vertex to be rendered
-		AffineTransform xform = AffineTransform.getTranslateInstance(x, y);
-		return xform.createTransformedShape(shape);
+		return VertexShapes.transformFromLayoutToView(rc, layout, vertex, shape);
 	}
 
 	/**

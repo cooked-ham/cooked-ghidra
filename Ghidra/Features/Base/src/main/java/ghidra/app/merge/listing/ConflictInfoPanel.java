@@ -15,7 +15,6 @@
  */
 package ghidra.app.merge.listing;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 
 import java.io.Serial;
@@ -62,7 +61,7 @@ public class ConflictInfoPanel extends JPanel {
 	private void create() {
 
 		setLayout(new BorderLayout());
-		setBorder(DockingChrome.sectionBorder("Resolve Current Conflict"));
+		setBorder(BorderFactory.createTitledBorder("Resolve Current Conflict"));
 
 		westLabel = new GDHtmlLabel("<html></html>");
 		eastLabel = new GDHtmlLabel("<html></html>");

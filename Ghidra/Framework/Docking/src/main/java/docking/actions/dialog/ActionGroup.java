@@ -28,9 +28,9 @@ public enum ActionGroup {
 	GLOBAL_TOOLBAR("Global Toolbar"),
 	GLOBAL_MENU("Global Menu");
 
-	private String displayName;
+	private final String displayName;
 
-	private ActionGroup(String displayName) {
+	ActionGroup(String displayName) {
 		this.displayName = displayName;
 	}
 

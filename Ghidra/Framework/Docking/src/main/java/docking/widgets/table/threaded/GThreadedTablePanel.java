@@ -43,10 +43,9 @@ public class GThreadedTablePanel<T> extends JPanel {
 	private static final int MIN_INCREMENTAL_UPDATE_DELAY = 250;
 	private static final int MAX_INCREMENTAL_UPDATE_DELAY = 2000;
 
-	private GTable table;
+	private final GTable table;
 	private ThreadedTableModel<T, ?> threadedModel;
-	private ThreadedTableModelListener tableListener;
-	private ViewStatusPanel statusPanel;
+	private final ViewStatusPanel statusPanel;
 	private boolean statusGuidanceEnabled = true;
 	private boolean loadCancelled;
 
@@ -62,11 +61,11 @@ public class GThreadedTablePanel<T> extends JPanel {
 	private EmptyBorderButton refreshButton;
 
 	private Timer showTimer;
-	private Runnable showProgressRunnable = () -> startShowProgressTimer();
+	private final Runnable showProgressRunnable = this::startShowProgressTimer;
 
-	private Runnable showPendingRunnable = () -> doShowPendingPanel();
+	private final Runnable showPendingRunnable = this::doShowPendingPanel;
 
-	private Runnable updateCompleteRunnable = () -> doUpdateComplete();
+	private final Runnable updateCompleteRunnable = this::doUpdateComplete;
 
 	private final int minUpdateDelay;
 	private final int maxUpdateDelay;
@@ -109,7 +108,7 @@ public class GThreadedTablePanel<T> extends JPanel {
 		initializeModel(model);
 		statusPanel = new ViewStatusPanel(new JScrollPane(table));
 		add(statusPanel, BorderLayout.CENTER);
-		model.addTableModelListener(e -> updateStatus());
+		model.addTableModelListener(_ -> updateStatus());
 	}
 
 	/**
@@ -166,8 +165,7 @@ public class GThreadedTablePanel<T> extends JPanel {
 			loadingProgressMonitor = defaultMonitor;
 		}
 
-		tableListener = new TableListener();
-		model.addThreadedTableModelListener(tableListener);
+		model.addThreadedTableModelListener(new TableListener());
 
 		model.setDefaultTaskMonitor(defaultMonitor);
 		model.setUpdateDelay(minUpdateDelay, maxUpdateDelay);
@@ -197,7 +195,7 @@ public class GThreadedTablePanel<T> extends JPanel {
 
 	private void buildPending() {
 		refreshButton = new EmptyBorderButton(Icons.REFRESH_ICON);
-		refreshButton.addActionListener(e -> threadedModel.reload());
+		refreshButton.addActionListener(_ -> threadedModel.reload());
 		refreshButton.setToolTipText("Force Refresh Now");
 		pendingPanel = new JPanel(new FlowLayout());
 		pendingPanel.setName("Pending Panel");
@@ -236,7 +234,7 @@ public class GThreadedTablePanel<T> extends JPanel {
 	}
 
 	private void startShowProgressTimer() {
-		showTimer = new Timer(SHOW_PROGRESS_DEFAULT, ev -> {
+		showTimer = new Timer(SHOW_PROGRESS_DEFAULT, _ -> {
 			if (isBusy()) {
 				showTimer = null;
 				doShowProgressPanel();
@@ -259,27 +257,19 @@ public class GThreadedTablePanel<T> extends JPanel {
 	}
 
 	private void doShowLoadingProgressPanel() {
-		if (loadedComponent != null) {
-			remove(loadedComponent);
-			loadedComponent = null;
-		}
-
-		loadedComponent = loadingProgressMonitor;
-		add(loadedComponent, BorderLayout.SOUTH);
-		loadedComponent.invalidate();
-
-		table.invalidate();
-		validate();
-		repaint();
+		showMonitorComponent(loadingProgressMonitor);
 	}
 
 	private void doShowNonLoadingProgressPanel() {
+		showMonitorComponent(defaultMonitor);
+	}
+
+	private void showMonitorComponent(JComponent monitorComponent) {
 		if (loadedComponent != null) {
 			remove(loadedComponent);
-			loadedComponent = null;
 		}
 
-		loadedComponent = defaultMonitor;
+		loadedComponent = monitorComponent;
 		add(loadedComponent, BorderLayout.SOUTH);
 		loadedComponent.invalidate();
 
@@ -330,7 +320,7 @@ public class GThreadedTablePanel<T> extends JPanel {
 	 * {@link IncrementalLoadingTaskMonitor}, but would like messages to this monitor to appear
 	 * in the GUI.
 	 */
-	private class MessagePassingTaskMonitor extends TaskMonitorComponent {
+	private static class MessagePassingTaskMonitor extends TaskMonitorComponent {
 		private TaskMonitorComponent messageRecepientMonitor;
 
 		public MessagePassingTaskMonitor() {

@@ -15,7 +15,6 @@
  */
 package ghidra.feature.vt.gui.filters;
 
-import docking.DockingChrome;
 import java.awt.*;
 import java.awt.event.*;
 import java.beans.PropertyChangeEvent;
@@ -80,7 +79,7 @@ public abstract class AbstractAddressRangeFilter<T> extends AncillaryFilter<T>
 	private JComponent createComponent() {
 		final JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
-		panel.setBorder(DockingChrome.sectionBorder("Address Range"));
+		panel.setBorder(BorderFactory.createTitledBorder("Address Range"));
 
 		//
 		// Enable panel

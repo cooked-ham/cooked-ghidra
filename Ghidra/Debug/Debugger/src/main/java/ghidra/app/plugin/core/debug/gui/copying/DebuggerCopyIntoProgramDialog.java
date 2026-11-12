@@ -15,7 +15,6 @@
  */
 package ghidra.app.plugin.core.debug.gui.copying;
 
-import docking.DockingChrome;
 import java.awt.*;
 import java.io.IOException;
 import java.util.*;
@@ -431,7 +430,7 @@ public class DebuggerCopyIntoProgramDialog extends ReusableDialogComponentProvid
 
 			{
 				JPanel panelInclude = new JPanel(new GridLayout(0, 2, GAP, GAP));
-				panelInclude.setBorder(DockingChrome.sectionBorder("Include:"));
+				panelInclude.setBorder(BorderFactory.createTitledBorder("Include:"));
 				JButton buttonSelectNone = new JButton("Select None");
 				buttonSelectNone.getAccessibleContext().setAccessibleName("Select None");
 				buttonSelectNone.addActionListener(e -> plan.selectNone());

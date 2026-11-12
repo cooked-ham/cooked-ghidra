@@ -122,7 +122,7 @@ class ProjectDataPanel extends JSplitPane implements ProjectViewListener {
 	 * If no project views are open, the tabbed pane is not visible.
 	 */
 	private void populateReadOnlyViews(Project project) {
-//		readOnlyTab.setBorder(DockingChrome.sectionBorder(READ_ONLY_BORDER));
+//		readOnlyTab.setBorder(BorderFactory.createTitledBorder(READ_ONLY_BORDER));
 
 		if (project == null) {
 			setViewsVisible(false);

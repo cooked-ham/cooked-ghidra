@@ -15,7 +15,6 @@
  */
 package ghidra.app.merge.listing;
 
-import docking.DockingChrome;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.Serial;
@@ -88,7 +87,7 @@ public class VerticalChoicesPanel extends ConflictPanel {
 	}
 
 	private void init() {
-		setBorder(DockingChrome.sectionBorder("Resolve Conflict"));
+		setBorder(BorderFactory.createTitledBorder("Resolve Conflict"));
 		setLayout(new BorderLayout());
 
 		headerLabel = new GDHtmlLabel(" ");

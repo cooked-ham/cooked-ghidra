@@ -42,6 +42,7 @@ import ghidra.graph.viewer.VisualEdge;
 import ghidra.graph.viewer.VisualVertex;
 import ghidra.graph.viewer.layout.AbstractVisualGraphLayout;
 import ghidra.graph.viewer.vertex.VertexShapeProvider;
+import ghidra.graph.viewer.vertex.VertexShapes;
 import ghidra.graph.viewer.vertex.VisualGraphVertexShapeTransformer;
 
 /**
@@ -100,12 +101,12 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 
 	private float dashingPatternOffset;
 
-	private Function<E, Color> drawColorTransformer = e -> Palette.BLACK;
-	private Function<E, Color> focusedColorTransformer = e -> Palette.GRAY;
-	private Function<E, Color> selectedColorTransformer = e -> Palette.GRAY;
-	private Function<E, Color> hoveredColorTransformer = e -> Palette.LIGHT_GRAY;
+	private Function<E, Color> drawColorTransformer = _ -> Palette.BLACK;
+	private Function<E, Color> focusedColorTransformer = _ -> Palette.GRAY;
+	private Function<E, Color> selectedColorTransformer = _ -> Palette.GRAY;
+	private Function<E, Color> hoveredColorTransformer = _ -> Palette.LIGHT_GRAY;
 
-	private VisualEdgeArrowRenderingSupport<V, E> arrowRenderingSupport =
+	private final VisualEdgeArrowRenderingSupport<V, E> arrowRenderingSupport =
 		new VisualEdgeArrowRenderingSupport<>();
 
 	/**
@@ -243,8 +244,7 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 		Color selectedColor = getSelectedColor(graph, e);
 		Color hoveredColor = getHoveredColor(graph, e);
 
-		// this can be changed if clients wish to set a separate color for the hovered state
-		Color selectedAccentColor = hoveredColor;
+		// the accent is the hovered color; clients set it via the hovered color transformer
 
 		float scale = Math.min(scalex, scaley);
 
@@ -274,7 +274,7 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 			vt = ((LensTransformer) vt).getDelegate();
 		}
 
-		Context<Graph<V, E>, E> context = Context.<Graph<V, E>, E> getInstance(graph, e);
+		Context<Graph<V, E>, E> context = Context.getInstance(graph, e);
 		boolean edgeHit = vt.transform(edgeShape).intersects(deviceRectangle);
 		if (!edgeHit) {
 			return;
@@ -284,10 +284,10 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 
 		// get Paints for filling and drawing
 		// (filling is done first so that drawing and label use the same Paint)		
-		BasicStroke hoverStroke = getHoveredPathStroke(e, scale);
-		BasicStroke focusedStroke = getFocusedPathStroke(e, scale);
-		BasicStroke selectedStroke = getSelectedStroke(e, scale);
-		BasicStroke selectedAccentStroke = getSelectedAccentStroke(e, scale);
+		BasicStroke hoverStroke = getHoveredPathStroke(scale);
+		BasicStroke focusedStroke = getFocusedPathStroke(scale);
+		BasicStroke selectedStroke = getSelectedStroke(scale);
+		BasicStroke selectedAccentStroke = getSelectedAccentStroke(scale);
 		BasicStroke empahsisStroke = getEmphasisStroke(e, scale);
 
 		boolean modern = DockingChrome.isModern();
@@ -330,7 +330,7 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 		if (isSelected) {
 			Stroke saveStroke = g.getStroke();
 
-			g.setPaint(modern ? withAlpha(selectedAccentColor, 110) : selectedAccentColor);
+			g.setPaint(modern ? softHalo(hoveredColor) : hoveredColor);
 			g.setStroke(selectedAccentStroke);
 			g.draw(edgeShape);
 
@@ -381,21 +381,19 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 			return;
 		}
 
-		Paint arrowDrawPaint = drawColor;
-		Paint arrowFillPaint = arrowDrawPaint;
 		Shape arrow = rc.getEdgeArrowTransformer().apply(context);
 		arrow = scaleArrowForBetterVisibility(rc, arrow);
 		arrow = at.createTransformedShape(arrow);
 
 		// basic arrow shape
-		g.setPaint(arrowFillPaint);
+		g.setPaint(drawColor);
 		g.fill(arrow);
-		g.setPaint(arrowDrawPaint);
+		g.setPaint(drawColor);
 		g.draw(arrow);
 
 		if (isEmphasized) {
 			Stroke saveStroke = g.getStroke();
-			g.setPaint(arrowDrawPaint);
+			g.setPaint(drawColor);
 			g.setStroke(empahsisStroke);
 			g.fill(arrow);
 			g.draw(arrow);
@@ -455,14 +453,14 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 	public abstract Shape getEdgeShape(RenderContext<V, E> rc, Graph<V, E> graph, E e, float x1,
 			float y1, float x2, float y2, boolean isLoop, Shape vertexShape);
 
-	private BasicStroke getHoveredPathStroke(E e, float scale) {
+	private BasicStroke getHoveredPathStroke(float scale) {
 		float width = HOVERED_PATH_STROKE_WIDTH / (float) Math.pow(scale, .80);
 		return new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0f,
 			new float[] { width * 1, width * 2 }, width * 3 * dashingPatternOffset);
 	}
 
-	private static Color withAlpha(Color c, int alpha) {
-		return new Color(c.getRed(), c.getGreen(), c.getBlue(), alpha);
+	private static Color softHalo(Color c) {
+		return new Color(c.getRed(), c.getGreen(), c.getBlue(), 110);
 	}
 
 	private static BasicStroke solidStroke(float width) {
@@ -472,25 +470,24 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 		return new BasicStroke(width);
 	}
 
-	private BasicStroke getFocusedPathStroke(E e, float scale) {
+	private BasicStroke getFocusedPathStroke(float scale) {
 		float width = FOCUSED_PATH_STROKE_WIDTH / (float) Math.pow(scale, .80);
 		return solidStroke(width);
 	}
 
-	private BasicStroke getSelectedStroke(E e, float scale) {
+	private BasicStroke getSelectedStroke(float scale) {
 		float width = SELECTED_STROKE_WIDTH / (float) Math.pow(scale, .80);
 		return solidStroke(width);
 	}
 
-	private BasicStroke getSelectedAccentStroke(E e, float scale) {
+	private BasicStroke getSelectedAccentStroke(float scale) {
 		float width = (SELECTED_STROKE_WIDTH + 2) / (float) Math.pow(scale, .80);
 		return solidStroke(width);
 	}
 
 	private BasicStroke getEmphasisStroke(E e, float scale) {
 		double emphasisRatio = e.getEmphasis(); // this value is 0 when no emphasis
-		float fullEmphasis = EMPHASIZED_STOKE_WIDTH;
-		float emphasis = (float) (fullEmphasis * emphasisRatio);
+		float emphasis = (float) (EMPHASIZED_STOKE_WIDTH * emphasisRatio);
 		float width = emphasis / (float) Math.pow(scale, .80);
 		return new BasicStroke(width);
 	}
@@ -519,19 +516,7 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 	 * @see VertexShapeProvider#getFullShape()
 	 */
 	public Shape getFullShape(RenderContext<V, E> rc, Layout<V, E> layout, V vertex) {
-		Function<? super V, Shape> vertexShaper = rc.getVertexShapeTransformer();
-		Shape shape = null;
-		if (vertexShaper instanceof VisualGraphVertexShapeTransformer) {
-			@SuppressWarnings("unchecked")
-			VisualGraphVertexShapeTransformer<V> vgShaper =
-				(VisualGraphVertexShapeTransformer<V>) vertexShaper;
-
-			// use the viewable shape here, as it is visually pleasing
-			shape = vgShaper.transformToFullShape(vertex);
-		}
-		else {
-			shape = vertexShaper.apply(vertex);
-		}
+		Shape shape = VertexShapes.getVertexShape(rc.getVertexShapeTransformer(), vertex, true);
 
 		return transformFromLayoutToView(rc, layout, vertex, shape);
 	}
@@ -547,36 +532,14 @@ public abstract class VisualEdgeRenderer<V extends VisualVertex, E extends Visua
 	 */
 	protected Shape getCompactShape(RenderContext<V, E> rc, Layout<V, E> layout, V vertex) {
 
-		Function<? super V, Shape> vertexShaper = rc.getVertexShapeTransformer();
-		Shape shape = null;
-		if (vertexShaper instanceof VisualGraphVertexShapeTransformer) {
-			@SuppressWarnings("unchecked")
-			VisualGraphVertexShapeTransformer<V> vgShaper =
-				(VisualGraphVertexShapeTransformer<V>) vertexShaper;
-
-			// use the viewable shape here, as it is visually pleasing
-			shape = vgShaper.transformToCompactShape(vertex);
-		}
-		else {
-			shape = vertexShaper.apply(vertex);
-		}
+		Shape shape = VertexShapes.getVertexShape(rc.getVertexShapeTransformer(), vertex, false);
 
 		return transformFromLayoutToView(rc, layout, vertex, shape);
 	}
 
 	protected Shape transformFromLayoutToView(RenderContext<V, E> rc, Layout<V, E> layout, V vertex,
 			Shape shape) {
-
-		Point2D p = layout.apply(vertex);
-		MultiLayerTransformer multiLayerTransformer = rc.getMultiLayerTransformer();
-		p = multiLayerTransformer.transform(Layer.LAYOUT, p);
-		float x = (float) p.getX();
-		float y = (float) p.getY();
-
-		// create a transform that translates to the location of
-		// the vertex to be rendered
-		AffineTransform xform = AffineTransform.getTranslateInstance(x, y);
-		return xform.createTransformedShape(shape);
+		return VertexShapes.transformFromLayoutToView(rc, layout, vertex, shape);
 	}
 
 }

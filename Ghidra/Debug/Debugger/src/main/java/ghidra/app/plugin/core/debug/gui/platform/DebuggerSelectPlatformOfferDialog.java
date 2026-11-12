@@ -15,7 +15,6 @@
  */
 package ghidra.app.plugin.core.debug.gui.platform;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.Collection;
@@ -188,7 +187,7 @@ public class DebuggerSelectPlatformOfferDialog extends DialogComponentProvider {
 			offerTableFilterPanel.getAccessibleContext().setAccessibleName("Offer Table Filter");
 
 			JPanel descPanel = new JPanel(new BorderLayout());
-			descPanel.setBorder(DockingChrome.sectionBorder("Description"));
+			descPanel.setBorder(BorderFactory.createTitledBorder("Description"));
 			descLabel.getAccessibleContext().setAccessibleName("Description");
 			descPanel.add(descLabel, BorderLayout.CENTER);
 			descPanel.getAccessibleContext().setAccessibleName("Description");
@@ -289,7 +288,7 @@ public class DebuggerSelectPlatformOfferDialog extends DialogComponentProvider {
 	}
 
 	protected void populateComponents() {
-		offerPanel.setBorder(DockingChrome.sectionBorder(" Select Platform "));
+		offerPanel.setBorder(BorderFactory.createTitledBorder(" Select Platform "));
 		addWorkPanel(offerPanel);
 		addOKButton();
 		addCancelButton();

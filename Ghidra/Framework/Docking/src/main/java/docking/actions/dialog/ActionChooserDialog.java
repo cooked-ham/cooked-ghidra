@@ -276,7 +276,6 @@ public class ActionChooserDialog extends DialogComponentProvider {
 		return switch (group) {
 			case LOCAL_MENU, GLOBAL_MENU -> action.getMenuBarData().getMenuPathDisplayString();
 			case POPUP -> action.getPopupMenuData().getMenuPathDisplayString();
-			case RECENT -> action.getName();
 			case null, default -> action.getName();
 		};
 	}

@@ -15,7 +15,6 @@
  */
 package ghidra.framework.main.wizard.project;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -80,7 +79,7 @@ public class RepositoryPanel extends JPanel {
 
 	private JPanel createListPanel(String[] repositoryNames) {
 		JPanel panel = new JPanel(new BorderLayout());
-		panel.setBorder(DockingChrome.sectionBorder("Choose Existing Repository"));
+		panel.setBorder(BorderFactory.createTitledBorder("Choose Existing Repository"));
 
 		panel.add(createExistingRepoButton(repositoryNames), BorderLayout.NORTH);
 		panel.add(createScrollableRepoList(repositoryNames), BorderLayout.CENTER);
@@ -112,7 +111,7 @@ public class RepositoryPanel extends JPanel {
 	private JPanel createNamePanel() {
 		JPanel namePanel = new JPanel();
 		namePanel.setLayout(new VerticalLayout(5));
-		namePanel.setBorder(DockingChrome.sectionBorder("Create Repository"));
+		namePanel.setBorder(BorderFactory.createTitledBorder("Create Repository"));
 
 		createRepButton = new GRadioButton("Create Repository", !existingRepButton.isSelected());
 		buttonGroup.add(createRepButton);

@@ -15,7 +15,6 @@
  */
 package ghidra.framework.main;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
@@ -76,7 +75,7 @@ public class LogPanel extends JPanel implements LogListener {
 		panel.add(eastPanel, BorderLayout.EAST);
 
 		Border b = BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5),
-			DockingChrome.surfaceBorder(BorderFactory.createLoweredBevelBorder()));
+			BorderFactory.createLoweredBevelBorder());
 		label.setBorder(b);
 
 		addLogAppender();

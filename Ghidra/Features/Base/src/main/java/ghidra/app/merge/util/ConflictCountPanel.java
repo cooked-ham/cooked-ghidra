@@ -15,7 +15,6 @@
  */
 package ghidra.app.merge.util;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 
 import javax.swing.*;
@@ -73,7 +72,7 @@ public class ConflictCountPanel extends JPanel {
 
 	private void create() {
 
-		setBorder(DockingChrome.sectionBorder("Current Conflict"));
+		setBorder(BorderFactory.createTitledBorder("Current Conflict"));
 		textPane = new JTextPane();
 		textPane.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 0));
 		textPane.setEditable(false);

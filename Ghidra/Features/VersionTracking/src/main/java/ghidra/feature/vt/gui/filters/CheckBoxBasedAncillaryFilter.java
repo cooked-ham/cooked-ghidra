@@ -15,7 +15,6 @@
  */
 package ghidra.feature.vt.gui.filters;
 
-import docking.DockingChrome;
 import ghidra.framework.options.SaveState;
 import ghidra.util.layout.ColumnLayout;
 import ghidra.util.layout.VerticalLayout;
@@ -80,7 +79,7 @@ public abstract class CheckBoxBasedAncillaryFilter<T> extends AncillaryFilter<T>
         LayoutManager manager = createLayoutManager();
         JPanel panel = new JPanel();
         panel.setLayout(manager);
-        panel.setBorder(DockingChrome.sectionBorder(filterName));
+        panel.setBorder(BorderFactory.createTitledBorder(filterName));
 
         addCheckBoxes(panel);
 

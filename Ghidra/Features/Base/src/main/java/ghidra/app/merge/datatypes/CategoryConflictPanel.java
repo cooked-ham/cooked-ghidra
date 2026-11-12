@@ -15,7 +15,6 @@
  */
 package ghidra.app.merge.datatypes;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -48,7 +47,7 @@ class CategoryConflictPanel extends JPanel {
 
 	CategoryConflictPanel(String title, ChangeListener listener) {
 		super(new BorderLayout());
-		setBorder(DockingChrome.sectionBorder(title));
+		setBorder(BorderFactory.createTitledBorder(title));
 		create();
 		this.listener = listener;
 	}

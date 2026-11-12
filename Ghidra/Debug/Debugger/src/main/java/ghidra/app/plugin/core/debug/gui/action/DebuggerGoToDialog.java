@@ -15,7 +15,6 @@
  */
 package ghidra.app.plugin.core.debug.gui.action;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -88,7 +87,7 @@ public class DebuggerGoToDialog extends AbstractDebuggerSleighInputDialog {
 		});
 
 		Box modeBox = Box.createHorizontalBox();
-		modeBox.setBorder(DockingChrome.sectionBorder("Radix / Label Resolution"));
+		modeBox.setBorder(BorderFactory.createTitledBorder("Radix / Label Resolution"));
 		Map<LitIdMode, JRadioButton> modeButtons = new LinkedHashMap<>();
 		ButtonGroup modeGroup = new ButtonGroup();
 		for (LitIdMode mode : LitIdMode.VALUES) {

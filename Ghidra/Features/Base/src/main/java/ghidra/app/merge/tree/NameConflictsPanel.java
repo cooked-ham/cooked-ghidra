@@ -15,7 +15,6 @@
  */
 package ghidra.app.merge.tree;
 
-import docking.DockingChrome;
 import docking.widgets.button.GRadioButton;
 import docking.widgets.label.GDLabel;
 import docking.widgets.label.GIconLabel;
@@ -44,7 +43,7 @@ class NameConflictsPanel extends JPanel {
 
     NameConflictsPanel(ChangeListener listener) {
         super(new BorderLayout());
-        setBorder(DockingChrome.sectionBorder("Resolve Program Tree Conflict"));
+        setBorder(BorderFactory.createTitledBorder("Resolve Program Tree Conflict"));
         create();
         this.listener = listener;
     }

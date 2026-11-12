@@ -65,7 +65,7 @@ public class VisualVertexRenderer<V extends VisualVertex, E extends VisualEdge<V
 		Graph<V, E> graph = layout.getGraph();
 		if (!rc.getVertexIncludePredicate()
 				.apply(
-					Context.<Graph<V, E>, V> getInstance(graph, vertex))) {
+					Context.getInstance(graph, vertex))) {
 			return;
 		}
 
@@ -108,14 +108,6 @@ public class VisualVertexRenderer<V extends VisualVertex, E extends VisualEdge<V
 		Rectangle bounds = fullShape.getBounds();
 		paintVertex(rc, g, vertex, bounds, layout);
 
-// DEBUG		
-//		Paint oldPaint = g.getPaint();
-//		g.setPaint(Palette.RED);
-//		g.draw(compactShape);
-//
-//		g.setPaint(Palette.CYAN);
-//		g.draw(fullShape);
-//		g.setPaint(oldPaint);
 	}
 
 	protected void paintVertex(RenderContext<V, E> rc, GraphicsDecorator g, V vertex,

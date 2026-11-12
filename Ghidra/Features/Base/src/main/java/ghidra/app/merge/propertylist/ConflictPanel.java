@@ -15,7 +15,6 @@
  */
 package ghidra.app.merge.propertylist;
 
-import docking.DockingChrome;
 import java.awt.BorderLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -51,7 +50,7 @@ class ConflictPanel extends JPanel {
 
 	ConflictPanel(ChangeListener listener) {
 		super(new BorderLayout());
-		setBorder(DockingChrome.sectionBorder("Resolve Property Name Conflict"));
+		setBorder(BorderFactory.createTitledBorder("Resolve Property Name Conflict"));
 		create();
 		this.listener = listener;
 	}
