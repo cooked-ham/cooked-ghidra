@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ghidra.app.plugin.core.navigation.NavigationHistoryPluginTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:20:56.714Z" hostname="ROTBART" time="7.666">
+  <properties/>
+  <testcase name="testNavigationInCodeBrowser" classname="ghidra.app.plugin.core.navigation.NavigationHistoryPluginTest" time="4.128"/>
+  <testcase name="testMaxHistoryToSave" classname="ghidra.app.plugin.core.navigation.NavigationHistoryPluginTest" time="0.922"/>
+  <testcase name="testNext" classname="ghidra.app.plugin.core.navigation.NavigationHistoryPluginTest" time="0.624"/>
+  <testcase name="testPrevious" classname="ghidra.app.plugin.core.navigation.NavigationHistoryPluginTest" time="0.423"/>
+  <testcase name="testNextAfterUndoRedo" classname="ghidra.app.plugin.core.navigation.NavigationHistoryPluginTest" time="0.416"/>
+  <testcase name="testSaveToolHistoryState" classname="ghidra.app.plugin.core.navigation.NavigationHistoryPluginTest" time="0.416"/>
+  <testcase name="testMaxHistorySize" classname="ghidra.app.plugin.core.navigation.NavigationHistoryPluginTest" time="0.417"/>
+  <testcase name="testClearHistory" classname="ghidra.app.plugin.core.navigation.NavigationHistoryPluginTest" time="0.316"/>
+  <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_46cba526-2957-40e2-9294-6800e2c8fa88\temp.data
+18:20:56 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55)
+18:20:56 INFO  Using log file: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_46cba526-2957-40e2-9294-6800e2c8fa88\temp.data\application.log   (LoggingInitialization.java:56)
+18:20:57 INFO  Loading user preferences: E:\cooked-ghidra\Ghidra\Features\Base\build\Sean-ghidra\test_46cba526-2957-40e2-9294-6800e2c8fa88\temp.data\preferences   (Preferences.java:122)
+18:20:57 DEBUG Including serial input filter: FileSystem/data/client.rmi.serial.filter   (GhidraObjectInputFilter.java:391)
+18:20:57 INFO  Searching for classes...   (ClassSearcher.java:447)
+18:20:57 INFO  Class search complete (340 ms)   (ClassSearcher.java:135)
+18:20:57 DEBUG Wed Nov 11 18:20:57 CST 2026
+***** STARTING Test: NavigationHistoryPluginTest - testNavigationInCodeBrowser *****   (AbstractGenericTest.java:121)
+18:20:58 DEBUG Took 192ms (75ms inside lock) to initialize language E:\cooked-ghidra\Ghidra\Processors\x86\data\languages\x86.slaspec -> E:\cooked-ghidra\Ghidra\Processors\x86\data\languages\x86.sla   (SleighLanguage.java:204)
+18:21:00 DEBUG 	✓ PASSED Test: NavigationHistoryPluginTest - testNavigationInCodeBrowser ✓	   (AbstractGenericTest.java:121)
+18:21:00 DEBUG Wed Nov 11 18:21:00 CST 2026
+***** STARTING Test: NavigationHistoryPluginTest - testMaxHistoryToSave *****   (AbstractGenericTest.java:121)
+18:21:01 DEBUG 	✓ PASSED Test: NavigationHistoryPluginTest - testMaxHistoryToSave ✓	   (AbstractGenericTest.java:121)
+18:21:01 DEBUG Wed Nov 11 18:21:01 CST 2026
+***** STARTING Test: NavigationHistoryPluginTest - testNext *****   (AbstractGenericTest.java:121)
+18:21:02 DEBUG 	✓ PASSED Test: NavigationHistoryPluginTest - testNext ✓	   (AbstractGenericTest.java:121)
+18:21:02 DEBUG Wed Nov 11 18:21:02 CST 2026
+***** STARTING Test: NavigationHistoryPluginTest - testPrevious *****   (AbstractGenericTest.java:121)
+18:21:02 DEBUG 	✓ PASSED Test: NavigationHistoryPluginTest - testPrevious ✓	   (AbstractGenericTest.java:121)
+18:21:02 DEBUG Wed Nov 11 18:21:02 CST 2026
+***** STARTING Test: NavigationHistoryPluginTest - testNextAfterUndoRedo *****   (AbstractGenericTest.java:121)
+18:21:03 DEBUG 	✓ PASSED Test: NavigationHistoryPluginTest - testNextAfterUndoRedo ✓	   (AbstractGenericTest.java:121)
+18:21:03 DEBUG Wed Nov 11 18:21:03 CST 2026
+***** STARTING Test: NavigationHistoryPluginTest - testSaveToolHistoryState *****   (AbstractGenericTest.java:121)
+18:21:03 DEBUG 	✓ PASSED Test: NavigationHistoryPluginTest - testSaveToolHistoryState ✓	   (AbstractGenericTest.java:121)
+18:21:03 DEBUG Wed Nov 11 18:21:03 CST 2026
+***** STARTING Test: NavigationHistoryPluginTest - testMaxHistorySize *****   (AbstractGenericTest.java:121)
+18:21:04 DEBUG 	✓ PASSED Test: NavigationHistoryPluginTest - testMaxHistorySize ✓	   (AbstractGenericTest.java:121)
+18:21:04 DEBUG Wed Nov 11 18:21:04 CST 2026
+***** STARTING Test: NavigationHistoryPluginTest - testClearHistory *****   (AbstractGenericTest.java:121)
+18:21:04 DEBUG 	✓ PASSED Test: NavigationHistoryPluginTest - testClearHistory ✓	   (AbstractGenericTest.java:121)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

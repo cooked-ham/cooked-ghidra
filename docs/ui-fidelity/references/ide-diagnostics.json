@@ -1,0 +1,82 @@
+{
+  "scope": "Java sources touched by the graphite/location work, generated token SVG, and its generator",
+  "errors": 0,
+  "warnings": 0,
+  "ideBuild": "passed",
+  "verification": {
+    "junitTests": 24,
+    "junitFailures": 0,
+    "glyphPngsCompared": 344,
+    "glyphPngDifferences": 0,
+    "decompilerActionRegistrationsCompared": 57,
+    "actionOrderChanged": false
+  },
+  "notes": [
+    "The informational debugger suggestion for the glyph generator's intentional console output is retained.",
+    "Reference PNGs and their capture manifest remain the original visual baseline; this cleanup adds fresh regression and inspection evidence."
+  ],
+  "files": [
+    {
+      "filePath": "Ghidra/Features/Base/src/main/java/ghidra/app/nav/LocationContextPanel.java",
+      "errors": [],
+      "warnings": [],
+      "informational": []
+    },
+    {
+      "filePath": "Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/codebrowser/CodeViewerProvider.java",
+      "errors": [],
+      "warnings": [],
+      "informational": []
+    },
+    {
+      "filePath": "Ghidra/Features/Decompiler/src/main/java/ghidra/app/plugin/core/decompile/DecompilerProvider.java",
+      "errors": [],
+      "warnings": [],
+      "informational": []
+    },
+    {
+      "filePath": "Ghidra/Features/Decompiler/src/test.slow/java/ghidra/app/plugin/core/decompile/LocationContextTest.java",
+      "errors": [],
+      "warnings": [],
+      "informational": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/GraphiteTheme.java",
+      "errors": [],
+      "warnings": [],
+      "informational": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/icons/Glyphs.java",
+      "errors": [],
+      "warnings": [],
+      "informational": [
+        {
+          "severity": "DEBUGGER_SUGGESTION",
+          "description": "'System.out.println()' call can be replaced with a logpoint",
+          "lineContent": "\t\tSystem.out.println(\"glyphs=\" + GLYPHS.size());",
+          "line": 901,
+          "column": 14
+        }
+      ]
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/test/java/generic/theme/uirefresh/UiRefreshContrastTest.java",
+      "errors": [],
+      "warnings": [],
+      "informational": []
+    },
+    {
+      "filePath": "docs/ui-fidelity/references/tokens.svg",
+      "errors": [],
+      "warnings": [],
+      "informational": []
+    },
+    {
+      "filePath": "support/ui/reference_sheet.py",
+      "errors": [],
+      "warnings": [],
+      "informational": []
+    }
+  ]
+}

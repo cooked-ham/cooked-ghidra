@@ -20,6 +20,7 @@ import java.awt.geom.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.*;
 
 import javax.imageio.ImageIO;
@@ -85,6 +86,9 @@ public final class Glyphs {
 	public static final Palette DARK = new Palette("dark", new Color(0xC9D1DE),
 		new Color(0xC9D1DE, false).darker(), new Color(0x7FA7F2), new Color(0x91CBA6),
 		new Color(0xE7BF79), new Color(0xE48D94));
+	public static final Palette GRAPHITE = new Palette("graphite", new Color(0xF2EDE5),
+		new Color(0xC3B7A8), new Color(0xE8AD63), new Color(0x9ACAAB),
+		new Color(0xF1D982), new Color(0xF09B94));
 	public static final Palette LIGHT = new Palette("light", new Color(0x3A4556),
 		new Color(0x8792A3), new Color(0x2862D0), new Color(0x2F7D5B), new Color(0xB07A10),
 		new Color(0xC23B44));
@@ -132,9 +136,9 @@ public final class Glyphs {
 	private static void arrowHead(Graphics2D g, double x, double y, double dx, double dy) {
 		// open chevron pointing along (dx, dy) with its tip at (x, y)
 		double len = 3.2;
-		double nx = -dy, ny = dx;
-		poly(g, false, x - dx * len + nx * len, y - dy * len + ny * len, x, y,
-			x - dx * len - nx * len, y - dy * len - ny * len);
+		double nx = -dy;
+		poly(g, false, x - dx * len + nx * len, y - dy * len + dx * len, x, y,
+			x - dx * len - nx * len, y - dy * len - dx * len);
 	}
 
 	private static void arrow(Graphics2D g, double x1, double y1, double x2, double y2) {
@@ -208,7 +212,10 @@ public final class Glyphs {
 		g.drawString(ch, (float) (8 - b.getWidth() / 2), (float) (8 + fm.getAscent() * 0.36));
 	}
 
-	private static void gear(Graphics2D g, Palette p, double cx, double cy, double r) {
+	private static void gear(Graphics2D g, Palette p) {
+		double cx = 8;
+		double cy = 8;
+		double r = 6.2;
 		Path2D s = new Path2D.Double();
 		int teeth = 8;
 		for (int i = 0; i < teeth * 2; i++) {
@@ -257,28 +264,28 @@ public final class Glyphs {
 		dot(g, 8, 8, 6.5);
 		g.setColor(c);
 		circle(g, 8, 8, 6.5);
-		if (kind.equals("info")) {
-			dot(g, 8, 4.9, 0.9);
-			line(g, 8, 7.2, 8, 11.5);
-		}
-		else if (kind.equals("error")) {
-			line(g, 8, 4.4, 8, 8.8);
-			dot(g, 8, 11.3, 0.9);
-		}
-		else if (kind.equals("help")) {
-			Path2D q = new Path2D.Double();
-			q.moveTo(6, 6.2);
-			q.curveTo(6, 3.8, 10.2, 3.8, 10.2, 6.2);
-			q.curveTo(10.2, 7.8, 8, 7.8, 8, 9.4);
-			g.draw(q);
-			dot(g, 8, 11.6, 0.9);
-		}
-		else if (kind.equals("stop")) {
-			line(g, 5.6, 5.6, 10.4, 10.4);
-			line(g, 10.4, 5.6, 5.6, 10.4);
-		}
-		else if (kind.equals("not")) {
-			line(g, 3.6, 12.4, 12.4, 3.6);
+		switch (kind) {
+			case "info" -> {
+				dot(g, 8, 4.9, 0.9);
+				line(g, 8, 7.2, 8, 11.5);
+			}
+			case "error" -> {
+				line(g, 8, 4.4, 8, 8.8);
+				dot(g, 8, 11.3, 0.9);
+			}
+			case "help" -> {
+				Path2D q = new Path2D.Double();
+				q.moveTo(6, 6.2);
+				q.curveTo(6, 3.8, 10.2, 3.8, 10.2, 6.2);
+				q.curveTo(10.2, 7.8, 8, 7.8, 8, 9.4);
+				g.draw(q);
+				dot(g, 8, 11.6, 0.9);
+			}
+			case "stop" -> {
+				line(g, 5.6, 5.6, 10.4, 10.4);
+				line(g, 10.4, 5.6, 5.6, 10.4);
+			}
+			case "not" -> line(g, 3.6, 12.4, 12.4, 3.6);
 		}
 	}
 
@@ -413,7 +420,7 @@ public final class Glyphs {
 			line(g, 5.8, 10.2, 11.5, 2);
 			line(g, 10.2, 10.2, 4.5, 2);
 		});
-		GLYPHS.put("search", (g, p) -> magnifier(g, p));
+		GLYPHS.put("search", Glyphs::magnifier);
 		GLYPHS.put("zoomIn", (g, p) -> {
 			magnifier(g, p);
 			line(g, 4.5, 6.5, 8.5, 6.5);
@@ -441,7 +448,7 @@ public final class Glyphs {
 			g.setColor(p.accent);
 			g.draw(s);
 		});
-		GLYPHS.put("configure", (g, p) -> gear(g, p, 8, 8, 6.2));
+		GLYPHS.put("configure", Glyphs::gear);
 		GLYPHS.put("home", (g, p) -> {
 			g.setColor(p.ink);
 			poly(g, false, 1.8, 8, 8, 2.2, 14.2, 8);
@@ -884,9 +891,9 @@ public final class Glyphs {
 	 */
 	public static void main(String[] args) throws IOException {
 		File root = new File(args[0]);
-		for (Palette p : java.util.List.of(DARK, LIGHT, HIGH_CONTRAST)) {
+		for (Palette p : java.util.List.of(DARK, LIGHT, HIGH_CONTRAST, GRAPHITE)) {
 			File dir = new File(root, p.key());
-			dir.mkdirs();
+			Files.createDirectories(dir.toPath());
 			for (String n : GLYPHS.keySet()) {
 				ImageIO.write(render(n, p, 1), "png", new File(dir, n + ".png"));
 			}

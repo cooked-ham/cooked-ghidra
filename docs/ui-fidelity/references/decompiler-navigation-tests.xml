@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ghidra.app.plugin.core.decompile.DecompilerNavigationTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-12T00:21:54.450Z" hostname="ROTBART" time="20.815">
+  <properties/>
+  <testcase name="testFunctionNavigation_ExternalProgramFunction_OptionNavigateToExternal" classname="ghidra.app.plugin.core.decompile.DecompilerNavigationTest" time="6.526"/>
+  <testcase name="testSingleClickingFunctionCallDoesNotMoveListingToThatFunction" classname="ghidra.app.plugin.core.decompile.DecompilerNavigationTest" time="1.925"/>
+  <testcase name="testNavigation_ExternalEventDoesNotTriggerNavigation" classname="ghidra.app.plugin.core.decompile.DecompilerNavigationTest" time="1.723"/>
+  <testcase name="testDecompilerLocationEvent_VariableDeclaration" classname="ghidra.app.plugin.core.decompile.DecompilerNavigationTest" time="1.928"/>
+  <testcase name="testDecompilerLocationEvent_FunctionSignature_FunctionName" classname="ghidra.app.plugin.core.decompile.DecompilerNavigationTest" time="1.925"/>
+  <testcase name="testDecompilerLocationEvent_FunctionSignature_Parameter" classname="ghidra.app.plugin.core.decompile.DecompilerNavigationTest" time="1.925"/>
+  <testcase name="testFunctionNavigation_ExternalProgramFunction_OptionNavigateToLinkage" classname="ghidra.app.plugin.core.decompile.DecompilerNavigationTest" time="2.536"/>
+  <testcase name="testFunctionNavigation_WithAViewThatCachesTheLastValidFunction" classname="ghidra.app.plugin.core.decompile.DecompilerNavigationTest" time="2.324"/>
+  <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Features\Decompiler\build\Sean-ghidra\test_93c41142-206a-4de9-9490-42b52d2d44e1\temp.data
+18:21:54 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55)
+18:21:54 INFO  Using log file: E:\cooked-ghidra\Ghidra\Features\Decompiler\build\Sean-ghidra\test_93c41142-206a-4de9-9490-42b52d2d44e1\temp.data\application.log   (LoggingInitialization.java:56)
+18:21:54 INFO  Loading user preferences: E:\cooked-ghidra\Ghidra\Features\Decompiler\build\Sean-ghidra\test_93c41142-206a-4de9-9490-42b52d2d44e1\temp.data\preferences   (Preferences.java:122)
+18:21:55 DEBUG Including serial input filter: FileSystem/data/client.rmi.serial.filter   (GhidraObjectInputFilter.java:391)
+18:21:55 INFO  Searching for classes...   (ClassSearcher.java:447)
+18:21:55 INFO  Class search complete (288 ms)   (ClassSearcher.java:135)
+18:21:55 DEBUG Wed Nov 11 18:21:55 CST 2026
+***** STARTING Test: DecompilerNavigationTest - testFunctionNavigation_ExternalProgramFunction_OptionNavigateToExternal *****   (AbstractGenericTest.java:121)
+18:21:56 DEBUG Took 192ms (76ms inside lock) to initialize language E:\cooked-ghidra\Ghidra\Processors\x86\data\languages\x86.slaspec -> E:\cooked-ghidra\Ghidra\Processors\x86\data\languages\x86.sla   (SleighLanguage.java:204)
+18:21:59 DEBUG 2026-11-11 18:21:59 Background processing started...   (ToolTaskManager.java:330)
+18:21:59 DEBUG 2026-11-11 18:21:59 Task Start: Auto Analysis   (ToolTaskManager.java:335)
+18:21:59 DEBUG 2026-11-11 18:21:59 Task Completed: Auto Analysis (0.074 secs)   (ToolTaskManager.java:438)
+18:21:59 DEBUG 2026-11-11 18:21:59 Background processing complete (0.075 secs)   (ToolTaskManager.java:354)
+18:22:00 DEBUG 	✓ PASSED Test: DecompilerNavigationTest - testFunctionNavigation_ExternalProgramFunction_OptionNavigateToExternal ✓	   (AbstractGenericTest.java:121)
+18:22:00 DEBUG Wed Nov 11 18:22:00 CST 2026
+***** STARTING Test: DecompilerNavigationTest - testSingleClickingFunctionCallDoesNotMoveListingToThatFunction *****   (AbstractGenericTest.java:121)
+18:22:02 DEBUG 	✓ PASSED Test: DecompilerNavigationTest - testSingleClickingFunctionCallDoesNotMoveListingToThatFunction ✓	   (AbstractGenericTest.java:121)
+18:22:02 DEBUG Wed Nov 11 18:22:02 CST 2026
+***** STARTING Test: DecompilerNavigationTest - testNavigation_ExternalEventDoesNotTriggerNavigation *****   (AbstractGenericTest.java:121)
+18:22:04 DEBUG 	✓ PASSED Test: DecompilerNavigationTest - testNavigation_ExternalEventDoesNotTriggerNavigation ✓	   (AbstractGenericTest.java:121)
+18:22:04 DEBUG Wed Nov 11 18:22:04 CST 2026
+***** STARTING Test: DecompilerNavigationTest - testDecompilerLocationEvent_VariableDeclaration *****   (AbstractGenericTest.java:121)
+18:22:06 DEBUG 	✓ PASSED Test: DecompilerNavigationTest - testDecompilerLocationEvent_VariableDeclaration ✓	   (AbstractGenericTest.java:121)
+18:22:06 DEBUG Wed Nov 11 18:22:06 CST 2026
+***** STARTING Test: DecompilerNavigationTest - testDecompilerLocationEvent_FunctionSignature_FunctionName *****   (AbstractGenericTest.java:121)
+18:22:08 DEBUG 	✓ PASSED Test: DecompilerNavigationTest - testDecompilerLocationEvent_FunctionSignature_FunctionName ✓	   (AbstractGenericTest.java:121)
+18:22:08 DEBUG Wed Nov 11 18:22:08 CST 2026
+***** STARTING Test: DecompilerNavigationTest - testDecompilerLocationEvent_FunctionSignature_Parameter *****   (AbstractGenericTest.java:121)
+18:22:10 DEBUG 	✓ PASSED Test: DecompilerNavigationTest - testDecompilerLocationEvent_FunctionSignature_Parameter ✓	   (AbstractGenericTest.java:121)
+18:22:10 DEBUG Wed Nov 11 18:22:10 CST 2026
+***** STARTING Test: DecompilerNavigationTest - testFunctionNavigation_ExternalProgramFunction_OptionNavigateToLinkage *****   (AbstractGenericTest.java:121)
+18:22:11 DEBUG 2026-11-11 18:22:11 Background processing started...   (ToolTaskManager.java:330)
+18:22:11 DEBUG 2026-11-11 18:22:11 Task Start: Auto Analysis   (ToolTaskManager.java:335)
+18:22:11 DEBUG 2026-11-11 18:22:11 Task Completed: Auto Analysis (0.084 secs)   (ToolTaskManager.java:438)
+18:22:11 DEBUG 2026-11-11 18:22:11 Background processing complete (0.084 secs)   (ToolTaskManager.java:354)
+18:22:12 DEBUG 	✓ PASSED Test: DecompilerNavigationTest - testFunctionNavigation_ExternalProgramFunction_OptionNavigateToLinkage ✓	   (AbstractGenericTest.java:121)
+18:22:12 DEBUG Wed Nov 11 18:22:12 CST 2026
+***** STARTING Test: DecompilerNavigationTest - testFunctionNavigation_WithAViewThatCachesTheLastValidFunction *****   (AbstractGenericTest.java:121)
+18:22:15 DEBUG 	✓ PASSED Test: DecompilerNavigationTest - testFunctionNavigation_WithAViewThatCachesTheLastValidFunction ✓	   (AbstractGenericTest.java:121)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1210" viewBox="0 0 1440 1210">
+<defs><linearGradient id="chrome" x2="0" y2="1"><stop offset="0" stop-color="#44372D"/><stop offset="1" stop-color="#2B2723"/></linearGradient></defs>
+<rect width="1440" height="1210" fill="#171615"/>
+<style>text{font-family:Segoe UI,Arial,sans-serif;fill:#F2EDE5} .muted{fill:#C3B7A8}.mono{font-family:Consolas,monospace}</style>
+<text x="48" y="62" font-size="16" class="muted">GRAPHITE / 01</text>
+<text x="48" y="108" font-size="32" >Warm chrome. Quiet analysis surfaces.</text>
+<text x="48" y="144" font-size="17" class="muted">Token and interaction reference · Windows first · implementation preview, acceptance pending</text>
+<rect x="48" y="184" width="248" height="64" rx="8" fill="#171615" stroke="#88796A"/>
+<text x="48" y="270" font-size="14" class="muted">canvas  #171615</text>
+<rect x="320" y="184" width="248" height="64" rx="8" fill="#201E1C" stroke="#88796A"/>
+<text x="320" y="270" font-size="14" class="muted">content  #201E1C</text>
+<rect x="592" y="184" width="248" height="64" rx="8" fill="#2B2723" stroke="#88796A"/>
+<text x="592" y="270" font-size="14" class="muted">raised  #2B2723</text>
+<rect x="864" y="184" width="248" height="64" rx="8" fill="#3B332B" stroke="#88796A"/>
+<text x="864" y="270" font-size="14" class="muted">hover  #3B332B</text>
+<rect x="1136" y="184" width="248" height="64" rx="8" fill="#51402B" stroke="#88796A"/>
+<text x="1136" y="270" font-size="14" class="muted">selection  #51402B</text>
+<rect x="48" y="296" width="248" height="64" rx="8" fill="#38322C" stroke="#88796A"/>
+<text x="48" y="382" font-size="14" class="muted">inactive selection  #38322C</text>
+<rect x="320" y="296" width="248" height="64" rx="8" fill="#88796A" stroke="#88796A"/>
+<text x="320" y="382" font-size="14" class="muted">outline  #88796A</text>
+<rect x="592" y="296" width="248" height="64" rx="8" fill="#F2EDE5" stroke="#88796A"/>
+<text x="592" y="382" font-size="14" class="muted">primary text  #F2EDE5</text>
+<rect x="864" y="296" width="248" height="64" rx="8" fill="#C3B7A8" stroke="#88796A"/>
+<text x="864" y="382" font-size="14" class="muted">secondary text  #C3B7A8</text>
+<rect x="1136" y="296" width="248" height="64" rx="8" fill="#968A7C" stroke="#88796A"/>
+<text x="1136" y="382" font-size="14" class="muted">disabled text  #968A7C</text>
+<rect x="48" y="408" width="248" height="64" rx="8" fill="#8ECAD4" stroke="#88796A"/>
+<text x="48" y="494" font-size="14" class="muted">keyboard focus  #8ECAD4</text>
+<rect x="320" y="408" width="248" height="64" rx="8" fill="#E8AD63" stroke="#88796A"/>
+<text x="320" y="494" font-size="14" class="muted">navigation amber  #E8AD63</text>
+<rect x="592" y="408" width="248" height="64" rx="8" fill="#21180E" stroke="#88796A"/>
+<text x="592" y="494" font-size="14" class="muted">text on amber  #21180E</text>
+<rect x="864" y="408" width="248" height="64" rx="8" fill="#9ACAAB" stroke="#88796A"/>
+<text x="864" y="494" font-size="14" class="muted">success  #9ACAAB</text>
+<rect x="1136" y="408" width="248" height="64" rx="8" fill="#F1D982" stroke="#88796A"/>
+<text x="1136" y="494" font-size="14" class="muted">warning  #F1D982</text>
+<rect x="48" y="520" width="248" height="64" rx="8" fill="#F09B94" stroke="#88796A"/>
+<text x="48" y="606" font-size="14" class="muted">error  #F09B94</text>
+<rect x="320" y="520" width="248" height="64" rx="8" fill="#3E3828" stroke="#88796A"/>
+<text x="320" y="606" font-size="14" class="muted">analysis highlight  #3E3828</text>
+<rect x="592" y="520" width="248" height="64" rx="8" fill="#5B4827" stroke="#88796A"/>
+<text x="592" y="606" font-size="14" class="muted">search highlight  #5B4827</text>
+<rect x="864" y="520" width="248" height="64" rx="8" fill="#292521" stroke="#88796A"/>
+<text x="864" y="606" font-size="14" class="muted">current line  #292521</text>
+<text x="48" y="670" font-size="24" >Interaction states</text>
+<rect x="48" y="698" width="248" height="48" rx="8" fill="#E8AD63" stroke="#88796A"/>
+<text x="64" y="728" font-size="16" style="fill:#21180E">Active</text>
+<rect x="320" y="698" width="248" height="48" rx="8" fill="#2B2723" stroke="#88796A"/>
+<text x="336" y="728" font-size="16" style="fill:#C3B7A8">Inactive</text>
+<rect x="592" y="698" width="248" height="48" rx="8" fill="#3B332B" stroke="#88796A"/>
+<text x="608" y="728" font-size="16" style="fill:#F2EDE5">Hover</text>
+<rect x="864" y="698" width="248" height="48" rx="8" fill="#51402B" stroke="#88796A"/>
+<text x="880" y="728" font-size="16" style="fill:#F2EDE5">Pressed</text>
+<rect x="1136" y="698" width="248" height="48" rx="8" fill="#2B2723" stroke="#8ECAD4"/>
+<text x="1152" y="728" font-size="16" style="fill:#F2EDE5">Focused</text>
+<rect x="48" y="772" width="248" height="48" rx="8" fill="#51402B" stroke="#E8AD63"/>
+<text x="64" y="802" font-size="16" style="fill:#F2EDE5">Selected ✓</text>
+<rect x="320" y="772" width="248" height="48" rx="8" fill="#2B2723" stroke="#88796A"/>
+<text x="336" y="802" font-size="16" style="fill:#968A7C">Disabled</text>
+<rect x="592" y="772" width="248" height="48" rx="8" fill="#2B2723" stroke="#F09B94"/>
+<text x="608" y="802" font-size="16" style="fill:#F09B94">Error !</text>
+<rect x="864" y="772" width="248" height="48" rx="8" fill="#2B2723" stroke="#F1D982"/>
+<text x="880" y="802" font-size="16" style="fill:#F1D982">Warning △</text>
+<rect x="48" y="870" width="1320" height="86" rx="8" fill="url(#chrome)" stroke="#88796A"/>
+<text x="68" y="901" font-size="17" >Copper / #CB9474 · chrome gradient / #44372D → #2B2723</text>
+<text x="68" y="931" font-size="16" class="muted">Expressive depth belongs in headers, toolbar groups and overlays. Code and hex stay flat.</text>
+<text x="48" y="1008" font-size="24" >Typography and geometry</text>
+<text x="48" y="1042" font-size="17" >Segoe UI Variable Text → Segoe UI → logical SansSerif · 13 pt controls</text>
+<text x="48" y="1074" font-size="17" class="mono">Cascadia Mono → JetBrains Mono → Consolas → Monospaced · 13 pt code</text>
+<text x="48" y="1106" font-size="17" >Spacing 4 / 8 / 12 / 16 / 24 · chrome radius 8–10 · compact rows 18 / standard rows 22</text>
+<text x="48" y="1150" font-size="16" class="muted">Brand amber is paired with labels; warnings use a triangle, errors use !, and keyboard focus uses cyan.</text>
+<text x="48" y="1180" font-size="15" class="muted">State samples and gradient are design specifications; live screenshots show current implementation fidelity.</text>
+</svg>

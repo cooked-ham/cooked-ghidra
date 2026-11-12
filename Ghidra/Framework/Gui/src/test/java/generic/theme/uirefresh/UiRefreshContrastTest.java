@@ -28,26 +28,26 @@ public class UiRefreshContrastTest {
 	public void testSyntaxAndGraphTextContrast() {
 		for (GTheme theme : new GTheme[] { new UiRefreshDarkTheme(), new UiRefreshLightTheme(),
 			new UiRefreshHighContrastTheme(), new UiRefreshCompactDarkTheme(),
-			new UiRefreshCompactLightTheme() }) {
+			new UiRefreshCompactLightTheme(), new GraphiteTheme() }) {
 			Color background = theme.getColor("color.bg.decompiler").get(theme);
 			for (String role : new String[] { "keyword", "comment", "error", "variable", "constant",
 				"type", "parameter", "global", "special", "external.function" }) {
 				Color foreground = theme.getColor("color.fg.decompiler." + role).get(theme);
-				assertContrast(theme, role, foreground, background, 4.5);
+				assertContrast(theme, role, foreground, background);
 			}
 			Color label = theme.getColor("color.fg.plugin.functiongraph.label.picked").get(theme);
 			for (String role : new String[] { "entry", "exit", "group", "picked" }) {
 				background = theme.getColor("color.bg.plugin.functiongraph.vertex." + role).get(theme);
-				assertContrast(theme, "graph " + role, label, background, 4.5);
+				assertContrast(theme, "graph " + role, label, background);
 			}
 		}
 	}
 
-	private static void assertContrast(GTheme theme, String role, Color fg, Color bg, double minimum) {
+	private static void assertContrast(GTheme theme, String role, Color fg, Color bg) {
 		double first = luminance(fg);
 		double second = luminance(bg);
 		double ratio = (Math.max(first, second) + .05) / (Math.min(first, second) + .05);
-		assertTrue(theme.getName() + " " + role + " contrast=" + ratio, ratio >= minimum);
+		assertTrue(theme.getName() + " " + role + " contrast=" + ratio, ratio >= 4.5);
 	}
 
 	private static double luminance(Color color) {

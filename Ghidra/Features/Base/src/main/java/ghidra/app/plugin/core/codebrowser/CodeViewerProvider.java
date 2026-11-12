@@ -44,6 +44,7 @@ import generic.theme.GIcon;
 import ghidra.app.context.ListingActionContext;
 import ghidra.app.context.ProgramLocationActionContext;
 import ghidra.app.nav.ListingPanelContainer;
+import ghidra.app.nav.LocationContextPanel;
 import ghidra.app.nav.LocationMemento;
 import ghidra.app.plugin.core.clipboard.CodeBrowserClipboardProvider;
 import ghidra.app.plugin.core.codebrowser.actions.*;
@@ -86,16 +87,13 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 
 	private static final String DIVIDER_LOCATION = "DividerLocation";
 
-	private Map<Program, ListingHighlightProvider> programHighlighterMap = new HashMap<>();
-	private ProgramHighlighterProvider highlighterAdapter;
+	private final Map<Program, ListingHighlightProvider> programHighlighterMap = new HashMap<>();
 
-	private ListingPanel listingPanel;
-	private CodeBrowserPluginInterface plugin;
+	private final ListingPanel listingPanel;
+	private final CodeBrowserPluginInterface plugin;
 	private Program program;
-	private DragSource dragSource;
-	private DragGestureAdapter dragGestureAdapter;
 	private DragSrcAdapter dragSourceAdapter;
-	private int dragAction = DnDConstants.ACTION_MOVE;
+	private final int dragAction = DnDConstants.ACTION_MOVE;
 	private DropTgtAdapter dropTargetAdapter;
 	private DataFlavor[] acceptableFlavors = new DataFlavor[0];
 	private ProgramDropProvider[] dropProviders = new ProgramDropProvider[0];
@@ -106,26 +104,21 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 
 	private ListingPanel otherPanel;
 	private CoordinatedListingPanelListener coordinatedListingPanelListener;
-	private FormatManager formatMgr;
+	private final FormatManager formatMgr;
 	private FieldPanelScrollCoordinator coordinator;
-	private ProgramSelectionListener liveProgramSelectionListener = (selection, trigger) -> {
-		liveSelection = selection;
-		updateSubTitle();
-	};
 
-	private CodeBrowserClipboardProvider codeViewerClipboardProvider;
+	private final CodeBrowserClipboardProvider codeViewerClipboardProvider;
 	private ClipboardService clipboardService;
 
-	private ListingPanelContainer decorationPanel;
-
-	private CloneCodeViewerAction cloneCodeViewerAction;
+	private final ListingPanelContainer decorationPanel;
+	private final JComponent locationContextContainer;
 
 	private ProgramSelection currentSelection;
 	private ProgramSelection liveSelection;
 	private ProgramSelection currentHighlight;
 	private String currentStringSelection;
 
-	private FieldNavigator fieldNavigator;
+	private final FieldNavigator fieldNavigator;
 
 	private MultiListingLayoutModel multiModel;
 	private ToggleDockingAction toggleVariablesAction;
@@ -158,9 +151,14 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 		listingPanel.enablePropertyBasedColorModel(true);
 
 		decorationPanel = new ListingPanelContainer(listingPanel, isConnected);
+		locationContextContainer = LocationContextPanel.wrap(decorationPanel, tool, this,
+			() -> new LocationContextPanel.Context(program, listingPanel.getProgramLocation(),
+				program == null ? "Unavailable" : isConnected() ? "Connected" : "Independent",
+				isConnected() ? "Listing broadcasts and follows tool locations." :
+					"This Listing clone keeps its own program and location."));
 		ListingMiddleMouseHighlightProvider listingHighlighter =
 			createListingHighlighter(listingPanel, tool, decorationPanel);
-		highlighterAdapter = new ProgramHighlighterProvider(listingHighlighter);
+		ProgramHighlighterProvider highlighterAdapter = new ProgramHighlighterProvider(listingHighlighter);
 		listingPanel.addHighlightProvider(highlighterAdapter);
 
 		setWindowMenuGroup("Listing");
@@ -173,7 +171,10 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 		createActions();
 		listingPanel.setProgramLocationListener(this);
 		listingPanel.setProgramSelectionListener(this);
-		listingPanel.setLiveProgramSelectionListener(liveProgramSelectionListener);
+		listingPanel.setLiveProgramSelectionListener((selection, _) -> {
+			liveSelection = selection;
+			updateSubTitle();
+		});
 		listingPanel.setStringSelectionListener(this);
 		listingPanel.addIndexMapChangeListener(this);
 
@@ -283,7 +284,7 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 
 	@Override
 	public JComponent getComponent() {
-		return decorationPanel;
+		return locationContextContainer;
 	}
 
 	protected ListingActionContext newListingActionContext() {
@@ -326,9 +327,8 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 
 		JComponent northPanel = decorationPanel.getNorthPanel();
 		if (northPanel != null && northPanel.isAncestorOf((Component) source)) {
-			if (northPanel instanceof GTabPanel tabPanel) {
-				Program tabValue = (Program) tabPanel.getValueFor(event);
-				if (tabValue != null) {
+			if (northPanel instanceof GTabPanel<?> tabPanel) {
+				if (tabPanel.getValueFor(event) instanceof Program tabValue) {
 					return new ProgramTabActionContext(this, tabValue, tabPanel);
 				}
 			}
@@ -488,8 +488,7 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 		tool.addLocalAction(this, new CollapseAllDataAction(this));
 		tool.addLocalAction(this, new ToggleExpandCollapseDataAction(this));
 
-		cloneCodeViewerAction = new CloneCodeViewerAction(plugin.getName(), this);
-		addLocalAction(cloneCodeViewerAction);
+		addLocalAction(new CloneCodeViewerAction(plugin.getName(), this));
 
 		DockingAction action = new GotoPreviousFunctionAction(tool, plugin.getName());
 		tool.addAction(action);
@@ -502,14 +501,14 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 				.popupMenuGroup("Visibility", "1")
 				.helpLocation(new HelpLocation("CodeBrowserPlugin", "Open_All_Functions"))
 				.withContext(ProgramLocationActionContext.class)
-				.onAction(c -> showAllFunctions(true))
+				.onAction(_ -> showAllFunctions(true))
 				.buildAndInstallLocal(this);
 		new ActionBuilder("Close All Functions", plugin.getName())
 				.popupMenuPath("Function", "Close All Functions")
 				.popupMenuGroup("Visibility", "2")
 				.helpLocation(new HelpLocation("CodeBrowserPlugin", "Close_All_Functions"))
 				.withContext(ProgramLocationActionContext.class)
-				.onAction(c -> showAllFunctions(false))
+				.onAction(_ -> showAllFunctions(false))
 				.buildAndInstallLocal(this);
 		new ActionBuilder("Toggle Open Function", plugin.getName())
 				.popupMenuPath("Function", "Open/Close Function")
@@ -519,7 +518,7 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 				.withContext(ProgramLocationActionContext.class)
 				.validWhen(this::isInCollapsableCodeArea)
 				.enabledWhen(this::isInCollapsableCodeArea)
-				.onAction(c -> toggleShowFunction(c))
+				.onAction(this::toggleShowFunction)
 				.buildAndInstallLocal(this);
 
 		toggleVariablesAction =
@@ -529,7 +528,7 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 					.helpLocation(new HelpLocation("CodeBrowserPlugin", "Show_Variables"))
 					.selected(true)
 					.withContext(ProgramLocationActionContext.class)
-					.onAction(c -> showVariablesForAllFunctions(toggleVariablesAction.isSelected()))
+					.onAction(_ -> showVariablesForAllFunctions(toggleVariablesAction.isSelected()))
 					.buildAndInstallLocal(this);
 
 		new ActionBuilder("Show/Hide Function Variables", plugin.getName())
@@ -616,11 +615,7 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 		// this allows the code collapse to be toggled on instructions in the body of a function,
 		// but we have to exclude the variable locations so as to not interfere with the 
 		// open/close variables action which also is mapped to <SPACE> 
-		if (isInFunctionBody(location)) {
-			return true;
-		}
-
-		return false;
+		return isInFunctionBody(location);
 	}
 
 	private boolean isInFunctionBody(ProgramLocation location) {
@@ -629,17 +624,12 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 			return false;
 		}
 
-		if (location instanceof VariableLocation ||
-			location instanceof VariablesOpenCloseLocation) {
+		if (location instanceof VariablesOpenCloseLocation) {
 			return false;
 		}
 
 		Data cursorData = DataUtilities.getDataAtLocation(location);
-		if (cursorData != null) {
-			return false;
-		}
-
-		return true;
+		return cursorData == null;
 	}
 
 	private void buildQuickTogleFieldActions() {
@@ -664,7 +654,7 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 					.helpLocation(new HelpLocation("CodeBrowserPlugin", "Toggle_Field"))
 					// only show this action when over the listing field header
 					.popupWhen(c -> c.getContextObject() instanceof FieldHeaderLocation)
-					.onAction(c -> formatMgr.toggleField(fieldName))
+					.onAction(_ -> formatMgr.toggleField(fieldName))
 					.buildAndInstallLocal(this);
 
 			// automatically assign keybindings to the first 5 toggle fields. 
@@ -684,7 +674,7 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 			return;
 		}
 		list.add(dndProvider);
-		Collections.sort(list, (pdp1, pdp2) -> {
+		list.sort((pdp1, pdp2) -> {
 			int p1 = pdp1.getPriority();
 			int p2 = pdp2.getPriority();
 			return p2 - p1;
@@ -855,8 +845,8 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 		setUpDrop();
 
 		// set up drag stuff
-		dragSource = DragSource.getDefaultDragSource();
-		dragGestureAdapter = new DragGestureAdapter(this);
+		DragSource dragSource = DragSource.getDefaultDragSource();
+		DragGestureAdapter dragGestureAdapter = new DragGestureAdapter(this);
 		dragSourceAdapter = new DragSrcAdapter(this);
 		dragSource.createDefaultDragGestureRecognizer(listingPanel.getFieldPanel(), dragAction,
 			dragGestureAdapter);
@@ -877,9 +867,7 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 		Set<DataFlavor> flavors = new HashSet<>();
 		for (ProgramDropProvider dropProvider : dropProviders) {
 			DataFlavor[] dfs = dropProvider.getDataFlavors();
-			for (DataFlavor df : dfs) {
-				flavors.add(df);
-			}
+			Collections.addAll(flavors, dfs);
 		}
 		acceptableFlavors = new DataFlavor[flavors.size()];
 		flavors.toArray(acceptableFlavors);
@@ -1048,11 +1036,6 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 	}
 
 	@Override
-	public Icon getNavigatableIcon() {
-		return getIcon();
-	}
-
-	@Override
 	public Program getProgram() {
 		return program;
 	}
@@ -1073,17 +1056,25 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 
 	@Override
 	public boolean goTo(Program gotoProgram, ProgramLocation location) {
-		if (gotoProgram != program) {
-			if (!isConnected()) {
-				tool.setStatusInfo("Program location not applicable for this provider!");
-				return false;
-			}
-			ProgramManager programManagerService = tool.getService(ProgramManager.class);
-			if (programManagerService != null) {
-				programManagerService.setCurrentProgram(gotoProgram);
-			}
+		if (!activateProgram(gotoProgram)) {
+			return false;
 		}
 		setLocation(location);
+		return true;
+	}
+
+	private boolean activateProgram(Program targetProgram) {
+		if (targetProgram == program) {
+			return true;
+		}
+		if (!isConnected()) {
+			tool.setStatusInfo("Program location not applicable for this provider!");
+			return false;
+		}
+		ProgramManager programManager = tool.getService(ProgramManager.class);
+		if (programManager != null) {
+			programManager.setCurrentProgram(targetProgram);
+		}
 		return true;
 	}
 
@@ -1313,18 +1304,14 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 			if (currentExternalHighligter != null) {
 				Highlight[] highlights =
 					currentExternalHighligter.createHighlights(text, field, cursorTextOffset);
-				for (Highlight highlight : highlights) {
-					list.add(highlight);
-				}
+				Collections.addAll(list, highlights);
 			}
 
 			// always call the listing highlighter last so the middle-mouse highlight will always
 			// be on top of other highlights
 			Highlight[] highlights =
 				listingHighlighter.createHighlights(text, field, cursorTextOffset);
-			for (Highlight highlight : highlights) {
-				list.add(highlight);
-			}
+			Collections.addAll(list, highlights);
 
 			return list.toArray(new Highlight[0]);
 		}

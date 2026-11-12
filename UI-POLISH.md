@@ -7,6 +7,50 @@ are the foundation; they do not complete the polish work.
 The original roadmap and evidence live in `E:\ghidra-ui-refresh\docs`.
 The owner's future-work decisions and milestone plan are in [UI-FIDELITY-PLAN.md](UI-FIDELITY-PLAN.md).
 
+## IDE diagnostics cleanup — 2026-11-11
+
+Fixed the generated SVG's missing gradient-stop offset in both the generator and its output.
+The touched Java files now pass IntelliJ inspection with zero errors and warnings, without
+disabling inspections. Cleanup preserves action registration order and retains/removes the
+Decompiler service listener explicitly because the service manager stores weak references.
+
+The IDE build and 24 navigation/history/contrast tests pass. All 344 regenerated glyph PNGs are
+byte-for-byte unchanged. [Inspection and regression evidence](docs/ui-fidelity/references/ide-diagnostics.json)
+records the scope; the existing reference PNGs and capture hashes remain the original visual baseline.
+
+## Graphite reference and location-context spike — 2026-11-11
+
+The [reference pack and coverage workbench](docs/ui-fidelity/README.md) now contain:
+
+- A distinct **Graphite Preview** theme, original amber glyph variants and their 86 packaged
+  fallbacks, a token/state sheet generated from the Java palette, and live Code Browser,
+  Front End, actual options form, dense Symbol Table and nonempty Function Graph references.
+- A repeatable source inventory with 10,243 candidates across 132 module/build roots, including
+  optional first-party modules. Every candidate records ownership, fixture/entry discovery,
+  rendering route, states, evidence fields and blockers. These are discovery candidates, not a
+  count of accepted windows. Source fingerprints invalidate stale reviews.
+- A captured runtime registration list (126 plugins, 33 providers, 958 actions) and source-class
+  links. Three registrations belong to the external test harness; all still require per-surface/state review.
+- An opt-in location-context spike (`-Dghidra.ui.locationContext=true`) for Listing and Decompiler:
+  provider-local locations, function/address navigation, existing back/forward history, pending,
+  unavailable, out-of-sync and independent states. Refresh lock is explicitly distinguished
+  from independent location following. No new saved-tool fields or shortcut bindings are added.
+- Original deterministic core/graph fixtures and a specialist fixture/blocker plan.
+
+Validation: Gui/Base/Decompiler jars build; seven headed integration checks pass, and syntax/graph
+contrast passes across all five existing themes plus Graphite Preview. The 25 token contrast checks
+and three inventory regression fixtures pass. The live probe switches to stock and back, saves a
+theme copy and records its properties/icon paths. Reviewed screenshots, test XML, jar hashes and
+probe output are retained under `docs/ui-fidelity/references`; raw runs are under
+`build/verification/graphite-reference-reviewed-v2`.
+
+This is a development reference and spike, not milestone or release acceptance. Full runtime
+inventory reconciliation, specialist fixtures, namespace navigation, production event/performance
+design, all navigation edge cases, physical DPI/accessibility and process-restart acceptance remain
+open. New-profile default selection is deferred; existing theme names and choices are preserved.
+The stronger gradient/state specification is not yet implemented across every custom widget.
+The bitmap fallback on saved-theme reload remains an explicit milestone-2 gap.
+
 ## Shell pass — 2026-11-11
 
 Implemented:
