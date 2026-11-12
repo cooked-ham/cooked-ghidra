@@ -1,0 +1,8 @@
+Loopback server base port: 14150
+Repository: UI Review Repository
+Alice: version 2 checked in (compare immediate 44, latest_classify, latest comment).
+Bob: modified version 1 checkout (compare immediate 45, private_classify, private comment).
+Common ancestor: compare immediate 42, source_classify, common ancestor comment.
+Reopened Bob project: canMerge=true, checkout version=1, latest=2.
+UI entry: open Bob.gpr, connect as ui_bob, merge.bin > Check In / Merge.
+The merge is intentionally unresolved for UI review.

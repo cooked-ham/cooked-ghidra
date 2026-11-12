@@ -38,9 +38,13 @@ Module discovery includes `Module.manifest` and `build.gradle` roots. The longes
 module owns a source. Generated outputs, tests, downloaded dependencies and the local graft
 cache are excluded. Optional modules remain in scope even when absent from a particular tool.
 
-[runtime-reconciliation.csv](runtime-reconciliation.csv) links the captured CodeBrowser's loaded
-plugins, providers and actions to source classes. The registration snapshot is deliberately separate
-from visual/functional acceptance; action-builder infrastructure still needs tracing to its owner.
+[Runtime reconciliation progress](RUNTIME-RECONCILIATION.md) records 2,765 registrations across
+Code Browser, Front End, Debugger, Version Tracking and two actual dialogs. The
+[registration ledger](runtime-reconciliation.csv) keeps source implementation and loaded-plugin
+owner links separate. [Module coverage](runtime-module-coverage.csv) also distinguishes the 108
+active module roots from per-tool registration evidence and absent optional/build configurations.
+These snapshots are separate from visual/functional acceptance; anonymous handlers, dynamic menus
+and service-owned surfaces still need tracing.
 
 This is an over-inclusive source ledger, **not a count of distinct windows or a claim of complete
 runtime coverage**. Simple-name inheritance can create false positives. Anonymous widgets,
@@ -56,7 +60,11 @@ To regenerate or check:
 & 'C:\Python315\python.exe' support\ui\inventory.py --check
 & 'C:\Python315\python.exe' support\ui\reference_sheet.py
 & 'C:\Python315\python.exe' support\ui\test_inventory.py
-& 'C:\Python315\python.exe' support\ui\reconcile_runtime.py docs\ui-fidelity\references\runtime-surfaces.csv
+& 'C:\Python315\python.exe' support\ui\test_reconcile_runtime.py
+$captures = Get-ChildItem docs/ui-fidelity/references/runtime -Filter '*.runtime.csv' |
+    Select-Object -ExpandProperty FullName
+& 'C:\Python315\python.exe' support/ui/reconcile_runtime.py @captures `
+    --installed-modules docs/ui-fidelity/references/runtime/capture.csv.modules.csv
 ```
 
 Keep review changes in [reviews.csv](reviews.csv), keyed by `id` and `source_hash`, rather than
@@ -70,8 +78,9 @@ describe the exact exercised states; passing a subset of checks does not remove 
 1. Reconcile candidates against installed/shipped plugins, every menu/action/provider, modal and
    nonmodal dialogs, help workflows and optional first-party installations. Give dynamic/anonymous
    surfaces their own review entries, and record source-only false positives explicitly.
-2. Exercise specialist fixtures and assign actual entry paths and reviewers. The current fixture
-   families are planning tasks, not a claim that every specialist dialog can already be opened.
+2. Exercise the prepared specialist datasets and repository-backed conflict; assign actual entry
+   paths and reviewers to each surface. Live Windows debugging and specialist failure cases remain
+   fixture gaps; available data is not a claim that every specialist dialog has been reviewed.
 3. Close the location-context cases listed in the spike report and replace its polling with a
    measured lifecycle/event design before making it a normal product feature.
 4. Review physical DPI, keyboard traversal, screen-reader output, performance, process restart,

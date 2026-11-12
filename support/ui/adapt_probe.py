@@ -20,41 +20,21 @@ def main():
             onEdt(() -> {
                 tool.showComponentProvider(docked, false);
                 tool.showComponentProvider(floating, false);
-                recordRuntime(out);
+                RuntimeInventory.capture(tool, out + ".codebrowser.runtime.csv");
+                if (Boolean.getBoolean("uirefresh.inventory.specialists")) {
+                    RuntimeInventory.specialists(tool, out);
+                }
             });""",
         'dialog[0] = new docking.options.editor.OptionsDialog("Tool Options", "Options", tool.getOptions(), null);':
         'dialog[0] = new docking.options.editor.OptionsDialog("Tool Options", "Options", tool.getOptions(), null);\n'
         '            ((docking.options.editor.OptionsDialog) dialog[0]).displayCategory("Navigation", null);',
         'new String[] { "Bytes", "Function Graph" }': 'new String[] { "Bytes", "Symbol Table", "Function Graph" }',
-        'private void runThemeProbe(String out) {': r'''
-    private String csv(Object... values) {
-        return java.util.Arrays.stream(values).map(v -> "\"" + String.valueOf(v).replace("\"", "\"\"") + "\"")
-            .collect(java.util.stream.Collectors.joining(","));
-    }
-
-    private void recordRuntime(String out) {
-        List<String> rows = new ArrayList<>();
-        rows.add("kind,class,name,entry_path,owner");
-        for (Plugin p : tool.getManagedPlugins()) {
-            rows.add(csv("plugin", p.getClass().getName(), p.getName(), "Loaded in CodeBrowser", p.getName()));
-        }
-        for (ComponentProvider p : DockingWindowManager.getInstance(tool.getToolFrame()).getComponentProviders(ComponentProvider.class)) {
-            rows.add(csv("provider", p.getClass().getName(), p.getName(), "Window / " + p.getName(), p.getOwner()));
-        }
-        for (docking.action.DockingActionIf a : tool.getAllActions()) {
-            MenuData menu = a.getMenuBarData();
-            MenuData popup = a.getPopupMenuData();
-            String path = menu != null ? Arrays.toString(menu.getMenuPath()) :
-                popup != null ? "Popup " + Arrays.toString(popup.getMenuPath()) : "Toolbar/local/action chooser";
-            rows.add(csv("action", a.getClass().getName(), a.getName(), path, a.getOwner()));
-        }
-        rows.subList(1, rows.size()).sort(String::compareTo);
-        try {
-            Files.write(Paths.get(out + ".runtime.csv"), rows);
-        } catch (IOException e) { throw new RuntimeException(e); }
-    }
-
-    private void runThemeProbe(String out) {''',
+        'saveComponent(SwingUtilities.getWindowAncestor(dialog[0].getComponent()), out + "." + theme + ".options.png");':
+        'RuntimeInventory.dialog(dialog[0], out + ".options.runtime.csv", "CodeBrowser / Edit / Tool Options / Navigation");\n'
+        '\t\t\tsaveComponent(SwingUtilities.getWindowAncestor(dialog[0].getComponent()), out + "." + theme + ".options.png");',
+        'saveComponent(SwingUtilities.getWindowAncestor(dialog[0].getComponent()), out + "." + theme + ".chooser.png");':
+        'RuntimeInventory.dialog(dialog[0], out + ".chooser.runtime.csv", "CodeBrowser / Action chooser");\n'
+        '\t\t\tsaveComponent(SwingUtilities.getWindowAncestor(dialog[0].getComponent()), out + "." + theme + ".chooser.png");',
     }
     for before, after in replacements.items():
         if source.count(before) != 1:
@@ -66,7 +46,8 @@ def main():
         "original_source": str(original), "original_sha256": original_hash,
         "adapted_sha256": hashlib.sha256(source.encode()).hexdigest(),
         "changes": ["hide synthetic harness panes", "select Navigation options form",
-                    "capture actual Symbol Table", "record loaded plugins/providers/actions"]
+                    "capture actual Symbol Table", "record plugins/providers/all action routes",
+                    "capture real options/chooser dialog classes", "optional default specialist tool registrations"]
     }, indent=2) + "\n", encoding="utf-8")
 
 

@@ -4,7 +4,8 @@ param(
     [string]$FixtureProject = 'E:\cooked-ghidra\build\verification\graphite-fixtures\GraphiteReference.gpr',
     [string]$ProbeSource = 'E:\ghidra-ui-refresh\extension\GhidraUiRefresh\src\main\java\uirefresh\UiRefreshHarnessPlugin.java',
     [string]$Python = 'C:\Python315\python.exe',
-    [string]$Tag = ('graphite-reference-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+    [string]$Tag = ('graphite-reference-' + (Get-Date -Format 'yyyyMMdd-HHmmss')),
+    [switch]$Specialists
 )
 # Uses the existing UI Refresh probe extension in the seed profile. It is a test harness,
 # not a product dependency. The source, project and profile remain unchanged.
@@ -28,9 +29,10 @@ $adapted = Join-Path $run 'probe-source\uirefresh\UiRefreshHarnessPlugin.java'
 & $Python (Join-Path $PSScriptRoot 'adapt_probe.py') $ProbeSource $adapted
 if ($LASTEXITCODE -ne 0) { throw 'Probe adapter failed.' }
 $classes = Join-Path $run 'probe-classes'
+$inventorySource = Join-Path $PSScriptRoot 'RuntimeInventory.java'
 $classpath = (Get-ChildItem -LiteralPath (Join-Path $runtime 'Ghidra') -Recurse -Filter '*.jar' -File | Select-Object -ExpandProperty FullName) -join ';'
 $argsFile = Join-Path $run 'javac.args'
-@('-cp', ('"' + $classpath.Replace('\', '/') + '"'), '-d', ('"' + $classes.Replace('\', '/') + '"'), ('"' + $adapted.Replace('\', '/') + '"')) |
+@('-cp', ('"' + $classpath.Replace('\', '/') + '"'), '-d', ('"' + $classes.Replace('\', '/') + '"'), ('"' + $adapted.Replace('\', '/') + '"'), ('"' + $inventorySource.Replace('\', '/') + '"')) |
     Set-Content -LiteralPath $argsFile -Encoding utf8
 & javac "@$argsFile"
 if ($LASTEXITCODE -ne 0) { throw 'Adapted probe compilation failed.' }
@@ -58,7 +60,7 @@ $sequencePath = Join-Path $run 'capture.seq'
 $probe = Join-Path $run 'capture.csv'
 $oldOptions = $env:GHIDRA_JAVA_OPTIONS
 try {
-    $env:GHIDRA_JAVA_OPTIONS = "-Dapplication.settingsdir=$profile -Dghidra.ui.locationContext=true -Duirefresh.themeprobe.out=$probe -Duirefresh.themeprobe.seqfile=$sequencePath -Duirefresh.themeprobe.shots=true -Duirefresh.themeprobe.close=true -Duirefresh.autolaunch=true -Dsun.java2d.uiScale=1.0"
+    $env:GHIDRA_JAVA_OPTIONS = "-Dapplication.settingsdir=$profile -Dghidra.ui.locationContext=true -Duirefresh.inventory.specialists=$($Specialists.IsPresent.ToString().ToLowerInvariant()) -Duirefresh.themeprobe.out=$probe -Duirefresh.themeprobe.seqfile=$sequencePath -Duirefresh.themeprobe.shots=true -Duirefresh.themeprobe.close=true -Duirefresh.autolaunch=true -Dsun.java2d.uiScale=1.0"
     Start-Process -FilePath (Join-Path $runtime 'ghidraRun.bat') -ArgumentList (Join-Path $projectDir "$projectStem.gpr") -WorkingDirectory $runtime -WindowStyle Hidden
     $deadline = (Get-Date).AddMinutes(7)
     while ((Get-Date) -lt $deadline -and !(Test-Path -LiteralPath "$probe.done") -and !(Test-Path -LiteralPath "$probe.err")) {

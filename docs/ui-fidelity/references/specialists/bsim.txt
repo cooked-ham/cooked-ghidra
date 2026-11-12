@@ -1,0 +1,6 @@
+Local H2 database: file:E%3A%2Fcooked-ghidra%2Fbuild%2Fverification%2Fgraphite-specialists-acceptance-inputs%2Fui-specialist-bsim.mv.db
+source.bin: 5 signatures
+Verified nearest query result groups: 5
+destination.bin: 5 signatures
+Verified nearest query result groups: 5
+Verified executable count: 2

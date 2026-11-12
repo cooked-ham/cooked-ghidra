@@ -1,0 +1,13 @@
+{
+  "original_source": "E:\\ghidra-ui-refresh\\extension\\GhidraUiRefresh\\src\\main\\java\\uirefresh\\UiRefreshHarnessPlugin.java",
+  "original_sha256": "699272b10f543b7d19726198e9c1e5a95738705845c5cab39063235102c053ad",
+  "adapted_sha256": "7bb59482259545b2817b897505c43e70b862abe821fd5aa96f5c195a4c4487b3",
+  "changes": [
+    "hide synthetic harness panes",
+    "select Navigation options form",
+    "capture actual Symbol Table",
+    "record plugins/providers/all action routes",
+    "capture real options/chooser dialog classes",
+    "optional default specialist tool registrations"
+  ]
+}

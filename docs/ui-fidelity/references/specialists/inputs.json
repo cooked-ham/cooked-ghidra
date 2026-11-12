@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "raw_x86_64_sha256": {
+    "source.bin": "00e7bf11b8b5843c929a62ac7f868c3748d34a88add05dd0f77de6230c318209",
+    "destination.bin": "1b4c88dd2993a1d41f8d695e0efe70d9f9f59f2dc4c3efdc478052dd8ca184c7",
+    "merge-base.bin": "00e7bf11b8b5843c929a62ac7f868c3748d34a88add05dd0f77de6230c318209",
+    "merge-latest.bin": "81da49105a05980a0157bd27a0c3a44d7605a1a65ebac9d205629016b19fd674",
+    "merge-private.bin": "494dcac8756cb330b995cd07c52ffc44b80f00536eba2173541b52042cddff5f"
+  },
+  "trace_source": "Ghidra/Debug/Debugger/ghidra_scripts/PopulateDemoTrace.java",
+  "trace_source_sha256": "367a4a57e886b5db1e455ac5ad440d0272b8f0227074d4f583c405fac4e24861",
+  "adapted_trace_sha256": "cd178ec4513728886d8c3a49b9553351cef3262d12aa47c62ee25d7ab0377915",
+  "merge": "staged independent inputs only; repository ancestry/conflict workflow still required"
+}

@@ -1,0 +1,24 @@
+{
+  "sequence": "Graphite Preview,(openprogram),(openprogram:whoami_x64.exe),(polish),(startup),(savecopy),Flat Dark Theme,(startup),Graphite Preview,(startup)",
+  "logicalScale": 1.0,
+  "fixture": "E:\\cooked-ghidra\\build\\verification\\graphite-fixtures\\GraphiteReference.gpr",
+  "revision": "ff55a7783e3defcd0e049e14d053f743bebcf9c9",
+  "rendering": "In-process Swing painting; not physical DPI or screen-reader acceptance",
+  "probeSha256": "048C888CC5A615D05ED084EB6A20AC127C3FBE2D0C8A82399AC94E3D4F6E2147",
+  "jars": [
+    {
+      "sha256": "59085984650929BE31D4FA31E50D1D42EAB827B893EF17825C6CEF1B54A9CC9A",
+      "module": "Framework\\Gui"
+    },
+    {
+      "sha256": "AAA3C50FFB96595994A6F3170B8CD4C793EB4EC437F8D4493A9717DD76A52A55",
+      "module": "Features\\Base"
+    },
+    {
+      "sha256": "6C3BDDECF364BFCB342C2AB22CC12D3563B59DE0E42D1567808508366F143CFC",
+      "module": "Features\\Decompiler"
+    }
+  ],
+  "timestamp": "2026-11-12T00:42:22.1626325Z",
+  "dirtyTree": true
+}

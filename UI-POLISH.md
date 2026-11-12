@@ -7,6 +7,38 @@ are the foundation; they do not complete the polish work.
 The original roadmap and evidence live in `E:\ghidra-ui-refresh\docs`.
 The owner's future-work decisions and milestone plan are in [UI-FIDELITY-PLAN.md](UI-FIDELITY-PLAN.md).
 
+## Runtime reconciliation and specialist fixtures — 2026-11-11
+
+[Runtime discovery](docs/ui-fidelity/RUNTIME-RECONCILIATION.md) now combines 2,765 registrations
+from Code Browser, Front End, Debugger, Version Tracking and two displayed dialogs. Implementation
+and registering-plugin links are separate; every configured menu/popup/toolbar route and shortcut
+is retained. Module coverage distinguishes 108 active roots from per-tool observations and the
+29 source configurations absent from this runtime. Four unresolved implementation classes belong
+to the external harness. Anonymous handlers, service owners and dynamic content remain open.
+
+[Specialist preparation](docs/ui-fidelity/FIXTURES.md#specialist-datasets-and-repository-workflow)
+now generates related comparison programs, a saved VT session with accepted/rejected/ambiguous
+matches, an H2 BSim database with ten signatures, and a saved debugger trace with 21 snapshots and
+two threads. A loopback repository fixture creates password-authenticated Alice/Bob projects,
+concurrent checkouts and actual common-ancestor/latest/private conflicts in bytes, function names
+and comments. Bob's reopened checkout is version 1 against repository version 2 with `canMerge=true`.
+The server stops after preparation; certificates/trust and profiles remain scoped to the fixture.
+
+Validation: four source-inventory and four runtime-reconciliation regression tests; fresh headless
+fixture preparation plus cross-process reopen/query checks; and a real loopback repository workflow.
+Reports, input/script hashes and remaining gaps are retained in
+[runtime evidence](docs/ui-fidelity/references/runtime/) and
+[specialist evidence](docs/ui-fidelity/references/specialists/). Fixtures are reproducible data,
+not visual acceptance. The integration runner checks explicit reports because a headless script
+failure can return process exit code zero. IDE inspections exclude these support scripts; Java
+compilation and the executing headless/capture harness provide their validation instead.
+
+Source fixture routing now recognizes graph, merge/repository and version-control surfaces, and
+VersionTrackingBSim uses the VT fixture. Inventory acceptance statuses are unchanged. Optional
+installations, source-only candidates, populated specialist UI, live Windows debugger agents,
+failure paths and Windows acceptance remain open. Milestones 0 and 1 are still incomplete; the
+location-context spike and production rollout flag have not changed in this slice.
+
 ## IDE diagnostics cleanup — 2026-11-11
 
 Fixed the generated SVG's missing gradient-stop offset in both the generator and its output.

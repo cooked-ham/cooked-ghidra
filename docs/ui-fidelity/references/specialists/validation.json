@@ -1,0 +1,13 @@
+{
+  "source_inventory_tests": 4,
+  "runtime_reconciliation_tests": 4,
+  "java": "All seven support/ui Java sources compiled with javac -Xlint:deprecation",
+  "powershell": "All four support/ui scripts parsed; new preparation and repository runners executed",
+  "fresh_run": "build/verification/graphite-specialists-acceptance-inputs",
+  "persistence": "Five programs, VT states, 21-snapshot/two-thread trace, H2 with two executables and 11 cross-program hits",
+  "repository": "Two authenticated users, concurrent checkouts, ancestor/latest/private content verified, Bob canMerge=true",
+  "ide_inspections": "Support scripts excluded from IDE content roots; not an inspection pass",
+  "acceptance_statuses_changed": false,
+  "milestone_0_complete": false,
+  "milestone_1_complete": false
+}

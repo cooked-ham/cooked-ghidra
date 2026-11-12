@@ -36,10 +36,14 @@ names for raw synthetic inputs. See [fixture preparation](../FIXTURES.md).
 - [Seven location-context integration tests](location-context-tests.xml) and
   [syntax/graph contrast across six themes](theme-contrast-tests.xml) have zero failures.
 - [Token contrast report](contrast.md) has zero failures across 25 checked foreground/background pairs.
-- [Runtime registrations](runtime-surfaces.csv) contain 126 plugins, 33 providers and 958 actions
-  observed in this one CodeBrowser tool. [Source links](../runtime-reconciliation.csv) link 1,114
-  registrations to source classes; three belong to the external test harness. Registration is not visual or
-  interaction review. Action-builder classes still need tracing to their owning registration hooks.
+- [Original runtime registrations](runtime-surfaces.csv) retain the initial Code Browser baseline.
+  [Expanded runtime evidence](runtime/) now contains Code Browser, Front End, Debugger, Version
+  Tracking and two actual dialog snapshots, with installed-module and capture provenance.
+  [Reconciliation findings](../RUNTIME-RECONCILIATION.md) distinguish implementation classes,
+  registering owners and per-module gaps. Registration is not visual or interaction review.
+- [Specialist preparation evidence](specialists/) records comparison/VT/BSim/saved-trace and real
+  two-user repository/merge inputs. Populated specialist UI and live Windows debugger acceptance
+  remain open; the prepared conflict has deliberately not been resolved.
 
 Source-driven discovery has 10,243 candidates across 132 module/build roots. That count includes
 infrastructure, entry hooks and assets; it is not 10,243 distinct UI windows. Full first-party runtime

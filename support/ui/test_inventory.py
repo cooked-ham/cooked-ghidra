@@ -8,6 +8,15 @@ import inventory
 
 
 class InventoryDiscoveryTest(unittest.TestCase):
+    def testSpecialistFixtureRoutes(self):
+        self.assertEqual(inventory.fixture("Ghidra/Features/VersionTrackingBSim"), "FX-VT")
+        self.assertEqual(inventory.fixture("Ghidra/Features/GraphFunctionCalls"), "FX-GRAPH")
+        self.assertEqual(inventory.fixture("Ghidra/Features/Base",
+            "Ghidra/Features/Base/src/main/java/ghidra/app/merge/ListingMergePanel.java"), "FX-REPO")
+        self.assertEqual(inventory.fixture("Ghidra/Framework/Project",
+            "Ghidra/Framework/Project/src/main/java/p/VersionHistoryDialog.java"), "FX-REPO")
+        self.assertEqual(inventory.fixture("Ghidra/Extensions/Sample"), "FX-OPTIONAL")
+
     def setUp(self):
         self.directory = TemporaryDirectory()
         self.original_root = inventory.ROOT

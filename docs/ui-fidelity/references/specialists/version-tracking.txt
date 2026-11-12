@@ -1,0 +1,4 @@
+Manual fixture matches (not correlator accuracy evidence): {ACCEPTED=1, AVAILABLE=2, REJECTED=1}
+Accepted: 00401000 -> 00401000 (unapplied name/signature markup)
+Rejected: 00401040 -> 00401040
+Ambiguous available: 00401080 -> 00401080 / 004010a0

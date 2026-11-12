@@ -1,0 +1,49 @@
+{
+  "project": "E:\\cooked-ghidra\\build\\verification\\graphite-specialists-acceptance-inputs\\UiSpecialists.gpr",
+  "distribution": "E:\\cooked-ghidra\\build\\verification\\release\\ghidra_12.3_DEV",
+  "repositoryBasePort": 14150,
+  "remaining": [
+    "Live Windows debugger",
+    "VT correlator/markup failure paths",
+    "BSim authentication/network errors",
+    "Specialist visual acceptance"
+  ],
+  "revision": "ff55a7783e3defcd0e049e14d053f743bebcf9c9",
+  "repositoryWorkflowPrepared": true,
+  "dirtyTree": true,
+  "scripts": [
+    {
+      "sha256": "1DC8DC9071777A3F90A62D2609822143350626A161B16E9ADA89643585E7F2CC",
+      "script": "CreateSpecialistPrograms.java"
+    },
+    {
+      "sha256": "5B5502966C9330E513F1D4C914B0913D90D48D74C925C34BE6DAEA0CCE4E7999",
+      "script": "CreateSpecialistSessions.java"
+    },
+    {
+      "sha256": "626CC0DE266D7C655D60C6A778D4761C7E342543824D50758452D8321AAE3C03",
+      "script": "CreateUiRepository.java"
+    },
+    {
+      "sha256": "337385162440C28CC7C13B31C8BF0284573F647234E67645AEB913B760202065",
+      "script": "VerifySpecialistFixtures.java"
+    },
+    {
+      "sha256": "E9DE9600BD5B72EC559A5FADAAD090CD720BC96D62D73240792D59A55E59DB35",
+      "script": "PrepareUiSharedProjects.java"
+    },
+    {
+      "sha256": "8012EF150CC9153F98E7E16DE19003C7C86987A079E2954FC4B6B913787618C6",
+      "script": "specialist_inputs.py"
+    },
+    {
+      "sha256": "FD770AC513F1F4A5F73552E370A16E0D3EFEBD771531AD91EC4DD3FF9E28E0E1",
+      "script": "prepare-specialists.ps1"
+    },
+    {
+      "sha256": "97AD3588175744F4BEAA775344926B1C77B1E0D956CF1B5314E7884381FD81E4",
+      "script": "fixture-repository.ps1"
+    }
+  ],
+  "timestamp": "2026-11-12T00:49:15.3411288Z"
+}

@@ -63,13 +63,13 @@ def tracked_files():
     return sorted(set(p.decode("utf-8") for p in data.split(b"\0") if p))
 
 
-def fixture(module):
+def fixture(module, source=""):
     if any(x in module for x in ("Debugger", "TraceModeling", "TaintAnalysis", "SystemEmulation")):
         return "FX-DEBUG"
-    if "BSim" in module:
-        return "FX-BSIM"
     if "VersionTracking" in module:
         return "FX-VT"
+    if "BSim" in module:
+        return "FX-BSIM"
     if any(x in module for x in ("ProgramDiff", "CodeCompare")):
         return "FX-COMPARE"
     if "FileSystem" in module or "FileFormats" in module:
@@ -78,6 +78,11 @@ def fixture(module):
         return "FX-REPO"
     if "/Extensions/" in module or "EclipsePlugins" in module:
         return "FX-OPTIONAL"
+    if any(x in source.lower() for x in ("/merge/", "/repository/", "/checkout/")) or re.search(
+            r'(?:CheckIn|CheckOut|Checkout|Checkin|VersionHistory|Repository|VersionControl)', Path(source).stem):
+        return "FX-REPO"
+    if "Graph" in module or "/graph/" in source:
+        return "FX-GRAPH"
     return "FX-CORE"
 
 
@@ -165,7 +170,7 @@ def discover(files):
         rows.append(dict(zip(FIELDS, [
             "UI-" + digest(path + "|" + kind + "|" + name)[:14], module, kind, name, path,
             line, digest(text), entry or "Source candidate; confirm shipped menu/provider/help entry",
-            fixture(module), rendering or route(kind, text), states, "inventoried", "", "",
+            fixture(module, path), rendering or route(kind, text), states, "inventoried", "", "",
             "100/125/150/200% physical DPI; keyboard; contrast; screen reader: unverified",
             "Measure scrolling/filter/repaint if applicable",
             "Reachability, fixture readiness, runtime states and acceptance evidence unreviewed"

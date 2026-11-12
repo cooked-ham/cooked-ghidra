@@ -1,0 +1,8 @@
+source: five functions; compare immediate=42; record bytes=8
+destination: five functions; compare immediate=43; record bytes=12
+merge-base: five functions; compare immediate=42; record bytes=8
+merge-latest: five functions; compare immediate=44; record bytes=8
+merge-private: five functions; compare immediate=45; record bytes=8
+Reopened VT session: {ACCEPTED=1, AVAILABLE=2, REJECTED=1}
+Reopened saved debugger trace: 21 snapshots; two threads
+Reopened BSim database: two executables; source query hits in destination=11
