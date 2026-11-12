@@ -5,6 +5,11 @@ Graphite Preview is a separate, opt-in theme. Location context is a development 
 enabled with `-Dghidra.ui.locationContext=true` at process startup. Existing theme choices,
 shortcuts, tool identities and layout serialization are not migrated by this change.
 
+Windows and macOS are equal product targets, sharing portable Java/Swing UI code. Current
+captures were collected on Windows; portable changes do not require duplicate macOS runs.
+Use targeted platform checks when OS-specific behavior is involved. PowerShell runners
+are development tooling and must not become runtime requirements for the shared application.
+
 ## Review the reference pack
 
 - [Token and state sheet](references/tokens.svg): generated from `GraphiteTheme.java`.

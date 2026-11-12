@@ -17,6 +17,7 @@ package ghidra.app.nav;
 
 import java.awt.*;
 import java.util.function.Supplier;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.*;
 import docking.DockingContextListener;
@@ -61,7 +62,7 @@ public class LocationContextPanel extends JPanel {
 	private Program observedProgram;
 	private Namespace targetNamespace;
 	private boolean attached;
-	private boolean refreshQueued;
+	private final AtomicBoolean refreshQueued = new AtomicBoolean();
 	private Program targetProgram;
 	private Address targetAddress;
 	private Address functionEntry;
@@ -143,14 +144,11 @@ public class LocationContextPanel extends JPanel {
 
 	/** Coalesces provider and model notifications into one EDT update; never polls. */
 	public void requestRefresh() {
-		if (!SwingUtilities.isEventDispatchThread()) {
-			SwingUtilities.invokeLater(this::requestRefresh);
-			return;
-		}
-		if (refreshQueued || !isShowing() || navigatable.isDisposed()) return;
-		refreshQueued = true;
+		// Model events may arrive off the EDT. Coalesce before posting so a burst
+		// occupies one queue entry, and inspect Swing/provider state only on the EDT.
+		if (!refreshQueued.compareAndSet(false, true)) return;
 		SwingUtilities.invokeLater(() -> {
-			refreshQueued = false;
+			refreshQueued.set(false);
 			if (isShowing() && !navigatable.isDisposed()) refreshContext();
 		});
 	}

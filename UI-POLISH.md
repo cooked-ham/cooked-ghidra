@@ -7,6 +7,12 @@ are the foundation; they do not complete the polish work.
 The original roadmap and evidence live in `E:\ghidra-ui-refresh\docs`.
 The owner's future-work decisions and milestone plan are in [UI-FIDELITY-PLAN.md](UI-FIDELITY-PLAN.md).
 
+Platform direction: Windows PCs and macOS are equal targets. UI features use portable
+Java/Swing APIs and existing Ghidra platform abstractions. Earlier Windows-first planning is
+superseded; existing Windows captures and PowerShell harnesses describe the verification
+environment, not a Windows-only product requirement. Portable changes do not require duplicate
+Windows/macOS testing; targeted platform checks apply when OS-specific behavior is involved.
+
 ## IDE warning cleanup after location/depth work — 2026-11-11
 
 Inspected all 18 changed Java source/test files: 58 warning/weak-warning diagnostics are now

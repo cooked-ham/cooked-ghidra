@@ -11,7 +11,7 @@ This describes future work; implementation evidence belongs in `UI-POLISH.md`.
 | Scope | Everyday workspace, supporting UI and graph workspace |
 | Product direction | Full IDE experience, including navigation, search, program switching and notifications |
 | First functional priority | Location context: breadcrumbs, history, and clear Listing/Decompiler synchronization |
-| Platforms | Windows first; Linux and macOS in later milestones |
+| Platforms | Windows PCs and macOS are equal targets; shared portable Java/Swing implementation |
 | Themes | Graphite dark first; other themes in later milestones |
 | Defaults | Modern defaults for new profiles; preserve existing shortcuts and saved layouts |
 | First release target | Exhaustive first-party coverage, including rarely used dialogs and specialist tools |
@@ -99,7 +99,7 @@ Deliverables:
   documented way for first-party widgets to adopt them.
 
 Acceptance: aligned code and hex columns, no truncated essential controls, stable
-keyboard behavior, and legible semantic states at supported Windows scales. Compare
+keyboard behavior, and legible semantic states at supported Windows and macOS scales. Compare
 scrolling, filtering, repaint and allocation measurements with recorded baselines.
 
 ## Milestone 3 — Supporting UI and exhaustive specialist coverage
@@ -113,7 +113,7 @@ Deliverables:
 - Coverage of debugger panes and timelines, script management and consoles, program
   comparison/diff, merge and version tracking, BSim, extension management, repository
   and collaboration dialogs, and the remaining inventory entries.
-- Windows/dialog behavior for long text, large fonts, small displays, progress,
+- Window/dialog behavior for long text, large fonts, small displays, progress,
   cancellation, failures and disconnected services.
 
 Exit gate: every first-party inventory entry has reviewed evidence or remains an
@@ -150,11 +150,12 @@ Acceptance: test ambiguous names, disabled/plugin actions, closed programs, canc
 searches/jobs and concurrent background activity. New affordances must preserve
 existing shortcuts and the correctness of navigation targets.
 
-## Milestone 6 — Windows release acceptance
+## Milestone 6 — Shared application release acceptance
 
 - Close the complete surface/state matrix, including specialist fixtures.
-- Verify physical 100%, 125%, 150% and 200% Windows scaling, mixed-DPI monitor moves,
-  ultrawide displays, smaller screens, docking and detached windows.
+- Verify Windows scaling and macOS Retina/scaled displays, mixed-scale monitor moves,
+  ultrawide displays, smaller screens, docking and detached windows as relevant to the change.
+  Portable UI changes do not require duplicate runs on both operating systems.
 - Test complete process restart, saved tools, workspace presets, saved themes and
   copied themes. Validate both an existing profile and a genuinely fresh profile.
 - Select graphite dark and the modern workspace defaults only for fresh profiles.
@@ -173,7 +174,7 @@ existing shortcuts and the correctness of navigation targets.
 Exit gate: no unresolved first-party visual coverage entries, blocking usability
 defects, data/navigation regressions or unreviewed changes to existing profiles.
 
-Intermediate Windows builds can be reviewed throughout the milestones. The exhaustive
+Intermediate builds for either target can be reviewed throughout the milestones. The exhaustive
 release label is reserved for the completed coverage and acceptance gates.
 
 ## Later milestones
@@ -182,8 +183,7 @@ Existing themes remain available; this sequencing concerns the new graphite iden
 
 - Matching Light and dedicated High Contrast themes, validated against the same
   semantic tokens, state coverage and workflows.
-- Linux and macOS adaptation: fonts, window integration, popup behavior, scaling,
-  native dialogs, keyboard conventions and the full functional smoke matrix.
+- Linux validation beyond the shared Windows/macOS release target.
 
 ## Coverage tracker requirements
 
@@ -196,6 +196,13 @@ functionally verified and accepted. Missing evidence cannot be represented as co
 
 ## Constraints and execution rules
 
+- Implement UI features once using portable Java/Swing APIs. Do not add Windows-only product
+  features or dependencies. Respect existing platform keyboard/menu/window conventions through
+  Ghidra's abstractions. Validate shared UI behavior in the available environment; testing every
+  portable change on both operating systems is not required. Use targeted platform checks only
+  when a change depends on OS-specific behavior.
+- Existing PowerShell runners and local drive paths are development harness infrastructure,
+  not product runtime dependencies. Keep future verification tooling portable where practical.
 - Standard Swing controls can adopt shared styling. Bespoke providers and renderers
   need targeted changes; exhaustive coverage requires that work to be explicitly tracked.
 - Preserve large-view virtualization and keep expensive work off the UI thread.

@@ -60,6 +60,30 @@ Read the JUnit XML as well:
 this repository's Gradle test tasks use `ignoreFailures=true`, so a successful Gradle exit alone
 is insufficient. Syntax/graph contrast also passes for the five existing themes and Graphite Preview.
 
+## Burst and lifecycle follow-up — 2026-11-11
+
+Background model notifications now acquire the refresh gate before posting to the EDT.
+Previously each worker notification posted a dispatcher even when a refresh was already
+pending. The atomic gate bounds a burst to one outstanding callback; visibility and provider
+state are checked on the EDT, and hidden/disposed providers still skip supplier queries.
+
+Three additional integration regressions cover 100,000 worker requests while the EDT is
+occupied (one supplier query, delivered before a queue sentinel), reparenting a panel between
+two visible Swing frames with a pending refresh and a changed location, and tool-level program
+close/reopen followed by navigation. The reopen fixture retains a program consumer; it does
+not test loading a new program instance from disk. Window reparenting tests panel lifecycle,
+not mouse docking or docking-layout persistence.
+
+All 19 location-context tests pass with zero failures/errors in
+`build/verification/location-context-stress-final.log`; the retained JUnit result is
+[location-context-stress-tests.xml](references/location-context-stress-tests.xml).
+IDE error inspections pass for both changed Java files.
+
+The burst log reports total fixture elapsed time, including window setup and Swing draining.
+It is diagnostic output, not a navigation latency, allocation, repaint, or release performance
+baseline. Those measurements and the broader detached/external-reference/restart matrix
+remain open. The feature remains opt-in.
+
 ## Work remaining before normal rollout
 
 - Measured latency, repaint/allocation baselines and navigation/cancellation stress tests.

@@ -127,6 +127,101 @@ public class LocationContextTest extends AbstractDecompilerTest {
 	}
 
 	@Test
+	public void testWorkerBurstCoalescesBeforeEdtDispatch() {
+		java.util.concurrent.atomic.AtomicInteger calls = new java.util.concurrent.atomic.AtomicInteger();
+		LocationContextPanel[] panel = new LocationContextPanel[1];
+		JFrame[] frame = new JFrame[1];
+		java.util.concurrent.atomic.AtomicInteger callsAtSentinel = new java.util.concurrent.atomic.AtomicInteger();
+		long started = System.nanoTime();
+		try {
+			runSwing(() -> {
+				panel[0] = new LocationContextPanel(tool, codeBrowser.getProvider(), () -> {
+					calls.incrementAndGet();
+					return new LocationContextPanel.Context(program, null, "Connected", "Burst fixture");
+				});
+				frame[0] = new JFrame("Context stress");
+				frame[0].add(panel[0]);
+				frame[0].pack();
+				frame[0].setVisible(true);
+			});
+			waitForSwing();
+			runSwing(() -> {
+				calls.set(0);
+				// Hold the EDT while a model thread emits the entire burst.
+				Thread worker = new Thread(() -> {
+					for (int i = 0; i < 100_000; i++) panel[0].requestRefresh();
+				});
+				worker.start();
+				try { worker.join(10_000); }
+				catch (InterruptedException e) { throw new AssertionError(e); }
+				assertFalse("Worker must not block on EDT", worker.isAlive());
+				// Verify queue ordering: refresh runs before this sentinel, and no
+				// second-stage dispatcher postpones it until after the sentinel.
+				SwingUtilities.invokeLater(() -> callsAtSentinel.set(calls.get()));
+			});
+			waitForSwing();
+			assertEquals("Refresh must precede queue sentinel", 1, callsAtSentinel.get());
+			assertEquals(1, calls.get());
+			System.out.println("Context burst: 100000 requests, 1 supplier query; fixture elapsed ms=" +
+				(System.nanoTime() - started) / 1_000_000);
+		}
+		finally { runSwing(() -> { if (frame[0] != null) frame[0].dispose(); }); }
+	}
+
+	@Test
+	public void testReparentedPanelRefreshesLatestLocation() {
+		LocationContextPanel[] panel = new LocationContextPanel[1];
+		JFrame[] frames = new JFrame[2];
+		java.util.concurrent.atomic.AtomicReference<ProgramLocation> location =
+			new java.util.concurrent.atomic.AtomicReference<>(new ProgramLocation(program, addr("01002cf5")));
+		try {
+			runSwing(() -> {
+				panel[0] = new LocationContextPanel(tool, codeBrowser.getProvider(), () ->
+					new LocationContextPanel.Context(program, location.get(), "Connected", "Reparent fixture"));
+				for (int i = 0; i < frames.length; i++) frames[i] = new JFrame("Context window " + i);
+				frames[0].add(panel[0]);
+				frames[0].pack();
+				frames[0].setVisible(true);
+			});
+			waitForSwing();
+			runSwing(() -> {
+				panel[0].requestRefresh();
+				frames[0].remove(panel[0]);
+				location.set(new ProgramLocation(program, addr("010059a3")));
+				frames[1].add(panel[0]);
+				frames[1].pack();
+				frames[1].setVisible(true);
+			});
+			waitForSwing();
+			runSwing(() -> assertTrue(button(panel[0], "Go to displayed address").getText().contains("010059a3")));
+		}
+		finally { runSwing(() -> { for (JFrame frame : frames) if (frame != null) frame.dispose(); }); }
+	}
+
+	@Test
+	public void testProgramReopenRestoresTargets() {
+		Object consumer = new Object();
+		program.addConsumer(consumer);
+		try {
+			decompile("01002cf5");
+			runSwing(() -> {
+				ProgramManager manager = tool.getService(ProgramManager.class);
+				assertTrue(manager.closeProgram(program, true));
+			});
+			waitForSwing();
+			runSwing(() -> tool.getService(ProgramManager.class).openProgram(program));
+			decompile("010059a3");
+			waitForSwing();
+			runSwing(() -> {
+				assertTrue(button(listingPanel(), "Go to displayed address").isEnabled());
+				assertTrue(button(listingPanel(), "Go to displayed address").getText().contains("010059a3"));
+				assertSame(program, provider.getLocationContext().program());
+			});
+		}
+		finally { program.release(consumer); }
+	}
+
+	@Test
 	public void testNamespaceMenuNavigatesToSymbol() {
 		decompile("01002cf5");
 		runSwing(() -> {
