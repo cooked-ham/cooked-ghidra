@@ -1,0 +1,2 @@
+surface,fixture,implementation,entry_path,populated_evidence,screenshots
+"version tracking","FX-VT","VTPlugin / VTMatchTableProvider","Version Tracking tool / saved session","four manual matches (1 accepted, 1 rejected, 2 available); markup provider visible","version-tracking.png;version-tracking-compare.png"

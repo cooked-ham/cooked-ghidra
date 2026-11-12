@@ -1,0 +1,10 @@
+[
+  {
+    "Path": "E:\\cooked-ghidra\\Ghidra\\Framework\\Gui\\build\\libs\\Gui.jar",
+    "Hash": "B460F739D1C9C355FD07FEEE27FD745F2016EE109B3D18A6542AEA0309702E8A"
+  },
+  {
+    "Path": "E:\\cooked-ghidra\\Ghidra\\Framework\\Docking\\build\\libs\\Docking.jar",
+    "Hash": "36B67215591B212D2CCDAFD2BB095B6A1518B9DE0790EC980112BEB0EC80A23F"
+  }
+]

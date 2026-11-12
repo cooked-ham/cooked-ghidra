@@ -42,7 +42,7 @@ public final class IconSet {
 	private static final Map<String, String> BY_FILE = new LinkedHashMap<>();
 	private static final Map<String, String> BY_ID = new LinkedHashMap<>();
 	private static final Pattern LINE = Pattern.compile(
-		"^\\s*(icon\\.[\\w.\\-]+)\\s*=\\s*([\\w\\-./]+\\.(?:png|gif))\\s*(\\[size\\(16,\\s*16\\)\\])?\\s*(//.*)?$");
+		"^\\s*(icon\\.[\\w.\\-]+)\\s*=\\s*([\\w\\-./]+\\.(?:png|gif))\\s*(\\[size\\(16,\\s*16\\)])?\\s*(//.*)?$");
 
 	private static void file(String glyph, String... files) {
 		for (String f : files) {
@@ -229,6 +229,19 @@ public final class IconSet {
 			}
 		}
 		return n;
+	}
+
+	/** Restores only bundled glyph paths; other image paths retain normal resource loading. */
+	public static VectorIcon fromPath(String path) {
+		for (Glyphs.Palette palette : List.of(Glyphs.DARK, Glyphs.LIGHT,
+			Glyphs.HIGH_CONTRAST, Glyphs.GRAPHITE)) {
+			String prefix = "images/uirefresh/" + palette.key() + "/";
+			if (path.startsWith(prefix) && path.endsWith(".png")) {
+				String glyph = path.substring(prefix.length(), path.length() - 4);
+				return create(glyph, palette);
+			}
+		}
+		return null;
 	}
 
 	private static VectorIcon create(String glyph, Glyphs.Palette palette) {

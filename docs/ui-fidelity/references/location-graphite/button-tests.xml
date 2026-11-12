@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ghidra.util.bean.EmptyBorderButtonTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-12T02:31:01.982Z" hostname="ROTBART" time="0.988">
+  <properties/>
+  <testcase name="testButtonBorderOnRollover" classname="ghidra.util.bean.EmptyBorderButtonTest" time="0.649"/>
+  <testcase name="testButtonEnablementFromAction" classname="ghidra.util.bean.EmptyBorderButtonTest" time="0.114"/>
+  <testcase name="testModernButtonStatesAndStockRestore" classname="ghidra.util.bean.EmptyBorderButtonTest" time="0.111"/>
+  <testcase name="testButtonBorderOnPress" classname="ghidra.util.bean.EmptyBorderButtonTest" time="0.111"/>
+  <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Framework\Docking\build\Sean-ghidra\test_b4bd6069-2d0f-4937-bcc8-72c648183be4\temp.data
+20:31:02 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+20:31:02 INFO  Using log file: E:\cooked-ghidra\Ghidra\Framework\Docking\build\Sean-ghidra\test_b4bd6069-2d0f-4937-bcc8-72c648183be4\temp.data\application.log   (LoggingInitialization.java:56) 
+20:31:02 INFO  Loading user preferences: E:\cooked-ghidra\Ghidra\Framework\Docking\build\Sean-ghidra\test_b4bd6069-2d0f-4937-bcc8-72c648183be4\temp.data\preferences   (Preferences.java:122) 
+20:31:02 DEBUG Wed Nov 11 20:31:02 CST 2026
+***** STARTING Test: EmptyBorderButtonTest - testButtonBorderOnRollover *****   (AbstractGenericTest.java:121) 
+20:31:02 DEBUG 	✓ PASSED Test: EmptyBorderButtonTest - testButtonBorderOnRollover ✓	   (AbstractGenericTest.java:121) 
+20:31:02 DEBUG Wed Nov 11 20:31:02 CST 2026
+***** STARTING Test: EmptyBorderButtonTest - testButtonEnablementFromAction *****   (AbstractGenericTest.java:121) 
+20:31:02 DEBUG 	✓ PASSED Test: EmptyBorderButtonTest - testButtonEnablementFromAction ✓	   (AbstractGenericTest.java:121) 
+20:31:02 DEBUG Wed Nov 11 20:31:02 CST 2026
+***** STARTING Test: EmptyBorderButtonTest - testModernButtonStatesAndStockRestore *****   (AbstractGenericTest.java:121) 
+20:31:02 DEBUG 	✓ PASSED Test: EmptyBorderButtonTest - testModernButtonStatesAndStockRestore ✓	   (AbstractGenericTest.java:121) 
+20:31:02 DEBUG Wed Nov 11 20:31:02 CST 2026
+***** STARTING Test: EmptyBorderButtonTest - testButtonBorderOnPress *****   (AbstractGenericTest.java:121) 
+20:31:02 DEBUG 	✓ PASSED Test: EmptyBorderButtonTest - testButtonBorderOnPress ✓	   (AbstractGenericTest.java:121) 
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

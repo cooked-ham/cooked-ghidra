@@ -287,6 +287,12 @@ public class CodeViewerProvider extends NavigatableComponentProviderAdapter
 		return locationContextContainer;
 	}
 
+	@Override
+	public void contextChanged() {
+		super.contextChanged();
+		LocationContextPanel.changed(locationContextContainer);
+	}
+
 	protected ListingActionContext newListingActionContext() {
 		return new CodeViewerActionContext(this);
 	}

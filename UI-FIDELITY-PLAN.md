@@ -87,7 +87,8 @@ Acceptance:
 Deliverables:
 
 - Reliable vector icon persistence across built-in, copied, saved and exported themes.
-  The current bitmap fallback on theme reload is an explicit gap to close.
+  Bundled-path vector restoration and live API/restart checks are implemented (see
+  `UI-POLISH.md`); editor interaction and physical-DPI acceptance remain open.
 - A full icon coverage report with direct loads, composite icons, disabled variants,
   specialized symbols and remaining raster artwork accounted for.
 - Listing/Decompiler gutters, line emphasis, code typography, cross-highlights and

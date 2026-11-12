@@ -1,0 +1,33 @@
+{
+  "probeJarSha256": "6F8A3F7D9BAB95963662FCFCA038E814D8987674AD3280BEB6CBE9A060439ED5",
+  "revision": "cead767d71142ae07ae7348a451973c7a1ba25f5",
+  "scripts": [
+    {
+      "sha256": "70B837C9FD3E6985BAD5B560F941AE07A23D3485830DDAFED1FA7C05B3674DF7",
+      "script": "adapt_specialist_probe.py"
+    },
+    {
+      "sha256": "6059D2C04EB638EA570A80930623EC8BF8C903AFF2DA91EBFABE34A705CE8E73",
+      "script": "SpecialistReview.java"
+    },
+    {
+      "sha256": "0B7D825111ABB8EE64D48343ED4F9A2CE659164D997127BEF3F218E3337F32DA",
+      "script": "RuntimeInventory.java"
+    },
+    {
+      "sha256": "85BBCAAD5E09369FDBEA0BAF0DCA59F0AFDB5A1FA961D5BDB1852AD258764480",
+      "script": "review-specialists.ps1"
+    }
+  ],
+  "rendering": "In-process Swing painting; off-screen tool frames; not visual acceptance",
+  "distribution": "E:\\cooked-ghidra\\build\\verification\\location-graphite-runtime",
+  "logicalScale": 1.0,
+  "sequence": "one surface per process",
+  "surfaces": [
+    "codebrowser",
+    "vt",
+    "debugger"
+  ],
+  "fixture": "E:\\cooked-ghidra\\build\\verification\\graphite-specialists-acceptance-inputs",
+  "timestamp": "2026-11-12T02:30:10.5676139Z"
+}

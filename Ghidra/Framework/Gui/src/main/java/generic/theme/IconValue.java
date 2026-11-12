@@ -21,6 +21,7 @@ import javax.swing.Icon;
 
 import org.apache.commons.lang3.Strings;
 
+import generic.theme.uirefresh.icons.IconSet;
 import ghidra.util.Msg;
 import resources.ResourceManager;
 import resources.icons.EmptyIcon;
@@ -167,7 +168,10 @@ public class IconValue extends ThemeValue<Icon> {
 		if (EMPTY_ICON_STRING.equals(baseIconString)) {
 			return new EmptyIcon(STANDARD_EMPTY_ICON_SIZE, STANDARD_EMPTY_ICON_SIZE);
 		}
-		Icon icon = ResourceManager.loadIcon(baseIconString);
+		Icon icon = IconSet.fromPath(baseIconString);
+		if (icon == null) {
+			icon = ResourceManager.loadIcon(baseIconString);
+		}
 		if (icon == null) {
 			throw new ParseException("Can't find icon for \"" + baseIconString + "\"", 0);
 		}
@@ -248,7 +252,7 @@ public class IconValue extends ThemeValue<Icon> {
 	}
 
 	private String getValueOutput() {
-		String outputString = null;
+		String outputString;
 		if (referenceId != null) {
 			outputString = toExternalId(referenceId);
 		}

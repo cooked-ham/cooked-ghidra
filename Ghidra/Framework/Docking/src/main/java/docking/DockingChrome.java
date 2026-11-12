@@ -92,6 +92,10 @@ public final class DockingChrome {
 
 	/** Paint a quiet vertical surface gradient; high contrast themes use a solid surface. */
 	public static void paintSurface(Graphics g, int width, int height, Color top, Color bottom) {
+		if (UIManager.getBoolean("Docking.graphiteDepth")) {
+			top = new GColor("color.graphite.chrome.top");
+			bottom = new GColor("color.graphite.chrome.bottom");
+		}
 		Graphics2D g2 = (Graphics2D) g.create();
 		try {
 			g2.setPaint(UIManager.getBoolean("Docking.chromeDepth")
@@ -101,6 +105,17 @@ public final class DockingChrome {
 		finally {
 			g2.dispose();
 		}
+	}
+
+	/** Shared raised control surface, evaluated at paint time for saved/live themes. */
+	public static JPanel surfacePanel(LayoutManager layout) {
+		return new JPanel(layout) {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				if (isModern()) paintSurface(g, getWidth(), getHeight(), getBackground(), getBackground());
+			}
+		};
 	}
 
 	/**
@@ -161,6 +176,13 @@ public final class DockingChrome {
 				}
 				Graphics2D g2 = aa(g);
 				try {
+					if (UIManager.getBoolean("Docking.graphiteDepth")) {
+						Graphics2D header = (Graphics2D) g2.create(x + 1, y + 1, w - 2,
+							c.getFontMetrics(c.getFont()).getHeight() + 12);
+						paintSurface(header, w - 2, c.getFontMetrics(c.getFont()).getHeight() + 12,
+							c.getBackground(), c.getBackground());
+						header.dispose();
+					}
 					g2.setColor(FRAME_COLOR);
 					g2.draw(new RoundRectangle2D.Float(x + .5f, y + .5f, w - 1f, h - 1f, 12, 12));
 					g2.setFont(c.getFont().deriveFont(Font.BOLD));
@@ -192,6 +214,12 @@ public final class DockingChrome {
 			public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
 				if (!isModern()) {
 					stock.paintBorder(c, g, x, y, w, h);
+				}
+				else if (UIManager.getBoolean("Docking.graphiteDepth")) {
+					g.setColor(new GColor("color.graphite.chrome.highlight"));
+					g.drawLine(x, y, x + w - 1, y);
+					g.setColor(FRAME_COLOR);
+					g.drawLine(x, y + h - 1, x + w - 1, y + h - 1);
 				}
 			}
 		};
@@ -264,6 +292,13 @@ public final class DockingChrome {
 			}
 			Graphics2D g2 = aa(g);
 			try {
+				if (UIManager.getBoolean("Docking.graphiteDepth")) {
+					g2.setColor(new GColor("color.graphite.chrome.shadow"));
+					g2.draw(new RoundRectangle2D.Float(x + 2.5f, y + 2.5f, w - 4f, h - 4f,
+						FRAME_ARC, FRAME_ARC));
+					g2.setColor(new GColor("color.graphite.chrome.highlight"));
+					g2.drawLine(x + 6, y + 1, x + w - 7, y + 1);
+				}
 				g2.setColor(FRAME_COLOR);
 				g2.setStroke(new BasicStroke(1f));
 				g2.draw(new RoundRectangle2D.Float(x + 1.5f, y + 1.5f, w - 3f, h - 3f, FRAME_ARC,

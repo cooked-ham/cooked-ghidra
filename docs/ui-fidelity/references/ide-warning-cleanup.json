@@ -1,0 +1,94 @@
+{
+  "scope": "18 changed Java source/test files; support/ui scripts are excluded from IDE content roots",
+  "before": {
+    "errors": 0,
+    "warnings": 58
+  },
+  "errors": 0,
+  "warnings": 0,
+  "ideBuild": "passed",
+  "verification": {
+    "junitTests": 48,
+    "junitFailures": 0,
+    "log": "build/verification/ide-warning-cleanup.log"
+  },
+  "notes": [
+    "Retained five unused public/protected dialog extension APIs with method-level unused annotations; no inspection profile was disabled.",
+    "Support probe scripts are compiled by their separate runtime harness, not inspected as IDE module sources.",
+    "Existing screenshots and jar manifests describe the prior captured build, not this cleanup."
+  ],
+  "files": [
+    {
+      "filePath": "Ghidra/Features/Base/src/main/java/ghidra/app/nav/LocationContextPanel.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Features/Base/src/main/java/ghidra/app/plugin/core/codebrowser/CodeViewerProvider.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Features/Decompiler/src/main/java/ghidra/app/plugin/core/decompile/DecompilePlugin.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Features/Decompiler/src/main/java/ghidra/app/plugin/core/decompile/DecompilerProvider.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Features/Decompiler/src/test.slow/java/ghidra/app/plugin/core/decompile/LocationContextTest.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Docking/src/main/java/docking/DialogComponentProvider.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Docking/src/main/java/docking/DockingChrome.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Docking/src/main/java/docking/options/editor/OptionsEditorPanel.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Docking/src/main/java/docking/widgets/EmptyBorderButton.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Docking/src/main/java/docking/widgets/tab/GTabBorder.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Docking/src/main/java/docking/widgets/table/GTableHeaderRenderer.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/main/java/generic/theme/IconValue.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/GraphiteTheme.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/icons/IconSet.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/main/java/generic/theme/uirefresh/icons/VectorIcon.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/test/java/generic/theme/GThemeTest.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/test/java/generic/theme/IconValueTest.java",
+      "errors": []
+    },
+    {
+      "filePath": "Ghidra/Framework/Gui/src/test/java/generic/theme/uirefresh/UiRefreshContrastTest.java",
+      "errors": []
+    }
+  ]
+}

@@ -225,7 +225,7 @@ public class DecompilerProvider extends NavigatableComponentProviderAdapter
 
 	@Override
 	public ActionContext getActionContext(MouseEvent event) {
-		if (program == null) {
+		if (program == null || program.isClosed()) {
 			return null;
 		}
 		Function function = controller.getFunction();
@@ -263,8 +263,10 @@ public class DecompilerProvider extends NavigatableComponentProviderAdapter
 		else if (!isConnected()) {
 			state = "Independent";
 			detail = "This Decompiler clone keeps its own location; it does not follow the Listing.";
+			if (controller.isDecompiling() || (redecompileUpdater != null && redecompileUpdater.isBusy())) state += " / pending";
+			else if (displayed == null) state += " / unavailable";
 		}
-		else if (controller.isDecompiling() ||
+		else if (plugin.delayedLocationUpdateMgr.isBusy() || controller.isDecompiling() ||
 			(redecompileUpdater != null && redecompileUpdater.isBusy())) {
 			state = "Pending";
 			detail = "Decompilation is pending. Breadcrumbs describe the rendered result.";
@@ -283,7 +285,7 @@ public class DecompilerProvider extends NavigatableComponentProviderAdapter
 				"The displayed Decompiler function differs from the current Listing location.";
 		}
 		if (lockDisplay) {
-			state += " / refresh locked";
+			state += overlayPainter.isActive() ? " / stale / refresh locked" : " / refresh locked";
 			detail += " Automatic refresh after edits is locked; location navigation remains enabled.";
 		}
 		return new LocationContextPanel.Context(displayedProgram, displayed, state, detail);
@@ -422,11 +424,13 @@ public class DecompilerProvider extends NavigatableComponentProviderAdapter
 
 	private void setOverlayMessage(String s) {
 		overlayPainter.setMessage(s);
+		LocationContextPanel.changed(locationContextContainer);
 		decorationPanel.repaint();
 	}
 
 	private void clearOverlayMessage() {
 		overlayPainter.setMessage("");
+		LocationContextPanel.changed(locationContextContainer);
 		decorationPanel.repaint();
 	}
 
@@ -519,6 +523,7 @@ public class DecompilerProvider extends NavigatableComponentProviderAdapter
 		}
 
 		clipboardProvider.setProgram(program);
+		contextChanged();
 	}
 
 	@Override
@@ -829,6 +834,7 @@ public class DecompilerProvider extends NavigatableComponentProviderAdapter
 	@Override
 	public void contextChanged() {
 		tool.contextChanged(this);
+		LocationContextPanel.changed(locationContextContainer);
 	}
 
 //==================================================================================================

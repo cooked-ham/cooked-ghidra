@@ -38,12 +38,12 @@ import help.HelpService;
  */
 public class OptionsEditorPanel extends JPanel {
 
-	private EditorStateFactory editorStateFactory;
-	private Options options;
-	private List<String> optionNames;
+	private final EditorStateFactory editorStateFactory;
+	private final Options options;
+	private final List<String> optionNames;
 	private PropertyChangeListener propertyChangeListener;
 	private List<EditorState> editorInfoList;
-	private PropertyChangeListener editorPropertyChangeListener =
+	private final PropertyChangeListener editorPropertyChangeListener =
 		new EditorPropertyChangeListener();
 	private final String title;
 
@@ -56,7 +56,7 @@ public class OptionsEditorPanel extends JPanel {
 	 */
 	public OptionsEditorPanel(String title, Options options, List<String> optionNames,
 			EditorStateFactory editorStateFactory) {
-		if (optionNames.size() == 0) {
+		if (optionNames.isEmpty()) {
 			throw new AssertException("No editable options given for this panel.");
 		}
 		this.options = options;
@@ -107,7 +107,7 @@ public class OptionsEditorPanel extends JPanel {
 
 	private void createBorder() {
 		Border emptyBorder = BorderFactory.createEmptyBorder(20, 20, 20, 20);
-		Border titleBorder = BorderFactory.createTitledBorder(title);
+		Border titleBorder = docking.DockingChrome.sectionBorder(title);
 
 		Border border = BorderFactory.createCompoundBorder(titleBorder, emptyBorder);
 		setBorder(border);

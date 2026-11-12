@@ -64,11 +64,10 @@ public class DecompilePlugin extends Plugin {
 	public static final String OPTIONS_TITLE = "Decompiler";
 
 	private PrimaryDecompilerProvider connectedProvider;
-	private List<DecompilerProvider> disconnectedProviders;
+	private final List<DecompilerProvider> disconnectedProviders;
 
 	private Program currentProgram;
 	private ProgramLocation currentLocation;
-	private ProgramSelection currentSelection;
 
 	/**
 	 * Delay location changes to allow location events to settle down. This happens when a
@@ -120,18 +119,20 @@ public class DecompilePlugin extends Plugin {
 		saveState.putInt("Num Disconnected", disconnectedProviders.size());
 		int i = 0;
 		for (DecompilerProvider provider : disconnectedProviders) {
-			SaveState providerSaveState = new SaveState();
 			DomainFile df = provider.getProgram().getDomainFile();
 			if (df.getParent() == null) {
 				continue; // not contained within project
 			}
-			String programPathname = df.getPathname();
-			providerSaveState.putString("Program Path", programPathname);
-			provider.writeDataState(providerSaveState);
-			String elementName = "Provider" + i;
-			saveState.putXmlElement(elementName, providerSaveState.saveToXml());
+			saveState.putXmlElement("Provider" + i, saveProviderState(provider, df));
 			i++;
 		}
+	}
+
+	private Element saveProviderState(DecompilerProvider provider, DomainFile file) {
+		SaveState state = new SaveState();
+		state.putString("Program Path", file.getPathname());
+		provider.writeDataState(state);
+		return state.saveToXml();
 	}
 
 	@Override
@@ -143,20 +144,20 @@ public class DecompilePlugin extends Plugin {
 		}
 		int numDisconnected = saveState.getInt("Num Disconnected", 0);
 		for (int i = 0; i < numDisconnected; i++) {
-			Element xmlElement = saveState.getXmlElement("Provider" + i);
-			SaveState providerSaveState = new SaveState(xmlElement);
-			String programPath = providerSaveState.getString("Program Path", "");
-			DomainFile file = tool.getProject().getProjectData().getFile(programPath);
-			if (file == null) {
-				continue;
-			}
-			Program program = programManagerService.openProgram(file);
+			SaveState providerSaveState = new SaveState(saveState.getXmlElement("Provider" + i));
+			Program program = openProviderProgram(programManagerService, providerSaveState);
 			if (program != null) {
 				DecompilerProvider provider = createNewDisconnectedProvider();
 				provider.doSetProgram(program);
 				provider.readDataState(providerSaveState);
 			}
 		}
+	}
+
+	private Program openProviderProgram(ProgramManager manager, SaveState state) {
+		String path = state.getString("Program Path", "");
+		DomainFile file = tool.getProject().getProjectData().getFile(path);
+		return file == null ? null : manager.openProgram(file);
 	}
 
 	DecompilerProvider createNewDisconnectedProvider() {
@@ -186,13 +187,6 @@ public class DecompilePlugin extends Plugin {
 		GoToService service = tool.getService(GoToService.class);
 		if (service != null) {
 			service.goTo(location, program);
-		}
-	}
-
-	void updateSelection(DecompilerProvider provider, Program selProgram,
-			ProgramSelection selection) {
-		if (provider == connectedProvider) {
-			firePluginEvent(new ProgramSelectionPluginEvent(name, selection, selProgram));
 		}
 	}
 
@@ -266,9 +260,10 @@ public class DecompilePlugin extends Plugin {
 			// happens when switching program tabs in code browser which produces multiple location
 			// changes
 			delayedLocationUpdateMgr.updateLater();
+			connectedProvider.contextChanged();
 		}
 		else if (event instanceof ProgramSelectionPluginEvent) {
-			currentSelection = ((ProgramSelectionPluginEvent) event).getSelection();
+			ProgramSelection currentSelection = ((ProgramSelectionPluginEvent) event).getSelection();
 			connectedProvider.setSelection(currentSelection);
 		}
 

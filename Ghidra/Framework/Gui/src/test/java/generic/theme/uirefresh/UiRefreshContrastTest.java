@@ -25,6 +25,18 @@ import generic.theme.GTheme;
 
 public class UiRefreshContrastTest {
 	@Test
+	public void testGraphiteChromeGradientTextContrast() {
+		GTheme theme = new GraphiteTheme();
+		for (String stop : new String[] { "top", "bottom" }) {
+			Color bg = theme.getColor("color.graphite.chrome." + stop).get(theme);
+			for (String role : new String[] { "active", "inactive" }) {
+				assertContrast(theme, "chrome " + stop + " " + role,
+					theme.getColor("color.fg.header." + role).get(theme), bg);
+			}
+		}
+	}
+
+	@Test
 	public void testSyntaxAndGraphTextContrast() {
 		for (GTheme theme : new GTheme[] { new UiRefreshDarkTheme(), new UiRefreshLightTheme(),
 			new UiRefreshHighContrastTheme(), new UiRefreshCompactDarkTheme(),

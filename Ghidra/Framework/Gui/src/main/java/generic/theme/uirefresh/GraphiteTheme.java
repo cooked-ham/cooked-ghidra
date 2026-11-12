@@ -45,5 +45,8 @@ public class GraphiteTheme extends UiRefreshBaseTheme {
 		setColor("color.graphite.copper", c(0xCB9474));
 		setColor("color.graphite.chrome.top", c(0x44372D));
 		setColor("color.graphite.chrome.bottom", c(0x2B2723));
+		setColor("color.graphite.chrome.highlight", c(0x77604B));
+		setColor("color.graphite.chrome.shadow", c(0x100F0E));
+		addProperty(new generic.theme.BooleanPropertyValue("Docking.graphiteDepth", true));
 	}
 }

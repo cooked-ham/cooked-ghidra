@@ -27,6 +27,8 @@ import org.junit.*;
 import ghidra.app.nav.LocationContextPanel;
 import ghidra.app.services.GoToService;
 import ghidra.app.services.NavigationHistoryService;
+import ghidra.app.services.ProgramManager;
+import ghidra.program.model.symbol.SourceType;
 import ghidra.program.model.listing.Program;
 import ghidra.program.util.ProgramLocation;
 import ghidra.test.ClassicSampleX86ProgramBuilder;
@@ -66,6 +68,176 @@ public class LocationContextTest extends AbstractDecompilerTest {
 	}
 
 	@Test
+	public void testProgramCloseClearsDisplayedTargets() {
+		decompile("01002cf5");
+		runSwing(() -> assertTrue(tool.getService(ProgramManager.class).closeProgram(program, true)));
+		waitForSwing();
+		runSwing(() -> {
+			assertFalse(button(listingPanel(), "Go to displayed address").isEnabled());
+			assertFalse(button(listingPanel(), "Go to function entry").isEnabled());
+			assertNull(provider.getLocationContext().program());
+		});
+	}
+
+	@Test
+	public void testOverlayAddressKeepsItsAddressSpace() throws Exception {
+		decompile("01002cf5");
+		ghidra.program.model.address.Address overlay;
+		int transaction = program.startTransaction("Overlay context fixture");
+		try {
+			overlay = program.getMemory().createInitializedBlock("context_overlay", addr("01002cf5"),
+				0x100, (byte) 0, ghidra.util.task.TaskMonitor.DUMMY, true).getStart();
+		}
+		finally { program.endTransaction(transaction, true); }
+		runSwing(() -> tool.getService(GoToService.class).goTo(new ProgramLocation(program, overlay)));
+		codeBrowser.updateNow();
+		waitForSwing();
+		runSwing(() -> {
+			assertEquals(overlay, codeBrowser.getCurrentAddress());
+			assertTrue(button(listingPanel(), "Go to displayed address").getText().contains("context_overlay"));
+		});
+	}
+
+	@Test
+	public void testHiddenContextDoesNotQuerySupplier() {
+		java.util.concurrent.atomic.AtomicInteger calls = new java.util.concurrent.atomic.AtomicInteger();
+		LocationContextPanel[] panel = new LocationContextPanel[1];
+		JFrame[] frame = new JFrame[1];
+		try {
+			runSwing(() -> {
+				panel[0] = new LocationContextPanel(tool, codeBrowser.getProvider(), () -> {
+					calls.incrementAndGet();
+					return new LocationContextPanel.Context(program, null, "Connected", "Test lifecycle");
+				});
+				frame[0] = new JFrame("Context lifecycle");
+				frame[0].add(panel[0]);
+				frame[0].pack();
+				frame[0].setVisible(true);
+			});
+			waitForSwing();
+			assertTrue(calls.get() > 0);
+			runSwing(() -> frame[0].setVisible(false));
+			waitForSwing();
+			int hiddenCount = calls.get();
+			runSwing(() -> { for (int i = 0; i < 100; i++) panel[0].requestRefresh(); });
+			waitForSwing();
+			assertEquals(hiddenCount, calls.get());
+		}
+		finally { runSwing(() -> { if (frame[0] != null) frame[0].dispose(); }); }
+	}
+
+	@Test
+	public void testNamespaceMenuNavigatesToSymbol() {
+		decompile("01002cf5");
+		runSwing(() -> {
+			button(listingPanel(), "Browse namespace symbols").doClick();
+			JPopupMenu popup = (JPopupMenu) MenuSelectionManager.defaultManager().getSelectedPath()[0];
+			for (Component c : popup.getComponents()) {
+				if (c instanceof JMenuItem item && item.getText().contains(" — ")) {
+					String address = item.getText().substring(item.getText().indexOf(" — ") + 3);
+					item.doClick();
+					assertEquals(program.getAddressFactory().getAddress(address), codeBrowser.getCurrentAddress());
+					return;
+				}
+			}
+			fail("Fixture must expose an addressable namespace symbol");
+		});
+	}
+
+	@Test
+	public void testLockedEditedResultReportsStale() throws Exception {
+		decompile("01002cf5");
+		performAction(getAction(decompiler, "Lock Display"), provider, true);
+		int transaction = program.startTransaction("Edit locked result");
+		try {
+			program.getFunctionManager().getFunctionContaining(addr("01002cf5")).setName("stale_fixture", SourceType.USER_DEFINED);
+		}
+		finally { program.endTransaction(transaction, true); }
+		program.flushEvents();
+		waitForCondition(() -> runSwing(() -> provider.getLocationContext().state().contains("stale")));
+	}
+
+	@Test
+	public void testCloneProgramSwitchDoesNotActivateMainProgram() throws Exception {
+		decompile("01002cf5");
+		ClassicSampleX86ProgramBuilder other = new ClassicSampleX86ProgramBuilder("clone-target", false, this);
+		DecompilerProvider[] cloneHolder = new DecompilerProvider[1];
+		try {
+			runSwing(() -> {
+				ProgramManager manager = tool.getService(ProgramManager.class);
+				manager.openProgram(other.getProgram());
+				manager.setCurrentProgram(program);
+				DecompilerProvider clone = decompiler.createNewDisconnectedProvider();
+				cloneHolder[0] = clone;
+				clone.doSetProgram(program);
+				clone.goTo(program, new ProgramLocation(program, addr("01002cf5")));
+				tool.showComponentProvider(clone, true);
+			});
+			waitForSwing();
+			runSwing(() -> {
+				DecompilerProvider clone = cloneHolder[0];
+				ProgramManager manager = tool.getService(ProgramManager.class);
+				LocationContextPanel panel = (LocationContextPanel) find(clone.getComponent(), "Location context");
+				assertNotNull(panel);
+				panel.refreshContext();
+				button(panel, "Switch open program").doClick();
+				JPopupMenu popup = (JPopupMenu) MenuSelectionManager.defaultManager().getSelectedPath()[0];
+				for (Component c : popup.getComponents()) {
+					if (c instanceof JMenuItem item && item.getText().equals("clone-target")) assertFalse(item.isEnabled());
+				}
+				MenuSelectionManager.defaultManager().clearSelectedPath();
+				assertSame(program, clone.getProgram());
+				assertSame(program, manager.getCurrentProgram());
+			});
+		}
+		finally { other.dispose(); }
+	}
+
+	@Test
+	public void testProviderEventsRefreshWithoutPollingOrManualRefresh() {
+		decompile("01002cf5");
+		runSwing(() -> tool.getService(GoToService.class).goTo(new ProgramLocation(program, addr("010059a3"))));
+		codeBrowser.updateNow();
+		waitForDecompiler();
+		waitForSwing();
+		runSwing(() -> assertTrue(button(listingPanel(), "Go to displayed address").getText().contains("010059a3")));
+	}
+
+	@Test
+	public void testProgramMetadataEventRefreshesFunctionCrumb() throws Exception {
+		decompile("01002cf5");
+		int transaction = program.startTransaction("Rename breadcrumb fixture");
+		try {
+			program.getFunctionManager().getFunctionContaining(addr("01002cf5")).setName("renamed_context", SourceType.USER_DEFINED);
+		}
+		finally { program.endTransaction(transaction, true); }
+		program.flushEvents();
+		waitForSwing();
+		runSwing(() -> assertEquals("renamed_context", button(listingPanel(), "Go to function entry").getText()));
+	}
+
+	@Test
+	public void testProgramMenuSwitchesAcrossPrograms() throws Exception {
+		decompile("01002cf5");
+		ClassicSampleX86ProgramBuilder other = new ClassicSampleX86ProgramBuilder("switch-target", false, this);
+		try {
+			runSwing(() -> tool.getService(ProgramManager.class).openProgram(other.getProgram()));
+			waitForSwing();
+			runSwing(() -> {
+				button(listingPanel(), "Switch open program").doClick();
+				JPopupMenu popup = (JPopupMenu) MenuSelectionManager.defaultManager().getSelectedPath()[0];
+				for (Component c : popup.getComponents()) {
+					if (c instanceof JMenuItem item && item.getText().equals(program.getName())) item.doClick();
+				}
+			});
+			codeBrowser.updateNow();
+			waitForSwing();
+			assertSame(program, tool.getService(ProgramManager.class).getCurrentProgram());
+		}
+		finally { other.dispose(); }
+	}
+
+	@Test
 	public void testRefreshDoesNotAddHistoryAndButtonsRestoreLocations() {
 		GoToService goTo = tool.getService(GoToService.class);
 		NavigationHistoryService history = tool.getService(NavigationHistoryService.class);
@@ -79,6 +251,7 @@ public class LocationContextTest extends AbstractDecompilerTest {
 		runSwing(() -> {
 			int previous = history.getPreviousLocations(goTo.getDefaultNavigatable()).size();
 			for (int i = 0; i < 20; i++) {
+				assertNotNull(panel);
 				panel.refreshContext();
 			}
 			assertEquals(previous, history.getPreviousLocations(goTo.getDefaultNavigatable()).size());
@@ -99,7 +272,8 @@ public class LocationContextTest extends AbstractDecompilerTest {
 		decompile("01002cf5");
 		runSwing(() -> {
 			LocationContextPanel panel = listingPanel();
-			panel.refreshContext();
+			assertNotNull(panel);
+				panel.refreshContext();
 			button(panel, "Go to function entry").doClick();
 			assertEquals(program.getFunctionManager().getFunctionContaining(addr("01002cf5")).getEntryPoint(),
 				codeBrowser.getCurrentAddress());
@@ -142,7 +316,7 @@ public class LocationContextTest extends AbstractDecompilerTest {
 			DecompilerProvider clone = decompiler.createNewDisconnectedProvider();
 			clone.doSetProgram(program);
 			clone.goTo(program, new ProgramLocation(program, addr("01002cf5")));
-			assertEquals("Independent", clone.getLocationContext().state());
+			assertTrue(clone.getLocationContext().state().startsWith("Independent"));
 		});
 	}
 
@@ -155,6 +329,7 @@ public class LocationContextTest extends AbstractDecompilerTest {
 				LocationContextPanel panel = new LocationContextPanel(tool, codeBrowser.getProvider(),
 					() -> new LocationContextPanel.Context(program,
 						new ProgramLocation(other.getProgram(), other.addr("01002cf5")), "Pending", "Test"));
+				assertNotNull(panel);
 				panel.refreshContext();
 				assertEquals("—", button(panel, "Go to displayed address").getText());
 				assertFalse(button(panel, "Go to displayed address").isEnabled());

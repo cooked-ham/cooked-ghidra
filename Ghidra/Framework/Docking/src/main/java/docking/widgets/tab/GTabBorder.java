@@ -99,6 +99,10 @@ class GTabBorder extends EmptyBorder {
 	private void paintModern(Component c, Graphics g, int x, int y, int w, int h) {
 		Color oldColor = g.getColor();
 		if (selected) {
+			if (javax.swing.UIManager.getBoolean("Docking.graphiteDepth")) {
+				g.setColor(new generic.theme.GColor("color.graphite.chrome.highlight"));
+				g.drawLine(x + 4, y, x + w - 5, y);
+			}
 			boolean active = c instanceof GTab<?> tab && tab.isPanelActive();
 			g.setColor(active ? DockingChrome.accentColor() : DockingChrome.frameColor());
 			int u = DockingChrome.TAB_UNDERLINE;

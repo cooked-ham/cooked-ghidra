@@ -62,16 +62,15 @@ public class DialogComponentProvider
 
 	private static int idCounter;
 
-	private int id = ++idCounter;
+	private final int id = ++idCounter;
 
-	private boolean modal;
+	private final boolean modal;
 	private String title;
 
 	protected JPanel rootPanel;
-	private JPanel mainPanel;
+	private final JPanel mainPanel;
 	private JComponent workPanel;
 	protected JPanel buttonPanel;
-	private JPanel statusPanel;
 	protected JButton okButton;
 	protected JButton applyButton;
 	protected JButton cancelButton;
@@ -80,7 +79,7 @@ public class DialogComponentProvider
 	private GDHtmlLabel statusLabel;
 	private JPanel statusProgPanel; // contains status panel and progress panel
 	private Timer showTimer;
-	private TaskScheduler taskScheduler;
+	private final TaskScheduler taskScheduler;
 	private TaskMonitorComponent taskMonitorComponent;
 
 	private static final KeyStroke ESC_KEYSTROKE = KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0);
@@ -92,14 +91,14 @@ public class DialogComponentProvider
 	private Component focusComponent;
 	private JPanel toolbar;
 
-	private Map<DockingActionIf, DialogToolbarButton> toolbarButtonsByAction = new HashMap<>();
-	private DialogComponentProviderPopupActionManager popupManager =
+	private final Map<DockingActionIf, DialogToolbarButton> toolbarButtonsByAction = new HashMap<>();
+	private final DialogComponentProviderPopupActionManager popupManager =
 		new DialogComponentProviderPopupActionManager(this);
-	private PopupHandler popupHandler = new PopupHandler();
-	private Set<DockingActionIf> dialogActions = new HashSet<>();
+	private final PopupHandler popupHandler = new PopupHandler();
+	private final Set<DockingActionIf> dialogActions = new HashSet<>();
 
 	// we track these separately so that we can remove them on dispose
-	private Set<DialogActionProxy> keyBindingProxyActions = new HashSet<>();
+	private final Set<DialogActionProxy> keyBindingProxyActions = new HashSet<>();
 
 	private Point initialLocation;
 	private boolean resizeable = true;
@@ -161,9 +160,9 @@ public class DialogComponentProvider
 
 		taskScheduler = new TaskScheduler(this);
 
-		buttonPanel = new JPanel(new GridLayout(1, 0, 6, 0));
+		buttonPanel = DockingChrome.surfacePanel(new GridLayout(1, 0, 6, 0));
 		buttonPanel.setBorder(BorderFactory.createEmptyBorder(3, 0, 0, 0));
-		statusPanel = buildStatusPanel();
+		JPanel statusPanel = buildStatusPanel();
 
 		if (canRunTasks) {
 			progressCardLayout = new CardLayout();
@@ -178,7 +177,7 @@ public class DialogComponentProvider
 			mainPanel.add(statusPanel, BorderLayout.SOUTH);
 		}
 		if (includeButtons) {
-			JPanel panel = new JPanel(new FlowLayout() {
+			JPanel panel = DockingChrome.surfacePanel(new FlowLayout() {
 				@Override
 				public void layoutContainer(Container target) {
 					setAlignment(DockingChrome.isModern() ? FlowLayout.TRAILING : FlowLayout.CENTER);
@@ -195,11 +194,11 @@ public class DialogComponentProvider
 	/**
 	 * Called by the framework during startup to register actions that are shared throughout the 
 	 * tool.  See {@link SharedActionRegistry}.
-	 * @param tool the tool
+	 * @param ignoredTool the tool (retained for the shared-action registration signature)
 	 * @param toolActions the class to which the actions should be added
 	 * @param owner the shared action owner
 	 */
-	public static void createSharedActions(Tool tool, ToolActions toolActions, String owner) {
+	public static void createSharedActions(Tool ignoredTool, ToolActions toolActions, String owner) {
 
 		DockingAction closeAction = new ActionBuilder(CLOSE_ACTION_NAME, owner)
 				.sharedKeyBinding()
@@ -225,13 +224,10 @@ public class DialogComponentProvider
 	 */
 	public boolean isDialogKeyBindingAction(DockingActionIf action) {
 		if (action instanceof DockingActionProxy proxy) {
-			return keyBindingProxyActions.contains(proxy);
+			return proxy instanceof DialogActionProxy dialogProxy && keyBindingProxyActions.contains(dialogProxy);
 		}
 		String name = action.getName();
-		if (name.equals(CLOSE_ACTION_NAME)) {
-			return true;
-		}
-		return false;
+		return name.equals(CLOSE_ACTION_NAME);
 	}
 
 	public int getId() {
@@ -365,10 +361,9 @@ public class DialogComponentProvider
 		if (component instanceof CellRendererPane) {
 			return;
 		}
-		if (component instanceof Container) {
-			Container c = (Container) component;
+		if (component instanceof Container c) {
 			c.addContainerListener(popupHandler);
-			Component comps[] = c.getComponents();
+			Component[] comps = c.getComponents();
 			for (Component comp : comps) {
 				installMouseListener(comp);
 			}
@@ -383,10 +378,9 @@ public class DialogComponentProvider
 		if (comp instanceof CellRendererPane) {
 			return;
 		}
-		if (comp instanceof Container) {
-			Container c = (Container) comp;
+		if (comp instanceof Container c) {
 			c.removeContainerListener(popupHandler);
-			Component comps[] = c.getComponents();
+			Component[] comps = c.getComponents();
 			for (Component comp2 : comps) {
 				uninstallMouseListener(comp2);
 			}
@@ -454,6 +448,8 @@ public class DialogComponentProvider
 		taskScheduler.set(task, delay);
 	}
 
+	// Extension API: retained for downstream dialog subclasses.
+	@SuppressWarnings("unused")
 	protected void clearScheduledTask() {
 		taskScheduler.clearScheduledTask();
 	}
@@ -548,6 +544,8 @@ public class DialogComponentProvider
 	 * Sets the Tooltip for the Apply button
 	 * @param tooltip the tooltip
 	 */
+	// Extension API: retained for downstream dialog subclasses.
+	@SuppressWarnings("unused")
 	protected void setApplyToolTip(String tooltip) {
 		if (applyButton != null) {
 			applyButton.setToolTipText(tooltip);
@@ -590,6 +588,8 @@ public class DialogComponentProvider
 	 * Sets the Tooltip for the Dismiss button
 	 * @param tooltip the tooltip
 	 */
+	// Extension API: retained for downstream dialog subclasses.
+	@SuppressWarnings("unused")
 	protected void setDismissToolTip(String tooltip) {
 		if (dismissButton != null) {
 			dismissButton.setToolTipText(tooltip);
@@ -729,9 +729,7 @@ public class DialogComponentProvider
 	 */
 	protected void alertMessage(Callback alertFinishedCallback) {
 
-		Swing.runIfSwingOrRunLater(() -> {
-			doAlertMessage(alertFinishedCallback);
-		});
+		Swing.runIfSwingOrRunLater(() -> doAlertMessage(alertFinishedCallback));
 	}
 
 	private void doAlertMessage(Callback alertFinishedCallback) {
@@ -772,16 +770,12 @@ public class DialogComponentProvider
 	}
 
 	protected Color getStatusColor(MessageType type) {
-		switch (type) {
-			case ALERT:
-				return FG_COLOR_ALERT;
-			case WARNING:
-				return FG_COLOR_WARNING;
-			case ERROR:
-				return FG_COLOR_ERROR;
-			default:
-				return FG_COLOR_NORMAL;
-		}
+		return switch (type) {
+			case ALERT -> FG_COLOR_ALERT;
+			case WARNING -> FG_COLOR_WARNING;
+			case ERROR -> FG_COLOR_ERROR;
+			default -> FG_COLOR_NORMAL;
+		};
 	}
 
 	/**
@@ -890,6 +884,8 @@ public class DialogComponentProvider
 		return statusLabel.getText();
 	}
 
+	// Extension API: retained for downstream dialog subclasses.
+	@SuppressWarnings("unused")
 	protected JLabel getStatusLabel() {
 		return statusLabel;
 	}
@@ -1250,6 +1246,8 @@ public class DialogComponentProvider
 	 * @param x the x coordinate
 	 * @param y the y coordinate
 	 */
+	// Extension API: retained for downstream dialog subclasses.
+	@SuppressWarnings("unused")
 	public void setInitialLocation(int x, int y) {
 		initialLocation = new Point(x, y);
 	}
@@ -1522,7 +1520,7 @@ public class DialogComponentProvider
 	 */
 	private static class DialogActionProxy extends DockingActionProxy {
 
-		private DialogComponentProvider provider;
+		private final DialogComponentProvider provider;
 
 		public DialogActionProxy(DialogComponentProvider provider, DockingActionIf dockingAction) {
 			super(dockingAction);

@@ -151,8 +151,13 @@ public class EmptyBorderButton extends JButton {
 				try {
 					g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 						RenderingHints.VALUE_ANTIALIAS_ON);
-					g2.setColor(UIManager.getColor(pressed || selected
-							? "Button.toolbar.pressedBackground" : "Button.toolbar.hoverBackground"));
+					Color fill = UIManager.getColor(pressed || selected
+							? "Button.toolbar.pressedBackground" : "Button.toolbar.hoverBackground");
+					if (UIManager.getBoolean("Docking.graphiteDepth")) {
+						g2.setPaint(new GradientPaint(0, 2, pressed ? fill.darker() : fill.brighter(),
+							0, getHeight() - 2, fill));
+					}
+					else g2.setColor(fill);
 					g2.fillRoundRect(2, 2, getWidth() - 4, getHeight() - 4, 8, 8);
 					if (selected) {
 						g2.setColor(DockingChrome.accentColor());

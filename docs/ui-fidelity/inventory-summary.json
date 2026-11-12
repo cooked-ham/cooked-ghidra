@@ -23,10 +23,7 @@
     "window": 6
   },
   "statuses": {
-    "functionally verified": 1,
-    "implemented": 2,
-    "inventoried": 10239,
-    "visually reviewed": 1
+    "inventoried": 10243
   },
   "orphan_reviews": [],
   "unmapped_candidates": 0,

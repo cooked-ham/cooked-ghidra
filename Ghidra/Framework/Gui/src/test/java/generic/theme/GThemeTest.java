@@ -28,6 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import generic.test.AbstractGenericTest;
+import generic.theme.uirefresh.icons.*;
 import resources.ResourceManager;
 
 public class GThemeTest extends AbstractGenericTest {
@@ -46,6 +47,33 @@ public class GThemeTest extends AbstractGenericTest {
 	public void setUp() {
 		theme = new GTheme("TestTheme");
 		new Font("Courier", Font.BOLD, 12);
+	}
+
+	@Test
+	public void testVectorIconsSurviveSaveAndReload() throws IOException {
+		int count = 0;
+		for (Glyphs.Palette palette : java.util.List.of(Glyphs.DARK, Glyphs.LIGHT,
+			Glyphs.HIGH_CONTRAST, Glyphs.GRAPHITE)) {
+			for (String glyph : Glyphs.names()) {
+				String path = "images/uirefresh/" + palette.key() + "/" + glyph + ".png";
+				VectorIcon icon = IconSet.fromPath(path);
+				assertNotNull(path, icon);
+				theme.setIcon("icon.vector." + count++, icon);
+			}
+		}
+		for (boolean zip : new boolean[] { false, true }) {
+			File file = createTempFile("vectorTheme", zip ? ".theme.zip" : ".theme");
+			new ThemeWriter(theme).writeTheme(file, zip);
+			GTheme reloaded = new ThemeReader(file).readTheme();
+			for (IconValue original : theme.getIcons()) {
+				Icon actual = reloaded.getIcon(original.getId()).get(reloaded);
+				assertTrue(original.getId(), actual instanceof VectorIcon);
+				assertEquals(original.getRawValue(), actual);
+				assertEquals(((VectorIcon) original.getRawValue()).getGlyph(), ((VectorIcon) actual).getGlyph());
+				java.awt.Image image = ((VectorIcon) actual).getImage();
+				assertTrue(image instanceof java.awt.image.MultiResolutionImage);
+			}
+		}
 	}
 
 	@Test

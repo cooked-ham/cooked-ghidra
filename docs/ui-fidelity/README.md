@@ -84,8 +84,9 @@ describe the exact exercised states; passing a subset of checks does not remove 
    but every specialist dialog/state and the repository-backed conflict still need review. Live
    Windows debugging and specialist failure cases remain fixture gaps; available data is not a
    claim that every specialist dialog has been reviewed.
-3. Close the location-context cases listed in the spike report and replace its polling with a
-   measured lifecycle/event design before making it a normal product feature.
+3. Review the remaining location-context cases and performance baselines in the spike report.
+   Polling has been replaced by lifecycle-managed events, with 16 integration regressions;
+   production rollout remains opt-in pending the remaining acceptance work.
 4. Review physical DPI, keyboard traversal, screen-reader output, performance, process restart,
    detached windows and preservation of existing profiles. Fresh-profile default migration is later work.
 

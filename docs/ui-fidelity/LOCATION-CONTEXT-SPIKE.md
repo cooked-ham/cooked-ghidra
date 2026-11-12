@@ -1,4 +1,4 @@
-# Location-context spike
+# Location context (opt-in)
 
 Enable `-Dghidra.ui.locationContext=true` at startup. The spike wraps the existing Listing and
 Decompiler components with provider-local breadcrumbs and history controls. With the property
@@ -11,9 +11,12 @@ queried. There are no new action identities, key bindings, serialized layout fie
   from that provider's represented content. Undefined bytes, defined data, instructions outside
   functions, missing locations and missing programs have explicit text. Cross-program stale
   locations cannot supply an address beneath another program's name.
-- Function and address buttons use the existing `GoToService`. The program button explicitly
-  navigates to its first address. The namespace segment is informational in this spike; namespace
-  browsing/discovery is still open. Long content has a horizontal viewport and complete tooltips.
+- Function, address and namespace-symbol navigation use the existing `GoToService`. The program
+  menu activates an open program through `ProgramManager`, retaining its normal location handling.
+  Independent clones retain their original program binding and explain the disabled switch.
+  The namespace menu supports parent/child traversal, function/label navigation, pages of 100
+  symbols and revealing non-global namespaces in the Symbol Tree when its service is present.
+  Long content has a horizontal viewport and complete tooltips.
 - Back/forward use `NavigationHistoryService`, restoring existing location mementos. Connected
   providers must query/navigate the shared default navigatable: `addNewLocation` redirects to it,
   while `hasPrevious`, `hasNext`, `previous` and `next` do not. Clones retain their own target.
@@ -29,10 +32,13 @@ queried. There are no new action identities, key bindings, serialized layout fie
   It is displayed as `/ refresh locked` alongside the linkage state. Independent clones remain
   independent even when they permit outgoing navigation events.
 
-Only showing panels refresh, using a coalescing Swing timer at 200 ms; removal stops the timer.
-Refresh performs local metadata lookups and history availability queries. It does not decompile,
-walk a program, traverse a namespace, query a service over the network or write a setting.
-This polling is a spike implementation, not a measured production performance result.
+Showing panels subscribe to tool context and displayed-program model events. Provider-local
+notifications also update independent/unfocused panes; the Decompiler plugin notifies before its
+delayed location dispatch. Requests coalesce into an EDT callback, with no periodic timer. Hiding
+or removing a panel releases subscriptions, and reopening refreshes current state. Refresh performs
+only local metadata/history queries; namespace enumeration happens on explicit menu interaction.
+Independent decompilers expose pending/unavailable activity alongside independence. Locked results
+with an active refresh overlay say `stale / refresh locked`, distinguishing edits from the lock alone.
 
 ## Validation
 
@@ -46,24 +52,22 @@ This polling is a spike implementation, not a measured production performance re
 6. A foreign-program location cannot produce a mixed program/address breadcrumb.
 7. Disabling the spike preserves the original component and does not query the context supplier.
 
-All seven pass in `build/verification/graphite-validation-final.log`. Read the JUnit XML as well:
+The original seven passed in `build/verification/graphite-validation-final.log`. The expanded
+16-test suite passes in `build/verification/location-context-final16.log`, including event-driven
+navigation/rename updates, hidden-panel suppression, namespace navigation, program switching,
+clone binding, actual edits to locked results, program close and overlay address spaces.
+Read the JUnit XML as well:
 this repository's Gradle test tasks use `ignoreFailures=true`, so a successful Gradle exit alone
 is insufficient. Syntax/graph contrast also passes for the five existing themes and Graphite Preview.
 
 ## Work remaining before normal rollout
 
-- Event/service lifecycle subscriptions with measured latency, repaint and allocation baselines;
-  verify rapid navigation, cancellation, hidden panes and disposed/closed programs.
-- Namespace segment navigation, history menus/tooltips that reflect actual shortcut bindings,
-  useful program switching semantics, responsive overflow and compact/comfortable layouts.
-- Explicit pending feedback during the plugin's delayed-location dispatch, before a decompiler
-  request starts. Independent clones currently keep their independence badge while compiling;
-  a separate activity indicator is still needed for pending/unavailable clone results.
-- Distinguish edit-stale locked results from merely refresh-locked results; provider-to-provider
-  linkage should identify its actual source in detached/multiple tool workflows.
+- Measured latency, repaint/allocation baselines and navigation/cancellation stress tests.
+- History menus/tooltips reflecting actual shortcut bindings, responsive overflow and density review.
+- Provider-to-provider linkage identifying its actual source across detached/multiple tools.
 - Cross-program history, external references, overlays/address spaces, undefined functions,
-  program close/reopen, detached panes and independently navigated clones need additional
-  end-to-end acceptance. The mismatch guard and simple clone test do not cover that full matrix.
+  program reopen, detached panes and independently navigated clones need additional
+  end-to-end acceptance. The targeted regressions do not cover every combination in that matrix.
 - Physical DPI, screen-reader names/descriptions, keyboard traversal and focus restoration,
   saved-tool/process restart, profile preservation and actual user docking acceptance remain open.
 

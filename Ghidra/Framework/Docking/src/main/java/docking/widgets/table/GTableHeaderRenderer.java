@@ -138,7 +138,16 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 			parent.add(rendererComponent);
 		}
 
-		rendererComponent.paint(g);
+		if (UIManager.getBoolean("Docking.graphiteDepth") && rendererComponent instanceof JComponent jc) {
+			docking.DockingChrome.paintSurface(g, getWidth(), getHeight(), getBackground(), getBackground());
+			boolean opaque = jc.isOpaque();
+			try {
+				jc.setOpaque(false);
+				jc.paint(g);
+			}
+			finally { jc.setOpaque(opaque); }
+		}
+		else rendererComponent.paint(g);
 
 		// paint our items after the delegate call so that we paint on top
 		paintChildren(g);
@@ -182,7 +191,7 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 		Rectangle viewBounds = new Rectangle(0, 0, availableTextWidth, bounds.height);
 		Rectangle iconResult = new Rectangle();
 		Rectangle textResult = new Rectangle();
-		String clippedText = SwingUtilities.layoutCompoundLabel(label, metrics, text, primaryIcon,
+		return SwingUtilities.layoutCompoundLabel(label, metrics, text, primaryIcon,
 			label.getVerticalAlignment(), label.getHorizontalAlignment(),
 			label.getVerticalTextPosition(), label.getHorizontalTextPosition(),
 			viewBounds,
@@ -190,7 +199,6 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 			textResult,
 			label.getIconTextGap());
 		//@formatter:on
-		return clippedText;
 	}
 
 	// creates an image from the given icon; used scaling the image
@@ -317,12 +325,11 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 		// range from 0 to max (e.g., 0 to .3); highlight will fade in from full alpha
 		double range = max - 1;
 		double current = scale - 1;
-		double alpha = current;
 
 		Composite originalComposite = g2d.getComposite();
 		try {
 			AlphaComposite alphaComposite = AlphaComposite.getInstance(
-				AlphaComposite.SrcOver.getRule(), (float) alpha);
+				AlphaComposite.SrcOver.getRule(), (float) current);
 
 			g2d.setComposite(alphaComposite);
 			g2d.setColor(Colors.FOREGROUND);
@@ -331,10 +338,8 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 			// highlight shape as the animation progresses 
 			double percent = current / range;
 			double bgpadding = 1;
-			double fullbgw = iw;
-			double fullbgh = ih;
-			double bgw = (fullbgw + bgpadding) * percent;
-			double bgh = (fullbgh + bgpadding) * percent;
+			double bgw = (iw + bgpadding) * percent;
+			double bgh = (ih + bgpadding) * percent;
 
 			// center using the delta between the icon size and the current highlight size
 			double halfpadding = (bgpadding / 2);
@@ -356,12 +361,11 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 
 		int right = getWidth();
 		int offset = 2;
-		int helpIconWidth = GTableHeader.HELP_ICON_HEIGHT;
+		int helpIconExtent = GTableHeader.HELP_ICON_HEIGHT;
 
 		// we want the icon on the right-hand size of the header, at the top
-		int x = right - helpIconWidth - offset;
-		int y = offset; // down a bit
-		return new Point(x, y);
+		int x = right - helpIconExtent - offset;
+		return new Point(x, offset);
 	}
 
 	@Override
@@ -385,10 +389,10 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 	private Icon getIcon(TableModel model, int columnModelIndex) {
 		Icon icon = null;
 		if (model instanceof SortedTableModel) {
-			icon = getSortIcon(icon, columnModelIndex, model);
+			icon = getSortIcon(columnModelIndex, model);
 		}
 		if (isColumnFiltered(model, columnModelIndex)) {
-			icon = combineIcons(FILTER_ICON, icon);
+			icon = combineWithFilterIcon(icon);
 		}
 
 		if (icon != null) {
@@ -397,10 +401,8 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 		return EMPTY_ICON;
 	}
 
-	private Icon combineIcons(Icon icon1, Icon icon2) {
-		if (icon1 == null) {
-			return icon2;
-		}
+	private Icon combineWithFilterIcon(Icon icon2) {
+		Icon icon1 = FILTER_ICON;
 		if (icon2 == null) {
 			return icon1;
 		}
@@ -418,10 +420,9 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 	}
 
 	private boolean isColumnFiltered(TableModel model, int columnModelIndex) {
-		if (!(model instanceof RowObjectFilterModel<?>)) {
+		if (!(model instanceof RowObjectFilterModel<?> filterModel)) {
 			return false;
 		}
-		RowObjectFilterModel<?> filterModel = (RowObjectFilterModel<?>) model;
 		TableFilter<?> tableFilter = filterModel.getTableFilter();
 		if (tableFilter == null) {
 			return false;
@@ -432,11 +433,10 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 	private Icon getHelpIcon(JTable table, int currentColumnIndex) {
 
 		JTableHeader tableHeader = table.getTableHeader();
-		if (!(tableHeader instanceof GTableHeader)) {
+		if (!(tableHeader instanceof GTableHeader tooltipTableHeader)) {
 			return EMPTY_ICON;
 		}
 
-		GTableHeader tooltipTableHeader = (GTableHeader) tableHeader;
 		int hoveredColumnIndex = tooltipTableHeader.getHoveredHeaderColumnIndex();
 		if (hoveredColumnIndex != currentColumnIndex) {
 			return EMPTY_ICON;
@@ -449,14 +449,12 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 		return EMPTY_ICON;
 	}
 
-	private Icon getSortIcon(Icon icon, int realIndex, TableModel model) {
+	private Icon getSortIcon(int realIndex, TableModel model) {
 		SortedTableModel sortedModel = (SortedTableModel) model;
 		TableSortState columnSortStates = sortedModel.getTableSortState();
 
 		boolean sortPending = false;
-		if (model instanceof AbstractSortedTableModel) {
-			@SuppressWarnings("rawtypes")
-			AbstractSortedTableModel abstractSortedModel = (AbstractSortedTableModel) model;
+		if (model instanceof AbstractSortedTableModel<?> abstractSortedModel) {
 			sortPending = abstractSortedModel.isSortPending();
 			if (sortPending) {
 				TableSortState pendingTableState = abstractSortedModel.getPendingSortState();
@@ -473,7 +471,7 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 			return null;
 		}
 
-		icon = getColumnIconForSortState(columnSortStates, sortState, false);
+		Icon icon = getColumnIconForSortState(columnSortStates, sortState, false);
 		if (sortPending) {
 			// indicate that the current sort is stale
 			icon = ResourceManager.getDisabledIcon(icon, 65);
@@ -507,9 +505,7 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 		int height = getHeight();
 		int middle = height / 2;
 		int halfHeight = iconHeight / 2;
-		int y = middle - halfHeight;
-
-		return y;
+		return middle - halfHeight;
 	}
 
 //==================================================================================================
@@ -520,7 +516,7 @@ public class GTableHeaderRenderer extends DefaultTableCellRenderer {
 
 		private static final String FONT_ID = "font.table.header.number";
 		private final int iconWidth;
-		private int numberWidth;
+		private final int numberWidth;
 		private final int iconHeight;
 		private final String numberText;
 

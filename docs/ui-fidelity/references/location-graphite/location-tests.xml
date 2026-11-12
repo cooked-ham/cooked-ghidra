@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ghidra.app.plugin.core.decompile.LocationContextTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2026-11-12T02:30:09.695Z" hostname="ROTBART" time="43.718">
+  <properties/>
+  <testcase name="testHiddenContextDoesNotQuerySupplier" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="5.828"/>
+  <testcase name="testProgramMetadataEventRefreshesFunctionCrumb" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.428"/>
+  <testcase name="testProviderEventsRefreshWithoutPollingOrManualRefresh" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.428"/>
+  <testcase name="testProgramCloseClearsDisplayedTargets" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.646"/>
+  <testcase name="testDisabledSpikePreservesOriginalComponent" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="1.922"/>
+  <testcase name="testMismatchedProgramNeverProducesMixedBreadcrumb" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.124"/>
+  <testcase name="testLockedEditedResultReportsStale" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.34"/>
+  <testcase name="testRefreshLockStillFollowsAndCloneIsIndependent" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.225"/>
+  <testcase name="testOutOfSyncAfterListingNavigatesToData" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.228"/>
+  <testcase name="testOverlayAddressKeepsItsAddressSpace" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.637"/>
+  <testcase name="testRefreshDoesNotAddHistoryAndButtonsRestoreLocations" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="3.23"/>
+  <testcase name="testPendingBreadcrumbDescribesRenderedResult" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.151"/>
+  <testcase name="testNamespaceMenuNavigatesToSymbol" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.426"/>
+  <testcase name="testFunctionCrumbUsesExistingGoToService" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="2.24"/>
+  <testcase name="testCloneProgramSwitchDoesNotActivateMainProgram" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="3.227"/>
+  <testcase name="testProgramMenuSwitchesAcrossPrograms" classname="ghidra.app.plugin.core.decompile.LocationContextTest" time="3.632"/>
+  <system-out><![CDATA[Created test directory: E:\cooked-ghidra\Ghidra\Features\Decompiler\build\Sean-ghidra\test_ad33f107-ffbf-43a9-9499-41f1e4053926\temp.data
+20:30:09 INFO  Using log config file: file:/E:/cooked-ghidra/Ghidra/Framework/Generic/src/main/resources/generic.log4jtest.xml   (LoggingInitialization.java:55) 
+20:30:09 INFO  Using log file: E:\cooked-ghidra\Ghidra\Features\Decompiler\build\Sean-ghidra\test_ad33f107-ffbf-43a9-9499-41f1e4053926\temp.data\application.log   (LoggingInitialization.java:56) 
+20:30:10 INFO  Loading user preferences: E:\cooked-ghidra\Ghidra\Features\Decompiler\build\Sean-ghidra\test_ad33f107-ffbf-43a9-9499-41f1e4053926\temp.data\preferences   (Preferences.java:122) 
+20:30:10 DEBUG Including serial input filter: FileSystem/data/client.rmi.serial.filter   (GhidraObjectInputFilter.java:391) 
+20:30:10 INFO  Searching for classes...   (ClassSearcher.java:447) 
+20:30:10 INFO  Class search complete (281 ms)   (ClassSearcher.java:135) 
+20:30:10 DEBUG Wed Nov 11 20:30:10 CST 2026
+***** STARTING Test: LocationContextTest - testHiddenContextDoesNotQuerySupplier *****   (AbstractGenericTest.java:121) 
+20:30:11 DEBUG Took 197ms (85ms inside lock) to initialize language E:\cooked-ghidra\Ghidra\Processors\x86\data\languages\x86.slaspec -> E:\cooked-ghidra\Ghidra\Processors\x86\data\languages\x86.sla   (SleighLanguage.java:204) 
+20:30:15 WARN  Decompiling 01006420, pcode error at 01007600: Could not follow disassembly flow into non-existing memory at 01007600   (DecompileCallback.java:235) 
+20:30:15 DEBUG 	✓ PASSED Test: LocationContextTest - testHiddenContextDoesNotQuerySupplier ✓	   (AbstractGenericTest.java:121) 
+20:30:15 DEBUG Wed Nov 11 20:30:15 CST 2026
+***** STARTING Test: LocationContextTest - testProgramMetadataEventRefreshesFunctionCrumb *****   (AbstractGenericTest.java:121) 
+20:30:17 DEBUG 	✓ PASSED Test: LocationContextTest - testProgramMetadataEventRefreshesFunctionCrumb ✓	   (AbstractGenericTest.java:121) 
+20:30:17 DEBUG Wed Nov 11 20:30:17 CST 2026
+***** STARTING Test: LocationContextTest - testProviderEventsRefreshWithoutPollingOrManualRefresh *****   (AbstractGenericTest.java:121) 
+20:30:20 DEBUG 	✓ PASSED Test: LocationContextTest - testProviderEventsRefreshWithoutPollingOrManualRefresh ✓	   (AbstractGenericTest.java:121) 
+20:30:20 DEBUG Wed Nov 11 20:30:20 CST 2026
+***** STARTING Test: LocationContextTest - testProgramCloseClearsDisplayedTargets *****   (AbstractGenericTest.java:121) 
+20:30:23 DEBUG 	✓ PASSED Test: LocationContextTest - testProgramCloseClearsDisplayedTargets ✓	   (AbstractGenericTest.java:121) 
+20:30:23 DEBUG Wed Nov 11 20:30:23 CST 2026
+***** STARTING Test: LocationContextTest - testDisabledSpikePreservesOriginalComponent *****   (AbstractGenericTest.java:121) 
+20:30:24 WARN  Decompiling 01006420, pcode error at 01007600: Could not follow disassembly flow into non-existing memory at 01007600   (DecompileCallback.java:235) 
+20:30:24 DEBUG 	✓ PASSED Test: LocationContextTest - testDisabledSpikePreservesOriginalComponent ✓	   (AbstractGenericTest.java:121) 
+20:30:24 DEBUG Wed Nov 11 20:30:24 CST 2026
+***** STARTING Test: LocationContextTest - testMismatchedProgramNeverProducesMixedBreadcrumb *****   (AbstractGenericTest.java:121) 
+20:30:26 WARN  Decompiling 01006420, pcode error at 01007600: Could not follow disassembly flow into non-existing memory at 01007600   (DecompileCallback.java:235) 
+20:30:27 DEBUG 	✓ PASSED Test: LocationContextTest - testMismatchedProgramNeverProducesMixedBreadcrumb ✓	   (AbstractGenericTest.java:121) 
+20:30:27 DEBUG Wed Nov 11 20:30:27 CST 2026
+***** STARTING Test: LocationContextTest - testLockedEditedResultReportsStale *****   (AbstractGenericTest.java:121) 
+20:30:29 DEBUG 	✓ PASSED Test: LocationContextTest - testLockedEditedResultReportsStale ✓	   (AbstractGenericTest.java:121) 
+20:30:29 DEBUG Wed Nov 11 20:30:29 CST 2026
+***** STARTING Test: LocationContextTest - testRefreshLockStillFollowsAndCloneIsIndependent *****   (AbstractGenericTest.java:121) 
+20:30:31 DEBUG 	✓ PASSED Test: LocationContextTest - testRefreshLockStillFollowsAndCloneIsIndependent ✓	   (AbstractGenericTest.java:121) 
+20:30:31 DEBUG Wed Nov 11 20:30:31 CST 2026
+***** STARTING Test: LocationContextTest - testOutOfSyncAfterListingNavigatesToData *****   (AbstractGenericTest.java:121) 
+20:30:33 DEBUG 	✓ PASSED Test: LocationContextTest - testOutOfSyncAfterListingNavigatesToData ✓	   (AbstractGenericTest.java:121) 
+20:30:33 DEBUG Wed Nov 11 20:30:33 CST 2026
+***** STARTING Test: LocationContextTest - testOverlayAddressKeepsItsAddressSpace *****   (AbstractGenericTest.java:121) 
+20:30:36 DEBUG 	✓ PASSED Test: LocationContextTest - testOverlayAddressKeepsItsAddressSpace ✓	   (AbstractGenericTest.java:121) 
+20:30:36 DEBUG Wed Nov 11 20:30:36 CST 2026
+***** STARTING Test: LocationContextTest - testRefreshDoesNotAddHistoryAndButtonsRestoreLocations *****   (AbstractGenericTest.java:121) 
+20:30:39 DEBUG 	✓ PASSED Test: LocationContextTest - testRefreshDoesNotAddHistoryAndButtonsRestoreLocations ✓	   (AbstractGenericTest.java:121) 
+20:30:39 DEBUG Wed Nov 11 20:30:39 CST 2026
+***** STARTING Test: LocationContextTest - testPendingBreadcrumbDescribesRenderedResult *****   (AbstractGenericTest.java:121) 
+20:30:41 DEBUG 	✓ PASSED Test: LocationContextTest - testPendingBreadcrumbDescribesRenderedResult ✓	   (AbstractGenericTest.java:121) 
+20:30:41 DEBUG Wed Nov 11 20:30:41 CST 2026
+***** STARTING Test: LocationContextTest - testNamespaceMenuNavigatesToSymbol *****   (AbstractGenericTest.java:121) 
+20:30:44 DEBUG 	✓ PASSED Test: LocationContextTest - testNamespaceMenuNavigatesToSymbol ✓	   (AbstractGenericTest.java:121) 
+20:30:44 DEBUG Wed Nov 11 20:30:44 CST 2026
+***** STARTING Test: LocationContextTest - testFunctionCrumbUsesExistingGoToService *****   (AbstractGenericTest.java:121) 
+20:30:46 DEBUG 	✓ PASSED Test: LocationContextTest - testFunctionCrumbUsesExistingGoToService ✓	   (AbstractGenericTest.java:121) 
+20:30:46 DEBUG Wed Nov 11 20:30:46 CST 2026
+***** STARTING Test: LocationContextTest - testCloneProgramSwitchDoesNotActivateMainProgram *****   (AbstractGenericTest.java:121) 
+20:30:49 DEBUG 	✓ PASSED Test: LocationContextTest - testCloneProgramSwitchDoesNotActivateMainProgram ✓	   (AbstractGenericTest.java:121) 
+20:30:49 DEBUG Wed Nov 11 20:30:49 CST 2026
+***** STARTING Test: LocationContextTest - testProgramMenuSwitchesAcrossPrograms *****   (AbstractGenericTest.java:121) 
+20:30:53 DEBUG 	✓ PASSED Test: LocationContextTest - testProgramMenuSwitchesAcrossPrograms ✓	   (AbstractGenericTest.java:121) 
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

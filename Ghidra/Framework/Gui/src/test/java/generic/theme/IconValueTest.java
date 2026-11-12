@@ -32,7 +32,7 @@ import resources.icons.EmptyIcon;
 import resources.icons.TranslateIcon;
 
 public class IconValueTest {
-	private static Icon ICON1 = ResourceManager.getDefaultIcon();
+	private static final Icon ICON1 = ResourceManager.getDefaultIcon();
 	private GThemeValueMap values;
 
 	@Before
@@ -42,6 +42,25 @@ public class IconValueTest {
 		Msg.setErrorLogger(new SpyErrorLogger());
 
 		values = new GThemeValueMap();
+	}
+
+	@Test
+	public void testBundledVectorPathWithModifiers() throws ParseException {
+		String path = "images/uirefresh/graphite/" +
+			generic.theme.uirefresh.icons.Glyphs.names().iterator().next() + ".png";
+		IconValue value = IconValue.parse("icon.vector", path + "[size(24,24)]");
+		assertTrue(value.getRawValue() instanceof generic.theme.uirefresh.icons.VectorIcon);
+		assertEquals(24, value.get(values).getIconWidth());
+		assertEquals("icon.vector = " + path + "[size(24,24)]", value.getSerializationString());
+	}
+
+	@Test
+	public void testNonBundledPathsDoNotBecomeVectors() {
+		assertNull(generic.theme.uirefresh.icons.IconSet.fromPath("images/error.png"));
+		assertNull(generic.theme.uirefresh.icons.IconSet.fromPath(
+			"images/uirefresh/graphite/unknown.png"));
+		assertNull(generic.theme.uirefresh.icons.IconSet.fromPath(
+			"/tmp/images/uirefresh/graphite/save.png"));
 	}
 
 	@Test
@@ -114,16 +133,16 @@ public class IconValueTest {
 		IconValue value = IconValue.parse("icon.test", "images/core.png");
 		assertEquals("icon.test", value.getId());
 		assertEquals(ICON1, value.getRawValue());
-		assertEquals(null, value.getReferenceId());
+		assertNull(value.getReferenceId());
 
 		value = IconValue.parse("[icon]foo.bar", "images/core.png");
 		assertEquals("foo.bar", value.getId());
 		assertEquals(ICON1, value.getRawValue());
-		assertEquals(null, value.getReferenceId());
+		assertNull(value.getReferenceId());
 
 		value = IconValue.parse("icon.test", "[icon]xyz.abc");
 		assertEquals("icon.test", value.getId());
-		assertEquals(null, value.getRawValue());
+		assertNull(value.getRawValue());
 		assertEquals("xyz.abc", value.getReferenceId());
 	}
 

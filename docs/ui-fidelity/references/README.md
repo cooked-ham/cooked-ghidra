@@ -1,5 +1,9 @@
 # Graphite reference pack — v0.1
 
+The newer [location-context and Graphite-depth evidence](location-graphite/) records event-driven
+updates, program/namespace navigation and stronger shared chrome, including populated specialist
+captures. The images below remain the original reference baseline.
+
 Captured on Windows on 2026-11-11 from Ghidra 12.3 DEV with the changed Gui/Base/Decompiler jars.
 [Capture manifest](capture-manifest.json) records the jar hashes; [probe provenance](probe-provenance.json)
 records the source adaptation. These are in-process Swing renders at Java scale 1.0, not physical

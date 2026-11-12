@@ -29,8 +29,8 @@ import resources.icons.UrlImageIcon;
  * <p>
  * It extends {@link UrlImageIcon} on purpose: Ghidra serializes an icon in a saved theme by its
  * original path, and any other icon class is written as {@code <JAVA ICON>} and lost. The path
- * points at a PNG fallback rendered from the same glyph at build time, so a theme copied through
- * the theme editor still loads a matching (bitmap) icon. Code that asks for the {@link Image}
+ * points at a PNG fallback rendered from the same glyph at build time. Theme loading recognizes
+ * bundled glyph paths and restores vector painting, including in older saved copies. Code that asks for the {@link Image}
  * (disabled-icon filters, image scaling) gets a multi-resolution image with 1x to 3x variants.
  */
 public class VectorIcon extends UrlImageIcon {

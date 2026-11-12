@@ -1,0 +1,5 @@
+surface,fixture,implementation,entry_path,populated_evidence,screenshots
+"source program","FX-COMPARE","CodeBrowser","source.bin opened","five functions; source compare immediate 42","codebrowser-source.png"
+"program diff","FX-COMPARE","ProgramDiffPlugin","Tools > View Program Differences","diff active; changed immediate/name/type/unmatched","program-diff.png"
+"code compare","FX-COMPARE","FunctionComparisonProvider","Version Tracking / Compare Functions","two populated function panels","code-compare.png"
+"BSim search","FX-BSIM","BSimSearchDialog / BSimSearchResultsProvider","BSim > Search Functions...","two-executable fixture queried; 11 cross-program hits","bsim-search-dialog.png;bsim-search-results.png"

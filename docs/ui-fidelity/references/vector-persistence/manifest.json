@@ -1,0 +1,23 @@
+{
+  "rendering": "Live Swing persistence checks and in-process frame painting; not mouse or physical DPI acceptance",
+  "sources": [
+    {
+      "name": "VectorPersistenceReview.java",
+      "sha256": "D94E9CA122C2D9DE1CEAC97B3E2DE5B5476B93B44B376BAF77EB754BC6254175"
+    },
+    {
+      "name": "review-vector-persistence.ps1",
+      "sha256": "5F5FEF787F7056C14BE1A3DE27C86F80B9D9B59E887FCE022F1627F4C14B7513"
+    }
+  ],
+  "jars": [
+    {
+      "name": "Gui",
+      "sha256": "0BF73673B28FA346D0D7B32D301FD63A0B7BCFFECC4FB24CE964437643CD66E4"
+    },
+    {
+      "name": "Docking",
+      "sha256": "36466DCE9AC8A583D25BF12CBEFB66CF1D663F54A12937918984457756C8D0DF"
+    }
+  ]
+}

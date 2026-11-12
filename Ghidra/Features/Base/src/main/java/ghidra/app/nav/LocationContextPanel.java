@@ -19,6 +19,13 @@ import java.awt.*;
 import java.util.function.Supplier;
 
 import javax.swing.*;
+import docking.DockingContextListener;
+import ghidra.app.services.ProgramManager;
+import ghidra.framework.model.DomainObjectListener;
+import ghidra.program.model.symbol.Namespace;
+import ghidra.program.model.symbol.Symbol;
+import ghidra.program.model.symbol.SymbolIterator;
+import ghidra.app.plugin.core.symboltree.SymbolTreeService;
 
 import ghidra.app.services.GoToService;
 import ghidra.app.services.NavigationHistoryService;
@@ -29,7 +36,7 @@ import ghidra.program.model.listing.Program;
 import ghidra.program.util.ProgramLocation;
 
 /**
- * Provider-local location-context spike. Enabled at startup with
+ * Provider-local, event-driven location context. Enabled at startup with
  * {@code -Dghidra.ui.locationContext=true}; no saved tool or shortcut changes.
  * The supplier describes rendered content, which may differ from a pending navigation request.
  */
@@ -44,12 +51,17 @@ public class LocationContextPanel extends JPanel {
 	private final Supplier<Context> contextSupplier;
 	private final JButton previous = button("←", "Previous location in history");
 	private final JButton next = button("→", "Next location in history");
-	private final JButton programButton = button("No program", "Program: first address");
-	private final JLabel namespace = new JLabel("Global");
+	private final JButton programButton = button("No program", "Switch open program");
+	private final JButton namespace = button("Global", "Browse namespace symbols");
 	private final JButton functionButton = button("No location", "Go to function entry");
 	private final JButton addressButton = button("—", "Go to displayed address");
 	private final JLabel state = new JLabel("Unavailable");
-	private final Timer updater;
+	private final DockingContextListener contextListener = _ -> requestRefresh();
+	private final DomainObjectListener programListener = _ -> requestRefresh();
+	private Program observedProgram;
+	private Namespace targetNamespace;
+	private boolean attached;
+	private boolean refreshQueued;
 	private Program targetProgram;
 	private Address targetAddress;
 	private Address functionEntry;
@@ -101,35 +113,75 @@ public class LocationContextPanel extends JPanel {
 
 		previous.addActionListener(_ -> navigateHistory(false));
 		next.addActionListener(_ -> navigateHistory(true));
-		programButton.addActionListener(_ -> goTo(targetProgram == null ? null : targetProgram.getMinAddress()));
+		programButton.addActionListener(_ -> showPrograms());
+		namespace.addActionListener(_ -> showNamespace());
 		functionButton.addActionListener(_ -> goTo(functionEntry));
 		addressButton.addActionListener(_ -> goTo(targetAddress));
-		// Only showing panels poll. No listeners retain closed programs or detached providers.
-		// Refresh is observational: only the click handlers call the existing navigation services.
-		updater = new Timer(200, _ -> {
-			if (isShowing()) {
-				refreshContext();
-			}
+		addHierarchyListener(_ -> updateSubscriptions());
+	}
+
+	private void updateSubscriptions() {
+		boolean showing = isShowing() && !navigatable.isDisposed();
+		if (showing == attached) return;
+		attached = showing;
+		if (attached) {
+			tool.getWindowManager().addContextListener(contextListener);
+			requestRefresh();
+		}
+		else {
+			tool.getWindowManager().removeContextListener(contextListener);
+			observe(null);
+		}
+	}
+
+	private void observe(Program program) {
+		if (observedProgram == program) return;
+		if (observedProgram != null) observedProgram.removeListener(programListener);
+		observedProgram = program;
+		if (observedProgram != null) observedProgram.addListener(programListener);
+	}
+
+	/** Coalesces provider and model notifications into one EDT update; never polls. */
+	public void requestRefresh() {
+		if (!SwingUtilities.isEventDispatchThread()) {
+			SwingUtilities.invokeLater(this::requestRefresh);
+			return;
+		}
+		if (refreshQueued || !isShowing() || navigatable.isDisposed()) return;
+		refreshQueued = true;
+		SwingUtilities.invokeLater(() -> {
+			refreshQueued = false;
+			if (isShowing() && !navigatable.isDisposed()) refreshContext();
 		});
+	}
+
+	/** Provider-local updates also reach independent and unfocused panes. */
+	public static void changed(JComponent wrapper) {
+		if (wrapper == null) return;
+		for (Component c : wrapper.getComponents()) {
+			if (c instanceof LocationContextPanel panel) panel.requestRefresh();
+		}
 	}
 
 	@Override
 	public void addNotify() {
 		super.addNotify();
 		refreshContext();
-		updater.start();
+		updateSubscriptions();
 	}
 
 	@Override
 	public void removeNotify() {
-		updater.stop();
+		attached = false;
+		tool.getWindowManager().removeContextListener(contextListener);
+		observe(null);
 		super.removeNotify();
 	}
 
 	/** Refresh labels and history availability without adding history entries. Runs on the EDT. */
 	public void refreshContext() {
 		if (navigatable.isDisposed()) {
-			updater.stop();
+			observe(null);
 			return;
 		}
 		Context context = contextSupplier.get();
@@ -137,6 +189,7 @@ public class LocationContextPanel extends JPanel {
 		if (targetProgram != null && targetProgram.isClosed()) {
 			targetProgram = null;
 		}
+		if (attached) observe(targetProgram);
 		ProgramLocation location = context.location();
 		// Never combine one program's name with a stale location from a different program.
 		targetAddress = targetProgram != null && location != null &&
@@ -146,10 +199,11 @@ public class LocationContextPanel extends JPanel {
 		functionEntry = function == null ? null : function.getEntryPoint();
 		programButton.setText(targetProgram == null ? "No program" : targetProgram.getName());
 		programButton.setToolTipText(targetProgram == null ? "No program" :
-			"Program: " + targetProgram.getDomainFile().getPathname() + " (go to first address)");
-		namespace.setText(targetAddress == null ? "—" : function == null ?
-			targetProgram.getSymbolTable().getNamespace(targetAddress).getName(true) :
-			function.getParentNamespace().getName(true));
+			"Program: " + targetProgram.getDomainFile().getPathname() + " (switch open program)");
+		targetNamespace = targetAddress == null ? null : function == null ?
+			targetProgram.getSymbolTable().getNamespace(targetAddress) : function.getParentNamespace();
+		namespace.setText(targetNamespace == null ? "—" : targetNamespace.getName(true));
+		namespace.setEnabled(targetNamespace != null);
 		namespace.setToolTipText(namespace.getText());
 		functionButton.setText(function != null ? function.getName() :
 			targetAddress == null ? "No location" :
@@ -171,13 +225,98 @@ public class LocationContextPanel extends JPanel {
 		state.setToolTipText(context.detail());
 		state.getAccessibleContext().setAccessibleDescription(context.detail());
 		GoToService goTo = tool.getService(GoToService.class);
-		programButton.setEnabled(goTo != null && targetProgram != null && targetProgram.getMinAddress() != null);
+		programButton.setEnabled(tool.getService(ProgramManager.class) != null);
 		functionButton.setEnabled(goTo != null && functionEntry != null);
 		addressButton.setEnabled(goTo != null && targetAddress != null);
 		NavigationHistoryService history = tool.getService(NavigationHistoryService.class);
 		Navigatable historyTarget = historyTarget();
 		previous.setEnabled(history != null && historyTarget != null && history.hasPrevious(historyTarget));
 		next.setEnabled(history != null && historyTarget != null && history.hasNext(historyTarget));
+	}
+
+	private void showPrograms() {
+		ProgramManager manager = tool.getService(ProgramManager.class);
+		if (manager == null) return;
+		JPopupMenu menu = new JPopupMenu();
+		for (Program program : manager.getAllOpenPrograms()) {
+			JMenuItem item = new JMenuItem(program.getName());
+			item.putClientProperty("html.disable", true);
+			item.setToolTipText(program.getDomainFile().getPathname());
+			if (!navigatable.isConnected()) {
+				item.setEnabled(false);
+				item.setToolTipText("Independent views retain their program; switch programs in the connected Listing");
+			}
+			item.addActionListener(_ -> {
+				if (program.isClosed()) return;
+				if (navigatable.isConnected()) manager.setCurrentProgram(program);
+				requestRefresh();
+			});
+			menu.add(item);
+		}
+		menu.show(programButton, 0, programButton.getHeight());
+	}
+
+	private void showNamespace() {
+		Program program = targetProgram;
+		if (program == null || program.isClosed() || targetNamespace == null) return;
+		showNamespace(program, targetNamespace);
+	}
+
+	private void showNamespace(Program program, Namespace scope) {
+		showNamespace(program, scope, 0);
+	}
+
+	private void showNamespace(Program program, Namespace scope, int offset) {
+		if (program.isClosed()) return;
+		JPopupMenu menu = new JPopupMenu();
+		SymbolTreeService tree = tool.getService(SymbolTreeService.class);
+		if (tree != null && !scope.isGlobal() && program == navigatable.getProgram()) {
+			JMenuItem browse = new JMenuItem("Reveal " + scope.getName(true) + " in Symbol Tree");
+			browse.addActionListener(_ -> { if (!program.isClosed()) tree.selectSymbol(scope.getSymbol()); });
+			menu.add(browse);
+		}
+		if (!scope.isGlobal()) {
+			JMenuItem parent = new JMenuItem("Parent: " + scope.getParentNamespace().getName(true));
+			parent.addActionListener(_ -> showNamespace(program, scope.getParentNamespace()));
+			menu.add(parent);
+		}
+		SymbolIterator symbols = program.getSymbolTable().getSymbols(scope);
+		for (int i = 0; i < offset && symbols.hasNext(); i++) symbols.next();
+		int count = 0;
+		int scanned = 0;
+		while (symbols.hasNext() && scanned++ < 100) {
+			Symbol symbol = symbols.next();
+			if (symbol.getObject() instanceof Namespace child && !(child instanceof Function)) {
+				JMenuItem item = new JMenuItem(symbol.getName() + " / …");
+				item.addActionListener(_ -> showNamespace(program, child));
+				menu.add(item);
+				count++;
+				continue;
+			}
+			Address address = symbol.getAddress();
+			if (!address.isMemoryAddress()) continue;
+			JMenuItem item = new JMenuItem(symbol.getName() + " — " + address.toString(true));
+			item.addActionListener(_ -> {
+				GoToService service = tool.getService(GoToService.class);
+				if (service != null && !program.isClosed()) {
+					service.goTo(navigatable, new ProgramLocation(program, address), program);
+				}
+			});
+			menu.add(item);
+			count++;
+		}
+		if (offset > 0) {
+			JMenuItem previousPage = new JMenuItem("Previous 100 symbols");
+			previousPage.addActionListener(_ -> showNamespace(program, scope, Math.max(0, offset - 100)));
+			menu.add(previousPage);
+		}
+		if (symbols.hasNext()) {
+			JMenuItem nextPage = new JMenuItem("Next 100 symbols");
+			nextPage.addActionListener(_ -> showNamespace(program, scope, offset + 100));
+			menu.add(nextPage);
+		}
+		if (count == 0) menu.add(new JLabel("No addressable symbols"));
+		menu.show(namespace, 0, namespace.getHeight());
 	}
 
 	private void navigateHistory(boolean forward) {

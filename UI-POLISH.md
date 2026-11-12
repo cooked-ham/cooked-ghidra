@@ -7,6 +7,65 @@ are the foundation; they do not complete the polish work.
 The original roadmap and evidence live in `E:\ghidra-ui-refresh\docs`.
 The owner's future-work decisions and milestone plan are in [UI-FIDELITY-PLAN.md](UI-FIDELITY-PLAN.md).
 
+## IDE warning cleanup after location/depth work — 2026-11-11
+
+Inspected all 18 changed Java source/test files: 58 warning/weak-warning diagnostics are now
+cleared, with zero remaining errors or warnings. Fixed the nullable test lookup, redundant
+state/locals, casts, regex escaping and assertions; simplified table-header icon composition
+and extracted decompiler persistence helpers without changing saved keys. Five unused dialog
+extension methods remain available with method-level `unused` annotations; no inspection profile
+was disabled. Support probe scripts remain outside IDE module content roots.
+
+The IDE build and all 48 focused theme/icon/contrast/button/location tests pass. Fresh inspection
+results are in [ide-warning-cleanup.json](docs/ui-fidelity/references/ide-warning-cleanup.json);
+the Gradle log is `build/verification/ide-warning-cleanup.log`. Regenerated inventory fingerprints
+reflect the source edits. Existing captures and their jar hashes remain historical evidence.
+
+## Event-driven location context and Graphite depth — 2026-11-11
+
+Replaced breadcrumb polling with coalesced EDT updates from tool context, provider-local changes
+and displayed-program events. Hidden/removed panels release their subscriptions. Added open-program
+switching, hierarchical/paged namespace browsing and symbol navigation. Independent clones retain
+their existing program binding. Pending feedback includes the plugin's delayed dispatch; clones
+show pending/unavailable activity, and edited locked results explicitly show stale state.
+
+Graphite now uses its stronger warm gradient stops in shared headers and toolbars, table headers,
+dialog action rows, options/project sections and graph-card headers. Frames gain highlight/shadow
+edges, tabs gain a selected highlight, and toolbar hover/pressed/selected fills gain depth. Shared
+primitives also style the populated specialist providers. High Contrast retains solid surfaces;
+stock rendering and semantic content colors retain their existing paths.
+
+Validation: Gui/Docking/Base/Decompiler/FunctionGraph jars build. Sixteen location-context
+integration tests and six contrast/button tests pass with zero failures in JUnit XML. Regressions
+include namespace navigation, program switching/closure, overlay address spaces, clone binding,
+stale locked results, metadata events and hidden panels. Live captures exercise populated main
+views, saved copies/theme switching and Code Browser/VT/Debugger specialist fixtures. Evidence:
+[location and depth](docs/ui-fidelity/references/location-graphite/).
+
+The location feature remains opt-in. This implements the shared styling routes; per-widget review
+of the full inventory, performance baselines, physical DPI and accessibility acceptance remain open.
+
+## Saved-theme vector restoration — 2026-11-11
+
+Theme parsing now recognizes bundled UI Refresh and Graphite glyph paths and restores
+`VectorIcon` instances. Existing saved copies use those same PNG paths, so they gain vector
+painting on reload without a format migration. Other resource paths retain normal loading;
+the packaged PNGs remain available as fallbacks. Icon modifiers still apply after loading.
+
+Validation: Gui jar builds; 26 `GThemeTest`/`IconValueTest` tests pass with zero failures/errors
+in JUnit XML. The round-trip regression saves and reloads all 344 glyph/palette combinations
+through both plain theme files and ZIP exports, checking vector identity and multi-resolution
+images. Modifier and unrelated/unknown path checks also pass. Log:
+`build/verification/vector-theme-roundtrip.log`.
+
+The subsequent [live persistence probe](docs/ui-fidelity/references/vector-persistence/)
+retains 283 direct vector registrations through save/reload, ZIP import, theme switch/back
+and startup in a second JVM. Preferences restore the saved copy automatically. Both phases
+pass with no ERROR/NPE/callout entries in the application log. The runner uses a private
+distribution, profile and project. This verifies application APIs and theme startup, not
+theme-editor mouse interaction, physical DPI or complete saved-layout restart acceptance.
+The frozen specialist runtime was not replaced.
+
 ## Specialist surfaces and help callout fix — 2026-11-11
 
 Fixed the help callout NPE that occurred when a theme change reloaded the help page while a
@@ -115,7 +174,8 @@ inventory reconciliation, specialist fixtures, namespace navigation, production 
 design, all navigation edge cases, physical DPI/accessibility and process-restart acceptance remain
 open. New-profile default selection is deferred; existing theme names and choices are preserved.
 The stronger gradient/state specification is not yet implemented across every custom widget.
-The bitmap fallback on saved-theme reload remains an explicit milestone-2 gap.
+The bitmap fallback on saved-theme reload was subsequently addressed by the vector restoration
+change above; live theme-editor and physical-DPI acceptance remain open.
 
 ## Shell pass — 2026-11-11
 

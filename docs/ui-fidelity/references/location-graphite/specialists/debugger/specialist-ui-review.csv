@@ -1,0 +1,2 @@
+surface,fixture,implementation,entry_path,populated_evidence,screenshots
+"debugger trace","FX-DEBUG","Debugger / DebuggerTraceManagerService","Debugger tool / saved trace","21 snapshots, two threads, best stack=1 frames at snap 0; saved synthetic trace","debugger-trace.png"
